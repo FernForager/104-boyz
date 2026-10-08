@@ -1513,7 +1513,8 @@
     "covers": [
      "feet"
     ],
-    "camp_only": true
+    "camp_only": true,
+    "wet_warmth_retained": 0.25
    },
    "real_world_notes": "Pure camp and sleeping luxury for cold-footed hikers. Useless wet.",
    "flavor": "Puffy slippers that make your toes forget they ever walked ten miles."
@@ -1723,7 +1724,8 @@
      "torso"
     ],
     "wind_block": 3,
-    "rain_rating": 0
+    "rain_rating": 0,
+    "wet_warmth_retained": 0.6
    },
    "real_world_notes": "Blocks wind on the High Divide and at passes, breathes on the climb, and weighs almost nothing. Not rain gear.",
    "flavor": "A whisper-thin jacket that tells the wind politely to go around."
@@ -1774,7 +1776,8 @@
     "insulation": 3,
     "covers": [
      "head"
-    ]
+    ],
+    "wet_warmth_retained": 0.5
    },
    "real_world_notes": "Cheap warmth for 2 oz. Sleep in it.",
    "flavor": "A wool cap with a little pompom, the warmest two ounces you will ever carry."
@@ -1797,7 +1800,8 @@
     "covers": [
      "head",
      "neck"
-    ]
+    ],
+    "wet_warmth_retained": 0.6
    },
    "real_world_notes": "Face and neck protection for summit wind and winter.",
    "flavor": "A hood that keeps your cheeks warm when the summit wind bites."
@@ -1819,7 +1823,8 @@
     "insulation": 1,
     "covers": [
      "hands"
-    ]
+    ],
+    "wet_warmth_retained": 0.6
    },
    "real_world_notes": "Light gloves for cold mornings, trekking poles and fiddling with the stove.",
    "flavor": "Thin gloves for chilly fingers that still want to tie knots."
@@ -1842,7 +1847,8 @@
     "insulation": 3,
     "covers": [
      "hands"
-    ]
+    ],
+    "wet_warmth_retained": 0.6
    },
    "real_world_notes": "Needed for snow travel, ice axe work and the Blue Glacier. Wet hands go numb fast on snow.",
    "flavor": "Thick gloves that keep your fingers warm while you hold the cold handle of an ice axe."
@@ -1865,7 +1871,8 @@
     "covers": [
      "neck"
     ],
-    "sun_protection": 1
+    "sun_protection": 1,
+    "wet_warmth_retained": 0.6
    },
    "real_world_notes": "Sun shield, warm hat, headband or dust mask in one tube.",
    "flavor": "A stretchy tube that can be a hat, a scarf, or a sun shade, whatever the day needs."
@@ -5165,9 +5172,12 @@
    ],
    "stats": {
     "joy": 2,
-    "journal_points": 0.6
+    "journal_points": 0.6,
+    "battery_shots": 350,
+    "battery_days": 2,
+    "battery_type": "Li-ion, USB recharge"
    },
-   "real_world_notes": "Better photos than a phone, with zoom for wildlife. Batteries drain fast in the cold.",
+   "real_world_notes": "Better photos than a phone, with zoom for wildlife. Batteries drain fast in the cold. A compact's battery is rated for roughly 300-400 shots (CIPA); about two days of trail photos, less in the cold.",
    "flavor": "A small camera for catching rainbows and elk and the light on the mountains."
   },
   {
@@ -5187,9 +5197,12 @@
    ],
    "stats": {
     "joy": 3,
-    "journal_points": 0.7
+    "journal_points": 0.7,
+    "battery_shots": 900,
+    "battery_days": 4,
+    "battery_type": "Li-ion"
    },
-   "real_world_notes": "Glorious photos and two and a half pounds of fragile glass. Rain and fords are its enemies.",
+   "real_world_notes": "Glorious photos and two and a half pounds of fragile glass. Rain and fords are its enemies. A DSLR battery is rated for roughly 800-1,000 shots (CIPA): about four days of photos.",
    "flavor": "A heavy camera with a long lens, for photographers who don't mind a heavy pack."
   },
   {
@@ -5236,26 +5249,6 @@
    "flavor": "A turning wheel of stars that shows which ones are shining over your tent tonight."
   },
   {
-   "id": "plush_fox",
-   "name": "Little Plush Fox",
-   "category": "luxury",
-   "weight_oz": 3,
-   "volume_l": 0.4,
-   "carry": "inside",
-   "price_usd": 14,
-   "ten_essentials": null,
-   "tags": [
-    "luxury",
-    "mascot"
-   ],
-   "stats": {
-    "joy": 1,
-    "joy_bad_night": 3
-   },
-   "real_world_notes": "Weighs as much as a granola bar. Some backpackers carry a small mascot on every trip, and nobody needs to know.",
-   "flavor": "A small stuffed fox with a stitched-on smile, who has always wanted to see a mountain."
-  },
-  {
    "id": "speaker_portable",
    "name": "Portable Wireless Speaker",
    "category": "luxury",
@@ -5274,9 +5267,11 @@
    "stats": {
     "joy": 1,
     "neighbors_annoyed": 0.8,
-    "wildlife_sightings_mult": 0.5
+    "wildlife_sightings_mult": 0.5,
+    "battery_h": 12,
+    "battery_type": "Li-ion, USB recharge"
    },
-   "real_world_notes": "Music played aloud ruins the quiet for everyone and scares wildlife away. Leave No Trace includes sound; use earbuds or listen to the river instead.",
+   "real_world_notes": "Music played aloud ruins the quiet for everyone and scares wildlife away. Leave No Trace includes sound; use earbuds or listen to the river instead. Small speakers run about 10-15 hours on a charge.",
    "flavor": "A little speaker that is loud enough to make the marmots and the neighbors leave."
   },
   {
@@ -5296,9 +5291,11 @@
    ],
    "stats": {
     "joy": 0,
-    "citation_chance": 0.5
+    "citation_chance": 0.5,
+    "flight_min": 30,
+    "battery_type": "Li-ion flight battery"
    },
-   "real_world_notes": "Launching, landing or operating drones anywhere on Olympic's lands or waters is prohibited (as in national parks generally). Expect a ranger conversation, a citation and grounded footage.",
+   "real_world_notes": "Launching, landing or operating drones anywhere on Olympic's lands or waters is prohibited (as in national parks generally). Expect a ranger conversation, a citation and grounded footage. A mini drone flies about 30 minutes per battery.",
    "flavor": "A buzzing little flying camera that is not allowed to fly anywhere in this park."
   },
   {
@@ -5785,8 +5782,96 @@
      "navigation",
      "shelter"
     ]
+   },
+   "loop_in_a_day_3l": {
+    "description": "Ambitious but equipped (F.1): the High Divide loop in a day, 18.4 mi and about 4,400 ft, with a headlamp and spare batteries, 3 L of water (a 2-L bladder and a 1-L bottle, filled again at Deer Lake or Heart Lake), poles and a warm layer for a late finish on the crest. No canister: a day hike needs none.",
+    "pack": "daypack_28",
+    "nights": 0,
+    "worn": [
+     "trail_runners",
+     "tee_synthetic",
+     "shorts_hiking",
+     "socks_wool_hiking",
+     "sun_hat",
+     "sunglasses",
+     "whistle",
+     "watch_basic",
+     "phone"
+    ],
+    "carried": [
+     "rain_jacket",
+     "fleece_jacket",
+     "beanie_wool",
+     "map_topo_park",
+     "compass_baseplate",
+     "headlamp",
+     "batteries_spare_aaa",
+     "first_aid_basic",
+     "blister_kit",
+     "knife_folding",
+     "lighter_mini",
+     "emergency_bivy",
+     "sunscreen",
+     "bug_repellent",
+     "filter_squeeze",
+     "bladder_2l",
+     "bottle_disposable_1l",
+     "trekking_poles",
+     "toilet_paper_kit",
+     "trowel"
+    ],
+    "base_weight_lb": 6.7,
+    "total_pack_weight_lb": 15.3,
+    "worn_weight_lb": 3.1,
+    "inside_volume_l_if_all_inside": 8.8,
+    "of_which_could_strap_outside_l": 0.6,
+    "pack_volume_l": 28,
+    "load_ratio_r_for_165_lb_hiker": 0.85,
+    "food_l_outside_canister": 2.2,
+    "missing_ten_essentials": [],
+    "water_l": 3,
+    "food_lb": 2,
+    "used_by": "F.1 row \"Ambitious but equipped\": the loop in a day with headlamp and 3 L"
+   },
+   "day_gear_TRAP_no_canister": {
+    "description": "The canonical day-gear trap kit as a day hike carries it (F.1, the first playable's trap): no headlamp, one liter, cotton, a brochure map, and no canister, since a day hike takes none. Same clothes and bag as olympus_day_gear_one_night_TRAP.",
+    "pack": "daypack_28",
+    "nights": 0,
+    "worn": [
+     "sneakers_canvas",
+     "tee_cotton",
+     "jeans_denim",
+     "socks_cotton",
+     "ball_cap"
+    ],
+    "carried": [
+     "hoodie_cotton",
+     "map_park_brochure",
+     "phone",
+     "bottle_disposable_1l"
+    ],
+    "base_weight_lb": 3.5,
+    "total_pack_weight_lb": 6.7,
+    "worn_weight_lb": 4,
+    "inside_volume_l_if_all_inside": 4.8,
+    "of_which_could_strap_outside_l": 0,
+    "pack_volume_l": 28,
+    "load_ratio_r_for_165_lb_hiker": 0.37,
+    "food_l_outside_canister": 1.1,
+    "missing_ten_essentials": [
+     "fire",
+     "first_aid",
+     "headlamp",
+     "knife",
+     "navigation",
+     "shelter"
+    ],
+    "water_l": 1,
+    "food_lb": 1,
+    "used_by": "F.1 rows \"The first playable's trap\" (Bold and Cautious bots)"
    }
-  }
+  },
+  "sample_kits_computed_note": "loop_in_a_day_3l and day_gear_TRAP_no_canister were added 2026-10-08 (M1A_DATA_CHECK item 23) with the same method: base weight is the pack plus carried items (consumables like fuel excluded); total adds water at 2.2 lb per liter and the day's food; load ratio is total over the pack's comfortable maximum. The phone is worn (pocket) in the loop kit. These two and the four above become rules/kits.json test kits at ingest."
  },
  "rentals": "BEAR CANISTERS: required for every wilderness overnight in Olympic in 2026 (park-approved hard-sided containers; soft sacks and hangs do not count). The Port Angeles Wilderness Information Center lends canisters free, first come, first served (the Quinault station was closed in 2026). In game: canister_wic_loaner, available about 70% of the time on summer weekends and 95% midweek. Outfitters typically rent canisters for about $4 to $6 a day or $15 to $25 a week, carbon canisters about $7 a day; buying ($80 to $95) beats renting after about three trips. SNOW AND GLACIER GEAR: outfitters in Port Angeles, Sequim and Seattle-area shops rent ice axes (about $10/day), steel crampons (about $15/day), mountaineering boots (about $25 to $35/day), helmets and harnesses (about $8/day each), glacier rope (about $20/day), crevasse rescue kits (about $15/day), avalanche beacon-probe-shovel sets (about $25/day), snowshoes (about $15/day) and slip-on traction chains (about $5/day, though most people just buy them). Deposits and ID are required, stock is limited on summer weekends (in game, roll availability and cap at 2 or 3 glacier sets), pickup happens during store hours the day before (which can push back the drive and the trailhead start), and late returns cost an extra day. Items with stats.rent_usd_per_day are rentable. SKILLS ARE NOT RENTABLE: an ice axe only helps if you can self-arrest, and a rope only helps a trained team of two or more. Most people who reach the summit of Mount Olympus go with experienced partners or a guide, and many turn back at the Blue Glacier's lateral moraine. OTHER: tide tables cost about $2 at outfitters and visitor-center shops. The permit is bought online or at the WIC, not at a store. There is no gear rental inside the park, so anything forgotten after the last-chance store stays forgotten.",
  "tag_glossary": {
@@ -5890,7 +5975,6 @@
   "loaner": "Borrowed free; must be returned.",
   "lots_of_straps": "Extra outside strap points.",
   "luxury": "Not needed for safety; adds joy.",
-  "mascot": "A comforting companion object.",
   "meds": "Basic medicines.",
   "messenger": "Counts as messenger (satellite texts).",
   "mug": "Drinking mug.",
@@ -6065,6 +6149,31 @@
   "min_party": "Minimum party size for the item to work.",
   "self_arrest": "Lets the hiker stop a slide on steep snow, if the snow skill is high enough.",
   "skill_needed": "Skill that must be at least 2 for full effect.",
-  "needs": "Other items required for the item to be used."
+  "needs": "Other items required for the item to be used.",
+  "battery_h": "Hours of use on a full battery (or a fresh set).",
+  "battery_days": "Trail days on one charge at typical use (estimate); cold shortens it.",
+  "battery_shots": "Photos per charge, from the CIPA rating class for the camera type (estimate).",
+  "battery_type": "Battery the item needs, for the spare-battery and charging checks.",
+  "flight_min": "Minutes of flight per battery."
+ },
+ "night_model_stats": {
+  "rule": "The night model (GAME_DESIGN 7.9) and the cause trace (8.13) read each item's own stats: warmth_bonus_f for shelters and wet_warmth_retained for insulation. The doc's flat figures are only fallbacks for an item that lacks the stat (M1A_DATA_CHECK item 5, settled 2026-10-08).",
+  "fallbacks": {
+   "warmth_bonus_f_by_tag": {
+    "shelter_tent": 4,
+    "shelter_bivy": 3,
+    "shelter_tarp": 2,
+    "emergency_shelter": 3,
+    "shelter_hammock": -5
+   },
+   "wet_warmth_retained_by_material": {
+    "cotton": 0.2,
+    "wool": 0.7,
+    "synthetic": 0.7,
+    "down": 0.25
+   }
+  },
+  "coverage": "Every shelter has warmth_bonus_f (footprint and stakes are accessories), and since 2026-10-08 every insulating clothing item has wet_warmth_retained, so the fallbacks are never used for catalog items.",
+  "doc_examples": "The 7.9 and 8.13 worked examples should be regenerated from these stats as F.4 goldens (doc owner)."
  }
 }

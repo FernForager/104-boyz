@@ -232,6 +232,32 @@
    "source_ids": [
     "nps_wilderness_regs"
    ]
+  },
+  "desk_requests": {
+   "what": "WIC-only camps (permit_and_rules 17 in each region file) are special requests at the desk: the ranger grants one on a seeded roll (GAME_DESIGN 3.1, 4.3).",
+   "p_granted": {
+    "midweek": 0.7,
+    "weekend": 0.4
+   },
+   "weekend_nights": "Friday and Saturday nights, and the Sunday of a holiday weekend",
+   "season": "May 15 to Oct 15 (the summer permit season); outside it, the Phone the WIC card",
+   "roll_key": "hash(trip seed, date, camp). The trip seed is drawn at Begin a new book, so planning draws (quota and desk rolls) are fixed for the book; Try this trip again copies the stamped permit and does not re-roll them (lead call 8).",
+   "estimate": true,
+   "m1a_camps": [
+    "bruces_roost",
+    "cat_basin",
+    "hidden_lake"
+   ],
+   "m1b_camps": [
+    "long_lake",
+    "sol_duc_lake"
+   ],
+   "phone_only": [
+    "morgenroth_lake"
+   ],
+   "source_ids": [
+    "recgov_onp_permit"
+   ]
   }
  },
  "food_storage": {
@@ -514,6 +540,106 @@
    "confidence": "high",
    "source_ids": [
     "nps_fire_restrictions_news"
+   ]
+  },
+  "future_ban_climatology": {
+   "what": "The chance that backcountry campfires are banned on a given date in a future summer (any trip after the 2026 dates). Draw it per trip from the trip seed; the ranger says \"we'll know closer to the date\" (GAME_DESIGN 4.6, 4.7).",
+   "estimate": true,
+   "confidence": "medium-low: built from the dated restrictions found for 2012-2026; 2016, 2018 and 2019 were not checked, and several lift dates are unconfirmed",
+   "what_counts": "Stage 1 restrictions (fires only in developed-campground rings) already end backcountry fires in Olympic, as Stage 2 (all campfires) does; both count as a ban for the game.",
+   "p_banned_on_date": [
+    {
+     "date": "Jul 1",
+     "p": 0.1
+    },
+    {
+     "date": "Jul 15",
+     "p": 0.2
+    },
+    {
+     "date": "Aug 1",
+     "p": 0.45
+    },
+    {
+     "date": "Aug 15",
+     "p": 0.6
+    },
+    {
+     "date": "Sep 1",
+     "p": 0.7
+    },
+    {
+     "date": "Sep 15",
+     "p": 0.55
+    },
+    {
+     "date": "Oct 1",
+     "p": 0.15
+    },
+    {
+     "date": "Oct 15",
+     "p": 0.03
+    }
+   ],
+   "interpolate": "Linear between the listed dates; 0 before Jun 15 and after Oct 31.",
+   "record": [
+    {
+     "year": 2012,
+     "backcountry_ban_from": "Sep 21",
+     "lifted": "not checked"
+    },
+    {
+     "year": 2015,
+     "backcountry_ban_from": "Jun 25",
+     "lifted": "Sep 9"
+    },
+    {
+     "year": 2017,
+     "backcountry_ban_from": "Sep 1",
+     "lifted": "Sep 18"
+    },
+    {
+     "year": 2020,
+     "backcountry_ban_from": "Sep 11",
+     "lifted": "not found"
+    },
+    {
+     "year": 2021,
+     "backcountry_ban_from": "Jul 23",
+     "lifted": "Sep 16"
+    },
+    {
+     "year": 2022,
+     "backcountry_ban_from": "about Aug 10 (Phase 1: fires only in metal rings at designated sites)",
+     "lifted": "not found"
+    },
+    {
+     "year": 2023,
+     "backcountry_ban_from": "Aug 18 (Stage 2)",
+     "lifted": "not found"
+    },
+    {
+     "year": 2024,
+     "backcountry_ban_from": "Jul 26",
+     "lifted": "Sep 19"
+    },
+    {
+     "year": 2025,
+     "backcountry_ban_from": "Jul 11 (Stage 1); all campfires from Aug 1",
+     "lifted": "about Sep 15 (unconfirmed)"
+    },
+    {
+     "year": 2026,
+     "backcountry_ban_from": "Jun 26 (Stage 1); all campfires from Aug 7",
+     "lifted": "USFS order ran to Oct 1; no NPS lifting notice found (see seasonal_bans)"
+    }
+   ],
+   "smoking": "The 2026 Stage 2 release banned campfires and charcoal and asked smokers to use ashtrays; it set no smoking ban. A pre-roll is illegal on federal land whether or not a ban is on (36 CFR 2.35).",
+   "source_ids": [
+    "nps_fire_bans_2012_2025",
+    "usfs_campfire_ban_2026_08_07",
+    "pdn_stage1_2026_06_27",
+    "ptleader_ban_2023_08_24"
    ]
   }
  },
@@ -1683,6 +1809,1051 @@
     "nps_weather",
     "nrcs_snotel"
    ]
+  },
+  "m1a_weather_inputs": {
+   "status": "Added 2026-10-08 to close the M1a data check (M1A_DATA_CHECK.md items 2 and 3). Computed values say how; anything marked estimate is a flagged design estimate, to be tuned against the F.1 caps in the harness (BUILD_PLAN session 18).",
+   "applies_to": "The one park-wide weather story (GAME_DESIGN 7.5) and the High zone (4,000-6,000 ft) overlays, first used on the High Divide and Seven Lakes Basin loop (M1a). Months outside Jun-Oct are given for the chain only; the High zone is snowbound then and v1 plans no trips there.",
+   "weather_chain": {
+    "what": "The single synoptic Markov chain per month that drives every zone (GAME_DESIGN 7.5): today's state and the chance of each state tomorrow.",
+    "states": {
+     "fair": "Quillayute daily precipitation under 0.01 in (dry at the coast; the high country is usually sunny, though a marine layer can sit below the ridges in the morning).",
+     "unsettled": "0.01-0.09 in (showers, drizzle or a weak front; the day the High zone builds afternoon clouds and its thunder chance peaks).",
+     "wet": "0.10-0.99 in (a frontal rain day).",
+     "storm": "1.00 in or more (a strong front or atmospheric river; high wind on the ridges)."
+    },
+    "station": "Quillayute Airport (UIL, 180 ft), the park's first-order station, GHCN-Daily USW00094240",
+    "period": "1991-2020 (30 Junes: 900 days; 30 Augusts: 929 days)",
+    "method": "Each day classified by its precipitation; p = share of days in each state; next_day = observed share of the following day's state, rows in the order fair, unsettled, wet, storm (each row sums to 1). Jun and Jul storm rows rest on 15 and 7 days, so they are smoothed toward the Aug-Sep shape (estimate).",
+    "computed": true,
+    "computed_on": "2026-10-08",
+    "monthly": [
+     {
+      "month": "Jan",
+      "p": {
+       "fair": 0.285,
+       "unsettled": 0.133,
+       "wet": 0.417,
+       "storm": 0.165
+      },
+      "next_day": {
+       "fair": [
+        0.67,
+        0.07,
+        0.23,
+        0.03
+       ],
+       "unsettled": [
+        0.34,
+        0.23,
+        0.32,
+        0.11
+       ],
+       "wet": [
+        0.1,
+        0.15,
+        0.54,
+        0.21
+       ],
+       "storm": [
+        0.03,
+        0.09,
+        0.56,
+        0.32
+       ]
+      }
+     },
+     {
+      "month": "Feb",
+      "p": {
+       "fair": 0.338,
+       "unsettled": 0.165,
+       "wet": 0.39,
+       "storm": 0.106
+      },
+      "next_day": {
+       "fair": [
+        0.62,
+        0.15,
+        0.21,
+        0.02
+       ],
+       "unsettled": [
+        0.39,
+        0.13,
+        0.42,
+        0.06
+       ],
+       "wet": [
+        0.16,
+        0.21,
+        0.47,
+        0.16
+       ],
+       "storm": [
+        0.01,
+        0.18,
+        0.54,
+        0.27
+       ]
+      }
+     },
+     {
+      "month": "Mar",
+      "p": {
+       "fair": 0.285,
+       "unsettled": 0.169,
+       "wet": 0.433,
+       "storm": 0.113
+      },
+      "next_day": {
+       "fair": [
+        0.56,
+        0.17,
+        0.24,
+        0.03
+       ],
+       "unsettled": [
+        0.36,
+        0.17,
+        0.44,
+        0.03
+       ],
+       "wet": [
+        0.15,
+        0.18,
+        0.53,
+        0.14
+       ],
+       "storm": [
+        0.05,
+        0.11,
+        0.54,
+        0.3
+       ]
+      }
+     },
+     {
+      "month": "Apr",
+      "p": {
+       "fair": 0.358,
+       "unsettled": 0.203,
+       "wet": 0.367,
+       "storm": 0.071
+      },
+      "next_day": {
+       "fair": [
+        0.62,
+        0.14,
+        0.21,
+        0.03
+       ],
+       "unsettled": [
+        0.36,
+        0.25,
+        0.33,
+        0.06
+       ],
+       "wet": [
+        0.16,
+        0.25,
+        0.5,
+        0.09
+       ],
+       "storm": [
+        0.05,
+        0.17,
+        0.62,
+        0.16
+       ]
+      }
+     },
+     {
+      "month": "May",
+      "p": {
+       "fair": 0.517,
+       "unsettled": 0.195,
+       "wet": 0.27,
+       "storm": 0.018
+      },
+      "next_day": {
+       "fair": [
+        0.73,
+        0.15,
+        0.12,
+        0
+       ],
+       "unsettled": [
+        0.45,
+        0.28,
+        0.25,
+        0.02
+       ],
+       "wet": [
+        0.19,
+        0.22,
+        0.54,
+        0.05
+       ],
+       "storm": [
+        0.06,
+        0.06,
+        0.82,
+        0.06
+       ]
+      }
+     },
+     {
+      "month": "Jun",
+      "p": {
+       "fair": 0.518,
+       "unsettled": 0.253,
+       "wet": 0.212,
+       "storm": 0.017
+      },
+      "next_day": {
+       "fair": [
+        0.68,
+        0.21,
+        0.11,
+        0
+       ],
+       "unsettled": [
+        0.46,
+        0.29,
+        0.22,
+        0.03
+       ],
+       "wet": [
+        0.28,
+        0.3,
+        0.38,
+        0.04
+       ],
+       "storm": [
+        0.15,
+        0.2,
+        0.5,
+        0.15
+       ]
+      }
+     },
+     {
+      "month": "Jul",
+      "p": {
+       "fair": 0.711,
+       "unsettled": 0.184,
+       "wet": 0.098,
+       "storm": 0.008
+      },
+      "next_day": {
+       "fair": [
+        0.82,
+        0.13,
+        0.05,
+        0
+       ],
+       "unsettled": [
+        0.55,
+        0.3,
+        0.15,
+        0
+       ],
+       "wet": [
+        0.35,
+        0.31,
+        0.31,
+        0.03
+       ],
+       "storm": [
+        0.15,
+        0.25,
+        0.45,
+        0.15
+       ]
+      }
+     },
+     {
+      "month": "Aug",
+      "p": {
+       "fair": 0.716,
+       "unsettled": 0.165,
+       "wet": 0.094,
+       "storm": 0.026
+      },
+      "next_day": {
+       "fair": [
+        0.8,
+        0.14,
+        0.05,
+        0.01
+       ],
+       "unsettled": [
+        0.62,
+        0.21,
+        0.12,
+        0.05
+       ],
+       "wet": [
+        0.38,
+        0.24,
+        0.31,
+        0.07
+       ],
+       "storm": [
+        0.21,
+        0.21,
+        0.41,
+        0.17
+       ]
+      }
+     },
+     {
+      "month": "Sep",
+      "p": {
+       "fair": 0.631,
+       "unsettled": 0.142,
+       "wet": 0.183,
+       "storm": 0.043
+      },
+      "next_day": {
+       "fair": [
+        0.77,
+        0.12,
+        0.09,
+        0.02
+       ],
+       "unsettled": [
+        0.46,
+        0.19,
+        0.31,
+        0.04
+       ],
+       "wet": [
+        0.38,
+        0.16,
+        0.36,
+        0.1
+       ],
+       "storm": [
+        0.13,
+        0.21,
+        0.48,
+        0.18
+       ]
+      }
+     },
+     {
+      "month": "Oct",
+      "p": {
+       "fair": 0.427,
+       "unsettled": 0.134,
+       "wet": 0.325,
+       "storm": 0.114
+      },
+      "next_day": {
+       "fair": [
+        0.65,
+        0.11,
+        0.2,
+        0.04
+       ],
+       "unsettled": [
+        0.34,
+        0.22,
+        0.35,
+        0.09
+       ],
+       "wet": [
+        0.25,
+        0.16,
+        0.41,
+        0.18
+       ],
+       "storm": [
+        0.11,
+        0.08,
+        0.55,
+        0.26
+       ]
+      }
+     },
+     {
+      "month": "Nov",
+      "p": {
+       "fair": 0.27,
+       "unsettled": 0.153,
+       "wet": 0.412,
+       "storm": 0.164
+      },
+      "next_day": {
+       "fair": [
+        0.56,
+        0.14,
+        0.24,
+        0.06
+       ],
+       "unsettled": [
+        0.28,
+        0.1,
+        0.49,
+        0.13
+       ],
+       "wet": [
+        0.15,
+        0.19,
+        0.46,
+        0.2
+       ],
+       "storm": [
+        0.06,
+        0.14,
+        0.53,
+        0.27
+       ]
+      }
+     },
+     {
+      "month": "Dec",
+      "p": {
+       "fair": 0.273,
+       "unsettled": 0.154,
+       "wet": 0.422,
+       "storm": 0.152
+      },
+      "next_day": {
+       "fair": [
+        0.61,
+        0.12,
+        0.23,
+        0.04
+       ],
+       "unsettled": [
+        0.3,
+        0.22,
+        0.33,
+        0.15
+       ],
+       "wet": [
+        0.14,
+        0.16,
+        0.53,
+        0.17
+       ],
+       "storm": [
+        0.06,
+        0.13,
+        0.52,
+        0.29
+       ]
+      }
+     }
+    ],
+    "high_zone_wet_day_given_state": {
+     "what": "Share of days in each state with 0.10 in or more at Buckinghorse SNOTEL (4,850 ft, the closest High-zone match to the Divide), 2008-2025, on days both records exist. The engine's High zone rains on these shares of each state.",
+     "computed": true,
+     "Jun": {
+      "fair": 0.03,
+      "unsettled": 0.09,
+      "wet": 0.41,
+      "storm": 0.8
+     },
+     "Jul": {
+      "fair": 0.02,
+      "unsettled": 0.05,
+      "wet": 0.35,
+      "storm": 0.9
+     },
+     "Aug": {
+      "fair": 0.02,
+      "unsettled": 0.11,
+      "wet": 0.52,
+      "storm": 0.9
+     },
+     "Sep": {
+      "fair": 0.05,
+      "unsettled": 0.18,
+      "wet": 0.6,
+      "storm": 0.86
+     },
+     "Oct": {
+      "fair": 0.08,
+      "unsettled": 0.21,
+      "wet": 0.77,
+      "storm": 0.95
+     },
+     "note": "Storm values for Jul and Aug rest on 2 and 9 days (smoothed to 0.9, estimate). Buckinghorse's own wet-day counts are in zones.subalpine_4000_6000ft. SNOTEL gauges resolve 0.1 in, so High-zone days with only a trace or a light shower can't be counted as wet; the chain's unsettled state stands in for them (cloud and showers without much rain, and the afternoon thunder overlay)."
+    },
+    "source_ids": [
+     "ghcnd_quillayute",
+     "nrcs_snotel"
+    ]
+   },
+   "thunderstorms_high_zone": {
+    "what": "Thunder heard or lightning seen from the High Divide crest (any time of day), and the afternoon overlay the engine draws on top of the chain (GAME_DESIGN 7.5). Drives the crest's lightning death (9.5), the fork card's forecast (12.12) and B.6.",
+    "estimate": true,
+    "confidence": "low-medium: no station records thunder on the Divide; the monthly figures are design estimates bracketed by the measured anchors below",
+    "monthly": [
+     {
+      "month": "Jun",
+      "days_per_month": 0.9,
+      "pct_of_days": 3,
+      "p_given_state": {
+       "fair": 0.0075,
+       "unsettled": 0.075,
+       "wet": 0.03,
+       "storm": 0.038
+      }
+     },
+     {
+      "month": "Jul",
+      "days_per_month": 1.3,
+      "pct_of_days": 4.2,
+      "p_given_state": {
+       "fair": 0.014,
+       "unsettled": 0.14,
+       "wet": 0.056,
+       "storm": 0.07
+      }
+     },
+     {
+      "month": "Aug",
+      "days_per_month": 1.5,
+      "pct_of_days": 4.8,
+      "p_given_state": {
+       "fair": 0.017,
+       "unsettled": 0.17,
+       "wet": 0.068,
+       "storm": 0.085
+      }
+     },
+     {
+      "month": "Sep",
+      "days_per_month": 0.9,
+      "pct_of_days": 3,
+      "p_given_state": {
+       "fair": 0.01,
+       "unsettled": 0.1,
+       "wet": 0.04,
+       "storm": 0.05
+      }
+     },
+     {
+      "month": "Oct",
+      "days_per_month": 0.4,
+      "pct_of_days": 1.3,
+      "p_given_state": {
+       "fair": 0.0036,
+       "unsettled": 0.036,
+       "wet": 0.014,
+       "storm": 0.018
+      }
+     }
+    ],
+    "how_p_given_state_was_set": "One weight per state (fair 0.1, unsettled 1.0, wet 0.4, storm 0.5), scaled each month so the chain's state shares reproduce days_per_month. Fair days keep a small share because the Olympics' summer lightning often comes at the end of a hot spell, when the coast is still dry.",
+    "timing": "About 80% of High-zone thunder falls between 1 pm and 7 pm, peaking 3-6 pm; a cell typically sits over a stretch of crest for 30-90 minutes (estimate; matches the 2026 reports of an hour's shelter in the trees).",
+    "forecast_spread": "A day's shown chance may range from half to twice its state's mean, so an unsettled August afternoon can be forecast at 30% (B.6) and another at 10%. The harness keeps the shown chances calibrated (F.1).",
+    "anchors": [
+     "Blue Glacier station, 6,906 ft on Mount Olympus (1957-1963 summers, 288 Jun-Sep days observed): thunder on 0.3 days a month in July and 0.5 in August.",
+     "Quillayute (coast), GHCN-Daily weather types: 0.0-0.5 thunder days a month in July, 0.2-0.3 in August, 0.3-0.6 in September (1966-2025); its thunder peaks in Oct-Jan with cold-air showers, not in summer.",
+     "Stampede Pass, 3,960 ft in the Cascades (1976-1995): 0.5 thunder days in June and July, 0.4 in August, 0.1 in September. Mountain thunder in western Washington comes from heating and upslope winds (Office of the Washington State Climatologist).",
+     "NWS: western Washington averages about 5-10 thunderstorm days a year; Washington has the lowest cloud-to-ground flash density of the lower 48 (NLDN 2008-2017: about 25,000 flashes a year statewide, roughly 0.15 per km2).",
+     "Lightning has caused 83% of the area burned in Olympic National Park since 1916; lightning fires usually start on ridge tops and upper slopes.",
+     "2026 on the loop: hail and lightning at Heart Lake and thunder near Deer Lake on Sept 5; a lightning fire on Sourdough Mountain (Aurora Ridge) on Aug 10 (sol_duc_high_divide.json hazards)."
+    ],
+    "why_above_the_station_counts": "Station logs undercount what a hiker on an open crest notices: thunder carries about 10 miles, and the Blue Glacier observers were glaciologists, not weather watchers. The estimates sit at about three times the measured mountain anchors.",
+    "source_ids": [
+     "ghcnd_blue_glacier",
+     "ghcnd_quillayute",
+     "ghcnd_stampede_pass",
+     "owsc_thunderstorms_wa",
+     "nws_cg_flash_density_2008_2017",
+     "nps_fire_capstone",
+     "rorig_ferguson_1999"
+    ]
+   },
+   "fog_high_zone": {
+    "what": "Days when the High Divide is in cloud (visibility under about 200 m) for part of the daylight hours: the fog that hides the Mirror Lake way trail, the unsigned junctions and the cliff edges (GAME_DESIGN 9.5 'fog'). The afternoon share is the one a crest crossing meets.",
+    "method": "Ridge-level cloud from the Quillayute radiosonde (IGRA2, 1991-2020): the 850 hPa level (about 4,950 ft in summer) counted as in cloud when its dewpoint depression was 1 C or less, at 5 am and 5 pm PDT, cross-tabulated with the chain state of the same day. Mountains lift moist air, so the free-air shares are multiplied by 1.25 for the crest (estimate), capped at 0.95.",
+    "computed_with_estimate": "The free-air shares are computed; the 1.25 ridge factor is an estimate, checked against the Blue Glacier station (6,906 ft, 1957-63), which logged fog on 18% of July days and 32% of August days.",
+    "monthly": [
+     {
+      "month": "Jun",
+      "any_daylight_pct": 41,
+      "afternoon_pct": 20,
+      "p_any_given_state": {
+       "fair": 0.15,
+       "unsettled": 0.53,
+       "wet": 0.86,
+       "storm": 0.95
+      },
+      "p_afternoon_given_state": {
+       "fair": 0.05,
+       "unsettled": 0.23,
+       "wet": 0.48,
+       "storm": 0.59
+      }
+     },
+     {
+      "month": "Jul",
+      "any_daylight_pct": 26,
+      "afternoon_pct": 14,
+      "p_any_given_state": {
+       "fair": 0.1,
+       "unsettled": 0.51,
+       "wet": 0.9,
+       "storm": 0.9
+      },
+      "p_afternoon_given_state": {
+       "fair": 0.04,
+       "unsettled": 0.25,
+       "wet": 0.66,
+       "storm": 0.6
+      }
+     },
+     {
+      "month": "Aug",
+      "any_daylight_pct": 23,
+      "afternoon_pct": 12,
+      "p_any_given_state": {
+       "fair": 0.1,
+       "unsettled": 0.4,
+       "wet": 0.69,
+       "storm": 0.86
+      },
+      "p_afternoon_given_state": {
+       "fair": 0.04,
+       "unsettled": 0.21,
+       "wet": 0.45,
+       "storm": 0.55
+      }
+     },
+     {
+      "month": "Sep",
+      "any_daylight_pct": 27,
+      "afternoon_pct": 14,
+      "p_any_given_state": {
+       "fair": 0.08,
+       "unsettled": 0.4,
+       "wet": 0.69,
+       "storm": 0.9
+      },
+      "p_afternoon_given_state": {
+       "fair": 0.04,
+       "unsettled": 0.15,
+       "wet": 0.36,
+       "storm": 0.63
+      }
+     },
+     {
+      "month": "Oct",
+      "any_daylight_pct": 45,
+      "afternoon_pct": 26,
+      "p_any_given_state": {
+       "fair": 0.11,
+       "unsettled": 0.5,
+       "wet": 0.75,
+       "storm": 0.84
+      },
+      "p_afternoon_given_state": {
+       "fair": 0.05,
+       "unsettled": 0.25,
+       "wet": 0.44,
+       "storm": 0.5
+      }
+     }
+    ],
+    "free_air_shares_850hPa": {
+     "Jun": {
+      "morning_pct": 25,
+      "afternoon_pct": 16,
+      "either_pct": 32
+     },
+     "Jul": {
+      "morning_pct": 15,
+      "afternoon_pct": 12,
+      "either_pct": 21
+     },
+     "Aug": {
+      "morning_pct": 12,
+      "afternoon_pct": 9,
+      "either_pct": 17
+     },
+     "Sep": {
+      "morning_pct": 15,
+      "afternoon_pct": 12,
+      "either_pct": 22
+     },
+     "Oct": {
+      "morning_pct": 25,
+      "afternoon_pct": 20,
+      "either_pct": 35
+     }
+    },
+    "morning_note": "Summer marine stratus usually tops out at 2,000-4,000 ft, so on fair days the crest is often above a sea of cloud in the morning; fog that reaches the crest on a fair day mostly burns off by midday (morning share about twice the afternoon share).",
+    "source_ids": [
+     "igra_quillayute",
+     "ghcnd_quillayute",
+     "ghcnd_blue_glacier"
+    ]
+   },
+   "ridge_wind_high_zone": {
+    "what": "Wind on the exposed crest, for NWS wind chill (GAME_DESIGN 7.5) and the bad-night margin. Camps in trees or below the crest feel about half of it (estimate).",
+    "method": "Free-air wind at 850 hPa (about 4,950 ft) from the 5 pm PDT Quillayute sounding, 1991-2020 (IGRA2), as mean and 90th percentile; crest sustained wind is about 1.1 times the free-air value (estimate, ridge speed-up). Gale-gust days are measured at Hurricane Ridge (5,260 ft, NWAC tower), 2004-2017.",
+    "monthly": [
+     {
+      "month": "May",
+      "free_air_mean_mph": 14,
+      "free_air_p90_mph": 26,
+      "gale_gust_days_per_month": 1.2
+     },
+     {
+      "month": "Jun",
+      "free_air_mean_mph": 13,
+      "free_air_p90_mph": 23,
+      "gale_gust_days_per_month": 0.6
+     },
+     {
+      "month": "Jul",
+      "free_air_mean_mph": 12,
+      "free_air_p90_mph": 21,
+      "gale_gust_days_per_month": 0.2
+     },
+     {
+      "month": "Aug",
+      "free_air_mean_mph": 12,
+      "free_air_p90_mph": 21,
+      "gale_gust_days_per_month": 0.5
+     },
+     {
+      "month": "Sep",
+      "free_air_mean_mph": 15,
+      "free_air_p90_mph": 28,
+      "gale_gust_days_per_month": 1.6
+     },
+     {
+      "month": "Oct",
+      "free_air_mean_mph": 21,
+      "free_air_p90_mph": 38,
+      "gale_gust_days_per_month": 5.7
+     }
+    ],
+    "afternoon_mean_mph_by_state": {
+     "Jun": {
+      "fair": 11,
+      "unsettled": 13,
+      "wet": 18,
+      "storm": 32
+     },
+     "Jul": {
+      "fair": 10,
+      "unsettled": 13,
+      "wet": 20,
+      "storm": 26
+     },
+     "Aug": {
+      "fair": 10,
+      "unsettled": 13,
+      "wet": 19,
+      "storm": 35
+     },
+     "Sep": {
+      "fair": 12,
+      "unsettled": 14,
+      "wet": 21,
+      "storm": 34
+     },
+     "Oct": {
+      "fair": 13,
+      "unsettled": 17,
+      "wet": 26,
+      "storm": 37
+     }
+    },
+    "gale_gust_note": "A gale-gust day has a maximum gust of 39 mph or more. Hurricane Ridge counted 3 in all the Julys of 2004-2017, 7 in the Augusts and 22 in the Septembers; 16% of all days, and 32% of November days, reach gale force there (NPS NRR 2018/1714, Figure 9). The High Divide is farther from the Strait and likely a little calmer (estimate).",
+    "computed": true,
+    "source_ids": [
+     "igra_quillayute",
+     "nps_nrr_2018_1714"
+    ]
+   },
+   "north_mid_sol_duc_valley": {
+    "what": "A wet north-side valley reference for the Sol Duc (the audit found North mid used only Port Angeles and Elwha, which are drier). No station has ever stood in the upper Sol Duc; Sappho 8 E sits in the lower Sol Duc valley along US 101.",
+    "station": "Sappho 8 E (USC00457319), 760 ft, cooperative station 1936-1997; values for 1961-1997, computed from GHCN-Daily (monthly precipitation scaled from reported days, so months with gaps are not undercounted)",
+    "monthly": [
+     {
+      "month": "Jun",
+      "high_f": 67.5,
+      "low_f": 46.2,
+      "precip_in": 2.4,
+      "days_ge_0_01in": 10.5,
+      "days_ge_0_10in": 5.7
+     },
+     {
+      "month": "Jul",
+      "high_f": 72.5,
+      "low_f": 49.1,
+      "precip_in": 2,
+      "days_ge_0_01in": 9,
+      "days_ge_0_10in": 4.4
+     },
+     {
+      "month": "Aug",
+      "high_f": 73.8,
+      "low_f": 49.5,
+      "precip_in": 2.2,
+      "days_ge_0_01in": 8.7,
+      "days_ge_0_10in": 4.7
+     },
+     {
+      "month": "Sep",
+      "high_f": 69.7,
+      "low_f": 46.8,
+      "precip_in": 4,
+      "days_ge_0_01in": 11,
+      "days_ge_0_10in": 6.6
+     },
+     {
+      "month": "Oct",
+      "high_f": 59.3,
+      "low_f": 41.8,
+      "precip_in": 8.5,
+      "days_ge_0_01in": 12.6,
+      "days_ge_0_10in": 9.7
+     }
+    ],
+    "game_use": "North mid for the Sol Duc trailhead (1,980 ft) and the river camps: start from these values and apply the 7.5 lapse rates for elevation. About 70-90 in a year; winter months are left out because the coop record has multi-day gaps there.",
+    "computed": true,
+    "source_ids": [
+     "ghcnd_sappho_8e"
+    ]
+   },
+   "daylight_loop_2027": {
+    "what": "Sunrise, sunset and civil twilight on the 1st and 15th of each month of 2027 (the year every M1a trip falls in, 4.7), for the data/daylight.json the build generates (E.5).",
+    "location": "47.97 N, 123.83 W (the Sol Duc trailhead end of the loop), sea-level horizon, Pacific time with 2027 daylight saving (Mar 14 to Nov 7)",
+    "method": "NOAA solar calculator (Meeus) formulas; reproduces GAME_DESIGN 7.2 within a minute (its table is for 2026) and B.2's sunrise and sunset to the minute (Aug 12, 2027: 6:06 am and 8:34 pm).",
+    "computed": true,
+    "rows": [
+     {
+      "date": "2027-01-01",
+      "sunrise": "8:05",
+      "sunset": "16:33",
+      "civil_dawn": "7:29",
+      "civil_dusk": "17:09",
+      "daylight_h": 8.5,
+      "utc_offset_h": -8
+     },
+     {
+      "date": "2027-01-15",
+      "sunrise": "8:00",
+      "sunset": "16:50",
+      "civil_dawn": "7:25",
+      "civil_dusk": "17:25",
+      "daylight_h": 8.8,
+      "utc_offset_h": -8
+     },
+     {
+      "date": "2027-02-01",
+      "sunrise": "7:43",
+      "sunset": "17:16",
+      "civil_dawn": "7:10",
+      "civil_dusk": "17:49",
+      "daylight_h": 9.5,
+      "utc_offset_h": -8
+     },
+     {
+      "date": "2027-02-15",
+      "sunrise": "7:22",
+      "sunset": "17:38",
+      "civil_dawn": "6:50",
+      "civil_dusk": "18:10",
+      "daylight_h": 10.3,
+      "utc_offset_h": -8
+     },
+     {
+      "date": "2027-03-01",
+      "sunrise": "6:56",
+      "sunset": "18:00",
+      "civil_dawn": "6:25",
+      "civil_dusk": "18:31",
+      "daylight_h": 11.1,
+      "utc_offset_h": -8
+     },
+     {
+      "date": "2027-03-15",
+      "sunrise": "7:28",
+      "sunset": "19:21",
+      "civil_dawn": "6:58",
+      "civil_dusk": "19:52",
+      "daylight_h": 11.9,
+      "utc_offset_h": -7
+     },
+     {
+      "date": "2027-04-01",
+      "sunrise": "6:54",
+      "sunset": "19:45",
+      "civil_dawn": "6:22",
+      "civil_dusk": "20:17",
+      "daylight_h": 12.9,
+      "utc_offset_h": -7
+     },
+     {
+      "date": "2027-04-15",
+      "sunrise": "6:26",
+      "sunset": "20:06",
+      "civil_dawn": "5:53",
+      "civil_dusk": "20:38",
+      "daylight_h": 13.7,
+      "utc_offset_h": -7
+     },
+     {
+      "date": "2027-05-01",
+      "sunrise": "5:57",
+      "sunset": "20:28",
+      "civil_dawn": "5:23",
+      "civil_dusk": "21:03",
+      "daylight_h": 14.5,
+      "utc_offset_h": -7
+     },
+     {
+      "date": "2027-05-15",
+      "sunrise": "5:37",
+      "sunset": "20:47",
+      "civil_dawn": "5:00",
+      "civil_dusk": "21:25",
+      "daylight_h": 15.2,
+      "utc_offset_h": -7
+     },
+     {
+      "date": "2027-06-01",
+      "sunrise": "5:20",
+      "sunset": "21:07",
+      "civil_dawn": "4:40",
+      "civil_dusk": "21:47",
+      "daylight_h": 15.8,
+      "utc_offset_h": -7
+     },
+     {
+      "date": "2027-06-15",
+      "sunrise": "5:15",
+      "sunset": "21:17",
+      "civil_dawn": "4:34",
+      "civil_dusk": "21:58",
+      "daylight_h": 16,
+      "utc_offset_h": -7
+     },
+     {
+      "date": "2027-07-01",
+      "sunrise": "5:20",
+      "sunset": "21:18",
+      "civil_dawn": "4:39",
+      "civil_dusk": "21:59",
+      "daylight_h": 16,
+      "utc_offset_h": -7
+     },
+     {
+      "date": "2027-07-15",
+      "sunrise": "5:32",
+      "sunset": "21:10",
+      "civil_dawn": "4:52",
+      "civil_dusk": "21:50",
+      "daylight_h": 15.6,
+      "utc_offset_h": -7
+     },
+     {
+      "date": "2027-08-01",
+      "sunrise": "5:52",
+      "sunset": "20:51",
+      "civil_dawn": "5:15",
+      "civil_dusk": "21:27",
+      "daylight_h": 15,
+      "utc_offset_h": -7
+     },
+     {
+      "date": "2027-08-15",
+      "sunrise": "6:10",
+      "sunset": "20:28",
+      "civil_dawn": "5:36",
+      "civil_dusk": "21:03",
+      "daylight_h": 14.3,
+      "utc_offset_h": -7
+     },
+     {
+      "date": "2027-09-01",
+      "sunrise": "6:33",
+      "sunset": "19:56",
+      "civil_dawn": "6:01",
+      "civil_dusk": "20:28",
+      "daylight_h": 13.4,
+      "utc_offset_h": -7
+     },
+     {
+      "date": "2027-09-15",
+      "sunrise": "6:52",
+      "sunset": "19:28",
+      "civil_dawn": "6:21",
+      "civil_dusk": "19:59",
+      "daylight_h": 12.6,
+      "utc_offset_h": -7
+     },
+     {
+      "date": "2027-10-01",
+      "sunrise": "7:14",
+      "sunset": "18:55",
+      "civil_dawn": "6:44",
+      "civil_dusk": "19:25",
+      "daylight_h": 11.7,
+      "utc_offset_h": -7
+     },
+     {
+      "date": "2027-10-15",
+      "sunrise": "7:35",
+      "sunset": "18:27",
+      "civil_dawn": "7:03",
+      "civil_dusk": "18:58",
+      "daylight_h": 10.9,
+      "utc_offset_h": -7
+     },
+     {
+      "date": "2027-11-01",
+      "sunrise": "8:00",
+      "sunset": "17:57",
+      "civil_dawn": "7:28",
+      "civil_dusk": "18:29",
+      "daylight_h": 9.9,
+      "utc_offset_h": -7
+     },
+     {
+      "date": "2027-11-15",
+      "sunrise": "7:22",
+      "sunset": "16:38",
+      "civil_dawn": "6:48",
+      "civil_dusk": "17:12",
+      "daylight_h": 9.3,
+      "utc_offset_h": -8
+     },
+     {
+      "date": "2027-12-01",
+      "sunrise": "7:44",
+      "sunset": "16:25",
+      "civil_dawn": "7:08",
+      "civil_dusk": "17:00",
+      "daylight_h": 8.7,
+      "utc_offset_h": -8
+     },
+     {
+      "date": "2027-12-15",
+      "sunrise": "7:58",
+      "sunset": "16:23",
+      "civil_dawn": "7:22",
+      "civil_dusk": "16:59",
+      "daylight_h": 8.4,
+      "utc_offset_h": -8
+     }
+    ],
+    "source_ids": [
+     "computed_noaa_solar"
+    ]
+   }
   }
  },
  "tides": {
@@ -3164,6 +4335,122 @@
    "url": "https://www.nps.gov/olym/planyourvisit/climbing-mount-olympus.htm",
    "publisher": "National Park Service",
    "page_date": "2026-01-21",
+   "accessed": "2026-10-08"
+  },
+  {
+   "id": "ghcnd_quillayute",
+   "title": "GHCN-Daily station record USW00094240, Quillayute Airport, WA (precipitation, weather types, wind), 1966-2026",
+   "url": "https://www.ncei.noaa.gov/data/global-historical-climatology-network-daily/access/USW00094240.csv",
+   "publisher": "NOAA NCEI",
+   "page_date": "data through 2026-10-03",
+   "accessed": "2026-10-08"
+  },
+  {
+   "id": "ghcnd_blue_glacier",
+   "title": "GHCN-Daily station record USC00450770, Blue Glacier, WA (6,906 ft), 1957-1963: precipitation and weather types (fog, thunder)",
+   "url": "https://www.ncei.noaa.gov/data/global-historical-climatology-network-daily/access/USC00450770.csv",
+   "publisher": "NOAA NCEI",
+   "page_date": "1957-1963",
+   "accessed": "2026-10-08"
+  },
+  {
+   "id": "ghcnd_stampede_pass",
+   "title": "GHCN-Daily station record USW00024237, Stampede Pass, WA (3,960 ft), weather types",
+   "url": "https://www.ncei.noaa.gov/data/global-historical-climatology-network-daily/access/USW00024237.csv",
+   "publisher": "NOAA NCEI",
+   "page_date": "data through 2026-10-01",
+   "accessed": "2026-10-08"
+  },
+  {
+   "id": "ghcnd_sappho_8e",
+   "title": "GHCN-Daily station record USC00457319, Sappho 8 E, WA (760 ft), 1936-1997",
+   "url": "https://www.ncei.noaa.gov/data/global-historical-climatology-network-daily/access/USC00457319.csv",
+   "publisher": "NOAA NCEI",
+   "page_date": "1936-1997",
+   "accessed": "2026-10-08"
+  },
+  {
+   "id": "nps_nrr_2018_1714",
+   "title": "Baccus, W. D. 2018. A Park Interpreter's Guide to the Climate of Hurricane Ridge, Olympic National Park: Climate Summary for Water Years 2000 to 2017. Natural Resource Report NPS/NCCN/NRR-2018/1714 (wind: NWAC station at 5,260 ft, Figure 9)",
+   "url": "https://www.npshistory.com/publications/olym/nrr-2018-1714.pdf",
+   "publisher": "NPS",
+   "page_date": "2018-09",
+   "accessed": "2026-10-08"
+  },
+  {
+   "id": "nws_cg_flash_density_2008_2017",
+   "title": "Number of Cloud-to-Ground Flashes by State, 2008 to 2017 (NLDN; Washington average 24,982 a year)",
+   "url": "https://www.weather.gov/media/safety/08-17Flash_Density_State.pdf",
+   "publisher": "NWS / Vaisala",
+   "page_date": "2018-03",
+   "accessed": "2026-10-08"
+  },
+  {
+   "id": "owsc_thunderstorms_wa",
+   "title": "Thunderstorms in WA State",
+   "url": "https://climate.uw.edu/2010/08/09/thunderstorms-in-wa-state/",
+   "publisher": "Office of the Washington State Climatologist",
+   "page_date": "2010-08-09",
+   "accessed": "2026-10-08"
+  },
+  {
+   "id": "nps_fire_capstone",
+   "title": "Environmental Factors Influencing Fire Behavior in the Olympic Mountains (FOR 479 capstone, hosted by NPS): lightning caused 83% of area burned since 1916; ignitions on ridge tops and upper slopes",
+   "url": "https://www.nps.gov/olym/learn/management/upload/capstone-final.docx",
+   "publisher": "NPS (student report)",
+   "page_date": "undated",
+   "accessed": "2026-10-08"
+  },
+  {
+   "id": "rorig_ferguson_1999",
+   "title": "Rorig, M. L., and S. A. Ferguson. 1999. Characteristics of lightning and wildland fire ignition in the Pacific Northwest. Journal of Applied Meteorology 38: 1565-1575",
+   "url": "https://research.fs.usda.gov/treesearch/5123",
+   "publisher": "USDA Forest Service",
+   "page_date": "1999",
+   "accessed": "2026-10-08"
+  },
+  {
+   "id": "nps_fire_bans_2012_2025",
+   "title": "Olympic National Park news releases on campfire restrictions: Sep 21, 2012; Jun 25, 2015; Sep 11, 2020; Jul 23, 2021; Aug 11, 2022; Jul 26, 2024 and its Sep 19, 2024 lifting; Jul 11 and Aug 1, 2025; the Sep 16, 2021 lifting",
+   "url": "https://www.nps.gov/olym/learn/news/campfire-ban-begins-july-26-in-olympic-national-park-and-olympic-national-forest.htm",
+   "publisher": "NPS",
+   "page_date": "2012-2025",
+   "accessed": "2026-10-08",
+   "other_urls": [
+    "https://www.nps.gov/olym/learn/news/olympic-national-park-enacts-campfire-restrictions.htm",
+    "https://www.nps.gov/olym/learn/news/campfire-restrictions-to-begin-tomorrow-june-25.htm",
+    "https://www.nps.gov/olym/learn/news/campfire-ban-begins-september-11-for-olympic-national-park-and-olympic-national-forest.htm",
+    "https://www.nps.gov/olym/learn/news/campfire-ban-begins-july-23-for-olympic-national-park-and-olympic-national-forest.htm",
+    "https://www.nps.gov/olym/learn/news/campfire-ban-lifted-for-olympic-and-north-cascades-national-parks-and-olympic-and-mt-baker-snoqualmie-national-forests.htm",
+    "https://www.nps.gov/olym/learn/news/campfire-restrictions-begin-august-11-for-olympic-national-park-and-olympic-national-forest.htm",
+    "https://www.nps.gov/olym/learn/news/favorable-weather-conditions-allow-olympic-national-park-to-return-to-standard-fire-regulations.htm",
+    "https://www.nps.gov/olym/learn/news/olympic-national-park-and-olympic-national-forest-campfire-restrictions-begin-july-11.htm",
+    "https://www.nps.gov/olym/learn/news/campfire-ban-begins-august-1-in-olympic-national-park-and-olympic-national-forest.htm"
+   ],
+   "notes": "The 2015 and 2017 dates come from search summaries of Peninsula Daily News stories and were not opened."
+  },
+  {
+   "id": "usfs_campfire_ban_2026_08_07",
+   "title": "Campfire Ban Begins August 7 in Olympic National Forest and Olympic National Park",
+   "url": "https://www.fs.usda.gov/r06/olympic/newsroom/releases/campfire-ban-begins-august-7-olympic-national-forest-and-olympic",
+   "publisher": "USDA Forest Service",
+   "page_date": "2026-08-07",
+   "accessed": "2026-10-08"
+  },
+  {
+   "id": "pdn_stage1_2026_06_27",
+   "title": "Campfire restrictions in effect in Olympic National Park, Olympic National Forest",
+   "url": "https://www.peninsuladailynews.com/2026/06/27/campfire-restrictions-in-effect-in-olympic-national-park-olympic-national-forest/",
+   "publisher": "Peninsula Daily News",
+   "page_date": "2026-06-27",
+   "accessed": "2026-10-08"
+  },
+  {
+   "id": "ptleader_ban_2023_08_24",
+   "title": "National park burn ban in effect (all campfires banned from Aug 18, 2023)",
+   "url": "https://ptleader.com/stories/national-park-burn-ban-in-effect,131831",
+   "publisher": "Port Townsend Leader",
+   "page_date": "2023-08-24",
    "accessed": "2026-10-08"
   }
  ]

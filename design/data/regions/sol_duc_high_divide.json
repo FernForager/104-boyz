@@ -63,13 +63,16 @@
    "lon": -123.8574,
    "camp": {
     "sites": 82,
+    "group_site": false,
+    "stock_site": false,
+    "group_sites": 1,
     "reservation_or_quota": "Frontcountry campground (82 sites incl. 1 group, 1 accessible); 2026 reservations on Recreation.gov for Mar 20-Nov 1, 2026; first-come sites sometimes available.",
     "bear_can_required": false,
     "food_storage": "locker",
     "fires_allowed": true,
     "toilet": true,
     "water": "Potable water in season; primitive with pit toilets and no water in the off-season.",
-    "notes": "Car camping, not wilderness: picnic tables, fire pits (subject to seasonal bans; Stage 2 ban began Aug 7, 2026), animal-proof food lockers, RV dump. Useful as the night-before-the-trip camp."
+    "notes": "Car camping, not wilderness: picnic tables, fire pits (subject to seasonal bans), animal-proof food lockers, RV dump. Useful as the night-before-the-trip camp."
    },
    "description": "A big forest campground beside the river, with picnic tables, food lockers and the hush of water all night long.",
    "scene_art_notes": "Foreground: picnic table with a camp stove and a food locker box. Midground: tents and a small car under mossy maples. Sky: dusk purple dithered through trees. Landmark: river glint between trunks.",
@@ -150,13 +153,15 @@
    "lon": -123.8171,
    "camp": {
     "sites": 3,
+    "group_site": false,
+    "stock_site": false,
     "reservation_or_quota": "Recreation.gov quota snapshot pulled 2026-10-07 (Oct 2026 high season): 3 group reservations / 18 people per night; max group 6. Quota area; Seven Lakes Basin/High Divide online reservation season Jul 15-Oct 15 (2026); outside that window contact the Wilderness Information Center (360-565-3100).",
     "bear_can_required": true,
     "food_storage": "can",
     "fires_allowed": true,
     "toilet": false,
     "water": "Sol Duc River / Canyon Creek; treat all water.",
-    "notes": "Sites are on the south side of the river; do not camp near the trail shelter. Toilet at the trailhead under 1 mi away. Fires only in existing rings, dead and down wood, and only when no seasonal ban (2026 Stage 2 ban from Aug 7)."
+    "notes": "Sites are on the south side of the river; do not camp near the trail shelter. Toilet at the trailhead under 1 mi away. Fires only in existing rings, dead and down wood, and only when no seasonal ban is on."
    },
    "description": "A few quiet tent spots just upstream of the falls, close enough to hear the river grumble all night.",
    "scene_art_notes": "Foreground: small tent on a needle-covered flat with a bear canister beside it. Midground: river with white riffles. Sky: dark canopy, one blue gap. Night variant: tent glowing yellow.",
@@ -190,6 +195,8 @@
    "lon": -123.83678,
    "camp": {
     "sites": null,
+    "group_site": false,
+    "stock_site": false,
     "reservation_or_quota": "Listed as a camp area in the Recreation.gov permit system but hidden from online booking (no online quota offered Oct 2026); status/permits only via the Wilderness Information Center.",
     "bear_can_required": true,
     "food_storage": "can",
@@ -215,13 +222,15 @@
    "lon": -123.821372,
    "camp": {
     "sites": 1,
+    "group_site": false,
+    "stock_site": false,
     "reservation_or_quota": "Recreation.gov quota snapshot pulled 2026-10-07 (Oct 2026 high season): 1 group / 6 people per night. Quota area; Seven Lakes Basin/High Divide online reservation season Jul 15-Oct 15 (2026); outside that window contact the Wilderness Information Center (360-565-3100).",
     "bear_can_required": true,
     "food_storage": "can",
     "fires_allowed": true,
     "toilet": false,
     "water": "Canyon Creek; treat water.",
-    "notes": "Single forested site beside the Deer Lake Trail. Fires allowed in an existing ring with dead and down wood unless a seasonal ban is on (2026 Stage 2 ban from Aug 7)."
+    "notes": "Single forested site beside the Deer Lake Trail. Fires allowed in an existing ring with dead and down wood unless a seasonal ban is on."
    },
    "description": "A single tent site beside Canyon Creek, which hurries downhill in a chain of small waterfalls.",
    "scene_art_notes": "Foreground: one tent pad among ferns and a ring of stones. Midground: Canyon Creek dropping in white steps between boulders. Sky: none, deep canopy.",
@@ -240,13 +249,15 @@
    "lon": -123.821659,
    "camp": {
     "sites": 1,
+    "group_site": false,
+    "stock_site": false,
     "reservation_or_quota": "Recreation.gov quota snapshot pulled 2026-10-07 (Oct 2026 high season): 1 group / 6 people per night. Quota area; Seven Lakes Basin/High Divide online reservation season Jul 15-Oct 15 (2026); outside that window contact the Wilderness Information Center (360-565-3100).",
     "bear_can_required": true,
     "food_storage": "can",
     "fires_allowed": true,
     "toilet": false,
     "water": "Canyon Creek; treat water.",
-    "notes": "Single forested site beside the Deer Lake Trail. Fires allowed in an existing ring with dead and down wood unless a seasonal ban is on (2026 Stage 2 ban from Aug 7)."
+    "notes": "Single forested site beside the Deer Lake Trail. Fires allowed in an existing ring with dead and down wood unless a seasonal ban is on."
    },
    "description": "A snug site halfway up the Canyon Creek climb, where the creek talks in a dozen little voices.",
    "scene_art_notes": "Foreground: one tent pad among ferns and a ring of stones. Midground: Canyon Creek dropping in white steps between boulders. Sky: none, deep canopy.",
@@ -265,13 +276,15 @@
    "lon": -123.823336,
    "camp": {
     "sites": 1,
+    "group_site": false,
+    "stock_site": false,
     "reservation_or_quota": "Recreation.gov quota snapshot pulled 2026-10-07 (Oct 2026 high season): 1 group / 6 people per night. Quota area; Seven Lakes Basin/High Divide online reservation season Jul 15-Oct 15 (2026); outside that window contact the Wilderness Information Center (360-565-3100).",
     "bear_can_required": true,
     "food_storage": "can",
     "fires_allowed": true,
     "toilet": false,
     "water": "Canyon Creek; treat water.",
-    "notes": "Single forested site beside the Deer Lake Trail. Fires allowed in an existing ring with dead and down wood unless a seasonal ban is on (2026 Stage 2 ban from Aug 7). Rec.gov notes the spur to this site is near the 3,500 ft \"No Campfires Beyond this Point\" sign."
+    "notes": "Single forested site beside the Deer Lake Trail. Fires allowed in an existing ring with dead and down wood unless a seasonal ban is on. Rec.gov notes the spur to this site is near the 3,500 ft \"No Campfires Beyond this Point\" sign."
    },
    "description": "The last forest camp before the lakes, up a short spur where the air starts to cool.",
    "scene_art_notes": "Foreground: one tent pad among ferns and a ring of stones. Midground: Canyon Creek dropping in white steps between boulders. Sky: none, deep canopy.",
@@ -290,6 +303,10 @@
    "lon": -123.8221,
    "camp": {
     "sites": 10,
+    "group_site": false,
+    "stock_site": false,
+    "group_sites": 1,
+    "stock_sites": 1,
     "reservation_or_quota": "Recreation.gov quota snapshot pulled 2026-10-07 (Oct 2026 high season): 10 group reservations / 26 people per night (max group 6) plus Deer Lake Group Site (1 group of 7-12) and a llama/stock site not bookable online. Quota area; Seven Lakes Basin/High Divide online reservation season Jul 15-Oct 15 (2026); outside that window contact the Wilderness Information Center (360-565-3100).",
     "bear_can_required": true,
     "food_storage": "can",
@@ -317,6 +334,8 @@
    "lon": -123.8178,
    "camp": {
     "sites": 2,
+    "group_site": false,
+    "stock_site": false,
     "reservation_or_quota": "Recreation.gov quota snapshot pulled 2026-10-07 (Oct 2026 high season): 2 group reservations / 12 people per night; max group 6. Quota area; Seven Lakes Basin/High Divide online reservation season Jul 15-Oct 15 (2026); outside that window contact the Wilderness Information Center (360-565-3100).",
     "bear_can_required": true,
     "food_storage": "can",
@@ -374,6 +393,8 @@
    "lon": -123.7841,
    "camp": {
     "sites": 9,
+    "group_site": false,
+    "stock_site": false,
     "reservation_or_quota": "Recreation.gov quota snapshot pulled 2026-10-07 (Oct 2026 high season): 9 group reservations / 28 people per night; max group 6. Often fully booked (0 groups left for Oct 7-8, 2026). Quota area; Seven Lakes Basin/High Divide online reservation season Jul 15-Oct 15 (2026); outside that window contact the Wilderness Information Center (360-565-3100).",
     "bear_can_required": true,
     "food_storage": "can",
@@ -401,6 +422,8 @@
    "lon": -123.78924,
    "camp": {
     "sites": 1,
+    "group_site": false,
+    "stock_site": false,
     "reservation_or_quota": "Recreation.gov quota snapshot pulled 2026-10-07 (Oct 2026 high season): 1 group / 6 people per night. Quota area; Seven Lakes Basin/High Divide online reservation season Jul 15-Oct 15 (2026); outside that window contact the Wilderness Information Center (360-565-3100).",
     "bear_can_required": true,
     "food_storage": "can",
@@ -425,6 +448,8 @@
    "lon": -123.77811,
    "camp": {
     "sites": 1,
+    "group_site": false,
+    "stock_site": false,
     "reservation_or_quota": "Recreation.gov quota snapshot pulled 2026-10-07 (Oct 2026 high season): 1 group / 6 people per night. Quota area; Seven Lakes Basin/High Divide online reservation season Jul 15-Oct 15 (2026); outside that window contact the Wilderness Information Center (360-565-3100).",
     "bear_can_required": true,
     "food_storage": "can",
@@ -466,6 +491,8 @@
    "lon": -123.77346,
    "camp": {
     "sites": null,
+    "group_site": false,
+    "stock_site": false,
     "reservation_or_quota": "Listed as a camp area in the Recreation.gov permit system but hidden from online booking (no online quota offered Oct 2026); status/permits only via the Wilderness Information Center.",
     "bear_can_required": true,
     "food_storage": "can",
@@ -491,6 +518,8 @@
    "lon": -123.78151,
    "camp": {
     "sites": null,
+    "group_site": false,
+    "stock_site": false,
     "reservation_or_quota": "Listed as a camp area in the Recreation.gov permit system but hidden from online booking (no online quota offered Oct 2026); status/permits only via the Wilderness Information Center.",
     "bear_can_required": true,
     "food_storage": "can",
@@ -516,6 +545,8 @@
    "lon": -123.76302,
    "camp": {
     "sites": null,
+    "group_site": false,
+    "stock_site": false,
     "reservation_or_quota": "Listed as a camp area in the Recreation.gov permit system but hidden from online booking (no online quota offered Oct 2026); status/permits only via the Wilderness Information Center.",
     "bear_can_required": true,
     "food_storage": "can",
@@ -572,6 +603,8 @@
    "lon": null,
    "camp": {
     "sites": null,
+    "group_site": false,
+    "stock_site": false,
     "reservation_or_quota": "Listed as a camp area in the Recreation.gov permit system but hidden from online booking (no online quota offered Oct 2026); status/permits only via the Wilderness Information Center.",
     "bear_can_required": true,
     "food_storage": "can",
@@ -649,7 +682,16 @@
     "https://www.wta.org/go-hiking/hikes/bogachiel-peak",
     "https://en.wikipedia.org/wiki/Bogachiel_Peak",
     "https://carto.nationalmap.gov/arcgis/rest/services/geonames/MapServer"
-   ]
+   ],
+   "routing": {
+    "spur_only": true,
+    "spur_from": [
+     "bogachiel_peak_junction",
+     "bogachiel_peak_west_junction"
+    ],
+    "preferred_spur_from": "bogachiel_peak_junction",
+    "rule": "Never an interior node of a route: a route may end here (a side trip, or a via pin that turns back) and leaves by the segment it arrived on. Side trips from either junction are 0.2 mi round trip (GAME_DESIGN B.1)."
+   }
   },
   {
    "id": "mirror_lake_way_trail_junction",
@@ -675,6 +717,8 @@
    "lon": -123.73801,
    "camp": {
     "sites": 1,
+    "group_site": false,
+    "stock_site": false,
     "reservation_or_quota": "Recreation.gov quota snapshot pulled 2026-10-07 (Oct 2026 high season): Heart Lake Junction Camp, 1 group / 6 people per night (0 left Oct 7, 2026). Quota area; Seven Lakes Basin/High Divide online reservation season Jul 15-Oct 15 (2026); outside that window contact the Wilderness Information Center (360-565-3100).",
     "bear_can_required": true,
     "food_storage": "can",
@@ -700,6 +744,8 @@
    "lon": -123.73392,
    "camp": {
     "sites": 5,
+    "group_site": false,
+    "stock_site": false,
     "reservation_or_quota": "Recreation.gov quota snapshot pulled 2026-10-07 (Oct 2026 high season): 5 group reservations / 26 people per night; max group 6 (0 groups left Oct 7, 2026). Quota area; Seven Lakes Basin/High Divide online reservation season Jul 15-Oct 15 (2026); outside that window contact the Wilderness Information Center (360-565-3100).",
     "bear_can_required": true,
     "food_storage": "can",
@@ -727,6 +773,9 @@
    "lon": -123.7288,
    "camp": {
     "sites": 4,
+    "group_site": false,
+    "stock_site": false,
+    "group_sites": 1,
     "reservation_or_quota": "Recreation.gov quota snapshot pulled 2026-10-07 (Oct 2026 high season): 4 group reservations / 18 people per night (max group 6) plus Sol Duc Park Group Site (1 group of 7-12). Quota area; Seven Lakes Basin/High Divide online reservation season Jul 15-Oct 15 (2026); outside that window contact the Wilderness Information Center (360-565-3100).",
     "bear_can_required": true,
     "food_storage": "can",
@@ -753,6 +802,8 @@
    "lon": -123.7347,
    "camp": {
     "sites": 2,
+    "group_site": false,
+    "stock_site": false,
     "reservation_or_quota": "Recreation.gov quota snapshot pulled 2026-10-07 (Oct 2026 high season): 2 group reservations / 12 people per night; max group 6. Quota area; Seven Lakes Basin/High Divide online reservation season Jul 15-Oct 15 (2026); outside that window contact the Wilderness Information Center (360-565-3100).",
     "bear_can_required": true,
     "food_storage": "can",
@@ -778,6 +829,8 @@
    "lon": -123.73821,
    "camp": {
     "sites": 1,
+    "group_site": false,
+    "stock_site": true,
     "reservation_or_quota": "Recreation.gov quota snapshot pulled 2026-10-07 (Oct 2026 high season): 1 group, max 10 people and up to 8 head of stock. Quota area; Seven Lakes Basin/High Divide online reservation season Jul 15-Oct 15 (2026); outside that window contact the Wilderness Information Center (360-565-3100).",
     "bear_can_required": true,
     "food_storage": "can",
@@ -803,6 +856,8 @@
    "lon": -123.73839,
    "camp": {
     "sites": 1,
+    "group_site": false,
+    "stock_site": false,
     "reservation_or_quota": "Recreation.gov quota snapshot pulled 2026-10-07 (Oct 2026 high season): 1 group / 6 people per night. Quota area; Seven Lakes Basin/High Divide online reservation season Jul 15-Oct 15 (2026); outside that window contact the Wilderness Information Center (360-565-3100).",
     "bear_can_required": true,
     "food_storage": "can",
@@ -829,6 +884,8 @@
    "lon": -123.7432,
    "camp": {
     "sites": 1,
+    "group_site": true,
+    "stock_site": false,
     "reservation_or_quota": "Recreation.gov quota snapshot pulled 2026-10-07 (Oct 2026 high season): 1 group of 7-12 people per night. Quota area; Seven Lakes Basin/High Divide online reservation season Jul 15-Oct 15 (2026); outside that window contact the Wilderness Information Center (360-565-3100).",
     "bear_can_required": true,
     "food_storage": "can",
@@ -853,6 +910,8 @@
    "lon": -123.74824,
    "camp": {
     "sites": 1,
+    "group_site": false,
+    "stock_site": false,
     "reservation_or_quota": "Recreation.gov quota snapshot pulled 2026-10-07 (Oct 2026 high season): 1 group / 6 people per night. Quota area; Seven Lakes Basin/High Divide online reservation season Jul 15-Oct 15 (2026); outside that window contact the Wilderness Information Center (360-565-3100).",
     "bear_can_required": true,
     "food_storage": "can",
@@ -877,6 +936,8 @@
    "lon": -123.75057,
    "camp": {
     "sites": 1,
+    "group_site": false,
+    "stock_site": false,
     "reservation_or_quota": "Recreation.gov quota snapshot pulled 2026-10-07 (Oct 2026 high season): Appleton Junction camp, 1 group / 6 people per night. Quota area; Seven Lakes Basin/High Divide online reservation season Jul 15-Oct 15 (2026); outside that window contact the Wilderness Information Center (360-565-3100).",
     "bear_can_required": true,
     "food_storage": "can",
@@ -903,6 +964,8 @@
    "lon": -123.7924,
    "camp": {
     "sites": 1,
+    "group_site": false,
+    "stock_site": false,
     "reservation_or_quota": "Recreation.gov quota snapshot pulled 2026-10-07 (Oct 2026 high season): 1 group / 6 people per night. Quota area; Seven Lakes Basin/High Divide online reservation season Jul 15-Oct 15 (2026); outside that window contact the Wilderness Information Center (360-565-3100).",
     "bear_can_required": true,
     "food_storage": "can",
@@ -928,6 +991,8 @@
    "lon": -123.7802,
    "camp": {
     "sites": 1,
+    "group_site": false,
+    "stock_site": false,
     "reservation_or_quota": "Recreation.gov quota snapshot pulled 2026-10-07 (Oct 2026 high season): 1 group / 6 people per night. Quota area; Seven Lakes Basin/High Divide online reservation season Jul 15-Oct 15 (2026); outside that window contact the Wilderness Information Center (360-565-3100).",
     "bear_can_required": true,
     "food_storage": "can",
@@ -953,6 +1018,8 @@
    "lon": -123.7688,
    "camp": {
     "sites": 1,
+    "group_site": false,
+    "stock_site": false,
     "reservation_or_quota": "Recreation.gov quota snapshot pulled 2026-10-07 (Oct 2026 high season): 1 group / 6 people per night. Quota area; Seven Lakes Basin/High Divide online reservation season Jul 15-Oct 15 (2026); outside that window contact the Wilderness Information Center (360-565-3100).",
     "bear_can_required": true,
     "food_storage": "can",
@@ -978,6 +1045,8 @@
    "lon": -123.7616,
    "camp": {
     "sites": 1,
+    "group_site": false,
+    "stock_site": false,
     "reservation_or_quota": "Recreation.gov quota snapshot pulled 2026-10-07 (Oct 2026 high season): 1 group / 6 people per night. Quota area; Seven Lakes Basin/High Divide online reservation season Jul 15-Oct 15 (2026); outside that window contact the Wilderness Information Center (360-565-3100).",
     "bear_can_required": true,
     "food_storage": "can",
@@ -1003,6 +1072,8 @@
    "lon": -123.71938,
    "camp": {
     "sites": null,
+    "group_site": false,
+    "stock_site": false,
     "reservation_or_quota": "Elwha-district camp area \"Appleton Pass\" on Recreation.gov (max group 12); not a quota area (Oct 2026 online quota effectively unlimited).",
     "bear_can_required": true,
     "food_storage": "can",
@@ -1062,6 +1133,8 @@
    "lon": -123.71566,
    "camp": {
     "sites": null,
+    "group_site": false,
+    "stock_site": false,
     "reservation_or_quota": "Listed as a camp area in the Recreation.gov permit system but hidden from online booking (no online quota offered Oct 2026); status/permits only via the Wilderness Information Center.",
     "bear_can_required": true,
     "food_storage": "can",
@@ -1087,6 +1160,8 @@
    "lon": -123.71135,
    "camp": {
     "sites": null,
+    "group_site": false,
+    "stock_site": false,
     "reservation_or_quota": "Listed as a camp area in the Recreation.gov permit system but hidden from online booking (no online quota offered Oct 2026); status/permits only via the Wilderness Information Center.",
     "bear_can_required": true,
     "food_storage": "can",
@@ -1140,6 +1215,8 @@
    "lon": -123.72343,
    "camp": {
     "sites": null,
+    "group_site": false,
+    "stock_site": false,
     "reservation_or_quota": "Listed as a camp area in the Recreation.gov permit system but hidden from online booking (no online quota offered Oct 2026); status/permits only via the Wilderness Information Center.",
     "bear_can_required": true,
     "food_storage": "can",
@@ -1164,6 +1241,9 @@
    "lon": -123.71415,
    "camp": {
     "sites": null,
+    "group_site": false,
+    "stock_site": false,
+    "stock_sites": 1,
     "reservation_or_quota": "Listed as a camp area in the Recreation.gov permit system but hidden from online booking (no online quota offered Oct 2026); status/permits only via the Wilderness Information Center. (Cat Basin and Cat Basin Stock Camp).",
     "bear_can_required": true,
     "food_storage": "can",
@@ -1189,13 +1269,15 @@
    "lon": -123.8689,
    "camp": {
     "sites": 3,
+    "group_site": false,
+    "stock_site": false,
     "reservation_or_quota": "Recreation.gov quota snapshot pulled 2026-10-07 (Oct 2026 high season): 3 group reservations / 18 people per night; max group 12.",
     "bear_can_required": true,
     "food_storage": "can",
     "fires_allowed": true,
     "toilet": false,
     "water": "Lake and nearby streams; treat water.",
-    "notes": "Below the 3,500 ft line, so fires are allowed in existing rings when no seasonal ban (2026 Stage 2 ban from Aug 7). Old trail shelter (now home to rodents) and a bear wire on a side trail, but bear canisters are still required. No toilet. Heavy mosquitoes in early summer."
+    "notes": "Below the 3,500 ft line, so fires are allowed in existing rings when no seasonal ban is on. Old trail shelter (now home to rodents) and a bear wire on a side trail, but bear canisters are still required. No toilet. Heavy mosquitoes in early summer."
    },
    "description": "A marshy lake ringed by deep forest, with an old trail shelter and, in early summer, plenty of mosquitoes.",
    "scene_art_notes": "Foreground: marsh grass and reeds in light/dark green. Midground: still lake with fallen logs. Background: dense forest. Sky: humid gray. Landmark: weathered lean-to shelter.",
@@ -1215,6 +1297,8 @@
    "lon": -123.87476,
    "camp": {
     "sites": null,
+    "group_site": false,
+    "stock_site": false,
     "reservation_or_quota": "Listed as a camp area in the Recreation.gov permit system but hidden from online booking (no online quota offered Oct 2026); status/permits only via the Wilderness Information Center. NPS: \"a few small sites along Little Divide\".",
     "bear_can_required": true,
     "food_storage": "can",
@@ -1241,6 +1325,8 @@
    "lon": -123.89252,
    "camp": {
     "sites": null,
+    "group_site": false,
+    "stock_site": false,
     "reservation_or_quota": "Listed as a camp area in the Recreation.gov permit system but hidden from online booking (no online quota offered Oct 2026); status/permits only via the Wilderness Information Center.",
     "bear_can_required": true,
     "food_storage": "can",
@@ -1265,12 +1351,14 @@
    "lon": -123.7889,
    "camp": {
     "sites": 4,
+    "group_site": false,
+    "stock_site": false,
     "reservation_or_quota": "Recreation.gov quota snapshot pulled 2026-10-07 (Oct 2026 high season): 4 group reservations / 14 people per night; max group 6. Hoh Lake is a quota area.",
     "bear_can_required": true,
     "food_storage": "can",
     "fires_allowed": false,
     "toilet": true,
-    "water": "Hoh Lake; treat water (rangers reported a dead bear in the lake in late Sept 2026).",
+    "water": "Hoh Lake; treat water.",
     "notes": "Composting toilet. Campfires prohibited. Designated sites only. Recreation.gov 2026: bear cans required, hanging prohibited (older NPS map data said bear wire). Strenuous, hot, dry trail below."
    },
    "description": "A clear subalpine lake in a bowl of meadows, with silver snags from an old fire on the slopes below, looking straight across the Hoh valley at Mount Olympus.",
@@ -1292,13 +1380,15 @@
    "lon": -123.7898,
    "camp": {
     "sites": 1,
+    "group_site": true,
+    "stock_site": false,
     "reservation_or_quota": "Recreation.gov quota snapshot pulled 2026-10-07 (Oct 2026 high season): 1 group of 7-12 people per night.",
     "bear_can_required": true,
     "food_storage": "can",
     "fires_allowed": false,
     "toilet": true,
-    "water": "Not stated; Hoh Lake is 0.5 mi up the trail.",
-    "notes": "Group site only. Campfires prohibited. Use available toilet. Bear cans required, hanging prohibited (Recreation.gov 2026)."
+    "water": "A stream at the flats: the first water on the climb from the Hoh (NPS trail conditions, 2026-08-17). Hoh Lake is 0.5 mi up the trail. Treat water.",
+    "notes": "Group site only (7-12). Half a mile below Hoh Lake. Campfires prohibited. Use the toilet. Bear canisters required, hanging prohibited (Recreation.gov 2026). Identical in both region files."
    },
    "description": "A flat bench in subalpine forest just below Hoh Lake, big enough for a large party.",
    "scene_art_notes": "Foreground: several tents on a bench. Midground: subalpine firs. Sky: blue.",
@@ -1545,6 +1635,8 @@
    "lon": -123.90469,
    "camp": {
     "sites": null,
+    "group_site": false,
+    "stock_site": false,
     "reservation_or_quota": "Lake Crescent district camp area on Recreation.gov, hidden from online booking (Oct 2026); contact the WIC.",
     "bear_can_required": true,
     "food_storage": "can",
@@ -1682,7 +1774,7 @@
     "crowds",
     "slippery_rock"
    ],
-   "snow_free_typical": "year-round in most years (Sol Duc Road is often closed by snow/ice in winter; 2026 reopened Mar 24)",
+   "snow_free_typical": "year-round in most years (Sol Duc Road is often closed by snow and ice in winter)",
    "notes": "Wide, nearly level nature trail through old growth to the Canyon Creek trail shelter and the bridge over the falls. The Sol Duc River Trail continues upstream from the shelter on the north bank; the Deer Lake Trail starts across the bridge. Busiest 0.8 mi in the region; NPS says stay in designated viewing areas at the falls.",
    "sources": [
     "https://www.nps.gov/places/000/sol-duc-falls-trail.htm",
@@ -1698,7 +1790,7 @@
    "loss_ft": 0,
    "trail_class": "maintained",
    "hazards": [],
-   "snow_free_typical": "year-round in most years (Sol Duc Road is often closed by snow/ice in winter; 2026 reopened Mar 24)",
+   "snow_free_typical": "year-round in most years (Sol Duc Road is often closed by snow and ice in winter)",
    "notes": "Short walk to the falls camp sites on the south side of the river; exact access spur not verified. Distance measured on OpenStreetMap trail geometry; gain/loss from USGS 3DEP elevations sampled every 40 m along that line (smoothed).",
    "sources": [
     "https://www.recreation.gov/api/permitcontent/4098362",
@@ -1715,7 +1807,7 @@
    "hazards": [
     "blowdown"
    ],
-   "snow_free_typical": "year-round in most years (Sol Duc Road is often closed by snow/ice in winter; 2026 reopened Mar 24)",
+   "snow_free_typical": "year-round in most years (Sol Duc Road is often closed by snow and ice in winter)",
    "notes": "Lover's Lane: gentle old-growth trail along the south bank of the Sol Duc River from the falls bridge to the hot springs; good place to see spawning salmon in side channels (late summer to late fall). NPS GIS length 2.97 mi; OSM 2.8 mi. NPS lists a 6.0 mi loop using this trail, the falls trail and the campground trail.",
    "sources": [
     "https://www.nps.gov/olym/planyourvisit/sol-duc-area-brochure.htm",
@@ -1746,7 +1838,7 @@
    "loss_ft": 0,
    "trail_class": "maintained",
    "hazards": [],
-   "snow_free_typical": "year-round in most years (Sol Duc Road is often closed by snow/ice in winter; 2026 reopened Mar 24)",
+   "snow_free_typical": "year-round in most years (Sol Duc Road is often closed by snow and ice in winter)",
    "notes": "Sol Duc Campground Nature Trail links the resort area and the campground (0.36 mi on OSM).",
    "sources": [
     "https://www.openstreetmap.org/#map=14/47.915/-123.78"
@@ -1760,7 +1852,7 @@
    "loss_ft": 40,
    "trail_class": "maintained",
    "hazards": [],
-   "snow_free_typical": "year-round in most years (Sol Duc Road is often closed by snow/ice in winter; 2026 reopened Mar 24)",
+   "snow_free_typical": "year-round in most years (Sol Duc Road is often closed by snow and ice in winter)",
    "notes": "Campground B Loop Trail (about 1.3 mi) joins the Sol Duc Falls Nature Trail near the trailhead, then about 0.6 mi to the falls. Gain is an estimate from DEM endpoints (campground about 1,660 ft, falls 1,955 ft). Distance measured on OpenStreetMap trail geometry; gain/loss from USGS 3DEP elevations sampled every 40 m along that line (smoothed).",
    "sources": [
     "https://www.openstreetmap.org/#map=14/47.915/-123.78",
@@ -1778,8 +1870,8 @@
     "blowdown",
     "mud"
    ],
-   "snow_free_typical": "year-round in most years (Sol Duc Road is often closed by snow/ice in winter; 2026 reopened Mar 24)",
-   "notes": "Deer Lake Trail climbs steeply from the bridge alongside Canyon Creek, which has several small waterfalls. NPS lists Sol Duc Falls to Deer Lake as 3.0 mi (3.8 from trailhead, 1,700 ft gain); WTA 2.9 mi; OSM 2.7 mi. Sub-segments here are OSM distances scaled to WTA total 2.9 mi. July 2026: one very large downed log in a gulch with a hiker-made bypass on climber's left.",
+   "snow_free_typical": "year-round in most years (Sol Duc Road is often closed by snow and ice in winter)",
+   "notes": "Deer Lake Trail climbs steeply from the bridge alongside Canyon Creek, which has several small waterfalls. NPS lists Sol Duc Falls to Deer Lake as 3.0 mi (3.8 from trailhead, 1,700 ft gain); WTA 2.9 mi; OSM 2.7 mi. Sub-segments here are OSM distances scaled to WTA total 2.9 mi. Big logs come down in this gulch; the dated ones are in conditions_2026.",
    "sources": [
     "https://www.arizona-dream.com/usa/telecharger/cartes/parcs/olympic/sol-duc-valley.pdf",
     "https://www.wta.org/go-hiking/hikes/deer-lake-sol-duc",
@@ -1814,7 +1906,7 @@
    "loss_ft": 0,
    "trail_class": "maintained",
    "hazards": [],
-   "snow_free_typical": "year-round in most years (Sol Duc Road is often closed by snow/ice in winter; 2026 reopened Mar 24)",
+   "snow_free_typical": "year-round in most years (Sol Duc Road is often closed by snow and ice in winter)",
    "notes": "Distance measured on OpenStreetMap trail geometry; gain/loss from USGS 3DEP elevations sampled every 40 m along that line (smoothed).",
    "sources": [
     "https://www.openstreetmap.org/#map=14/47.915/-123.78",
@@ -1829,7 +1921,7 @@
    "loss_ft": 0,
    "trail_class": "maintained",
    "hazards": [],
-   "snow_free_typical": "year-round in most years (Sol Duc Road is often closed by snow/ice in winter; 2026 reopened Mar 24)",
+   "snow_free_typical": "year-round in most years (Sol Duc Road is often closed by snow and ice in winter)",
    "notes": "Distance measured on OpenStreetMap trail geometry; gain/loss from USGS 3DEP elevations sampled every 40 m along that line (smoothed).",
    "sources": [
     "https://www.openstreetmap.org/#map=14/47.915/-123.78",
@@ -1879,7 +1971,7 @@
     "snowfield",
     "mosquitoes"
    ],
-   "snow_free_typical": "mid-July to early October typical (NPS); 2026 was a low-snow year, snow-free by mid-June",
+   "snow_free_typical": "mid-July to early October typical (NPS)",
    "notes": "High Divide Trail climbs out of the Deer Lake basin to the Potholes bench. Recreation.gov says Potholes camp is 3/4 mile above Deer Lake; OSM measures 1.0 mi to the camp spur.",
    "sources": [
     "https://www.recreation.gov/api/permitcontent/4098362",
@@ -1900,7 +1992,7 @@
     "lightning",
     "no_water"
    ],
-   "snow_free_typical": "mid-July to early October typical (NPS); 2026 was a low-snow year, snow-free by mid-June",
+   "snow_free_typical": "mid-July to early October typical (NPS)",
    "notes": "Climbs through meadow and parkland onto the ridge above Seven Lakes Basin. WTA: about 3.3 mi from Deer Lake to the Seven Lakes Basin junction (OSM 3.2). Little or no water until Lunch Lake or Heart Lake in late summer. NPS: steep High Divide slopes can hold snow/ice until mid-July or later; ice axe and self-arrest recommended when snow-covered.",
    "sources": [
     "https://www.wta.org/go-hiking/hikes/seven-lakes-basin",
@@ -1922,7 +2014,7 @@
     "lightning",
     "no_water"
    ],
-   "snow_free_typical": "mid-July to early October typical (NPS); 2026 was a low-snow year, snow-free by mid-June",
+   "snow_free_typical": "mid-July to early October typical (NPS)",
    "notes": "Traverses the north side of Bogachiel Peak above the basin; several user trails branch off here and are easy to follow by mistake. Distance measured on OpenStreetMap trail geometry; gain/loss from USGS 3DEP elevations sampled every 40 m along that line (smoothed).",
    "sources": [
     "https://www.openstreetmap.org/#map=14/47.915/-123.78",
@@ -1940,7 +2032,7 @@
    "hazards": [
     "exposure"
    ],
-   "snow_free_typical": "mid-July to early October typical (NPS); 2026 was a low-snow year, snow-free by mid-June",
+   "snow_free_typical": "mid-July to early October typical (NPS)",
    "notes": "Distance measured on OpenStreetMap trail geometry; gain/loss from USGS 3DEP elevations sampled every 40 m along that line (smoothed).",
    "sources": [
     "https://www.openstreetmap.org/#map=14/47.915/-123.78"
@@ -1956,7 +2048,7 @@
    "hazards": [
     "exposure"
    ],
-   "snow_free_typical": "mid-July to early October typical (NPS); 2026 was a low-snow year, snow-free by mid-June",
+   "snow_free_typical": "mid-July to early October typical (NPS)",
    "notes": "Distance measured on OpenStreetMap trail geometry; gain/loss from USGS 3DEP elevations sampled every 40 m along that line (smoothed).",
    "sources": [
     "https://www.openstreetmap.org/#map=14/47.915/-123.78"
@@ -1974,7 +2066,7 @@
     "steep_scree",
     "snowfield"
    ],
-   "snow_free_typical": "mid-July to early October typical (NPS); 2026 was a low-snow year, snow-free by mid-June",
+   "snow_free_typical": "mid-July to early October typical (NPS)",
    "notes": "A 2026 report: watch footing descending from Bogachiel Peak; for about the first mile \"you really would not want to step off the trail.\" Distance measured on OpenStreetMap trail geometry; gain/loss from USGS 3DEP elevations sampled every 40 m along that line (smoothed).",
    "sources": [
     "https://www.openstreetmap.org/#map=14/47.915/-123.78",
@@ -1993,7 +2085,7 @@
     "lightning",
     "no_water"
    ],
-   "snow_free_typical": "mid-July to early October typical (NPS); 2026 was a low-snow year, snow-free by mid-June",
+   "snow_free_typical": "mid-July to early October typical (NPS)",
    "notes": "The classic High Divide crest walk with Mount Olympus views across the Hoh valley; sunny and exposed; bears common in berry season. The whole High Divide Trail from Deer Lake to the Heart Lake junction is about 6.2 mi on OSM (NPS GIS 6.6). Distance measured on OpenStreetMap trail geometry; gain/loss from USGS 3DEP elevations sampled every 40 m along that line (smoothed).",
    "sources": [
     "https://www.openstreetmap.org/#map=14/47.915/-123.78",
@@ -2008,12 +2100,20 @@
    "gain_ft": 100,
    "loss_ft": 0,
    "trail_class": "way_trail",
+   "through_route": false,
+   "spur": {
+    "summit": "bogachiel_peak",
+    "junction": "bogachiel_peak_junction",
+    "out_and_back": true,
+    "preferred_path": true,
+    "rule": "Out-and-back summit spur (M1A_DATA_CHECK item 1, 2026-10-08): never part of a through route. The router may use it only on a leg that starts or ends at bogachiel_peak (a side trip or a via pin), and the leg out of the summit returns by the segment it came up. So the peak can never shortcut the crest between its two junctions."
+   },
    "hazards": [
     "exposure",
     "steep_scree"
    ],
-   "snow_free_typical": "mid-July to early October typical (NPS); 2026 was a low-snow year, snow-free by mid-June",
-   "notes": "Short steep spur on the east slope, the better of the two summit paths (WTA). WTA calls the peak a 0.3 mi side trip; OSM measures 0.1 mi from this junction. No camping on the summit.",
+   "snow_free_typical": "mid-July to early October typical (NPS)",
+   "notes": "Short steep spur on the east slope, the better of the two summit paths (WTA). WTA calls the peak a 0.3 mi side trip; OSM measures 0.1 mi from this junction. No camping on the summit. Modeled as an out-and-back spur (through_route false): the summit is a side trip, 0.2 mi round trip from this junction.",
    "sources": [
     "https://www.wta.org/go-hiking/hikes/bogachiel-peak",
     "https://www.openstreetmap.org/#map=14/47.915/-123.78"
@@ -2026,13 +2126,21 @@
    "gain_ft": 150,
    "loss_ft": 0,
    "trail_class": "way_trail",
+   "through_route": false,
+   "spur": {
+    "summit": "bogachiel_peak",
+    "junction": "bogachiel_peak_west_junction",
+    "out_and_back": true,
+    "preferred_path": false,
+    "rule": "Out-and-back summit spur (M1A_DATA_CHECK item 1, 2026-10-08): never part of a through route. The router may use it only on a leg that starts or ends at bogachiel_peak (a side trip or a via pin), and the leg out of the summit returns by the segment it came up. So the peak can never shortcut the crest between its two junctions."
+   },
    "hazards": [
     "exposure",
     "ledges",
     "steep_scree"
    ],
-   "snow_free_typical": "mid-July to early October typical (NPS); 2026 was a low-snow year, snow-free by mid-June",
-   "notes": "West route: a couple of short scrambles, one \"a little ledgy\" (Sept 2026 report); hikers drop packs partway. Descending, it is easy to end up on a rougher user trail.",
+   "snow_free_typical": "mid-July to early October typical (NPS)",
+   "notes": "West route: a couple of short scrambles, one \"a little ledgy\" (Sept 2026 report); hikers drop packs partway. Descending, it is easy to end up on a rougher user trail. Modeled as an out-and-back spur (through_route false): 0.2 mi round trip from the west junction; the router never crosses the summit from one junction to the other.",
    "sources": [
     "https://www.openstreetmap.org/#map=14/47.915/-123.78",
     "https://www.wta.org/go-hiking/hikes/seven-lakes-basin/@@related_tripreport_listing"
@@ -2047,11 +2155,10 @@
    "trail_class": "maintained",
    "hazards": [
     "snowfield",
-    "steep_steps",
-    "washout"
+    "steep_steps"
    ],
-   "snow_free_typical": "mid-July to early October typical (NPS); 2026 was a low-snow year, snow-free by mid-June",
-   "notes": "The \"staircase\": uneven stone steps down into the basin, hard on knees. A Sept 2026 report describes a fairly recent landslide area just before the descent toward Lunch Lake (extent unverified). Recreation.gov: Lunch Lake spur descends about 500 ft from the main trail.",
+   "snow_free_typical": "mid-July to early October typical (NPS)",
+   "notes": "The \"staircase\": uneven stone steps down into the basin, hard on knees. (A Sept 2026 landslide report is in conditions_2026.) Recreation.gov: Lunch Lake spur descends about 500 ft from the main trail.",
    "sources": [
     "https://www.openstreetmap.org/#map=14/47.915/-123.78",
     "https://www.recreation.gov/api/permitcontent/4098362",
@@ -2066,7 +2173,7 @@
    "loss_ft": 100,
    "trail_class": "maintained",
    "hazards": [],
-   "snow_free_typical": "mid-July to early October typical (NPS); 2026 was a low-snow year, snow-free by mid-June",
+   "snow_free_typical": "mid-July to early October typical (NPS)",
    "notes": "Distance measured on OpenStreetMap trail geometry; gain/loss from USGS 3DEP elevations sampled every 40 m along that line (smoothed).",
    "sources": [
     "https://www.openstreetmap.org/#map=14/47.915/-123.78"
@@ -2082,7 +2189,7 @@
    "hazards": [
     "steep_steps"
    ],
-   "snow_free_typical": "mid-July to early October typical (NPS); 2026 was a low-snow year, snow-free by mid-June",
+   "snow_free_typical": "mid-July to early October typical (NPS)",
    "notes": "NPS describes Lunch Lake as reached by a 0.5-mile spur; both OSM (0.84) and NPS GIS (0.85) measure about 0.8 mi from the High Divide junction to the camp. Distance measured on OpenStreetMap trail geometry; gain/loss from USGS 3DEP elevations sampled every 40 m along that line (smoothed).",
    "sources": [
     "https://www.nps.gov/olym/planyourvisit/high-divide-loop.htm",
@@ -2098,7 +2205,7 @@
    "loss_ft": 225,
    "trail_class": "way_trail",
    "hazards": [],
-   "snow_free_typical": "mid-July to early October typical (NPS); 2026 was a low-snow year, snow-free by mid-June",
+   "snow_free_typical": "mid-July to early October typical (NPS)",
    "notes": "Clear Lake Way Trail. Recreation.gov says the Clear Lake spur descends about 700 ft from the main trail (measured from the High Divide). A 2026 hiker used a side trail back out of Clear Lake to save climbing (route unverified).",
    "sources": [
     "https://www.recreation.gov/api/permitcontent/4098362",
@@ -2117,7 +2224,7 @@
     "route_finding",
     "steep_scree"
    ],
-   "snow_free_typical": "mid-July to early October typical (NPS); 2026 was a low-snow year, snow-free by mid-June",
+   "snow_free_typical": "mid-July to early October typical (NPS)",
    "notes": "Unmaintained Mirror Lake Way Trail; some hikers use it as a more direct link between Lunch Lake and the High Divide. Distance measured on OpenStreetMap trail geometry; gain/loss from USGS 3DEP elevations sampled every 40 m along that line (smoothed).",
    "sources": [
     "https://www.openstreetmap.org/#map=14/47.915/-123.78",
@@ -2135,7 +2242,7 @@
     "route_finding",
     "fog"
    ],
-   "snow_free_typical": "mid-July to early October typical (NPS); 2026 was a low-snow year, snow-free by mid-June",
+   "snow_free_typical": "mid-July to early October typical (NPS)",
    "notes": "Distance measured on OpenStreetMap trail geometry; gain/loss from USGS 3DEP elevations sampled every 40 m along that line (smoothed).",
    "sources": [
     "https://www.openstreetmap.org/#map=14/47.915/-123.78",
@@ -2154,7 +2261,7 @@
     "fragile_meadow",
     "steep_scree"
    ],
-   "snow_free_typical": "mid-July to early October typical (NPS); 2026 was a low-snow year, snow-free by mid-June",
+   "snow_free_typical": "mid-July to early October typical (NPS)",
    "notes": "No trail. Straight-line map distance and net elevation change only; real cross-country route is longer. Keep off fragile meadow.",
    "sources": [
     "https://carto.nationalmap.gov/arcgis/rest/services/geonames/MapServer",
@@ -2172,7 +2279,7 @@
     "route_finding",
     "brush"
    ],
-   "snow_free_typical": "mid-July to early October typical (NPS); 2026 was a low-snow year, snow-free by mid-June",
+   "snow_free_typical": "mid-July to early October typical (NPS)",
    "notes": "No trail. Straight-line distance and net elevation only.",
    "sources": [
     "https://carto.nationalmap.gov/arcgis/rest/services/geonames/MapServer",
@@ -2190,7 +2297,7 @@
     "route_finding",
     "fragile_meadow"
    ],
-   "snow_free_typical": "mid-July to early October typical (NPS); 2026 was a low-snow year, snow-free by mid-June",
+   "snow_free_typical": "mid-July to early October typical (NPS)",
    "notes": "Primitive but findable way trail (firsthand report from the game creator, who has camped at Morgenroth and visited several times). Distance and gain here are still straight-line estimates; replace with the creator's GPS track when available.",
    "sources": [
     "https://carto.nationalmap.gov/arcgis/rest/services/geonames/MapServer",
@@ -2208,7 +2315,7 @@
    "hazards": [
     "route_finding"
    ],
-   "snow_free_typical": "mid-July to early October typical (NPS); 2026 was a low-snow year, snow-free by mid-June",
+   "snow_free_typical": "mid-July to early October typical (NPS)",
    "notes": "No trail. Straight-line distance and net elevation only.",
    "sources": [
     "https://carto.nationalmap.gov/arcgis/rest/services/geonames/MapServer",
@@ -2225,7 +2332,7 @@
    "hazards": [
     "route_finding"
    ],
-   "snow_free_typical": "mid-July to early October typical (NPS); 2026 was a low-snow year, snow-free by mid-June",
+   "snow_free_typical": "mid-July to early October typical (NPS)",
    "notes": "No trail. Straight-line distance and net elevation only.",
    "sources": [
     "https://carto.nationalmap.gov/arcgis/rest/services/geonames/MapServer",
@@ -2244,7 +2351,7 @@
     "heat",
     "snowfield"
    ],
-   "snow_free_typical": "mid-July to early October typical (NPS); 2026 was a low-snow year, snow-free by mid-June",
+   "snow_free_typical": "mid-July to early October typical (NPS)",
    "notes": "Drops off the High Divide into the Hoh Lake bowl. WTA: 1.2 mi detour with about 500 ft descent; NPS: 800 ft loss from the High Divide. Wet brush can soak shoes on misty mornings (Sept 2026).",
    "sources": [
     "https://www.wta.org/go-hiking/hikes/hoh-lake",
@@ -2258,14 +2365,14 @@
    "to": "c_b_flats_group_site",
    "miles": 0.5,
    "gain_ft": 0,
-   "loss_ft": 410,
+   "loss_ft": 430,
    "trail_class": "maintained",
    "hazards": [
     "heat",
-    "no_water"
+    "snowfield"
    ],
-   "snow_free_typical": "mid-July to early October typical (NPS); 2026 was a low-snow year, snow-free by mid-June",
-   "notes": "NPS: group site at C.B. Flats is half a mile south of Hoh Lake.",
+   "snow_free_typical": "mid-July to early October typical (NPS)",
+   "notes": "Shared by sol_duc_high_divide.json and hoh_olympus.json, which carry this identical copy (reconciled 2026-10-08, M1A_DATA_CHECK item 21). NPS: the C.B. Flats group site is half a mile below Hoh Lake, which is 14.7 mi from the Hoh trailhead and 9.7 mi from the Sol Duc trailhead. Loss is the endpoint difference (4,520 to 4,091 ft = 429 ft); the two older copies said -410 and +463.",
    "sources": [
     "https://www.nps.gov/olym/planyourvisit/hoh-lake-trail.htm",
     "https://www.openstreetmap.org/#map=14/47.915/-123.78"
@@ -2302,8 +2409,8 @@
     "blowdown",
     "mosquitoes"
    ],
-   "snow_free_typical": "year-round in most years (Sol Duc Road is often closed by snow/ice in winter; 2026 reopened Mar 24)",
-   "notes": "Sol Duc River Trail. Sub-segment distances are OSM measurements scaled to WTA's published 4.9 mi trailhead-to-Appleton-junction figure. Starts at the trail shelter on the north bank near the falls. June-July 2026: several downed logs (1-4 ft diameter) that rangers were clearing.",
+   "snow_free_typical": "year-round in most years (Sol Duc Road is often closed by snow and ice in winter)",
+   "notes": "Sol Duc River Trail. Sub-segment distances are OSM measurements scaled to WTA's published 4.9 mi trailhead-to-Appleton-junction figure. Starts at the trail shelter on the north bank near the falls. Prone to big blowdowns in winter storms; dated ones are in conditions_2026.",
    "sources": [
     "https://www.wta.org/go-hiking/hikes/sol-duc-river",
     "https://www.openstreetmap.org/#map=14/47.915/-123.78",
@@ -2320,7 +2427,7 @@
    "hazards": [
     "blowdown"
    ],
-   "snow_free_typical": "year-round in most years (Sol Duc Road is often closed by snow/ice in winter; 2026 reopened Mar 24)",
+   "snow_free_typical": "year-round in most years (Sol Duc Road is often closed by snow and ice in winter)",
    "notes": "Sol Duc River Trail. Sub-segment distances are OSM measurements scaled to WTA's published 4.9 mi trailhead-to-Appleton-junction figure. ",
    "sources": [
     "https://www.openstreetmap.org/#map=14/47.915/-123.78",
@@ -2337,7 +2444,7 @@
    "hazards": [
     "blowdown"
    ],
-   "snow_free_typical": "year-round in most years (Sol Duc Road is often closed by snow/ice in winter; 2026 reopened Mar 24)",
+   "snow_free_typical": "year-round in most years (Sol Duc Road is often closed by snow and ice in winter)",
    "notes": "Sol Duc River Trail. Sub-segment distances are OSM measurements scaled to WTA's published 4.9 mi trailhead-to-Appleton-junction figure. ",
    "sources": [
     "https://www.openstreetmap.org/#map=14/47.915/-123.78",
@@ -2352,7 +2459,7 @@
    "loss_ft": 0,
    "trail_class": "maintained",
    "hazards": [],
-   "snow_free_typical": "year-round in most years (Sol Duc Road is often closed by snow/ice in winter; 2026 reopened Mar 24)",
+   "snow_free_typical": "year-round in most years (Sol Duc Road is often closed by snow and ice in winter)",
    "notes": "Sol Duc River Trail. Sub-segment distances are OSM measurements scaled to WTA's published 4.9 mi trailhead-to-Appleton-junction figure. ",
    "sources": [
     "https://www.openstreetmap.org/#map=14/47.915/-123.78",
@@ -2462,7 +2569,7 @@
    "hazards": [
     "snowfield"
    ],
-   "snow_free_typical": "mid-July to early October typical (NPS); 2026 was a low-snow year, snow-free by mid-June",
+   "snow_free_typical": "mid-July to early October typical (NPS)",
    "notes": "WTA puts the Sol Duc Park campsites at 7.0 mi from the trailhead. Distance measured on OpenStreetMap trail geometry; gain/loss from USGS 3DEP elevations sampled every 40 m along that line (smoothed).",
    "sources": [
     "https://www.wta.org/go-hiking/hikes/sol-duc-river",
@@ -2480,7 +2587,7 @@
     "snowfield",
     "mosquitoes"
    ],
-   "snow_free_typical": "mid-July to early October typical (NPS); 2026 was a low-snow year, snow-free by mid-June",
+   "snow_free_typical": "mid-July to early October typical (NPS)",
    "notes": "WTA: Heart Lake at 8.0 mi (1.0 mi past Sol Duc Park); OSM measures 0.8 mi.",
    "sources": [
     "https://www.wta.org/go-hiking/hikes/sol-duc-river",
@@ -2498,7 +2605,7 @@
     "snowfield",
     "exposure"
    ],
-   "snow_free_typical": "mid-July to early October typical (NPS); 2026 was a low-snow year, snow-free by mid-June",
+   "snow_free_typical": "mid-July to early October typical (NPS)",
    "notes": "WTA: High Divide junction at 8.4 mi, 5,050 ft. Some maps show the junction next to the lake, others on the ridge.",
    "sources": [
     "https://www.wta.org/go-hiking/hikes/sol-duc-river",
@@ -2553,7 +2660,7 @@
     "exposure",
     "route_finding"
    ],
-   "snow_free_typical": "mid-July to early October typical (NPS); 2026 was a low-snow year, snow-free by mid-June",
+   "snow_free_typical": "mid-July to early October typical (NPS)",
    "notes": "Cat Basin Primitive Trail heading east along open slopes. Distance measured on OpenStreetMap trail geometry; gain/loss from USGS 3DEP elevations sampled every 40 m along that line (smoothed).",
    "sources": [
     "https://www.openstreetmap.org/#map=14/47.915/-123.78",
@@ -2570,7 +2677,7 @@
    "hazards": [
     "route_finding"
    ],
-   "snow_free_typical": "mid-July to early October typical (NPS); 2026 was a low-snow year, snow-free by mid-June",
+   "snow_free_typical": "mid-July to early October typical (NPS)",
    "notes": "Distance measured on OpenStreetMap trail geometry; gain/loss from USGS 3DEP elevations sampled every 40 m along that line (smoothed).",
    "sources": [
     "https://www.openstreetmap.org/#map=14/47.915/-123.78"
@@ -2586,7 +2693,7 @@
    "hazards": [
     "route_finding"
    ],
-   "snow_free_typical": "mid-July to early October typical (NPS); 2026 was a low-snow year, snow-free by mid-June",
+   "snow_free_typical": "mid-July to early October typical (NPS)",
    "notes": "Cat Basin Cutoff from the Sol Duc River Trail just above Heart Lake. Distance measured on OpenStreetMap trail geometry; gain/loss from USGS 3DEP elevations sampled every 40 m along that line (smoothed).",
    "sources": [
     "https://www.openstreetmap.org/#map=14/47.915/-123.78"
@@ -2603,7 +2710,7 @@
     "route_finding",
     "exposure"
    ],
-   "snow_free_typical": "mid-July to early October typical (NPS); 2026 was a low-snow year, snow-free by mid-June",
+   "snow_free_typical": "mid-July to early October typical (NPS)",
    "notes": "Distance measured on OpenStreetMap trail geometry; gain/loss from USGS 3DEP elevations sampled every 40 m along that line (smoothed).",
    "sources": [
     "https://www.openstreetmap.org/#map=14/47.915/-123.78"
@@ -2619,7 +2726,7 @@
    "hazards": [
     "route_finding"
    ],
-   "snow_free_typical": "mid-July to early October typical (NPS); 2026 was a low-snow year, snow-free by mid-June",
+   "snow_free_typical": "mid-July to early October typical (NPS)",
    "notes": "Cat Basin; the Bailey Range way trail (\"the Catwalk\") leaves here toward Mount Carrie (expert, alpine). Distance measured on OpenStreetMap trail geometry; gain/loss from USGS 3DEP elevations sampled every 40 m along that line (smoothed).",
    "sources": [
     "https://www.openstreetmap.org/#map=14/47.915/-123.78",
@@ -2638,7 +2745,7 @@
     "washout",
     "route_finding"
    ],
-   "snow_free_typical": "mid-July to early October typical (NPS); 2026 was a low-snow year, snow-free by mid-June",
+   "snow_free_typical": "mid-July to early October typical (NPS)",
    "notes": "Narrow and eroded in places; a July 2026 hiker turned back 0.1 mi short with a full pack. Distance measured on OpenStreetMap trail geometry; gain/loss from USGS 3DEP elevations sampled every 40 m along that line (smoothed).",
    "sources": [
     "https://www.openstreetmap.org/#map=14/47.915/-123.78",
@@ -2658,7 +2765,7 @@
     "route_finding",
     "brush"
    ],
-   "snow_free_typical": "mid-July to early October typical (NPS); 2026 was a low-snow year, snow-free by mid-June",
+   "snow_free_typical": "mid-July to early October typical (NPS)",
    "notes": "Cat Basin-Appleton Pass Way Trail: steep, beautiful, some brush (Sept 2026 report). Distance measured on OpenStreetMap trail geometry; gain/loss from USGS 3DEP elevations sampled every 40 m along that line (smoothed).",
    "sources": [
     "https://www.openstreetmap.org/#map=14/47.915/-123.78",
@@ -2677,7 +2784,7 @@
     "steep_scree",
     "route_finding"
    ],
-   "snow_free_typical": "mid-July to early October typical (NPS); 2026 was a low-snow year, snow-free by mid-June",
+   "snow_free_typical": "mid-July to early October typical (NPS)",
    "notes": "Distance measured on OpenStreetMap trail geometry; gain/loss from USGS 3DEP elevations sampled every 40 m along that line (smoothed).",
    "sources": [
     "https://www.openstreetmap.org/#map=14/47.915/-123.78",
@@ -2696,7 +2803,7 @@
     "steep_scree",
     "exposure"
    ],
-   "snow_free_typical": "mid-July to early October typical (NPS); 2026 was a low-snow year, snow-free by mid-June",
+   "snow_free_typical": "mid-July to early October typical (NPS)",
    "notes": "No trail. Straight-line distance and net elevation only; a Sept 2026 party traversed slopes around the peak between Spread Eagle Pass and Swimming Bear Lake.",
    "sources": [
     "https://carto.nationalmap.gov/arcgis/rest/services/geonames/MapServer",
@@ -3340,6 +3447,12 @@
     {
      "day": 1,
      "to": "sol_duc_trailhead",
+     "via": [
+      "seven_lakes_basin",
+      "heart_lake_junction",
+      "sol_duc_park"
+     ],
+     "via_note": "Counterclockwise, by the crest.",
      "miles": 18.4,
      "gain_ft": 4400
     }
@@ -3539,6 +3652,11 @@
     {
      "day": 1,
      "to": "heart_lake",
+     "via": [
+      "seven_lakes_basin",
+      "heart_lake_junction"
+     ],
+     "via_note": "Up by Deer Lake and along the crest (the river is shorter).",
      "miles": 10.3,
      "gain_ft": 4150
     },
@@ -3584,6 +3702,12 @@
     {
      "day": 2,
      "to": "sol_duc_trailhead",
+     "via": [
+      "mirror_lake",
+      "heart_lake_junction",
+      "sol_duc_park"
+     ],
+     "via_note": "Out by the Mirror Lake way trail, the crest and the river, to close the loop (back by the staircase is shorter).",
      "miles": 10.9,
      "gain_ft": 1120
     }
@@ -3622,6 +3746,12 @@
     {
      "day": 2,
      "to": "heart_lake",
+     "via": [
+      "seven_lakes_basin",
+      "bogachiel_peak",
+      "heart_lake_junction"
+     ],
+     "via_note": "Up the stone staircase, Bogachiel Peak as an out-and-back from the west junction (the spur rule returns by the path it came up), then the crest: 4.3 mi of trail plus the 0.2-mi summit spur.",
      "miles": 4.5,
      "gain_ft": 1600
     },
@@ -4270,7 +4400,7 @@
     "round_lake_junction",
     "heart_lake_junction"
    ],
-   "season": "June to mid-July normally; any month after early storms. 2026 was a low-snow year (no snow on trail by mid-June).",
+   "season": "June to mid-July normally; any month after early storms.",
    "real_world": "NPS: steep slopes of the High Divide can stay snow- or ice-covered until mid-July or later; an ice axe and self-arrest skills are usually needed around Bogachiel Peak, along the Divide and into the basin when snow covers them.",
    "game_event_idea": "A tongue of hard morning snow slants across the trail above the basin. (A) Kick steps across now: 70% fine / 25% slip and scrape (lose 1 energy) / 5% slide into rocks (twisted knee, hike out, ranger may assist). Microspikes +15%, ice axe +15%, poles +5%. (B) Wait two hours for the sun to soften it: 95% safe but arrive late and roll for afternoon thunderstorms. (C) Take the lower Seven Lakes Basin route if it is clear. (D) Turn back to Deer Lake. (Percentages are suggested design odds, not real-world statistics.)",
    "mitigations": [
@@ -4294,7 +4424,7 @@
    ],
    "season": "Mostly July to September afternoons.",
    "real_world": "Sept 5, 2026: thunder and heavy rain near Deer Lake and hail with lightning at Heart Lake; one party sheltered in dense trees for about an hour before continuing. Lightning also started a small fire on Sourdough Mountain (Aurora Ridge) on Aug 10, 2026.",
-   "game_event_idea": "Thunder rumbles from the Hoh side while you are at the Potholes. (A) Wait in the trees an hour: 85% the storm passes, 15% it lingers and you camp late. (B) Push up onto the crest now: 60% you beat it / 30% soaked and chilled (need dry layers) / 10% caught in hail and lightning, forced retreat. (C) Change plans and stay at Deer Lake (only if your permit allows; otherwise ranger conversation). (Percentages are suggested design odds, not real-world statistics.)",
+   "game_event_idea": "Thunder rumbles from the Hoh side while you are at the Potholes. (A) Wait in the trees an hour: 85% the storm passes, 15% it lingers and you camp late. (B) Push up onto the crest now: 60% you beat it / 30% soaked and chilled (need dry layers) / 10% caught in hail and lightning, forced retreat. (C) Change the plan and stay at Deer Lake: an off-permit night unless the permit says Deer Lake (3.7). (Percentages are suggested design odds, not real-world statistics.)",
    "mitigations": [
     "rain_jacket",
     "warm_layer",
@@ -4317,7 +4447,7 @@
    ],
    "season": "Late July to September (huckleberry/blueberry season); bears seen all summer.",
    "real_world": "2026 reports: 4 to 11 bears per trip in August; a sow and cub split by the trail near the Bogachiel Peak spur; one bear about 30 ft away that ignored the hiker; another directly on the trail in fog.",
-   "game_event_idea": "A bear is stripping berries 40 feet ahead and does not move. (A) Wait at a distance and talk calmly: 80% it ambles off in 10-20 minutes, 20% it stays (lose 30 min). (B) Make noise, wave poles, give a wide berth: 70% fine, 25% it bluffs and you back away, 5% you drop your pack (if food is not in a canister, bear gets a snack: trip ends early and the camp may close). (C) Detour via Bogachiel Peak or the basin. Never run. A mother with a cub doubles the waiting time. (Percentages are suggested design odds, not real-world statistics.)",
+   "game_event_idea": "A bear is stripping berries 40 feet ahead and does not move. (A) Wait at a distance and talk calmly: 80% it ambles off in 10-20 minutes, 20% it stays (lose 30 min). (B) Make noise, wave poles, give a wide berth: 70% fine, 25% it bluffs and you back away, 5% you drop your pack (if food is not in a canister, bear gets a snack: trip ends early and the camp may close). (C) Go back to the last junction and take the other way (the basin or the crest). Never run. A mother with a cub doubles the waiting time. (Percentages are suggested design odds, not real-world statistics.)",
    "mitigations": [
     "bear_canister",
     "trekking_poles",
@@ -4338,7 +4468,7 @@
    ],
    "season": "July to October.",
    "real_world": "July 2026: a bear circled a tent within about 20 ft at Heart Lake; Aug 2026: a hiker had a bear in her Lower Bridge Creek site and ate by the creek. Bear canisters are required for all overnight stays in the Olympic wilderness; hanging food is prohibited.",
-   "game_event_idea": "Snuffling outside the tent at 2 am. If all food, trash and scented items (toothpaste, sunscreen, lip balm) are locked in the canister 100+ ft away: 95% the bear wanders off. If something scented is in the tent: 40% the bear paws the tent (gear damage), 10% it takes the item and the park later closes the camp. A ranger inspecting camps can fine you for an unlocked canister. (Percentages are suggested design odds, not real-world statistics.)",
+   "game_event_idea": "Snuffling outside the tent at 2 am. If all food, trash and scented items (toothpaste, sunscreen, lip balm) are locked in the canister 100+ ft away: 95% the bear wanders off. If something scented is in the tent: 40% the bear paws the tent (gear damage), 10% it takes the item and the park later closes the camp. A ranger inspecting camps can cite an unlocked canister. An overnight with no canister at all is allowed (never a hard block): every night rolls a wildlife visitor (m1a_play_inputs.food_storage_visitors), a ranger who checks plays a ranger card, and lost food costs Leave No Trace. (Percentages are suggested design odds, not real-world statistics.)",
    "mitigations": [
     "bear_canister",
     "scented_items_in_canister",
@@ -4379,7 +4509,7 @@
    ],
    "season": "Late June to early August; horse flies in August.",
    "real_world": "June-July 2026 reports: a \"feeding frenzy\" at Lunch Lake, Deer Lake buggy, mosquitoes \"contenders\" at Heart Lake; head nets and rain jackets made it fine. By late August most reports say no bugs.",
-   "game_event_idea": "Dusk at the lake and the whine begins. With head net + repellent: no effect. Without: lose sleep (start tomorrow tired, -1 energy) 70% chance; or hide in the tent and skip the sunset (no journal sketch tonight). (Percentages are suggested design odds, not real-world statistics.)",
+   "game_event_idea": "Dusk at the lake and the whine begins. With head net + repellent: no effect. Without: lose sleep (start tomorrow tired, -1 energy) 70% chance; or hide in the tent and miss the sunset. (Percentages are suggested design odds, not real-world statistics.)",
    "mitigations": [
     "head_net",
     "picaridin_or_deet",
@@ -4399,7 +4529,7 @@
    ],
    "season": "Any month; most common September-October and early season.",
    "real_world": "Sept 25-26, 2026: a party reached Appleton Pass in all-day rain with snow showers and howling wind; temperatures dropped below 30 F and with wet clothes it was very hard to stay warm. Early Sept 2026 mornings had frost in the basin.",
-   "game_event_idea": "Rain turns to sleet as you reach camp and your sleeping bag is damp. Gear check: warm sleeping bag + dry base layer + tent = cold but OK. Missing two of those: 50% you shiver all night (-2 energy) and 15% you must descend at first light; missing all three: hypothermia scare, trip ends with a ranger-assisted walk out (gentle mode) or worse (Sierra mode). (Percentages are suggested design odds, not real-world statistics.)",
+   "game_event_idea": "Rain turns to sleet as you reach camp and your sleeping bag is damp. Gear check: warm sleeping bag + dry base layer + tent = cold but OK. Missing two of those: 50% you shiver all night (-2 energy) and 15% you must descend at first light; missing all three: the Cold chain's first warning, with a sure choice on the page (dress, into the bag, a hot drink, or down at first light). Old School deaths come only at the chain's end, after its warnings (8.10, 9.5). (Percentages are suggested design odds, not real-world statistics.)",
    "mitigations": [
     "rated_sleeping_bag",
     "dry_bag_for_sleep_clothes",
@@ -4449,22 +4579,6 @@
    ]
   },
   {
-   "id": "lunch_lake_landslide",
-   "name": "Recent landslide area above Lunch Lake",
-   "where": [
-    "seven_lakes_basin",
-    "round_lake_junction"
-   ],
-   "season": "Reported September 2026.",
-   "real_world": "A Sept 22, 2026 trip report described a relatively recent landslide area right before the descent into Lunch Lake (no NPS notice found; extent unverified).",
-   "game_event_idea": "Loose dirt and boulders where the trail used to be. (A) Cross carefully one at a time: 90% fine, 10% small rockfall scare. (B) Go around via the Mirror Lake way trail instead (adds distance). (Percentages are suggested design odds, not real-world statistics.)",
-   "mitigations": [
-    "careful_footing",
-    "trekking_poles",
-    "cross_one_at_a_time"
-   ]
-  },
-  {
    "id": "permit_quota_full",
    "name": "Quota camps full / permit check",
    "where": [
@@ -4477,7 +4591,7 @@
    ],
    "season": "All reservation season; heaviest July-September weekends.",
    "real_world": "Permits are first-come on Recreation.gov from April 15; no walk-up sites are held. Oct 7, 2026 snapshot: Lunch Lake and Heart Lake had 0 group slots left. Rangers checked permits repeatedly in summer 2026 and asked campers without permits to leave; hikers must camp in the camp on their permit each night.",
-   "game_event_idea": "At planning time, roll availability for your chosen camp/night (weekday 60% open, weekend 20%, holiday 5%); offer alternates (river camps, Deer Lake). On trail: a ranger asks for your permit. Printed/phone copy: friendly chat (+ tip about bears). Missing or wrong camp: 50% warning and told to move to your reserved camp, 50% sent back down (trip shortened). (Percentages are suggested design odds, not real-world statistics.)",
+   "game_event_idea": "At planning time, each camp and night rolls its quota (m1a_play_inputs.quota_availability, keyed by the trip seed, date and camp); full camps get alternates (river camps, Deer Lake). On the trail: on a legal night the permit check is a Director card (capped, 2.6); on an off-permit night a ranger roll is forced every night, uncapped, and plays the permit-check card when it hits (3.7, m1a_play_inputs.ranger_presence). A permit in order: a nod and a story. Wrong camp: a talking-to and maybe a walk to a legal camp at dusk. (Percentages are suggested design odds, not real-world statistics.)",
    "mitigations": [
     "reserve_early",
     "carry_permit",
@@ -4528,7 +4642,7 @@
    ],
    "season": "Year-round; worst in high water and ice.",
    "real_world": "NPS asks visitors to view the falls only from designated viewing areas; leaving them can put you unexpectedly in the water. The 2013 park brochure asks parents to keep children under close supervision. Real incidents (park_rules.json search_and_rescue, waterfall_and_riverbank_falls): in June 2025 an 18-year-old died after crossing the upper river and going over the falls; in Sept 2019 a 15-year-old went over the falls and survived a rope rescue. This hazard is a real_incident site (GAME_DESIGN 9.5, principle 3): no death outcome may be built from it; the falls get the stay-on-trail mechanic instead.",
-   "game_event_idea": "A friend wants a photo from the mossy ledge. (A) Stay on the bridge and overlook: 100% fine. (B) Step onto the ledge: 80% great photo / 20% slip and soak (Sierra mode: swept away, game over). (Percentages are suggested design odds, not real-world statistics.)",
+   "game_event_idea": "A photo from past the railing tempts. (A) Stay on the bridge and the overlook: sure. (B) Step past the viewing area onto the mossy rock: a ranger's line and a Leave No Trace cost. The page never builds a fall from it: this is a real_incident site (9.5), so the falls get the stay-on-trail mechanic only. (Percentages are suggested design odds, not real-world statistics.)",
    "mitigations": [
     "common_sense",
     "designated_viewpoints"
@@ -4576,7 +4690,7 @@
    ],
    "season": "All season; deadly when wet.",
    "real_world": "Beyond the end of the maintained trail the climbers' route is unmaintained and exposed; ropes are not installed or maintained by the park. In November 2017 a 21-year-old hiker died after a loose rock gave way and he fell; search and rescue calls are not uncommon.",
-   "game_event_idea": "You reach the sign. (A) Turn around and enjoy the view through the trees: 100% safe. (B) Use the frayed ropes to the rock knob: 85% amazing view / 12% scary moment / 3% fall (gentle mode: sprained wrist and rescue; Sierra mode: death screen). Rain doubles the bad outcomes. (Percentages are suggested design odds, not real-world statistics.)",
+   "game_event_idea": "You reach the sign. (A) Turn around and enjoy the view through the trees: 100% safe. (B) Use the frayed ropes to the rock knob: 85% amazing view / 12% scary moment / 3% a fall whose worst outcome is Serious (a sprained wrist and a rescue). Storm King is a real_incident area, so no death outcome is built there (9.5). Rain doubles the bad outcomes. (Percentages are suggested design odds, not real-world statistics.)",
    "mitigations": [
     "turn_around",
     "dry_weather_only",
@@ -4608,7 +4722,7 @@
    ],
    "season": "Year-round.",
    "real_world": "NPS: the lake is very cold and deep; always wear a life jacket on the water. Official max depth 624 ft (a 2013-14 survey found 596 ft).",
-   "game_event_idea": "Friends are jumping into the Punchbowl. (A) Watch and cheer: safe. (B) Jump: 80% gasping-cold joy / 20% cold shock, struggle to the ladder/rocks (need a friend to help; lose energy). (Percentages are suggested design odds, not real-world statistics.)",
+   "game_event_idea": "Other swimmers are jumping into the Punchbowl. (A) Watch: sure. (B) Jump: 80% gasping-cold joy / 20% cold shock and a struggle to the rocks (a bystander helps; spirits and energy cost). (Percentages are suggested design odds, not real-world statistics.)",
    "mitigations": [
     "life_jacket",
     "swim_with_buddy",
@@ -4624,7 +4738,7 @@
     "hoh_lake_trail_junction"
    ],
    "season": "July-September.",
-   "real_world": "NPS: very strenuous, little canopy (1978 Hoh Fire area), carry plenty of water; 22 switchbacks. Sept 2026: wet brush soaked shoes on a misty morning; rangers reported a dead bear in Hoh Lake (treat water).",
+   "real_world": "NPS: very strenuous, little canopy (1978 Hoh Fire area), carry plenty of water; 22 switchbacks. Sept 2026: wet brush soaked shoes on a misty morning.",
    "game_event_idea": "Climbing out of the Hoh at noon. Water < 2 L: 50% heat exhaustion warning (rest 1 hour). Morning brush: no gaiters/rain pants = wet feet (blister roll 30%). (Percentages are suggested design odds, not real-world statistics.)",
    "mitigations": [
     "2L_plus_capacity",
@@ -4643,7 +4757,7 @@
    ],
    "season": "Any season.",
    "real_world": "June 2026: a shredded, half-eaten deer carcass near the Deer Lake campsites; Sept 2026: large scat that hikers guessed was from a big cat. Encounters are rare.",
-   "game_event_idea": "You find a cached deer carcass beside the trail. (A) Leave quickly and stay together: safe. (B) Linger for a photo: 10% you hear a low growl and must back away slowly, keeping kids close. (Percentages are suggested design odds, not real-world statistics.)",
+   "game_event_idea": "You find a cached deer carcass beside the trail. (A) Leave quickly, big and loud: sure. (B) Linger for a photo: 10% a low growl and a slow backing away (a tense page, always survivable). (Percentages are suggested design odds, not real-world statistics.)",
    "mitigations": [
     "travel_in_group",
     "keep_kids_close",
@@ -4661,9 +4775,9 @@
     "deer_lake",
     "lunch_lake"
    ],
-   "season": "Fires never allowed above 3,500 ft; Stage 2 parkwide campfire ban from Aug 7, 2026 (still in effect in the Aug 26 release).",
+   "season": "Fires are never allowed above 3,500 ft; below it, seasonal bans apply on their own dates (2026: conditions_2026; future summers: park_rules.json campfires.future_ban_climatology).",
    "real_world": "Fires are prohibited above 3,500 ft and at all High Divide/basin camps; below that line only in existing rings with dead and down wood, and not at all during seasonal bans. Stoves allowed if 3 ft from vegetation.",
-   "game_event_idea": "The player packed only a fire-starter plan for cooking. At a lake camp: no fire allowed - eat cold food (morale -1) unless a stove was packed. At a river camp below 3,500 ft in a non-ban month: small fire allowed (morale +1); in Aug 2026 ban: a ranger stops by. (Percentages are suggested design odds, not real-world statistics.)",
+   "game_event_idea": "The player packed only a fire-starter plan for cooking. At a lake camp: no fire allowed - eat cold food (morale -1) unless a stove was packed. At a river camp below 3,500 ft in a non-ban month: small fire allowed (morale +1); during a ban (its dates from the conditions overlay; future summers drawn from park_rules.json campfires.future_ban_climatology) a lit fire brings a ranger card and Leave No Trace -20. (Percentages are suggested design odds, not real-world statistics.)",
    "mitigations": [
     "stove",
     "fuel",
@@ -4716,7 +4830,7 @@
     "sol_duc_trailhead",
     "hoh_lake_trail_junction"
    ],
-   "season": "Fall 2026 (Sept 24-29, Oct 1-6, Oct 8-13).",
+   "season": "Whenever the conditions overlay lists a road or bridge closure on the trip's dates (2026: the US 101 Hoh River Bridge windows in conditions_2026).",
    "real_world": "WSDOT closed the US 101 Hoh River Bridge south of Forks 24 hours a day in three 6-day windows for emergency repairs; the only detour is about 4 hours around Hood Canal. Matters for shuttles between the Sol Duc and the Hoh or for drivers coming from the coast.",
    "game_event_idea": "Planning screen event: if the trip is a Sol Duc-to-Hoh traverse in a closure window, the shuttle driver must take the 4-hour detour (+1 day) or the player picks another exit.",
    "mitigations": [
@@ -4735,7 +4849,7 @@
    ],
    "season": "All season.",
    "real_world": "WTA notes the old Mink Lake shelter is home to rodents; Canada jays and chipmunks are bold at popular camps; a 2026 hiker lost car snacks to a mouse at the Sol Duc trailhead.",
-   "game_event_idea": "Lunch break: a gray jay lands on your boot. (A) Shoo it and pack food away: fine. (B) Feed it: cute (+morale) but 50% it steals the rest of your sandwich and the ranger frowns (feeding wildlife is prohibited). (Percentages are suggested design odds, not real-world statistics.)",
+   "game_event_idea": "Lunch break: a gray jay lands on your boot. (A) Shoo it and pack food away: fine. (B) Toss it a crumb: it takes the crumb, then 50% the rest of the sandwich (feeding wildlife: Leave No Trace -10). (Percentages are suggested design odds, not real-world statistics.)",
    "mitigations": [
     "bear_canister",
     "eat_attentively"
@@ -4756,7 +4870,7 @@
     "deer_lake"
    ],
    "notes": "Very common in late summer berry season; 2026 trip reports logged up to 11 sightings per trip. Usually indifferent if given space. Canisters protect both bears and hikers.",
-   "game_idea": "Hazard + helper: a calm berry-eating bear is a classic \"wait or detour\" decision; a well-stored camp earns a peaceful night. Journal sketch from a distance only."
+   "game_idea": "Hazard and moment. On the trail, a bear in the huckleberries ahead: wait, detour or make noise, never run. At dusk, a bear grazing a far meadow is a quiet Look. At camp, a closed canister 100 ft away means the bear walks on; food left out makes it a food thief that remembers (8.10). No wildlife card has a fatal branch (9.5)."
   },
   {
    "name": "Roosevelt elk",
@@ -4767,7 +4881,7 @@
     "sol_duc_park"
    ],
    "notes": "Herds summer in the high meadows; bulls bugle in September (heard from the Divide in Sept 2026). NPS notes elk are frequently seen along the Hoh Lake Trail.",
-   "game_idea": "Sound cue at dawn; a bugle echoing from the Hoh valley as a storybook moment; sketchable at distance."
+   "game_idea": "Moment: a bull's bugle rising from the Hoh valley at dawn in September, as a sound cue and a Look. In the rut (mid-September on), a bull near the trail is a give-it-a-wide-berth card."
   },
   {
    "name": "Columbian black-tailed deer",
@@ -4779,7 +4893,7 @@
     "high_divide"
    ],
    "notes": "Does and fawns common in camps; they seek salt from urine, so pee on rocks away from tents and plants.",
-   "game_idea": "Gentle helper: a doe \"shows\" the way at dusk; event: deer nibbling a sweaty hip belt left outside."
+   "game_idea": "Moment and nuisance: a doe and fawn crossing camp at dusk (a Look). Deer chew salty gear left out (a sweaty hip belt, pole grips); pee on rock away from camp."
   },
   {
    "name": "Olympic marmot",
@@ -4791,7 +4905,7 @@
     "appleton_pass"
    ],
    "notes": "Endemic to the Olympic Mountains; lives in subalpine meadows and talus; whistles an alarm. Seen near Swimming Bear Lake and along the Divide in 2026.",
-   "game_idea": "Helper character: a marmot whistle warns of weather or a predator; prime journal sketch (found only in these mountains)."
+   "game_idea": "Moment: a marmot sunning on a warm boulder, and its alarm whistle across the talus as a sound cue (it is the marmots' business, not a warning to the hiker). The bold marmot that goes for salty gear is a Larry card from M1b (2.6)."
   },
   {
    "name": "Cougar (mountain lion)",
@@ -4801,7 +4915,7 @@
     "potholes"
    ],
    "notes": "Rarely seen; sign such as a cached deer carcass reported near Deer Lake in June 2026.",
-   "game_idea": "Tension event; almost never seen. Advice from a ranger NPC."
+   "game_idea": "Hazard, by sign only: tracks or an old cached carcass near Deer Lake. A rare, tense page with a sure choice to leave; always survivable. The ranger's advice goes in a Ranger's Note."
   },
   {
    "name": "Mountain goat",
@@ -4811,7 +4925,7 @@
     "cat_basin"
    ],
    "notes": "Not native to the Olympics; most were captured and relocated or removed 2018-2020 because they damaged fragile plants (the 2018 Seven Lakes Basin administrative closure was announced with no reason given in the release). A few may remain.",
-   "game_idea": "Lore card: why there are almost no goats; a rare sighting can be a \"remember the old days\" story."
+   "game_idea": "History, not a trail encounter: a ranger line or Look about why the goats are almost gone (removed 2018-2022). At most a very rare distant sighting."
   },
   {
    "name": "Canada jay (gray jay)",
@@ -4822,7 +4936,7 @@
     "high_divide"
    ],
    "notes": "Bold \"camp robber\" that lands near lunch spots; feeding wildlife is prohibited.",
-   "game_idea": "Cheeky helper/trickster who shadows the hiker and tests whether you feed wildlife."
+   "game_idea": "Food thief: lands beside a lunch spot and takes whatever is left unattended. Feeding it is prohibited (Leave No Trace -10); shooing it and packing the food away is the sure choice."
   },
   {
    "name": "Sooty grouse",
@@ -4833,7 +4947,7 @@
     "lunch_lake"
    ],
    "notes": "Seen in the meadows (2025-2026 reports); males hoot deeply in early summer.",
-   "game_idea": "Sound cue; a hen with chicks crossing the trail as a sweet encounter."
+   "game_idea": "Moment: a hen and chicks crossing the trail, or a male's deep hoot in early summer as a sound cue."
   },
   {
    "name": "Hermit thrush and varied thrush",
@@ -4844,7 +4958,7 @@
     "sol_duc_falls"
    ],
    "notes": "Ethereal forest songs heard in June 2026 reports; varied thrush has a single buzzy whistle.",
-   "game_idea": "Audio motif for forest scenes (PC-speaker style chirps)."
+   "game_idea": "Sound: the hermit thrush's flute and the varied thrush's single buzzy note in the forest scenes (PC-speaker chirps)."
   },
   {
    "name": "Coho and Chinook salmon",
@@ -4855,7 +4969,7 @@
     "sol_duc_hot_springs_resort"
    ],
    "notes": "NPS: Chinook and coho ascend the Sol Duc in late summer and spawn in late fall; coho leap at Salmon Cascades in autumn; the Sol Duc has salmon in every season.",
-   "game_idea": "Drive-in stop event; journal sketch of a leaping coho; Lover's Lane side channels show spawning pairs."
+   "game_idea": "Moment: coho leaping at Salmon Cascades, a drive-in stop in autumn."
   },
   {
    "name": "Brook trout",
@@ -4864,7 +4978,7 @@
     "deer_lake"
    ],
    "notes": "Caught in Deer Lake in 2026; not native to the high lakes. No fishing license needed in the park (park regulations still apply).",
-   "game_idea": "Optional \"fishing rod in pack\" bonus meal; weight trade-off."
+   "game_idea": "Moment: trout rising on Deer Lake at dusk. With a rod packed, a quiet evening page that lifts spirits (no license needed in the park). Nothing in the food plan depends on it."
   },
   {
    "name": "Mosquitoes, deer flies and horse flies",
@@ -4876,7 +4990,7 @@
     "mink_lake"
    ],
    "notes": "Heavy late June-July; mostly gone by late August.",
-   "game_idea": "Hazard: head net and repellent as pack choices."
+   "game_idea": "Hazard: late June to early August at the lakes. A head net and repellent keep the evening; without them, lost sleep, or the tent and a missed sunset."
   },
   {
    "name": "Avalanche lily",
@@ -4888,7 +5002,7 @@
     "hoh_lake"
    ],
    "notes": "White lilies in carpets right after snowmelt; June 2026 \"avalanche lily explosion\" from Deer Lake along the ridge to Sol Duc Park. NPS mentions them on the Hoh Lake Trail.",
-   "game_idea": "Signature early-season scene; sketchable."
+   "game_idea": "Scenery: carpets of white lilies right behind the melting snow, in early-season scenes (late June and July; earlier in a low-snow year)."
   },
   {
    "name": "Glacier lily",
@@ -4898,7 +5012,7 @@
     "heart_lake_junction"
    ],
    "notes": "Yellow lily that blooms at the very edge of melting snow; a June 2026 hiker said the glacier lilies \"put on a show\" near the Divide.",
-   "game_idea": "Best candidate for the game's Golden-Glow homage: a golden flower found at the snow's edge high on the Divide after sunset/sunrise; sketch it, never pick it."
+   "game_idea": "Scenery: yellow lilies at the edge of melting snow on the Divide early in the season, named in a Look. It is not the Bonfire Lily, which is invented (GAME_DESIGN 10.2)."
   },
   {
    "name": "Piper's bellflower",
@@ -4908,7 +5022,7 @@
     "high_divide"
    ],
    "notes": "Blue bellflower endemic to the Olympic Mountains, growing in dry rock crevices in subalpine/alpine zones, blooming July-August. Presence specifically on the High Divide is not confirmed.",
-   "game_idea": "Rare-plant collectible; \"found only here\" journal page; place it in rock crevices on high summits."
+   "game_idea": "Scenery and a Look line: an Olympic endemic in rock crevices high up, one of the real flowers a lily book's back cover names (10.2). Never picked; there is nothing to collect."
   },
   {
    "name": "Pink mountain heather",
@@ -4919,7 +5033,7 @@
     "swimming_bear_lake"
    ],
    "notes": "Common subalpine shrub with pink bell flowers in July.",
-   "game_idea": "Ground texture for alpine scenes; sketchable."
+   "game_idea": "Scenery: ground texture of the subalpine scenes. The meadows are fragile, so a shortcut across them costs Leave No Trace."
   },
   {
    "name": "Magenta paintbrush, broadleaf lupine, Sitka valerian, subalpine fleabane, shooting star",
@@ -4930,7 +5044,7 @@
     "heart_lake"
    ],
    "notes": "Peak meadow bloom July to early August (June in low-snow 2026).",
-   "game_idea": "Meadow palette; a \"field guide spread\" page the player fills in."
+   "game_idea": "Scenery: the July meadow palette for Sol Duc Park, Heart Lake and the crest."
   },
   {
    "name": "Huckleberries and blueberries",
@@ -4941,7 +5055,7 @@
     "lunch_lake"
    ],
    "notes": "Ripe August to early September; draw bears; hikers in 2026 made \"blueberry tea\". Done by late September.",
-   "game_idea": "Snack event that raises morale but brings bear encounters."
+   "game_idea": "Moment and hazard: berries lift spirits on a snack page (August to early September) and draw bears to the same slopes."
   },
   {
    "name": "Bunchberry, queen's cup, northwest twayblade, Pacific coralroot",
@@ -4952,7 +5066,7 @@
     "sol_duc_falls"
    ],
    "notes": "Forest-floor flowers and small orchids noted in June 2026.",
-   "game_idea": "Low-forest field guide entries."
+   "game_idea": "Scenery: forest-floor flowers in the June forest scenes."
   },
   {
    "name": "Devil's club and skunk cabbage",
@@ -4963,7 +5077,7 @@
     "mink_lake"
    ],
    "notes": "Spiny devil's club in wet forest; skunk cabbage in boggy spots (reported growing in the tread on the Bogachiel side).",
-   "game_idea": "Hazard texture: grabbing devil's club for balance hurts."
+   "game_idea": "Hazard texture: grabbing devil's club for balance after a slip hurts (a small cost); skunk cabbage marks wet tread."
   },
   {
    "name": "Douglas-fir, western hemlock, western redcedar, Pacific silver fir",
@@ -4975,7 +5089,7 @@
     "marymere_falls"
    ],
    "notes": "Never-logged old growth along the Sol Duc River Trail and around Lake Crescent.",
-   "game_idea": "Tree spread for the field guide; giant-trunk scene compositions."
+   "game_idea": "Scenery: the giant trunks of the falls and river scenes, and the deep canopy that brings trail-dark early (7.2)."
   },
   {
    "name": "Mountain hemlock, subalpine fir, Alaska yellow-cedar",
@@ -4986,7 +5100,7 @@
     "high_divide"
    ],
    "notes": "Subalpine trees forming parkland clumps above about 4,000 ft.",
-   "game_idea": "Silhouettes for ridge scenes."
+   "game_idea": "Scenery: parkland silhouettes in the ridge scenes."
   },
   {
    "name": "Wooly chanterelle, coral fungus, hawk's wing",
@@ -4996,7 +5110,7 @@
     "deer_lake"
    ],
    "notes": "Noted on an Aug 2026 trip; late summer and fall.",
-   "game_idea": "Sketch-only collectibles (never eat wild mushrooms in game)."
+   "game_idea": "Scenery in late-summer forest scenes. Never eaten in the game."
   },
   {
    "name": "Dog vomit slime mold",
@@ -5005,7 +5119,7 @@
     "sol_duc_river_3"
    ],
    "notes": "Actually a slime mold, not a fungus; a bright yellow blob on wood (Aug 2026 report).",
-   "game_idea": "Funny field-guide entry."
+   "game_idea": "A Look line: the bright yellow blob on a log that is neither plant nor fungus."
   },
   {
    "name": "Old man's beard / witch's hair lichens and lettuce lungwort",
@@ -5016,7 +5130,7 @@
     "marymere_falls"
    ],
    "notes": "Hanging lichens and leafy lungwort festoon old-growth branches in this wet forest.",
-   "game_idea": "Dithered texture for trees; sketchable."
+   "game_idea": "Scenery: hanging lichen, dithered, in the old-growth scenes."
   }
  ],
  "permit_and_rules": [
@@ -5207,109 +5321,283 @@
    "note": "Sol Duc area including Sol Duc Hot Springs Road open for the season; Sol Duc Hot Springs resort open; Sol Duc campground open with reservations for Mar 20-Nov 1, 2026.",
    "source": "https://www.nps.gov/olym/planyourvisit/conditions.htm",
    "info_date": "2026-10-04",
-   "confidence": "high"
+   "confidence": "high",
+   "from": "2026-03-24",
+   "until": "2026-11-01",
+   "last_confirmed": "2026-10-04",
+   "applies_to": [
+    "sol_duc_trailhead",
+    "sol_duc_hot_springs_resort",
+    "sol_duc_campground"
+   ],
+   "game_effect": "none: an open status"
   },
   {
    "note": "Lake Crescent area open (Barnes Point, Marymere Falls and Moments in Time trailheads). Storm King Ranger Station closed for the season. Fairholme Campground closed. Lake Crescent lodge open.",
    "source": "https://www.nps.gov/olym/planyourvisit/conditions.htm",
    "info_date": "2026-10-04",
-   "confidence": "high"
+   "confidence": "high",
+   "from": "2026-10-04",
+   "persists": true,
+   "last_confirmed": "2026-10-04",
+   "applies_to": [
+    "marymere_falls_trailhead",
+    "barnes_point_lodge"
+   ],
+   "game_effect": "none in M1a: an open status"
   },
   {
    "note": "Spruce Railroad Trail open from both trailheads (Lyre River/East Beach Road and North Shore Picnic Area/Camp David Jr. Road).",
    "source": "https://www.nps.gov/olym/planyourvisit/conditions.htm",
    "info_date": "2026-10-04",
-   "confidence": "high"
+   "confidence": "high",
+   "from": "2026-10-04",
+   "persists": true,
+   "last_confirmed": "2026-10-04",
+   "applies_to": [
+    "spruce_railroad_lyre_river_trailhead",
+    "spruce_railroad_camp_david_jr_trailhead"
+   ],
+   "game_effect": "none in M1a: an open status"
   },
   {
    "note": "Stage 2 fire restrictions: all campfires prohibited parkwide since Aug 7, 2026; reaffirmed Aug 26, 2026. No lifting notice found as of Oct 7, 2026 (in past years bans lifted mid-September).",
    "source": "https://www.nps.gov/olym/learn/news/crews-extinguish-two-small-lightning-fires-continue-to-work-mt-barnes-and-mount-tom-creek-fires.htm",
    "info_date": "2026-08-26",
-   "confidence": "medium"
+   "confidence": "medium",
+   "from": "2026-08-07",
+   "until": "2026-10-01",
+   "last_confirmed": "2026-08-26",
+   "applies_to": [
+    "all_wilderness_camps"
+   ],
+   "game_effect": "No campfires anywhere, below 3,500 ft included. The end date is the USFS order's; no NPS end was found, so the ban is treated as ended inside the park after Oct 1, and the ranger says so (GAME_DESIGN 4.6).",
+   "moved_from": "six camp notes and the campfire_ban hazard's season and idea (2026-10-08)"
   },
   {
    "note": "Lightning-caused Sourdough Mountain Fire (<1 acre) on the south slope about 0.5 mi below the Aurora Ridge Trail was extinguished Aug 10, 2026; no closures.",
    "source": "https://www.nps.gov/olym/learn/news/sourdough-mountain-fire-extinguished-buckets-dropped-on-mount-tom-creek-fire.htm",
    "info_date": "2026-08-11",
-   "confidence": "high"
+   "confidence": "high",
+   "from": "2026-08-10",
+   "until": "2026-08-10",
+   "last_confirmed": "2026-08-11",
+   "applies_to": [
+    "sourdough_mountain_junction"
+   ],
+   "game_effect": "none: an event, kept as history (no closures)"
   },
   {
    "note": "US 101 Hoh River Bridge (south of Forks) full 24-hour closures Sept 24-29, Oct 1-6 and Oct 8-13, 2026 for emergency floor-beam repairs; detour about 4 hours via Hood Canal; single-lane alternating traffic between windows.",
    "source": "https://www.wta.org/news/signpost/hiker-headlines-fall-colors-summerland-trailhead-closure-three-queens-fire-closure-reduced-9-24-26",
    "info_date": "2026-09-24",
-   "confidence": "high"
+   "confidence": "high",
+   "from": "2026-09-24",
+   "until": "2026-10-13",
+   "windows": [
+    [
+     "2026-09-24",
+     "2026-09-29"
+    ],
+    [
+     "2026-10-01",
+     "2026-10-06"
+    ],
+    [
+     "2026-10-08",
+     "2026-10-13"
+    ]
+   ],
+   "last_confirmed": "2026-09-24",
+   "applies_to": [
+    "hoh_lake_trail_junction"
+   ],
+   "game_effect": "On a window's dates, a Hoh-side exit or shuttle takes the 4-hour Hood Canal detour; between windows, single-lane traffic (hazard road_and_bridge_logistics)."
   },
   {
    "note": "Seven Lakes Basin/High Divide online reservation season ends Oct 15, 2026; Oct 7 snapshot showed Lunch Lake and Heart Lake with no group slots left for that night.",
    "source": "https://www.recreation.gov/api/permititinerary/4098362/division/4098362073/availability/month?month=10&year=2026",
    "info_date": "2026-10-07",
-   "confidence": "high"
+   "confidence": "high",
+   "from": "2026-10-07",
+   "until": "2026-10-15",
+   "last_confirmed": "2026-10-07",
+   "applies_to": [
+    "lunch_lake",
+    "heart_lake",
+    "heart_lake_junction"
+   ],
+   "game_effect": "For trips before Oct 15, 2026 only: Lunch Lake and Heart Lake full on the snapshot nights."
   },
   {
    "note": "High Divide loop trail reported in excellent condition through summer 2026 with almost no blowdown; no snow on the trail by mid-June 2026 (low-snow year).",
    "source": "https://www.wta.org/go-hiking/hikes/seven-lakes-basin/@@related_tripreport_listing",
    "info_date": "2026-06-19 to 2026-09-20",
-   "confidence": "medium"
+   "confidence": "medium",
+   "from": "2026-06-19",
+   "until": "2026-10-15",
+   "last_confirmed": "2026-09-20",
+   "applies_to": [
+    "sol_duc_high_divide"
+   ],
+   "game_effect": "2026 is a low snow year (snow-free by mid-June). Applies to 2026 dates only; 2027 trips draw their snow year (7.6).",
+   "moved_from": "the snow_free_typical text of 34 segments and the snowfield_high_divide hazard's season (2026-10-08)"
   },
   {
    "note": "Sol Duc River Trail had several downed trees (1-4 ft diameter) in mid-June 2026; rangers were clearing logs in early July. Deer Lake Trail had one very large log in a gulch with a hiker-made bypass (July 2, 2026).",
    "source": "https://www.wta.org/go-hiking/hikes/seven-lakes-basin/@@related_tripreport_listing",
    "info_date": "2026-07-02",
-   "confidence": "medium"
+   "confidence": "medium",
+   "from": "2026-06-16",
+   "persists": true,
+   "last_confirmed": "2026-07-02",
+   "applies_to": [
+    "sol_duc_falls->sol_duc_river_1",
+    "sol_duc_river_1->sol_duc_river_2",
+    "sol_duc_river_2->sol_duc_river_3",
+    "sol_duc_falls->hidden_lake_junction"
+   ],
+   "game_effect": "Raises the blowdown hazard's weight on these segments, told as \"last we heard\" after the last-confirmed date (4.7). The Deer Lake Trail log has a hiker-made bypass on climber's left.",
+   "moved_from": "notes on segments sol_duc_falls->hidden_lake_junction and sol_duc_falls->sol_duc_river_1 (2026-10-08)"
   },
   {
    "note": "Trip report describes a fairly recent landslide area just before the descent into Lunch Lake; no NPS notice found.",
    "source": "https://www.wta.org/go-hiking/hikes/seven-lakes-basin/@@related_tripreport_listing",
    "info_date": "2026-09-22",
-   "confidence": "low"
+   "confidence": "low",
+   "from": "2026-09-22",
+   "persists": true,
+   "last_confirmed": "2026-09-22",
+   "stale_after": "2027-06-30",
+   "applies_to": [
+    "seven_lakes_basin->round_lake_junction"
+   ],
+   "adds_hazards": [
+    "washout"
+   ],
+   "game_effect": "A footing card on the stone staircase, told as \"last we heard\". It persists until the overlay is updated, because a slide stays until a crew fixes the tread.",
+   "moved_from": "hazard lunch_lake_landslide and the notes and washout tag of segment seven_lakes_basin->round_lake_junction (2026-10-08)",
+   "hazard_card": {
+    "id": "lunch_lake_landslide",
+    "name": "Recent landslide area above Lunch Lake",
+    "where": [
+     "seven_lakes_basin",
+     "round_lake_junction"
+    ],
+    "real_world": "A Sept 22, 2026 trip report described a relatively recent landslide area right before the descent into Lunch Lake (no NPS notice found; extent unverified).",
+    "game_event_idea": "Loose dirt and boulders where the trail used to be. (A) Cross carefully one at a time: 90% fine, 10% small rockfall scare. (B) Go around via the Mirror Lake way trail instead (adds distance). (Percentages are suggested design odds, not real-world statistics.)",
+    "mitigations": [
+     "careful_footing",
+     "trekking_poles",
+     "cross_one_at_a_time"
+    ]
+   }
   },
   {
    "note": "Rangers reported a dead bear in Hoh Lake (two bears reportedly fought and one drowned); treat or source water carefully; no NPS notice found.",
    "source": "https://www.wta.org/go-hiking/hikes/seven-lakes-basin/@@related_tripreport_listing",
    "info_date": "2026-09-27",
-   "confidence": "low"
+   "confidence": "low",
+   "from": "2026-09-27",
+   "until": "2026-10-15",
+   "last_confirmed": "2026-09-27",
+   "applies_to": [
+    "hoh_lake"
+   ],
+   "game_effect": "Before Oct 15, 2026 only: the ranger mentions it, and Hoh Lake water needs treating (as always) or carrying in. Not applied to 2027 trips.",
+   "moved_from": "hoh_lake camp.water and the hoh_lake_trail_heat hazard (2026-10-08)"
   },
   {
    "note": "Cold snap: snow showers, strong wind and sub-30 F temperatures at Appleton Pass Sept 25-26, 2026, with a dusting of snow on surrounding peaks.",
    "source": "https://www.wta.org/go-hiking/hikes/seven-lakes-basin/@@related_tripreport_listing",
    "info_date": "2026-09-27",
-   "confidence": "medium"
+   "confidence": "medium",
+   "from": "2026-09-25",
+   "until": "2026-09-26",
+   "last_confirmed": "2026-09-27",
+   "applies_to": [
+    "appleton_pass"
+   ],
+   "game_effect": "none: a past weather event, kept as evidence for late-September cold"
   },
   {
    "note": "Rangers frequently checked permits and bear canisters on the loop in summer 2026 and asked campers without permits to leave.",
    "source": "https://www.wta.org/go-hiking/hikes/seven-lakes-basin/@@related_tripreport_listing",
    "info_date": "2026-08-30",
-   "confidence": "medium"
+   "confidence": "medium",
+   "from": "2026-06-01",
+   "persists": true,
+   "last_confirmed": "2026-08-30",
+   "applies_to": [
+    "sol_duc_high_divide"
+   ],
+   "game_effect": "Evidence for m1a_play_inputs.ranger_presence (rangers patrol the loop and check permits and canisters)."
   },
   {
    "note": "Bogachiel River Trail (beyond the Little Divide junction, Bogachiel region) severely overgrown with large new blowdowns between Fifteenmile and the ridge (June 2026).",
    "source": "https://www.wta.org/go-hiking/hikes/seven-lakes-basin/@@related_tripreport_listing",
    "info_date": "2026-06-16",
-   "confidence": "medium"
+   "confidence": "medium",
+   "from": "2026-06-16",
+   "persists": true,
+   "last_confirmed": "2026-06-16",
+   "applies_to": [
+    "little_divide"
+   ],
+   "game_effect": "Outside M1a: brush and blowdown on the Bogachiel River Trail beyond the Little Divide."
   },
   {
    "note": "Over Appleton Pass on the Boulder Creek side (Elwha region): Olympic Hot Springs Road washed out (walk/bike from Madison Falls); a bridge above the upper Boulder Creek falls was damaged but passable in June 2026.",
    "source": "https://www.wta.org/go-hiking/hikes/seven-lakes-basin/@@related_tripreport_listing",
    "info_date": "2026-06-16",
-   "confidence": "medium"
+   "confidence": "medium",
+   "from": "2026-06-16",
+   "persists": true,
+   "last_confirmed": "2026-06-16",
+   "applies_to": [
+    "appleton_pass"
+   ],
+   "game_effect": "Outside M1a: the Olympic Hot Springs Road walk from Madison Falls; the damaged bridge is passable."
   },
   {
    "note": "Port Angeles WIC open daily 9 AM-5 PM (bear canister loans); Quinault station closed for the season.",
    "source": "https://www.nps.gov/olym/planyourvisit/wic.htm",
    "info_date": "2026-09-29",
-   "confidence": "high"
+   "confidence": "high",
+   "from": "2026-09-29",
+   "until": "2026-10-15",
+   "last_confirmed": "2026-09-29",
+   "applies_to": [
+    "port_angeles_wic"
+   ],
+   "game_effect": "WIC hours for the canister loan; summer hours are the default for 2027 trips."
   },
   {
    "note": "NPS Sol Duc brochure page: Eagle Ranger Station not regularly staffed (page dated April 2025; 2026 staffing unknown).",
    "source": "https://www.nps.gov/olym/planyourvisit/sol-duc-area-brochure.htm",
    "info_date": "2025-04-11",
-   "confidence": "low"
+   "confidence": "low",
+   "from": "2025-04-11",
+   "persists": true,
+   "last_confirmed": "2025-04-11",
+   "stale": true,
+   "applies_to": [
+    "eagle_ranger_station"
+   ],
+   "game_effect": "No ranger to ride out with at Eagle; told as \"last we heard\"."
   },
   {
    "note": "Spruce Railroad Trail was closed by rockfall near the Daley-Rankin Tunnel in December 2023 (pre-2025 info; superseded by the Oct 2026 open status).",
    "source": "https://en.wikipedia.org/wiki/Spruce_Railroad_Trail",
    "info_date": "2023-12",
-   "confidence": "low"
+   "confidence": "low",
+   "from": "2023-12-01",
+   "until": "2026-10-04",
+   "last_confirmed": "2026-10-04",
+   "applies_to": [
+    "spruce_railroad_lyre_river_trailhead"
+   ],
+   "game_effect": "none: superseded by the open status"
   }
  ],
  "uncertain_claims": [
@@ -5399,5 +5687,1964 @@
   "https://en.wikipedia.org/wiki/Campanula_piperi",
   "https://www.mountaineers.org/activities/routes-places/mink-lake-little-divide-deer-lake-loop",
   "https://router.project-osrm.org/"
- ]
+ ],
+ "camp_field_notes": {
+  "group_site": "true when the whole camp is a group site (7-12 people). Never offered to a solo hiker (GAME_DESIGN 4.6); its row shows disabled with the reason.",
+  "stock_site": "true when the whole camp is for parties with stock (llamas only on the Sol Duc side, per NPS). Never offered to a hiker without stock.",
+  "group_sites": "Extra group sites (7-12 people) at a camp whose individual sites are counted in sites. Not part of sites and never offered to a solo hiker.",
+  "stock_sites": "Extra stock sites at a camp, likewise not part of sites and never offered.",
+  "added": "2026-10-08, closing M1A_DATA_CHECK item 4. Sources: Recreation.gov permit 4098362 division data (the quota text on each camp) and the NPS High Divide loop page."
+ },
+ "conditions_2026_fields": {
+  "from": "First date the entry applies (ISO).",
+  "until": "Last date it applies; a dated entry expires after it (GAME_DESIGN 4.7).",
+  "persists": "true for open-ended entries, which persist until the overlay is updated.",
+  "last_confirmed": "Last date a source confirmed it. After this date the ranger tells it as \"last we heard\".",
+  "stale_after": "Optional: the date after which a persisting entry drops out unless re-confirmed.",
+  "applies_to": "Node ids, segment ids written from->to, or a group key (all_wilderness_camps, sol_duc_high_divide).",
+  "adds_hazards": "Hazard tags the entry adds to its segments while it applies.",
+  "hazard_card": "A hazard that is itself dated news, moved here from hazards[].",
+  "moved_from": "Permanent fields the news was taken out of, so it can't show on a 2027 trip (M1A_DATA_CHECK item 18).",
+  "added": "2026-10-08"
+ },
+ "m1a_play_inputs": {
+  "what": "Design inputs for the first playable that the research didn't hold (GAME_DESIGN E.5 overlay fields per place; M1A_DATA_CHECK item 11): popularity and quota odds, desk requests, ranger presence and the permit check, kind strangers, the food-storage visitor roll, and per-place canopy, cold pools, water, views, map position and the Bonfire Lily's snow features. Ingest copies this block into content/park/overlays/sol_duc_high_divide.json.",
+  "status": "Written 2026-10-08. Every number here is a flagged design estimate unless it says computed or sourced, to be tuned in the harness against B.1 (\"Lunch Lake, often full\"), B.6 (a 20% ranger at Heart Lake on a Sunday), 2.6 (88% / 96% no ranger) and the F.1 caps.",
+  "estimate": true,
+  "evidence": [
+   "Recreation.gov quotas (camp.sites and the people per night in each camp's quota text): about 200 people a night when every Sol Duc-side camp is full.",
+   "Recreation.gov snapshot 2026-10-07: Lunch Lake, Heart Lake and Heart Lake Junction full on a Wednesday in October (conditions_2026).",
+   "Reservations open Apr 15 and fill fast (permit_and_rules); the trailhead lot overflows a mile down the road on summer weekends (hazard trailhead_parking_chaos).",
+   "Rangers checked permits and canisters often on the loop in summer 2026 and moved campers without permits (conditions_2026).",
+   "OSM maps a seasonal ranger site at Lunch Lake (unverified); Eagle Ranger Station is not regularly staffed (2025)."
+  ],
+  "quota_availability": {
+   "what": "The chance a solo party finds a site left at a camp for a night when the permit is planned. Group and stock sites are never offered (camp.group_site, camp.stock_site).",
+   "roll_key": "hash(trip seed, date, camp). The seed is drawn at Begin a new book, so the planning draws are fixed for the book; changing the date re-rolls the camp; Try this trip again copies the stamped permit (lead call 8).",
+   "night_types": "weekend = Friday and Saturday nights; midweek = Sunday to Thursday nights. Labor Day weekend's Saturday and Sunday nights use half the weekend value.",
+   "months": "Jul is the online window from Jul 15; Oct runs to Oct 15. Sep and Oct are no easier on weekends than Aug by much (the 2026-10-07 snapshot was full midweek).",
+   "camps": {
+    "lunch_lake": {
+     "Jul": {
+      "midweek": 0.4,
+      "weekend": 0.2
+     },
+     "Aug": {
+      "midweek": 0.4,
+      "weekend": 0.2
+     },
+     "Sep": {
+      "midweek": 0.5,
+      "weekend": 0.25
+     },
+     "Oct": {
+      "midweek": 0.5,
+      "weekend": 0.25
+     }
+    },
+    "heart_lake": {
+     "Jul": {
+      "midweek": 0.4,
+      "weekend": 0.2
+     },
+     "Aug": {
+      "midweek": 0.4,
+      "weekend": 0.2
+     },
+     "Sep": {
+      "midweek": 0.5,
+      "weekend": 0.25
+     },
+     "Oct": {
+      "midweek": 0.5,
+      "weekend": 0.25
+     }
+    },
+    "heart_lake_junction": {
+     "Jul": {
+      "midweek": 0.45,
+      "weekend": 0.25
+     },
+     "Aug": {
+      "midweek": 0.45,
+      "weekend": 0.25
+     },
+     "Sep": {
+      "midweek": 0.55,
+      "weekend": 0.3
+     },
+     "Oct": {
+      "midweek": 0.55,
+      "weekend": 0.3
+     }
+    },
+    "round_lake": {
+     "Jul": {
+      "midweek": 0.45,
+      "weekend": 0.25
+     },
+     "Aug": {
+      "midweek": 0.45,
+      "weekend": 0.25
+     },
+     "Sep": {
+      "midweek": 0.55,
+      "weekend": 0.3
+     },
+     "Oct": {
+      "midweek": 0.55,
+      "weekend": 0.3
+     }
+    },
+    "clear_lake": {
+     "Jul": {
+      "midweek": 0.5,
+      "weekend": 0.3
+     },
+     "Aug": {
+      "midweek": 0.5,
+      "weekend": 0.3
+     },
+     "Sep": {
+      "midweek": 0.6,
+      "weekend": 0.35
+     },
+     "Oct": {
+      "midweek": 0.6,
+      "weekend": 0.35
+     }
+    },
+    "deer_lake": {
+     "Jul": {
+      "midweek": 0.6,
+      "weekend": 0.35
+     },
+     "Aug": {
+      "midweek": 0.6,
+      "weekend": 0.35
+     },
+     "Sep": {
+      "midweek": 0.7,
+      "weekend": 0.4
+     },
+     "Oct": {
+      "midweek": 0.7,
+      "weekend": 0.4
+     }
+    },
+    "potholes": {
+     "Jul": {
+      "midweek": 0.55,
+      "weekend": 0.3
+     },
+     "Aug": {
+      "midweek": 0.55,
+      "weekend": 0.3
+     },
+     "Sep": {
+      "midweek": 0.65,
+      "weekend": 0.35
+     },
+     "Oct": {
+      "midweek": 0.65,
+      "weekend": 0.35
+     }
+    },
+    "sol_duc_park": {
+     "Jul": {
+      "midweek": 0.55,
+      "weekend": 0.3
+     },
+     "Aug": {
+      "midweek": 0.55,
+      "weekend": 0.3
+     },
+     "Sep": {
+      "midweek": 0.65,
+      "weekend": 0.35
+     },
+     "Oct": {
+      "midweek": 0.65,
+      "weekend": 0.35
+     }
+    },
+    "hoh_lake": {
+     "Jul": {
+      "midweek": 0.6,
+      "weekend": 0.35
+     },
+     "Aug": {
+      "midweek": 0.6,
+      "weekend": 0.35
+     },
+     "Sep": {
+      "midweek": 0.7,
+      "weekend": 0.4
+     },
+     "Oct": {
+      "midweek": 0.7,
+      "weekend": 0.4
+     }
+    },
+    "sol_duc_falls_camp": {
+     "Jul": {
+      "midweek": 0.55,
+      "weekend": 0.3
+     },
+     "Aug": {
+      "midweek": 0.55,
+      "weekend": 0.3
+     },
+     "Sep": {
+      "midweek": 0.65,
+      "weekend": 0.35
+     },
+     "Oct": {
+      "midweek": 0.65,
+      "weekend": 0.35
+     }
+    },
+    "canyon_creek_1": {
+     "Jul": {
+      "midweek": 0.65,
+      "weekend": 0.4
+     },
+     "Aug": {
+      "midweek": 0.65,
+      "weekend": 0.4
+     },
+     "Sep": {
+      "midweek": 0.75,
+      "weekend": 0.45
+     },
+     "Oct": {
+      "midweek": 0.75,
+      "weekend": 0.45
+     }
+    },
+    "canyon_creek_2": {
+     "Jul": {
+      "midweek": 0.65,
+      "weekend": 0.4
+     },
+     "Aug": {
+      "midweek": 0.65,
+      "weekend": 0.4
+     },
+     "Sep": {
+      "midweek": 0.75,
+      "weekend": 0.45
+     },
+     "Oct": {
+      "midweek": 0.75,
+      "weekend": 0.45
+     }
+    },
+    "canyon_creek_3": {
+     "Jul": {
+      "midweek": 0.65,
+      "weekend": 0.4
+     },
+     "Aug": {
+      "midweek": 0.65,
+      "weekend": 0.4
+     },
+     "Sep": {
+      "midweek": 0.75,
+      "weekend": 0.45
+     },
+     "Oct": {
+      "midweek": 0.75,
+      "weekend": 0.45
+     }
+    },
+    "lower_bridge_creek": {
+     "Jul": {
+      "midweek": 0.65,
+      "weekend": 0.4
+     },
+     "Aug": {
+      "midweek": 0.65,
+      "weekend": 0.4
+     },
+     "Sep": {
+      "midweek": 0.75,
+      "weekend": 0.45
+     },
+     "Oct": {
+      "midweek": 0.75,
+      "weekend": 0.45
+     }
+    },
+    "sol_duc_crossing": {
+     "Jul": {
+      "midweek": 0.7,
+      "weekend": 0.45
+     },
+     "Aug": {
+      "midweek": 0.7,
+      "weekend": 0.45
+     },
+     "Sep": {
+      "midweek": 0.8,
+      "weekend": 0.5
+     },
+     "Oct": {
+      "midweek": 0.8,
+      "weekend": 0.5
+     }
+    },
+    "rocky_creek": {
+     "Jul": {
+      "midweek": 0.7,
+      "weekend": 0.45
+     },
+     "Aug": {
+      "midweek": 0.7,
+      "weekend": 0.45
+     },
+     "Sep": {
+      "midweek": 0.8,
+      "weekend": 0.5
+     },
+     "Oct": {
+      "midweek": 0.8,
+      "weekend": 0.5
+     }
+    },
+    "appleton_junction": {
+     "Jul": {
+      "midweek": 0.7,
+      "weekend": 0.45
+     },
+     "Aug": {
+      "midweek": 0.7,
+      "weekend": 0.45
+     },
+     "Sep": {
+      "midweek": 0.8,
+      "weekend": 0.5
+     },
+     "Oct": {
+      "midweek": 0.8,
+      "weekend": 0.5
+     }
+    },
+    "sol_duc_river_1": {
+     "Jul": {
+      "midweek": 0.7,
+      "weekend": 0.45
+     },
+     "Aug": {
+      "midweek": 0.7,
+      "weekend": 0.45
+     },
+     "Sep": {
+      "midweek": 0.8,
+      "weekend": 0.5
+     },
+     "Oct": {
+      "midweek": 0.8,
+      "weekend": 0.5
+     }
+    },
+    "sol_duc_river_2": {
+     "Jul": {
+      "midweek": 0.7,
+      "weekend": 0.45
+     },
+     "Aug": {
+      "midweek": 0.7,
+      "weekend": 0.45
+     },
+     "Sep": {
+      "midweek": 0.8,
+      "weekend": 0.5
+     },
+     "Oct": {
+      "midweek": 0.8,
+      "weekend": 0.5
+     }
+    },
+    "sol_duc_river_3": {
+     "Jul": {
+      "midweek": 0.7,
+      "weekend": 0.45
+     },
+     "Aug": {
+      "midweek": 0.7,
+      "weekend": 0.45
+     },
+     "Sep": {
+      "midweek": 0.8,
+      "weekend": 0.5
+     },
+     "Oct": {
+      "midweek": 0.8,
+      "weekend": 0.5
+     }
+    },
+    "sol_duc_river_4": {
+     "Jul": {
+      "midweek": 0.7,
+      "weekend": 0.45
+     },
+     "Aug": {
+      "midweek": 0.7,
+      "weekend": 0.45
+     },
+     "Sep": {
+      "midweek": 0.8,
+      "weekend": 0.5
+     },
+     "Oct": {
+      "midweek": 0.8,
+      "weekend": 0.5
+     }
+    }
+   }
+  },
+  "desk_requests": {
+   "what": "WIC-only camps the ranger may grant at the desk: park_rules.json permits.desk_requests (70% midweek, 40% weekends, keyed by trip seed, date and camp). M1a offers Bruce's Roost, Cat Basin and Hidden Lake; Long Lake and Sol Duc Lake (off trail) and the Morgenroth phone call wait for M1b (lead call 1).",
+   "m1a": [
+    "bruces_roost",
+    "cat_basin",
+    "hidden_lake"
+   ],
+   "m1b": [
+    "long_lake",
+    "sol_duc_lake"
+   ],
+   "phone_only_m1b": [
+    "morgenroth_lake"
+   ]
+  },
+  "ranger_presence": {
+   "camp_evening_visit": {
+    "what": "The chance a ranger walks through a camp on a given evening; weekend here means Friday, Saturday and Sunday nights (rangers work the busy nights). A meadow night off any site uses the nearest camp's value.",
+    "camps": {
+     "lunch_lake": {
+      "midweek": 0.15,
+      "weekend": 0.25
+     },
+     "heart_lake": {
+      "midweek": 0.12,
+      "weekend": 0.2
+     },
+     "deer_lake": {
+      "midweek": 0.12,
+      "weekend": 0.2
+     },
+     "sol_duc_park": {
+      "midweek": 0.1,
+      "weekend": 0.15
+     },
+     "hoh_lake": {
+      "midweek": 0.08,
+      "weekend": 0.12
+     },
+     "potholes": {
+      "midweek": 0.08,
+      "weekend": 0.12
+     },
+     "heart_lake_junction": {
+      "midweek": 0.08,
+      "weekend": 0.12
+     },
+     "round_lake": {
+      "midweek": 0.06,
+      "weekend": 0.1
+     },
+     "clear_lake": {
+      "midweek": 0.06,
+      "weekend": 0.1
+     },
+     "sol_duc_falls_camp": {
+      "midweek": 0.08,
+      "weekend": 0.12
+     },
+     "canyon_creek_1": {
+      "midweek": 0.05,
+      "weekend": 0.08
+     },
+     "canyon_creek_2": {
+      "midweek": 0.05,
+      "weekend": 0.08
+     },
+     "canyon_creek_3": {
+      "midweek": 0.05,
+      "weekend": 0.08
+     },
+     "lower_bridge_creek": {
+      "midweek": 0.06,
+      "weekend": 0.1
+     },
+     "sol_duc_crossing": {
+      "midweek": 0.04,
+      "weekend": 0.06
+     },
+     "rocky_creek": {
+      "midweek": 0.04,
+      "weekend": 0.06
+     },
+     "appleton_junction": {
+      "midweek": 0.04,
+      "weekend": 0.06
+     },
+     "sol_duc_river_1": {
+      "midweek": 0.04,
+      "weekend": 0.06
+     },
+     "sol_duc_river_2": {
+      "midweek": 0.04,
+      "weekend": 0.06
+     },
+     "sol_duc_river_3": {
+      "midweek": 0.04,
+      "weekend": 0.06
+     },
+     "sol_duc_river_4": {
+      "midweek": 0.04,
+      "weekend": 0.06
+     },
+     "bruces_roost": {
+      "midweek": 0.02,
+      "weekend": 0.03
+     },
+     "cat_basin": {
+      "midweek": 0.02,
+      "weekend": 0.03
+     },
+     "hidden_lake": {
+      "midweek": 0.02,
+      "weekend": 0.03
+     },
+     "mirror_lake": {
+      "midweek": 0.06,
+      "weekend": 0.1
+     },
+     "long_lake": {
+      "midweek": 0.03,
+      "weekend": 0.05
+     },
+     "sol_duc_lake": {
+      "midweek": 0.03,
+      "weekend": 0.05
+     },
+     "morgenroth_lake": {
+      "midweek": 0.03,
+      "weekend": 0.05
+     }
+    }
+   },
+   "permit_check": {
+    "legal_night": "The permit check is a Director Larry card, at most one a day and two a book (2.6, 8.4); its deal weight on a night is that camp's evening-visit chance.",
+    "off_permit_night": "Forced and uncapped: every off-permit night rolls the camp's evening-visit chance, and a hit plays the permit-check card (lead call 5; 3.7). The Leave No Trace cost is charged whether or not a ranger comes.",
+    "after_a_citation": "The next permit check in the same region is 1.5 times as likely (9.8; estimate)."
+   },
+   "on_trail": {
+    "what": "Rangers met per hour on each trail section (sections below), at midday; evenings use 0.4 times. Feeds the Larry odds: 1 - exp(-rate x hours) is the chance a ranger strolls by (2.6: about 12% on a Saturday afternoon on the crest, 3-4% on a weekday evening)."
+   }
+  },
+  "trail_traffic": {
+   "what": "Other parties met per hour on each section at midday on an August day: kind strangers (9.2, 'Ask for help', base 70% once someone is there), full camps, and how likely a Boy is (7.11). Met parties follow a Poisson process: P(at least one in t hours) = 1 - exp(-rate x hour factor x month factor x weather factor x t).",
+   "hour_factor": {
+    "0-6": 0.02,
+    "6-8": 0.3,
+    "8-10": 0.7,
+    "10-16": 1,
+    "16-18": 0.7,
+    "18-20": 0.35,
+    "20-22": 0.1,
+    "22-24": 0.02
+   },
+   "month_factor": {
+    "Jun": 0.5,
+    "Jul": 0.9,
+    "Aug": 1,
+    "Sep": 0.75,
+    "Oct": 0.4
+   },
+   "weather_factor": {
+    "fair": 1,
+    "unsettled": 0.8,
+    "wet": 0.5,
+    "storm": 0.25
+   },
+   "sections": {
+    "falls_trail": {
+     "segments": [
+      "sol_duc_trailhead->sol_duc_falls",
+      "sol_duc_falls->sol_duc_falls_camp"
+     ],
+     "parties_per_hour": {
+      "midweek": 18,
+      "weekend": 30
+     },
+     "rangers_per_hour": {
+      "midweek": 0.04,
+      "weekend": 0.06
+     }
+    },
+    "deer_lake_trail": {
+     "segments": [
+      "sol_duc_falls->hidden_lake_junction",
+      "hidden_lake_junction->canyon_creek_1",
+      "canyon_creek_1->canyon_creek_2",
+      "canyon_creek_2->canyon_creek_3",
+      "canyon_creek_3->deer_lake"
+     ],
+     "parties_per_hour": {
+      "midweek": 5,
+      "weekend": 8
+     },
+     "rangers_per_hour": {
+      "midweek": 0.05,
+      "weekend": 0.08
+     }
+    },
+    "divide_west": {
+     "segments": [
+      "deer_lake->potholes",
+      "potholes->seven_lakes_basin"
+     ],
+     "parties_per_hour": {
+      "midweek": 2.5,
+      "weekend": 4
+     },
+     "rangers_per_hour": {
+      "midweek": 0.07,
+      "weekend": 0.11
+     }
+    },
+    "crest": {
+     "segments": [
+      "seven_lakes_basin->bogachiel_peak_west_junction",
+      "bogachiel_peak_west_junction->high_divide",
+      "high_divide->bogachiel_peak_junction",
+      "bogachiel_peak_junction->mirror_lake_way_trail_junction",
+      "mirror_lake_way_trail_junction->heart_lake_junction"
+     ],
+     "parties_per_hour": {
+      "midweek": 2.5,
+      "weekend": 4
+     },
+     "rangers_per_hour": {
+      "midweek": 0.08,
+      "weekend": 0.13
+     }
+    },
+    "summit_spur": {
+     "segments": [
+      "bogachiel_peak_junction->bogachiel_peak",
+      "bogachiel_peak_west_junction->bogachiel_peak"
+     ],
+     "parties_per_hour": {
+      "midweek": 1.5,
+      "weekend": 2.5
+     },
+     "rangers_per_hour": {
+      "midweek": 0.03,
+      "weekend": 0.05
+     }
+    },
+    "basin": {
+     "segments": [
+      "seven_lakes_basin->round_lake_junction",
+      "round_lake_junction->round_lake",
+      "round_lake_junction->lunch_lake"
+     ],
+     "parties_per_hour": {
+      "midweek": 2,
+      "weekend": 3
+     },
+     "rangers_per_hour": {
+      "midweek": 0.08,
+      "weekend": 0.13
+     }
+    },
+    "mirror_lake_way_trail": {
+     "segments": [
+      "lunch_lake->mirror_lake",
+      "mirror_lake->mirror_lake_way_trail_junction"
+     ],
+     "parties_per_hour": {
+      "midweek": 0.4,
+      "weekend": 0.6
+     },
+     "rangers_per_hour": {
+      "midweek": 0.02,
+      "weekend": 0.03
+     }
+    },
+    "clear_lake_way_trail": {
+     "segments": [
+      "lunch_lake->clear_lake"
+     ],
+     "parties_per_hour": {
+      "midweek": 0.3,
+      "weekend": 0.5
+     },
+     "rangers_per_hour": {
+      "midweek": 0.02,
+      "weekend": 0.03
+     }
+    },
+    "morgenroth_way_trail": {
+     "segments": [
+      "long_lake->morgenroth_lake"
+     ],
+     "parties_per_hour": {
+      "midweek": 0.1,
+      "weekend": 0.15
+     },
+     "rangers_per_hour": {
+      "midweek": 0.01,
+      "weekend": 0.01
+     }
+    },
+    "off_trail": {
+     "segments": [
+      "clear_lake->long_lake",
+      "long_lake->sol_duc_lake",
+      "morgenroth_lake->y_lake",
+      "morgenroth_lake->no_name_lake"
+     ],
+     "parties_per_hour": {
+      "midweek": 0.05,
+      "weekend": 0.1
+     },
+     "rangers_per_hour": {
+      "midweek": 0.005,
+      "weekend": 0.01
+     }
+    },
+    "heart_lake_sol_duc_park": {
+     "segments": [
+      "heart_lake->heart_lake_junction",
+      "sol_duc_park->heart_lake",
+      "lower_bridge_creek->sol_duc_park"
+     ],
+     "parties_per_hour": {
+      "midweek": 2,
+      "weekend": 3
+     },
+     "rangers_per_hour": {
+      "midweek": 0.06,
+      "weekend": 0.1
+     }
+    },
+    "river_upper": {
+     "segments": [
+      "sol_duc_crossing->lower_bridge_creek",
+      "seven_mile_group_camp->sol_duc_crossing",
+      "sol_duc_crossing->horse_head_stock_camp",
+      "rocky_creek->seven_mile_group_camp",
+      "appleton_junction->rocky_creek"
+     ],
+     "parties_per_hour": {
+      "midweek": 1.2,
+      "weekend": 2
+     },
+     "rangers_per_hour": {
+      "midweek": 0.04,
+      "weekend": 0.06
+     }
+    },
+    "river_lower": {
+     "segments": [
+      "sol_duc_river_4->appleton_junction",
+      "sol_duc_river_3->sol_duc_river_4",
+      "sol_duc_river_2->sol_duc_river_3",
+      "sol_duc_river_1->sol_duc_river_2",
+      "sol_duc_falls->sol_duc_river_1"
+     ],
+     "parties_per_hour": {
+      "midweek": 2,
+      "weekend": 3
+     },
+     "rangers_per_hour": {
+      "midweek": 0.04,
+      "weekend": 0.06
+     }
+    },
+    "hoh_lake_trail": {
+     "segments": [
+      "high_divide->hoh_lake",
+      "hoh_lake->c_b_flats_group_site",
+      "c_b_flats_group_site->hoh_lake_trail_junction"
+     ],
+     "parties_per_hour": {
+      "midweek": 0.6,
+      "weekend": 1
+     },
+     "rangers_per_hour": {
+      "midweek": 0.03,
+      "weekend": 0.04
+     }
+    },
+    "cat_basin_trail": {
+     "segments": [
+      "heart_lake_junction->bruces_roost",
+      "bruces_roost->cat_basin_cutoff_junction",
+      "heart_lake->cat_basin_cutoff_junction",
+      "cat_basin_cutoff_junction->swimming_bear_lake_junction",
+      "swimming_bear_lake_junction->cat_basin"
+     ],
+     "parties_per_hour": {
+      "midweek": 0.3,
+      "weekend": 0.5
+     },
+     "rangers_per_hour": {
+      "midweek": 0.01,
+      "weekend": 0.02
+     }
+    },
+    "hidden_lake_way_trail": {
+     "segments": [
+      "hidden_lake_junction->hidden_lake"
+     ],
+     "parties_per_hour": {
+      "midweek": 0.2,
+      "weekend": 0.3
+     },
+     "rangers_per_hour": {
+      "midweek": 0.01,
+      "weekend": 0.01
+     }
+    }
+   }
+  },
+  "food_storage_visitors": {
+   "what": "The nightly wildlife-visitor roll when food is not in a closed canister 100 ft from the tent: no canister at all (allowed, never a hard block: lead call 4), food that didn't fit, or a can left open. Visitors are mice, jays, deer and, now and then, a bear; habituated camps are worse.",
+   "p_visitor_per_night": {
+    "lunch_lake": 0.6,
+    "heart_lake": 0.6,
+    "deer_lake": 0.6,
+    "sol_duc_park": 0.6,
+    "hoh_lake": 0.5,
+    "potholes": 0.45,
+    "heart_lake_junction": 0.4,
+    "round_lake": 0.45,
+    "clear_lake": 0.4,
+    "sol_duc_falls_camp": 0.5,
+    "lower_bridge_creek": 0.4,
+    "canyon_creek_1": 0.35,
+    "canyon_creek_2": 0.35,
+    "canyon_creek_3": 0.35,
+    "sol_duc_crossing": 0.35,
+    "rocky_creek": 0.35,
+    "appleton_junction": 0.35,
+    "sol_duc_river_1": 0.35,
+    "sol_duc_river_2": 0.35,
+    "sol_duc_river_3": 0.35,
+    "sol_duc_river_4": 0.35,
+    "bruces_roost": 0.2,
+    "cat_basin": 0.3,
+    "hidden_lake": 0.3,
+    "mirror_lake": 0.3,
+    "long_lake": 0.25,
+    "sol_duc_lake": 0.25,
+    "morgenroth_lake": 0.3,
+    "meadow_off_site": 0.5
+   },
+   "p_bear_given_visitor": {
+    "Jul": 0.08,
+    "Aug": 0.15,
+    "Sep": 0.15,
+    "Oct": 0.05,
+    "note": "Berry season (late July to September) brings bears to Heart Lake, Lunch Lake, Deer Lake, Sol Duc Park and Hoh Lake (2026 reports, hazard bear_in_camp)."
+   },
+   "with_canister_closed": "Food in a closed canister 100 ft away: visitors x 0.15 (crumbs and a curious nose), and nothing is lost.",
+   "consequences": "Food lost to wildlife costs Leave No Trace -15 (9.6); a ranger who checks plays a ranger card; a bear that gets food makes the next bear in this region bolder (9.8)."
+  },
+  "places": {
+   "what": "Overlay fields per place (E.5) for the loop's 47 nodes.",
+   "fields": {
+    "map_xy": "Map position in tenths of a mile, x east and y south of 47.955 N, 123.84 W (computed from lat and lon). The map screen scales it.",
+    "canopy": "Share of the sky the trees block, 0 to 1 (estimate): sets trail-dark (7.2) and how much rain and sun reach the hiker.",
+    "cold_pool": "true for basins, lake hollows and meadows where cold air pools on clear nights (-4 F, 7.5).",
+    "water": "Water at the place in August and September: sure, likely, unverified (the research couldn't confirm late-summer water), near (a short walk), river (a river beside a trailhead or junction), none.",
+    "views": "What a Look from here can see; view_score 0-3 drives the landmark-view points (9.6) and the scene composer's backdrop (11.7).",
+    "traffic_section": "The trail_traffic section a place belongs to.",
+    "snow_feature": "The Bonfire Lily's snow feature (10.2): windows are the doc's design estimates, shifted by snow year. M1b.",
+    "bonfire_lily_weight": "0 everywhere in M1a (the lily arrives in M1b); from M1b, 1 where a snow feature is in sight."
+   },
+   "nodes": {
+    "sol_duc_trailhead": {
+     "map_xy": [
+      2,
+      0
+     ],
+     "canopy": 0.9,
+     "cold_pool": false,
+     "water": {
+      "Aug": "river",
+      "Sep": "river"
+     },
+     "views": [],
+     "view_score": 0,
+     "traffic_section": "falls_trail",
+     "bonfire_lily_weight": {
+      "m1a": 0,
+      "from_m1b": 0
+     }
+    },
+    "sol_duc_falls": {
+     "map_xy": [
+      9,
+      2
+     ],
+     "canopy": 0.8,
+     "cold_pool": false,
+     "water": {
+      "Aug": "sure",
+      "Sep": "sure"
+     },
+     "views": [
+      "sol_duc_falls"
+     ],
+     "view_score": 2,
+     "traffic_section": "falls_trail",
+     "bonfire_lily_weight": {
+      "m1a": 0,
+      "from_m1b": 0
+     }
+    },
+    "sol_duc_falls_camp": {
+     "map_xy": [
+      11,
+      3
+     ],
+     "canopy": 0.9,
+     "cold_pool": false,
+     "water": {
+      "Aug": "sure",
+      "Sep": "sure"
+     },
+     "views": [],
+     "view_score": 0,
+     "traffic_section": "falls_trail",
+     "bonfire_lily_weight": {
+      "m1a": 0,
+      "from_m1b": 0
+     }
+    },
+    "hidden_lake_junction": {
+     "map_xy": [
+      7,
+      7
+     ],
+     "canopy": 0.9,
+     "cold_pool": false,
+     "water": {
+      "Aug": "sure",
+      "Sep": "sure"
+     },
+     "views": [],
+     "view_score": 0,
+     "traffic_section": "deer_lake_trail",
+     "bonfire_lily_weight": {
+      "m1a": 0,
+      "from_m1b": 0
+     }
+    },
+    "hidden_lake": {
+     "map_xy": [
+      1,
+      6
+     ],
+     "canopy": 0.6,
+     "cold_pool": true,
+     "water": {
+      "Aug": "sure",
+      "Sep": "sure"
+     },
+     "views": [
+      "hidden_lake"
+     ],
+     "view_score": 1,
+     "traffic_section": "hidden_lake_way_trail",
+     "bonfire_lily_weight": {
+      "m1a": 0,
+      "from_m1b": 0
+     }
+    },
+    "canyon_creek_1": {
+     "map_xy": [
+      9,
+      9
+     ],
+     "canopy": 0.9,
+     "cold_pool": false,
+     "water": {
+      "Aug": "sure",
+      "Sep": "sure"
+     },
+     "views": [],
+     "view_score": 0,
+     "traffic_section": "deer_lake_trail",
+     "bonfire_lily_weight": {
+      "m1a": 0,
+      "from_m1b": 0
+     }
+    },
+    "canyon_creek_2": {
+     "map_xy": [
+      9,
+      13
+     ],
+     "canopy": 0.9,
+     "cold_pool": false,
+     "water": {
+      "Aug": "sure",
+      "Sep": "sure"
+     },
+     "views": [
+      "canyon_creek_cascades"
+     ],
+     "view_score": 1,
+     "traffic_section": "deer_lake_trail",
+     "bonfire_lily_weight": {
+      "m1a": 0,
+      "from_m1b": 0
+     }
+    },
+    "canyon_creek_3": {
+     "map_xy": [
+      8,
+      16
+     ],
+     "canopy": 0.85,
+     "cold_pool": false,
+     "water": {
+      "Aug": "sure",
+      "Sep": "sure"
+     },
+     "views": [],
+     "view_score": 0,
+     "traffic_section": "deer_lake_trail",
+     "bonfire_lily_weight": {
+      "m1a": 0,
+      "from_m1b": 0
+     }
+    },
+    "deer_lake": {
+     "map_xy": [
+      8,
+      20
+     ],
+     "canopy": 0.5,
+     "cold_pool": true,
+     "water": {
+      "Aug": "sure",
+      "Sep": "sure"
+     },
+     "views": [
+      "deer_lake"
+     ],
+     "view_score": 1,
+     "traffic_section": "deer_lake_trail",
+     "bonfire_lily_weight": {
+      "m1a": 0,
+      "from_m1b": 0
+     }
+    },
+    "potholes": {
+     "map_xy": [
+      10,
+      26
+     ],
+     "canopy": 0.3,
+     "cold_pool": true,
+     "water": {
+      "Aug": "unverified",
+      "Sep": "unverified"
+     },
+     "views": [
+      "potholes_ponds"
+     ],
+     "view_score": 1,
+     "traffic_section": "divide_west",
+     "bonfire_lily_weight": {
+      "m1a": 0,
+      "from_m1b": 0
+     }
+    },
+    "seven_lakes_basin": {
+     "map_xy": [
+      23,
+      30
+     ],
+     "canopy": 0.05,
+     "cold_pool": false,
+     "water": {
+      "Aug": "none",
+      "Sep": "none"
+     },
+     "views": [
+      "seven_lakes_basin",
+      "bogachiel_peak_north_face"
+     ],
+     "view_score": 3,
+     "traffic_section": "divide_west",
+     "snow_feature": {
+      "feature": "Snowfields on the rim and the north face of Bogachiel Peak, in sight",
+      "normal_window": [
+       "Jul 1",
+       "Aug 10"
+      ],
+      "low_snow_year_shift_days": -14,
+      "high_snow_year_shift_days": [
+       14,
+       21
+      ],
+      "estimate": true,
+      "confirm": "Against August trip reports and the creator's memory of the Divide (GAME_DESIGN 10.2)."
+     },
+     "bonfire_lily_weight": {
+      "m1a": 0,
+      "from_m1b": 1
+     }
+    },
+    "round_lake_junction": {
+     "map_xy": [
+      24,
+      28
+     ],
+     "canopy": 0.3,
+     "cold_pool": true,
+     "water": {
+      "Aug": "near",
+      "Sep": "near"
+     },
+     "views": [
+      "basin_lakes"
+     ],
+     "view_score": 1,
+     "traffic_section": "basin",
+     "bonfire_lily_weight": {
+      "m1a": 0,
+      "from_m1b": 0
+     }
+    },
+    "round_lake": {
+     "map_xy": [
+      24,
+      26
+     ],
+     "canopy": 0.3,
+     "cold_pool": true,
+     "water": {
+      "Aug": "sure",
+      "Sep": "sure"
+     },
+     "views": [
+      "round_lake",
+      "talus"
+     ],
+     "view_score": 1,
+     "traffic_section": "basin",
+     "bonfire_lily_weight": {
+      "m1a": 0,
+      "from_m1b": 0
+     }
+    },
+    "lunch_lake": {
+     "map_xy": [
+      26,
+      26
+     ],
+     "canopy": 0.2,
+     "cold_pool": true,
+     "water": {
+      "Aug": "sure",
+      "Sep": "sure"
+     },
+     "views": [
+      "lunch_lake",
+      "bogachiel_peak_north_face",
+      "basin_lakes"
+     ],
+     "view_score": 2,
+     "traffic_section": "basin",
+     "snow_feature": {
+      "feature": "Bogachiel Peak's north-face snowfield, in sight above the basin (no snowfield at the lake itself is reported)",
+      "normal_window": [
+       "Jul 1",
+       "Aug 10"
+      ],
+      "low_snow_year_shift_days": -14,
+      "high_snow_year_shift_days": [
+       14,
+       21
+      ],
+      "estimate": true,
+      "confirm": "Against August trip reports and the creator's memory of the Divide (GAME_DESIGN 10.2)."
+     },
+     "bonfire_lily_weight": {
+      "m1a": 0,
+      "from_m1b": 1
+     }
+    },
+    "clear_lake": {
+     "map_xy": [
+      29,
+      25
+     ],
+     "canopy": 0.3,
+     "cold_pool": true,
+     "water": {
+      "Aug": "sure",
+      "Sep": "sure"
+     },
+     "views": [
+      "clear_lake"
+     ],
+     "view_score": 1,
+     "traffic_section": "clear_lake_way_trail",
+     "bonfire_lily_weight": {
+      "m1a": 0,
+      "from_m1b": 0
+     }
+    },
+    "mirror_lake": {
+     "map_xy": [
+      31,
+      30
+     ],
+     "canopy": 0.1,
+     "cold_pool": true,
+     "water": {
+      "Aug": "sure",
+      "Sep": "sure"
+     },
+     "views": [
+      "mirror_lake",
+      "seven_lakes_basin"
+     ],
+     "view_score": 2,
+     "traffic_section": "mirror_lake_way_trail",
+     "bonfire_lily_weight": {
+      "m1a": 0,
+      "from_m1b": 0
+     }
+    },
+    "mirror_lake_way_trail_junction": {
+     "map_xy": [
+      35,
+      33
+     ],
+     "canopy": 0.05,
+     "cold_pool": false,
+     "water": {
+      "Aug": "none",
+      "Sep": "none"
+     },
+     "views": [
+      "mount_olympus",
+      "hoh_valley",
+      "seven_lakes_basin"
+     ],
+     "view_score": 3,
+     "traffic_section": "crest",
+     "bonfire_lily_weight": {
+      "m1a": 0,
+      "from_m1b": 0
+     }
+    },
+    "long_lake": {
+     "map_xy": [
+      31,
+      22
+     ],
+     "canopy": 0.3,
+     "cold_pool": true,
+     "water": {
+      "Aug": "sure",
+      "Sep": "sure"
+     },
+     "views": [
+      "long_lake"
+     ],
+     "view_score": 1,
+     "traffic_section": "off_trail",
+     "bonfire_lily_weight": {
+      "m1a": 0,
+      "from_m1b": 0
+     }
+    },
+    "sol_duc_lake": {
+     "map_xy": [
+      27,
+      20
+     ],
+     "canopy": 0.5,
+     "cold_pool": true,
+     "water": {
+      "Aug": "sure",
+      "Sep": "sure"
+     },
+     "views": [
+      "sol_duc_lake"
+     ],
+     "view_score": 1,
+     "traffic_section": "off_trail",
+     "bonfire_lily_weight": {
+      "m1a": 0,
+      "from_m1b": 0
+     }
+    },
+    "morgenroth_lake": {
+     "map_xy": [
+      36,
+      25
+     ],
+     "canopy": 0.3,
+     "cold_pool": true,
+     "water": {
+      "Aug": "sure",
+      "Sep": "sure"
+     },
+     "views": [
+      "morgenroth_lake"
+     ],
+     "view_score": 2,
+     "traffic_section": "morgenroth_way_trail",
+     "bonfire_lily_weight": {
+      "m1a": 0,
+      "from_m1b": 0
+     }
+    },
+    "no_name_lake": {
+     "map_xy": [
+      36,
+      28
+     ],
+     "canopy": 0.3,
+     "cold_pool": true,
+     "water": {
+      "Aug": "sure",
+      "Sep": "sure"
+     },
+     "views": [
+      "no_name_lake"
+     ],
+     "view_score": 1,
+     "traffic_section": "off_trail",
+     "bonfire_lily_weight": {
+      "m1a": 0,
+      "from_m1b": 0
+     }
+    },
+    "y_lake": {
+     "map_xy": [
+      37,
+      25
+     ],
+     "canopy": 0.3,
+     "cold_pool": true,
+     "water": {
+      "Aug": "sure",
+      "Sep": "sure"
+     },
+     "views": [
+      "y_lake"
+     ],
+     "view_score": 1,
+     "traffic_section": "off_trail",
+     "bonfire_lily_weight": {
+      "m1a": 0,
+      "from_m1b": 0
+     }
+    },
+    "lake_8": {
+     "map_xy": null,
+     "canopy": null,
+     "cold_pool": null,
+     "water": {
+      "Aug": "unverified",
+      "Sep": "unverified"
+     },
+     "views": [],
+     "view_score": null,
+     "traffic_section": "off_trail",
+     "note": "Location unverified and no trail reaches it (4.3): no map_xy, drawn only as a pencil footnote.",
+     "bonfire_lily_weight": {
+      "m1a": 0,
+      "from_m1b": 0
+     }
+    },
+    "bogachiel_peak_west_junction": {
+     "map_xy": [
+      28,
+      34
+     ],
+     "canopy": 0,
+     "cold_pool": false,
+     "water": {
+      "Aug": "none",
+      "Sep": "none"
+     },
+     "views": [
+      "mount_olympus",
+      "hoh_valley",
+      "seven_lakes_basin"
+     ],
+     "view_score": 3,
+     "traffic_section": "crest",
+     "bonfire_lily_weight": {
+      "m1a": 0,
+      "from_m1b": 0
+     }
+    },
+    "high_divide": {
+     "map_xy": [
+      29,
+      35
+     ],
+     "canopy": 0,
+     "cold_pool": false,
+     "water": {
+      "Aug": "none",
+      "Sep": "none"
+     },
+     "views": [
+      "mount_olympus",
+      "hoh_valley",
+      "hoh_lake"
+     ],
+     "view_score": 3,
+     "traffic_section": "crest",
+     "bonfire_lily_weight": {
+      "m1a": 0,
+      "from_m1b": 0
+     }
+    },
+    "bogachiel_peak_junction": {
+     "map_xy": [
+      30,
+      34
+     ],
+     "canopy": 0,
+     "cold_pool": false,
+     "water": {
+      "Aug": "none",
+      "Sep": "none"
+     },
+     "views": [
+      "mount_olympus",
+      "hoh_valley"
+     ],
+     "view_score": 3,
+     "traffic_section": "crest",
+     "bonfire_lily_weight": {
+      "m1a": 0,
+      "from_m1b": 0
+     }
+    },
+    "bogachiel_peak": {
+     "map_xy": [
+      29,
+      34
+     ],
+     "canopy": 0,
+     "cold_pool": false,
+     "water": {
+      "Aug": "none",
+      "Sep": "none"
+     },
+     "views": [
+      "mount_olympus",
+      "hoh_valley",
+      "seven_lakes_basin",
+      "bailey_range"
+     ],
+     "view_score": 3,
+     "traffic_section": "summit_spur",
+     "snow_feature": {
+      "feature": "The north-face snowfield above the Seven Lakes Basin",
+      "normal_window": [
+       "Jul 1",
+       "Aug 20"
+      ],
+      "low_snow_year_shift_days": -14,
+      "high_snow_year_shift_days": [
+       14,
+       21
+      ],
+      "estimate": true,
+      "confirm": "Against August trip reports and the creator's memory of the Divide (GAME_DESIGN 10.2)."
+     },
+     "bonfire_lily_weight": {
+      "m1a": 0,
+      "from_m1b": 1
+     }
+    },
+    "hoh_lake": {
+     "map_xy": [
+      24,
+      40
+     ],
+     "canopy": 0.3,
+     "cold_pool": true,
+     "water": {
+      "Aug": "sure",
+      "Sep": "sure"
+     },
+     "views": [
+      "hoh_lake",
+      "mount_olympus"
+     ],
+     "view_score": 3,
+     "traffic_section": "hoh_lake_trail",
+     "bonfire_lily_weight": {
+      "m1a": 0,
+      "from_m1b": 0
+     }
+    },
+    "c_b_flats_group_site": {
+     "map_xy": [
+      23,
+      42
+     ],
+     "canopy": 0.5,
+     "cold_pool": true,
+     "water": {
+      "Aug": "likely",
+      "Sep": "likely"
+     },
+     "views": [],
+     "view_score": 0,
+     "traffic_section": "hoh_lake_trail",
+     "bonfire_lily_weight": {
+      "m1a": 0,
+      "from_m1b": 0
+     }
+    },
+    "hoh_lake_trail_junction": {
+     "map_xy": [
+      40,
+      53
+     ],
+     "canopy": 0.9,
+     "cold_pool": false,
+     "water": {
+      "Aug": "river",
+      "Sep": "river"
+     },
+     "views": [],
+     "view_score": 0,
+     "traffic_section": "hoh_lake_trail",
+     "bonfire_lily_weight": {
+      "m1a": 0,
+      "from_m1b": 0
+     }
+    },
+    "heart_lake_junction": {
+     "map_xy": [
+      47,
+      33
+     ],
+     "canopy": 0.05,
+     "cold_pool": false,
+     "water": {
+      "Aug": "none",
+      "Sep": "none"
+     },
+     "views": [
+      "mount_olympus",
+      "hoh_valley",
+      "bailey_range",
+      "sol_duc_valley"
+     ],
+     "view_score": 3,
+     "traffic_section": "crest",
+     "snow_feature": {
+      "feature": "The crest snowfield at Heart Lake Junction (hazard snowfield_high_divide)",
+      "normal_window": [
+       "Jul 1",
+       "Aug 10"
+      ],
+      "low_snow_year_shift_days": -14,
+      "high_snow_year_shift_days": [
+       14,
+       21
+      ],
+      "estimate": true,
+      "confirm": "Against August trip reports and the creator's memory of the Divide (GAME_DESIGN 10.2)."
+     },
+     "bonfire_lily_weight": {
+      "m1a": 0,
+      "from_m1b": 1
+     }
+    },
+    "heart_lake": {
+     "map_xy": [
+      49,
+      31
+     ],
+     "canopy": 0.3,
+     "cold_pool": true,
+     "water": {
+      "Aug": "sure",
+      "Sep": "sure"
+     },
+     "views": [
+      "heart_lake",
+      "sol_duc_park_meadows"
+     ],
+     "view_score": 2,
+     "traffic_section": "heart_lake_sol_duc_park",
+     "snow_feature": {
+      "feature": "The crest snowfield below Heart Lake Junction, 0.4 mi up and in sight (none at the lake itself is reported)",
+      "normal_window": [
+       "Jul 1",
+       "Aug 10"
+      ],
+      "low_snow_year_shift_days": -14,
+      "high_snow_year_shift_days": [
+       14,
+       21
+      ],
+      "estimate": true,
+      "confirm": "Against August trip reports and the creator's memory of the Divide (GAME_DESIGN 10.2)."
+     },
+     "bonfire_lily_weight": {
+      "m1a": 0,
+      "from_m1b": 1
+     }
+    },
+    "bruces_roost": {
+     "map_xy": [
+      54,
+      33
+     ],
+     "canopy": 0.1,
+     "cold_pool": false,
+     "water": {
+      "Aug": "none",
+      "Sep": "none"
+     },
+     "views": [
+      "bailey_range",
+      "mount_olympus",
+      "cat_basin"
+     ],
+     "view_score": 3,
+     "traffic_section": "cat_basin_trail",
+     "bonfire_lily_weight": {
+      "m1a": 0,
+      "from_m1b": 0
+     }
+    },
+    "cat_basin_cutoff_junction": {
+     "map_xy": [
+      51,
+      34
+     ],
+     "canopy": 0.1,
+     "cold_pool": false,
+     "water": {
+      "Aug": "none",
+      "Sep": "none"
+     },
+     "views": [
+      "bailey_range"
+     ],
+     "view_score": 2,
+     "traffic_section": "cat_basin_trail",
+     "bonfire_lily_weight": {
+      "m1a": 0,
+      "from_m1b": 0
+     }
+    },
+    "swimming_bear_lake_junction": {
+     "map_xy": [
+      58,
+      33
+     ],
+     "canopy": 0.2,
+     "cold_pool": false,
+     "water": {
+      "Aug": "none",
+      "Sep": "none"
+     },
+     "views": [
+      "bailey_range"
+     ],
+     "view_score": 2,
+     "traffic_section": "cat_basin_trail",
+     "bonfire_lily_weight": {
+      "m1a": 0,
+      "from_m1b": 0
+     }
+    },
+    "cat_basin": {
+     "map_xy": [
+      58,
+      34
+     ],
+     "canopy": 0.3,
+     "cold_pool": true,
+     "water": {
+      "Aug": "likely",
+      "Sep": "unverified"
+     },
+     "views": [
+      "bailey_range",
+      "cat_basin"
+     ],
+     "view_score": 3,
+     "traffic_section": "cat_basin_trail",
+     "bonfire_lily_weight": {
+      "m1a": 0,
+      "from_m1b": 0
+     }
+    },
+    "sol_duc_park": {
+     "map_xy": [
+      52,
+      25
+     ],
+     "canopy": 0.3,
+     "cold_pool": true,
+     "water": {
+      "Aug": "sure",
+      "Sep": "sure"
+     },
+     "views": [
+      "sol_duc_park_meadows",
+      "bridge_creek_falls"
+     ],
+     "view_score": 2,
+     "traffic_section": "heart_lake_sol_duc_park",
+     "bonfire_lily_weight": {
+      "m1a": 0,
+      "from_m1b": 0
+     }
+    },
+    "lower_bridge_creek": {
+     "map_xy": [
+      49,
+      21
+     ],
+     "canopy": 0.7,
+     "cold_pool": false,
+     "water": {
+      "Aug": "sure",
+      "Sep": "sure"
+     },
+     "views": [
+      "bridge_creek_pools"
+     ],
+     "view_score": 1,
+     "traffic_section": "river_upper",
+     "bonfire_lily_weight": {
+      "m1a": 0,
+      "from_m1b": 0
+     }
+    },
+    "sol_duc_crossing": {
+     "map_xy": [
+      47,
+      17
+     ],
+     "canopy": 0.85,
+     "cold_pool": false,
+     "water": {
+      "Aug": "sure",
+      "Sep": "sure"
+     },
+     "views": [
+      "sol_duc_river"
+     ],
+     "view_score": 1,
+     "traffic_section": "river_upper",
+     "bonfire_lily_weight": {
+      "m1a": 0,
+      "from_m1b": 0
+     }
+    },
+    "horse_head_stock_camp": {
+     "map_xy": [
+      47,
+      18
+     ],
+     "canopy": 0.85,
+     "cold_pool": false,
+     "water": {
+      "Aug": "sure",
+      "Sep": "sure"
+     },
+     "views": [],
+     "view_score": 0,
+     "traffic_section": "river_upper",
+     "bonfire_lily_weight": {
+      "m1a": 0,
+      "from_m1b": 0
+     }
+    },
+    "seven_mile_group_camp": {
+     "map_xy": [
+      45,
+      17
+     ],
+     "canopy": 0.85,
+     "cold_pool": false,
+     "water": {
+      "Aug": "sure",
+      "Sep": "sure"
+     },
+     "views": [],
+     "view_score": 0,
+     "traffic_section": "river_upper",
+     "bonfire_lily_weight": {
+      "m1a": 0,
+      "from_m1b": 0
+     }
+    },
+    "rocky_creek": {
+     "map_xy": [
+      43,
+      16
+     ],
+     "canopy": 0.85,
+     "cold_pool": false,
+     "water": {
+      "Aug": "sure",
+      "Sep": "sure"
+     },
+     "views": [],
+     "view_score": 0,
+     "traffic_section": "river_upper",
+     "bonfire_lily_weight": {
+      "m1a": 0,
+      "from_m1b": 0
+     }
+    },
+    "appleton_junction": {
+     "map_xy": [
+      41,
+      16
+     ],
+     "canopy": 0.9,
+     "cold_pool": false,
+     "water": {
+      "Aug": "sure",
+      "Sep": "sure"
+     },
+     "views": [],
+     "view_score": 0,
+     "traffic_section": "river_lower",
+     "bonfire_lily_weight": {
+      "m1a": 0,
+      "from_m1b": 0
+     }
+    },
+    "sol_duc_river_4": {
+     "map_xy": [
+      36,
+      14
+     ],
+     "canopy": 0.9,
+     "cold_pool": false,
+     "water": {
+      "Aug": "sure",
+      "Sep": "sure"
+     },
+     "views": [],
+     "view_score": 0,
+     "traffic_section": "river_lower",
+     "bonfire_lily_weight": {
+      "m1a": 0,
+      "from_m1b": 0
+     }
+    },
+    "sol_duc_river_3": {
+     "map_xy": [
+      33,
+      14
+     ],
+     "canopy": 0.9,
+     "cold_pool": false,
+     "water": {
+      "Aug": "sure",
+      "Sep": "sure"
+     },
+     "views": [],
+     "view_score": 0,
+     "traffic_section": "river_lower",
+     "bonfire_lily_weight": {
+      "m1a": 0,
+      "from_m1b": 0
+     }
+    },
+    "sol_duc_river_2": {
+     "map_xy": [
+      28,
+      10
+     ],
+     "canopy": 0.9,
+     "cold_pool": false,
+     "water": {
+      "Aug": "sure",
+      "Sep": "sure"
+     },
+     "views": [
+      "sol_duc_river"
+     ],
+     "view_score": 1,
+     "traffic_section": "river_lower",
+     "bonfire_lily_weight": {
+      "m1a": 0,
+      "from_m1b": 0
+     }
+    },
+    "sol_duc_river_1": {
+     "map_xy": [
+      22,
+      6
+     ],
+     "canopy": 0.9,
+     "cold_pool": false,
+     "water": {
+      "Aug": "sure",
+      "Sep": "sure"
+     },
+     "views": [],
+     "view_score": 0,
+     "traffic_section": "river_lower",
+     "bonfire_lily_weight": {
+      "m1a": 0,
+      "from_m1b": 0
+     }
+    }
+   }
+  },
+  "crossings": {
+   "what": "Overlay fields per crossing (E.5). The loop has no fords: every stream on it is bridged.",
+   "list": [
+    {
+     "at": "sol_duc_falls",
+     "segment": "sol_duc_falls->hidden_lake_junction",
+     "kind": "bridge",
+     "over": "Sol Duc River at the falls (Canyon Creek joins below)"
+    },
+    {
+     "at": "sol_duc_crossing",
+     "segment": "seven_mile_group_camp->sol_duc_crossing",
+     "kind": "bridge",
+     "over": "Sol Duc River (wet, mossy planks: hazard sol_duc_crossing_bridge)"
+    },
+    {
+     "at": "lower_bridge_creek",
+     "segment": "sol_duc_crossing->lower_bridge_creek",
+     "kind": "bridge",
+     "over": "Bridge Creek"
+    }
+   ]
+  }
+ },
+ "classic_trips_via_note": "via (added 2026-10-08): waypoints a preset day must pass, for days whose route is not the shortest (GAME_DESIGN 3.1, 4.6). With them every loop preset recomputes to its typed miles on the graph."
 }

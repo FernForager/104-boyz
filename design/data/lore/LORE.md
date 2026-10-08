@@ -38,7 +38,7 @@ Cards are tagged for where they appear: Look pop-ups, camp readings, night pages
 - Meany, 1923;
 - Roosevelt's 1909 proclamation.
 
-Every line has its source, page, link and why it's public domain. On 2026-10-08 every line was fetched again and found word for word in its source (see `VERIFY.md`); 288 were also read on the page images. 47 are approved for the epitaph dice now (40 characters or fewer, kind, naming nobody, no death or injury). 52 more would work if the field grew to 60 characters. Every cause of death has a deck of 35 or more lines, with lines that suit the cause first and explorers' own words before newspaper summaries.
+Every line has its source, page, link and why it's public domain. On 2026-10-08 every line was fetched again and found word for word in its source (see `VERIFY.md`); 288 were also read on the page images. 46 are approved for the epitaph dice now (40 characters or fewer, kind, naming nobody, no death or injury; the 47th, "a shout that died when half uttered", was dropped on 2026-10-08 because it says "died"). 52 more would work if the field grew to 60 characters. Every cause of death has a deck of 35 or more lines, with lines that suit the cause first and explorers' own words before newspaper summaries. A death after dark deals from its base cause's dark deck, `dark_fall` or `dark_fog`.
 
 ## How Wood is credited
 
@@ -124,7 +124,7 @@ Also good:
 
 1. **Real names in cards.** The design doc's text check allows real people only in the colophon, the Bookshelf and epitaph credits. History cards name historical figures (Christie, O'Neil and others). I suggest an exception for history cards. Your call.
 2. **Ask for Wood's words?** See above.
-3. **Epitaph length.** Keep 40 characters (47 lines) or allow 60 (99 lines)?
+3. **Epitaph length.** Keep 40 characters (46 lines) or allow 60 (98 lines)?
 4. **The tribes.** 28 cards should not ship until the tribe named on each has been asked: Makah, Quileute, Hoh, Quinault, Lower Elwha Klallam, Jamestown S'Klallam and Skokomish. Contacts are in history.json. (The Norwegian Memorial card was added to this list on 2026-10-08: it mentions the Native people who helped the 1903 survivors.)
 5. **Shipwreck memorials.** The Norwegian and Chilean memorials are real graves. I suggest making those places where no book can end.
 6. **Still to check:**

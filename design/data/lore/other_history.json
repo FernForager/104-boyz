@@ -463,6 +463,13 @@
    "type": "state_government_record",
    "citation": "Washington State Register 23-05-046 (2023), Board on Geographic Names proposals, incl. Noskeliikuu (seen via search summary).",
    "url": "https://lawfilesext.leg.wa.gov/Law/WSRPDF/2023/05/23-05-046.pdf"
+  },
+  {
+   "id": "NRHP_07000712",
+   "type": "us_government_report",
+   "citation": "National Register of Historic Places nomination, Canyon Creek Shelter (Sol Duc Falls Shelter), Olympic National Park, ref. 07000712 (listed 2007); includes the 1939 superintendent's reports and a 1952 building record.",
+   "url": "https://npgallery.nps.gov/NRHP/GetAsset/NRHP/07000712_text",
+   "accessed": "2026-10-08"
   }
  ],
  "place_names": [
@@ -2495,7 +2502,6 @@
     "olympus_guard_station",
     "eagle_ranger_station",
     "happy_four_camp",
-    "canyon_creek_1",
     "pelton_creek_camp",
     "fifteen_mile_camp",
     "hyak_camp",
@@ -2503,7 +2509,7 @@
     "north_fork_quinault_trailhead",
     "graves_creek_trailhead"
    ],
-   "notes": "The National Register nominations for Happy Four, Canyon Creek, Pelton Creek, Fifteen Mile, Hyak, Three Forks and North Fork Sol Duc shelters and for the Graves Creek and North Fork Quinault ranger stations were downloaded (npshistory.com) but not summarized shelter by shelter; see sources."
+   "notes": "The National Register nominations for Happy Four, Canyon Creek, Pelton Creek, Fifteen Mile, Hyak, Three Forks and North Fork Sol Duc shelters and for the Graves Creek and North Fork Quinault ranger stations were downloaded (npshistory.com) but not summarized shelter by shelter; see sources. Re-anchored 2026-10-08: the Canyon Creek Shelter is the CCC's 1939 shelter above Sol Duc Falls (NRHP 07000712), not a Forest Service one and not at the Canyon Creek #1 camp, so canyon_creek_1 left this topic and the shelter went to topic ccc."
   },
   {
    "topic_id": "fire_lookouts_and_aws",
@@ -2570,6 +2576,13 @@
       "HISTORYLINK_5434"
      ],
      "confidence": "high"
+    },
+    {
+     "fact": "In the summer and fall of 1939, CCC enrollees from Camp Elwha, working from a side camp at the Eagle guard station on the Sol Duc, built three trail shelters for the new national park: at Moose Lake, at Hoh Lake and above Sol Duc Falls. The T-shaped log shelter at the falls (the Canyon Creek or Sol Duc Falls Shelter) is the only one still standing; it was listed on the National Register in 2007.",
+     "sources": [
+      "NRHP_07000712"
+     ],
+     "confidence": "high"
     }
    ],
    "node_ids": [
@@ -2579,7 +2592,9 @@
     "heart_o_the_hills_campground",
     "slab_camp_trailhead",
     "dodger_point",
-    "staircase_trailhead"
+    "staircase_trailhead",
+    "sol_duc_falls",
+    "hoh_lake"
    ]
   },
   {
@@ -3957,12 +3972,13 @@
     "mount_olympus_false_summit"
    ],
    "suggested_use": [
-    "epitaph"
+    "narrator_aside"
    ],
    "tags": [
     "false_summit",
     "cloud"
-   ]
+   ],
+   "not_an_epitaph_because": "Says 'died' (figuratively); dropped from the epitaph dice 2026-10-08 (quotes_public_domain.json)."
   },
   {
    "id": "oh_q29",
@@ -5499,16 +5515,6 @@
    "node_name": "Camp Wilder",
    "region_file": "elwha_hurricane.json"
   },
-  "canyon_creek_1": {
-   "place_names": [],
-   "topics": [
-    "chris_morgenroth_and_the_forest_service"
-   ],
-   "quotes": [],
-   "indigenous_notes": [],
-   "node_name": "Canyon Creek #1",
-   "region_file": "sol_duc_high_divide.json"
-  },
   "cape_alava": {
    "place_names": [
     "pn_ozette",
@@ -6312,7 +6318,9 @@
    "place_names": [
     "pn_hoh"
    ],
-   "topics": [],
+   "topics": [
+    "ccc"
+   ],
    "quotes": [],
    "indigenous_notes": [],
    "node_name": "Hoh Lake",
@@ -7603,7 +7611,9 @@
    "place_names": [
     "pn_sol_duc"
    ],
-   "topics": [],
+   "topics": [
+    "ccc"
+   ],
    "quotes": [],
    "indigenous_notes": [],
    "node_name": "Sol Duc Falls",

@@ -1,0 +1,200 @@
+{
+ "file": "quiz_locals.json",
+ "compiled_on": "2026-10-08",
+ "what": "The researched pool for the first-launch locals' quiz (GAME_DESIGN 2.6, 12.3): twelve Pacific Northwest questions, each with three answers, the right one and a source. content/quiz/locals.json is built from it in M1a (BUILD_PLAN S15), with the right and wrong lines (\"Welcome home.\", \"Nice try, tourist.\"). Closes M1A_DATA_CHECK item 23's \"source the twelve quiz questions\".",
+ "rules": [
+  "Three are dealt per first launch, never two pronunciation questions in a row if a non-pronunciation one is left.",
+  "Each question has one true answer, with a source a reader can check.",
+  "indigenous_name: true marks place names from the peninsula's and Puget Sound's languages. The quiz asks only how locals say them, never what they mean: meanings need tribal consultation (lore/history.json, consult_before_use).",
+  "The creator's own questions are welcome and replace these one for one (GAME_DESIGN, Still to come).",
+  "Answer labels fit the 22-character choice cap (F.3)."
+ ],
+ "accessed": "2026-10-08",
+ "questions": [
+  {
+   "id": "q_sequim",
+   "question": "How do you say SEQUIM?",
+   "answers": [
+    "See-kwim",
+    "Skwim",
+    "Seh-kwim"
+   ],
+   "right": 1,
+   "source": {
+    "what": "Pronounced SKWIM.",
+    "url": "https://en.wikipedia.org/wiki/Sequim,_Washington",
+    "publisher": "Wikipedia"
+   },
+   "indigenous_name": true
+  },
+  {
+   "id": "q_sunny_sequim",
+   "question": "Why do locals call it Sunny Sequim?",
+   "answers": [
+    "The rain shadow",
+    "It faces south",
+    "A joke: it pours"
+   ],
+   "right": 0,
+   "source": {
+    "what": "In the rain shadow of the Olympics, Sequim gets under 16 in of rain a year, about as much as Los Angeles; hence \"Sunny Sequim\". park_rules.json climate gives Sequim 15.8 in.",
+    "url": "https://en.wikipedia.org/wiki/Sequim,_Washington",
+    "publisher": "Wikipedia"
+   }
+  },
+  {
+   "id": "q_sunbreak",
+   "question": "What is a SUNBREAK?",
+   "answers": [
+    "A day off for sun",
+    "Sun between showers",
+    "Summer's first sun"
+   ],
+   "right": 1,
+   "source": {
+    "what": "Pacific Northwest English: \"a passage of sunlight in the clouds during dark, rainy weather\", typical west of the Cascades.",
+    "url": "https://en.wikipedia.org/wiki/Pacific_Northwest_English",
+    "publisher": "Wikipedia"
+   }
+  },
+  {
+   "id": "q_hoh",
+   "question": "HOH, as in the rain forest, rhymes with:",
+   "answers": [
+    "Go",
+    "Cow",
+    "Hah"
+   ],
+   "right": 0,
+   "source": {
+    "what": "The National Park Service gives the pronunciation \"hoe\".",
+    "url": "https://www.nps.gov/olym/planyourvisit/visiting-the-hoh.htm",
+    "publisher": "NPS"
+   },
+   "indigenous_name": true
+  },
+  {
+   "id": "q_camp_robber",
+   "question": "What do hikers call a Canada jay?",
+   "answers": [
+    "A trail chicken",
+    "A camp robber",
+    "A blue bandit"
+   ],
+   "right": 1,
+   "source": {
+    "what": "Also known as the gray jay, camp robber or whisky jack; bold at lunch spots (sol_duc_high_divide.json wildlife).",
+    "url": "https://en.wikipedia.org/wiki/Canada_jay",
+    "publisher": "Wikipedia"
+   }
+  },
+  {
+   "id": "q_puyallup",
+   "question": "How do you say PUYALLUP?",
+   "answers": [
+    "Poy-uh-lup",
+    "Pew-AL-up",
+    "Pooh-YA-lup"
+   ],
+   "right": 1,
+   "source": {
+    "what": "Pronounced pew-AL-up.",
+    "url": "https://en.wikipedia.org/wiki/Puyallup,_Washington",
+    "publisher": "Wikipedia"
+   },
+   "indigenous_name": true
+  },
+  {
+   "id": "q_geoduck",
+   "question": "A GEODUCK is:",
+   "answers": [
+    "A coast-only duck",
+    "A very large clam",
+    "A rock formation"
+   ],
+   "right": 1,
+   "source": {
+    "what": "The Pacific geoduck (GOO-ee-duk) is the largest burrowing clam in the world.",
+    "url": "https://en.wikipedia.org/wiki/Geoduck",
+    "publisher": "Wikipedia"
+   },
+   "indigenous_name": true
+  },
+  {
+   "id": "q_mountain_out",
+   "question": "\"The mountain is out\" means:",
+   "answers": [
+    "Rainier is visible",
+    "A volcano warning",
+    "The trails are open"
+   ],
+   "right": 0,
+   "source": {
+    "what": "Seattle shorthand for a clear day when Mount Rainier can be seen; NASA Earth Observatory notes visitors may hear a local declare \"the mountain is out!\"",
+    "url": "https://science.nasa.gov/earth/earth-observatory/mount-rainier-145548/",
+    "publisher": "NASA Earth Observatory"
+   }
+  },
+  {
+   "id": "q_dosewallips",
+   "question": "How do you say DOSEWALLIPS?",
+   "answers": [
+    "DOSE-wal-lips",
+    "Doh-see-WAW-lips",
+    "Doze-WALL-ups"
+   ],
+   "right": 1,
+   "source": {
+    "what": "Pronounced DOH-si-WAW-lips.",
+    "url": "https://en.wikipedia.org/wiki/Dosewallips_River",
+    "publisher": "Wikipedia"
+   },
+   "indigenous_name": true
+  },
+  {
+   "id": "q_rain_forest",
+   "question": "Which valley is NOT one of Olympic's rain forests?",
+   "answers": [
+    "The Hoh",
+    "The Queets",
+    "The Elwha"
+   ],
+   "right": 2,
+   "source": {
+    "what": "NPS names the Quinault, Queets, Hoh and Bogachiel valleys as the park's temperate rain forests (140-167 in of rain a year).",
+    "url": "https://www.nps.gov/olym/learn/nature/temperate-rain-forests.htm",
+    "publisher": "NPS"
+   }
+  },
+  {
+   "id": "q_jojos",
+   "question": "You order JOJOS. What arrives?",
+   "answers": [
+    "Potato wedges",
+    "Donut holes",
+    "Clam fritters"
+   ],
+   "right": 0,
+   "source": {
+    "what": "Pacific Northwest English: jojos, \"variation of potato wedges\".",
+    "url": "https://en.wikipedia.org/wiki/Pacific_Northwest_English",
+    "publisher": "Wikipedia"
+   }
+  },
+  {
+   "id": "q_potato_bug",
+   "question": "What's a POTATO BUG?",
+   "answers": [
+    "A potato beetle",
+    "A woodlouse",
+    "A slug"
+   ],
+   "right": 1,
+   "source": {
+    "what": "Pacific Northwest English: potato bug, \"woodlouse\".",
+    "url": "https://en.wikipedia.org/wiki/Pacific_Northwest_English",
+    "publisher": "Wikipedia"
+   }
+  }
+ ]
+}

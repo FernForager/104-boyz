@@ -1,6 +1,6 @@
 # Olympic Peninsula Hiker
 
-*Master game design document. Working title. Status: design (no game code yet). Written 2026-10-08 for `FernForager/104-boyz`, after a design review and the data fact-check, then revised the same day for every decision you made, one at a time. Your decisions override anything older in this document or the proposals. They are listed, in your words, in [Decisions made](#decisions-made) at the end, and the few things still to come from you are in the section after it.*
+*Master game design document. Working title. Status: design (no game code yet). Written 2026-10-08 for `FernForager/104-boyz`, after a design review and the data fact-check, then revised the same day for every decision you made, one at a time. Your decisions override anything older in this document or the proposals. They are listed, in your words, in [Decisions made](#decisions-made) near the end. The engineering calls the lead designer made to close the pre-build audit follow them in [Lead calls](#lead-calls), each yours to overrule, and the few things still to come from you are in the last section.*
 
 *The short version of the last round: the first playable is **the High Divide and Seven Lakes Basin loop** from the Sol Duc trailhead, either way round, as a day or one to three nights or more, and every choice on it is the player's: the direction, each night's camp, **drop into the basin or stay high** at a proper fork card, the side trips, and changing the plan on the trail (4.3, 15, Appendix B). **Lake Morgenroth**, your favorite spot, is off the menu: it is in no list, and the only way to camp there is to call the WIC (4.3). By your calls, the game is **PG-13, with beer and weed in**, with a dash of *Leisure Suit Larry*: a skinny dip in Heart Lake, a hazy IPA at Morgenroth and a doobie at St. Peter's Gate (2.6, decision 18). And the 104 Boyz are in the Trail Register before you, with fictional misadventure deaths and funny epitaphs (7.11, decision 19). The Hoh, Glacier Meadows and Mount Olympus with Ranger Jon come next. Session length and park conditions are confirmed, and the game will live at `fernforager.github.io/104-boyz` (E.9).*
 
@@ -8,7 +8,7 @@
 
 > **Read this first (about 10 minutes on a phone):**
 > 1. [The one-page pitch](#1-one-page-pitch)
-> 2. [Decisions made](#decisions-made) and [still to come from you](#still-to-come-from-you): the last two sections, both short
+> 2. [Decisions made](#decisions-made), [the lead calls](#lead-calls) and [still to come from you](#still-to-come-from-you): the last three sections, all short
 > 3. [The first book](#36-the-first-book): what a new player meets, on the High Divide loop
 > 4. The first playable, worked through: [Appendix B](#appendix-b-seven-lakes-and-the-high-divide-planned-well): the loop both ways round, the basin or the crest, and [the fork where you choose](#b6-the-other-way-round-the-fork-at-the-rim) (B.6)
 > 5. [Larry moments](#26-larry-moments-pg-13): the PG-13 part, with beer and weed in (your call)
@@ -43,6 +43,7 @@
 - [Appendix F: Balancing and testing](#appendix-f-balancing-and-testing)
 - [Sources for this document](#sources-for-this-document)
 - [Decisions made](#decisions-made)
+- [Lead calls](#lead-calls)
 - [Still to come from you](#still-to-come-from-you)
 
 ---
@@ -64,7 +65,7 @@
 - **Name** your hiker. That's the whole character sheet: every hiker starts the same (12.4).
 - **Plan** at the ranger desk: where to go, which way round a loop, day hike or how many nights, a layover day or a new camp each night, the basin or the crest. Get the permit stamped.
 - **Shop** for food with a shopping list that checks itself off and a gauge that shows what will fit in the bear canister.
-- **Pack**: choose what goes inside, what straps outside and what stays home. Everything must fit: liters, pounds, a few outside straps, and a required bear canister that limits your food days.
+- **Pack**: choose what goes inside, what straps outside and what stays home. Everything must fit: liters, pounds, a few outside straps, and the bear canister the park requires, which limits your food days.
 - **Drive** to the trailhead and take a last look at what to leave in the car.
 - **Hike** by turning pages. About 3 to 5 real decisions a day. Camp, cook, watch the light change, sleep, wake up.
 
@@ -82,7 +83,7 @@ When a hiker dies, the game says so the old way: **YOU PERISHED** in big blocky 
 
 **Solo, with company on the trail.** You hike alone. Other hikers pass by, and now and then one of them is one of **the 104 Boyz**: a tip, a trade or a warning, and then they're gone. They are also in the Trail Register before you, each with a fictional, good-natured death and a funny epitaph (your call), and the narrator never explains how you keep meeting them (7.11).
 
-**Lots of outcomes.** About 218 gear items and 86 foods become about 40 event tags. Every card reads those tags, the place, the weather, the hour and what already happened. Version 1.0 has about 260 hand-written cards with about 730 choices, and their combinations make nearly every multi-night trip tell its own story (8.12). A test harness proves each item matters somewhere.
+**Lots of outcomes.** About 217 gear items and 88 foods become about 40 event tags. Every card reads those tags, the place, the weather, the hour and what already happened. Version 1.0 has about 260 hand-written cards with about 730 choices, and their combinations make nearly every multi-night trip tell its own story (8.12). A test harness proves each item matters somewhere.
 
 **Built simply.** Plain HTML, CSS and JavaScript modules with a canvas picture: no framework, no bundler, only a small data build step. Hosted free on GitHub Pages at `fernforager.github.io/104-boyz`, installable to the Home Screen, playable offline at the trailhead, portrait and touch only.
 
@@ -208,15 +209,15 @@ Your call (2026-10-08): *"I want it to have some leisure suit Larry in it too. l
 - **Real stakes.** Each one moves meters, time, food, score or Leave No Trace, and any rolled choice in it shows its odds like every other (8.1).
 - **Fair like everything else.** None ends a book except by the two fair paths (9.5), and each offers a sure choice.
 - **Never near a car.** No drink and no joint on a drive page, at a trailhead, at the car, on an ending plate, or in any line that ties them to driving (lint T05, F.3). Both counters that sell them show 21+ (5.2).
-- **Overnight only, and never on the way out.** A day hike's grab-lunch stop has no cooler and no door to Second Growth (5.3). *Crack the IPA* and *Light it* are offered only on an overnight trip: at a camp where the hiker sleeps that night, or on a layover day's side trip from that camp. Never on a day that ends at the car, and never on the walk-out day.
+- **Overnight only, and never on the way out.** A day hike's grab-lunch stop has no cooler and no door to Second Growth (5.3). *Crack the IPA* and *Light it* are offered only on an overnight trip: at a camp where the hiker sleeps that night, or on a layover day's side trip from that camp. Never on a day that ends at the car, and never on the walk-out day. The trail's other Larry moments keep the same rule, the broadest reading of decision 18: the swim and the bold marmot come only on an overnight trip, never on a day hike or the walk-out day (a lead call). The opener and The Steaming Fern Lodge are off the trail, and serve no drink and no joint (T05).
 - **Out of sight at the car.** Beer and the pre-roll can be taken out of the pack only in the pack chapter. The last look never lists them, and the back cover leaves them out of its lists, *What the pack taught* included (3.3, 9.7).
-- **Rare, where the game deals them.** The Director deals at most one Larry card a day and two a book (8.4): the bold marmot, the permit check, the thin tent wall. A tile the player starts (the swim, *Crack the IPA*, *Light it*) is not dealt, so it is not capped: it costs what it costs, and the canister limits how many cans come along. The opener and The Steaming Fern Lodge (a drive chip) don't count either.
+- **Rare, where the game deals them.** The Director deals at most one Larry card a day and two a book (8.4): the bold marmot, the permit check on a legal night, the thin tent wall. An off-permit night is different: its ranger is a forced roll every such night, outside the cap, and when a ranger comes, the permit-check card plays (3.7). A tile the player starts (the swim, *Crack the IPA*, *Light it*) is not dealt, so it is not capped: it costs what it costs, and the canister limits how many cans come along. The opener and The Steaming Fern Lodge (a drive chip) don't count either.
 - **The censor bar.** A black bar, absurdly big for a 7x18 hiker, with CENSORED in small snow-white pixel letters, slammed on with a low blip (11.6, 13.2).
 - **One switch.** Every Larry card carries the `larry` tag, and `flags.larry` is on in every v1 build, main and preview. If the hidden Storybook mode is ever released for a younger player (9.4), the switch can go with it.
 
 **The opener: a quiz for locals** (first launch only). The original *Larry* opened with an "adults only" trivia quiz. Ours asks three questions only a Pacific Northwest local would know, dealt from a pool of about twelve, each with a source: how to say *Sequim*, what a *sunbreak* is, what *Hoh* rhymes with, what locals call a Canada jay. A right answer gets *"Welcome home."* A wrong one gets *"Nice try, tourist."* Everyone gets in anyway. It takes about 30 seconds, comes before the bookshelf (so a first book's 7 minutes start after it), and never comes back, not even after a death (wireframe in 12.3).
 
-**Skinny dipping in Heart Lake** (M1a). Heart Lake sits at 4,780 ft just below the crest, a small lake shaped like a heart and fed by snow. At camp there, or on a stop on the loop, the *Swim (brr)* tile (12.14) offers three ways in: feet only (sure, a little joy), in your shorts (sure: spirits up, soaked, a warmth cost), or **skinny dipping**, the biggest spirits lift a swim can give and the biggest warmth cost. Then, on the page:
+**Skinny dipping in Heart Lake** (M1a). Heart Lake sits at 4,780 ft just below the crest, a small lake shaped like a heart and fed by snow. At camp there, or on a stop at the lake during an overnight trip (the Heart Lake landmark page, passing by day or walking up from a camp nearby; never on a day hike or the walk-out day, and it costs 30 to 60 minutes), the *Swim (brr)* tile (12.14) offers three ways in: feet only (sure, a little joy), in your shorts (sure: spirits up, soaked, a warmth cost), or **skinny dipping**, the biggest spirits lift a swim can give and the biggest warmth cost. Then, on the page:
 - **The censor bar**, every time (wireframe in 12.21; Appendix D, page 25).
 - **A Canada jay**, the trail's *camp robber*, goes for the granola bar in your shorts pocket, about one time in four when there is food in it, and the shorts go into the outlet stream. They come back wet, or not at all. It costs dignity and a pair of shorts, never warmth that matters: the rest of your clothes are in the tent, so the jay is never a link in a cold chain (9.5, principle 2).
 - **Company.** If a Boy is due this book (7.11), he comes down the trail with a party of hikers at the worst possible moment, and they all admire the view very hard.
@@ -244,7 +245,7 @@ Your call (2026-10-08): *"I want it to have some leisure suit Larry in it too. l
 | Moment | Where | The stakes |
 |---|---|---|
 | **The bold marmot** | The basin or the crest, when nature calls | Walk 200 ft from water and dig 6-8 in with a trowel (a Leave No Trace act, +2 score), or don't (-5 on the Leave No Trace ledger, 9.6). Leave the pack on the ground and a marmot may chew the salty hip belt, and the pack carries worse for the rest of the trip. A trail-running group rounds the switchback on cue |
-| **The permit check** | Any camp, while you're changing behind a boulder | The censor bar, and a ranger who waits politely. A night that's on the permit is a nod and a story. One that isn't (you dropped into the basin and stayed) has already cost its Leave No Trace (3.7); the ranger adds the off-permit card: a talking-to, and maybe a walk to a legal camp at dusk |
+| **The permit check** | Any camp, while you're changing behind a boulder | The censor bar, and a ranger who waits politely. A night that's on the permit is a nod and a story. One that isn't (you dropped into the basin and stayed) has already cost its Leave No Trace (3.7); there the ranger's visit is a forced roll every night, outside the Director's cap, and this card adds the off-permit lines: a talking-to, and maybe a walk to a legal camp at dusk |
 | **The thin tent wall** | Lunch Lake, where sites sit close and some lie on paths to others | The neighbors are very happy to be in the mountains. Earplugs (`sleep_aid`) mean a good night. Without them, sleep quality drops and tomorrow's legs with it; a pointed cough works about half the time (a plain %) |
 | **The Steaming Fern Lodge** | The hot springs near the end of the Sol Duc road, under its fictional name | Before the hike, a soak costs about 90 minutes of Day 1's daylight. After it, the pools take only a hiker who is out before the last session, so the last day races the clock (and Push pace has its costs). No swimsuit means the gift shop's, in a size best called optimistic. Spirits, and a back-cover line: *Smell: improved*. No drinks at the lodge (T05) |
 
@@ -293,7 +294,7 @@ Your call (2026-10-08): *"I want it to have some leisure suit Larry in it too. l
 
 **When things happen.** Chapters One to Three happen the day before the trip: the permit and the WIC's loaner canister are picked up then, the food is bought that afternoon, and the pack is packed that evening. Chapter Four starts on departure morning, when you choose when to leave.
 
-**Day hikes** need no wilderness permit and no canister, so they skip both. Chapter Two shrinks to a quick *grab lunch* stop on the way, with no beer cooler and no Second Growth (2.6), and the pack chapter uses a day pack.
+**Day hikes** need no wilderness permit and no canister, so they skip both. Chapter Two shrinks to a quick *grab lunch* stop on the way, with no beer cooler and no Second Growth (2.6), and the pack chapter uses a day pack. With no permit to carry them, the trip plan goes on a day-use line at the trailhead (12.10), where it drives the overdue clock (3.7); the score maximum is set at *Start walking* (9.6); the Trail Register shows *day hike* where a permit number would be; and the 104 counter doesn't move (12.6).
 
 Back navigation is free during planning, shopping and packing (it is planning, after all). It closes at **Start walking**. After that nothing goes back, in either mode: every page autosaves, and what happened, happened (9.4).
 
@@ -304,7 +305,7 @@ The first page is the Wilderness Information Center (WIC) in Port Angeles: a cou
 **Step 1: Where.** The endpaper map always shows the whole park. Tap a region, then a trailhead; regions not built yet are pencil sketches that can't be chosen (4.1). Or open *The ranger's favorite trips*: the presets, filtered by region, number of nights and level, about 8 at a time. In a first book the ranger asks three questions about the High Divide loop instead (3.6).
 
 **Step 2: What kind of trip, and when.** A row of chips: `Day hike` `1` `2` `3` `4` `5` `6+` nights. Then the date: month chips plus a calendar. The date chips and the permit always show the year.
-- **The calendar rule.** A trip falls in the 12 months after the edition date, in the next open season. In this edition, any date up to Oct 15, 2026 is this autumn, and anything later is in 2027 (4.7).
+- **The calendar rule.** A trip falls in the 12 months after the edition date (the research date of the conditions overlay the build carries, never the phone's clock, 4.7), in the next open season. In this edition, any date up to Oct 15, 2026 is this autumn, and anything later is in 2027 (4.7).
 - **Seasons.** Summer permits run May 15 to Oct 15. Glacier Meadows, Elk Lake and Martin Creek are reservable Jun 15 to Oct 15, and the Seven Lakes Basin and High Divide camps are bookable online from Jul 15 to Oct 15. A date outside those windows routes to a *Phone the WIC* card (`park_rules.json`: high camps outside the online window are arranged by phone), with winter rules only when the date is also outside May 15 to Oct 15. The card is a form, not the call: it handles the out-of-window permit for the camps already on the itinerary and says what season rules apply, and it offers nothing else (no *Ask about a lake*). Lake Morgenroth still needs the number in the fine print (4.3).
 - **Weekends** make quotas tighter, trails busier (more kind strangers) and the free canister loan scarcer. The ranger suggests the destination's best month.
 
@@ -321,7 +322,7 @@ Heart Lake     8.1 mi  +3,060
 Lunch Lake    10.9 mi  (full that night)
 ```
 
-(Night 1 of Appendix B's trip, clockwise from the Sol Duc trailhead at 8:30 am on a Thursday in August, at a Regular hiker's pace with a comfortable load, by the 7.4 formula: Sol Duc Park is (7.1 / 2.4 + 2,470 / 1,300) x 1.12 = 5.4 h.) The map highlights each camp as you scroll the list. The map also pinch-zooms, with clustered markers ("3 camps") that open into single ones, because Round, Lunch and Clear Lakes (or the Hoh's 13.1, 13.2 and 13.3 Mile sites) sit a couple of points apart at phone scale. Disabled rows say why: closed, full that night, outside the quota season, or a group site (7 to 12 people) that a solo hiker can't book. Camps kept off the website show as *ask at the desk* rows. One lake in the basin isn't in the list at all: Lake Morgenroth, which you get only by calling the WIC (4.3).
+(Night 1 of Appendix B's trip, clockwise from the Sol Duc trailhead at 8:30 am on a Thursday in August, at a Regular hiker's pace with a comfortable load, by the 7.4 formula: Sol Duc Park is (7.1 / 2.4 + 2,470 / 1,300) x 1.12 = 5.4 h.) The map highlights each camp as you scroll the list. The map also pinch-zooms, with clustered markers ("3 camps") that open into single ones, because Round, Lunch and Clear Lakes (or the Hoh's 13.1, 13.2 and 13.3 Mile sites) sit a couple of points apart at phone scale. Disabled rows say why: closed, full that night, outside the quota season, or a group site (7 to 12 people) that a solo hiker can't book. Camps kept off the website show as *ask at the desk* rows (in M1a: Bruce's Roost, Cat Basin and Hidden Lake; Long Lake and Sol Duc Lake are pencil rows until M1b, 15). One lake in the basin isn't in the list at all: Lake Morgenroth, which you get only by calling the WIC (4.3).
 
 **Up high: the basin or the crest.** On the High Divide, the day that crosses the Divide gets one more chip pair, *Drop into the basin* or *Stay on the crest*. It sets the route between that day's camps, through Lunch Lake by the stone staircase or the Mirror Lake way trail, or along the crest past Bogachiel Peak, and the day's miles, climb and arrival time change with it. It is a plan, not a promise: the same question comes back on the trail as a fork card (7.4, 12.12).
 
@@ -347,14 +348,14 @@ Side trips on the way (Bogachiel Peak, Hoh Lake and back, the edge of Cat Basin)
 **Step 5: The permit.** A paper form with pixel handwriting:
 - the permit number, which always starts with 104 (`Permit No. 104-0037`, 12.6);
 - party (you, plus Ranger Jon if you booked him, 4.2), entry trailhead, dates with the year, the camp for each night;
-- a quota check for each night (a seeded, weekend-weighted roll keyed by calendar date and camp; "Lunch Lake is full that Saturday" is a planning event with alternatives, not an error);
+- a quota check for each night (a seeded, weekend-weighted roll, `hash(trip seed, date, camp)`: the book's seed is drawn at *Begin a new book*, so going back to the desk never re-rolls a night, and changing the date does, E.8; "Lunch Lake is full that Saturday" is a planning event with alternatives, not an error);
 - fees, shown for realism: $8 per adult per night plus a $6 reservation fee;
-- **bear canister**: bring your own, rent one, or try the free WIC loan (available about 70% of the time on summer weekends, 95% midweek);
+- **bear canister**: bring your own, rent one, or try the free WIC loan (available about 70% of the time on summer weekends, 95% midweek). Going without is allowed, with the ranger's frown and its costs on the trail (6.3);
 - **trip plan left with:** a friend, or no one. A friend reports you overdue 12 hours after your planned exit (3.7);
 - **the forecast**, for the trip days within five days of the planning day. Later days show the ranger's climatology instead ("late September: rain about one day in three");
 - **the fine print** at the foot: *Questions? Call the Wilderness Information Center, 360-565-3100.* It is the real number, from the region data, and the hidden phone (4.3, 12.5). It opens only the game's own call page: it is never a `tel:` link, and the app shell switches off iOS's phone-number detection, so a tap or a long-press never offers to call the real desk (E.7).
 
-Tap **Stamp it** (a rubber-stamp *thunk*). The score line appears with the maximum computed for this itinerary: `Score: 0 of 170` on Appendix B's three-night trip (B.4), `Score: 0 of 131` on the Hoh trip the wireframes use (12).
+Tap **Stamp it** (a rubber-stamp *thunk*). The score line appears with the maximum computed for this itinerary (9.6): `Score: 0 of 170` on Appendix B's three-night trip (B.4), `Score: 0 of 131` on the Hoh trip the wireframes use (12). A day hike has no permit to stamp, so its maximum is computed at *Start walking*.
 
 ### 3.2 Chapters Two and Three: store and pack
 
@@ -409,7 +410,7 @@ A **Page density** setting (Short / Usual / Long) changes how many quiet, decisi
 
 ### 3.6 The first book
 
-**Target: the first trail page within about 7 minutes of opening a new book.** There is no prologue: the book opens at the ranger desk. Without help, a new player would face a park map, a long list of presets, quotas, 86 foods and a 218-item closet before Day 1, which is where players quit. So book one is short on chores and long on story. Every later book gets the full manual path.
+**Target: the first trail page within about 7 minutes of opening a new book.** There is no prologue: the book opens at the ranger desk. Without help, a new player would face a park map, a long list of presets, quotas, 88 foods and a 217-item closet before Day 1, which is where players quit. So book one is short on chores and long on story. Every later book gets the full manual path.
 
 | Step | In the first book | Minutes |
 |---|---|---|
@@ -430,11 +431,11 @@ A **Page density** setting (Short / Usual / Long) changes how many quiet, decisi
 ### 3.7 Changing plans on the trail
 
 - **Replanning.** From the morning page, a Fork card or the Map tab, *Change the plan* re-runs the validator with in-trip rules. Closures still route around, but a quota camp is never a block: it becomes an off-permit night (below), and if a ranger comes by, a ranger card (*"It's all right this once. The camp was half empty, and you looked honest."*) with a polite talking-to. The change is noted on the permit, and the score maximum is recomputed without lowering the score already earned (9.6). A change to a camp outside any quota area is simply legal, and costs nothing but the miles.
-- **What a change really costs.** The rule is real: in a quota area you camp where your permit says, and changes are made before the trip unless a ranger approves them (`park_rules.json`). So every changed night there is an **off-permit night**, and the page says what that means before you choose. **One rule, everywhere:** the Leave No Trace cost is always charged, -5 for an off-permit night at a legal site and -10 on the meadow, because it is about the impact, not about getting caught (9.6). The only part that is rolled is the ranger: the chance one comes by that night (from the camp's popularity and the day of the week; the permit check, 2.6), shown in the Why sheet, and if one does, a talking-to and maybe a walk to a legal camp at dusk. **A full camp is still full:** if every site is taken, the honest choices are another legal camp, walking on, or the meadow at -10. Moving one night moves the rest: each later night is checked again. The overdue clock (below) does not move: the friend holding your trip plan still expects the exit you left with them, unless a satellite messenger tells them otherwise, and the page says when they will start to worry. Day visits change nothing: dropping into the basin for lunch, or walking to Lake Morgenroth and back, needs no permit.
+- **What a change really costs.** The rule is real: in a quota area you camp where your permit says, and changes are made before the trip unless a ranger approves them (`park_rules.json`). So every changed night there is an **off-permit night**, and the page says what that means before you choose. **One rule, everywhere:** the Leave No Trace cost is always charged, -5 for an off-permit night at a legal site and -10 on the meadow, because it is about the impact, not about getting caught (9.6). The only part that is rolled is the ranger: the chance one comes by that night (from the camp's popularity and the day of the week), shown in the Why sheet, and if one does, a talking-to and maybe a walk to a legal camp at dusk. That roll is forced and uncapped: it is made every off-permit night, whatever the Director's budget, and when it hits it plays the permit-check card (2.6). The Director's cap on Larry cards covers only the permit check it deals on a legal night. **A full camp is still full:** if every site is taken, the honest choices are another legal camp, walking on, or the meadow at -10. Moving one night moves the rest: each later night is checked again. The overdue clock (below) does not move: the friend holding your trip plan still expects the exit you left with them, unless a satellite messenger tells them otherwise, and the page says when they will start to worry. Day visits change nothing: dropping into the basin for lunch, or walking to Lake Morgenroth and back, needs no permit.
 - **Up high.** On the High Divide the basin-or-crest fork card (12.12) is a replanning page of its own: it offers the plan's way, the other way, a night in the basin if that isn't the plan, and the sure way home, each with tonight's ETA against dark, the forecast for the crest, water and what it does to the permit (7.4).
 - **Where's the car?** The game tracks where the car is. Coming out at a different trailhead (the High Divide down to the Hoh via Hoh Lake; out the Elwha) opens an exit menu, each with its time cost and a page: phone the shuttle (needs signal; a 2 to 4 hour wait), hitch (1 to 6 hours, better on busy roads), or a ride with a ranger if one is at the station.
-- **The overdue clock.** If you left a trip plan with a friend, they report you overdue at your planned exit plus 12 hours, and the chance of a search finding you rises from then on (9.2). With no trip plan, nobody knows to look until someone notices the car, after 2 to 3 days. Staying out longer (a night under the stars, waiting out a tide or a river) moves your exit, and a pencil-strip line says when your friend will start to worry.
-- **Day hikes** get a turnaround card 30 minutes before the "back by" time.
+- **The overdue clock.** If you left a trip plan with a friend (on the permit, or on a day hike the trailhead's day-use line, whose *back by* time is the planned exit, 12.10), they report you overdue at your planned exit plus 12 hours, and the chance of a search finding you rises from then on (9.2). With no trip plan, nobody knows to look until someone notices the car, after 2 to 3 days. Staying out longer (a night under the stars, waiting out a tide or a river) moves your exit, and a pencil-strip line says when your friend will start to worry.
+- **Day hikes** get a turnaround card 30 minutes before the "back by" time. It points the shortest way to the car by hiking time from where you stand, which on a loop past halfway is onward, not back the way you came.
 - **Bailing out is always on the table.** The morning page, every Fork card and every crisis card carry a sure way home or a way to call for help. At any moment that could end the book, that sure choice is guaranteed and linted (9.5). Turning back never ends a book.
 
 ---
@@ -457,7 +458,7 @@ The research covers the whole park in six region files under `design/data/region
 
 **Raw, unique and compiled counts.** The files hold 461 place records and 457 segment records. Twelve places and eight segments appear in two files, so the park has 449 unique places and 449 unique segments (about 900 directed). The compiled graph adds overlay points the research doesn't list as places (each ford, the ladder, viewpoints, mid-segment landmarks), so it will hold somewhat more: roughly 500 to 600 places at full park. The build prints the exact counts, and the statistics in this document should be regenerated from that report by a script rather than typed by hand.
 
-The gear catalog (218 items and 8 packs), the food catalog (86 foods) and the park-wide rules (`park_rules.json`: permits, food storage, fires, climate, tides, rescue patterns, fall 2026 conditions) complete the data. The fact-check confirmed the signature mileages against NPS (Hoh trailhead to Glacier Meadows 17.4, Upper Dungeness to Royal Lake 7.2, the High Divide loop 18.4 vs NPS 18.2) and that canisters are required at all 156 public wilderness camp areas. **The files are the source of truth**; this document only cites them. Known gaps: hidden or closed camps (Beaver Flats/Four Stream, Donahue Creek, Madeline Creek, Twelve Mile, Camp Pan, Chateau Camp) have no nodes. **A seventh region has just arrived:** `hamma_hamma.json` (researched 2026-10-07: 49 places, 39 segments, 12 camps, 16 classic trips) covers the Hamma Hamma and Lena valleys on the southeast edge of the park: Lena Lake and Upper Lena Lake (a quota area), the Putvin Trail to Lake of the Angels in the Valley of Heaven, St. Peter's Gate and the Stone Ponds, and The Brothers. It joins the park graph at First Divide. It is planned for M5 (15). It hasn't been through the fact-check or the ingest merge yet, so the counts in the table above are still the six original regions'.
+The gear catalog (217 items and 8 packs), the food catalog (88 foods) and the park-wide rules (`park_rules.json`: permits, food storage, fires, climate, tides, rescue patterns, fall 2026 conditions) complete the data. The fact-check confirmed the signature mileages against NPS (Hoh trailhead to Glacier Meadows 17.4, Upper Dungeness to Royal Lake 7.2, the High Divide loop 18.4 vs NPS 18.2) and that canisters are required at all 156 public wilderness camp areas. **The files are the source of truth**; this document only cites them. Known gaps: hidden or closed camps (Beaver Flats/Four Stream, Donahue Creek, Madeline Creek, Twelve Mile, Camp Pan, Chateau Camp) have no nodes. **A seventh region has just arrived:** `hamma_hamma.json` (researched 2026-10-07: 49 places, 39 segments, 12 camps, 16 classic trips) covers the Hamma Hamma and Lena valleys on the southeast edge of the park: Lena Lake and Upper Lena Lake (a quota area), the Putvin Trail to Lake of the Angels in the Valley of Heaven, St. Peter's Gate and the Stone Ponds, and The Brothers. It joins the park graph at First Divide. It is planned for M5 (15). It hasn't been through the fact-check or the ingest merge yet, so the counts in the table above are still the six original regions'.
 
 **What a v1.0 player sees of the rest of the park.** The endpaper map always shows the whole park. Regions not yet built (the coast, the Elwha, the Quinault and the rest) are drawn as pencil sketches labeled *pages still being drawn*. Tapping one gets the ranger's *"That valley is a story for another day,"* and it can't be chosen for a trip. The ranger's favorite trips list only playable ones. Each milestone inks in more of the map (15).
 
@@ -560,6 +561,7 @@ Every camp is a designated site in the Sol Duc/Seven Lakes quota area (Hoh Lake 
 | Camp (elev, ft) | ↺ mile | ↻ mile | Sites · notes |
 |---|---|---|---|
 | Sol Duc Falls Camp (2,080) | 1.0 | 1.0 | 3 |
+| Hidden Lake (2,830) | 2.3 | 17.5 | Ask at the desk; 0.7 mi up a way trail from mile 1.6 |
 | Canyon Creek #1, #2, #3 (2,610-3,370) | 1.9-3.0 | 15.4-16.5 | 1 each |
 | Deer Lake (3,530) | 3.7 | 14.7 | 10 · privy; cougar sign reported |
 | Potholes (4,080) | 4.7 | 13.7 | 2 · ponds on a heather bench; late-summer water unverified |
@@ -582,7 +584,7 @@ Every camp is a designated site in the Sol Duc/Seven Lakes quota area (Hoh Lake 
 |---|---|---|---|
 | Bogachiel Peak (5,474) | 7.8 | 10.5 | A spur; the big view; no camping; ☆ |
 | Hoh Lake (4,520) | 9.0 | 11.8 | 4 · its own quota; 1.2 mi and 670 ft below the crest; the link to the Hoh |
-| Heart Lake Junction camp (5,080) | 9.9 | 8.5 | 1 · on the crest; no water |
+| Heart Lake Junction camp (5,080) | 9.9 | 8.5 | 1 · on the crest; no water; ☆ early season |
 | Bruce's Roost (5,100) | 10.6 | 8.9 | Ask at the desk; no water |
 | Cat Basin (4,580) | 11.8 | 9.6 | Ask at the desk; primitive trail |
 
@@ -598,7 +600,7 @@ Every camp is a designated site in the Sol Duc/Seven Lakes quota area (Hoh Lake 
 
 (Miles run along the loop through the joined graph. Bogachiel Peak going ↺ is by the short, ledgy west route; the better east spur makes it 8.1. Bruce's Roost and Cat Basin going ↻ are by the Cat Basin cutoff above Heart Lake. ☆ marks Bonfire Lily places for designers; players never see the mark. See 10.2 for the months.)
 
-**WIC-only camps.** Long Lake, Sol Duc Lake, Bruce's Roost, Cat Basin and Hidden Lake (0.7 mi up a way trail off the Deer Lake trail) are listed in the permit system but hidden from online booking. In the game they are **special permit requests**, like Upper Royal Basin: at the WIC desk, tap an *ask at the desk* row and the ranger considers it (in season, granted about 70% of the time midweek and 40% on weekends, seeded by date and camp), with a line about why they're kept quiet. From home the rows can't be tapped, but the WIC's phone line can ask for them too (below). Lake #8 can't be planned: its location is unverified and no trail reaches it in the data. It lives in a pencil footnote, and on the phone it gets one line (12.5).
+**WIC-only camps.** Long Lake, Sol Duc Lake, Bruce's Roost, Cat Basin and Hidden Lake (0.7 mi up a way trail off the Deer Lake trail) are listed in the permit system but hidden from online booking. In the game they are **special permit requests**, like Upper Royal Basin: at the WIC desk, tap an *ask at the desk* row and the ranger considers it (in season, granted about 70% of the time midweek and 40% on weekends, a roll seeded by the book's seed, the date and the camp, E.8), with a line about why they're kept quiet. From home the rows can't be tapped, but the WIC's phone line can ask for them too (below). **By milestone:** Bruce's Roost, Cat Basin and Hidden Lake are desk requests from M1a, the vertical slice; Long Lake and Sol Duc Lake, which only off-trail links reach, wait for M1b with the off-trail navigation and the phone, and until then they are pencil rows that can't be tapped (15). Lake #8 can't be planned: its location is unverified and no trail reaches it in the data. It lives in a pencil footnote, and on the phone it gets one line (12.5).
 
 **Lake Morgenroth, your favorite spot, off the menu.** The node is `morgenroth_lake`, at 4,130 ft in the quiet eastern end of the basin; the map spells it Morgenroth, and the data calls it Morgenroth Lake. You camped there once and have been back several times. It is not the first playable's trip and not the vertical slice's destination: it is the loop's secret, and it arrives in M1b (15). It gets three things no other camp gets:
 - **You have to call** (your words: *"it's an off menu gotta call"*). It is never in the camp list, a preset, the ranger's fills, a first book or the ranger's talk, and the map shows the lake with no camp mark. The one way to camp there is a phone call to the Wilderness Information Center. The number, 360-565-3100 (the real one, from the region data), is in plain sight and pointed at by nothing: the small print at the foot of the itinerary sheet and the permit (3.1), and a card taped to the WIC counter, a Look hotspot. Tap it and the call opens. *Ask about a lake*, tap the small lake east of Long Lake, and the voice on the line says *"Morgenroth. Nobody asks for Morgenroth."* Then it is a request like the other WIC-only camps, with the same seeded odds. It works from the kitchen table too. At the desk, tapping the lake on the map gets only a plain Look (*"You see a small lake with no camp mark."*), but the call still works, and the phone on the counter rings (wireframe in 12.5). The out-of-season *Phone the WIC* card is not this call and never offers it (3.1). The game never dials a real phone, and iOS is never allowed to offer to (E.7, 16).
@@ -677,13 +679,13 @@ Each check becomes a ranger line. Only routing through a **closed trail** is ref
 
 - **Legal camps.** Every night is at a real camp node that is open on that date under the conditions overlay (4.7).
 - **A route exists.** The shortest path by estimated hiking minutes, skipping segments closed on those dates, through any `via` waypoints the plan pins (3.1). Loops offer a direction; `via` pins waypoints.
-- **Permits and quotas.** Quota areas (`park_rules.json`): Ozette Coast, Royal Basin, Lake Constance, Upper Lena, East Fork Quinault, Flapjack Lakes, Grand and Badger Valleys, Sol Duc/Seven Lakes/Mink Lake/Cat Basin/Little Divide, Hoh Lake and C.B. Flats, and Elk Lake, Martin Creek and Glacier Meadows on the Hoh. In quota areas: designated sites only. The quota roll is keyed by calendar date and camp, so changing the date re-rolls it. WIC-only camps are special requests, made at the desk or by phone; Lake Morgenroth only by phone (4.3). Dates outside a camp's online window go to a *Phone the WIC* card (with winter rules only from Oct 16 to May 14): a form for the camps already on the plan, not the call (3.1).
+- **Permits and quotas.** Quota areas (`park_rules.json`): Ozette Coast, Royal Basin, Lake Constance, Upper Lena, East Fork Quinault, Flapjack Lakes, Grand and Badger Valleys, Sol Duc/Seven Lakes/Mink Lake/Cat Basin/Little Divide, Hoh Lake and C.B. Flats, and Elk Lake, Martin Creek and Glacier Meadows on the Hoh. In quota areas: designated sites only. The quota roll is keyed by the book's trip seed, the calendar date and the camp (E.8), so changing the date re-rolls it, and asking again for the same night in the same book never does. WIC-only camps are special requests, made at the desk or by phone; Lake Morgenroth only by phone (4.3). Dates outside a camp's online window go to a *Phone the WIC* card (with winter rules only from Oct 16 to May 14): a form for the camps already on the plan, not the call (3.1).
 - **Group size.** 12 people at most; groups of 7 to 12 need group sites, so a solo hiker never sees them offered.
 - **Loops.** A loop plan records its direction and, where the route forks around a basin, which way it goes (`via`, the basin or the crest); every day row shows the result (3.1).
 - **Daily load.** Estimated hiking hours at a Regular hiker's pace (7.3); above 9 hours the ranger frowns. Arrival time is compared with trail-dark.
 - **Snow.** Snow on the route by date, aspect and snow year (7.6): the ranger recommends traction or an ice axe.
 - **Fires.** Allowed only below 3,500 ft, outside named no-fire areas (all of Royal Basin, Grand Valley, Appleton Pass and Oyster Lake, Hoh Lake, Low Divide, Lake Constance, Lake Angeles, Elk Lake and above, the Ozette coast from Wedding Rocks to north of Yellow Banks), and when no ban is on for that date. The 2026 Stage 2 ban (USFS order Aug 7 to Oct 1) is treated as ended inside the park, because no NPS end date was found; the ranger says so. Future summers draw a late-summer ban from climatology (4.7).
-- **Food storage.** The validator reads each camp's `bear_can_required`. A hard-sided canister is required at every NPS wilderness camp (2026 rule; hangs and soft sacks don't count). At the few national forest camps where the data says it isn't required (Slide Camp on the Gray Wolf, Camp Mystery, Shelter Rock), the ranger still recommends one.
+- **Food storage.** The validator reads each camp's `bear_can_required`. A hard-sided canister is required at every NPS wilderness camp (2026 rule; hangs and soft sacks don't count). The ranger says so plainly, but a plan with no canister is never refused: it is a broken rule, with its costs on the trail (6.3). At the few national forest camps where the data says it isn't required (Slide Camp on the Gray Wolf, Camp Mystery, Shelter Rock), the ranger still recommends one.
 - **Water.** Dry stretches are flagged (the High Divide crest, the Hoh Lake Trail switchbacks, Grand Ridge).
 - **Tides.** Coast plans show the tide gates on the route. With the WIC briefing or `coast` skill 2, the ranger computes the windows for you.
 - **Road walks and closures,** by date: the Elwha road walk (+6.5 mi to Whiskey Bend) and the Dosewallips washout (+6.5 mi), both open-ended; Staircase's wilderness trails and 14 camps (closed after the 2025 Bear Gulch Fire, open-ended); Six Ridge from Graves Creek to Lake Sundown (closed, open-ended); Mora Road and Rialto Beach (closed through Oct 15, 2026; sources disagree); Lake of the Gods (closed in June 2026 by the Mount Tom Creek Fire near Olympus; status unknown, with a ranger line about smoke on the Hoh).
@@ -697,7 +699,7 @@ Your call, confirmed 2026-10-08: the real conditions by default, and Timeless on
 - **As researched (Oct 2026)**, the default: real dated closures, road walks, bridge work and fire restrictions, from a conditions overlay (`content/park/conditions/2026.json`). The colophon says "Park conditions as researched on 2026-10-07".
 - **Timeless park:** closures off. Seasonal patterns that are climate rather than news (snowpack by month, late-summer fire bans, bugs, berries) stay on.
 
-**Which year a trip happens in.** A trip falls in the 12 months after the edition date (2026-10-07), in the next open season: up to Oct 15, 2026 it is this autumn; after that it is 2027. The year is shown on the date chips and the permit, and all examples in this document use 2027 dates unless they say otherwise.
+**Which year a trip happens in.** A trip falls in the 12 months after the edition date (2026-10-07), in the next open season: up to Oct 15, 2026 it is this autumn; after that it is 2027. The year is shown on the date chips and the permit, and all examples in this document use 2027 dates unless they say otherwise. The **edition date** is the research date of the conditions overlay the build ships with (`conditions/2026.json`, researched 2026-10-07): not the day the build was made, and never the phone's clock. Only a refreshed overlay moves it, and the 12-month window with it, so this edition's window ends in October 2027, and a book opened on this edition after that still plans trips inside it.
 
 **How dated news ages.** Every overlay entry carries a `from` date, an `until` date or a `persists` flag, and the date it was last confirmed:
 - **Dated entries expire.** Mora Road closed through Oct 15, 2026, and the US 101 Hoh River Bridge closed Oct 8 (5 am) to Oct 13 (noon), 2026, affect only trips on those dates.
@@ -753,14 +755,14 @@ Before shipping, the linter checks every fictional name against a deny-list of r
 
 ### 5.4 The food data
 
-`food_catalog.json` holds **86 foods**: 47 no-cook, 25 boil, 11 fresh and 3 cold-soak. Each has calories, ounces, liters as sold and repacked, water, fuel, morale (-2 to +3), spoilage and crushability. Traps are realistic and say so in their notes: canned food, a whole watermelon, chips (calorie-light, volume-heavy), a foam noodle cup.
+`food_catalog.json` holds **88 foods**: 49 no-cook, 25 boil, 11 fresh and 3 cold-soak. Each has calories, ounces, liters as sold and repacked, water, fuel, morale (-2 to +3), spoilage and crushability. Traps are realistic and say so in their notes: canned food, a whole watermelon, chips (calorie-light, volume-heavy), a foam noodle cup.
 
-**Two items the catalog doesn't have yet** (2.6). Until it does, ingest adds them from this table, flagged as design estimates, and only builds with `flags.larry` on (every v1 build) sell them:
+**The two Larry items** (2.6), in the catalog since 2026-10-08 (both brands fictional; 21+, overnight only, `requires_flag: larry`). Only builds with `flags.larry` on (every v1 build) sell them, and the pre-roll waits for M1b:
 
 | Item | Weight · canister | Price · kcal | Notes |
 |---|---|---|---|
-| *Blue Hour Hazy IPA*, 16-oz can | About 17 oz full, 0.5 oz empty · about 0.5 L, crushed empty about 0.05 L | About $4 · about 270 | Smellable; morale +3; buzzed, -0.3 L water (7.9); 21+ |
-| Second Growth pre-roll | Under 0.1 oz · a sliver | About $10 · 0 | Smellable; the munchies and the clock (2.6); illegal on federal land; 21+ |
+| *Blue Hour Hazy IPA*, 16-oz can | 17.4 oz full, 0.5 oz empty · 0.55 L, crushed empty 0.05 L | $4 · 270 | Smellable; morale +3; buzzed, -0.3 L water (7.9); 21+ |
+| Second Growth pre-roll | 0.2 oz in its tube · 0.015 L | $10 · 0 | Smellable; the munchies and the clock (2.6); illegal on federal land; 21+ |
 
 **How much to bring** (`food_catalog.json` `needs`, for a 165-lb adult):
 
@@ -806,7 +808,7 @@ Dense food (1.6 L/day) stretches a standard canister to about 6 days; bulky food
 
 A labeled backpack spread, like an outfitter's catalog page, designed for one thumb. **The picture shows the pack and what is in it**, not the whole closet: items inside sit in the open pack, items strapped outside hang on it, and labels with leader lines name them. The closet is a list below.
 
-- **The closet is grouped by the ranger's checklist rows:** Shelter, Sleep, Rain, Warmth, Kitchen, Water, Light, Navigation, First aid, Extras. Each item lives in exactly one group. The long tail of the 218 items, and the traps, sit in a collapsed **More from the closet** at the bottom.
+- **The closet is grouped by the ranger's checklist rows:** Shelter, Sleep, Rain, Warmth, Kitchen, Water, Light, Navigation, First aid, Extras. Each item lives in exactly one group. The long tail of the 217 items, and the traps, sit in a collapsed **More from the closet** at the bottom.
 - **Tap an item to put it in the pack** (a *bloop*); tap it again to take it out. Its row moves to the top of its group with a check.
 - **Choosing a place.** Dragging an item onto the pack picture, or a long-press on a packed item, opens the **slot picker** (12.9). It lists only the legal places for that item, each with its cost: *Inside (stuffed in its sack: 3.1 L)*, *Bottom straps: may snag; wet without a dry bag*, *Top strap: top-heavy, -4 on footing*. The picker is optional: the game picks the sensible place by default.
 - **The canister panel** sits on the same screen: food liters against usable liters and days of food (`Food 7.1 of 8.6 L · 4.1 days · smellables 0.5 L`), with **Repack all food** as one tap.
@@ -855,7 +857,7 @@ From `gear_catalog.json`. The load rating is the weight the frame and hip belt c
 
 Each **bulky outside item** costs -3 on footing, ladder, ford and headland checks (cap -10). With three or more, the narrator calls you a Christmas tree. A down bag strapped outside without a dry bag has an 8% chance per rain-hour of getting wet, and a wet down bag keeps only a quarter of its warmth. An inflatable pad strapped outside in brush can puncture (patchable only with a repair kit).
 
-**3. The bear canister (hard, legal).** Required for every overnight at NPS wilderness camps, and the only legal place for food and smellables at night. It caps food days (5.5). **Food that doesn't fit** triggers the night visitor roll, shown honestly on the evening page: coast raccoons 40%, mice at popular camps 30%, bears 5% (10% in August-September berry country). A visitor eats the overflow, Leave No Trace drops, and if a bear got it, a ranger card follows and the region remembers (9.8).
+**3. The bear canister (required by the park).** The park requires one for every overnight at NPS wilderness camps, and it is the only legal place for food and smellables at night. It caps food days (5.5). It is the park's rule, not a fourth hard block: rules can be broken (1.2), so an overnight with no canister is allowed. All its food then counts as food that doesn't fit, every night, and a ranger who comes by (the permit check, 2.6) adds a ranger card about the rule. **Food that doesn't fit** triggers the night visitor roll, shown honestly on the evening page: coast raccoons 40%, mice at popular camps 30%, bears 5% (10% in August-September berry country). Food left out costs Leave No Trace -5 a night whether or not anything comes (9.6). A visitor eats the overflow, Leave No Trace drops (-15), and if a bear got it, a ranger card follows and the region remembers (9.8).
 
 **4. Weight (soft), as two ratios.**
 - **Pack ratio** = pack weight / the pack's load rating. It says how well this pack carries this load: above 1.3 the straps cut in (footing and ford -5, feet wear faster, spirits dip), above 1.6 it's -10.
@@ -884,15 +886,15 @@ The gear catalog defines 222 item tags (`tag_glossary`). **Tag rules** turn the 
 
 | Rule kind | Example output |
 |---|---|
-| Sum | `insulation`, `water_cap_l` |
-| Best of | `sleep_rating_f`, `light` (headlamp > phone > none) |
-| Combination | `nav_kit` = map + compass; `hot_meal` = stove + fuel + lighter |
+| Sum | `insulation`, `water_cap` (liters) |
+| Best of | `sleep_rating` (°F), `light` (headlamp > phone > none) |
+| Combination | `nav` = map and compass when both are packed; `hot_meal` = stove + fuel + lighter |
 | Placement | `outside_bulky`, `top_heavy` |
-| Fit | `food_fits_can`, `over_volume_l` |
+| Fit | `food_overflow`, `over_volume_l` |
 | Load | `pack_lb`, `pack_ratio`, `body_ratio` |
 | Condition | a wet item adds `<tag>_wet` and loses warmth; a dead battery removes its tags |
 
-The core event tags: `rain_top`, `rain_bottom`, `insulation`, `sleep_rating`, `pad_r`, `shelter` (tent, tarp, bivy, none), `light` (headlamp, phone, none), `water_treat` (filter, chemical, boil, none), `water_cap`, `nav` (map, map and compass, GPS, none), `traction`, `ice_axe`, `rope`, `glacier_team` (a rope team with glacier skill: in v1, only Ranger Jon), `tide_table`, `time_source`, `first_aid` (1, 2), `blister_kit`, `sun`, `bug`, `stove`, `fuel`, `canister`, `food_overflow`, `camp_clothes_dry`, `camp_shoes`, `messenger`, `poles`, `outside_bulky`, `top_heavy`, `camera`, `binoculars`, `id_book`, `luxury`, `waterproofing` (liner, cover, none), `pack_liner`, `dry_bag`. The Larry moments (2.6) read five more: `towel`, `trowel`, `sleep_aid` (earplugs), `beer` and `pre_roll`.
+The core event tags: `rain_top`, `rain_bottom`, `insulation`, `sleep_rating`, `pad_r`, `shelter` (tent, tarp, bivy, none), `light` (headlamp, phone, none), `water_treat` (filter, chemical, boil, none), `water_cap`, `nav` (map, map and compass, GPS, none), `traction`, `ice_axe`, `rope`, `glacier_team` (a rope team with glacier skill: in v1, only Ranger Jon), `tide_table`, `time_source`, `first_aid` (1, 2), `blister_kit`, `sun`, `bug`, `stove`, `fuel`, `canister`, `food_overflow`, `camp_clothes_dry`, `camp_shoes`, `messenger`, `poles`, `outside_bulky`, `top_heavy`, `camera`, `binoculars`, `id_book`, `luxury`, `waterproofing` (liner, cover, none), `pack_liner`, `dry_bag`. The Larry moments (2.6) read five more: `towel`, `trowel`, `sleep_aid` (earplugs), `beer` and `pre_roll`. These names are canonical: the content schema (`schemas/`) keeps the one list, and every card, rule and table uses its names.
 
 ### 6.6 Chekhov's pack: combinations, not single items
 
@@ -1012,7 +1014,7 @@ Trail class multiplies distance: road walk 0.85, maintained 1.0, primitive 1.25,
 
 **The Fork card** (8.2) fires at the first landmark beat (a named camp or junction where stopping or turning is a real option) at which the ETA to tonight's camp lands within an hour of trail-dark or after it. It fires again at later landmarks while that stays true, at most once every two hours of walking. So no one walks into the dark without being asked: the trailhead page already showed the ETA, and the first fork comes at the first real place to stop.
 
-**The basin-or-crest fork** is a Fork card that fires on the High Divide whatever the clock says: at the first way into the basin in your direction (the rim junction going counterclockwise, the Mirror Lake way-trail junction going clockwise), and again at the second if you passed the first. It shows, for each way, tonight's ETA against trail-dark, the forecast for the crest (thunder, fog), Legs, the water you carry and the next water, and what the choice does to the permit, and it always carries a sure way home (3.7, wireframe in 12.12).
+**The basin-or-crest fork** is a Fork card that fires on the High Divide whatever the clock says: at the first way into the basin in your direction (the rim junction going counterclockwise, the Mirror Lake way-trail junction going clockwise), and again at the second if you passed the first. It fires only when you reach the junction along the crest, so the next segment could be a way in: climbing out of the basin (Day 2 of the ↺ two-night basin fill, the last day of B.2) meets no fork at the top, nor at the other way in later that day. It shows, for each way, tonight's ETA against trail-dark, the forecast for the crest (thunder, fog), Legs, the water you carry and the next water, and what the choice does to the permit, and it always carries a sure way home (3.7, wireframe in 12.12).
 
 ### 7.5 Weather
 
@@ -1083,31 +1085,34 @@ rising tide -10, falling tide +5
 - **Energy and food.** Drain scales with effort-miles, fitness, load and weather. A calorie deficit lowers the energy ceiling. **Bonk** (energy under 15) slows you, hurts footing and makes you cold: the classic way day-gear trips go wrong. Daily eating follows the allowance and rationing rules in 5.6.
 - **Water.** Loss per moving hour rises with heat and climbing. Treated water is automatic if you have a filter or tablets. Untreated water carries a small risk per liter (1-4% by source, stylized and labeled as such): a **trail bug** 36 to 96 hours later, or a **giardia epilogue** 7 to 14 days after the trip. A can of beer costs about 0.3 L of water on top of its own (2.6).
 - **Warmth.** A heat balance each tick: air temperature, wind (halved by a shell), rain, insulation reduced by wetness, and activity (climbing makes heat, sitting doesn't). The danger starts when the walking stops.
-- **The night.** A sleep-system rating, calibrated to the catalog's `comfort_f`:
+- **The night.** A sleep-system rating, built from each item's stats in `gear_catalog.json`, which are authoritative: `comfort_f` for bags, `r_value` for pads, `insulation` for clothes, `warmth_bonus_f` for shelters and liners, and `wet_warmth_retained` for anything soaked. (This section used to carry fixed figures of its own: tent -4, bivy -3, tarp -2, and wet cotton 20%, wool and synthetic 70%. They disagreed with the catalog, so they are gone, and the worked nights here, in 8.13 and in Appendix A, were recomputed from the item stats on 2026-10-08.)
 
 ```
 comfortable down to =
-    the bag's comfort_f (assumes an R≥2 pad),
-      or 65 °F with no bag
-  + pad:  none +10 · R<2 +4 · R2-4 0 · R>4 -2
-  - clothes: 0.4 x insulation inside a bag,
-             0.7 x insulation without one
-  - shelter: tent -4 · bivy -3 · tarp -2
-  - hot dinner -2 · hot drink at bed -1
-  + a beer in the last two hours +2
-wet: cotton keeps 20% of its warmth, wool or
-synthetic 70%, down 25%; a damp bag keeps 60%
+  the bag's comfort_f (with an R≥2 pad)
+    or 65 °F with no bag
++ pad: none +10 · R<2 +4 · R2-4 0
+       · R>4 -2
+- clothes: 0.4 x insulation in a bag,
+           0.7 x insulation without
+- shelter or liner: warmth_bonus_f
+- hot dinner -2 · hot drink at bed -1
++ a beer in the last two hours +2
+wet: x wet_warmth_retained per item
+     (soaked); a damp bag keeps 60%
 ```
 
-  A 30 °F bag (`comfort_f` 40) on an R 2-4 pad is comfortable at about 40 °F; with a tent and a hot dinner, about 34; with a down puffy on inside the bag, about 27. So a sensible kit sleeps well in August and can still have a cold night at Glacier Meadows in late September (lows of 25 to 35 °F). The **margin** is the night's low minus the rating. It sets sleep quality, tomorrow's energy and dawn warmth. Below -12 °F there's a **hypothermia roll** on one curve, the one in `simulation.md` 7.6, adopted unchanged:
+  From the catalog, a shelter's `warmth_bonus_f` is 4 to 8 for the tents (the solo trekking-pole tent 4, the two-person dome 5, the four-season tent 8), 6 for the bivy sack, 10 for the emergency bivy, 5 for a space blanket, 2 for the tarp or the plastic tube tent, and -5 for a hammock; only the warmest shelter counts, and a bag liner adds its own (silk 4, fleece 8). A soaked item keeps its `wet_warmth_retained` share of its warmth: cotton 0 to 0.15 (the cotton hoodie 0.05), synthetics 0.3 to 0.7, wool 0.5 to 0.6, down 0.25 (treated down 0.4); an item with no figure uses the stat glossary's for its material. The pad steps, the 65 °F of no bag, a damp bag's 60% and the dinner, drink and beer terms are this document's own defaults, kept in `rules/tuning.json`.
+
+  A 30 °F bag (`comfort_f` 40) on an R 2-4 pad is comfortable at about 40 °F; with the solo tent (4) and a hot dinner, about 34; with a down puffy (`insulation` 18) on inside the bag, about 27. So a sensible kit sleeps well in August and can still have a cold night at Glacier Meadows in late September (lows of 25 to 35 °F). The **margin** is the night's low minus the rating. It sets sleep quality, tomorrow's energy and dawn warmth. Below -12 °F there's a **hypothermia roll** on one curve, the one in `simulation.md` 7.6, adopted unchanged:
 
 ```
 chance of dangerous shivering =
-    1.5 x (-margin - 12) %, capped at 90%
-margin -18: 9% · -33: 31.5% · -39: 40.5%
+  1.5 x (-margin - 12) %, capped at 90%
+margin -18: 9% · -34: 33% · -40: 42%
 ```
 
-  It is shown on the bedtime page as its complement (*"Chance you get through the night without dangerous shivering: 91%"*). Bedtime choices change it: eat everything, a hot drink, walk around, ask the neighbors. **Below -25 °F with no shelter, a failed roll can end the book** in Old School (a 15% death roll, 9.5), so toughing the night out becomes a ♦ with its fatal share (at a margin of -39: 40.5% x 15% = 6.1%), and the page always offers a sure choice: ask for help, or huddle and wait for rescue, which ends the trip but not the hiker (A.3). Reference nights (EN comfort ratings; Glacier Meadows in late September) are unit tests.
+  It is shown on the bedtime page as its complement (*"Chance you get through the night without dangerous shivering: 91%"*). It is a **physics-curve roll**: its chance comes straight from the curve, so it has no shaky band and no 5-97 clamp, only the curve's 90% cap, and its "made it" can fall below 30% (8.8). Bedtime choices change it: eat everything, a hot drink, walk around, ask the neighbors. **Below -25 °F with no shelter, a failed roll can end the book** in Old School (a 15% death roll, 9.5), so toughing the night out becomes a ♦ with its fatal share (at a margin of -40: 42% x 15% = 6.3%), and the page always offers a sure choice: ask for help, or huddle and wait for rescue, which ends the trip but not the hiker (A.3). Reference nights (EN comfort ratings; Glacier Meadows in late September) are unit tests.
 - **Feet.** Wear per mile doubles with wet feet and rises with new boots, heavy loads, pushing and beach cobbles. A hot spot always gets a card: tape it now, or keep going.
 - **Injuries.** Scrape, mild sprain (pace x1.15), moderate sprain (pace x1.6, Serious), knee strain, cut, sunburn, sting, heat exhaustion, hypothermia. A first aid kit gives a 30% (basic) or 50% (complete) chance to step an injury down one level.
 - **Batteries.** One model for every item tagged `needs_battery` (phone, headlamp, GPS, messenger, camera, UV purifier): a charge that drains by use and cold, with a small battery glyph on the caption line when it gets low. A phone used as a light drains about 12% an hour; a headlamp lasts about 4 hours on high and 40 on low; a messenger about 10 days. When the phone dies, everything it provided goes with it: the light, the time source (so the tide odds blur again), GPS and the camera.
@@ -1116,7 +1121,7 @@ margin -18: 9% · -33: 31.5% · -39: 40.5%
 
 ### 7.10 Experience: better information, not better dice
 
-Each trip earns experience in the skills you used, for as long as the hiker lives (a new hiker, after a death, starts over at beginner's level: 9.8). Each level adds +2 on matching checks, counted from 0, so a beginner's level 1 already adds +2 and glacier at 0 adds nothing (every worked example in this document includes it), **and unlocks better foreshadowing**: at `coast` 2 the HUD computes *"You'll reach Strawberry Point about 4:10 pm, tide 3.2 ft and falling"*; at `navigation` 2 way-trail forks are flagged; at `campcraft` 2 the evening page says whether you'll sleep warm; `glacier` 1 comes from glacier school with Ranger Jon (4.2) and adds +2 on a soloist's crossings, and at `glacier` 2 the crevasse odds on the ice sharpen from a range to a number. Veterans read the world better.
+Each trip earns experience in the skills you used, for as long as the hiker lives (a new hiker, after a death, starts over at beginner's level: 9.8). Levels run from 0 to 5, the cap `simulation.md` sets, and the experience each level needs lives in `rules/tuning.json` (a few trips that use a skill reach level 2, as Robin's navigation has by B.2). Each level adds +2 on matching checks, counted from 0, so a beginner's level 1 already adds +2 and glacier at 0 adds nothing (every worked example in this document includes it), **and unlocks better foreshadowing**: at `coast` 2 the HUD computes *"You'll reach Strawberry Point about 4:10 pm, tide 3.2 ft and falling"*; at `navigation` 2 way-trail forks are flagged; at `campcraft` 2 the evening page says whether you'll sleep warm; `glacier` 1 comes from glacier school with Ranger Jon (4.2) and adds +2 on a soloist's crossings, and at `glacier` 2 the crevasse odds on the ice sharpen from a range to a number. Veterans read the world better.
 
 ### 7.11 Other people and living things
 
@@ -1162,7 +1167,7 @@ The page sets up the dilemma, and the buttons finish the sentence. Labels are ve
 |---|---|---|
 | **Sure** (no roll; maybe a cost, even the trip, but it can never end the book) | `sure`, or a cost tag: a clock, food, battery or spirits icon, or one of the words `night`, `rest`, `cold` and `permit` (it changes the permit's nights; the Why sheet says whether that is an off-permit night, 3.7) | *Camp, cross at dawn* (costs a night) |
 | **Risky** (rolled; the worst case is Trouble or less) | the chance it goes all right, as a %; the (i) opens *Why these odds* | *Wade across now 83%* (knee-deep, but tired) |
-| **Critical ♦** (rolled; some branch can reach Serious, a rescue, the end of the trip, or in Old School the end of the book) | `♦ %`, the fail share in red, the fatal share in red if the book can end, a confirming tap, a three-band bar in the Why sheet, and the compass roll | *Climb the ladder ♦ 79% · 21% fall · 0.3% fatal* |
+| **Critical ♦** (rolled; some branch can reach Serious, a rescue, the end of the trip, or in Old School the end of the book) | `♦ %`, the fail share in red, the fatal share in red if the book can end, a confirming tap, a three-band bar in the Why sheet (two bands on a night roll, 8.8), and the compass roll | *Climb the ladder ♦ 79% · 21% fall · 0.3% fatal* |
 | **Flavor** (no stakes) | no tag | *Count the banana slugs* |
 
 **The rules:**
@@ -1241,7 +1246,7 @@ At each beat slot:
 | Day hike | 3-4 | 3-5 | 4-5 min |
 | Evening and night | 1-2 | 1-2 | 1-2 min |
 
-At most 2 hazard cards per day in either mode, not counting forced ones, and at most one dealt Larry card a day and two a book; tiles the player starts don't count (2.6). Old School asks harder questions of the gaps in your pack, not more questions of a good one, which is what keeps sensible plans inside their targets (F.1).
+At most 2 hazard cards per day in either mode, not counting forced ones, and at most one dealt Larry card a day and two a book, on overnight trips only and never on the walk-out day; tiles the player starts don't count, and neither does the off-permit ranger, a forced roll outside the cap that plays the permit-check card (2.6, 3.7). Old School asks harder questions of the gaps in your pack, not more questions of a good one, which is what keeps sensible plans inside their targets (F.1).
 
 ### 8.5 How the % is computed
 
@@ -1253,7 +1258,7 @@ p = clamp(base + Σ labeled modifiers, 5, 97)
 
 - **This p is the chance of a clean success.** The button shows the chance you make it at all, clean or shaky, which is p plus the shaky band (8.8).
 - **Additive percentage points**, so a player can check the arithmetic in the Why sheet ("Base 90, dark -10, tired -10 = 70 clean").
-- **Clamped 5 to 97.** Nothing is certain on a mountain, and nothing is hopeless. Cards may narrow the clamp, never widen it.
+- **Clamped 5 to 97.** Nothing is certain on a mountain, and nothing is hopeless. Cards may narrow the clamp, never widen it. (The night roll is the exception: it takes its chance straight from the cold curve, with that curve's own 90% cap, 7.9, 8.8.)
 - **Bases come from physics where physics exists** (river flow index, tide margin, snow cover, night margin), from shared constants in `rules/`, and only otherwise from the card. Numbers are never invented per card.
 - **Shared modifier sets** (`rules/mods.json`) keep common effects consistent across every card, one value each:
 
@@ -1298,7 +1303,7 @@ On the coast this makes a 1-oz tide table an item of real power. On the High Div
 | Decision kind | Shows |
 |---|---|
 | Rolled, can end the book (Old School) | everything in the next row, plus the fatal share in red (`0.3% fatal`, rounded up; a blurred range shows its worst end); the confirm reads *This could end the book* |
-| Rolled, can reach Serious or worse | ♦ + "made it" % + the fail share in red; the Why sheet adds a three-band bar and an "if it goes badly" line |
+| Rolled, can reach Serious or worse | ♦ + "made it" % + the fail share in red; the Why sheet adds a three-band bar (two bands on a night roll, 8.8) and an "if it goes badly" line |
 | Rolled, smaller stakes (a soak, a lost sandal, a mild sprain) | "made it" % |
 | Rolled, tiny stakes (spot the marmot, a photo before the fog) | a small grey % |
 | Compound (push on 7 miles in the dark) | one word and a small three-color bar (8.9) |
@@ -1315,6 +1320,7 @@ On the coast this makes a 1-oz tide table an item of real power. On the High Div
 | 60-74 | a real risk (1 in 3 goes badly) |
 | 45-59 | a gamble (about half go badly) |
 | 30-44 | unlikely (most go badly) |
+| below 30 | very unlikely (nearly all go badly); only a night roll gets here (8.8) |
 
 A range wider than 30 points reads *hard to say*. The prose carries the hunch naturally in every mode: *"It looked likely enough."*
 
@@ -1342,7 +1348,11 @@ roll < p + shaky   Shaky: made it, at a small cost
 otherwise          Fail, then the card's fail table
 ```
 
-**The number on the button is "made it": clean plus shaky.** It is the chance of the outcome the player is actually deciding about, so `79%` means about one time in five it goes badly. The fail share is never more than 70% (p is at least 5), and "made it" runs from 30% to 99%. On ♦ choices the fail share sits beside the % in red, and the Why sheet shows all three bands and the fail table:
+**The number on the button is "made it": clean plus shaky.** It is the chance of the outcome the player is actually deciding about, so `79%` means about one time in five it goes badly. The fail share is never more than 70% (p is at least 5), and "made it" runs from 30% to 99%.
+
+**Physics-curve rolls skip the bands.** A roll whose chance comes straight from a physics curve, rather than from p and its modifiers, has no shaky band and no 5-97 clamp. In v1 that is the night roll (7.9), which is also the Cold chain's last step. Its "made it" is simply 100 minus the curve's fail share, rounded like any fail share, so it can fall below 30% (at a margin of -72 the curve gives 90% shivering, and the button shows ♦ 10%). Words reads it with the row below 30% (8.7), and its Why sheet and compass have two bands, made it and fail, with the fatal sliver at the end of the fail when there is one.
+
+On ♦ choices the fail share sits beside the % in red, and the Why sheet shows all three bands and the fail table:
 
 ```
 Climb with your pack on
@@ -1356,7 +1366,7 @@ Fatal: 21 x 2% x 50% = 0.21%,
 shown rounded up: 0.3%
 ```
 
-**The compass roll** plays only on ♦ choices, after the confirming tap: a compass rose fills the picture, its dial painted with the same three bands in the palette's colors (moss clean, alpenglow pink shaky, brick fail; 11.1), plus a thin ink-black sliver at the far end of the red for the fatal share when there is one. The needle spins about 1.2 seconds with PC-speaker ticks and comes to rest **somewhere inside the band it landed in**, not at the exact roll, so a player replaying the same weather on a new book (9.7) can't read the number and nudge the odds just past it. Raw rolls appear only in the debug overlay and, from M6, the post-trip Notebook. A tap skips the spin. Ordinary risky choices go straight to the outcome page.
+**The compass roll** plays only on ♦ choices, after the confirming tap: a compass rose fills the picture, its dial painted with the same three bands in the palette's colors (moss clean, alpenglow pink shaky, brick fail; 11.1), or two on a night roll (moss and brick), plus a thin ink-black sliver at the far end of the red for the fatal share when there is one. The needle spins about 1.2 seconds with PC-speaker ticks and comes to rest **somewhere inside the band it landed in**, not at the exact roll, so a player replaying the same weather on a new book (9.7) can't read the number and nudge the odds just past it. Raw rolls appear only in the debug overlay and, from M6, the post-trip Notebook. A tap skips the spin. Ordinary risky choices go straight to the outcome page.
 
 ### 8.9 Compound choices: an honest look-ahead
 
@@ -1366,7 +1376,7 @@ Some choices aren't one roll: *push on to Glacier Meadows in the dark*, *wait fo
 - **One named policy for the numbers: *keep pushing*.** Look-ahead bars and the Trip Outlook follow the plan (or this choice) to the end, turning aside only where the plan becomes impossible (no light on bad ground, a closed trail). At every later warning and every later ♦ they go on, whatever its %, and they never look for or ask for help. So the fatal share is the honest price of sticking to the plan, and taking a sure choice later can only lower it. (The Bold bot, F.2, is the same except that it turns back at a ♦ below 50% made-it, so on a plan with such a ♦ the Outlook reads a little higher than Bold's figure, as in A.7.) The test bots use their own styles, including *sensible* (F.2).
 - **On the button:** one word and a small three-color bar, `Push on · mostly trouble`. When any run reaches a ♦ that can end the book, the bar gets a black tip and the fatal share shows in red. The numbers are in the Why sheet. Appendix A's first fork, with day gear:
 
-> **Push on to Glacier Meadows** · Arrive in OK shape **5%** · Arrive in serious trouble **65%** · Need help **25%** · **The book ends 6.4%**
+> **Push on to Glacier Meadows** · Arrive in OK shape **5%** · Arrive in serious trouble **65%** · Need help **25%** · **The book ends 6.6%**
 
 - **Budget:** the runs happen in a Web Worker, up to 400 within about 50 ms for a choice. With 400 runs the results round to 5%; if fewer finish, they round to 10% and read *about*.
 - **The fatal share is not counted from sampled deaths.** Counting would miss small shares: a true 0.7% shows no death at all in 400 runs about 6% of the time, and a true 0.1% about two times in three, so the black tip would come and go on plans that really can end the book. Instead each run carries on as if the hiker lived through every ♦, and combines the exact fatal share of each ♦ it reaches under the policy (one minus the product of the survivals); the bar shows the average, rounded up like any fatal share (8.1). And if any run reaches a ♦ with a fatal branch, the bar keeps its black tip and reads at least `<0.1% fatal`. So the parts may not add to exactly 100.
@@ -1426,14 +1436,16 @@ Raw path counts are effectively infinite (about 10^16 per itinerary) and therefo
 
 Every effect records the modifiers and earlier choices that produced it. After the trip, the back cover's **Field Notes** turn the biggest causes into plain words and tips:
 
-> **Why the night at Glacier Meadows was so cold:** no sleeping bag (a 20 °F bag is worth about 35 °F of comfort), no pad (10 °F colder), a cotton hoodie soaked by the evening rain (wet cotton keeps a fifth of its warmth). The kind neighbors' puffy, sit pad, tarp and cocoa (about 22 °F together) kept it from being worse.
-> **Next time:** a 20 °F bag, a pad, a tent and a hot dinner would have made you comfortable down to about 24 °F: 10 °F on the warm side of that night.
+> **Why the night at Glacier Meadows was so cold:** no sleeping bag (a 20 °F bag is worth about 35 °F of comfort), no pad (10 °F colder), a cotton hoodie soaked by the evening rain (wet cotton keeps almost none of its warmth). The kind neighbors' puffy, sit pad, tarp and cocoa (about 22 °F together) kept it from being worse.
+> **Next time:** a 20 °F bag, a pad, a small tent and a hot dinner would have made you comfortable down to about 24 °F: 10 °F on the warm side of that night.
+
+(Every figure in those notes comes from the item stats in `gear_catalog.json` through the night model, 7.9: the 20 °F bag's `comfort_f` is 30, the soaked hoodie keeps 5% of its warmth, the neighbors' down puffy is worth 12.6 °F worn without a bag, the sit pad 6 and the tarp 2, and the solo tent's `warmth_bonus_f` is 4.)
 
 This is the Oregon Trail learning loop made explicit, and the main tool for checking the game feels fair.
 
 ### 8.14 Seeds and save-scumming
 
-- Randomness comes from one seeded generator split into named streams (weather, environment, permits, director, rolls, effects, text, art, store, lookahead). **Weather never shifts because you dawdled**, and editing text never changes an outcome.
+- Randomness comes from one seeded generator split into named streams (weather, environment, permits, director, rolls, effects, text, art, store, lookahead). The book's trip seed is drawn when you tap *Begin a new book*, before the ranger desk, so the desk's own draws (quotas, desk requests, the canister loan) use it too (E.8). **Weather never shifts because you dawdled**, and editing text never changes an outcome.
 - **There is no going back, in either mode.** No Restore, no Turn Back a Page, no Back to Last Camp, no Restart Trip. Every page autosaves. **The save written at the confirming tap already holds the outcome**, before the compass spins, so closing the app mid-spin changes nothing. If the outcome is a death, that same write adds the Trail Register entry and marks the hiker dead, so nothing can bring them back; the death sequence only displays it, and the full wipe of the hiker's shelf and skills follows when the sequence closes (E.6). The one thing still unwritten is the epitaph, which can add words to the register entry and change nothing else (9.5). An error never rolls back a choice either (E.11).
 - **Rolls are keyed to content and mode, not to page counts:** `hash(trip seed, mode, node, card, choice, trip day, attempts here)`. An optional page inserted before a check (a Look, a rest, a different chore order) changes nothing. And the same choice at the same ladder on the same day, in the same weather and the same mode, always gives the same result: on a new book with the same weather (Try this trip again, 9.7), a fall is still a fall. It is a puzzle you solve on the next book by changing your approach (haul the pack up on a rope, wait for morning, take the overland trail), the King's Quest way, never by reloading. A different choice, a new day, or a genuine second attempt (trying the ford again after failing it) gets a fresh, equally honest roll.
 - **No scouting.** A phone has one living hiker with one book in progress at a time, so there is no parallel book to scout with; a seed already in progress can't be opened twice, and a code from a book that ended in GAME OVER rolls new weather on your own shelf (the register keeps the seed, 9.7, 9.8). The mode is in the key too, so if the hidden Storybook mode is ever released, a Storybook book of the same trip rolls its own dice and can never show which Old School ♦ would have ended the book (9.4). An imported save can never be older than the shelf's record of that book (E.6).
@@ -1540,7 +1552,7 @@ Each volume is titled from what happened: *The Hiker Who Forgot the Stove*, *Too
 | Ford at waist depth (flow index 2.5 or more), swept | 20% | 63% x 15% x 20% = 1.89%, shown 1.9% (8.11) |
 | Headland attempt more than 1 ft over the limit | 25% | 61% x 25% = 15.25%, shown 16% (C.2) |
 | Crevasse fall on the Blue Glacier, alone (any of the three crossings; on Ranger Jon's rope a fall is held) | 30% | 45% x 5% x 30% = 0.675%, shown 0.7% (4.2) |
-| A night with a margin below -25 °F and no shelter, toughed out; or the end of the Cold chain | 15% | 40.5% x 15% = 6.08%, shown 6.1% (A.3; the night curve in 7.9 at a margin of -39) |
+| A night with a margin below -25 °F and no shelter, toughed out; or the end of the Cold chain | 15% | 42% x 15% = 6.3%, shown 6.3% (A.3; the night curve in 7.9 at a margin of -40) |
 | Staying on an exposed crest in a thunderstorm (a choice) | 2% | shown on the card |
 | Off trail in fog near a cliff | 10% | shown on the card |
 
@@ -1614,7 +1626,7 @@ Lines are printed exactly, 1890 spelling and lower-case starts included. The dea
 
 ### 9.6 Scoring
 
-**The status line:** `Score: 22 of 131`. The maximum is computed for your itinerary when the permit is stamped: every landmark and likely sunset, plus fixed budgets for Looks, wise choices and Leave No Trace acts. The Bonfire Lily is never in it, so the maximum can't give the flower away (10.2). Bigger trips have bigger maxima, but finishing is worth more than overreaching. Like King's Quest, **the score only goes up**, and it can never pass the maximum.
+**The status line:** `Score: 22 of 131`. The maximum is computed for your itinerary when the permit is stamped (a day hike's, which has no permit, at *Start walking*): every landmark and likely sunset on the planned route, the planned camps and the finish, plus budgets for Looks, wise choices and Leave No Trace acts. The Bonfire Lily is never in it, so the maximum can't give the flower away (10.2). Bigger trips have bigger maxima, but finishing is worth more than overreaching. Like King's Quest, **the score only goes up**, and it can never pass the maximum: points past it simply aren't counted, so a viewpoint found off the plan can make up for one the plan promised and the trail skipped.
 
 | Points | For |
 |---|---|
@@ -1623,14 +1635,38 @@ Lines are printed exactly, 1890 spelling and lower-case starts included. The dea
 | 2 | A Leave No Trace act (food stored right, trash packed out, durable campsite), up to the budget |
 | 3 | A sunset watched on a clear evening |
 | 5 | A landmark or viewpoint reached (2 on a repeat visit) |
-| 10 | Reaching each planned camp |
+| 10 | Reaching each planned camp (a layover night earns none: the camp was reached the day before) |
 | 20 | Finishing as planned (10 for the Hard Way or Sooner Than Planned) |
 
-Looking at the same marmot ten times earns its point once. There are no points for sketching, photographing or collecting anything, and none for the Bonfire Lily. **Replanning** (3.7) recomputes the maximum for the new route without ever lowering the score already earned. **A GAME OVER book keeps the score it reached**, with no finish points; the memorial page and the Trail Register show it as it stood (`Score 25 of 64`).
+**How the maximum is built.** Every budget is a number in `rules/tuning.json`, which the harness tunes (F.2). These are the starting values:
+- **Landmarks and viewpoints:** 5 for each one on the planned route and its pinned side trips, and 2 for each repeat visit the route makes. A planned camp that is also a landmark (Heart Lake) counts once, as the camp. A side trip added on the trail doesn't raise the maximum; its points count up to it, like anything else.
+- **Camps:** 10 for each arrival at a planned camp. A layover night earns no camp points; its day earns its own budgets and its side trips' landmarks.
+- **Likely sunsets:** 3 for each planned evening, at a camp or on a pinned evening side trip, where the climatology gives a clear or partly cloudy evening at least half the time in that month (on the High Divide in August, every evening).
+- **Looks:** 10 a trip day (each calendar day from *Start walking* to the car; a day hike has one).
+- **Wise choices:** 2 a trip day, at 3 points each.
+- **Leave No Trace acts:** 1 a trip day plus 1 a night, at 2 points each.
+- **The finish:** 20.
 
-**Leave No Trace** is a separate ledger (starts at 100) shown on the back cover: off-permit camp -5 (-10 on a meadow), always charged, whether or not a ranger comes by (3.7), food lost to wildlife -15, a fire above 3,500 ft or during a ban -20, shortcutting switchbacks -5, feeding wildlife -10, picking plants -10 (the Bonfire Lily included, 10.2), a can, a roach or a shallow cathole left behind -5, packing out someone else's trash +3.
+**A worked maximum:** the ranger's fill for *↺ Deer Lake first*, one night, *Stay high* (B.1), as Robin planned it in B.6 (Heart Lake, Aug 21-22, 2027):
 
-**A citation** (the pre-roll and a passing ranger, 2.6) is the one penalty that touches the score line, and it still never takes points away: the finish award drops to 10, as for the Hard Way, and the book's register line gets a small *cited* stamp.
+| Part | What counts | Points |
+|---|---|---|
+| Landmarks and viewpoints | Sol Duc Falls, Deer Lake, the rim of the basin, Mount Olympus from the crest, the Hoh Lake junction: 5 x 5 | 25 |
+| The planned camp | Heart Lake, a landmark too, counted once | 10 |
+| Likely sunsets | One August evening on the Divide | 3 |
+| Looks | 10 a day x 2 days | 20 |
+| Wise choices | 2 a day x 2 days x 3 | 12 |
+| Leave No Trace acts | (2 days + 1 night) x 2 | 6 |
+| Finishing as planned | | 20 |
+| **The maximum** | | **96** |
+
+That is the 96 on B.6's pages (12.12, 12.21), and the card bench regenerates it as a golden test (F.4). The other maxima in this document (170 for B.2, 131 on the Hoh wireframes, 64 in Appendix A, 120 on the sample back cover in 9.7) are illustrative until the engine computes them by these rules.
+
+Looking at the same marmot ten times earns its point once. There are no points for sketching, photographing or collecting anything, and none for the Bonfire Lily. **Replanning** (3.7) recomputes the maximum as the points already earned plus everything the rest of the new route can still earn, so a replan can lower the maximum, but never below the score already earned. **A GAME OVER book keeps the score it reached**, with no finish points; the memorial page and the Trail Register show it as it stood (`Score 25 of 64`).
+
+**Leave No Trace** is a separate ledger (starts at 100) shown on the back cover: off-permit camp -5 (-10 on a meadow), always charged, whether or not a ranger comes by (3.7), food left out overnight (no canister, or food that doesn't fit it, 6.3) -5 a night, food lost to wildlife -15, a fire above 3,500 ft or during a ban -20, shortcutting switchbacks -5, feeding wildlife -10, picking plants -10 (the Bonfire Lily included, 10.2), a can, a roach or a shallow cathole left behind -5, packing out someone else's trash +3. The ledger never goes above 100: the +3 can only win back points already lost.
+
+**A citation** (the pre-roll and a passing ranger, 2.6) is the one penalty that touches the score line, and it still never takes points away: the finish award drops to 10, as for the Hard Way, and the book's register line gets a small *cited* stamp. The two don't stack: a cited book that also ends the Hard Way or Sooner Than Planned still gets 10, not 5.
 
 ### 9.7 The back cover
 
@@ -1660,7 +1696,7 @@ Looking at the same marmot ten times earns its point once. There are no points f
 
 *What the pack taught* never lists beer or the pre-roll, used or not, and no line on the back cover mentions either (2.6, T05).
 
-**Try this trip again** is the Oregon Trail loop made one tap: it keeps the plan and the dates, skips the ranger desk, and goes straight to the store and the pack with your last pack loaded. You choose **same weather** (the same seed: change the pack, see what changes) or **new weather**. Either way it is a new book for the same hiker, never a restore, and it can't open a seed that is already in progress. A book that ended in GAME OVER has its memorial page instead of this cover, and no *Try this trip again*: the next hiker may plan the same trip, but with new weather (the register keeps the dead book's seed for exactly this), so a death can never be replayed choice by choice.
+**Try this trip again** is the Oregon Trail loop made one tap: it copies the stamped permit (the plan, the dates, each night's camp as granted and the canister as lent) under the next permit number, skips the ranger desk, so nothing on the permit is rolled again, and goes straight to the store and the pack with your last pack loaded. You choose **same weather** (the same seed: change the pack, see what changes) or **new weather** (a new seed for everything after the permit). Either way it is a new book for the same hiker, never a restore, and it can't open a seed that is already in progress. A book that ended in GAME OVER has its memorial page instead of this cover, and no *Try this trip again*: the next hiker may plan the same trip, but with new weather (the register keeps the dead book's seed for exactly this), so a death can never be replayed choice by choice.
 
 **Share the Cover** renders the cover (title, picture, moral) as a PNG through the iOS share sheet. No server needed.
 
@@ -1678,7 +1714,7 @@ Looking at the same marmot ten times earns its point once. There are no points f
 
 **The Trail Register** is our version of Oregon Trail's tombstones and its Top Ten in one book, like the paper sign-in registers at real trailheads. It opens from the bookshelf (12.3) and holds two lists:
 - **Best books:** the top ten finished books by any hiker who ever lived on this phone, ranked by the share of their own maximum, so a good day hike can top a long trip. Each line has the hiker's name, the trip, the date and the score (and a *cited* stamp, if a ranger wrote one, 9.6). The list starts empty, so a first finished book tops it.
-- **Remembered:** every hiker whose book ended in GAME OVER, newest first, with the name, the place, the dates, the score reached, the *YOU PERISHED* line, the permit number and the epitaph (typed, dealt with its credit, or blank). Tapping a line opens a small card with the same facts and the book's title. It comes **pre-filled with the 104 Boyz** (your call; 7.11): one line each, a fictional misadventure death with a funny epitaph, dated before any book on the phone, so real lines always sit above them. They can never be removed, and they carry no seed.
+- **Remembered:** every hiker whose book ended in GAME OVER, newest first, with the name, the place, the dates, the score reached, the *YOU PERISHED* line, the permit number (or *day hike*, which has none) and the epitaph (typed, dealt with its credit, or blank). Tapping a line opens a small card with the same facts and the book's title. It comes **pre-filled with the 104 Boyz** (your call; 7.11): one line each, a fictional misadventure death with a funny epitaph, dated before any book on the phone, so real lines always sit above them. They can never be removed, and they carry no seed.
 
 Each new book's trailhead page shows the register's last few lines on the kiosk, epitaphs included (12.10). Storybook books, if that mode is ever released, never appear in either list (9.4). The register also keeps what the game needs to stay fair after a wipe, out of sight: each dead book's seed (so its code rolls new weather, 9.7) and the permit counter (12.6).
 
@@ -1709,8 +1745,8 @@ The game began as a homage to Benjamin Flouw's picture book *The Golden Glow* (T
 
 | Place | Snow feature | Normal-year months |
 |---|---|---|
-| Bogachiel Peak (M1) | The north-face snowfield above the Seven Lakes Basin | Jul to about Aug 20 |
-| Lunch Lake, Heart Lake, the High Divide crest (M1) | Basin and crest snowfields | Jul to about Aug 10 |
+| Bogachiel Peak (M1b) | The north-face snowfield above the Seven Lakes Basin | Jul to about Aug 20 |
+| Lunch Lake, Heart Lake, and the crest at Heart Lake Junction camp (`heart_lake_junction`, 5,080 ft) (M1b) | Basin and crest snowfields | Jul to about Aug 10 |
 | Glacier Meadows and the Blue Glacier moraine (M2) | The Blue Glacier (perennial) | Jun-Oct |
 | Snow Dome and Caltech Rocks (M2) | On the glacier (with Ranger Jon, or alone past the crossings, 4.2) | Jun-Oct |
 | Upper Royal Basin (M3) | Remnant snowfields and the small glacier under Mount Deception | Jul-Sep |
@@ -1720,7 +1756,7 @@ The game began as a homage to Benjamin Flouw's picture book *The Golden Glow* (T
 | Lake Constance (M5) | Snowfields under Mount Constance | Jul-Aug |
 | Hurricane Hill (M5) | Snow patches; day hike only, if you stay for sunset with a headlamp | Jun-Jul |
 
-Windows shift about two weeks earlier in a low snow year and two to three weeks later in a high one. The Bogachiel and High Divide windows are design estimates to confirm against August trip reports (and against your own memory of the Divide, since the first playable's lily lives there). Lake Morgenroth has no snow feature, so it never rolls for the lily.
+Windows shift about two weeks earlier in a low snow year and two to three weeks later in a high one. The Bogachiel and High Divide windows are design estimates to confirm against August trip reports (and against your own memory of the Divide, since the first playable's lily lives there). The crest's lily place is its one camp, Heart Lake Junction, where the research's hazard `snowfield_high_divide` puts steep snow, as it does at Bogachiel Peak and the rim; it names no snowfield at Lunch Lake or Heart Lake themselves, so those two windows are the least certain. Lake Morgenroth has no snow feature, so it never rolls for the lily.
 
 **The odds, per eligible evening.** Rolled quietly; no % is ever shown.
 
@@ -1735,7 +1771,7 @@ sky = 1.0 clear, 0.6 partly cloudy,
       0.1 overcast, 0 rain or fog
 ```
 
-Each eligible evening rolls on its own, and the trip's chance is `1 - (1 - P1)(1 - P2)...`. With August high-country skies (an average sky factor near 0.57), a player who stays out for the whole sunset and turns the headlamp off gets about 6% from one evening and about 13% from a layover's two. One who goes to bed at sunset gets about 3%. The targets are **4-8% of such trips with one eligible evening, 10-16% with a high layover**, and no plan above 25% (F.1). There is no first-book guarantee and no pity counter. Most players will finish many books before they see it, and some never will, which is what makes it worth mentioning to a friend.
+Each eligible evening rolls on its own, and the trip's chance is `1 - (1 - P1)(1 - P2)...`. The layover bonus is for a second evening in the same place: a second sunset at the camp, or at a viewpoint you also watched from the evening before. A side-trip viewpoint seen once on a layover day is a first evening there and gets no layover bonus, which is why B.3's sunset on Bogachiel Peak rolls 11%, not 13%. With August high-country skies (an average sky factor near 0.57), a player who stays out for the whole sunset and turns the headlamp off gets about 6% from one evening and about 13% from a layover's two. One who goes to bed at sunset gets about 3%. The targets are **4-8% of such trips with one eligible evening, 10-16% with a high layover**, and no plan above 25% (F.1). There is no first-book guarantee and no pity counter. Most players will finish many books before they see it, and some never will, which is what makes it worth mentioning to a friend.
 
 **The sequence.** Only on the evening the roll comes up, three pages:
 1. **The glow plate** (full-bleed, chrome hidden, in the night palette with the snow gone to slate): one pixel of gold in the snow begins to cycle and grows over three seconds into a small 5x5 star, the only gold in the picture (11.1, 11.5). *"Where the snow was bluest, something small was shining. Robin checked the headlamp. The headlamp was off."* The Bonfire Lily motif plays once (13.2).
@@ -1940,7 +1976,7 @@ The park has 449 places in the research and roughly 500 to 600 once overlay poin
 **Seasonal and weather overlays:** ground above the snowline switches to snow dithers; fall color swaps vine maple and huckleberry to rust and brick; flowers by month and elevation; fog hides the far layer and lays bands across the middle; stars and the real moon phase for the trip date.
 
 **About 24 hand-drawn signature scenes** get an illustrator's full attention, still accepting palette, weather and sprite layers. They arrive with their milestones (15):
-- **The first playable (M1):** the High Divide cover at dusk; **Lake Morgenroth, your favorite spot** (M1b), drawn from your GPS track, photos and stories (4.3, B.7); the WIC counter, with the phone and the number card on it; Fernwood Mercantile; the labeled backpack spread; US 101 along Lake Crescent; Sol Duc Falls; Seven Lakes Basin from the rim; Heart Lake; the Bonfire Lily in the blue snow; and The End, the closed book on a car dashboard.
+- **The first playable (M1):** the High Divide cover at dusk; **Lake Morgenroth, your favorite spot** (M1b), drawn from your GPS track, photos and stories (4.3, B.7); the WIC counter, with the phone and the number card on it (the card is drawn in from M1b, with the call, 15); Fernwood Mercantile; the labeled backpack spread; US 101 along Lake Crescent; Sol Duc Falls; Seven Lakes Basin from the rim; Heart Lake; the Bonfire Lily in the blue snow; and The End, the closed book on a car dashboard.
 - **The Hoh and Olympus (M2):** the Hall of Mosses; the Hoh braids with elk; the Glacier Meadows ladder; the Blue Glacier from the moraine; Snow Dome and the summit block at dawn.
 - **Royal Basin (M3):** Royal Lake under Mount Deception; Upper Royal Basin.
 - **Later (M4-M5):** Hurricane Hill and the Bailey Range; Grand Valley and Moose Lake; the Enchanted Valley chalet; Rialto's Hole-in-the-Wall; Shi Shi and Point of the Arches.
@@ -1990,7 +2026,7 @@ Two pages of the death sequence (9.5) need the renderer. Neither needs new scene
 
 ## 12. iPhone screens
 
-All wireframes use one example book where they can: Robin's four-night Hoh trip (Lewis Meadow, Glacier Meadows twice, Five Mile Island), Jul 14 to 18, 2027, `Score: 0 of 131` at the stamp. Screens from other books say so. The Hoh arrives in M2; the first playable's screens are these same screens with Sol Duc's places in them (Appendix B's trip), plus the ones only the loop needs: a first book's three questions and the call for Morgenroth (12.5), and the basin-or-crest fork (12.12). The locals' quiz (12.3) and a Larry moment (12.21) are the PG-13 part.
+All wireframes use one example book where they can: Robin's four-night Hoh trip (Lewis Meadow, Glacier Meadows twice, Five Mile Island), Jul 14 to 18, 2027, `Score: 0 of 131` at the stamp. Its Day 1 runs in order: the trailhead at 9:40 am (12.10), the braids at mile 8.0 about 1:35 pm (12.2, 12.11, 12.13), and camp at Lewis Meadow, mile 10.4, about 3:20 pm, half an hour behind the planned 2:50 because of the ford (12.5, 12.14). Screens from other books say so. The Hoh arrives in M2; the first playable's screens are these same screens with Sol Duc's places in them (Appendix B's trip), plus the ones only the loop needs: a first book's three questions and the call for Morgenroth (12.5), and the basin-or-crest fork (12.12). The locals' quiz (12.3) and a Larry moment (12.21) are the PG-13 part.
 
 ### 12.1 Global rules
 
@@ -2027,7 +2063,7 @@ All wireframes use one example book where they can: Robin's four-night Hoh trip 
 │ │   gravel, a dipper on a rock     │ │
 │ │   (tap the picture = Look)       │ │
 │ └──────────────────────────────────┘ │
-│ Day 1 · 3:10 pm · Hoh braids · Jul   │
+│ Day 1 · 1:35 pm · Hoh braids · Jul   │
 │ Warm:ok  Legs:tired  Feet:ok  ♥♥♥♥○  │
 │ ╔══════════════════════════════════╗ │
 │ ║ The bridge was gone, and the     ║ │
@@ -2276,7 +2312,7 @@ Each chip shows its honest line under its row when tapped: *↺ Deer Lake first*
 └──────────────────────────────────────┘
 ```
 
-*Night 3, Saturday* makes it a WIC-only request for that night, rolled like any other (in season about 70% midweek, 40% on a weekend, seeded by date and camp). Granted, it becomes a night row like any other (`Night 3  Lake Morgenroth  1.2mi`), and the permit gets a pencil note in the ranger's hand: *Way trail. No privy. Stay off the meadow.* Refused, the voice says why in one line and offers Lunch Lake. From the kitchen table (*Print the permit at home*) the call is the same, the voice is the same, and nobody looks at anybody. *Ask about the weather* gives the forecast and the ranger's climatology, the same as the board. The game shows the number but never dials it, and since the app shell turns off iOS's phone-number detection, tapping or long-pressing the number offers no Call, Copy or Add to Contacts (E.7, 16).
+*Night 3, Saturday* makes it a WIC-only request for that night, rolled like any other (in season about 70% midweek, 40% on a weekend, seeded by the book's seed, the date and the camp, E.8). Granted, it becomes a night row like any other (`Night 3  Lake Morgenroth  1.2mi`), and the permit gets a pencil note in the ranger's hand: *Way trail. No privy. Stay off the meadow.* Refused, the voice says why in one line and offers Lunch Lake. From the kitchen table (*Print the permit at home*) the call is the same, the voice is the same, and nobody looks at anybody. *Ask about the weather* gives the forecast and the ranger's climatology, the same as the board. The game shows the number but never dials it, and since the app shell turns off iOS's phone-number detection, tapping or long-pressing the number offers no Call, Copy or Add to Contacts (E.7, 16).
 
 ### 12.6 The permit
 
@@ -2306,7 +2342,7 @@ Each chip shows its honest line under its row when tapped: *↺ Deer Lake first*
 
 The forecast covers the trip days within five days of the planning day (Jul 13); later days would show the ranger's climatology. The small print at the foot is the WIC's real number, from the region data: on any permit it is a Look hotspot that opens the call (12.5), the only way to Lake Morgenroth, and nothing on the page points at it. It is drawn by the phone hotspot, never as loose text and never as a `tel:` link, so iOS can't turn it into a Call link (E.7).
 
-**Every permit number starts with 104** (your wink, 2026-10-08). The four digits after it count the permits stamped on this phone, `104-0001` and up. The counter lives in the Trail Register, so it survives a death: a new hiker's first permit carries on from the last one, the way a real permit office never starts over. Nobody explains the 104. Ranger Jon's badge is the other half of the joke (4.2).
+**Every permit number starts with 104** (your wink, 2026-10-08). The four digits after it count the permits stamped on this phone, `104-0001` and up. A day hike has no permit, so it never moves the counter. The counter lives in the Trail Register, so it survives a death: a new hiker's first permit carries on from the last one, the way a real permit office never starts over. Nobody explains the 104. Ranger Jon's badge is the other half of the joke (4.2).
 
 A guided Olympus trip adds Jon to the party line: `Party: Robin + Ranger Jon  Size: 2`, with the climb days marked *guided*. A solo summit plan gets a pencil note on the permit instead, in the ranger's hand: *Alone on the ice. Ranger advised.*
 
@@ -2436,13 +2472,15 @@ The *Leave anything in the car?* list never shows beer or the pre-roll: they com
 
 **The trailhead register.** Tapping the kiosk shows the Trail Register's last few lines in pencil, as on a real trailhead register: the 104 Boyz' memorial lines from the start, with their fictional deaths and funny epitaphs (7.11), and later any real memorial line with its epitaph (*"Robin. Sep 25. Glacier Meadows, 1 night. 'It was terribly cold.'"*). This is the register a dead hiker's epitaph is written into (9.5): the one at the trailhead where that trip began. *Start walking* signs this book in, with its permit number.
 
+**A day hike's trip plan.** A day hike has no permit, so this page carries what the permit would have: one more line under the Outlook, *Trip plan left with: [a friend v] · back by 6:30 pm*. The *back by* time is the planned exit the overdue clock reads (3.7). *Start walking* then fixes the book's score maximum (9.6) and signs it into the register as *day hike*, with no permit number and no turn of the 104 counter (12.6).
+
 ### 12.11 The Why sheet (bottom sheet)
 
 ```
 ┌──────────────────────────────────────┐
 │ ─── Why these odds ───────────────── │
 │ Wade across the Hoh braids           │
-│   River at 3 pm (flow 1.75) ...  64  │
+│   River at 1:30 pm (flow 1.75) . 64  │
 │ + Trekking poles (in pack) ...  +10  │
 │ + You scouted upstream .......   +5  │
 │ - Heavy pack (r 1.4) .........   -5  │
@@ -2481,7 +2519,7 @@ From Appendix A's book (Glacier Meadows in one night), at the first real place t
 │ ╚══════════════════════════════════╝ │
 │ ╔═════════════════════════════╗╔═══╗ │
 │ ║ Push on tonight             ║║ i ║ │
-│ ║ mostly trouble ▓█ 6.4% fatal║╚═══╝ │
+│ ║ mostly trouble ▓█ 6.6% fatal║╚═══╝ │
 │ ╚═════════════════════════════╝      │
 │ ╔═════════════════════════════╗╔═══╗ │
 │ ║ Stop at Happy Four          ║║ i ║ │
@@ -2493,7 +2531,7 @@ From Appendix A's book (Glacier Meadows in one night), at the first real place t
 └──────────────────────────────────────┘
 ```
 
-A compound choice shows one word and a three-color bar (OK, serious trouble, need help); its (i) opens the look-ahead numbers (8.9). In Old School, when any run reaches a ♦ that can end the book, the bar adds a black tip and the fatal share in red: here 6.4%, the honest price of following this plan to the end and toughing out every ♦ after it (A.2, A.6). *Stop at Happy Four* is 0.7 mi on; it isn't on the permit, but Happy Four is not a quota camp, so it's a legal change (3.7). It is not sure, though: with no bag, a cold enough night there still turns its bedtime page into a ♦, so its bar carries a small black tip too (0.8%, A.2). Only *Turn back to the car* is sure.
+A compound choice shows one word and a three-color bar (OK, serious trouble, need help); its (i) opens the look-ahead numbers (8.9). In Old School, when any run reaches a ♦ that can end the book, the bar adds a black tip and the fatal share in red: here 6.6%, the honest price of following this plan to the end and toughing out every ♦ after it (A.2, A.6). *Stop at Happy Four* is 0.7 mi on; it isn't on the permit, but Happy Four is not a quota camp, so it's a legal change (3.7). It is not sure, though: with no bag, a cold enough night there still turns its bedtime page into a ♦, so its bar carries a small black tip too (0.8%, A.2). Only *Turn back to the car* is sure.
 
 **The basin or the crest** (the first playable; Appendix B's book, B.6). Counterclockwise, one night planned at Heart Lake, staying high; at the rim of the Seven Lakes Basin the fork fires whatever the clock says (7.4):
 
@@ -2551,7 +2589,7 @@ Going clockwise the same card fires at the Mirror Lake way-trail junction, the f
 │ │ Same braids; the hiker on the    │ │
 │ │ far bank, wringing a sock        │ │
 │ └──────────────────────────────────┘ │
-│ Day 1 · 3:40 pm · Hoh braids         │
+│ Day 1 · 2:05 pm · Hoh braids         │
 │ ╔══════════════════════════════════╗ │
 │ ║ The second channel was deeper    ║ │
 │ ║ than it looked, which is a thing ║ │
@@ -2575,10 +2613,10 @@ State changes go in a **pencil strip** under the narration, never in a side colu
 ┌──────────────────────────────────────┐
 │ Score: 40 of 131         ≡  Sound:on │
 │ ┌──────────────────────────────────┐ │
-│ │ ELK LAKE camp: lake (cycling),   │ │
-│ │ firs; a Canada jay on a branch   │ │
+│ │ LEWIS MEADOW camp: the Hoh       │ │
+│ │ (cycling); a Canada jay on a log │ │
 │ └──────────────────────────────────┘ │
-│ Day 2 · 5:20 pm · Elk Lake · 2,600ft │
+│ Day 1 · 3:20 pm · Lewis Mdw · 995ft  │
 │ ╔══════════════════════════════════╗ │
 │ ║ Robin dropped the pack, and the  ║ │
 │ ║ pack made the sound of a job     ║ │
@@ -2666,7 +2704,7 @@ The status line and toolbar are **hidden** on full-bleed plates. Apart from the 
 
 ### 12.17 The death sequence: from the death box to GAME OVER
 
-Five pages, in this order, and nothing else (9.5). None of them exists in the hidden Storybook mode (9.4). From Appendix A's book, had no tent glowed through the trees at Glacier Meadows (A.3): Robin chose *Curl up, wait for dawn* (♦ 59% · 41% shivering · 6.1% fatal), and the roll landed in the black. The death box keeps the status line, with the score frozen; the four pages after it hide the chrome, like a full-bleed plate. Each page waits for a tap: nothing in the sequence advances on its own (12.1). Appendix D, page 17, has the same sequence as text. M1a's review book shows this sequence for a Divide death (Appendix D, 18b).
+Five pages, in this order, and nothing else (9.5). None of them exists in the hidden Storybook mode (9.4). From Appendix A's book, had no tent glowed through the trees at Glacier Meadows (A.3): Robin chose *Curl up, wait for dawn* (♦ 58% · 42% shivering · 6.3% fatal), and the roll landed in the black. The death box keeps the status line, with the score frozen; the four pages after it hide the chrome, like a full-bleed plate. Each page waits for a tap: nothing in the sequence advances on its own (12.1). Appendix D, page 17, has the same sequence as text. M1a's review book shows this sequence for a Divide death (Appendix D, 18b).
 
 **1. The death box**
 
@@ -3006,14 +3044,14 @@ None of the death cues (the sting, the dirge, the dust, the dice, the pencil and
 | Skylines and landmark overlays | 10 | 35 | 110 |
 | Stamps and sprites | 25 | 50 | 80 |
 | Tall plates | 3 | 6 | 12 |
-| Gear / food items in play | 60 / 37 | 100 / 62 | 218 / 88 |
+| Gear / food items in play | 60 / 37 | 100 / 62 | 217 / 88 |
 | Simulation assertions | 15 | 60 | 200 |
 | Edition size (gzip) | ~150 KB | ~400 KB | ~1 MB |
 
 ### 14.2 Coverage rules
 
 - **Every event tag** (about 40) appears as a modifier or condition in at least **3 cards**, every catalog item maps to at least one event tag, and every segment hazard tag appears in at least 1 card. The linter enforces all three.
-- **Every item** gets item "notices" (the narrator noticing it: has, lacks, wet, lost). To keep this sane with 218 items, notices are written per **tag family** (about 40 families x 3-4 states) with a `{gear:tag}` slot for the item's name, plus hand-written lines for the 40 or so most characterful items (the ukulele, the watermelon, the flower press, the cast-iron skillet).
+- **Every item** gets item "notices" (the narrator noticing it: has, lacks, wet, lost). To keep this sane with 217 items, notices are written per **tag family** (about 40 families x 3-4 states) with a `{gear:tag}` slot for the item's name, plus hand-written lines for the 40 or so most characterful items (the ukulele, the watermelon, the flower press, the cast-iron skillet).
 - **The coverage matrix:** for each region x season (early Jun-Jul, peak Aug-Sep, late Oct) x weather class (fair, wet, cold or snow, fog), at least **32 eligible notable cards** (cards the Director draws, not forced landmarks or chain steps), 24 discovery cards and 6 night cards along the classic routes. Why 32: a 2 to 3 night trip draws about 8 notable cards, and 8 x 8 / 32 = 2 shared on average, before the novelty weight lowers it (8.12). Thin cells become writing assignments.
 - **Archetype plus place patch** is preferred over a new card. Generic archetypes fill every cell (fords in every valley, showers wherever it rains); place cards give personality where players will remember it (Heart Lake, the stone staircase into the basin, the basin-or-crest fork from both directions, Lake Morgenroth, the ladder, the High Hoh Bridge, Royal Basin's moraine).
 
@@ -3075,25 +3113,39 @@ The look-and-feel spike (M0.5) is the biggest risk, and it needs only the pictur
 
 ### M1a: The High Divide loop, either way round: the vertical slice (10-14 sessions)
 
-- **Scope:** the Sol Duc trailhead and the whole High Divide and Seven Lakes Basin loop (your call, 2026-10-08), clockwise or counterclockwise, as a day hike or one night or more, with layovers, on August and September dates. The ranger's fills stop at three nights; the planner's chips run to 6+, and a longer loop adds layovers or camps by hand. Every permitted camp on or just off the loop, with its real quota and a seeded quota roll (4.3): Sol Duc Falls, Canyon Creek #1-#3, Deer Lake, Potholes, Lunch, Round and Clear lakes, Heart Lake Junction, Heart Lake, Sol Duc Park, Lower Bridge Creek, Sol Duc Crossing, Rocky Creek, Appleton Junction, Sol Duc River #1-#4, and Hoh Lake down its side trail.
+- **Scope:** the Sol Duc trailhead and the whole High Divide and Seven Lakes Basin loop (your call, 2026-10-08), clockwise or counterclockwise, as a day hike or one night or more, with layovers, on August and September dates. The ranger's fills stop at three nights; the planner's chips run to 6+, and a longer loop adds layovers or camps by hand. Every permitted camp on or just off the loop, with its real quota and a seeded quota roll (4.3): Sol Duc Falls, Canyon Creek #1-#3, Deer Lake, Potholes, Lunch, Round and Clear lakes, Heart Lake Junction, Heart Lake, Sol Duc Park, Lower Bridge Creek, Sol Duc Crossing, Rocky Creek, Appleton Junction, Sol Duc River #1-#4, and Hoh Lake down its side trail; and the *ask at the desk* request (a seeded roll, about 70% midweek and 40% on weekends, 4.3) for the WIC-only camps on or just off the loop that its trails reach: Bruce's Roost, Cat Basin and Hidden Lake (a lead call). Long Lake and Sol Duc Lake, reached only off trail, and the phone call for Lake Morgenroth wait for M1b.
 - **Every choice the player's (4.3):** the ranger desk with the way round, each night's camp, layovers and the basin or the crest (3.1); a first book's three questions and the ranger's twelve fills (3.6, B.1); the basin-or-crest fork card at both ways into the basin, with honest ETAs, weather, Legs, water and permit lines (7.4, 12.12); the side trips (Bogachiel Peak, Hoh Lake and back, the edge of Cat Basin, Round and Clear lakes, Mirror Lake) and the Mirror Lake and Clear Lake way trails; and *Change the plan* on the trail, with off-permit nights, full camps and the overdue clock (3.7).
-- Pack presets plus free packing, the store with Fill from the list (and, with `flags.larry`, the beer cooler), a one-page drive along Lake Crescent, **Old School** (the main game) with fatal shares on the buttons.
+- Pack presets (the ranger's sensible kit and B.5's skimpy kit, from `rules/kits.json`: what the first book's checklist lays on the floor, 3.6, and what the harness packs, F.2) plus free packing, the store with Fill from the list (and, with `flags.larry`, the beer cooler), a one-page drive along Lake Crescent, **Old School** (the main game) with fatal shares on the buttons.
 - About 50 cards (showers, fog on the crest and on the Mirror Lake way trail, cold nights, the stone staircase, the dry crest, thunder, marmots, jays, a bear in the huckleberries, people, sunsets, the forks), 6 scenes, the endings including the Hard Way and GAME OVER, the back cover and Field Notes, the first 104 Boyz encounter cards (7.11), the Trail Register with the Boyz' placeholder memorial lines and the permit counter, the full wipe, and the name-only new-hiker flow (12.3, 12.4). Sol Duc Falls gets the stay-on-trail mechanic, since the river above the falls is tagged `real_incident` (9.5, principle 3).
 - **The first Larry moments (2.6), your call:** the locals' quiz at first launch, skinny dipping in Heart Lake with the censor bar, the IPA from Fernwood's cooler, and the permit check, which is where a changed plan comes due. They are built behind `flags.larry`, which is on in every build, main and preview.
 - **The whole death sequence (12.17), since this is the first milestone where a hiker can die:** the death box and its Ranger's Note for the Divide's fatal moments (staying on the exposed crest in a thunderstorm, off trail in fog near a cliff, the bagless night and the Cold chain, skinny dipping included); *YOU PERISHED* with the `lightning`, `fog` and `cold` cause lines (and the *...of the dark.* and *...of skinny dipping.* variants), and the dirge; the remains sprite and the Leave No Trace dissolve, with its tap-to-skip and Reduce Motion cross-fade (11.10); the register-box stamp; the epitaph page with typing, the dice and their first public-domain deck from `lore/quotes_public_domain.json` (9.5); the GAME OVER memorial page with its Ranger's Note and route map; and the wipe that follows it.
 - **Why the loop first:** your calls (*"Gotta be B only because I know that hike"*, then *"every choice needs to be made"*), and it suits a first milestone. You know it on foot, so you'll spot a wrong page at once. Its trips run from a day to three nights or more; a two-night book is the 20 to 30 minute book (1.1). And it exercises early what the Hoh doesn't: a loop and its direction, a route that forks around a basin, tight quotas, way trails, fog navigation, a dry crest and thunderstorms. What it lacks (big fords, the ladder at dusk, glaciers, Ranger Jon) arrives with the Hoh in M2, over the Hoh Lake trail.
 - **Exit:** the first playable's rows in F.1 pass for the loop both ways round, with the basin and with the crest (all twelve of the ranger's fills, in August, with the sensible kit and the skimpy one; Appendix B), for the loop in a day with real gear, and for the first playable's trap, the loop in a day on day gear, with both policies; the fork card fires at the first way into the basin in each direction, and its ETAs match the engine's; every simulated death passes the fairness invariant (F.1); the death lints pass (every `book_ends` has a cause line, and every cause key has a full dice deck, F.3); the harness finds no crashes, dead ends or stuck states; **you play the loop on your phone both ways round, drop into the basin once and stay high once, change the plan once on the trail, and lose one book on purpose, all the way from the death box through the wipe to a new name.**
-- **Cut first:** the Hoh Lake and Cat Basin side trips, then plans of four nights or more (the chips stop at three until M1b), then the IPA and the permit check. Never a direction, the basin or the crest, the fork, or the three-night fills, which B.2 is built on.
+- **Cut first:** the Hoh Lake and Cat Basin side trips as day trips (their camps stay: decision 17 promises every permitted camp on or just off the loop), then plans of four nights or more (the chips stop at three until M1b), then the IPA and the permit check. Never a direction, the basin or the crest, the fork, or the three-night fills, which B.2 is built on.
+- **What M1a shows and hides** (a lead call). Some screens already carry hooks for later milestones; in M1a they behave like this:
+
+| Hook | In M1a |
+|---|---|
+| The WIC's phone number (the fine print on the itinerary and the permit) and the card on the counter, with their Look hotspot | Hidden until the call exists (M1b): no page shows the number |
+| Month chips and the calendar | August and September only (June to October from M1b), so the out-of-season *Phone the WIC* card never comes up |
+| *Ask at the desk* rows | Bruce's Roost, Cat Basin and Hidden Lake, tappable at the desk; Long Lake and Sol Duc Lake as pencil rows that can't be tapped, until M1b |
+| Drive chips: The Huckleberry Skillet, The Steaming Fern Lodge | Hidden until M1b (B.3's pie and B.6's soak are M1b's) |
+| Second Growth's chip next to the shelves | Hidden until M1b and its pre-roll; Fernwood's beer cooler is in |
+| The Bonfire Lily | Its weight is 0 everywhere, so no roll, no plate and no rumor until M1b (B.3's roll on Bogachiel Peak is M1b's) |
+| Walk out and Walk on, trip codes, Share the Cover | M1b |
+| Try this trip again | Shown; it copies the stamped permit (9.7) |
+| Print the permit at home | Shown; it can't ask at the desk, and there is no phone to call yet |
+| Storybook | No screen at all, but every `book_ends` carries its `modes.storybook` override from M1a, and the lint holds it (8.3, F.3) |
 
 ### M1b: The whole Sol Duc side, and the call for Lake Morgenroth (8-12 sessions)
 
-- **Scope:** the rest of the Sol Duc file: its out-and-backs (the Deer Lake overnight, the day hike to Sol Duc Falls, Lunch Lake out and back, the river base camp, Hoh Lake from Sol Duc), Mink Lake and the Little Divide, and Appleton Pass, as the data allows, and longer trips that join them to the loop; June to October, with the calendar rule and the shoulder season (snow on the Divide in early July, mosquitoes); quota-heavy permits, with one scripted quota denial (Lunch Lake full on an August Saturday); and the WIC-only camps, asked for at the desk or by phone.
+- **Scope:** the rest of the Sol Duc file: its out-and-backs (the Deer Lake overnight, the day hike to Sol Duc Falls, Lunch Lake out and back, the river base camp, Hoh Lake from Sol Duc), Mink Lake and the Little Divide, and Appleton Pass, as the data allows, and longer trips that join them to the loop; June to October, with the calendar rule and the shoulder season (snow on the Divide in early July, mosquitoes); quota-heavy permits, with one scripted quota denial (Lunch Lake full on an August Saturday); and the last WIC-only camps, Long Lake and Sol Duc Lake, asked for at the desk or by phone (the others are desk requests from M1a).
 - **Lake Morgenroth, off the menu (4.3):** the hidden phone call to the WIC (12.5), the way trail past Clear and Long lakes, and the hand-drawn signature scene, with the best IPA in the game (2.6). It is built from your GPS track and stories once you send them; until then from the research's straight-line estimates and art notes, with `{MORGENROTH_STORY_n}` placeholders that a release build refuses to ship (F.3).
 - **The rest of the loop's Larry moments (2.6):** the bold marmot, the thin tent wall at Lunch Lake, The Steaming Fern Lodge, and Second Growth's pre-roll with its ranger odds and its citation.
 - Off-trail navigation (the link down from Clear Lake to Long Lake, and the Morgenroth way trail), more 104 Boyz cards, including the rumor of a lake you have to call for (7.11).
-- About 105 cards in total, about 12 scenes and 3 plates; the Bonfire Lily at Bogachiel Peak, the basin and the crest (10.2); the hidden Storybook flag (each death outcome's rescue override, linted and simulated, with no UI, 9.4); share codes; Walk out; the nightly calibration job; the audio cues (13.2).
+- About 105 cards in total, about 12 scenes and 3 plates; the Bonfire Lily at Bogachiel Peak, the basin and the crest (10.2); the hidden Storybook mode run headless in the harness (each death outcome's rescue override, required and linted since M1a, now simulated too, with no UI, 9.4); share codes; Walk out; the nightly calibration job; the audio cues (13.2).
 - **Exit:** the Seven Lakes rows in F.1, in season and in the shoulder season, and the loop in a day with real gear (the "ambitious but equipped" row); story uniqueness at least 90% on 2-3 night templates; every coverage cell in the region has at least 32 notable cards; the ablation vector passes for map and compass, water capacity, bug kit, rain pants and the towel; return days average 3 to 6 pages; the device checklist passes; **you find the number, call the WIC, camp at Lake Morgenroth in the game and tell us what we got wrong, and you play three different Sol Duc trips and want a fourth.**
-- **Cut first:** Cat Basin and the other WIC-only camps (never Morgenroth or the call), then share codes, then Mink Lake and Appleton Pass.
+- **Cut first:** Long Lake and Sol Duc Lake as camps (never Morgenroth or the call), then share codes, then Mink Lake and Appleton Pass.
 
 ### M2: The Hoh, Glacier Meadows, and Olympus with Ranger Jon or alone (10-15 sessions)
 
@@ -3173,7 +3225,7 @@ The look-and-feel spike (M0.5) is the biggest risk, and it needs only the pictur
 
 ## Appendix A: Olympus in one night with day gear
 
-> *"Go for Mount Olympus with day hike gear in one night, might have a problem."* And, on how harsh: *"if you die its game over old school."* This is exactly how the problem happens, why it is honest, and where, in Old School, it can end the book: three kinds of ♦ moment on this trip can (the ladder, a bagless night, the ice in A.7), each shows its fatal share before the tap, and each has a sure way out beside it. The kit is the catalog's canonical trap kit (6.8), and the formulas are those of sections 7 to 9. The numbers are illustrative until the M2 engine regenerates this appendix from a seeded run (F.4).
+> *"Go for Mount Olympus with day hike gear in one night, might have a problem."* And, on how harsh: *"if you die its game over old school."* This is exactly how the problem happens, why it is honest, and where, in Old School, it can end the book: three kinds of ♦ moment on this trip can (the ladder, a bagless night, the ice in A.7), each shows its fatal share before the tap, and each has a sure way out beside it. The kit is the catalog's canonical trap kit (6.8), and the formulas are those of sections 7 to 9. The night figures follow the catalog's item stats (7.9) and were recomputed from them on 2026-10-08: the soaked cotton is now worth almost nothing, so the bagless night is a degree colder than this appendix first said, and its fatal share is 6.3%, not 6.1%. The numbers are illustrative until the M2 engine regenerates this appendix from a seeded run (F.4).
 
 *A later-milestone reference: the Hoh and Olympus arrive in M2 (15). The primary worked example, for the first playable, is [Appendix B](#appendix-b-seven-lakes-and-the-high-divide-planned-well). Everything here already follows your later calls: Ranger Jon is the only guide (A.7), and a death here (12.17) is a full wipe (9.8).*
 
@@ -3211,11 +3263,11 @@ Today's legs: 1.03 (slightly slow).
 
 | Choice | ETA | Look-ahead (400 runs) |
 |---|---|---|
-| Push on to Glacier Meadows | ~12:15 am (11:30-1:00), 5 h after dark | *mostly trouble*: OK 5% · serious trouble 65% · rangers help 25% · **the book ends 6.4%** |
+| Push on to Glacier Meadows | ~12:15 am (11:30-1:00), 5 h after dark | *mostly trouble*: OK 5% · serious trouble 65% · rangers help 25% · **the book ends 6.6%** |
 | Stop at Happy Four tonight (0.7 mi; not a quota camp) | 1:10 pm | *a cold night*: Trouble 85% · Serious 12% · help 3% · **the book ends 0.8%** (about a third of its 15% bad nights fall below -25 °F with no shelter: 15% x 1/3 x 15% = 0.75%) |
 | Turn back to the car | 2:55 pm | Sooner Than Planned; sure, never fatal |
 
-(The look-ahead follows the plan and toughs out every ♦ after this one (8.9), so 6.4% is the honest price of sticking to it; A.6 shows where it comes from. Fatal shares are exact expected values, rounded up (8.1, 8.9); the rest round to 5%.)
+(The look-ahead follows the plan and toughs out every ♦ after this one (8.9), so 6.6% is the honest price of sticking to it; A.6 shows where it comes from. Fatal shares are exact expected values, rounded up (8.1, 8.9); the rest round to 5%.)
 
 **The player pushes on.**
 
@@ -3231,8 +3283,8 @@ Today's legs: 1.03 (slightly slow).
 
 | Choice | ETA | Look-ahead (400 runs) |
 |---|---|---|
-| Push on to Glacier Meadows | ~12:25 am (11:40-1:10), 5½ h after dark | Serious trouble 65% · rangers help 30% · **the book ends 6.4%** |
-| Hike to Elk Lake instead (off-permit) | 8:20 pm | Own way out 85% · rangers 10% · **the book ends 4.8%** |
+| Push on to Glacier Meadows | ~12:25 am (11:40-1:10), 5½ h after dark | Serious trouble 65% · rangers help 30% · **the book ends 6.6%** |
+| Hike to Elk Lake instead (off-permit) | 8:20 pm | Own way out 85% · rangers 10% · **the book ends 5.0%** |
 | Spend the night here (off-permit) | now | Trouble 85% · Serious 10% · rangers 5% · **the book ends 0.7%** |
 | Turn back to the car | 10:40 pm by phone light | Sooner Than Planned; sure, no ♦ on the way down |
 
@@ -3254,19 +3306,19 @@ Warmth stays fairly high because climbing makes heat. **The danger starts when t
 
 ### A.3 The night
 
-The forecast low at Glacier Meadows is 35 °F. With no bag, no pad and a soaked cotton hoodie, Robin is comfortable down to about **74 °F** (65 with no bag, +10 for no pad, minus a sliver for wet cotton). The margin is about -39 °F with no shelter, past the -25 °F line where a night can end the book (9.5), so in Old School this bedtime page is a ♦ page. It is where the trip's warnings come due: the Outlook at the desk and at Close the pack, the trailhead ETA, two Fork cards and the nudge above Elk Lake. Bedtime choices:
+The forecast low at Glacier Meadows is 35 °F. With no bag, no pad and a soaked cotton hoodie, Robin is comfortable down to about **75 °F** (65 with no bag, +10 for no pad, and next to nothing for the clothes: soaked, the catalog's cotton keeps 0 to 5% of its warmth, so the hoodie is worth 0.2 °F, 7.9). The margin is about -40 °F with no shelter, past the -25 °F line where a night can end the book (9.5), so in Old School this bedtime page is a ♦ page. It is where the trip's warnings come due: the Outlook at the desk and at Close the pack, the trailhead ETA, two Fork cards and the nudge above Elk Lake. Bedtime choices:
 
 | Choice | What it does | Shown to the player |
 |---|---|---|
-| Curl up, wait for dawn | Margin about -39; tough it out alone, to carry on tomorrow | **♦ 59% · 41% shivering · 6.1% fatal** (the night curve, 7.9: 1.5 x 27 = 40.5%, x the 15% death roll = 6.08%, both rounded up) |
+| Curl up, wait for dawn | Margin about -40; tough it out alone, to carry on tomorrow | **♦ 58% · 42% shivering · 6.3% fatal** (the night curve, 7.9: 1.5 x 28 = 42%, x the 15% death roll = 6.3%) |
 | Look for other campers' lights | 55% someone is here on a late-September Saturday | Roll 22: **a tent glows blue through the trees.** Then *Ask for help* (70%): roll 35, yes |
 | Huddle and wait for help | Give up the trip: out of the wind, off the ground, awake, waiting to be found. Help comes in the morning, and the book ends *With a Little Help* | **sure**: it costs the trip and the finish bonus, never the hiker |
-| Walk laps all night | Warm while legs last; bonk around 2:30 am; the phone dies first. Then the Cold chain (8.10): shivering and stumbling, two warnings that each offer *stop and wait for help* (sure), and its ♦ before dawn, at a margin near -45 once the legs stop making heat (1.5 x 33 = 49.5% x 15% = 7.4%). About 9 runs in 10 get that far | A compound choice: *mostly worse* ▓█ **6.7% fatal** (0.9 x 7.4%) |
+| Walk laps all night | Warm while legs last; bonk around 2:30 am; the phone dies first. Then the Cold chain (8.10): shivering and stumbling, two warnings that each offer *stop and wait for help* (sure), and its ♦ before dawn, at a margin near -46 once the legs stop making heat (1.5 x 34 = 51% x 15% = 7.65%). About 9 runs in 10 get that far | A compound choice: *mostly worse* ▓█ **6.9% fatal** (0.9 x 7.65%, rounded up) |
 | Eat both bars now | +25 legs; food gone | (no roll) |
 
 The sure choice trades the trip for the hiker. The game honors it as sure because that is the lesson: call it early. Had the lights roll missed, the page would have come back with the ♦, the sure wait and the laps, and a player who keeps pushing would have ended the book about 6 times in 100 (12.17 and Appendix D, page 17, show that death, from the death box to GAME OVER).
 
-The neighbors lend a spare puffy and a foam sit pad, make room under their tarp, and pour cocoa. Now Robin is comfortable down to about 52 °F (74, minus 12.6 for the puffy worn without a bag, 6 for the sit pad, 2 for the tarp, 1 for the cocoa). The actual low is 34.6 °F: **margin about -18**. Hypothermia roll 9% (1.5 x 6, 7.9; *91% you'll be okay*): roll 58, fine. Sleep quality 0.4.
+The neighbors lend a spare puffy and a foam sit pad, make room under their tarp, and pour cocoa. Now Robin is comfortable down to about 53 °F (75, minus 12.6 for the puffy worn without a bag, 6 for the sit pad, 2 for the tarp, 1 for the cocoa). The actual low is 34.6 °F: **margin about -19**. Hypothermia roll 10.5% (1.5 x 7, 7.9; *89% you'll be okay*): roll 58, fine. Sleep quality 0.4.
 
 **Dawn:** a calorie deficit of about 2,100 lowers the energy ceiling to 86; a poor night caps the morning at 69. Legs 69, Warm 42 (Cool, barely), Heart 36 (Grumpy).
 
@@ -3285,14 +3337,14 @@ Rain all day. Today's legs: 1.05.
 
 ### A.5 The ending
 
-Robin reached Serious twice (a bagless cold night; bonked far from the car) but walked out as planned. In Old School that was a survival, not a sure thing: three pages could have ended the book (the ladder going up, 0.3% on the button; the night, 6.1%, had no tent glowed through the trees; and the ladder coming down, under 0.1%). Ending: **The End, the Hard Way** (9.3), and the volume is titled ***A Soggy Story: Made It Back, Barely***. The plate: the car in the rain, Robin asleep in the driver's seat with the heater on. Score: about 30 of 64, with the finish bonus halved. Leave No Trace: 100 (the food stayed in the canister).
+Robin reached Serious twice (a bagless cold night; bonked far from the car) but walked out as planned. In Old School that was a survival, not a sure thing: three pages could have ended the book (the ladder going up, 0.3% on the button; the night, 6.3%, had no tent glowed through the trees; and the ladder coming down, under 0.1%). Ending: **The End, the Hard Way** (9.3), and the volume is titled ***A Soggy Story: Made It Back, Barely***. The plate: the car in the rain, Robin asleep in the driver's seat with the heater on. Score: about 30 of 64, with the finish bonus halved. Leave No Trace: 100 (the food stayed in the canister).
 
 **Field Notes** (open by default after the Hard Way):
-> *The night was cold because:* no sleeping bag (a 20 °F bag is worth about 35 °F of comfort), no pad (10 °F colder), a cotton hoodie soaked by the evening rain (wet cotton keeps a fifth of its warmth). Kind neighbors (about 22 °F) made the difference.
+> *The night was cold because:* no sleeping bag (a 20 °F bag is worth about 35 °F of comfort), no pad (10 °F colder), a cotton hoodie soaked by the evening rain (wet cotton keeps almost none of its warmth). Kind neighbors (about 22 °F) made the difference.
 > *You ran out of legs because:* 1,800 kcal for two days that burned about 7,400.
 > *You arrived after midnight because:* a 10:45 start for 17.4 miles in late September, when the Hoh goes dark before 7 under cloud.
 > *The phone was your light, your clock and your map,* and it was at 11% by midnight.
-> *What kept this book open:* a tent glowing through the trees at Glacier Meadows. Without it, the night was a ♦ with a 6.1% fatal share, and the sure choice was to give up the trip and wait for help.
+> *What kept this book open:* a tent glowing through the trees at Glacier Meadows. Without it, the night was a ♦ with a 6.3% fatal share, and the sure choice was to give up the trip and wait for help.
 > *A gentler plan:* the classic 3 to 5 nights (Lewis Meadow, Glacier Meadows twice, Five Mile Island), a 20 °F bag, a pad, a tent, rain gear and a headlamp. That plan finishes happily about nine times in ten, even in late September.
 
 ### A.6 The same situation, 20,000 times
@@ -3301,10 +3353,10 @@ From `simulation.md` 12.3 (its scratch calculator, day-hike gear, the Lewis Mead
 
 | Choice at the Lewis Meadow fork | Happy · Trouble · Serious · Rescue · **Death** |
 |---|---|
-| Push on, and keep pushing | 0 · 0 · 66 · 28 · **6.3** |
-| Push on, but look for help at camp first | 0 · 0 · 75 · 21 · **4.0** |
-| Push on, and keep pushing (hidden Storybook mode) | 0 · 0 · 66 · 34 · 0 |
-| Hike to Elk Lake, and keep pushing | 0 · 0 · 85 · 10 · **4.7** |
+| Push on, and keep pushing | 0 · 0 · 65 · 28 · **6.6** |
+| Push on, but look for help at camp first | 0 · 0 · 75 · 21 · **4.1** |
+| Push on, and keep pushing (hidden Storybook mode) | 0 · 0 · 65 · 35 · 0 |
+| Hike to Elk Lake, and keep pushing | 0 · 0 · 85 · 10 · **5.0** |
 | Bivouac at Lewis Meadow | 0 · 86 · 9 · 4 · **0.7** |
 | Turn back to the car | 100 Sooner Than Planned · **0** |
 | *The same push with real overnight gear* | 50 · 39 · 8.8 · 2 · **0.2** |
@@ -3313,10 +3365,10 @@ From `simulation.md` 12.3 (its scratch calculator, day-hike gear, the Lewis Mead
 
 **Where the deaths come from** (each from a ♦ that showed its share first):
 - **The ladder, going up:** 21% fall x 2% badly hurt x a 50% death roll = **0.21%** (the button shows 0.3%, rounded up). Coming down on Sunday: 6% x 2% x 50% = 0.06% (shown `<0.1%`).
-- **The bagless night** at Glacier Meadows (margin about -39 °F, no shelter): the night curve (7.9) gives 1.5 x (39 - 12) = 40.5% dangerous shivering, x a 15% death roll = **6.1%** for a hiker who toughs it out alone.
-- **Keeps pushing:** 0.21 + 6.08 + 0.06 ≈ **6.3%, about 1 book in 15** (counts round toward danger: 1 in 15.7 reads 1 in 15).
-- **Looks for help first:** someone is camped there 55% of the time and helps 70% of those, so 61.5% are still alone: 0.615 x 6.08 + 0.21 + 0.06 ≈ **4.0%**, the scratch calculator's figure for this policy.
-- **Elk Lake:** 1,700 ft lower, so about 6 °F warmer (35 + 1.7 x 3.3 ≈ 41 °F) and a margin near -33. The same curve gives 1.5 x 21 = 31.5%; x 15% ≈ **4.7%** (shown 4.8%), and no ladder.
+- **The bagless night** at Glacier Meadows (margin about -40 °F, no shelter): the night curve (7.9) gives 1.5 x (40 - 12) = 42% dangerous shivering, x a 15% death roll = **6.3%** for a hiker who toughs it out alone.
+- **Keeps pushing:** 0.21 + 6.3 + 0.06 ≈ **6.6%, about 1 book in 15** (counts round toward danger: 1 in 15.2 reads 1 in 15).
+- **Looks for help first:** someone is camped there 55% of the time and helps 70% of those, so 61.5% are still alone: 0.615 x 6.3 + 0.21 + 0.06 ≈ **4.1%** (the scratch calculator, on the older night figures, had 4.0%).
+- **Elk Lake:** 1,700 ft lower, so about 6 °F warmer (35 + 1.7 x 3.3 ≈ 41 °F) and a margin near -34. The same curve gives 1.5 x 22 = 33%; x 15% ≈ **4.95%** (shown 5.0%), and no ladder.
 - **Bivouac at Lewis Meadow:** stopped at 4 pm with daylight to make a shelter, so most nights stay above -25 °F. About a third of its 14% Serious-or-rescue nights fall below the line: 14% x 1/3 x 15% ≈ **0.7%**, and the sure walk out is always offered beside it.
 - **Turn back:** no ♦ on the way down (maintained trail, and the braids at flow 0.8 have no "swept" branch), so **0**.
 - **With real gear:** the night's margin stays above -25 °F, so only the ladder in the dark counts, by headlamp: 90 - 10 - 5 - 10 + 2 = 67 clean, made it 84%, and 16% x 2% x 50% ≈ **0.2%**. That is "ambitious but equipped", far under its 3% cap (F.1).
@@ -3325,7 +3377,7 @@ From `simulation.md` 12.3 (its scratch calculator, day-hike gear, the Lewis Mead
 
 **How single items change this book:**
 - **Headlamp:** the ladder goes from ♦ 79% to ♦ 84% (headlamp -10 instead of phone -20; its fatal share from 0.3% to 0.2%), the phone keeps its battery for the clock and the map, and *Back down to Elk Lake* at the nudge reads ♦ 91% instead of ♦ 86%.
-- **Puffy and warm hat:** the cold night drops from Serious to Trouble, and its fatal share falls away: the margin climbs to just above -25 °F (74 - 12.6 for the puffy - about 2 for the hat ≈ 59 °F comfortable, against a 34.6 °F low), the line below which a night can end a book. Spirits recover by morning.
+- **Puffy and warm hat:** the night's fatal share drops from 6.3% to about 3%: the margin climbs to about -26 °F (75 - 12.6 for the puffy - 2.1 for the wool hat ≈ 60 °F comfortable, against a 34.6 °F low), just short of the -25 °F line below which a night can end a book (1.5 x 14 = 21%, x 15% = 3.2%). Add the 4-oz emergency bivy (`warmth_bonus_f` 10, and a shelter) and the fatal share falls away: the cold night drops from Serious to Trouble, and spirits recover by morning.
 - **Satellite messenger:** a rescue, if needed, is certain and fast, so the sure choice on the bagless night is a short wait instead of a long one.
 - **Water filter:** the "drink from the creek" choice disappears into a pencil-strip line.
 
@@ -3349,18 +3401,18 @@ The same kit and dates, but the player taps the summit onto the plan and doesn't
 
 Every card has *Turn back along your own track* beside it, sure. A failed crossing is mostly the crevasses stopping you (70% at the first, 65% at the others), then a slide and a cold wait for a ranger (25%, a rescue), and the worst band is a fall into a crevasse (5% at the first, 10% where the crevasses crowd together), 30% of which end the book. In the hidden Storybook mode those falls are rescues too. Turning back from the moraine itself keeps the glacier view (+5): *Sooner Than Planned*.
 
-**Keeps pushing, in numbers:** about 6.3% end before the ice (A.6) and 28% are rescued in the night or the morning, so about 66% reach the moraine. There, 66% x 0.675% ≈ 0.45% more end on the first crossing, and another 66% x 45% x (25% + 5% x 70%) ≈ 8% are rescued (a slide, or a fall that doesn't end the book). The second crossing shows 45%, below the Bold bot's 50% line, so Bold turns back there. **For the Bold bot: Sooner Than Planned about 57%, rescue about 36%, death about 6.8%, 1 book in 14.**
+**Keeps pushing, in numbers:** about 6.6% end before the ice (A.6) and 28% are rescued in the night or the morning, so about 65% reach the moraine. There, 65% x 0.675% ≈ 0.44% more end on the first crossing, and another 65% x 45% x (25% + 5% x 70%) ≈ 8% are rescued (a slide, or a fall that doesn't end the book). The second crossing shows 45%, below the Bold bot's 50% line, so Bold turns back there. **For the Bold bot: Sooner Than Planned about 56%, rescue about 36%, death about 7.0%, 1 book in 14.**
 
-A Reckless player goes on at every ♦, and so does the Outlook's *keep pushing* policy (8.9). The second crossing adds 36% x 1.65% ≈ 0.6%, and the third 16% x 1.8% ≈ 0.3%. The 6.5% who pass all three meet the block, and about 4.5% of all runs stand on the summit, where a day that was always too long turns into a second night out on the way down. Altogether that is **about 8%, 1 book in 12**, the figure the Outlook gives at Close the pack. Taking the turnaround at either fork, or at any crossing, ends no books.
+A Reckless player goes on at every ♦, and so does the Outlook's *keep pushing* policy (8.9). The second crossing adds 36% x 1.65% ≈ 0.6%, and the third 16% x 1.8% ≈ 0.3%. The 6.4% who pass all three meet the block, and about 4.5% of all runs stand on the summit, where a day that was always too long turns into a second night out on the way down. Altogether that is 6.6 + 0.44 + 0.6 + 0.3, **about 7.9%, 1 book in 12** (1 in 12.7, rounded down toward danger), the figure the Outlook gives at Close the pack. Taking the turnaround at either fork, or at any crossing, ends no books.
 
 **The assertion** (late season, all plans of this shape):
 
 | Outcome | F.2 bot mix | Keeps pushing (Bold) | Reckless |
 |---|---|---|---|
 | Summit | ≤ 1% (model: 0) | 0: Bold turns back at the second crossing | ≤ 8% (model: about 4.5%) |
-| Sooner Than Planned | ≥ 60% | 50-65% (model: about 57%) | 30-55% (model: about 41%) |
+| Sooner Than Planned | ≥ 60% | 50-65% (model: about 56%) | 30-55% (model: about 41%) |
 | Rescue | ≤ 35% | 20-40% (model: about 36%) | 25-50% (model: about 47%) |
-| Death (Old School) | ≤ 3% (model: about 1%) | 5-12% (model: about 6.8%) | 6-12% (model: about 8%) |
+| Death (Old School) | ≤ 3% (model: about 1%) | 5-12% (model: about 7.0%) | 6-12% (model: about 7.9%) |
 
 ---
 
@@ -3446,7 +3498,7 @@ The fills follow the research's presets where one fits (the one-night Lunch Lake
 | D2 2:10 | **Thunder walks along the Divide.** In camp: wait it out in the tent (the safe choice, no roll) | — | +3 for a wise choice |
 | D2 night | A 41 °F night: margin +11. Bear visit roll | 07 | **A visitor.** Big paw prints 30 ft from the closed canister. Nothing lost; a story |
 | D3 day | Layover: swim in Lunch Lake (in shorts: the camp is full of neighbors), an afternoon in the camp chair with a paperback (spirits, no points). Then: **Bogachiel Peak for sunset?** | — | Yes, with the puffy and headlamp |
-| D3 8:31 pm | **Sunset on Bogachiel Peak.** The north-face snowfield above the basin is still there in mid-August (10.2), so the evening quietly rolls for the Bonfire Lily, which Robin knows nothing about: clear sky 1.0 x (0.05 + 0.03 full sunset + 0.03 headlamp off) = **11%** | 14 | Nothing. A very good sunset, which is not nothing |
+| D3 8:31 pm | **Sunset on Bogachiel Peak.** The north-face snowfield above the basin is still there in mid-August (10.2), so the evening quietly rolls for the Bonfire Lily, which Robin knows nothing about: clear sky 1.0 x (0.05 + 0.03 full sunset + 0.03 headlamp off) = **11%**, with no layover bonus, since it is Robin's first evening on the peak (10.2). The lily arrives in M1b; an M1a build rolls nothing here (15) | 14 | Nothing. A very good sunset, which is not nothing |
 | D3 9:10 | Down in the dark: navigation 75 + 15 + 4 - 10 (headlamp) = 84 clean, shown **92%** | 55 | Clean |
 | D3 9:30 | Scree in the dark: 88 + 5 + 2 - 10 = 85 clean, shown **93%** | 88 | **Shaky** (85 to 92): *a boot skated and Robin sat down hard.* Heart -4 |
 | D4 8:30 | Showers. Rain gear on: protection 0.85 | — | Barely damp |
@@ -3521,7 +3573,7 @@ Robin's next book goes the other way round, planned to stay high, and meets the 
 
 *M1b: Morgenroth comes after the vertical slice (15).* The same trip as B.2, with one change: Saturday night at Lake Morgenroth instead of a second night at Lunch Lake. It shows the loop's one secret, the call, the way trail and the hand-drawn scene (4.3), and the best place in the game for a cold IPA (2.6; your *"Drinking a hazy ipa at morgrnroth"*).
 
-**The call, Wednesday.** Morgenroth isn't in the camp list, in the ranger's fills or in any preset, and on the map it has no camp mark. On an earlier book a Boy on the crest had said there was a lake past Long Lake that nobody books, and that you have to call for it (7.11). So, at the desk, Robin taps the WIC's number in the small print at the foot of the itinerary. The phone on the counter rings, and the ranger answers it looking at Robin (12.5). *Ask about a lake*; Robin taps the small lake east of Long Lake. *"Morgenroth,"* she says into the phone. *"Nobody asks for Morgenroth. Which night?"* It's a weekend night, so the request is about 40%, seeded by the date and the camp (4.3), and this one comes up yes. The permit's third night reads *Lake Morgenroth (by phone)*, under the ranger's pencil note: *Way trail. No privy. Stay off the meadow.* A player who never finds the number never sees any of this, and the planner never hints.
+**The call, Wednesday.** Morgenroth isn't in the camp list, in the ranger's fills or in any preset, and on the map it has no camp mark. On an earlier book a Boy on the crest had said there was a lake past Long Lake that nobody books, and that you have to call for it (7.11). So, at the desk, Robin taps the WIC's number in the small print at the foot of the itinerary. The phone on the counter rings, and the ranger answers it looking at Robin (12.5). *Ask about a lake*; Robin taps the small lake east of Long Lake. *"Morgenroth,"* she says into the phone. *"Nobody asks for Morgenroth. Which night?"* It's a weekend night, so the request is about 40%, seeded by the book's seed, the date and the camp (4.3), and this one comes up yes. The permit's third night reads *Lake Morgenroth (by phone)*, under the ranger's pencil note: *Way trail. No privy. Stay off the meadow.* A player who never finds the number never sees any of this, and the planner never hints.
 
 **What changes.** The store: one 16-oz can of *Blue Hour Hazy IPA* from Fernwood's cooler (ID checked, 5.3), 1.1 lb more and about 0.5 L of the canister (6.6 of 9.8 L becomes 7.1). Days 1 and 2 are exactly B.3. Day 3 is no longer a layover but a short move, so there is no Bogachiel sunset, and no quiet roll for the Bonfire Lily: Morgenroth has no snow feature (10.2). The trade is an 11% evening on the peak for a night at your lake, and the planner never says which is better.
 
@@ -3757,13 +3809,13 @@ All original, in the deadpan voice of 2.3, except the epitaph lines the dice dea
 `[Glacier Meadows at night; rain in vertical lines; the biggest subalpine fir; the phone's small light; no tents anywhere]` · *Night 1 · 12:40 am · Glacier Meadows · 4,300 ft · rain*
 > Nobody's tent glowed anywhere. The rain had found every thread of the cotton hoodie, and the cold had come up out of the ground to meet it. Robin had walked a very long way to be here, and here, it turned out, was mostly dark.
 
-`[ Curl up, wait for dawn  ♦ 59%  (i) ]`
-`[      41% shivering · 6.1% fatal    ]`
+`[ Curl up, wait for dawn  ♦ 58%  (i) ]`
+`[      42% shivering · 6.3% fatal    ]`
 `[ Huddle, wait for help         sure ]`
 `[ Walk laps to stay warm        (i) ]`
-`[     mostly worse ▓█ 6.7% fatal    ]`
+`[     mostly worse ▓█ 6.9% fatal    ]`
 
-*(Why: a margin of about -39 °F with no shelter is past the -25 °F line, so a failed night can end the book. The night curve (7.9) gives 40.5% dangerous shivering, and 40.5% x the 15% death roll = 6.08%, shown rounded up as 6.1%. Walking laps is a compound choice: it leads into the Cold chain, two warnings and then its own ♦ before dawn, so its bar carries a black tip too (A.3). The sure choice gives up the trip, and help comes in the morning, whatever the hour (9.2). The first time a fatal share appears, the sure choice is outlined and the narrator points it out in one line, 8.7.)*
+*(Why: a margin of about -40 °F with no shelter is past the -25 °F line, so a failed night can end the book. The night curve (7.9) gives 42% dangerous shivering, and 42% x the 15% death roll = 6.3%. Walking laps is a compound choice: it leads into the Cold chain, two warnings and then its own ♦ before dawn, so its bar carries a black tip too (A.3). The sure choice gives up the trip, and help comes in the morning, whatever the hour (9.2). The first time a fatal share appears, the sure choice is outlined and the narrator points it out in one line, 8.7.)*
 
 **17. The death sequence, complete: the night (Old School)**
 
@@ -4017,19 +4069,32 @@ dist/data/edition.<hash>.json + precache
 | Rule text in a region file that disagrees with `park_rules.json` | `park_rules.json` wins; the report lists the stale text |
 | Lore quotes of mixed standing (verified, partly checked, seen only in a modern transcription) | Only lines marked `page_image_checked`, with a public-domain reason and a URL, reach `content/lore/quotes.json`; the secondary pool never does; any line whose source is a Robert L. Wood work fails the build (F.3) |
 
-**Known data fixes for the region files** (found in review; the ingest report will catch them, but they should be fixed at the source):
-- `northeast_dose` `dose_to_quinault_traverse`: day 3 miles are null; it ends at `enchanted_valley`, not a trailhead; its total, 15.4, is under the graph's 22.2 at least.
-- `northeast_dose` `dose_to_elwha_traverse`: ends at `elkhorn`; total 19.1 against at least 35.3 on the graph.
-- `south_quinault_skok` `quinault_to_elwha_traverse`: three null days.
+**Known data fixes** (refreshed again on 2026-10-08, after the data cleanup landed: `data/M1A_DATA_CHECK.md`'s Resolution has every item. The ingest report, not this list, is the check.)
+
+*Fixed at the source for M1a* (ingest only checks them now):
+- `sol_duc_high_divide`: Bogachiel Peak is a spur (`through_route: false` and a `spur` block on both summit segments), so the loop routes to 18.4 mi by the crest and 18.7 through the basin (4.3). Every camp has `camp.group_site` and `camp.stock_site`, so a solo hiker is never offered either. The wildlife and hazard ideas were rewritten to fit your decisions. Dated 2026 news moved into `conditions_2026`, each entry with `from`, `until` or `persists`, `last_confirmed` and `applies_to` (4.7). The Hoh Lake to C.B. Flats segment matches `hoh_olympus`. And `m1a_play_inputs` holds M1a's flagged estimates: quota odds, desk requests, ranger visits and the permit check, trail traffic, the no-canister visitor roll, the place fields for all 47 loop nodes, and the crossings (E.5).
+- `park_rules.json`: `climate.m1a_weather_inputs` (the weather chain, High-zone thunder and fog, ridge wind, a Sol Duc valley station, 2027 daylight), `permits.desk_requests` and `campfires.future_ban_climatology`, each estimate flagged.
+- The catalogs: the beer and the pre-roll (88 foods, 5.4); the plush fox is gone (217 items); the cameras, the speaker and the drone have battery stats; `night_model_stats` makes each item's own stats the night model's source (7.9); and two kits for F.1, `loop_in_a_day_3l` and `day_gear_TRAP_no_canister`.
+- Lore: `card_shelters` re-anchored, with a new card for the CCC's 1939 shelter above Sol Duc Falls; the `dark` deck split into `dark_fall` and `dark_fog`, with a lint rule; `oh_q28` no longer drawable.
+- New: `quiz_locals.json`, the twelve locals' quiz questions, each with a source (2.6).
+
+*Still for ingest:*
+- `gear_catalog.json` still carries the retired collection system's `journal_points` stat on 5 items (the three cameras, the sketchbook and the journal); ingest drops it. Its glosses say the system is retired, and no catalog string names the book (lint T04). Ingest also retires two tags: the four `field_guide_*` items (tag `field_guide`) map to the `id_book` event tag, and `sketchbook_pocket` (tag `sketchbook`) maps to `luxury`, since the only sketch in the game is the Bonfire Lily's, on the back of the permit (10.2).
+
+*The other region files (M2 on):*
+- `northeast_dose` `dose_to_quinault_traverse`: day 3 miles are null; it ends at `enchanted_valley`, not a trailhead; its total, 15.4, is under the graph's 22.2.
+- `northeast_dose` `dose_to_elwha_traverse`: day 4 is null; it ends at `elkhorn`; total 19.1 against 35.3 on the graph.
+- `south_quinault_skok` `quinault_to_elwha_traverse`: three null days (4 to 6).
 - `elwha_hurricane` `hurricane_ridge_elwha_grand_valley_loop`: a null day and a blank total.
 - `elwha_hurricane` `bailey_range_traverse` and `northern_bailey_range_dodger_exit`: null days (off-trail, so expected; they stay hand-checked).
-- Small shortfalls: `white_mountain_loop_from_dosewallips` day 3 (12.1 against 12.2) and `quinault_to_dosewallips_traverse` day 3 (6.7 against 6.8).
-- `hoh_olympus` still says "WAG bags" at Caltech Rocks and Snow Dome; `park_rules.json` now requires blue bags.
-- `gear_catalog.json` still carries the retired collection system: `journal_points` and `journal_points_bonus` stats, glossary lines giving the `sketchbook` "full Journal credit, the Golden Glow lesson", and a flower-press note that cites the book. Ingest drops the journal stats, and no catalog note that names the book reaches a page (lint T04). It also retires two tags: the four `field_guide_*` items (tag `field_guide`) map to the `id_book` event tag, and `sketchbook_pocket` (tag `sketchbook`) maps to `luxury`, since the only sketch in the game is the Bonfire Lily's, on the back of the permit (10.2).
-- `FACT_CHECK.md` says the Bailey Range is the only itinerary shorter than the graph allows; the list above shows otherwise. The ingest report, not that note, is the check.
-- `sol_duc_high_divide` `morgenroth_lake.game_notes` still says its permit is had "only by asking at the WIC desk in person". Your call of 2026-10-08 makes it **by phone only** (4.3); the note should say so at the source.
-- `food_catalog.json` has no beer or pre-roll yet. Until it does, ingest adds the two items in 5.4 as flagged design estimates.
-- `hamma_hamma.json` is new (2026-10-07/08) and hasn't been through `FACT_CHECK.md` yet; several unofficial places (the Valley of Heaven, Scout Lake Pass, the Stone Ponds fork and others) carry null coordinates, which ingest must place from overlays before the map can draw them (4.1).
+- Small shortfalls, both in `south_quinault_skok`: `white_mountain_loop_from_dosewallips` day 3 (12.1 against 12.2) and `quinault_to_dosewallips_traverse` day 3 (6.7 against 6.8).
+- 93 segment fields are null outside the loop (45 in the Elwha, 18 in the Hamma Hamma, 14 on the Hoh, 10 in the Dosewallips, 4 on the coast, 2 in the south); ingest derives most of them. The Aurora Creek trail's climb (+3,220 ft) is 340 ft short of its endpoints.
+- `hoh_olympus` still says "WAG bags" in four places (Caltech Rocks, Snow Dome, a trip's warnings and a 2026 conditions note); `park_rules.json` says blue bags.
+- Camps that mix group or stock sites with individual ones (Five Mile Island, Lewis Meadow, Elk Lake and others) need the `group_site` and `stock_site` flags, and some research ideas there still mention sketches and the journal (14.3 treats them as void). Each region's milestone fixes its own.
+- `hamma_hamma.json` is new (2026-10-07/08) and hasn't been through `FACT_CHECK.md` yet: 15 unofficial places (the Valley of Heaven, the Stone Ponds junction and pass, the Scout Lake divide and others) carry null coordinates, which ingest must place from overlays before the map can draw them (4.1), and three of its trips have null days.
+- `FACT_CHECK.md` says the Bailey Range is the only itinerary shorter than the graph allows; the two shortfalls above say otherwise.
+
+*No longer needed* (fixed at the source before the cleanup): `morgenroth_lake.game_notes` says phone only, as your call has it (4.3); the 2026 fire ban dates in the Sol Duc camp notes (Aug 7); `sol_duc_falls_edge` cites the 2025 death and is tagged `real_incident` (9.5); the canisters have rental prices (`rent_usd_per_day`, 5.1); and the catalog strings that named *The Golden Glow*.
 
 ### E.5 Data files
 
@@ -4037,11 +4102,12 @@ dist/data/edition.<hash>.json + precache
 
 | File | Holds | Feeds |
 |---|---|---|
-| `regions/*.json` (6, plus the new `hamma_hamma`, 4.1) | Places, segments, trailheads, 150 classic trips (166 with the Hamma Hamma's), hazards, wildlife, rules, 2026 conditions, uncertain claims, sources | The park graph, presets, cards, scenes, assertions |
-| `park_rules.json` | Permits, quotas, fees, food storage, fires, LNT, climate, tides, SAR patterns, wildlife, fall 2026 conditions | Planner, weather, tides, rescue, ranger lines |
-| `gear_catalog.json` | 8 packs, 218 items, tiers, tag and stat glossaries, sample kits, rentals | Closet, store, pack, tags |
-| `food_catalog.json` | 86 foods, daily needs, canister capacities | Store, canister fit, energy, morale |
-| `lore/` (still being written) | Planned, not yet written: `history.json`, the park's history as facts, much of it after Robert L. Wood's books, in our own words with credits; `quotes_public_domain.json`, verbatim lines from U.S. texts before 1931 and government reports, each with source, page, URL, length, uses, tags and cautions; `LORE.md`, the rules. Working drafts that exist now: `press_expedition.json`, `oneil_expeditions.json`, `other_history.json` (each with its own quote pool) and `wood_bibliography.json` | History asides, the epitaph dice (9.5), the colophon and the Ranger's Bookshelf (12.20) |
+| `regions/*.json` (6, plus the new `hamma_hamma`, 4.1) | Places, segments, trailheads, 150 classic trips (166 with the Hamma Hamma's), hazards, wildlife, rules, 2026 conditions, uncertain claims, sources; for the loop, `m1a_play_inputs` (quota and desk odds, rangers, traffic, visitors, place fields, crossings: flagged estimates) | The park graph, presets, cards, scenes, assertions, permits, overlays |
+| `park_rules.json` | Permits, quotas, desk requests, fees, food storage, fires and the future-ban climatology, LNT, climate with M1a's weather inputs, tides, SAR patterns, wildlife, fall 2026 conditions | Planner, weather, tides, rescue, ranger lines |
+| `gear_catalog.json` | 8 packs, 217 items, tiers, tag and stat glossaries, night-model stats, sample kits, rentals | Closet, store, pack, tags, the night model |
+| `food_catalog.json` | 88 foods (the beer and the pre-roll among them), daily needs, canister capacities | Store, canister fit, energy, morale |
+| `quiz_locals.json` | Twelve locals' quiz questions, each with a source | The first-launch quiz (2.6) |
+| `lore/` (still being written) | `history.json`, the park's history as facts, much of it after Robert L. Wood's books, in our own words with credits; `quotes_public_domain.json`, verbatim lines from U.S. texts before 1931 and government reports, each with source, page, URL, length, uses, tags and cautions; `LORE.md`, the rules. Working files: `press_expedition.json`, `oneil_expeditions.json`, `other_history.json` (each with its own quote pool) and `wood_bibliography.json` | History asides, the epitaph dice (9.5), the colophon and the Ranger's Bookshelf (12.20) |
 
 **New data the game needs** (each written in the milestone that first needs it, from M0 on; Ranger Jon's file, for example, comes with M2):
 
@@ -4082,7 +4148,7 @@ dist/data/edition.<hash>.json + precache
 - A save is a **snapshot plus the action log plus the profile snapshot** (E.1). Loads use the snapshot (migrated if the edition changed); the action log replays only for tests and bug reports.
 - **One book in progress:** one living hiker per phone, with at most one book in progress (9.8). A trip code or *Try this trip again* can't open a seed that is already in progress (9.7).
 - **Going back:** none. There is no restore ring and no manual bookmark; every page overwrites the book's one autosave, so nothing can quietly undo a choice. Rereading a finished book is read-only.
-- **A death is saved at once.** The save written at the confirming tap already holds the outcome (8.14). If it is a death, that same write adds the memorial entry to the Trail Register and marks the hiker dead. The entry stores the name, the hiker's id, the book's title, place, dates, score, permit number and seed, the cause key, the variant id and the rendered *YOU PERISHED* line, so a later edition's `causes.json` can never reword it. From that write on, the book opens only on its death-sequence pages, so closing the app on any of them, or anywhere after the tap, changes nothing. **The epitaph is the one later write:** signing adds the line, and for a dealt line its quote id, to the register entry and changes nothing else; once GAME OVER is shown it is fixed.
+- **A death is saved at once.** The save written at the confirming tap already holds the outcome (8.14). If it is a death, that same write adds the memorial entry to the Trail Register and marks the hiker dead. The entry stores the name, the hiker's id, the book's title, place, dates, score, permit number (or *day hike*) and seed, the cause key, the variant id and the rendered *YOU PERISHED* line, so a later edition's `causes.json` can never reword it. From that write on, the book opens only on its death-sequence pages, so closing the app on any of them, or anywhere after the tap, changes nothing. **The epitaph is the one later write:** signing adds the line, and for a dealt line its quote id, to the register entry and changes nothing else; once GAME OVER is shown it is fixed.
 - **The wipe** runs when the player taps *To the shelf* on the GAME OVER page (12.17). It deletes the hiker record, the book save and the hiker's shelf, and leaves the device record and its register alone. If the app dies halfway, the next launch finds a dead hiker with data left over and finishes the wipe before it shows anything. There is no undo, by design: *"Full wipe."*
 - **Rereading survives updates.** An old action log can't replay after a new edition (the old engine and content are gone from the cache), so the shelf keeps each finished book's rendered text and recipe ids instead, and redraws the pictures from recipes (an unknown recipe falls back to its biome base).
 - **iOS:** Safari may clear site storage after about 7 days without a visit, and **Home Screen apps keep separate storage from Safari**. So the title page recommends installing *before* the first save, the game calls `navigator.storage.persist()` where available (never depending on it), and **Export / Import** turns the device record, the hiker and the book into a code you can share to yourself. It is for moving phones and surviving eviction, not for undoing.
@@ -4106,11 +4172,13 @@ dist/data/edition.<hash>.json + precache
 
 A seeded `sfc32` generator, with every draw keyed by `hash(trip seed, stream, key)`. `Math.random` is banned in the engine (a unit test makes it throw). Keys are content (places, cards, days) and, for rolls and effects, the book's mode, never running counters, so an optional page never shifts a later roll (8.14). Weather stays keyed to the seed alone, so friends comparing a code see the same mountain and the same weather in either mode.
 
+**When the seed is drawn.** The trip seed is drawn when the player taps *Begin a new book*, before the ranger desk, so the planning draws use it too: a night's quota is `hash(trip seed, "permit", date, camp)`, and so are a desk request, the WIC's loaner canister and Ranger Jon's free dates. Within a book the same night always gives the same answer, so going back to the desk can't re-roll a full camp; another date can come out differently, and so can another book. A trip code carries its seed, so a friend's desk rolls what yours did (9.8). *Try this trip again* copies the stamped permit, so nothing on it is re-rolled, whichever weather the player picks (9.7).
+
 | Stream | Keyed by | Used for |
 |---|---|---|
 | weather | day | The park-wide synoptic chain and zone weather, generated at the start |
 | env | day, river or tide | River noise, fog persistence |
-| permit | calendar date, camp | Quota availability, WIC-only requests, Ranger Jon's free dates |
+| permit | calendar date, camp | Quota availability, WIC-only requests, the WIC's loaner canister, Ranger Jon's free dates (drawn at the desk from the book's seed, above) |
 | director | node, slot, trip day | Which card fills a slot |
 | roll | mode, node, card, choice, trip day, attempts here | Outcome rolls (the mode keeps a Storybook book from scouting an Old School one, 8.14) |
 | effect | mode, node, card, outcome, op, trip day | Chances inside effects |
@@ -4167,11 +4235,11 @@ From `simulation.md` 15 and `engine.md` 9.5, merged and recalibrated to the show
 | Skimpy kit, benign season | 85-95% (costs joy, not safety) | ≤ 1% | ≤ 0.5% (model: under 0.1%, B.5) |
 | **The first playable's trap: the High Divide loop in a day on the canonical day-gear kit** (no headlamp, one liter), starting at noon in late September, keeps pushing (Bold bot) | ≤ 10%; trouble or worse ≥ 80% | 10-35% | **2-10%** (no model yet: M1a's first runs fill it in, for your review) |
 | **The same plan, takes the turnaround** at the first fork that offers it (Cautious bot) | ~0%; nearly all Sooner Than Planned | ≤ 1% | **≤ 0.1%** |
-| **Your example: day gear (the canonical trap kit) to Glacier Meadows in 1 night, September, keeps pushing** (Bold bot) | ≤ 5%; trouble or worse ≥ 80% | 15-35% (model: about 28%) | **4-10%** (model: about 6.3%, 1 in 15, A.6) |
+| **Your example: day gear (the canonical trap kit) to Glacier Meadows in 1 night, September, keeps pushing** (Bold bot) | ≤ 5%; trouble or worse ≥ 80% | 15-35% (model: about 28%) | **4-10%** (model: about 6.6%, 1 in 15, A.6) |
 | **The same plan, takes the turnaround** at the first fork that offers it (Cautious bot) | ~0%; nearly all Sooner Than Planned | ≤ 1% | **≤ 0.1%** (model: 0) |
 | **Literally the summit, day gear, 1 night, alone** (A.7), bot mix | Summit ≤ 1%; Sooner Than Planned ≥ 60% | ≤ 35% | ≤ 3% (model: about 1%) |
-| The same, keeps pushing (Bold bot) | Summit 0 (turns back at the second crossing); Sooner Than Planned 50-65% | 20-40% (model: about 36%) | **5-12%** (model: about 6.8%, 1 in 14, A.7) |
-| Reckless: onto the Blue Glacier alone, day gear, going on at every ♦ (A.7) | Summit ≤ 8% (model: about 4.5%) | 25-50% (model: about 47%) | **6-12%** (model: about 8%, 1 in 12, A.7) |
+| The same, keeps pushing (Bold bot) | Summit 0 (turns back at the second crossing); Sooner Than Planned 50-65% | 20-40% (model: about 36%) | **5-12%** (model: about 7.0%, 1 in 14, A.7) |
+| Reckless: onto the Blue Glacier alone, day gear, going on at every ♦ (A.7) | Summit ≤ 8% (model: about 4.5%) | 25-50% (model: about 47%) | **6-12%** (model: about 7.9%, 1 in 12, A.7) |
 | Reckless: a waist-deep ford (the Queets in June), crossed tired and without poles | — (one crossing) | 5-15% per crossing (model: about 8%) | **1-5% per crossing** (model: about 2%, 8.11) |
 | Reckless: the South Coast ignoring tides | ≤ 2% | 20-40% | **10-25%** (model: 16% for each headland attempt more than 1 ft over, C.2) |
 | Bail at the first fork, any plan | ~0%, nearly all Sooner Than Planned | ~0% | ~0% |
@@ -4215,7 +4283,7 @@ Errors block the deploy.
 - **The death sequence (Old School):** every `book_ends` names a `cause` key that exists in `content/death/causes.json` (E.5), and no cause key is tagged wildlife. Every key has a *YOU PERISHED* line for every variant it can reach (second person, starting *You have died of*, at most 40 characters), and a list of the quote tags its epitaph dice prefer. No cause line names a real incident, a real person, an animal or a place tagged `real_incident`. No page of the death sequence, and none of its audio cues (13.2), is reachable in the hidden Storybook mode. The review book prints every key's lines and the first lines its dice would deal, for your review (14.4).
 - **The epitaph dice (9.5):** every drawable line in `content/lore/quotes.json` comes from `lore/quotes_public_domain.json` with `verification: page_image_checked`, a public-domain reason, a source id and a URL, and its text matches the source record exactly; it is at most 40 characters as printed; its source is not a Robert L. Wood work (checked against the work ids in `lore/wood_bibliography.json`) and not the unverified secondary pool; no drawable line mentions a death, an injury or a named person; a line with a `caution` is dealt only for the causes it names; and every cause key can deal at least 8 distinct lines, its own tags first, then the general pool.
 - **One mode, one hiker, the people (9.4, 9.8, 12.4):** with `flags.storybook` off, a UI test walks every v1 screen and fails on any mention of Storybook, a mode or a second shelf, and a unit test checks that no Storybook book can write to the Trail Register or the best books. The New Hiker page asks for a name and nothing else. A wipe test kills a hiker, taps *To the shelf*, and checks that storage holds nothing of them but their register entry. Every permit number matches `104-` and four digits, and Ranger Jon's badge reads 104 wherever it appears. A release build fails if a placeholder (`{BOY_n}`, `{BOY_n_QUIRK}`, `{BOYZ_CONSENT}`, `{JON_QUIRK}`, `{MORGENROTH_STORY_n}`) is left in shipped text; preview builds show them, so you can see where your words will go. Lake Morgenroth never appears in a preset, a ranger's fill, a first book or the camp list, no ranger line names it, and only a request made on the WIC phone line can put it on a permit (4.3); the out-of-season *Phone the WIC* card never offers *Ask about a lake* (3.1). **T06, no phone links:** the built app shell carries the `format-detection` meta with `telephone=no`; no page has a `tel:` link; and the WIC number reaches a page only through the phone hotspot component, never as loose text in narration, a permit field or a Look line (E.7, 16).
-- **Larry moments (2.6):** every card tagged `larry` offers a sure choice; none holds a `book_ends` of its own (the skinny dip reaches death only through the Cold chain's last step, linted like any chain); no Director budget allows more than one dealt Larry card a day or two a book (tiles the player starts are not dealt, 2.6); with `flags.larry` off, none can be dealt. **T05, never near a car:** no card, line or picture that offers, shows or mentions a drink or cannabis may appear on a drive page, a trailhead page, the car, the last look (whose list never holds beer or the pre-roll), an ending plate or the back cover (*What the pack taught* included), and no line may tie either to driving. The day-hike store has no cooler and no Second Growth chip. *Crack the IPA* and *Light it* are reachable only on an overnight trip, at a camp where the hiker sleeps that night or on a layover day's side trip from it, never on a day hike or on a day that ends at the car; St. Peter's Gate's card only when the hiker's permit puts that night at Lake of the Angels or the Stone Ponds. Every brand is fictional and passes T03. The locals' quiz: every question has a source and exactly one right answer, and every answer leads on.
+- **Larry moments (2.6):** every card tagged `larry` offers a sure choice; none holds a `book_ends` of its own (the skinny dip reaches death only through the Cold chain's last step, linted like any chain); no Director budget allows more than one dealt Larry card a day or two a book (tiles the player starts are not dealt, 2.6, and neither is the off-permit ranger's forced roll, 3.7); with `flags.larry` off, none can be dealt. **T05, never near a car:** no card, line or picture that offers, shows or mentions a drink or cannabis may appear on a drive page, a trailhead page, the car, the last look (whose list never holds beer or the pre-roll), an ending plate or the back cover (*What the pack taught* included), and no line may tie either to driving. The day-hike store has no cooler and no Second Growth chip. *Crack the IPA* and *Light it* are reachable only on an overnight trip, at a camp where the hiker sleeps that night or on a layover day's side trip from it, never on a day hike or on a day that ends at the car; the swim and the bold marmot only on an overnight trip, never on a day hike or the walk-out day (2.6); St. Peter's Gate's card only when the hiker's permit puts that night at Lake of the Angels or the Stone Ponds. Every brand is fictional and passes T03. The locals' quiz: every question has a source and exactly one right answer, and every answer leads on.
 - **The 104 Boyz' register lines (7.11):** each uses a name from `people/boyz.json`, follows the cause-line rules (at most 40 characters, *died of*), names no real incident or place where one happened, and carries a funny epitaph of at most 40 characters; none can be removed by an import.
 - **Honest odds:** a choice without a roll can't show a %; every roll has labeled modifiers from shared sets where one exists; the ♦ and the fatal share are computed from fail tables and death rolls per context, never set by hand (8.1); no setting can hide a fatal share.
 - **Coverage:** every event tag in at least 3 cards; every catalog item maps to an event tag; every segment hazard tag in at least 1 card (14.2).
@@ -4249,7 +4317,7 @@ Everything here is done on the phone itself. There is no Mac and no Web Inspecto
 - Open the hidden debug menu (five taps on the version stamp), tap *Copy bug report*, and paste it into a GitHub issue from the phone; then force an error and copy the report from the torn-page sheet (E.11).
 - Look for Storybook everywhere and find it nowhere (9.4).
 - First launch on a clean install: the locals' quiz, once; a wrong answer earns *"Nice try, tourist."* and lets you in. Lose a hiker and check it doesn't come back (2.6).
-- Find the WIC number on the permit, the itinerary's fine print and the counter card. Tap it and long-press it in the Safari tab and in the Home Screen app, and check that iOS offers no Call, Copy or Add to Contacts action and that nothing dials; then make the in-game call (12.5, E.7, 16).
+- From M1b, when the number and the call arrive (in M1a, check instead that no page shows the number, 15): find the WIC number on the permit, the itinerary's fine print and the counter card. Tap it and long-press it in the Safari tab and in the Home Screen app, and check that iOS offers no Call, Copy or Add to Contacts action and that nothing dials; then make the in-game call (12.5, E.7, 16).
 - Walk the loop both ways round and meet the fork at both ways into the basin (12.12).
 
 ---
@@ -4297,6 +4365,21 @@ Every decision here is yours, made one at a time in conversation on 2026-10-08. 
 - **19. The Boyz in the Trail Register:** for decision 7 you answered *"A"*, the option where the Boyz are hikers you bump into on the trail, and *"their names are already in the trailhead register when you first open it, with epitaphs about their own (fictional) misadventures."* So the register comes pre-filled with one *Remembered* entry per Boy: a fictional misadventure death and a funny epitaph, good-natured and never mean, while you keep meeting the same Boyz alive on the trail, and the narrator never explains it. Their real names are still to come; the public game uses first names or nicknames unless you confirm full names (7.11, 9.8, 12.3).
 
 Everything else in this document is a call you can overrule (1.2), but none of it needs an answer to start building.
+
+## Lead calls
+
+These are not your decisions. They are engineering calls the lead designer (Claude) made on 2026-10-08 to close the pre-build audit (`design/AUDIT_DOC.md`, whose Resolution lists every item). None changes a decision above, and each is yours to overrule.
+
+1. **M1a's camps:** the *ask at the desk* request (a seeded roll, about 70% midweek and 40% on weekends) is in M1a, for Bruce's Roost, Cat Basin and Hidden Lake; Long Lake and Sol Duc Lake (off trail) and the call for Morgenroth stay in M1b (4.3, 15).
+2. **Day hikes:** no permit; the score maximum is set at *Start walking*; a day-use trip-plan line at the trailhead drives the overdue clock; the register says *day hike*; day hikes never move the 104 counter (3.7, 9.6, 12.10).
+3. **What M1a shows:** a list in 15. The WIC's number and its hotspot wait for M1b, the month chips are August and September only, and every `book_ends` carries its Storybook override from M1a, though the flag ships off.
+4. **No canister is allowed:** an overnight without one is a broken rule, not a fourth hard block: a visitor roll every night, a ranger card if one checks, and Leave No Trace costs (6.3).
+5. **The off-permit ranger** is a forced, uncapped roll that plays the permit-check card; the Director's cap on Larry cards covers only the check on a legal night (2.6, 3.7).
+6. **Night rolls** take their chance straight from the cold curve, so they skip the shaky band, read with a Words row below 30% and spin a two-band compass (8.7, 8.8).
+7. **Scoring:** the budgets live in `rules/tuning.json`, with one fill's maximum worked out (96); layover nights earn no camp points; a citation and the Hard Way halve the finish once, not twice; a replan never sets the maximum below the score; the Leave No Trace ledger stops at 100 (9.6).
+8. **Seeds:** the trip seed is drawn at *Begin a new book* and keys the desk's draws too (`hash(seed, date, camp)` for quotas); *Try this trip again* copies the stamped permit (8.14, 9.7, E.8).
+9. **The smaller calls**, each the auditor's fix or the most cautious default: skills run 0 to 5; a day hike's turnaround points the shortest way to the car; the basin fork fires only on the way in; the swim and the bold marmot are overnight-only, the broadest reading of decision 18; one canonical tag list; pack presets are B.5's two kits; the edition date is the conditions overlay's; the lily's layover bonus needs a second evening in the same place (2.6, 3.7, 4.7, 6.5, 7.4, 7.10, 10.2, 15).
+10. **The night model follows the catalog:** shelter and wet-clothing warmth come from each item's stats in `gear_catalog.json`, and the worked nights were recomputed, so Appendix A's bagless night now shows 6.3% fatal, not 6.1% (7.9, A.3).
 
 ## Still to come from you
 

@@ -730,13 +730,15 @@
       "lon": -123.7898,
       "camp": {
         "sites": 1,
+        "group_site": true,
+        "stock_site": false,
         "reservation_or_quota": "Quota area (Hoh Lake). Group site only, 7-12 people, reserve on Recreation.gov.",
         "bear_can_required": true,
         "food_storage": "can",
         "fires_allowed": false,
         "toilet": true,
-        "water": "First water source on the Hoh Lake Trail climb (stream at the flats)",
-        "notes": "Half a mile below Hoh Lake. No campfires."
+        "water": "A stream at the flats: the first water on the climb from the Hoh (NPS trail conditions, 2026-08-17). Hoh Lake is 0.5 mi up the trail. Treat water.",
+        "notes": "Group site only (7-12). Half a mile below Hoh Lake. Campfires prohibited. Use the toilet. Bear canisters required, hanging prohibited (Recreation.gov 2026). Identical in both region files."
       },
       "description": "After hours of hot switchbacks through silver burned snags, a little flat of meadow and running water appears like a gift. Everyone drops their packs and drinks.",
       "scene_art_notes": "Foreground: hikers' packs leaned on a log; midground: small meadow with a creek and wildflowers (yellow/magenta dots); sky: hot pale blue; landmark: silver snags on the ridge above.",
@@ -1707,16 +1709,16 @@
       "sources": ["https://www.nps.gov/olym/planyourvisit/hoh-lake-trail.htm", "https://www.nps.gov/olym/planyourvisit/wilderness-trail-conditions.htm", "https://www.recreation.gov/permits/4098362"]
     },
     {
-      "from": "c_b_flats_group_site",
-      "to": "hoh_lake",
+      "from": "hoh_lake",
+      "to": "c_b_flats_group_site",
       "miles": 0.5,
-      "gain_ft": 463,
-      "loss_ft": 0,
+      "gain_ft": 0,
+      "loss_ft": 430,
       "trail_class": "maintained",
-      "hazards": ["snowfield"],
-      "snow_free_typical": "mid-July through September",
-      "notes": "hoh_lake node is owned by the Sol Duc / High Divide region. NPS: Hoh Lake is 14.7 mi from the Hoh trailhead and 9.7 mi from the Sol Duc trailhead.",
-      "sources": ["https://www.nps.gov/olym/planyourvisit/hoh-lake-trail.htm"]
+      "hazards": ["heat", "snowfield"],
+      "snow_free_typical": "mid-July to early October typical (NPS)",
+      "notes": "Shared by sol_duc_high_divide.json and hoh_olympus.json, which carry this identical copy (reconciled 2026-10-08, M1A_DATA_CHECK item 21). NPS: the C.B. Flats group site is half a mile below Hoh Lake, which is 14.7 mi from the Hoh trailhead and 9.7 mi from the Sol Duc trailhead. Loss is the endpoint difference (4,520 to 4,091 ft = 429 ft); the two older copies said -410 and +463.",
+      "sources": ["https://www.nps.gov/olym/planyourvisit/hoh-lake-trail.htm", "https://www.openstreetmap.org/#map=14/47.915/-123.78"]
     },
     {
       "from": "south_fork_hoh_trailhead",
@@ -2735,7 +2737,7 @@
     {"name": "Chanterelles and other autumn mushrooms", "kind": "fungus", "where": ["happy_four_camp", "bogachiel_camp"], "notes": "Autumn fungi on the rain forest floor. Check park gathering rules before picking anything; the game should model sketching rather than picking.", "game_idea": "Sketch-not-pick choice, echoing the homage's ending."},
     {"name": "Subalpine fir, mountain hemlock and heather", "kind": "plant", "where": ["glacier_meadows", "c_b_flats_group_site"], "notes": "Spire-shaped firs and pink heather at Glacier Meadows' subalpine parkland.", "game_idea": "Scene palette transition from rain forest to alpine."},
     {"name": "Avalanche lily and glacier lily", "kind": "plant", "where": ["glacier_meadows", "blue_glacier_moraine_trail_junction", "c_b_flats_group_site"], "notes": "Early-summer lilies blooming right at the edge of melting snow (general subalpine Olympic flora; exact sites unverified).", "game_idea": "Seasonal sketch that only appears in July."},
-    {"name": "Olympic Mountain groundsel (Senecio neowebsteri)", "kind": "plant", "where": ["blue_glacier_lateral_moraine_viewpoint", "snow_dome"], "notes": "Rare yellow composite endemic to the Olympic Mountains, growing on alpine talus; flowers late summer (mid-July to mid-September observations). Occurrence on the Mount Olympus massif specifically is unverified.", "game_idea": "Candidate real-world 'golden glow' analog: a small golden flower on high scree, found only after camping high and watching the sunset - to be sketched, never picked."},
+    {"name": "Olympic Mountain groundsel (Senecio neowebsteri)", "kind": "plant", "where": ["blue_glacier_lateral_moraine_viewpoint", "snow_dome"], "notes": "Rare yellow composite endemic to the Olympic Mountains, growing on alpine talus; flowers late summer (mid-July to mid-September observations). Occurrence on the Mount Olympus massif specifically is unverified.", "game_idea": "Scenery and a Look line: a rare golden endemic on high talus, one of the real flowers a Bonfire Lily book's back cover names (GAME_DESIGN 10.2). It is not the Bonfire Lily, and it is never picked or collected."},
     {"name": "Piper's bellflower (Campanula piperi)", "kind": "plant", "where": ["blue_glacier_lateral_moraine_viewpoint"], "notes": "Olympic endemic of high rock crevices with blue star-shaped flowers (site-specific occurrence unverified).", "game_idea": "Rare endemic sketch for the journal."},
     {"name": "Snow algae (watermelon snow)", "kind": "plant", "where": ["snow_dome", "blue_glacier"], "notes": "Pinkish algae tint summer snowfields; do not eat the snow.", "game_idea": "Mysterious pink snow sketch; a gentle science note."}
   ],

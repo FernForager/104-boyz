@@ -198,8 +198,8 @@
   "VERIFY.md": "What was checked, removed and changed on 2026-10-08."
  },
  "counts": {
-  "fact_cards": 129,
-  "nodes_with_a_card": 274,
+  "fact_cards": 131,
+  "nodes_with_a_card": 273,
   "notable_nodes_from_research": 268,
   "notable_nodes_without_a_card": 4,
   "people": 121,
@@ -208,8 +208,8 @@
   "place_names": 135,
   "place_names_with_meany_1923_text": 30,
   "cards_citing_wood": 68,
-  "cards_with_look_line": 82,
-  "cards_with_ranger_line": 14,
+  "cards_with_look_line": 84,
+  "cards_with_ranger_line": 16,
   "cards_needing_tribal_consultation": 28
  },
  "fact_cards": [
@@ -5633,7 +5633,6 @@
    "node_ids": [
     "three_forks",
     "happy_four_camp",
-    "canyon_creek_1",
     "pelton_creek_camp",
     "fifteen_mile_camp",
     "hyak_camp"
@@ -5669,7 +5668,8 @@
    "confidence": "high",
    "flags": {
     "check": "Before the Look line ships at a given camp, confirm that camp still has a historic shelter (some are gone).",
-    "names_real_people": true
+    "names_real_people": true,
+    "reanchored": "2026-10-08 (M1A_DATA_CHECK item 17): canyon_creek_1 removed. The research's Canyon Creek Shelter stands above Sol Duc Falls and is the CCC's 1939 shelter, not a Forest Service one, so it has its own card, card_ccc_sol_duc_falls_shelter."
    },
    "basis": [
     "other:topic:chris_morgenroth_and_the_forest_service"
@@ -7920,6 +7920,95 @@
    },
    "basis": [
     "oneil:pn:Lakes Francis and John"
+   ]
+  },
+  {
+   "id": "card_ccc_sol_duc_falls_shelter",
+   "title": "The last of three shelters",
+   "node_ids": [
+    "sol_duc_falls",
+    "sol_duc_falls_camp",
+    "hoh_lake"
+   ],
+   "primary_node": "sol_duc_falls",
+   "text": "The park was a year old in the summer of 1939 when Civilian Conservation Corps crews from Camp Elwha, camped at the Eagle guard station, built it three trail shelters: one at Moose Lake, one at Hoh Lake and one above Sol Duc Falls. They built with logs and shakes from the forest around them. The shelter at the falls, T-shaped with a little cupola on its roof, is the only one still standing.",
+   "words": 74,
+   "look": "You see a log shelter with a little cupola on its roof. Civilian Conservation Corps crews built it in 1939, the last of three in the park.",
+   "ranger_line": "That shelter by the falls? CCC crews built it in '39. There was one up at Hoh Lake too, once.",
+   "uses": [
+    "look",
+    "history_note",
+    "quiet_page",
+    "camp_reading",
+    "ranger_remark"
+   ],
+   "era": "1939",
+   "topics": [
+    "ccc"
+   ],
+   "people": [],
+   "citations": {
+    "wood": [],
+    "sources": [
+     {
+      "source_id": "NRHP_07000712",
+      "locator": "Section 7-8 and the 1952 building record",
+      "short": "National Register nomination, Canyon Creek Shelter (2007)"
+     }
+    ]
+   },
+   "credit_line": "Sources: National Register of Historic Places nomination, Canyon Creek Shelter (2007).",
+   "quote_ids": [],
+   "confidence": "high",
+   "flags": {
+    "check": "At Hoh Lake the card reads as a camp_reading about a shelter that is gone; the Look line belongs only at the falls."
+   },
+   "basis": [
+    "other:topic:ccc"
+   ]
+  },
+  {
+   "id": "card_goats_gone",
+   "title": "Where the goats went",
+   "node_ids": [
+    "high_divide",
+    "cat_basin"
+   ],
+   "primary_node": "high_divide",
+   "text": "Mountain goats are not native to the Olympics. About a dozen were set loose near Lake Crescent in the late 1920s, before there was a park, and by 2018 there were about 725, trampling plants that grow nowhere else. From 2018 to 2020 helicopter crews flew 325 of them to the Cascades, where goats belong, and by 2022 the rest had been removed. A goat on the Divide now would be news.",
+   "words": 72,
+   "look": "You see a white speck on a far ledge. It is a patch of old snow. The goats are almost all gone.",
+   "ranger_line": "Goats? We flew three hundred of them to the Cascades. If you see one up there, tell me where.",
+   "uses": [
+    "look",
+    "history_note",
+    "ranger_remark",
+    "quiet_page"
+   ],
+   "era": "1920s-2022",
+   "topics": [
+    "mountain_goats"
+   ],
+   "people": [],
+   "citations": {
+    "wood": [],
+    "sources": [
+     {
+      "source_id": "NPS_GOATS",
+      "locator": null,
+      "short": "NPS, Mountain Goat Capture and Translocation / Removal"
+     }
+    ]
+   },
+   "credit_line": "Sources: National Park Service, mountain goat management pages (2026).",
+   "quote_ids": [],
+   "confidence": "high",
+   "flags": {
+    "check": "Never mention the 2010 fatal goring on Klahhane Ridge on a page: it is a real incident (9.5)."
+   },
+   "basis": [
+    "park_rules.json:wildlife.mountain_goat",
+    "sol_duc_high_divide.json:wildlife_and_plants"
    ]
   }
  ],
@@ -20530,15 +20619,6 @@
     "Lower Elwha Klallam Tribe"
    ]
   },
-  "canyon_creek_1": {
-   "name": "Canyon Creek #1",
-   "regions": [
-    "sol_duc_high_divide.json"
-   ],
-   "cards": [
-    "card_shelters"
-   ]
-  },
   "cape_alava": {
    "name": "Cape Alava",
    "regions": [
@@ -20600,7 +20680,8 @@
    ],
    "cards": [
     "card_bailey_range_names",
-    "card_wood_high_divide"
+    "card_wood_high_divide",
+    "card_goats_gone"
    ],
    "quotes": [
     "oh_q68"
@@ -21770,7 +21851,8 @@
     "sol_duc_high_divide.json"
    ],
    "cards": [
-    "card_wood_high_divide"
+    "card_wood_high_divide",
+    "card_goats_gone"
    ],
    "quotes": [
     "oh_q68"
@@ -21826,7 +21908,8 @@
     "sol_duc_high_divide.json"
    ],
    "cards": [
-    "card_hoh_destruction"
+    "card_hoh_destruction",
+    "card_ccc_sol_duc_falls_shelter"
    ],
    "place_names": [
     "pn_hoh"
@@ -24097,7 +24180,8 @@
     "sol_duc_high_divide.json"
    ],
    "cards": [
-    "card_sol_duc_name"
+    "card_sol_duc_name",
+    "card_ccc_sol_duc_falls_shelter"
    ],
    "place_names": [
     "pn_sol_duc"
@@ -24112,7 +24196,8 @@
     "sol_duc_high_divide.json"
    ],
    "cards": [
-    "card_sol_duc_name"
+    "card_sol_duc_name",
+    "card_ccc_sol_duc_falls_shelter"
    ],
    "place_names": [
     "pn_sol_duc"
@@ -26299,6 +26384,26 @@
    "type": "state_government_record",
    "citation": "Washington State Register 23-05-046 (2023), Board on Geographic Names proposals, incl. Noskeliikuu (seen via search summary).",
    "url": "https://lawfilesext.leg.wa.gov/Law/WSRPDF/2023/05/23-05-046.pdf"
+  },
+  "NRHP_07000712": {
+   "id": "NRHP_07000712",
+   "from_files": [
+    "other_history.json"
+   ],
+   "type": "us_government_report",
+   "citation": "National Register of Historic Places nomination, Canyon Creek Shelter (Sol Duc Falls Shelter), Olympic National Park, ref. 07000712 (2007).",
+   "url": "https://npgallery.nps.gov/NRHP/GetAsset/NRHP/07000712_text",
+   "use": "facts"
+  },
+  "NPS_GOATS": {
+   "id": "NPS_GOATS",
+   "from_files": [
+    "park_rules.json"
+   ],
+   "type": "us_government_web",
+   "citation": "National Park Service, Olympic National Park, Mountain Goat Capture and Translocation / Removal (page dated 2026-10-07).",
+   "url": "https://www.nps.gov/olym/planyourvisit/mountain-goat-capture-and-translocation.htm",
+   "use": "facts"
   }
  }
 }

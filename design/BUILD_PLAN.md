@@ -1,8 +1,8 @@
 # Build plan: Olympic Peninsula Hiker
 
-*Written 2026-10-08. No game code exists yet. This plan takes the repo from zero code to the first playable (M1a) on your iPhone, then to M1b. It builds on `GAME_DESIGN.md` (Appendices E and F, sections 11, 12, 14 and 15), the doc audit (`AUDIT_DOC.md`) and the data check (`data/M1A_DATA_CHECK.md`).*
+*Written 2026-10-08. No game code exists yet. This plan takes the repo from zero code to the first playable (M1a) on your iPhone, then to M1b. It builds on `GAME_DESIGN.md` (Appendices E and F, sections 11, 12, 14 and 15), the doc audit (`AUDIT_DOC.md`) and the data check (`data/M1A_DATA_CHECK.md`). Both audits are closed: every item is fixed, or deferred past M1a with a reason. The engineering calls that closed them are the doc's [Lead calls](GAME_DESIGN.md#lead-calls), and this plan follows them. Updated the same day to match.*
 
-*Order of authority: "Decisions made" in the design doc wins, then the rest of the design doc, then this plan. "Doc 7.4" below means section 7.4 of `GAME_DESIGN.md`.*
+*Order of authority: "Decisions made" in the design doc wins, then the rest of the design doc (its lead calls included), then this plan. "Doc 7.4" below means section 7.4 of `GAME_DESIGN.md`.*
 
 ---
 
@@ -10,12 +10,12 @@
 
 **What you get first (M1a).** The High Divide and Seven Lakes Basin loop from the Sol Duc trailhead, playable on your iPhone:
 - either way round, as a day or 1 to 3 nights or more;
-- any permitted camp, with real quotas;
+- any permitted camp, with real quotas, plus three you ask for at the desk (Bruce's Roost, Cat Basin, Hidden Lake);
 - the basin-or-crest fork with honest numbers, the side trips, and changing the plan on the trail;
 - Old School death, with the whole five-page sequence and the Trail Register;
 - the first Larry moments: the locals' quiz, Heart Lake, the IPA and the permit check.
 
-**Then M1b:** the rest of the Sol Duc side, and the phone call for Lake Morgenroth.
+**Then M1b:** the rest of the Sol Duc side, Long Lake and Sol Duc Lake, and the phone call for Lake Morgenroth.
 
 **When.** The work is counted in build sessions of a few hours each, not in dates. You'll see something new on your phone after almost every session.
 
@@ -37,7 +37,7 @@
 
 **When something's wrong.** Open the ≡ menu, tap the small version stamp five times, then tap **Copy bug report**. Paste it into a new GitHub issue (or straight into a Claude chat). If a page ever tears, the error sheet has the same button. No Mac is needed, ever. Issues on this repo are public, so keep your friends' names and your GPX out of them. Send those in a Claude chat instead.
 
-**What we need from you now:** a "go". You may also need to do one two-minute paste in session 1, but only if GitHub won't let the session add the deploy workflow itself (9.1). The Boyz' names, Jon's quirk and your Morgenroth track can come whenever you like. M1a doesn't wait for any of them (section 9).
+**What we need from you now:** a "go", and an OK to merge the design branch into `main`, which today holds only a README, so the site can deploy from it (8.1). You may also need to do one two-minute paste in session 1, but only if GitHub won't let the session add the deploy workflow itself (9.1). The Boyz' names, Jon's quirk and your Morgenroth track can come whenever you like. M1a doesn't wait for any of them (section 9).
 
 ---
 
@@ -93,7 +93,7 @@ E.5 names some files `data/`, `rules/`, `stores/`, `drive/` and `people/`. Here 
 | `graph.js` | Directed park graph; router by hiking time, with `via` pins and spurs |
 | `calendar.js` | The calendar rule, seasons, weekdays, dated conditions |
 | `plan.js` | Itinerary model, the twelve fills, the 4.6 validator, ranger review lines |
-| `permit.js` | Quota and desk-request rolls, canister loan, the 104 counter, fees |
+| `permit.js` | Quota and desk-request rolls on `hash(seed, date, camp)`, canister loan, the 104 counter, fees, the day-use trip plan |
 | `pack.js` | The four limits, slots, hard blocks, pack tags (6.5), load ratio |
 | `food.js` | Menus, Fill from the list, canister fit, rationing |
 | `weather.js` | Synoptic chain, zone weather, thunder and fog, forecast vs actual |
@@ -101,7 +101,7 @@ E.5 names some files `data/`, `rules/`, `stores/`, `drive/` and `people/`. Here 
 | `movement.js` | The 7.4 pace formula, way-trail and steep-descent terms, ETAs against dark |
 | `body.js` | The meters and the night model (7.9) |
 | `knowledge.js` | Ranges that blur and sharpen (8.6): briefing, tips, forecast |
-| `odds.js` | Base plus labeled modifiers, bands, ♦, fatal share rounded up (8.5-8.8) |
+| `odds.js` | Base plus labeled modifiers, bands, ♦, fatal share rounded up; physics-curve rolls (the night roll) with no shaky band, in two bands (8.5-8.8) |
 | `lookahead.js` | Compound-choice bars and the Trip Outlook |
 | `director.js` | Fills beat slots: forced first, weighted draw, gap bias, novelty, budgets, Larry caps |
 | `cards.js` | Evaluates a card: eligibility, choices, rolls, outcomes |
@@ -173,24 +173,24 @@ E.5 names some files `data/`, `rules/`, `stores/`, `drive/` and `people/`. Here 
 | File | What it is |
 |---|---|
 | `AUTHORING.md` | The Authoring Brief: schema, six exemplar cards, voice, fairness |
-| `scope/m1a.json` | What this milestone ships: node ids, items, foods, months |
+| `scope/m1a.json` | What this milestone ships: node ids, items, foods, months, and the shows-and-hides switches (3.6) |
 | `park/regions/*.json` | Normalized graph from ingest (generated; never hand-edited) |
-| `park/overlays/sol_duc_high_divide.json` | Hand patches: spur, group flags, `map_xy`, canopy, cold pools, water, views, popularity |
-| `park/conditions/2026.json` | Dated closures, the fire ban, dated news told as "last we heard" |
+| `park/overlays/sol_duc_high_divide.json` | Hand patches only where the research is silent. The spur, group and stock flags and the place fields (`map_xy`, canopy, cold pools, water, views, snow features) now come from the source (3.5) |
+| `park/conditions/2026.json` | From `conditions_2026`, whose entries already carry `from`, `until` or `persists` and `last_confirmed`: dated closures and news told as "last we heard"; 2027 fire bans drawn from the climatology |
 | `park/vocab/hazards.json` | About 30 canonical hazard tags and their aliases |
 | `park/vocab/zones.json` | Zone and elevation-band rules |
-| `park/permits.json` | Quota areas, windows, sites, desk-request odds |
+| `park/permits.json` | Quota areas, windows, sites; quota odds by camp, month and night type; desk requests (70% midweek, 40% weekends); ranger visits and the permit check |
 | `trips/sol_duc.json` | The twelve fills and the day loop, with `via` pins |
-| `gear/items.json` | From the gear catalog |
+| `gear/items.json` | From the gear catalog (217 items), with each item's night-model stats |
 | `gear/tag_rules.json` | Items to event tags |
-| `food/items.json` | From the food catalog, plus the beer |
+| `food/items.json` | From the food catalog (88 foods; the beer and the M1b pre-roll are in it) |
 | `stores/stores.json` | Fernwood, its cooler, grab-lunch, shopkeeper lines |
 | `drive/routes.json` | Port Angeles to the Sol Duc trailhead (about 82 minutes) |
-| `rules/tuning.json` | Every knob, score budgets, skill thresholds |
+| `rules/tuning.json` | Every knob. Starting values from the doc: score budgets (Looks 10 a trip day; wise choices 2 a day at 3 points; Leave No Trace acts 1 a day plus 1 a night at 2 points; likely sunsets 3 each), skill levels 0 to 5 and their thresholds, the Leave No Trace cap of 100 (doc 9.6, 7.10) |
 | `rules/mods.json` | Shared modifier sets (`mods.dark`, `mods.fatigue` ...) |
 | `rules/macros.json` | Shared effect bundles |
-| `rules/kits.json` | The ranger's sensible kit by zone and month; test kits |
-| `data/climate.json` | Zone x month weather, with flagged estimates |
+| `rules/kits.json` | The ranger's sensible kit by zone and month; the two pack presets (sensible, and B.5's skimpy); test kits, including the catalog's `loop_in_a_day_3l` and `day_gear_TRAP_no_canister` |
+| `data/climate.json` | Zone x month weather from `park_rules.json` `climate.m1a_weather_inputs`: the weather chain, High-zone thunder and fog, ridge wind, the Sol Duc valley; estimates flagged |
 | `data/daylight.json` | Sun and twilight times, precomputed |
 | `cards/generic/*.json` | Archetypes by family: weather, footing, nav, cold, water, wildlife, camp, night, joy, people |
 | `cards/places/sol_duc/*.json` | Place cards and place patches |
@@ -203,9 +203,9 @@ E.5 names some files `data/`, `rules/`, `stores/`, `drive/` and `people/`. Here 
 | `text/look/*.json` | Look lines in Sierra's second person |
 | `text/ranger.json` | The WIC ranger: questions, fills, checks, briefings |
 | `death/causes.json` | Cause keys, YOU PERISHED lines, variant order, dice tags |
-| `lore/quotes.json` | Drawable epitaph lines, built from the verified file |
+| `lore/quotes.json` | Drawable epitaph lines, built from the verified file, with its decks (`dark_fall` and `dark_fog` split) |
 | `lore/credits.json` | Colophon text and Wood's book list |
-| `quiz/locals.json` | Twelve sourced questions |
+| `quiz/locals.json` | Twelve sourced questions, from `design/data/quiz_locals.json` |
 | `people/boyz.json` | `{BOY_n}` placeholders, register entries, lines |
 | `people/rangers.json` | The WIC ranger and the patrol ranger |
 | `art/palette.json` | 16 colors, remap tables, cycles, lights |
@@ -298,7 +298,8 @@ dist/** = web/ copied as is
 - **Your Strava link is stripped.** The Morgenroth segment's source names your Strava activity. Ingest writes it as *firsthand: game creator* and reports the change, so the link never reaches `content/` or the published edition unless you say it may stay (9.2).
 - The ingest report lists every fix and every doubt. It prints in CI and in the session.
 - Lore: only lines marked `page_image_checked`, with a public-domain reason and a URL, reach `content/lore/quotes.json`. Any line from a Robert L. Wood work fails the build.
-- Research `game_idea` and `game_event_idea` text that conflicts with your decisions (helper animals, journal sketches, the homage, "Sierra mode", companions) is dropped and reported (data check 7).
+- The loop's research ideas were rewritten at the source to fit your decisions (data check 7). Any `game_idea` or `game_event_idea` text elsewhere that still conflicts with them (journal sketches, mostly, in the other regions) is dropped and reported.
+- The gear catalog's retired `journal_points` stat (on 5 items) is dropped.
 
 ### 3.3 Build
 
@@ -319,46 +320,54 @@ The edition holds the graph, camps and quotas, trip templates, items, foods, sto
 
 | Source | M1a ships | Waits |
 |---|---|---|
-| `sol_duc_high_divide.json` | The loop's 47 nodes and 47 segments (94 directed); its 21 camps; the trailhead; Hoh Lake down its side trail; the desk-request camps Bruce's Roost, Cat Basin and Hidden Lake; the off-menu lakes as map Looks only; loop hazards, wildlife and dated conditions. Five of the 47 segments are map-only in M1a, and the scope file marks them unroutable: the four off-trail links (Clear to Long Lake, Long to Sol Duc Lake, Morgenroth to Y and No Name lakes) and the Long Lake to Morgenroth way trail. The router, the planner and *Change the plan* never use them | Mink Lake, Little Divide, Appleton Pass, nights at Long Lake and Sol Duc Lake, Morgenroth (M1b); the Lake Crescent trails (M5) |
+| `sol_duc_high_divide.json` | The loop's 47 nodes and 47 segments (94 directed); its 21 camps; the trailhead; Hoh Lake down its side trail; the desk-request camps Bruce's Roost, Cat Basin and Hidden Lake; the off-menu lakes as map Looks only; loop hazards, wildlife and dated conditions; `m1a_play_inputs`. Five of the 47 segments are map-only in M1a, and the scope file marks them unroutable: the four off-trail links (Clear to Long Lake, Long to Sol Duc Lake, Morgenroth to Y and No Name lakes) and the Long Lake to Morgenroth way trail. The router, the planner and *Change the plan* never use them | Mink Lake, Little Divide, Appleton Pass, nights at Long Lake and Sol Duc Lake, Morgenroth (M1b); the Lake Crescent trails (M5) |
 | The other six regions | Nothing. Ingested and linted only | M2 on |
-| `park_rules.json` | Summer permits; Seven Lakes and Hoh Lake quotas; canister rules and the WIC loan; fires (the 3,500 ft line, the dated 2026 ban); LNT; North-side climate for Aug-Sep; overdue and rescue patterns | Tides, winter rules, other zones |
-| `gear_catalog.json` | About 60 items: the packs, the kits, the 18 traps, joy items, towel, trowel, earplugs, canister rentals | Glacier gear. The plush fox is dropped by ingest, since your homage decision says no fox (a renamed plush marmot is yours to ask for) |
-| `food_catalog.json` | About 37 foods, plus the beer | The pre-roll (M1b) |
-| `lore/` | Drawable lines for the cold, fog, lightning and dark decks, plus the general pool; Wood's book list; a few cleared facts about the loop | Cards that need tribal consultation; most history |
+| `park_rules.json` | Summer permits and desk requests; Seven Lakes and Hoh Lake quotas; canister rules and the WIC loan; fires (the 3,500 ft line; for 2027 dates, a ban drawn from the climatology); LNT; the M1a weather inputs for Aug-Sep; overdue and rescue patterns | Tides, winter rules, other zones |
+| `gear_catalog.json` | About 60 items: the packs, the kits, the 18 traps, joy items, towel, trowel, earplugs, canister rentals | Glacier gear. (The plush fox is gone from the catalog: your homage decision says no fox.) |
+| `food_catalog.json` | About 37 foods, and the beer | The pre-roll (M1b) |
+| `lore/` | Drawable lines for the cold, fog, lightning and `dark_fog` decks, plus the general pool; Wood's book list; a few cleared facts about the loop (the CCC shelter above Sol Duc Falls, the goats gone from the crest) | Cards that need tribal consultation; most history |
+| `quiz_locals.json` | All twelve questions | Your own, if you send some |
 
-### 3.5 Data fixes made in the build (session 4)
+### 3.5 Data fixes: done at the source
 
-From the data check, made in overlays or in ingest, with every estimate flagged:
+Every fix the data check asked for has landed in `design/data/` (its Resolution has the details), with each estimate flagged `estimate: true` and its evidence. Session 4 ingests them as they stand, and the overlay adds only what research can't.
 
-| Fix | How |
+| Fix | Where it is now |
 |---|---|
-| Bogachiel Peak shortcut | `through_route: false` on both summit segments, so the peak is a spur |
-| No thunder or fog odds | Flagged monthly estimates in `climate.json`, tuned against the death caps in session 18 |
-| Thin weather inputs | Weather chain estimated from Quillayute; Buckinghorse SNOTEL for the High zone |
-| Group and stock sites | `group_only` and `stock_only` overlay fields |
-| Night-model numbers disagree | The catalog's per-item stats win; the doc's numbers are defaults; 7.9 and 8.13 regenerated as goldens |
-| No beer item | Ingest adds `beer_hazy_ipa_16oz` (doc 5.4), flagged |
-| The dark deck | Split by base cause, so a fog death after dark deals no fall-only lines |
-| No popularity data | Popularity, weekday and weekend availability, permit-check odds, fire-ban chance: flagged estimates |
-| Overlay fields | `canopy`, `cold_pool`, `water`, `views`, `map_xy` for every loop node |
-| Kits | A 3-liter day kit, and a day trap kit with no canister, in `rules/kits.json` |
-| Dated news in permanent fields | Hoh Lake's dead bear and the Lunch Lake slide move to the conditions overlay |
-| `oh_q28` | Dropped from the drawable decks |
-| Camera battery | Flagged `battery_h` estimates |
+| Bogachiel Peak shortcut | `through_route: false` and a `spur` block on both summit segments; the `_2n_classic` preset pins the peak as a `via` |
+| Thunder and fog odds | `park_rules.json` `climate.m1a_weather_inputs`, flagged estimates (August: 1.5 thunder days; the crest in fog 23% of days), tuned against the death caps in S18 |
+| Thin weather inputs | The same block: the fair, unsettled, wet and storm chain from Quillayute; Buckinghorse for the High zone; ridge wind; Sappho 8 E for the Sol Duc valley; 2027 daylight |
+| Group and stock sites | `camp.group_site` and `camp.stock_site` on every Sol Duc camp |
+| Night-model numbers | `gear_catalog.json` `night_model_stats`: each item's own stats win, the doc's are fallbacks. Doc 7.9, 8.13 and Appendix A were recomputed from them |
+| The beer | `beer_hazy_ipa_16oz` is in the food catalog, with the M1b pre-roll: 88 foods |
+| The dark deck | Split into `dark_fall` and `dark_fog`, with a lint rule |
+| Popularity and odds | `m1a_play_inputs`: quota odds by camp, month and night type, desk requests, ranger visits and the permit check, trail traffic, the no-canister visitor roll; future fire bans in `park_rules.json` |
+| Place fields | `m1a_play_inputs.places` for all 47 loop nodes: `map_xy`, canopy, cold pools, water, views, snow features, and the lily's weight at 0 |
+| Kits | `loop_in_a_day_3l` and `day_gear_TRAP_no_canister` in the catalog's sample kits |
+| Dated news in permanent fields | In `conditions_2026`, each entry with `from`, `until` or `persists`, `last_confirmed` and `applies_to` |
+| `oh_q28` | No longer drawable |
+| Camera battery | Battery stats on the cameras, the speaker and the drone |
+| The plush fox | Removed: 217 items |
+| The quiz | `quiz_locals.json`: twelve questions, each with a source |
 
-### 3.6 What M1a shows and hides (audit N2)
+One data task is left, for the engine: the B.2 golden needs a seed where Lunch Lake is open on both the Friday and the Saturday, about a 4% draw at the August weekend odds. S9 finds one and freezes it.
+
+### 3.6 What M1a shows and hides (lead call 3)
+
+Doc 15's list, plus the plan's own two rows (settings and audio). The scope file holds each switch, and the lint checks it.
 
 | Thing | In M1a |
 |---|---|
-| The WIC phone number and counter card | Hidden until the call exists (M1b) |
-| Month chips | August and September only |
-| Desk requests | Bruce's Roost, Cat Basin, Hidden Lake; Long Lake and Sol Duc Lake as pencil rows |
-| Lodge, Second Growth, Skillet chips | Hidden until M1b |
-| The Bonfire Lily | Weight 0 everywhere until M1b |
-| Walk out, share codes, Share the Cover | M1b |
-| Try this trip again | Shown; it copies the stamped permit |
-| Print the permit at home | Shown (on the cut list) |
-| Storybook | No UI at all; every `book_ends` still carries its override, linted |
+| The WIC phone number, the counter card and their Look hotspot | Hidden until the call exists (M1b): no page shows the number |
+| Month chips | August and September only (June to October from M1b) |
+| *Ask at the desk* rows | Bruce's Roost, Cat Basin and Hidden Lake, tappable; Long Lake and Sol Duc Lake as pencil rows that can't be tapped |
+| Drive chips: the Skillet and the Lodge | Hidden until M1b |
+| Second Growth's chip | Hidden until M1b; Fernwood's beer cooler is in |
+| The Bonfire Lily | Weight 0 everywhere until M1b: no roll, no plate, no rumor |
+| Walk out and Walk on, trip codes, Share the Cover | M1b |
+| Try this trip again | Shown; it copies the stamped permit under the next number |
+| Print the permit at home | Shown (first on the cut list) |
+| Storybook | No UI at all; every `book_ends` carries its `modes.storybook` override, linted |
 | Settings | Odds, Text, Pages, Sound, Park, Export/Import, Colophon, Bookshelf |
 | Audio | Page turn, Look, stamp, compass, outcomes, title theme, the death cues, quiz, censor blip, can, marmot, jay |
 
@@ -507,7 +516,7 @@ The doc says about 50. The extra cards are the chains the fair death paths need.
 | Encounter | 7 | Bear in the huckleberries; deer after salt; a Canada jay; cougar sign at Deer Lake; kind strangers; a Boy's tip; a Boy's trade or warning |
 | Discovery, joy | 6 | Dipper; marmot on a rock; meadow flowers; huckleberries; alpenglow and stars; a quiet old-growth page |
 | Camp | 5 | Pick a site; Make camp; the evening tiles; food away at bedtime; a full camp |
-| Night | 4 | A cold night (a ♦ when bagless); a visitor; rain on the tent; a still night |
+| Night | 4 | A cold night (a ♦ when bagless); a visitor (every night when food is out of a canister, or there's no canister); rain on the tent; a still night |
 | Chains, crisis | 5 | The Cold chain; a damp evening; dark coming, no headlamp; thirst on the crest; food running short |
 | Delayed, epilogue | 3 | Hot spots to blisters; the bear that learned; creek water to a bad stomach |
 | Larry | 3 | Heart Lake and Crack the IPA (tiles); the permit check (dealt) |
@@ -523,7 +532,7 @@ Every card is linted, benched under six loadouts and read in transcripts before 
 | The locals' quiz | Three questions from twelve sourced ones, once per phone, before the shelf |
 | Heart Lake | *Swim (brr)*: feet, shorts, or all the way; the censor bar; the jay (about 1 in 4, food in a pocket); a Boy on cue; the towel; at dusk with no towel, the Cold chain |
 | The IPA | Fernwood's cooler (21+, *"Humor me."*), canister liters, *Crack the IPA* at camp: spirits, buzzed -5, dehydration, -2 °F, the empty as trash |
-| The permit check | A dealt Larry card on legal nights (capped); the forced off-permit ranger roll uses the same card (audit N5) |
+| The permit check | A dealt Larry card on legal nights (capped); the forced, uncapped off-permit ranger roll uses the same card (lead call 5) |
 
 All of them: overnight trips only, never the walk-out day, nothing near the car (lint T05), and `flags.larry` on in every build.
 
@@ -559,7 +568,7 @@ The first match wins, in that order (doc 9.5). Every line starts *You have died 
 ### 5.5 Epitaph sources
 
 - **From** `lore/quotes_public_domain.json`, verbatim, `page_image_checked`, with a public-domain reason, source and URL. No Wood line, ever.
-- **Decks** (distinct lines today): cold 35, fog 38, lightning 37, dark 42. After the dark-deck split, every key still has well over the minimum of 8.
+- **Decks** (distinct lines today): cold 35, fog 37, lightning 37, and for *...of the dark.* `dark_fog` 37. The dark deck is split by base cause (`dark_fall` 41 waits for M2's falls), and `oh_q28` is out. Every key is well over the minimum of 8.
 - **Order:** the death's own tags first, then the general pool; explorers' own words before newspaper summaries; shuffled on the book's text stream, so the same death deals the same lines.
 - **Rules:** at most 40 characters as printed; no death, injury or named person; a line with a caution is dealt only for the causes it names.
 
@@ -718,11 +727,12 @@ No statistical gate runs per push, so a deploy never fails at random (doc E.9).
 - **math:** deterministic functions match reference values. In `engine/`, the lint bans every `Math` function the spec lets engines approximate (`exp`, `expm1`, `log`, `log1p`, `log2`, `log10`, `pow`, `sin`, `cos`, `tan`, `asin`, `acos`, `atan`, `atan2`, `sinh`, `cosh`, `tanh`, `cbrt`, `hypot`) and the `**` operator. `sqrt`, `floor`, `round` and the like are exact and stay allowed. It also bans the things that differ between Node in CI and your phone: `Date`, `Intl`, `toLocaleString` and its kin, and `localeCompare`. The calendar is whole-day integer math from the edition date, and sorts compare code points.
 - **fixtures:** a bug report becomes a frozen replay only after a scrub that swaps the hiker's name for `{HIKER}` and drops the note field, and a test fails any fixture that still has either. You might name a hiker after a friend, and the repo is public.
 - **expr:** parsing, types, the whitelist; no loops, assignment or randomness.
-- **odds:** a seeded roll and a known p give exact bands; fatal shares are exact and rounded up; a blurred worst case is never below the truth; the true p lies inside every shown range.
-- **graph:** shortest by time; `via` pins; spurs; all 24 camp rows of doc 4.3 both ways; loops of 18.4 and 18.7 mi.
+- **odds:** a seeded roll and a known p give exact bands; fatal shares are exact and rounded up; a blurred worst case is never below the truth; the true p lies inside every shown range; a physics-curve roll (the night roll) skips the shaky band and the 5-97 clamp, reads in two bands, and gets the Words row below 30%.
+- **graph:** shortest by time; `via` pins; spurs (Bogachiel Peak is never on a through route); doc 4.3's 24 M1a camps both ways (the 21 permitted camps and the three desk requests, Hidden Lake's 2.3 and 17.5 mi included); loops of 18.4 and 18.7 mi.
 - **movement and daylight:** the 3.1 arrival times; Back to the car in about 3.9 h (B.6); the 7.2 daylight table.
-- **pack:** B.2's kit; the hard blocks; legal slots only.
-- **permit:** seeded quota rolls; `104-` plus four digits; the counter survives a wipe; day hikes take no number.
+- **pack:** B.2's kit; the three hard blocks (no canister is not one); legal slots only.
+- **permit:** quota and desk rolls keyed by `hash(seed, date, camp)` and fixed for the book; `104-` plus four digits; the counter survives a wipe; day hikes take no number and never move the counter; *Try this trip again* copies the stamped permit under the next number.
+- **score:** 9.6's worked maximum (96); a day hike's maximum set at *Start walking*; a layover night earns no camp points; a replan never drops the maximum below the score; a citation with the Hard Way still finishes at 10; the Leave No Trace ledger never passes 100.
 - **save:** round trips; replay matches snapshot; every storage key and cache name has a channel prefix.
 - **wipe and import:** only the register entry survives a death; a half-done wipe finishes at launch; import refuses older saves and dead hikers; register merges never remove a line.
 - **death:** cause-variant order; deck order fixed per book; the caution filter; 40 characters.
@@ -799,7 +809,8 @@ Each becomes a test, so the doc and the engine can't drift apart (doc F.4):
 - B.6's fork: Heart Lake 4:30 by the crest, 5:00 through the basin, Back to the car in about 3.9 h.
 - 12.21: `Score: 50 of 96`.
 - Doc 7.2's daylight table.
-- The 7.9 and 8.13 night examples, regenerated from catalog stats.
+- 9.6's worked maximum: 96 for the ↺ one-night crest fill. The doc's other maxima (170, 131, 64, 120) are illustrative until the engine computes them.
+- The 7.9 and 8.13 night examples, as the doc now gives them from the catalog's stats.
 - B.5's 98.3% and 91.8%, B.6's 0.2% crest share and the trap rows: regenerated, recorded, and shown to you in the review book.
 
 ### 7.5 Reports
@@ -824,7 +835,7 @@ Every run writes a short summary the agent reads and the review book shows you:
 
 A *Done when* that needs your phone never holds up the next session. Your check is logged as owed, and the work goes on. Only two of your answers gate anything. The look verdict (S5-S6) gates the S6 promotion of main and drawing art in volume (S13 on); if it's late, S7 to S12 go first, since they need no new art. Your playtest (S19) gates the M1a promotion.
 
-**Before session 1:** your "go"; the audit and data-check edits, and this plan, committed (all three are sitting uncommitted); and the design branch merged into `main`, which today holds only a README.
+**Before session 1:** your "go", and your OK to merge the design branch into `main`, which today holds only a README. Everything else is ready (`design/READY.md`). Session 1 starts by committing the design work that sits uncommitted on `game-design` (the doc, both audits, the data cleanup, this plan), then merges it into `main` by PR.
 
 ### 8.2 Foundations and the look (M0, M0.5)
 
@@ -845,9 +856,9 @@ A *Done when* that needs your phone never holds up the next session. Your check 
 - **Done when:** a bug report copied on your phone replays identically in Node, and the self-check reads *match* on your phone.
 
 **S4 · The data build**
-- **Build:** ingest of all seven regions with its report; the M1a overlays and every fix in 3.5; `conditions/2026.json`; daylight and climate files; the beer; `kits.json`; schemas and the canonical tag list; `build.mjs` and the scope file; the graph lints.
+- **Build:** ingest of all seven regions with its report (the 3.5 fixes are already in the data, so ingest checks them and lists every flagged estimate); the thin M1a overlay; `conditions/2026.json`; daylight and climate files from `m1a_weather_inputs`; `permits.json`; `kits.json`; the quiz file; schemas and the canonical tag list; `build.mjs` and the scope file with 3.6's switches; the graph lints.
 - **You see:** a pencil map of the loop at `#map` on preview, every camp in place.
-- **Done when:** the 24 camp rows, both loops and B.1's miles pass as goldens, and the ingest report has no unexplained errors.
+- **Done when:** the 24 M1a camps, both loops and B.1's miles pass as goldens, and the ingest report has no unexplained errors.
 
 **S5 · The look, part 1**
 - **Build:** the page frame (status line, picture, caption, conditions, Sierra box, choices, (i), toolbar, short-screen fold); fonts; composer v0; the meadow and lake-basin bases; the Olympus skyline; first stamps and the hiker; Deer Lake composed; the basin from the rim hand-drawn; time-of-day remaps; lake and star cycling; page-turn, Look and stamp sounds.
@@ -862,17 +873,17 @@ A *Done when* that needs your phone never holds up the next session. Your check 
 ### 8.3 The first playable (M1a)
 
 **S7 · Trail physics**
-- **Build:** movement, the clock and daylight, the weather generator with flagged thunder and fog odds, the body and night models, pack tags, energy from food.
+- **Build:** movement, the clock and daylight, the weather generator with flagged thunder and fog odds, the body meters and the night model (read from each item's catalog stats), pack tags, energy from food.
 - **You see:** walk the loop with no cards. The clock and the sky change at the right times.
 - **Done when:** the 3.1, 3.3 and B.6 times and the night examples pass as goldens.
 
 **S8 · Odds, cards and the Director**
-- **Build:** odds, knowledge ranges, cards, effects, chains and foreshadow flags, the Director, the cause trace, the score; `mods.json`, `macros.json` and `tuning.json` (score budgets, skill levels); the card bench; the card and fair-death lints; six exemplar cards in the Authoring Brief.
+- **Build:** odds, knowledge ranges, cards, effects, chains and foreshadow flags, the Director, the cause trace, the score; `mods.json`, `macros.json` and `tuning.json` (the score budgets at the doc's starting values, skill levels 0 to 5); two-band physics-curve rolls; the card bench; the card and fair-death lints; six exemplar cards in the Authoring Brief.
 - **You see:** walking the loop now meets a few real cards: fog on the way trail, a sunset, a cold night.
-- **Done when:** the band and fatal-share unit tests pass, and the bench reproduces B.3's 97, 92, 93 and 95.
+- **Done when:** the band, fatal-share and score unit tests pass, the worked maximum comes out at 96, and the bench reproduces B.3's 97, 92, 93 and 95.
 
 **S9 · The ranger desk**
-- **Build:** the WIC counter scene; the region map; the three questions and twelve fills; the itinerary sheet (ETAs against dark, difficulty words, *Stay again* and *Move on*, side trips, the basin-or-crest chip); quota rolls and full-camp moves; the three desk-request camps; the validator, review and briefing; the Trip Outlook's place on the page (it can't run whole trips until S11 builds the days, so its numbers go live in S12, in the same worker as the look-ahead); the permit with its 104 counter; the day-hike path.
+- **Build:** the WIC counter scene; the region map; the three questions and twelve fills; the itinerary sheet (ETAs against dark, difficulty words, *Stay again* and *Move on*, side trips, the basin-or-crest chip); seeded quota rolls and full-camp moves; the three desk-request camps (about 70% midweek, 40% on weekends); the validator, review and briefing (a plan with no canister is never refused, only frowned at); the Trip Outlook's place on the page (it can't run whole trips until S11 builds the days, so its numbers go live in S12, in the same worker as the look-ahead); the permit with its 104 counter; the day-hike path (no permit, no number); the B.2 golden seed (3.5).
 - **You see:** plan the loop either way and stamp permit `104-0001`.
 - **Done when:** all twelve fills match B.1, and a full Lunch Lake moves to Round Lake with the ranger's line.
 
@@ -882,7 +893,7 @@ A *Done when* that needs your phone never holds up the next session. Your check 
 - **Done when:** B.2's pack golden passes.
 
 **S11 · The road and the days**
-- **Build:** the Lake Crescent drive; the trailhead last look (beer never listed) and register kiosk; *Start walking*; the day loop (morning, pace, legs and slots, arrival, *Make camp* and tiles with the light stepping down, night, morning); *Change the plan* with off-permit nights and the overdue clock; the three endings, back cover, Field Notes, *Try this trip again*; the Pack, Map and Journal tabs. **The harness grows up here, not in S18:** all seven bots, the M1a plan library (7.2), the look-ahead memo (7.1), and the 7.3 targets table printed as a report, not yet a gate. Doc 16 asks for the harness to be built before most content, and the authoring loop (5.8) needs it to simulate each batch.
+- **Build:** the Lake Crescent drive; the trailhead last look (beer never listed), with the day-use trip-plan line for day hikes, and the register kiosk (*day hike* where a permit number would be); *Start walking*, where a day hike's maximum is set; the day loop (morning, pace, legs and slots, arrival, *Make camp* and tiles with the light stepping down, night, morning); *Change the plan* with off-permit nights and the overdue clock; the three endings, back cover, Field Notes, *Try this trip again* (it copies the stamped permit); the Pack, Map and Journal tabs. **The harness grows up here, not in S18:** all seven bots, the M1a plan library (7.2), the look-ahead memo (7.1), and the 7.3 targets table printed as a report, not yet a gate. Doc 16 asks for the harness to be built before most content, and the authoring loop (5.8) needs it to simulate each batch.
 - **You see:** a whole rough book, from the desk to the back cover.
 - **Done when:** 2,000 smoke trips have no crash, dead end or stuck state, and a real trip's cost is measured and the matrix sized from it (7.2).
 
@@ -900,7 +911,7 @@ A *Done when* that needs your phone never holds up the next session. Your check 
 - **Done when:** as S13, plus every event tag in play appears in at least 3 cards.
 
 **S15 · Larry moments**
-- **Build:** the quiz (twelve sourced questions); Heart Lake hand-drawn; the swim tile, censor bar and blip, the jay, the Boy, the towel and the Cold chain; *Crack the IPA*; the permit check and the off-permit ranger; the T05 lint.
+- **Build:** the quiz (twelve sourced questions); Heart Lake hand-drawn; the swim tile, censor bar and blip, the jay, the Boy, the towel and the Cold chain; *Crack the IPA*; the permit check (capped, legal nights) and the off-permit ranger (forced, uncapped); the T05 lint.
 - **You see:** the 12.21 page.
 - **Done when:** the Larry lints pass, and early Joy-seeker runs stay inside the sensible caps.
 
@@ -924,7 +935,7 @@ A *Done when* that needs your phone never holds up the next session. Your check 
 
 **Up to three spare sessions** sit here as buffer, inside the doc's estimate of 15 to 22 sessions to this point. If they get used, M1b's session numbers shift by the same amount.
 
-**Cut first, if M1a runs long:** *Print the permit at home*; *Try this trip again*; the hand-drawn Lake Crescent (a composed road instead). Then the doc's own list: the Hoh Lake and Cat Basin side trips; plans of four nights or more; the IPA and the permit check. **Never cut:** a direction, the basin or the crest, the fork, the three-night fills, the death sequence, or Copy bug report.
+**Cut first, if M1a runs long:** *Print the permit at home*; *Try this trip again*; the hand-drawn Lake Crescent (a composed road instead). Then the doc's own list: the Hoh Lake and Cat Basin side trips as day trips (their camps stay); plans of four nights or more; the IPA and the permit check. **Never cut:** a permitted camp (decision 17), a direction, the basin or the crest, the fork, the three-night fills, the death sequence, or Copy bug report.
 
 ### 8.4 M1b: the Sol Duc side and the call (about 9 sessions)
 
@@ -934,7 +945,7 @@ A *Done when* that needs your phone never holds up the next session. Your check 
 | S21 | Off-trail navigation; Long Lake and Sol Duc Lake as desk requests |
 | S22 | The WIC call: the number hotspot (T06), *Ask about a lake*, Morgenroth's way trail (your GPX if it's here), the hand-drawn scene, the IPA there, the Boyz' rumor |
 | S23 | The other Larry moments: the bold marmot, the thin tent wall, the Lodge, Second Growth's pre-roll with its odds and citation |
-| S24 | The Bonfire Lily: snow features, weights, the glow plate, sketch or pick, the motif |
+| S24 | The Bonfire Lily: weights on the snow features already in the data (after you confirm the windows), the glow plate, sketch or pick, the motif |
 | S25-S26 | Content to about 105 cards; at least 32 notable cards per coverage cell; story uniqueness |
 | S27 | Storybook's hidden overrides simulated; share codes; *Walk out*; the remaining audio; the nightly job on a schedule |
 | S28 | Balance (in season and shoulder), ablations, the device checklist, and your playtest |
@@ -943,7 +954,7 @@ A *Done when* that needs your phone never holds up the next session. Your check 
 
 ---
 
-## 9. Open items
+## 9. What's left
 
 ### 9.1 Things only you can give us
 
@@ -958,40 +969,38 @@ A *Done when* that needs your phone never holds up the next session. Your check 
 | Morgenroth: GPX, stories, photos; whether the route may be published; whether the Strava link stays | S22 | Nothing: straight-line estimates and art notes until then |
 | Your own quiz questions (optional) | S15 | Nothing |
 | Asking about Robert Wood's sentences (optional) | Never | Nothing |
+| Whether the Bonfire Lily's snow windows match your memory (optional) | S24 | Nothing: flagged estimates, and the lily is weight 0 in M1a |
 | Your playtests | S19, S28 | The milestone exits |
 
 The GPX never enters the repo. A session reads it outside the repo and commits only a simplified line, its distance, gain and trail class (doc E.5). Send it in a Claude chat, never attached to a GitHub issue: issues on a public repo are public.
 
-The plush fox isn't a question any more. Your homage decision rules out any fox, so ingest drops it (3.4).
+The plush fox isn't a question any more: your homage decision rules out any fox, and it's gone from the catalog.
 
-### 9.2 Calls we'll make unless you say otherwise
+### 9.2 Calls already made
 
-These are the audit's open questions (N1 to N20) and the data check's, each with the default we'll build:
+There are no open questions. The audit's twenty and the data check's are closed, and the engineering calls that closed them are the doc's [Lead calls](GAME_DESIGN.md#lead-calls), one line each and yours to overrule. This is where each gets built:
 
-| Question | Default |
+| Lead call | Built in |
 |---|---|
-| N1 · WIC-only camps in M1a | Bruce's Roost, Cat Basin and Hidden Lake at the desk now; Long Lake and Sol Duc Lake in M1b |
-| N3 · Day hikes have no permit | Score maximum set at *Start walking*; trip plan left at the trailhead; register says "day hike"; no 104 number |
-| N4 · An overnight with no canister | Allowed: food doesn't fit, a visitor roll every night, a ranger card, LNT costs. Still only three hard blocks |
-| N5 · The off-permit ranger | A forced, uncapped roll that plays the permit-check card; the cap covers legal nights only |
-| N6 · Night rolls under 30% | They skip the bands; a Words row under 30%; a two-band compass |
-| N7 · The score maximum | Budgets in `tuning.json`; a worked maximum for one fill as a golden |
-| N8 · When the seed is drawn | At *Begin a new book*; *Try this trip again* copies the stamped permit |
-| N9 · Skill levels | 0 to 5, thresholds in `tuning.json` |
-| N10 · Day-hike turnaround on a loop | The shortest way to the car |
-| N11 · The fork when climbing out of the basin | Fires only when the next segment leads in |
-| N12 · Skinny dipping on a day hike | No: overnight trips only, never the walk-out day, as decision 18 reads |
-| N13, N14 · Tag names, "pack presets" | One canonical tag list; presets are the sensible and skimpy kits |
-| N16 · Edition date | The calendar runs from the research date (2026-10-07), never from the phone's clock, as doc 4.7 says. So every M1a trip (August or September) falls in 2027. Under *As researched*, dated 2026 entries don't apply to it, open-ended ones persist, entries past their last confirmation are told as *"last we heard"*, and the fire ban is drawn from climatology (*"we'll know closer to the date"*). *Timeless* stays one tap away. It is never the fallback, since decision 15 makes the real conditions the default |
-| N20 · Leave No Trace over 100 | Capped at 100 |
+| 1 · Desk requests for Bruce's Roost, Cat Basin and Hidden Lake; Long Lake, Sol Duc Lake and the call in M1b | S9; S21-S22 |
+| 2 · Day hikes: no permit, the maximum at *Start walking*, the day-use line, *day hike* in the register, the counter untouched | S9, S11, S16 |
+| 3 · What M1a shows and hides | 3.6, in S4's scope file |
+| 4 · No canister is allowed: a visitor roll every night, -5 Leave No Trace a night, a ranger card | S9, S14 |
+| 5 · The off-permit ranger: forced, uncapped, plays the permit-check card | S11, S15 |
+| 6 · Night rolls: no shaky band, a Words row below 30%, a two-band compass | S8 |
+| 7 · Score budgets in `tuning.json`, the 96 worked maximum, the Leave No Trace cap | S8 |
+| 8 · The seed at *Begin a new book*; `hash(seed, date, camp)`; *Try this trip again* copies the permit | S3, S9, S11 |
+| 9 · The smaller calls (skills 0 to 5, the turnaround, the fork on the way in, the overnight-only swim, one tag list, the presets, the edition date, the lily's layover) | S4-S12 |
+| 10 · The night model reads the catalog | S7 |
+
+**The plan's own build calls**, also yours to overrule:
+
+| Call | Default |
+|---|---|
 | Placeholders on the live site | Allowed until the tagged v1.0 release build, which refuses them (F.3) |
-| Night-model numbers | The catalog's per-item stats; the doc's as defaults |
-| `oh_q28` | Dropped from the dice |
 | Your Strava link | Stripped by ingest, so it's in no committed content and no published edition, until you say it may stay (doc 16, Still to come). It's already in the research file, which is public today |
 | Saves across preview editions | The device record (the register and the permit counter) always migrates. On preview, a book from an edition whose save format changed closes with a note instead of being migrated, so sessions don't write a migration every day. On main, everything migrates, as F.5 checks |
 | Bug reports in the repo | Only scrubbed (6.6): the hiker's name becomes `{HIKER}`, and the note is dropped |
-
-N2 is the shows-and-hides list in 3.6. N15, N17 and N19 are doc fixes that wait for their milestones, and N18 comes with the lily in M1b.
 
 ---
 
@@ -1004,7 +1013,7 @@ N2 is the shows-and-hides list in 3.6. N15, N17 and N19 are doc fixes that wait 
 | **Pages deploy pitfalls:** one artifact is the whole site, the environment allows `main` only, a broken preview | One workflow on `main`; preview pushes dispatch it; the `last-good-preview` fallback; a red build deploys nothing |
 | **Stale files on iOS** (Pages caches for 10 minutes; service workers; code that ships unhashed; an installed app that only checks for updates when it's launched) | A build id over code and content, stamped into `sw.js` so any change to what ships changes it (3.3); `cache: 'reload'`; the worker checks `version.json` before caching; `registration.update()` on every return to the foreground; updates wait for the bookshelf; a debug button that clears only this channel's caches, never a save |
 | **iOS clears storage, or Safari and the Home Screen split it** | Install before the first save; `persist()`; Export and Import |
-| **No thunder or fog data**, and the crest's two deaths depend on it | Flagged estimates tuned to the caps; listed in the review book; replaced if research lands |
+| **Thunder and fog odds are estimates** (bracketed by research, not measured on the crest), and the crest's two deaths depend on them | Flagged in the data with their evidence; tuned to the caps in S18; listed in the review book; replaced if better research lands |
 | **Permadeath feels unfair** | The fairness invariant on every simulated death; lints for sure choices and foreshadowing; every target met before you play |
 | **Content volume and voice drift** (about 58 cards, about 600 lines) | The Authoring Brief; batches of 25; the bench; 20 transcripts a batch; your review book |
 | **AI-drawn art looks muddy** | The PNG loop; option B side by side; your sign-off at session 6 before volume; bases reused; only 10 drawn by hand |
@@ -1013,7 +1022,7 @@ N2 is the shows-and-hides list in 3.6. N15, N17 and N19 are doc fixes that wait 
 | **The real WIC number on screen** | Hidden in M1a; the `format-detection` meta in the shell from session 1; T06 |
 | **Lost context between sessions** | `BUILD_LOG.md`; small PRs; one plan entry per session; CI as the contract |
 | **The doc and the engine drift apart** | The doc's numbers are golden tests; when one has to change, the doc is updated with it, and you hear about any number you'd care about |
-| **Uncommitted data edits** | Commit them, with the audit and this plan, before session 1; ingest output committed and checked in CI |
+| **Uncommitted design work** (the doc, both audits, the data cleanup and this plan sit uncommitted on `game-design`) | Session 1 commits them first, then merges into `main`; ingest output committed and checked in CI |
 | **Older or slower iPhones** | E.10 budgets; frame time in the debug menu; a Low Power Mode check |
 | **The harness is too slow to balance with** (the look-ahead costs hundreds of plain trips; hosted runners have 4 cores) | The look-ahead memo and 100-run bot bars (7.1); trip cost measured in S11 and the matrix sized from it (7.2); the harness running from S11, not S18 |
 | **GitHub won't take the session's workflow files, or its push to `main`** | Session 1 lands by PR and pushes the workflow first; if refused, you paste one file from your phone (6.1, 9.1) |

@@ -2615,6 +2615,111 @@
    "flavor": "A round green watermelon, the most ridiculous thing to carry up a mountain and the most wonderful thing to share at the top.",
    "kcal_per_oz": 6,
    "kcal_per_l": 114
+  },
+  {
+   "id": "beer_hazy_ipa_16oz",
+   "name": "Blue Hour Hazy IPA (16-oz can)",
+   "unit": "1 can (16 fl oz, 473 mL; 6.5% ABV), Slugwater Brewing Co. (fictional)",
+   "calories": 270,
+   "weight_oz": 17.4,
+   "volume_l": 0.55,
+   "volume_repacked_l": 0.55,
+   "price_usd": 4,
+   "prep": "no_cook",
+   "fuel_g": 0,
+   "water_l": 0,
+   "morale": 3,
+   "tags": [
+    "treat",
+    "heavy"
+   ],
+   "spoils_days": null,
+   "crushable": false,
+   "needs": [],
+   "sold_at": [
+    "grocery"
+   ],
+   "age_min": 21,
+   "requires_flag": "larry",
+   "event_tags": [
+    "beer",
+    "larry"
+   ],
+   "overnight_only": true,
+   "smellable": true,
+   "empty": {
+    "weight_oz": 0.5,
+    "volume_l": 0.05,
+    "what": "a crushed can",
+    "pack_out": true
+   },
+   "effects": {
+    "spirits": "By the place and the sky: a big lift at a beautiful spot on a clear evening, a small one in the rain (GAME_DESIGN 2.6).",
+    "buzzed": "Until bedtime: -5 on footing, navigation and anything else the evening asks; a second can doubles it.",
+    "water_l": -0.3,
+    "night_margin_f": -2,
+    "leave_no_trace": "Empty packed out: +2 score. Left behind: -5 on the Leave No Trace ledger (9.6). Outside the canister overnight it counts as food left out (6.3)."
+   },
+   "real_world_notes": "Legal in Olympic National Park for adults 21 and over (no backcountry ban was found; hamma_hamma.json permit_and_rules). A 16-oz can weighs about 17.4 oz full (about 16.9 oz of beer and a 0.5-oz aluminum can) and, as a rigid 2.6-by-6.2-inch cylinder, takes about 0.55 L of the canister: a lunch's worth of room. It is scented, so it rides in the bear canister at night, full or crushed. Alcohol makes a cold night feel warmer than it is. A 6.5% hazy IPA runs about 260-290 kcal a can.",
+   "flavor": "A tall can of hazy IPA with a dusk-blue label, sweating gently in Fernwood's cooler.",
+   "kcal_per_oz": 16,
+   "kcal_per_l": 491
+  },
+  {
+   "id": "pre_roll",
+   "name": "Second Growth House Pre-Roll",
+   "unit": "1 pre-roll (1 g) in a pop-top tube, Second Growth (fictional)",
+   "calories": 0,
+   "weight_oz": 0.2,
+   "volume_l": 0.015,
+   "volume_repacked_l": 0.015,
+   "price_usd": 10,
+   "prep": "no_cook",
+   "fuel_g": 0,
+   "water_l": 0,
+   "morale": 2,
+   "tags": [
+    "treat"
+   ],
+   "spoils_days": null,
+   "crushable": false,
+   "needs": [
+    "lighter"
+   ],
+   "sold_at": [
+    "cannabis_shop"
+   ],
+   "age_min": 21,
+   "requires_flag": "larry",
+   "event_tags": [
+    "pre_roll",
+    "larry"
+   ],
+   "overnight_only": true,
+   "smellable": true,
+   "milestone": "M1b on the Seven Lakes loop; M5 at St. Peter's Gate (GAME_DESIGN 2.6)",
+   "empty": {
+    "weight_oz": 0.15,
+    "volume_l": 0.015,
+    "what": "the tube and what is left of the roll",
+    "pack_out": true
+   },
+   "effects": {
+    "legal": "A citation if a ranger strolls by, never more (2.6): illegal on federal land, in the park (36 CFR 2.35) and the national forest.",
+    "munchies_kcal": [
+     400,
+     800
+    ],
+    "time_slip_min": [
+     30,
+     60
+    ],
+    "footing_and_navigation": "-5 for two hours"
+   },
+   "real_world_notes": "Legal in Washington for adults 21 and over and sold only in licensed shops; illegal on federal land, including all of Olympic National Park and Olympic National Forest. A 1-g pre-roll weighs about 0.04 oz, and its child-resistant tube about 0.15 oz more. About $10 with Washington's cannabis excise tax. It is scented, so it rides in the canister. Fire bans: the 2026 Stage 2 order banned campfires and charcoal and asked smokers to use ashtrays, but set no smoking ban (park_rules.json campfires.future_ban_climatology).",
+   "flavor": "A neat little paper twist in a green tube, which the clerk hands over with a look that says: not where you're going.",
+   "kcal_per_oz": 0,
+   "kcal_per_l": 0
   }
  ],
  "bear_can_capacity": {
@@ -2919,5 +3024,5 @@
    "Food that doesn't fit at night is overflow: the night-visitor roll applies (simulation.md 6.4), and on the coast the raccoons are very good at this game."
   ]
  },
- "notes": "Food catalog for Olympic Peninsula Hiker (design data, 2026-10). Each item is one 'unit' as bought (see unit): calories, weight_oz (including packaging), volume_l as sold, volume_repacked_l after repacking into a zip bag (equal to volume_l when repacking doesn't help), price_usd at a 2026 grocery or outfitter (sold_at says where; 'home' means made from your own kitchen, priced at its cost). prep: no_cook, boil (needs stove, fuel and a pot or mug), cold_soak (needs a jar or pot and time), fresh (perishable, eaten as is). fuel_g is grams of canister fuel per unit with an upright canister stove in mild weather (about 7 g per half-liter boil plus about 1 g per minute of simmering); apply the needs.fuel_g_per_day multipliers for cold, wind and stove type. water_l is the water needed to prepare it (not drinking water). morale runs from -2 (sad) to +3 (joyful) and feeds dinner and snack joy (simulation.md 7.2 'yum'; suggested mapping yum = max(0, morale)). TAGS come from the fixed list: breakfast, lunch, dinner, snack, treat, fresh, heavy, hot, spoils, smelly, caffeine, electrolyte. Four are derived by the build script so they stay consistent: fresh (prep is fresh), hot (prep is boil), heavy (at least 4 oz and under 50 kcal per ounce), spoils (spoils_days of 7 or fewer). smelly marks strong-odor foods (cured meat, fish, strong cheese) that raise night-visitor odds when they overflow the canister; every food item is a smellable for canister purposes. crushable foods lose morale (not calories) when packed under heavy items. kcal_per_oz and kcal_per_l are computed. Trap foods (canned goods, watermelon, foam cups) are honest: their notes and densities are shown in the store. Brand names are generic. Values are typical label numbers rounded for play."
+ "notes": "Food catalog for Olympic Peninsula Hiker (design data, 2026-10). Each item is one 'unit' as bought (see unit): calories, weight_oz (including packaging), volume_l as sold, volume_repacked_l after repacking into a zip bag (equal to volume_l when repacking doesn't help), price_usd at a 2026 grocery or outfitter (sold_at says where; 'home' means made from your own kitchen, priced at its cost). prep: no_cook, boil (needs stove, fuel and a pot or mug), cold_soak (needs a jar or pot and time), fresh (perishable, eaten as is). fuel_g is grams of canister fuel per unit with an upright canister stove in mild weather (about 7 g per half-liter boil plus about 1 g per minute of simmering); apply the needs.fuel_g_per_day multipliers for cold, wind and stove type. water_l is the water needed to prepare it (not drinking water). morale runs from -2 (sad) to +3 (joyful) and feeds dinner and snack joy (simulation.md 7.2 'yum'; suggested mapping yum = max(0, morale)). TAGS come from the fixed list: breakfast, lunch, dinner, snack, treat, fresh, heavy, hot, spoils, smelly, caffeine, electrolyte. Four are derived by the build script so they stay consistent: fresh (prep is fresh), hot (prep is boil), heavy (at least 4 oz and under 50 kcal per ounce), spoils (spoils_days of 7 or fewer). smelly marks strong-odor foods (cured meat, fish, strong cheese) that raise night-visitor odds when they overflow the canister; every food item is a smellable for canister purposes. crushable foods lose morale (not calories) when packed under heavy items. kcal_per_oz and kcal_per_l are computed. Trap foods (canned goods, watermelon, foam cups) are honest: their notes and densities are shown in the store. Brand names are generic. Values are typical label numbers rounded for play. LARRY ITEMS (added 2026-10-08, M1A_DATA_CHECK item 6): beer_hazy_ipa_16oz and pre_roll carry extra fields: age_min (21), requires_flag ('larry': only builds with flags.larry on sell them), event_tags (the beer and pre_roll event tags), overnight_only (never on a day hike or the walk-out day, 2.6), smellable (they ride in the canister), empty (the trash to pack out) and effects (2.6). sold_at adds 'cannabis_shop' (Second Growth, next door to Fernwood). Both brands are fictional. With them the catalog has 88 items: 49 no-cook, 25 boil, 11 fresh and 3 cold-soak."
 }

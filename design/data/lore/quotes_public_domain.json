@@ -56,12 +56,16 @@
    "fog": [
     "fog"
    ],
-   "dark": [
+   "dark_fall": [
     "dark",
     "fall"
+   ],
+   "dark_fog": [
+    "dark",
+    "fog"
    ]
   },
-  "note_on_dark": "'dark' is the *You have died of the dark.* variant of a fall or cliff death; it uses the fall deck with dark-tagged lines first.",
+  "note_on_dark": "'dark' is the *You have died of the dark.* variant of a fall or a fog cliff death (in M1a, a fog death after dark). It deals from the deck of its base cause: dark_fall for a fall, dark_fog for a fog cliff death, each with dark-tagged lines first. Split on 2026-10-08 (M1A_DATA_CHECK item 8), so a fog death after dark never deals a fall-only line.",
   "note_on_hunger_snow": "hunger and snow are tags, not cause keys: snow lines feed cold, fall and crevasse; hunger lines sit in the general pool (no hunger death exists in the game).",
   "decks": {
    "cold": {
@@ -108,7 +112,6 @@
    },
    "fall": {
     "preferred": [
-     "oh_q28",
      "oh_q30",
      "on_oq042",
      "on_oq068",
@@ -153,11 +156,10 @@
      "pe_q43",
      "oh_q03"
     ],
-    "distinct_total": 42
+    "distinct_total": 41
    },
    "crevasse": {
     "preferred": [
-     "oh_q28",
      "oh_q30",
      "on_oq068",
      "on_oq088",
@@ -201,7 +203,7 @@
      "pe_q43",
      "oh_q03"
     ],
-    "distinct_total": 41
+    "distinct_total": 40
    },
    "river": {
     "preferred": [
@@ -337,7 +339,6 @@
    },
    "fog": {
     "preferred": [
-     "oh_q28",
      "oh_q30",
      "oh_q34",
      "on_oq042"
@@ -378,13 +379,12 @@
      "pe_q43",
      "oh_q03"
     ],
-    "distinct_total": 38
+    "distinct_total": 37
    },
-   "dark": {
+   "dark_fall": {
     "preferred": [
-     "oh_q28",
-     "oh_q30",
      "on_oq042",
+     "oh_q30",
      "on_oq068",
      "on_oq088",
      "on_oq126",
@@ -427,7 +427,51 @@
      "pe_q43",
      "oh_q03"
     ],
-    "distinct_total": 42
+    "distinct_total": 41
+   },
+   "dark_fog": {
+    "preferred": [
+     "on_oq042",
+     "oh_q30",
+     "oh_q34"
+    ],
+    "general": [
+     "oh_q29",
+     "oh_q36",
+     "oh_q53",
+     "oh_q56",
+     "oh_q60",
+     "on_oq015",
+     "on_oq018",
+     "on_oq046",
+     "on_oq052",
+     "on_oq068",
+     "on_oq090",
+     "on_oq091",
+     "on_oq092",
+     "on_oq098",
+     "on_oq106",
+     "on_oq111",
+     "on_oq130",
+     "on_oq146",
+     "on_oq147",
+     "on_oq159",
+     "on_oq160",
+     "pe_q08",
+     "pe_q11",
+     "pe_q15",
+     "pe_q47",
+     "pe_q50",
+     "pe_q39",
+     "pe_q40",
+     "pe_q16",
+     "pe_q22",
+     "pe_q24",
+     "pe_q42",
+     "pe_q43",
+     "oh_q03"
+    ],
+    "distinct_total": 37
    }
   },
   "general_pool": [
@@ -466,7 +510,32 @@
    "pe_q42",
    "pe_q43",
    "oh_q03"
-  ]
+  ],
+  "deck_for_cause": {
+   "cold": "cold",
+   "fall": "fall",
+   "crevasse": "crevasse",
+   "river": "river",
+   "tide": "tide",
+   "lightning": "lightning",
+   "fog": "fog",
+   "dark": {
+    "fall": "dark_fall",
+    "fog": "dark_fog"
+   }
+  },
+  "deck_base_cause": {
+   "cold": "cold",
+   "fall": "fall",
+   "crevasse": "crevasse",
+   "river": "river",
+   "tide": "tide",
+   "lightning": "lightning",
+   "fog": "fog",
+   "dark_fall": "fall",
+   "dark_fog": "fog"
+  },
+  "lint": "F.3 (added 2026-10-08): every line in a deck is drawable, and a line with caution_causes appears only in decks whose base cause (deck_base_cause) is in that list; every deck has at least 8 distinct lines."
  },
  "counts": {
   "quotes": 296,
@@ -477,8 +546,8 @@
   },
   "page_image_checked": 288,
   "fits_epitaph_40": 64,
-  "drawable_now_40_chars": 47,
-  "epitaph_ok_up_to_60_chars": 99,
+  "drawable_now_40_chars": 46,
+  "epitaph_ok_up_to_60_chars": 98,
   "with_a_cause_tag": 118,
   "held_back_unverified": 1,
   "duplicates_found": 0,
@@ -489,6 +558,44 @@
    "quotes_removed": 0,
    "held_back_removed": 7,
    "held_back_kept": 1
+  },
+  "decks_2026_10_08": {
+   "cold": {
+    "distinct": 35,
+    "preferred": 4
+   },
+   "fall": {
+    "distinct": 41,
+    "preferred": 10
+   },
+   "crevasse": {
+    "distinct": 40,
+    "preferred": 9
+   },
+   "river": {
+    "distinct": 39,
+    "preferred": 5
+   },
+   "tide": {
+    "distinct": 35,
+    "preferred": 1
+   },
+   "lightning": {
+    "distinct": 37,
+    "preferred": 3
+   },
+   "fog": {
+    "distinct": 37,
+    "preferred": 3
+   },
+   "dark_fall": {
+    "distinct": 41,
+    "preferred": 9
+   },
+   "dark_fog": {
+    "distinct": 37,
+    "preferred": 3
+   }
   }
  },
  "sources": {
@@ -1930,8 +2037,8 @@
    "text": "a shout that died when half uttered",
    "chars": 35,
    "fits_epitaph_40": true,
-   "epitaph_ok": true,
-   "drawable": true,
+   "epitaph_ok": false,
+   "drawable": false,
    "speaker": "L. A. Nelson",
    "speaker_detail": "L. A. Nelson",
    "voice": "explorer",
@@ -1957,7 +2064,7 @@
     "fog"
    ],
    "suggested_uses": [
-    "epitaph"
+    "narrator_aside"
    ],
    "caution": "Figurative 'died' (a shout cut short at a false summit in cloud); deal only for fog, fall or crevasse. Keep in the tone review.",
    "caution_causes": [
@@ -1974,7 +2081,8 @@
     "fetched": "https://npshistory.com/publications/olym/m-v1n3-1907-2.pdf",
     "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
     "public_domain_reason_confirmed": true
-   }
+   },
+   "not_an_epitaph_because": "It says 'died' (of a shout, figuratively), and 9.5's rule is literal: a dealt line never mentions a death. Dropped from every deck on 2026-10-08 (M1A_DATA_CHECK item 19); kept as a narrator aside for the false-summit page."
   },
   {
    "id": "oh_q29",
