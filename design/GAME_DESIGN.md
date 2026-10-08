@@ -477,59 +477,69 @@ Your call (2026-10-08): *"I want it to have some leisure suit Larry in it too. l
 
 ## 3. Core loop
 
+An Open trip, from the cabin and back (the Hike of the Day and FKT attempts use the same trail, with their own starts, 2.2):
+
 ```
- First launch only: a locals' quiz
+ First launch only: the lockbox,
+ then the guest book (a name)
     ▼
- Bookshelf (no hiker? type a name)
-    │  Begin a new book
+ THE CABIN (live time)
+    │  the screen door: plan
     ▼
  THE DAY BEFORE
- Ch.1 RANGER DESK: where · which way
+ MAP TABLE: where · which way
     │  round · day hike or nights ·
     │  each night's camp · the basin
-    │  or the crest · date · briefing
-    │  · permit · Jon, for Olympus
+    │  or the crest · date · Jon,
+    │  for Olympus
     ▼
- Ch.2 STORE: food · fuel · small
-    │  items · rent or buy gear
+ PERMIT: print it (104-xxxx)
+    │  the car
     ▼
- Ch.3 PACK: in the pack, strapped
-    │  outside, or left home
+ TOWN: Port Angeles · the WIC
+    │  (optional) · three stores
+    ▼
+ CABIN, evening ─ the shed ─▶
+ FLAT LAY: lay it out · share it
+    │  · pack it
     ▼
  DEPARTURE MORNING
- Ch.4 DRIVE: road pages · trailhead:
-    │  "leave anything in the car?"
+ DRIVE: through Forks · the
+    │  tailgate: "leave anything
+    │  in the car?"
     ▼
  DAYS: morning ▸ depart ▸ trail
-    │  pages and decisions ▸ arrive ▸
-    │  make camp ▸ sunset ▸ night ▸
-    │  morning ▸ ...
+    │  stops and decisions ▸
+    │  arrive ▸ make camp ▸ sunset
+    │  ▸ night ▸ morning ▸ ...
     ▼
- THE END ▸ back cover ▸ Field Notes
- ▸ plan again, or try this trip again
+ THE CAR: the ending's stamp ▸
+ DRIVE HOME ▸ CABIN ▸ TRIP REPORT
+ ▸ (a big hike) THE SOAK
     │
-    └ or the death box ▸ YOU PERISHED
-      ▸ Leave No Trace ▸ an epitaph ▸
-      GAME OVER ▸ an empty shelf and
-      the Trail Register ▸ a new name
+    └ or the death box ▸ YOU
+      PERISHED ▸ Leave No Trace ▸
+      an epitaph ▸ GAME OVER ▸ the
+      cabin at dusk ▸ the register
+      ▸ the guest book: a new name
 ```
 
-**When things happen.** Chapters One to Three happen the day before the trip: the permit and the WIC's loaner canister are picked up then, the food is bought that afternoon, and the pack is packed that evening. Chapter Four starts on departure morning, when you choose when to leave.
+**When things happen.** Planning, the town run and the flat lay all happen the day before the trip. You plan at the cabin and print the permit in the morning, make the run to Port Angeles (the WIC's loaner canister is picked up there, and the food is bought), and lay out your gear on the deck that evening. The drive starts on departure morning, when you choose when to leave. None of the day before costs trip time.
 
-**Day hikes** need no wilderness permit and no canister, so they skip both. Chapter Two shrinks to a quick *grab lunch* stop on the way, with no beer cooler and no Second Growth (2.6), and the pack chapter uses a day pack. With no permit to carry them, the trip plan goes on a day-use line at the trailhead (12.10), where it drives the overdue clock (3.7); the score maximum is set at *Start walking* (9.6); the Trail Register shows *day hike* where a permit number would be; and the 104 counter doesn't move (12.6).
+**Day hikes** need no wilderness permit and no canister, so they skip both, and they skip the town run too: lunch is grabbed on the drive, at the last-chance shelf in Forks, with no beer cooler and no Second Growth (2.6), and the flat lay uses a day pack from the shed. With no permit to carry them, the trip plan goes on a day-use line at the trailhead (12.10), where it drives the overdue clock (3.7); the score maximum is set at *Start walking* (9.6); the Trail Register shows *day hike* where a permit number would be; and the 104 counter doesn't move (12.6).
 
-Back navigation is free during planning, shopping and packing (it is planning, after all). It closes at **Start walking**. After that nothing goes back, in either mode: every page autosaves, and what happened, happened (9.4).
+Going back is free while you plan, shop and lay out your gear (it is planning, after all). It closes at **Start walking**. After that nothing goes back, in any mode: every stop autosaves, and what happened, happened (9.4).
 
-### 3.1 Chapter One: the ranger desk (planning)
+### 3.1 Planning at the map table
 
-The first page is the Wilderness Information Center (WIC) in Port Angeles: a counter, a big wall map, a forecast board and a ranger. The planner is the book's **endpaper map**.
+You plan at home, at the cabin's table, with the park map spread on it, and you print your own permit, as real Olympic hikers do: once a reservation is issued, *"you will be able to log in to your account and print the permit yourself"* ([NPS, Wilderness Reservations](https://www.nps.gov/olym/planyourvisit/wilderness-reservations.htm)). The Wilderness Information Center (WIC) in Port Angeles becomes an optional stop on the town run (3.2).
 
-**Step 1: Where.** The endpaper map always shows the whole park. Tap a region, then a trailhead; regions not built yet are pencil sketches that can't be chosen (4.1). Or open *The ranger's favorite trips*: the presets, filtered by region, number of nights and level, about 8 at a time. In a first book the ranger asks three questions about the High Divide loop instead (3.6).
+**Step 1: Where.** The park map always shows the whole park. Tap a region, then a trailhead; regions not built yet are pencil sketches that can't be chosen (4.1). Or open *the ranger's favorite trips*, a binder the cabin's old ranger left on the table: the presets, filtered by region, number of nights and level, about 8 at a time. On a first trip the table asks three questions about the High Divide loop instead (3.6).
 
 **Step 2: What kind of trip, and when.** A row of chips: `Day hike` `1` `2` `3` `4` `5` `6+` nights. Then the date: month chips plus a calendar. The date chips and the permit always show the year.
-- **The calendar rule.** A trip falls in the 12 months after the edition date (the research date of the conditions overlay the build carries, never the phone's clock, 4.7), in the next open season. In this edition, any date up to Oct 15, 2026 is this autumn, and anything later is in 2027 (4.7).
+- **The calendar rule.** A trip falls in the 12 months after the conditions date (the research date of the conditions overlay the build carries, never the phone's clock, 4.7), in the next open season. With this build's conditions, any date up to Oct 15, 2026 is this autumn, and anything later is in 2027 (4.7). The cabin itself runs on the real clock (2.2); the trip's date is the one you pick.
 - **Seasons.** Summer permits run May 15 to Oct 15. Glacier Meadows, Elk Lake and Martin Creek are reservable Jun 15 to Oct 15, and the Seven Lakes Basin and High Divide camps are bookable online from Jul 15 to Oct 15. A date outside those windows routes to a *Phone the WIC* card (`park_rules.json`: high camps outside the online window are arranged by phone), with winter rules only when the date is also outside May 15 to Oct 15. The card is a form, not the call: it handles the out-of-window permit for the camps already on the itinerary and says what season rules apply, and it offers nothing else (no *Ask about a lake*). Lake Morgenroth still needs the number in the fine print (4.3).
-- **Weekends** make quotas tighter, trails busier (more kind strangers) and the free canister loan scarcer. The ranger suggests the destination's best month.
+- **Weekends** make quotas tighter, trails busier (more kind strangers) and the free canister loan scarcer. The planner suggests the destination's best month.
 
 **Step 3: The itinerary, night by night.** On a loop the first row asks **which way round**, two chips with an honest line each (4.3): on the High Divide, *↺ Deer Lake first* (counterclockwise) or *↻ River first* (clockwise). Then each night is a row. Tapping a night row opens a list of the camps reachable from the night before, in that direction first, sorted by distance, each with the day's numbers:
 
@@ -546,12 +556,14 @@ Lunch Lake    10.9 mi  (full that night)
 
 (Night 1 of Appendix B's trip, clockwise from the Sol Duc trailhead at 8:30 am on a Thursday in August, at a Regular hiker's pace with a comfortable load, by the 7.4 formula: Sol Duc Park is (7.1 / 2.4 + 2,470 / 1,300) x 1.12 = 5.4 h.) The map highlights each camp as you scroll the list. The map also pinch-zooms, with clustered markers ("3 camps") that open into single ones, because Round, Lunch and Clear Lakes (or the Hoh's 13.1, 13.2 and 13.3 Mile sites) sit a couple of points apart at phone scale. Disabled rows say why: closed, full that night, outside the quota season, or a group site (7 to 12 people) that a solo hiker can't book. Camps kept off the website show as *ask at the desk* rows (in M1a: Bruce's Roost, Cat Basin and Hidden Lake; Long Lake and Sol Duc Lake are pencil rows until M1b, 15). One lake in the basin isn't in the list at all: Lake Morgenroth, which you get only by calling the WIC (4.3).
 
+**Desk requests.** Tapping an *ask at the desk* row marks that night as a request. A plan with a request can't be printed at the cabin: the next-step button says to take it to the WIC (DRAFT wording), and the permit is issued at the counter on the town run, where the ranger considers the request (a seeded roll, 4.3). If she can't grant it, she offers the nearest legal camps there and then.
+
 **Up high: the basin or the crest.** On the High Divide, the day that crosses the Divide gets one more chip pair, *Drop into the basin* or *Stay on the crest*. It sets the route between that day's camps, through Lunch Lake by the stone staircase or the Mirror Lake way trail, or along the crest past Bogachiel Peak, and the day's miles, climb and arrival time change with it. It is a plan, not a promise: the same question comes back on the trail as a fork card (7.4, 12.12).
 
 The route between camps follows the trails automatically (shortest by hiking time, avoiding closures), except where the plan pins it with `via` waypoints: the basin-or-crest chip, a pinned side trip, or a fill or preset that keeps a research route (4.6, B.1). Each day row shows:
 - miles, gain and loss, and an estimated hiking time at a Regular hiker's pace (7.3);
 - when you'd arrive, compared with dark ("arrive 5:10 pm; dark at 7:15");
-- a storybook difficulty word: *an easy stroll, a good day, a long day, a very long day, the ranger raises an eyebrow*.
+- a plain difficulty word (DRAFT): *an easy stroll, a good day, a long day, a very long day, a ranger would raise an eyebrow*.
 
 Each night row has two buttons:
 - **Stay again** makes it a **layover**: no packing up, a free day for side trips with a light pack (the research's `layover_ideas` become suggestions), more joy, and at a high camp a second evening up high.
@@ -559,39 +571,46 @@ Each night row has two buttons:
 
 Side trips on the way (Bogachiel Peak, Hoh Lake and back, the edge of Cat Basin) are pinned with **Add a side trip** on a day row; they add their miles and climb, and they can still be skipped or added on the trail. Traverses ask how you'll get back to your car: a fictional shuttle service, a bike stashed at the far end, or hitching (slow). Two cars would need a party, and v1 hikers go alone. Day hikes pick a turnaround point (on a loop, just the way round and the basin or the crest) and a "back by" time instead of camps.
 
-**Step 4: The ranger's review and briefing.** The ranger reads the plan back in her own voice. Every check in 4.6 becomes a friendly line ("Day 2 is on the crest. Thunder likes the Divide in the afternoon."). Then comes a **one-page briefing** on the one to three things that matter most for this plan, chosen from the plan itself: snow on the Divide in early July, the Hoh in the afternoon, the tide gates on the coast, bears in berry season. The briefing grants all of that knowledge at once (8.6), so there is no list of topics to tap through, and a player who doesn't know what to ask still learns it.
+**Step 4: The plan's notes, and the briefing.** At the cabin, every check in 4.6 becomes a plain note at the foot of the permit, written as a fact, in no one's voice (DRAFT: *"Day 2 crosses the crest. Thunder 20% after 2 pm Friday."*). The **briefing** is at the WIC: if you stop there on the town run, the ranger reads your plan back in her own words, then gives a **one-screen briefing** on the one to three things that matter most for this plan, chosen from the plan itself: snow on the Divide in early July, the Hoh in the afternoon, the tide gates on the coast, bears in berry season. The briefing grants all of that knowledge at once (8.6), so there is no list of topics to tap through, and a player who doesn't know what to ask still learns it. Skip the WIC and you skip the briefing.
 
-**Olympus.** Put Snow Dome or the summit on the plan, and the ranger asks the one question that matters: *"Going up with Jon, or on your own?"* Booking Ranger Jon happens here, at the desk, on one of his days off; going alone is allowed, with a frown and an honest Outlook (4.2).
+**Olympus.** Put Snow Dome or the summit on the plan, and the map table asks the one question that matters (DRAFT): *"Going up with Jon, or on your own?"* Booking Ranger Jon happens here, at planning, on one of his days off; going alone is allowed, with an honest Outlook (4.2).
 
-**The Trip Outlook, first reading.** In the background the game plays the plan forward many times (8.9), **assuming you pack the ranger's sensible kit**, and reports in words: *"If you pack well: a long, lovely trip. Day 2 is a climb, and the nights will be cold."* Tap it for the numbers. It reads again, with your actual pack, when you close the pack (3.2) and at the trailhead (3.3).
+**The Trip Outlook, first reading.** In the background the game plays the plan forward many times (8.9), **assuming you pack the ranger's sensible kit** (the checklist pinned inside the shed door, 6.1), and reports in words (DRAFT): *"If you pack well: a long, lovely trip. Day 2 is a climb, and the nights will be cold."* Tap it for the numbers. It reads again, with your actual pack, when you pack it (3.2) and at the trailhead (3.3).
 
-**Print the permit at home** is the alternative to the WIC. You plan at the kitchen table and keep the afternoon, so you can leave at first light, but there is no briefing, no loaner canister, and the *ask at the desk* rows can't be tapped. The WIC's phone number works from the kitchen table too, for a player who finds it, and it is the only way to Lake Morgenroth from anywhere (4.3, 12.5).
+**The phone.** The cabin has an old wall phone by the map table, and the WIC's number is in the permit's fine print. The *Phone the WIC* card uses it for out-of-window permits, and a player who finds the number on their own can call about anything. It is the only way to Lake Morgenroth (4.3, 12.5).
 
-**Step 5: The permit.** A paper form with pixel handwriting:
+**Step 5: The permit.** A paper form, printed at the cabin:
 - the permit number, which always starts with 104 (`Permit No. 104-0037`, 12.6);
 - party (you, plus Ranger Jon if you booked him, 4.2), entry trailhead, dates with the year, the camp for each night;
-- a quota check for each night (a seeded, weekend-weighted roll, `hash(trip seed, date, camp)`: the book's seed is drawn at *Begin a new book*, so going back to the desk never re-rolls a night, and changing the date does, E.8; "Lunch Lake is full that Saturday" is a planning event with alternatives, not an error);
+- a quota check for each night (a seeded, weekend-weighted roll, `hash(trip seed, date, camp)`: the trip seed is drawn when the plan is first saved, so going back to the map table never re-rolls a night, and changing the date does, E.8; "Lunch Lake is full that Saturday" is a planning event with alternatives, not an error);
 - fees, shown for realism: $8 per adult per night plus a $6 reservation fee;
-- **bear canister**: bring your own, rent one, or try the free WIC loan (available about 70% of the time on summer weekends, 95% midweek). Going without is allowed, with the ranger's frown and its costs on the trail (6.3);
+- **bear canister**: bring your own, buy or rent one at the gear shop, or try the free WIC loan on the town run (available about 70% of the time on summer weekends, 95% midweek). Going without is allowed, with its costs on the trail (6.3);
 - **trip plan left with:** a friend, or no one. A friend reports you overdue 12 hours after your planned exit (3.7);
-- **the forecast**, for the trip days within five days of the planning day. Later days show the ranger's climatology instead ("late September: rain about one day in three");
-- **the fine print** at the foot: *Questions? Call the Wilderness Information Center, 360-565-3100.* It is the real number, from the region data, and the hidden phone (4.3, 12.5). It opens only the game's own call page: it is never a `tel:` link, and the app shell switches off iOS's phone-number detection, so a tap or a long-press never offers to call the real desk (E.7).
+- **the forecast**, for the trip days within five days of the planning day. Later days show climatology instead (DRAFT: "late September: rain about one day in three");
+- **the plan's notes** (Step 4);
+- **the fine print** at the foot: *Questions? Call the Wilderness Information Center, 360-565-3100.* It is the real number, from the region data, and the hidden phone (4.3, 12.5). It opens only the game's own call screen: it is never a `tel:` link, and the app shell switches off iOS's phone-number detection, so a tap or a long-press never offers to call the real desk (E.7).
 
-Tap **Stamp it** (a rubber-stamp *thunk*). The score line appears with the maximum computed for this itinerary (9.6): `Score: 0 of 170` on Appendix B's three-night trip (B.4), `Score: 0 of 131` on the Hoh trip the wireframes use (12). A day hike has no permit to stamp, so its maximum is computed at *Start walking*.
+Tap **Print it** (DRAFT; an old printer's clatter). The printed permit is pinned to the screen door (2.2), and the score line appears with the maximum computed for this itinerary (9.6): `Score: 0 of 170` on Appendix B's three-night trip (B.4), `Score: 0 of 131` on the Hoh trip the wireframes use (12). A day hike has no permit to print, so its maximum is computed at *Start walking*.
 
-### 3.2 Chapters Two and Three: store and pack
+### 3.2 Town and the flat lay
 
-Covered in sections 5 and 6. The store's shopping list is driven by the itinerary (2 breakfasts, 3 lunches, 2 dinners...) and shows a canister gauge as you shop.
+**The town run** (sections 5 and 12.7). The car drives to Port Angeles along Lake Crescent, the day before. Town is a stylized street with four doors, and you may visit any, all or none:
+- **the WIC**: the briefing, the free loaner can, and the desk-only camps (3.1);
+- **the three stores**: the general store, the gear shop and the boutique (5.2).
 
-**Close the pack** runs the Trip Outlook a second time, now **with this pack**, and names the two or three biggest gaps: *"With this pack: this trip very likely ends in serious trouble, and if you keep pushing, about one time in fifteen the book ends. Biggest gaps: no sleeping bag, no headlamp, no rain jacket."* In Old School the Outlook always says how often the plan, followed to the end, ends the book, whenever that is not zero, and any plan that reaches a ♦ that can end the book says so, however small the share (8.9). It is a warning, never a block. The pack chapter then ends with the **packing page**: the narrator describes the pack's contents as prose (Appendix D, page 2).
+The shopping list is driven by the itinerary (2 breakfasts, 3 lunches, 2 dinners...) and shows a canister gauge at every counter. Then *Head home*: the grocery bags wait on the porch steps.
 
-### 3.3 Chapter Four: the drive
+**The flat lay** (6.1), that evening, at the shed. Everything you might carry is laid out top-down on the deck boards, and what you lay out is what goes. **Pack it** runs the Trip Outlook a second time, now **with this pack**, and names the two or three biggest gaps (DRAFT): *"With this pack: this trip very likely ends in serious trouble, and if you keep pushing, about one time in fifteen the hiker dies. Biggest gaps: no sleeping bag, no headlamp, no rain jacket."* In Old School the Outlook always says how often the plan, followed to the end, ends in death, whenever that is not zero, and any plan that reaches a ♦ that can kill says so, however small the share (8.9). It is a warning, never a block.
 
-On a route you haven't driven before, two to five road pages from Port Angeles to the trailhead, using the research's drive times (Port Angeles to the Sol Duc trailhead about 82 minutes, to the Hoh about 143, to the Upper Dungeness about 90). Lake Crescent with palette-cycled water and the old forest at the end of the Sol Duc Road, elk on the Upper Hoh Road, gravel to the Dungeness. **On a route you've already driven, the drive is one page**, with the optional stops as chips: *The Huckleberry Skillet* (a fictional diner; pie costs 45 minutes and lifts spirits), a last-chance store in Forks with higher prices, and on the Sol Duc road a soak at *The Steaming Fern Lodge* (about 90 minutes of Day 1's daylight, 2.6). **No drive, trailhead or car page ever offers, shows or mentions a drink or a joint**, and nothing links either to driving (lint T05).
+There is no packing prose any more: the flat lay is the picture of the pack, and you can share it (6.10).
 
-**Leaving time matters.** You choose when to leave home, and a late start shortens Day 1. Road conditions come from the dated conditions overlay and apply only on the dates they cover (4.7): the Elwha road walk from Madison Falls and the Dosewallips washout (open-ended), entrance-station lines at the Hoh in summer, and in this autumn only, Mora Road closed through Oct 15, 2026 and the US 101 Hoh River Bridge closed Oct 8 to 13, 2026 (a 4-hour detour that cuts Kalaloch, Queets and Quinault off from Forks).
+### 3.3 The drive
 
-**The trailhead: Last look.** The car is open for one page. Move anything between pack and car, except beer and the pre-roll: those come out of the pack only in the pack chapter, and the last look never lists them (2.6, T05). The page shows the Trip Outlook a third time, with this pack, and the honest ETA for Day 1 (on Appendix B's trip: *"Sol Duc Park about 1:55 pm, seven hours before dark"*; on Appendix A's: *"Glacier Meadows about 12:30 am: five and a half hours after dark, by phone light"*). This is the last chance to change the pack, exactly as on a real trip. The game **never makes you forget things at random**: every gap is a choice, which keeps the "why did this happen" trace honest.
+**From the cabin, through Forks.** Quinault is about an hour from Forks ([NPS](https://www.nps.gov/olym/planyourvisit/visiting-quinault.htm)), and the region data gives the time from Forks to each trailhead: the Sol Duc 69 minutes, so about 2 hours 10 from the cabin; the Hoh 58, so about 2 hours. East-side trailheads go through Port Angeles or Hoodsport; the legs from the cabin to those towns are to be measured before M3, and NPS gives about three hours to Port Angeles. On a route you haven't driven before, the drive is two to five road scenes: the lake and the rain forest at the start, the coast and the long straights of US 101, elk on the Upper Hoh Road, the old forest at the end of the Sol Duc Road. **On a route you've already driven, the drive is one screen**, with the optional stops as chips: *The Huckleberry Skillet* (a fictional diner; pie costs 45 minutes and lifts spirits), the last-chance shelf in Forks with higher prices, and on the Sol Duc road a soak at *The Steaming Fern Lodge* (about 90 minutes of Day 1's daylight, 2.6). **No drive, trailhead or car screen ever offers, shows or mentions a drink or a joint**, and nothing links either to driving (lint T05). Lake Crescent, with its palette-cycled water, is on the town run (3.2).
+
+**Leaving time matters.** You choose when to leave the cabin, and a late start shortens Day 1. Road conditions come from the dated conditions overlay and apply only on the dates they cover (4.7): the Elwha road walk from Madison Falls and the Dosewallips washout (open-ended), entrance-station lines at the Hoh in summer, and in this autumn only, Mora Road closed through Oct 15, 2026 and the US 101 Hoh River Bridge closed Oct 8 to 13, 2026: a 4-hour detour that cuts Kalaloch, Queets and Quinault, and so the cabin, off from Forks.
+
+**The trailhead: the tailgate.** The hatch is up for one screen, with the same flat lay on the truck bed (12.10). Move anything between pack and car, except beer and the pre-roll: those come out of the pack only in the flat lay at the cabin, and the tailgate never lists them (2.6, T05). The screen shows the Trip Outlook a third time, with this pack, and the honest ETA for Day 1 (on Appendix B's trip: *"Sol Duc Park about 1:55 pm, seven hours before dark"*; on Appendix A's: *"Glacier Meadows about 12:30 am: five and a half hours after dark, by phone light"*). This is the last chance to change the pack, exactly as on a real trip. The game **never makes you forget things at random**: every gap is a choice, which keeps the "why did this happen" trace honest.
 
 ### 3.4 The days
 
@@ -599,26 +618,27 @@ On a route you haven't driven before, two to five road pages from Port Angeles t
 MORNING weather now, breakfast,
         pack up
 DEPART  pace: Easy / Steady / Push
-LEGS    trail pages; 0-2 beat slots
+LEGS    trail stops; 0-2 beat slots
         per segment, plus landmarks
+        and splits
 ARRIVE  pick a site
 CAMP    Make camp (one tap), then
         free time; the sky darkens
         as it goes
 NIGHT   a night card only if
         something happens; the
-        refrain
+        river, or a closing line
 MORNING move on / stay / side trip /
         home
 ```
 
-A layover day replaces DEPART and LEGS with side trips and camp time.
+A layover day replaces DEPART and LEGS with side trips and camp time. **Splits** are taken at each named place on the route (the trailhead, falls, junctions, lakes, camps) against the plan's ETAs; the strip under the picture shows them (12.2).
 
-**Known ground: Walk out and Walk on.** On ground you have already walked (the way home on an out-and-back, or a valley from an earlier book), the morning page offers **Walk out** (or **Walk on**): one summary page per leg. *"Robin went down the valley the way Robin had come, and the river, which had been loud going up, seemed to have calmed down about everything."* The simulation still runs underneath, and the summary stops only for forced beats (a crisis, a fork, a delayed payoff) and for anything new (an animal, a view not yet seen, a river that has changed). Out-and-back trips stay brisk without extra writing. M1 transcript reviews track pages per return day (target: 3 to 6).
+**Known ground: Walk out and Walk on.** On ground you have already walked (the way home on an out-and-back, or a valley from an earlier trip), the morning screen offers **Walk out** (or **Walk on**): one summary stop per leg (DRAFT: *"You go down the valley the way you came. The river, loud going up, has calmed down about everything."*). The simulation still runs underneath, and the summary stops only for forced beats (a crisis, a fork, a delayed payoff) and for anything new (an animal, a view not yet seen, a river that has changed). Out-and-back trips stay brisk without extra writing. M1 transcript reviews track stops per return day (target: 3 to 6).
 
 ### 3.5 Pacing targets
 
-| Trip | Pages | Minutes in all | Real decisions |
+| Trip | Stops | Minutes in all | Real decisions |
 |---|---|---|---|
 | Day hike | 12-18 | 8-13 | 3-5 |
 | 1 night | 25-35 | 15-22 | 6-10 |
@@ -626,39 +646,39 @@ A layover day replaces DEPART and LEGS with side trips and camp time.
 | 3 nights | 60-75 | 25-35 | 12-18 |
 | 4-6 nights | 75-120 | 30-55 | 18-30 |
 
-Minutes are the whole book, planning included: 4 to 8 minutes at the desk, the store and the pack (about 7 in a first book), then 5 to 7 per hiking day (1.1).
+Minutes are the whole trip, planning included: 4 to 8 minutes at the map table, in town and at the flat lay (about 7 on a first trip), then 5 to 7 per hiking day (1.1).
 
-A **Page density** setting (Short / Usual / Long) changes how many quiet, decision-free pages appear: about 8 to 20 per day.
+A **Trail stops** setting (DRAFT: Few, Usual, Many) changes how many quiet, decision-free stops appear: about 8 to 20 per day.
 
-### 3.6 The first book
+### 3.6 The first trip
 
-**Target: the first trail page within about 7 minutes of opening a new book.** There is no prologue: the book opens at the ranger desk. Without help, a new player would face a park map, a long list of presets, quotas, 88 foods and a 217-item closet before Day 1, which is where players quit. So book one is short on chores and long on story. Every later book gets the full manual path.
+**Target: the trail within about 7 minutes of opening the game for the first time.** There is no prologue: after the lockbox and the guest book (2.2), the game opens on the cabin with the next-step button pointing at the map table. Without help, a new player would face a park map, a long list of presets, quotas, 88 foods and a 217-item shed before Day 1, which is where players quit. So the first trip is short on chores and long on trail. Every later trip gets the full manual path.
 
-| Step | In the first book | Minutes |
+| Step | On the first trip | Minutes |
 |---|---|---|
-| New hiker | Type a name, open the book (12.4) | 0.5 |
-| Ranger desk | The loop's three questions; a filled-in permit to stamp | 2 |
-| Store | "Fill from the list", then 2-3 swaps | 1 |
-| Pack | The ranger's checklist on the floor; about 15 taps | 2.5 |
-| Drive and trailhead | One page and the last look | 1 |
+| Guest book | Type a name (12.4) | 0.5 |
+| Map table | The loop's three questions; a filled-in permit to print | 2 |
+| Town | "Fill from the list" at the general store, 2-3 swaps; the loaner can at the WIC | 1 |
+| Flat lay | The checklist chalked on the deck; about 15 taps | 2.5 |
+| Drive and tailgate | One screen and the last look | 1 |
 | **Total** | | **about 7** |
 
-1. **The loop, three questions.** In M1, the first playable, a first book is always the High Divide and Seven Lakes Basin loop from the Sol Duc trailhead (your call, 2026-10-08). The ranger asks three things, each a row of chips with one honest line (wireframe in 12.5): **which way round** (Deer Lake first, or the river first), **how long** (a day, or 1, 2 or 3 nights), and **up high, the basin or the crest**. She fills in sensible camps for that answer (the twelve fills are in B.1), every night row stays one tap from changing, and the full map and the planner are one tap away for a player who wants more nights or other camps. From M2 the ranger may offer the Hoh instead (Happy Four, the Blue Glacier classic, Five Mile Island), and from v1.0 Royal Basin with a layover. She never offers Lake Morgenroth and never mentions the phone (4.3).
-2. **Fill from the list.** The store's list fills itself with a varied menu sized to the itinerary that fits the canister, then highlights two or three swaps for the player to make (5.3).
-3. **The pack starts on the floor.** The ranger's checklist items lie around the open pack, not in it. Each tap puts one in, and whatever is still on the floor stays in plain sight. A first pack is about 15 meaningful taps; the long tail and the traps wait in "More from the closet" (6.1).
+1. **The loop, three questions.** In M1, the first playable, a first trip is always the High Divide and Seven Lakes Basin loop from the Sol Duc trailhead (your call, 2026-10-08). The map table asks three things, each a row of chips with one honest line (wireframe in 12.5): **which way round** (Deer Lake first, or the river first), **how long** (a day, or 1, 2 or 3 nights), and **up high, the basin or the crest**. It fills in sensible camps for that answer (the twelve fills are in B.1), every night row stays one tap from changing, and the full map and the planner are one tap away for a player who wants more nights or other camps. From M2 the first trip may offer the Hoh instead (Happy Four, the Blue Glacier classic, Five Mile Island), and from v1.0 Royal Basin with a layover. No fill ever offers Lake Morgenroth, and nothing mentions the phone (4.3).
+2. **Fill from the list.** The general store's list fills itself with a varied menu sized to the itinerary that fits the canister, then highlights two or three swaps for the player to make (5.3).
+3. **The checklist is chalked on the deck.** On the flat lay, the ranger's checklist items show as chalk outlines in their places on the deck boards, not yet laid out. Each tap lays one out from the shed, and whatever is still only an outline stays in plain sight. A first flat lay is about 15 meaningful taps; the long tail and the traps wait in *More from the shed* (6.1).
 4. **The presets list is short:** filtered by region, nights and level, about 8 at a time.
-5. **No tutorial pages.** The narrator explains each new thing once, in one line, the first time it appears: the first %, the first ♦, the first fatal share (8.7).
-6. **There is nothing to choose but a name** (12.4). No mode, no character options: the New Hiker page asks for a name and says one plain line, *"One life. If the hiker dies, the book ends, and the shelf goes too."* A new hiker after a death gets exactly this first book again, short chores and all, because they start from nothing (9.8). Every fill the ranger makes with nights in it is a sensible plan, so a first book that takes the ranger's kit is about as safe as backpacking (F.1). The *Day* chip is the one ambitious answer, and she says so: *"Eighteen miles. Take a headlamp and three liters."* With that kit it is the "ambitious but equipped" row of F.1. The first time a button shows a fatal share, the sure choice beside it is outlined, and the narrator says why in one line (8.7).
+5. **No tutorial screens.** The box explains each new thing once, in one line, the first time it appears: the first %, the first ♦, the first fatal share (8.7).
+6. **There is nothing to choose but a name** (12.4). No mode, no character options: the guest book asks for a name and says one plain line (DRAFT): *"One life. If your hiker dies, the trail ends, and their stories go with them."* A new hiker after a death gets exactly this first trip again, short chores and all, because they start from nothing (9.8). Every fill with nights in it is a sensible plan, so a first trip that takes the ranger's kit is about as safe as backpacking (F.1). The *Day* chip is the one ambitious answer, and its note says so (DRAFT): *"Eighteen miles. Take a headlamp and three liters."* With that kit it is the "ambitious but equipped" row of F.1. The first time a button shows a fatal share, the sure choice beside it is outlined, and the box says why in one line (8.7).
 
 ### 3.7 Changing plans on the trail
 
-- **Replanning.** From the morning page, a Fork card or the Map tab, *Change the plan* re-runs the validator with in-trip rules. Closures still route around, but a quota camp is never a block: it becomes an off-permit night (below), and if a ranger comes by, a ranger card (*"It's all right this once. The camp was half empty, and you looked honest."*) with a polite talking-to. The change is noted on the permit, and the score maximum is recomputed without lowering the score already earned (9.6). A change to a camp outside any quota area is simply legal, and costs nothing but the miles.
-- **What a change really costs.** The rule is real: in a quota area you camp where your permit says, and changes are made before the trip unless a ranger approves them (`park_rules.json`). So every changed night there is an **off-permit night**, and the page says what that means before you choose. **One rule, everywhere:** the Leave No Trace cost is always charged, -5 for an off-permit night at a legal site and -10 on the meadow, because it is about the impact, not about getting caught (9.6). The only part that is rolled is the ranger: the chance one comes by that night (from the camp's popularity and the day of the week), shown in the Why sheet, and if one does, a talking-to and maybe a walk to a legal camp at dusk. That roll is forced and uncapped: it is made every off-permit night, whatever the Director's budget, and when it hits it plays the permit-check card (2.6). The Director's cap on Larry cards covers only the permit check it deals on a legal night. **A full camp is still full:** if every site is taken, the honest choices are another legal camp, walking on, or the meadow at -10. Moving one night moves the rest: each later night is checked again. The overdue clock (below) does not move: the friend holding your trip plan still expects the exit you left with them, unless a satellite messenger tells them otherwise, and the page says when they will start to worry. Day visits change nothing: dropping into the basin for lunch, or walking to Lake Morgenroth and back, needs no permit.
-- **Up high.** On the High Divide the basin-or-crest fork card (12.12) is a replanning page of its own: it offers the plan's way, the other way, a night in the basin if that isn't the plan, and the sure way home, each with tonight's ETA against dark, the forecast for the crest, water and what it does to the permit (7.4).
-- **Where's the car?** The game tracks where the car is. Coming out at a different trailhead (the High Divide down to the Hoh via Hoh Lake; out the Elwha) opens an exit menu, each with its time cost and a page: phone the shuttle (needs signal; a 2 to 4 hour wait), hitch (1 to 6 hours, better on busy roads), or a ride with a ranger if one is at the station.
+- **Replanning.** From the morning screen, a Fork card or the Map tab, *Change the plan* re-runs the validator with in-trip rules. Closures still route around, but a quota camp is never a block: it becomes an off-permit night (below), and if a ranger comes by, a ranger card (*"It's all right this once. The camp was half empty, and you looked honest."*) with a polite talking-to. The change is noted on the permit, and the score maximum is recomputed without lowering the score already earned (9.6). A change to a camp outside any quota area is simply legal, and costs nothing but the miles.
+- **What a change really costs.** The rule is real: in a quota area you camp where your permit says, and changes are made before the trip unless a ranger approves them (`park_rules.json`). So every changed night there is an **off-permit night**, and the screen says what that means before you choose. **One rule, everywhere:** the Leave No Trace cost is always charged, -5 for an off-permit night at a legal site and -10 on the meadow, because it is about the impact, not about getting caught (9.6). The only part that is rolled is the ranger: the chance one comes by that night (from the camp's popularity and the day of the week), shown in the Why sheet, and if one does, a talking-to and maybe a walk to a legal camp at dusk. That roll is forced and uncapped: it is made every off-permit night, whatever the Director's budget, and when it hits it plays the permit-check card (2.6). The Director's cap on Larry cards covers only the permit check it deals on a legal night. **A full camp is still full:** if every site is taken, the honest choices are another legal camp, walking on, or the meadow at -10. Moving one night moves the rest: each later night is checked again. The overdue clock (below) does not move: the friend holding your trip plan still expects the exit you left with them, unless a satellite messenger tells them otherwise, and the screen says when they will start to worry. Day visits change nothing: dropping into the basin for lunch, or walking to Lake Morgenroth and back, needs no permit.
+- **Up high.** On the High Divide the basin-or-crest fork card (12.12) is a replanning stop of its own: it offers the plan's way, the other way, a night in the basin if that isn't the plan, and the sure way home, each with tonight's ETA against dark, the forecast for the crest, water and what it does to the permit (7.4).
+- **Where's the car?** The game tracks where the car is. Coming out at a different trailhead (the High Divide down to the Hoh via Hoh Lake; out the Elwha) opens an exit menu, each with its time cost and a screen: phone the shuttle (needs signal; a 2 to 4 hour wait), hitch (1 to 6 hours, better on busy roads), or a ride with a ranger if one is at the station.
 - **The overdue clock.** If you left a trip plan with a friend (on the permit, or on a day hike the trailhead's day-use line, whose *back by* time is the planned exit, 12.10), they report you overdue at your planned exit plus 12 hours, and the chance of a search finding you rises from then on (9.2). With no trip plan, nobody knows to look until someone notices the car, after 2 to 3 days. Staying out longer (a night under the stars, waiting out a tide or a river) moves your exit, and a pencil-strip line says when your friend will start to worry.
 - **Day hikes** get a turnaround card 30 minutes before the "back by" time. It points the shortest way to the car by hiking time from where you stand, which on a loop past halfway is onward, not back the way you came.
-- **Bailing out is always on the table.** The morning page, every Fork card and every crisis card carry a sure way home or a way to call for help. At any moment that could end the book, that sure choice is guaranteed and linted (9.5). Turning back never ends a book.
+- **Bailing out is always on the table.** The morning screen, every Fork card and every crisis card carry a sure way home or a way to call for help. At any moment that could kill the hiker, that sure choice is guaranteed and linted (9.5). Turning back never kills anyone.
 
 ---
 
@@ -682,7 +702,7 @@ The research covers the whole park in six region files under `design/data/region
 
 The gear catalog (217 items and 8 packs), the food catalog (88 foods) and the park-wide rules (`park_rules.json`: permits, food storage, fires, climate, tides, rescue patterns, fall 2026 conditions) complete the data. The fact-check confirmed the signature mileages against NPS (Hoh trailhead to Glacier Meadows 17.4, Upper Dungeness to Royal Lake 7.2, the High Divide loop 18.4 vs NPS 18.2) and that canisters are required at all 156 public wilderness camp areas. **The files are the source of truth**; this document only cites them. Known gaps: hidden or closed camps (Beaver Flats/Four Stream, Donahue Creek, Madeline Creek, Twelve Mile, Camp Pan, Chateau Camp) have no nodes. **A seventh region has just arrived:** `hamma_hamma.json` (researched 2026-10-07: 49 places, 39 segments, 12 camps, 16 classic trips) covers the Hamma Hamma and Lena valleys on the southeast edge of the park: Lena Lake and Upper Lena Lake (a quota area), the Putvin Trail to Lake of the Angels in the Valley of Heaven, St. Peter's Gate and the Stone Ponds, and The Brothers. It joins the park graph at First Divide. It is planned for M5 (15). It hasn't been through the fact-check or the ingest merge yet, so the counts in the table above are still the six original regions'.
 
-**What a v1.0 player sees of the rest of the park.** The endpaper map always shows the whole park. Regions not yet built (the coast, the Elwha, the Quinault and the rest) are drawn as pencil sketches labeled *pages still being drawn*. Tapping one gets the ranger's *"That valley is a story for another day,"* and it can't be chosen for a trip. The ranger's favorite trips list only playable ones. Each milestone inks in more of the map (15).
+**What a v1.0 player sees of the rest of the park.** The park map on the cabin's table always shows the whole park. Regions not yet built (the coast, the Elwha, the Quinault and the rest) are drawn as pencil sketches (DRAFT label: *still being drawn*). Tapping one gets a plain note (DRAFT: *"That valley is for another day."*), and it can't be chosen for a trip. The Quinault is the cabin's own valley, so its sketch sits right under the cabin's mark on the map. The ranger's favorite trips list only playable ones. Each milestone inks in more of the map (15).
 
 ### 4.2 Mount Olympus and every camp on the Hoh
 
@@ -724,8 +744,8 @@ Everything past Glacier Meadows is an estimate in the data. The park requires bl
 - **Beyond the moraine there are two ways up** (your decision, 2026-10-08): hire Ranger Jon, or go alone at your own risk. The planner allows both and blocks neither.
 - **Glacier skill** is the eighth skill (7.3). Every hiker starts it at 0 (12.4). You earn level 1 on a **glacier school** day with Ranger Jon on the Blue Glacier (an optional extra layover on a guided trip: self-arrest, roped travel, crevasse-rescue practice), and it grows on later climbs, guided or alone, like any skill (7.10).
 
-**With Ranger Jon.** Jon is the only guide you can hire. He is a park ranger who guides Olympus on his days off and wears **badge #104**. That is a playful liberty, and the colophon says so: real rangers don't guide climbs (12.20). You book him at the ranger desk when the summit is on your plan (3.1), on his fixed dates; he may already be booked (a seeded roll by date). His fee shows on the receipt. He meets you at Glacier Meadows the evening before the climb, with the rope (he walks up on his own; it's his day off, and he likes the walk), and from there to the summit and back he is your rope team. You bring the glacier kit (crampons, ice axe, helmet, harness), rented or bought at the outfitter counter (5.1).
-- On Jon's rope a crevasse fall is held, so the crossings are plain percentages with no ♦: the worst case is a cold, frightening hour, not the end of the book. He belays the summit block.
+**With Ranger Jon.** Jon is the only guide you can hire. He is a park ranger who guides Olympus on his days off and wears **badge #104**. That is a playful liberty, and Credits say so: real rangers don't guide climbs (12.20). The cabin at home was his once (2.2), though the game never says so out loud. You book him at planning when the summit is on your plan (3.1), on his fixed dates; he may already be booked (a seeded roll by date). His fee shows on the receipt. He meets you at Glacier Meadows the evening before the climb, with the rope (he walks up on his own; it's his day off, and he likes the walk), and from there to the summit and back he is your rope team. You bring the glacier kit (crampons, ice axe, helmet, harness), rented or bought at the gear shop (5.1).
+- On Jon's rope a crevasse fall is held, so the crossings are plain percentages with no ♦: the worst case is a cold, frightening hour, never a death. He belays the summit block.
 - He is a guide for the ice, not a companion. He doesn't carry your food or fix your pack, and the 17 miles up the Hoh are yours alone: every card below Glacier Meadows treats you as solo.
 - **His personality quirk is still to come from you.** Until then his lines use a placeholder, `{JON_QUIRK}`, and content refers to him by id (`people/ranger_jon`), so the quirk drops in without touching a card.
 
@@ -734,11 +754,11 @@ Everything past Glacier Meadows is an estimate in the data. The park requires bl
 2. **The crevasse field below Snow Dome.**
 3. **The upper glacier below Crystal Pass**, where a bergschrund opens late in the season.
 
-Each % comes from the crevasse model: month and snow bridges, time of day, crampons, footwear, fatigue and glacier skill. A fail usually means the crevasses stop you (you turn back with a story) or a slide and a cold wait for a ranger (a rescue). The worst band is a fall into a crevasse, and 30% of those falls end the book (9.5). **Retracing your own track is the sure choice** on every crossing card, and the way down follows it without another roll. That is a deliberate simplification: what the game prices is stepping onto snow you haven't tested.
+Each % comes from the crevasse model: month and snow bridges, time of day, crampons, footwear, fatigue and glacier skill. A fail usually means the crevasses stop you (you turn back with a story) or a slide and a cold wait for a ranger (a rescue). The worst band is a fall into a crevasse, and 30% of those falls are fatal (9.5). **Retracing your own track is the sure choice** on every crossing card, and the way down follows it without another roll. That is a deliberate simplification: what the game prices is stepping onto snow you haven't tested.
 
-The **summit block**, a short pitch of fifth-class rock, is a ♦ for a soloist too, but its worst case is a fall and a rescue, never the end of the book. The Olympus climbing route is tagged `real_incident` (9.5), and only the generic crevasse keeps a fatal branch there.
+The **summit block**, a short pitch of fifth-class rock, is a ♦ for a soloist too, but its worst case is a fall and a rescue, never a death. The Olympus climbing route is tagged `real_incident` (9.5), and only the generic crevasse keeps a fatal branch there.
 
-**What going alone costs, equipped.** A soloist with crampons, boots and an ice axe, rested, on a late-July morning, meets roughly ♦ 85% · 0.3% fatal at the first crossing, ♦ 80% · 0.6% at the second and ♦ 78% · 0.7% at the third. (These are the true values. Below glacier 2, July snow bridges show as a range, and the fatal share shows its worst end, 7.10, 8.6.) Going on at all three ends about 1.2% of books, more than one in a hundred, and a little under half stand on top. That sits under the 3% cap for ambitious but equipped plans, and F.1 holds it there. With Jon, the same day ends essentially no books.
+**What going alone costs, equipped.** A soloist with crampons, boots and an ice axe, rested, on a late-July morning, meets roughly ♦ 85% · 0.3% fatal at the first crossing, ♦ 80% · 0.6% at the second and ♦ 78% · 0.7% at the third. (These are the true values. Below glacier 2, July snow bridges show as a range, and the fatal share shows its worst end, 7.10, 8.6.) Going on at all three ends about 1.2% of such trips in death, more than one in a hundred, and a little under half stand on top. That sits under the 3% cap for ambitious but equipped plans, and F.1 holds it there. With Jon, the same day kills essentially no one.
 
 **Anyone can put Snow Dome or the summit on the plan.** The planner allows it, the ranger frowns at a solo plan and offers Jon, and the Trip Outlook says in a sentence what the crossings cost. It is never a hard block. A soloist in day gear meets the first crossing like this, at the edge of the moraine:
 
@@ -749,7 +769,7 @@ The **summit block**, a short pitch of fifth-class rock, is a ♦ for a soloist 
 > `[       45% stopped · 0.7% fatal   ]`
 
 - **Turn back** is sure. You keep the glacier view (+5) and, if it's evening, a Bonfire Lily place for the night.
-- **Step onto the ice** is the 55% shown for late-September day gear: sneakers, no crampons, tired. A fail is 70% a crevasse field that stops you, 25% a slide and a cold wait for a ranger, and 5% a fall into a crevasse, 30% of which end the book: 45% x 5% x 30% = 0.675%, shown on the button rounded up as 0.7%. (In the hidden Storybook mode the same fall ends in a rescue, 9.4.) Past it come the other two crossings and the summit block, as above.
+- **Step onto the ice** is the 55% shown for late-September day gear: sneakers, no crampons, tired. A fail is 70% a crevasse field that stops you, 25% a slide and a cold wait for a ranger, and 5% a fall into a crevasse, 30% of which are fatal: 45% x 5% x 30% = 0.675%, shown on the button rounded up as 0.7%. (In the hidden gentle mode the same fall ends in a rescue, 9.4.) Past it come the other two crossings and the summit block, as above.
 
 So every crossing offers a sure way back, no plan is refused, and the summit is open to anyone willing to look at the price. Appendix A.7 plays out the day-gear version, and F.1 tests both.
 
@@ -761,11 +781,11 @@ From the Sol Duc trailhead the High Divide loop runs about 18.4 miles (data; NPS
 
 Every camp is a designated site in the Sol Duc/Seven Lakes quota area (Hoh Lake and C.B. Flats have their own). The online season is Jul 15 to Oct 15; outside it, permits come by phone from the WIC (360-565-3100). Canisters are required, there are no fires above 3,500 ft, and the crest is dry.
 
-**Every choice on the loop is the player's.** Nothing about the route is fixed, at the desk or on the trail:
+**Every choice on the loop is the player's.** Nothing about the route is fixed, at the map table or on the trail:
 - **Which way round** (the table below).
 - **How long:** a day (the research's hard 18.4-mile day), or one, two, three nights or more, with a layover wherever a camp deserves a second evening. The ranger's fills stop at three nights; longer plans add layovers or camps by hand, from M1a on (15).
 - **Where each night is:** any permitted camp on the loop or just off it (the camp tables below), quota and season permitting.
-- **The basin or the crest.** Two ways lead down into the Seven Lakes Basin, one on each side of Bogachiel Peak: the **stone staircase** at the rim junction (maintained; 0.9 mi and 540 ft down to Lunch Lake) and the **Mirror Lake way trail** east of the peak (unmaintained, unsigned and easy to miss in fog; 1.1 mi and 530 ft down to Lunch Lake). Drop in, or stay high on the Divide: chosen at the desk (3.1), and asked again on the trail on a fork card with honest numbers (12.12).
+- **The basin or the crest.** Two ways lead down into the Seven Lakes Basin, one on each side of Bogachiel Peak: the **stone staircase** at the rim junction (maintained; 0.9 mi and 540 ft down to Lunch Lake) and the **Mirror Lake way trail** east of the peak (unmaintained, unsigned and easy to miss in fog; 1.1 mi and 530 ft down to Lunch Lake). Drop in, or stay high on the Divide: chosen at the map table (3.1), and asked again on the trail on a fork card with honest numbers (12.12).
 - **Side trips:** Bogachiel Peak, Hoh Lake, the edge of Cat Basin, Heart Lake, Round and Clear lakes, Mirror Lake (B.1 has the miles).
 - **Changing any of it on the trail,** with real permit consequences (3.7).
 
@@ -822,16 +842,16 @@ Every camp is a designated site in the Sol Duc/Seven Lakes quota area (Hoh Lake 
 
 (Miles run along the loop through the joined graph. Bogachiel Peak going ↺ is by the short, ledgy west route; the better east spur makes it 8.1. Bruce's Roost and Cat Basin going ↻ are by the Cat Basin cutoff above Heart Lake. ☆ marks Bonfire Lily places for designers; players never see the mark. See 10.2 for the months.)
 
-**WIC-only camps.** Long Lake, Sol Duc Lake, Bruce's Roost, Cat Basin and Hidden Lake (0.7 mi up a way trail off the Deer Lake trail) are listed in the permit system but hidden from online booking. In the game they are **special permit requests**, like Upper Royal Basin: at the WIC desk, tap an *ask at the desk* row and the ranger considers it (in season, granted about 70% of the time midweek and 40% on weekends, a roll seeded by the book's seed, the date and the camp, E.8), with a line about why they're kept quiet. From home the rows can't be tapped, but the WIC's phone line can ask for them too (below). **By milestone:** Bruce's Roost, Cat Basin and Hidden Lake are desk requests from M1a, the vertical slice; Long Lake and Sol Duc Lake, which only off-trail links reach, wait for M1b with the off-trail navigation and the phone, and until then they are pencil rows that can't be tapped (15). Lake #8 can't be planned: its location is unverified and no trail reaches it in the data. It lives in a pencil footnote, and on the phone it gets one line (12.5).
+**WIC-only camps.** Long Lake, Sol Duc Lake, Bruce's Roost, Cat Basin and Hidden Lake (0.7 mi up a way trail off the Deer Lake trail) are listed in the permit system but hidden from online booking. In the game they are **special permit requests**, like Upper Royal Basin: tap an *ask at the desk* row at the map table, take the plan to the WIC on the town run, and the ranger considers it at the counter (in season, granted about 70% of the time midweek and 40% on weekends, a roll seeded by the trip seed, the date and the camp, E.8), with a line about why they're kept quiet (3.1). The WIC's phone line can ask for them too, from the cabin (below). **By milestone:** Bruce's Roost, Cat Basin and Hidden Lake are desk requests from M1a, the vertical slice; Long Lake and Sol Duc Lake, which only off-trail links reach, wait for M1b with the off-trail navigation and the phone, and until then they are pencil rows that can't be tapped (15). Lake #8 can't be planned: its location is unverified and no trail reaches it in the data. It lives in a pencil footnote, and on the phone it gets one line (12.5).
 
 **Lake Morgenroth, your favorite spot, off the menu.** The node is `morgenroth_lake`, at 4,130 ft in the quiet eastern end of the basin; the map spells it Morgenroth, and the data calls it Morgenroth Lake. You camped there once and have been back several times. It is not the first playable's trip and not the vertical slice's destination: it is the loop's secret, and it arrives in M1b (15). It gets three things no other camp gets:
-- **You have to call** (your words: *"it's an off menu gotta call"*). It is never in the camp list, a preset, the ranger's fills, a first book or the ranger's talk, and the map shows the lake with no camp mark. The one way to camp there is a phone call to the Wilderness Information Center. The number, 360-565-3100 (the real one, from the region data), is in plain sight and pointed at by nothing: the small print at the foot of the itinerary sheet and the permit (3.1), and a card taped to the WIC counter, a Look hotspot. Tap it and the call opens. *Ask about a lake*, tap the small lake east of Long Lake, and the voice on the line says *"Morgenroth. Nobody asks for Morgenroth."* Then it is a request like the other WIC-only camps, with the same seeded odds. It works from the kitchen table too. At the desk, tapping the lake on the map gets only a plain Look (*"You see a small lake with no camp mark."*), but the call still works, and the phone on the counter rings (wireframe in 12.5). The out-of-season *Phone the WIC* card is not this call and never offers it (3.1). The game never dials a real phone, and iOS is never allowed to offer to (E.7, 16).
+- **You have to call** (your words: *"it's an off menu gotta call"*). It is never in the camp list, a preset, the fills, a first trip or the WIC ranger's talk, and the map shows the lake with no camp mark. The one way to camp there is a phone call to the Wilderness Information Center. The number, 360-565-3100 (the real one, from the region data), is in plain sight and pointed at by nothing: the small print at the foot of the itinerary sheet and the permit (3.1), the cabin's old wall phone by the map table, and a card taped to the WIC counter, each a Look hotspot. Tap it and the call opens. *Ask about a lake*, tap the small lake east of Long Lake, and the voice on the line says *"Morgenroth. Nobody asks for Morgenroth."* Then it is a request like the other WIC-only camps, with the same seeded odds. It works from the cabin and from the WIC counter alike. Tapping the lake on the map gets only a plain Look (*"You see a small lake with no camp mark."*), but the call still works (wireframe in 12.5). The out-of-season *Phone the WIC* card is not this call and never offers it (3.1). The game never dials a real phone, and iOS is never allowed to offer to (E.7, 16).
 - **A way trail you vouched for.** The last stretch, from Long Lake, is a primitive but findable way trail (your firsthand report). In the game that means way-trail time (x1.4, 7.4), navigation checks that show a plain % on a clear day, and fragile meadow to stay off (Leave No Trace). The data's figures are still straight-line estimates: 0.6 mi and +290 ft from Long Lake, about 9.0 mi from the trailhead counterclockwise (12.1 clockwise), and the link down from Clear Lake to Long Lake is still marked off-trail (steep scree). Your GPS track (GPX) replaces all of them (E.5). A day visit needs no permit at all: from Lunch Lake it is 2.4 mi there and back.
 - **A hand-drawn signature scene** (11.7): boulders and heather in front, the lake, the basin rim in layered bands, and now and then a bear grazing the far shore, as the research says they do. It is drawn from your GPS track, photos and stories once you send them; until then, from the research's art notes (B.7). It is also the best place in the game for a cold IPA (2.6, your call).
 
 The only hint is a rumor: now and then one of the 104 Boyz mentions, on the trail, *"There's a lake past Long Lake nobody books. You have to call for it."* (7.11). Nothing about Morgenroth changes the odds or the score rules: it is a camp like any other, just harder to find. B.7 plays a night there.
 
-**The seven lakes**, for the badge *Seven Lakes, all seven* (M6): Lunch, Round, Clear, Long, Sol Duc, Morgenroth and No Name. You earn it by Looking at each of them in one book; most are visible from the rim or the basin trail. Ask the ranger how many lakes there really are, and she lowers her voice: *"More than seven. Don't tell anyone."* (Y Lake, Mirror Lake and Lake #8.)
+**The seven lakes**, for the badge *Seven Lakes, all seven* (M6): Lunch, Round, Clear, Long, Sol Duc, Morgenroth and No Name. You earn it by Looking at each of them on one trip; most are visible from the rim or the basin trail. Ask the WIC ranger how many lakes there really are, and she lowers her voice: *"More than seven. Don't tell anyone."* (Y Lake, Mirror Lake and Lake #8.)
 
 ### 4.4 Royal Basin
 
@@ -839,7 +859,7 @@ On the dry northeast side, in the Olympic rain shadow. From the Upper Dungeness 
 
 ### 4.5 Signature trips
 
-Miles are round-trip (or end-to-end) totals from the region files, recomputed from the graph at ingest (E.4). "Level" is the research's difficulty. These are the ranger's presets, listing only playable regions; players can build any other itinerary on the graph. The ranger never recommends a mistake: a one-night Glacier Meadows trip is listed plainly as "a very long day", and the trap comes from what the player packs. Her Olympus presets all include Ranger Jon; a solo summit is something you build yourself (4.2).
+Miles are round-trip (or end-to-end) totals from the region files, recomputed from the graph at ingest (E.4). "Level" is the research's difficulty. These are the ranger's presets: *the ranger's favorite trips*, the binder the cabin's old ranger left on the map table (3.1), listing only playable regions; players can build any other itinerary on the graph. The binder never recommends a mistake: a one-night Glacier Meadows trip is listed plainly as "a very long day", and the trap comes from what the player packs. Its Olympus presets all include Ranger Jon; a solo summit is something you build yourself (4.2).
 
 **Seven Lakes Basin and the High Divide (M1, the first playable)**
 
@@ -855,7 +875,7 @@ Miles are round-trip (or end-to-end) totals from the region files, recomputed fr
 | Day hike to Sol Duc Falls (from M1b) | 1.6 · 0 | easy | when the road is open |
 | Hoh to Sol Duc via Hoh Lake (either direction; from M2) | 24.4 · 2-3 | hard | late Jul-mid Sep |
 
-Every loop preset can be flipped to the other direction and switched between the basin and the crest; the planner recomputes the miles (4.3). The first book uses the ranger's twelve fills instead of this list (3.6, B.1). (The Sol Duc file's version of the traverse adds a night at Lunch Lake, 25.5 miles. Ingest lists it as its own variant, and both directions of the plain traverse use the graph's mileage.) No preset goes to Lake Morgenroth: the only way there is to call (4.3).
+Every loop preset can be flipped to the other direction and switched between the basin and the crest; the planner recomputes the miles (4.3). The first trip uses the twelve fills instead of this list (3.6, B.1). (The Sol Duc file's version of the traverse adds a night at Lunch Lake, 25.5 miles. Ingest lists it as its own variant, and both directions of the plain traverse use the graph's mileage.) No preset goes to Lake Morgenroth: the only way there is to call (4.3).
 
 **Mount Olympus and the Hoh (M2)**
 
@@ -897,83 +917,112 @@ Every loop preset can be flipped to the other direction and switched between the
 
 ### 4.6 How planning validates an itinerary
 
-Each check becomes a ranger line. Only routing through a **closed trail** is refused outright, and the ranger suggests another way.
+Each check becomes a plain note on the permit at the cabin, and a line in the WIC ranger's own words if you stop at the WIC (3.1). Only routing through a **closed trail** is refused outright, and the planner suggests another way.
 
 - **Legal camps.** Every night is at a real camp node that is open on that date under the conditions overlay (4.7).
 - **A route exists.** The shortest path by estimated hiking minutes, skipping segments closed on those dates, through any `via` waypoints the plan pins (3.1). Loops offer a direction; `via` pins waypoints.
-- **Permits and quotas.** Quota areas (`park_rules.json`): Ozette Coast, Royal Basin, Lake Constance, Upper Lena, East Fork Quinault, Flapjack Lakes, Grand and Badger Valleys, Sol Duc/Seven Lakes/Mink Lake/Cat Basin/Little Divide, Hoh Lake and C.B. Flats, and Elk Lake, Martin Creek and Glacier Meadows on the Hoh. In quota areas: designated sites only. The quota roll is keyed by the book's trip seed, the calendar date and the camp (E.8), so changing the date re-rolls it, and asking again for the same night in the same book never does. WIC-only camps are special requests, made at the desk or by phone; Lake Morgenroth only by phone (4.3). Dates outside a camp's online window go to a *Phone the WIC* card (with winter rules only from Oct 16 to May 14): a form for the camps already on the plan, not the call (3.1).
+- **Permits and quotas.** Quota areas (`park_rules.json`): Ozette Coast, Royal Basin, Lake Constance, Upper Lena, East Fork Quinault, Flapjack Lakes, Grand and Badger Valleys, Sol Duc/Seven Lakes/Mink Lake/Cat Basin/Little Divide, Hoh Lake and C.B. Flats, and Elk Lake, Martin Creek and Glacier Meadows on the Hoh. In quota areas: designated sites only. The quota roll is keyed by the trip seed, the calendar date and the camp (E.8), so changing the date re-rolls it, and asking again for the same night on the same trip never does. WIC-only camps are special requests, made at the WIC on the town run or by phone; Lake Morgenroth only by phone (4.3). Dates outside a camp's online window go to a *Phone the WIC* card (with winter rules only from Oct 16 to May 14): a form for the camps already on the plan, not the call (3.1).
 - **Group size.** 12 people at most; groups of 7 to 12 need group sites, so a solo hiker never sees them offered.
 - **Loops.** A loop plan records its direction and, where the route forks around a basin, which way it goes (`via`, the basin or the crest); every day row shows the result (3.1).
-- **Daily load.** Estimated hiking hours at a Regular hiker's pace (7.3); above 9 hours the ranger frowns. Arrival time is compared with trail-dark.
-- **Snow.** Snow on the route by date, aspect and snow year (7.6): the ranger recommends traction or an ice axe.
-- **Fires.** Allowed only below 3,500 ft, outside named no-fire areas (all of Royal Basin, Grand Valley, Appleton Pass and Oyster Lake, Hoh Lake, Low Divide, Lake Constance, Lake Angeles, Elk Lake and above, the Ozette coast from Wedding Rocks to north of Yellow Banks), and when no ban is on for that date. The 2026 Stage 2 ban (USFS order Aug 7 to Oct 1) is treated as ended inside the park, because no NPS end date was found; the ranger says so. Future summers draw a late-summer ban from climatology (4.7).
-- **Food storage.** The validator reads each camp's `bear_can_required`. A hard-sided canister is required at every NPS wilderness camp (2026 rule; hangs and soft sacks don't count). The ranger says so plainly, but a plan with no canister is never refused: it is a broken rule, with its costs on the trail (6.3). At the few national forest camps where the data says it isn't required (Slide Camp on the Gray Wolf, Camp Mystery, Shelter Rock), the ranger still recommends one.
+- **Daily load.** Estimated hiking hours at a Regular hiker's pace (7.3); above 9 hours the note says so. Arrival time is compared with trail-dark.
+- **Snow.** Snow on the route by date, aspect and snow year (7.6): the note recommends traction or an ice axe.
+- **Fires.** Allowed only below 3,500 ft, outside named no-fire areas (all of Royal Basin, Grand Valley, Appleton Pass and Oyster Lake, Hoh Lake, Low Divide, Lake Constance, Lake Angeles, Elk Lake and above, the Ozette coast from Wedding Rocks to north of Yellow Banks), and when no ban is on for that date. The 2026 Stage 2 ban (USFS order Aug 7 to Oct 1) is treated as ended inside the park, because no NPS end date was found; the note says so. Future summers draw a late-summer ban from climatology (4.7).
+- **Food storage.** The validator reads each camp's `bear_can_required`. A hard-sided canister is required at every NPS wilderness camp (2026 rule; hangs and soft sacks don't count). The note says so plainly, but a plan with no canister is never refused: it is a broken rule, with its costs on the trail (6.3). At the few national forest camps where the data says it isn't required (Slide Camp on the Gray Wolf, Camp Mystery, Shelter Rock), the note still recommends one.
 - **Water.** Dry stretches are flagged (the High Divide crest, the Hoh Lake Trail switchbacks, Grand Ridge).
-- **Tides.** Coast plans show the tide gates on the route. With the WIC briefing or `coast` skill 2, the ranger computes the windows for you.
-- **Road walks and closures,** by date: the Elwha road walk (+6.5 mi to Whiskey Bend) and the Dosewallips washout (+6.5 mi), both open-ended; Staircase's wilderness trails and 14 camps (closed after the 2025 Bear Gulch Fire, open-ended); Six Ridge from Graves Creek to Lake Sundown (closed, open-ended); Mora Road and Rialto Beach (closed through Oct 15, 2026; sources disagree); Lake of the Gods (closed in June 2026 by the Mount Tom Creek Fire near Olympus; status unknown, with a ranger line about smoke on the Hoh).
-- **Olympus.** Past the moraine alone: a warning, a frowning ranger and the offer of Ranger Jon, never a block. Every crossing card offers a sure way back (4.2).
+- **Tides.** Coast plans show the tide gates on the route. With the WIC briefing or `coast` skill 2, the planner computes the windows for you.
+- **Road walks and closures,** by date: the Elwha road walk (+6.5 mi to Whiskey Bend) and the Dosewallips washout (+6.5 mi), both open-ended; Staircase's wilderness trails and 14 camps (closed after the 2025 Bear Gulch Fire, open-ended); Six Ridge from Graves Creek to Lake Sundown (closed, open-ended); Mora Road and Rialto Beach (closed through Oct 15, 2026; sources disagree); Lake of the Gods (closed in June 2026 by the Mount Tom Creek Fire near Olympus; status unknown, with a note about smoke on the Hoh).
+- **Olympus.** Past the moraine alone: a warning, a note and the offer of Ranger Jon, never a block. Every crossing card offers a sure way back (4.2).
 - **Traverses.** A way back to the car (3.7).
 
 ### 4.7 Park settings and the calendar
 
 Your call, confirmed 2026-10-08: the real conditions by default, and Timeless one tap away.
 
-- **As researched (Oct 2026)**, the default: real dated closures, road walks, bridge work and fire restrictions, from a conditions overlay (`content/park/conditions/2026.json`). The colophon says "Park conditions as researched on 2026-10-07".
+- **As researched (Oct 2026)**, the default: real dated closures, road walks, bridge work and fire restrictions, from a conditions overlay (`content/park/conditions/2026.json`). Credits say "Park conditions as researched on 2026-10-07".
 - **Timeless park:** closures off. Seasonal patterns that are climate rather than news (snowpack by month, late-summer fire bans, bugs, berries) stay on.
 
-**Which year a trip happens in.** A trip falls in the 12 months after the edition date (2026-10-07), in the next open season: up to Oct 15, 2026 it is this autumn; after that it is 2027. The year is shown on the date chips and the permit, and all examples in this document use 2027 dates unless they say otherwise. The **edition date** is the research date of the conditions overlay the build ships with (`conditions/2026.json`, researched 2026-10-07): not the day the build was made, and never the phone's clock. Only a refreshed overlay moves it, and the 12-month window with it, so this edition's window ends in October 2027, and a book opened on this edition after that still plans trips inside it.
+**Which year a trip happens in.** A trip falls in the 12 months after the conditions date (2026-10-07), in the next open season: up to Oct 15, 2026 it is this autumn; after that it is 2027. The year is shown on the date chips and the permit, and all examples in this document use 2027 dates unless they say otherwise. The **conditions date** is the research date of the conditions overlay the build ships with (`conditions/2026.json`, researched 2026-10-07): not the day the build was made, and never the phone's clock. Only a refreshed overlay moves it, and the 12-month window with it, so this build's window ends in October 2027, and a trip planned on this build after that still falls inside it. (The cabin's scene runs on the real clock regardless, 2.2.)
 
 **How dated news ages.** Every overlay entry carries a `from` date, an `until` date or a `persists` flag, and the date it was last confirmed:
 - **Dated entries expire.** Mora Road closed through Oct 15, 2026, and the US 101 Hoh River Bridge closed Oct 8 (5 am) to Oct 13 (noon), 2026, affect only trips on those dates.
 - **Open-ended entries persist** until the overlay is updated: the Staircase closures, the Dosewallips washout, Six Ridge, the Hoh River Bridge's single lane.
-- **Stale entries are told as stale.** Anything past its last confirmation date is given by the ranger as *"last we heard"*.
-- **Fire bans** apply only on their own dates. For a 2027 trip, both settings draw a late-summer ban from climatology, and the ranger says *"we'll know closer to the date"*.
+- **Stale entries are told as stale.** Anything past its last confirmation date is given as *"last we heard"* (DRAFT).
+- **Fire bans** apply only on their own dates. For a 2027 trip, both settings draw a late-summer ban from climatology, and the note says (DRAFT) *"we'll know closer to the date"*.
 
 ---
 
-## 5. Store and food
+## 5. The three stores and food
 
 ### 5.1 Where things come from
 
 | Source | What it supplies | Notes |
 |---|---|---|
-| **Your gear closet** (home) | The catalog's standard-tier gear, including the traps (cotton hoodie, jeans, cast-iron skillet) | Free. Packing is choosing, not buying |
-| **The WIC** (Port Angeles) | The free loaner bear canister (10.1 L, heavy) | A seeded roll: about 70% available on summer weekends, 95% midweek |
-| **The store** | Food, fuel canisters, batteries, tide table booklet, small consumables, beer (21+) | Chapter Two |
-| **Second Growth** (next door) | A pre-roll (21+) | A fictional licensed cannabis shop: one shelf on the store page (2.6) |
-| **The outfitter counter** (same store) | Rent or buy: canisters, glacier kit, satellite messenger, premium and cheap tiers | Glacier sets limited to 2-3 on summer weekends; pickup the day before |
-| **Ranger Jon** (asked for at the WIC) | A guided Olympus climb and glacier school: the only guide in the game (4.2) | Booked at planning on his fixed days off (he may already be booked); the fee is shown on the receipt; he brings the rope and meets you at Glacier Meadows |
+| **The shed** (at the cabin) | Your own gear: the catalog's standard-tier items, the traps among them (cotton hoodie, jeans, cast-iron skillet) | Free. Laying out is choosing, not buying. A smaller starting shed is proposed below |
+| **The WIC** (Port Angeles, an optional stop on the town run) | The free loaner bear canister (10.1 L, heavy), the briefing, the desk-only camps | The can is a seeded roll: about 70% available on summer weekends, 95% midweek |
+| **`{STORE_GENERAL}`**, in the spirit of Swain's | Food, fuel, the beer cooler (21+), and cheap, heavy, bombproof gear | 5.2 |
+| **`{STORE_GEAR}`**, in the spirit of Brown's Outdoor | Light, technical gear to rent or buy: canisters, glacier kit, satellite messenger, premium tiers; trail food | Glacier sets limited to 2-3 on summer weekends; pickup the day before |
+| **`{STORE_BOUTIQUE}`**, in the spirit of MOSS | Style and morale: wool flannel, an enamel mug, stickers, treats | Shows in your flat lay |
+| **Second Growth** (next door to the general store) | A pre-roll (21+) | A fictional licensed cannabis shop: one shelf (2.6) |
+| **The last-chance shelf** in Forks | Lunch for a day hike, and anything forgotten, at higher prices | On the drive (3.3) |
+| **Ranger Jon** (booked at planning) | A guided Olympus climb and glacier school: the only guide in the game (4.2) | On his fixed days off (he may already be booked); the fee is shown on the receipt; he brings the rope and meets you at Glacier Meadows |
 
 Rentals come from `gear_catalog.json` (`rentals`, `stats.rent_usd_per_day`). **Skills are not rentable:** an ice axe helps only if you can self-arrest, and a rope only helps a trained team of two or more. Ranger Jon is the one exception, because the skill comes with him (4.2).
 
+**A smaller starting shed (proposed).** Today the shed would hold every standard-tier item. Proposed instead: the ranger's sensible kit for the loop, at the standard tier, plus the 18 traps. Everything else is bought, so the flat lay shows where you shop (6.1). Gear lasts as long as the hiker: it stays in the shed while they live, and the full wipe resets the shed (9.8). Your call ([still to come](#still-to-come-from-you)).
+
 ### 5.2 The stores
 
-All private businesses get fictional names. Public places keep real names.
+**Three stores in Port Angeles** (decision 27: *"Three stores, ones closely based on swains browns and moss."*). Real businesses inspire the vibe; the in-game names, shopkeepers and lines are fictional and yours to write, unless a store gives permission to use its real name. Until then they are `{STORE_GENERAL}`, `{STORE_GEAR}` and `{STORE_BOUTIQUE}`.
 
-- **Fernwood Mercantile**, Port Angeles: the main store, grocery plus an outfitter counter. Shopkeeper with Sierra-style remarks. It sells beer, and checks ID.
-- **Second Growth**, Port Angeles, next door to Fernwood: a licensed cannabis shop (21+). In the game it sells one thing, a pre-roll, and its clerk says the true thing out loud: *"Legal here. Not where you're going."* (2.6). Washington sells cannabis only in licensed shops, which is why it isn't on Fernwood's shelves.
-- **Calawah Grocery & Tackle**, Forks: the last-chance store on the drive west, at higher prices.
-- **Spit and Sound Outfitters**, Sequim: rentals for the east side.
+| Store | In the spirit of | Behind the counter | In your flat lay |
+|---|---|---|---|
+| `{STORE_GENERAL}` | Swain's General Store, open since 1957, selling everything from hardware and clothing to hunting and fishing gear ([Peninsula Daily News](https://peninsuladailynews.com/news/more-of-swains-port-angeles-store-expanding-into-space-left-by-neighbor)) | Plainspoken, proud of things that last; talks price and durability | Plaid, canvas and olive; chunky 2-pixel outlines; heavy shapes |
+| `{STORE_GEAR}` | Brown's Outdoor, a family outfitter that *Outside* named the town's best ([Peninsula Daily News](https://www.peninsuladailynews.com/?p=48639)) | Knows the park, weighs things in grams, honest about what's fragile | Slate, teal and titanium; crisp 1-pixel outlines; small, minimal shapes |
+| `{STORE_BOUTIQUE}` | MOSS, a downtown boutique of Pacific Northwest clothes and goods ([Wanderlog](https://wanderlog.com/place/details/2251622)) | Warm and style-forward; cares how the trip feels and looks | Moss, sage and alpenglow pink; patterned dithers and a tiny fern motif |
+
+*Fernwood Mercantile*, the old draft name for the single store, could live on as the general store's name, if you like it.
+
+**Why they differ in kind, not only in price.** The game shows prices and has no budget (1.2). With no budget, a cheap tier that is simply worse would never be bought. So:
+
+- **The general store is heavy and bombproof.** A new `bombproof` tag means the item never fails from wear. The canvas tarp shrugs off wind that tears a fragile tent, and the foam pad never punctures.
+- **The gear shop is light and technical, and some of it is fragile:** the composite-fabric tent, the 900-fill bag, the carbon poles. The simulation already has their failure chances (the `fragile` and `puncture_risk` tags).
+- **The boutique is morale and style:** a small lift at camp each evening, and the look.
+
+Without a budget, buying is choosing whose version you carry. The receipt still shows the money. The Shoestring wallet waits for M6. **The Hike of the Day has no shopping (proposed):** everyone packs from the same standard shed, so the skill on display is choosing what to leave behind.
+
+**Everyone else on the Peninsula.** All private businesses get fictional names. Public places keep real names.
+- **Second Growth**, next door to the general store: a licensed cannabis shop (21+). In the game it sells one thing, a pre-roll, and its clerk says the true thing out loud: *"Legal here. Not where you're going."* (2.6). Washington sells cannabis only in licensed shops, which is why it isn't on the general store's shelves.
+- **Calawah Grocery & Tackle**, Forks: the last-chance shelf on the drive, at higher prices (3.3).
+- **Spit and Sound Outfitters**, Sequim: rentals for the east side, on the way to the Dungeness (M3).
 - **The Huckleberry Skillet:** the diner on US 101 (pie on the way out, pie on the way home).
-- Lodges, where scenes need them, using the names already in the region files: *The Steaming Fern Lodge* (Sol Duc Hot Springs, whose pools are a Larry moment, 2.6), *Stillwater Lodge* (Lake Crescent), *The Mossback Lodge* (Lake Quinault).
+- Lodges, where scenes need them, using the names already in the region files: *The Steaming Fern Lodge* (Sol Duc Hot Springs, whose pools are a Larry moment, 2.6), *Stillwater Lodge* (Lake Crescent), *The Mossback Lodge* (Lake Quinault, down the shore from the cabin).
 - **Brands are fictional too:** *Blue Hour Hazy IPA* from Slugwater Brewing Co., and Second Growth's house pre-roll. Lint T03 checks them against real breweries and shops like every other name.
 
-There is no guide company. The only guide is **Ranger Jon**, a fictional ranger with a fictional side job, booked at the WIC (4.2), and he has his own voice: *"Ice is honest. It just doesn't tell you everything at once."*
+Every one of these names is a draft (decision 21). There is no guide company. The only guide is **Ranger Jon**, a fictional ranger with a fictional side job, booked at planning (4.2), and he has his own voice: *"Ice is honest. It just doesn't tell you everything at once."*
 
-Before shipping, the linter checks every fictional name against a deny-list of real Peninsula businesses, guide services and park staff (lint T03).
+Before shipping, the linter checks every fictional name against a deny-list of real Peninsula businesses, guide services and park staff (lint T03). The deny-list gains Swain's, Brown's Outdoor and MOSS, so a real name never ships by accident.
 
 ### 5.3 The shopping screen
 
-- An illustrated shop page (tap the shelves to jump to a category; tap the shopkeeper for advice).
-- A **shopping-list notepad** built from the itinerary: Breakfasts ●●○, Lunches ●●●, Dinners ●○○, Snacks, Drinks, Fuel ✓. It checks itself off as you buy.
-- **A canister gauge** on the same notepad: `Canister: 6.4 of 8.6 L · 3.2 days`. Overflow shows the moment it happens, not on the pack screen, with the shopkeeper's *"That won't all fit in a can, friend."*
-- **Fill from the list** (one tap) buys a varied menu sized to the itinerary, with no dinner twice in a row, that fits the canister you plan to carry. It then highlights 2 or 3 swaps for you to make. It is the default in a first book (3.6) and always available after.
-- Rows show name, weight, calories, price and a − / + stepper (44 pt targets).
+**Town** is one screen: a wet street running down to the Strait, three storefronts and the WIC up the hill (12.7). Any door, all of them, or none.
+
+**One list, three ways to fill it.** The same notepad and gauge travel to every counter:
+- A **shopping-list notepad** built from the itinerary: Breakfasts ●●○, Lunches ●●●, Dinners ●○○, Snacks, Drinks, Fuel ✓. It checks itself off as you buy, wherever you buy.
+- **A canister gauge** on the same notepad: `Canister: 6.4 of 8.6 L · 3.2 days`. Overflow shows the moment it happens, not at the flat lay, with a shopkeeper's line (DRAFT: *"That won't all fit in a can, friend."*).
+- **Fill from the list** (one tap) buys a varied menu sized to the itinerary, with no dinner twice in a row, that fits the canister you plan to carry, **from that store's own shelves**: cans and ramen at the general store, freeze-dried meals and bars at the gear shop, treats on top at the boutique. It then highlights 2 or 3 swaps for you to make. It is the default on a first trip (3.6) and always available after. It shows in the flat lay: a row of cans looks nothing like a row of pouches.
+
+**Each store's screen:**
+- An illustrated interior (tap the shelves to jump to a category; tap the shopkeeper for advice).
+- Rows show name, weight, calories or use, price and a − / + stepper (44 pt targets). Fragile premium items say so on their row. Boutique rows say what they do on the trail (morale, or nothing but looks) and that they show in your flat lay.
+- **At the gear shop, tap the scale** to weigh any item, in ounces and grams. Rentals live behind its counter.
 - A running **receipt** with real-feeling prices. No budget limit (the Shoestring wallet comes in M6).
-- The shopkeeper comments on silly purchases: *"Those'll be heavy, friend. Beans are mostly can."*
-- **Day hikes** get the *grab lunch* version instead: one shelf, a sandwich, snacks and water, about three taps. It has no cooler and no chip for next door: no beer or pre-roll on a day hike (2.6).
-- **The cooler by the register** (overnight trips only) holds *Blue Hour Hazy IPA* in 16-oz cans. The first can in a book gets the shopkeeper's ID check (*"Humor me."*), and each can shows its weight and its canister liters on the gauge like any food (2.6). Fill from the list never buys beer: it is always the player's choice.
-- **Next door** (a chip at the edge of the shelves, overnight trips only): Second Growth's one shelf, the pre-roll, 21+, with the clerk's line about federal land (5.2).
+- Each shopkeeper comments on silly purchases, in their own voice (DRAFT, the general store: *"Those'll be heavy, friend. Beans are mostly can."*).
+
+**Day hikes** skip the town run and get the *grab lunch* version on the drive, at the last-chance shelf in Forks: one shelf, a sandwich, snacks and water, about three taps. It has no cooler and no door next door: no beer or pre-roll on a day hike (2.6).
+
+**The cooler by the general store's register** (overnight trips only) holds *Blue Hour Hazy IPA* in 16-oz cans. The first can on a trip gets the shopkeeper's ID check (DRAFT: *"Humor me."*), and each can shows its weight and its canister liters on the gauge like any food (2.6). Fill from the list never buys beer: it is always the player's choice.
+
+**Next door** (a door on the town street, overnight trips only): Second Growth's one shelf, the pre-roll, 21+, with the clerk's line about federal land (5.2).
 
 ### 5.4 The food data
 
