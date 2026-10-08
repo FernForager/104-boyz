@@ -2,7 +2,7 @@
 
 *Master game design document. Working title. Status: design (no game code yet). Written 2026-10-08 for `FernForager/104-boyz`, after a design review and the data fact-check, then revised the same day for every decision you made, one at a time. Your decisions override anything older in this document or the proposals. They are listed, in your words, in [Decisions made](#decisions-made) at the end, and the few things still to come from you are in the section after it.*
 
-*The short version of the last round: the first playable is **Seven Lakes Basin and the High Divide**, with **Lake Morgenroth**, your favorite spot, as a hand-drawn scene you can only get a permit for by asking at the desk (4.3, 15, Appendix B). The Hoh, Glacier Meadows and Mount Olympus with Ranger Jon come next. Session length and park conditions are confirmed, and the game will live at `fernforager.github.io/104-boyz` (E.9).*
+*The short version of the last round: the first playable is **Seven Lakes Basin and the High Divide**, with **Lake Morgenroth**, your favorite spot, as a hand-drawn scene and a camp you can get only by asking at the WIC desk in person (4.3, 15, Appendix B). The Hoh, Glacier Meadows and Mount Olympus with Ranger Jon come next. Session length and park conditions are confirmed, and the game will live at `fernforager.github.io/104-boyz` (E.9).*
 
 *This document merges the park research in `design/data/` with three proposals: `proposals/storybook.md` (feel, voice, art, screens), `proposals/simulation.md` (state, odds, consequences) and `proposals/engine.md` (data, engine, tools). Where they disagreed, this document makes one call (section 1.2). Where this document and a proposal differ, this document wins; the proposals stay as detailed reference. Two of them (`storybook.md` and `engine.md`) still call the golden plant by its retired placeholder name, "Snowlamp"; it is the **Bonfire Lily** here, and this document's name wins. The proposals also still describe things your trim of 2026-10-08 retired: the old field guide and its blank page, sketching for points, the prologue, the margin fox, animal helpers, a narrator pitched at children, Read to me and the stock EGA palette. None of them is in the game (10.1, 11.1). They also predate your later answers, so they still offer things the game no longer has: an inherited field guide, Storybook as a visible choice, preset epitaphs, character options (pronouns, fitness, jacket color, a glacier-course box), named companions, a fictional guide company and a roadmap that starts on the Hoh. This document wins on all of them.*
 
@@ -123,7 +123,7 @@ Where the three proposals disagreed, these are the calls. The reasoning is in th
 - **Mount Olympus: Ranger Jon, or alone** (yours). The only guide you can hire is **Ranger Jon**, a ranger moonlighting as a guide (a playful liberty: real rangers don't guide climbs), who wears badge #104; his quirk is still to come from you. Or go alone at your own risk: each crevasse crossing is a ♦ with its honest fatal share, and turning back is always offered (4.2).
 - **The 104 wink** (yours): every wilderness permit number starts with 104 (`Permit No. 104-0037`), and Ranger Jon wears badge #104 (12.6).
 - **Bug reports** (yours: *"A, no Mac"*): a **Copy bug report** button in a hidden debug menu. You have no Mac, so the testing plan never needs Safari's Web Inspector (E.11, F.5).
-- **Hosting:** the repo `FernForager/104-boyz` is public, and GitHub Pages deploys it from GitHub Actions, so the game lives at `fernforager.github.io/104-boyz` (E.9).
+- **Hosting** (yours, set up 2026-10-08): the repo `FernForager/104-boyz` is public, and GitHub Pages deploys it from GitHub Actions, so the game lives at `fernforager.github.io/104-boyz` (E.9).
 - **Trip date:** you pick it; the ranger suggests the destination's best month; October is allowed with warnings.
 - **Sound:** on after the first tap, in an "ambient" audio session so the silent switch mutes it.
 - **Data:** `gear_catalog.json` names and stats are authoritative (for example `daypack_28`).
@@ -199,34 +199,35 @@ Your call (2026-10-08): the narrator is **deadpan Sierra, dry but kind, written 
 ## 3. Core loop
 
 ```
- Bookshelf (no hiker yet? type a name)
+ Bookshelf (no hiker? type a name)
     │  Begin a new book
     ▼
  THE DAY BEFORE
- Ch.1 RANGER DESK ── where · day hike or nights
-    │                · layover or move · date
-    │                · briefing · permit
-    │                · Jon, for Olympus
+ Ch.1 RANGER DESK: where · day hike
+    │  or nights · layover or move
+    │  · date · briefing · permit
+    │  · Jon, for Olympus
     ▼
- Ch.2 STORE ──────── food · fuel · small items
-    │                · rent or buy gear
+ Ch.2 STORE: food · fuel · small
+    │  items · rent or buy gear
     ▼
- Ch.3 PACK ───────── in the pack, strapped
-    │                outside, or left home
+ Ch.3 PACK: in the pack, strapped
+    │  outside, or left home
     ▼
  DEPARTURE MORNING
- Ch.4 DRIVE ──────── road pages · trailhead:
-    │                "leave anything in the car?"
+ Ch.4 DRIVE: road pages · trailhead:
+    │  "leave anything in the car?"
     ▼
- DAYS: morning ▸ depart ▸ trail pages and
-    │  decisions ▸ arrive ▸ make camp ▸
-    │  sunset ▸ night ▸ morning ▸ ...
+ DAYS: morning ▸ depart ▸ trail
+    │  pages and decisions ▸ arrive ▸
+    │  make camp ▸ sunset ▸ night ▸
+    │  morning ▸ ...
     ▼
- THE END ▸ back cover ▸ Field Notes ▸
- plan again, or try this trip again
+ THE END ▸ back cover ▸ Field Notes
+ ▸ plan again, or try this trip again
     │
-    └ or the death box ▸ YOU PERISHED ▸
-      Leave No Trace ▸ an epitaph ▸
+    └ or the death box ▸ YOU PERISHED
+      ▸ Leave No Trace ▸ an epitaph ▸
       GAME OVER ▸ an empty shelf and
       the Trail Register ▸ a new name
 ```
@@ -309,16 +310,20 @@ On a route you haven't driven before, two to five road pages from Port Angeles t
 ### 3.4 The days
 
 ```
-MORNING   weather now, breakfast, pack up
-DEPART    pace: Easy / Steady / Push
-LEGS      trail pages; 0-2 beat slots per
-          segment, plus landmarks
-ARRIVE    pick a site
-CAMP      Make camp (one tap), then free
-          time; the sky darkens as it goes
-NIGHT     a night card only if something
-          happens; the refrain
-MORNING   move on / stay / side trip / home
+MORNING weather now, breakfast,
+        pack up
+DEPART  pace: Easy / Steady / Push
+LEGS    trail pages; 0-2 beat slots
+        per segment, plus landmarks
+ARRIVE  pick a site
+CAMP    Make camp (one tap), then
+        free time; the sky darkens
+        as it goes
+NIGHT   a night card only if
+        something happens; the
+        refrain
+MORNING move on / stay / side trip /
+        home
 ```
 
 A layover day replaces DEPART and LEGS with side trips and camp time.
@@ -1773,19 +1778,29 @@ Small pixel figures in the same 16 colors, placed at anchors each base scene def
 The park has 449 places in the research and roughly 500 to 600 once overlay points are compiled in (4.1). Hand-drawing each is impossible, so a place's picture is **composed from layers**, chosen by data and seeded by the place's id. Elk Lake always looks like Elk Lake, and it doesn't look like Lunch Lake.
 
 ```
- 1 BASE      biome base picture (about 14 kinds)
- 2 VARIANT   seeded: flip, horizon ±6 px, ridges
- 3 FAR       skyline / landmark (Olympus, Deception)
- 4 PROPS     seeded stamps: trees by species and
-             elevation, rocks, logs, ferns, flowers
- 5 FEATURE   lake, ford, falls, bridge, ladder,
-             shelter, sea stack, sign
- 6 SEASON    snowline, fall color, flowers, berries
- 7 SPRITES   hiker, tent, animals (pose from state)
- 8 WEATHER   rain, drizzle, fog bands, snow, stars
- 9 PALETTE   time of day + weather tint
-10 CYCLE     pseudo-colors each frame
-11 HOTSPOTS  merged: Look, alt text
+ 1 BASE     biome base picture
+            (about 14 kinds)
+ 2 VARIANT  seeded: flip, horizon
+            ±6 px, ridges
+ 3 FAR      skyline / landmark
+            (Olympus, Deception)
+ 4 PROPS    seeded stamps: trees by
+            species and elevation,
+            rocks, logs, ferns,
+            flowers
+ 5 FEATURE  lake, ford, falls,
+            bridge, ladder, shelter,
+            sea stack, sign
+ 6 SEASON   snowline, fall color,
+            flowers, berries
+ 7 SPRITES  hiker, tent, animals
+            (pose from state)
+ 8 WEATHER  rain, drizzle, fog
+            bands, snow, stars
+ 9 PALETTE  time of day + weather
+            tint
+10 CYCLE    pseudo-colors each frame
+11 HOTSPOTS merged: Look, alt text
 ```
 
 **Biome bases:** rain forest, montane forest, subalpine meadow, alpine, glacier, lake basin, river valley, waterfall, beach, headland, pass, trailhead, road, store interior, ranger station interior, town, plus a camp overlay. A node's base is inferred from its type and elevation in the region data (trailhead, ford, glacier, lake, pass, coast, then elevation bands at 2,000 / 4,000 / 5,500 ft); a recipe can override anything. Each region node already carries `scene_art_notes` from the research, which become recipes.
@@ -3519,13 +3534,16 @@ design/data/park_rules.json
 design/data/lore/*.json      (history)
         │  tools/ingest.mjs
         ▼
-content/park/regions/*.json  (normalized)
-  + content/park/overlays/   (hand patches)
+content/park/regions/*.json
+  (normalized)
+  + content/park/overlays/ (patches)
   + content/park/conditions/2026.json
-  + cards, text, scenes, gear, food, stores
+  + cards, text, scenes, gear, food,
+    stores
         │  tools/build.mjs: validate ▸
-        │  compile expressions ▸ index cards ▸
-        │  compile pictures ▸ lint ▸ hash
+        │  compile expressions ▸ index
+        │  cards ▸ compile pictures ▸
+        │  lint ▸ hash
         ▼
 dist/data/edition.<hash>.json + precache
 ```
