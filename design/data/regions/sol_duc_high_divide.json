@@ -522,7 +522,7 @@
     "fires_allowed": false,
     "toilet": false,
     "water": "Lake; treat water.",
-    "notes": "Cross-country only; no maintained trail. Fragile meadow and lakeshore."
+    "notes": "Reached by a primitive but findable way trail (firsthand, game creator). Fragile meadow and lakeshore."
    },
    "description": "A quiet lake in the eastern basin where bears are sometimes seen grazing the far shore.",
    "scene_art_notes": "Foreground: boulder field and heather (off-trail feel, no path). Midground: lake of the named shape. Background: basin rim. Sky: blue or fog variant.",
@@ -530,7 +530,8 @@
     "https://carto.nationalmap.gov/arcgis/rest/services/geonames/MapServer",
     "https://epqs.nationalmap.gov/v1/json",
     "https://www.recreation.gov/api/permitcontent/4098362"
-   ]
+   ],
+   "game_notes": "The game creator's favorite spot: camped once, visited several times. Hand-drawn signature scene; permit only by asking at the WIC desk in person."
   },
   {
    "id": "no_name_lake",
@@ -1870,7 +1871,7 @@
   {
    "from": "deer_lake",
    "to": "potholes",
-   "miles": 1.0,
+   "miles": 1,
    "gain_ft": 560,
    "loss_ft": 0,
    "trail_class": "maintained",
@@ -2184,16 +2185,17 @@
    "miles": 0.6,
    "gain_ft": 290,
    "loss_ft": 0,
-   "trail_class": "off_trail",
+   "trail_class": "way_trail",
    "hazards": [
     "route_finding",
     "fragile_meadow"
    ],
    "snow_free_typical": "mid-July to early October typical (NPS); 2026 was a low-snow year, snow-free by mid-June",
-   "notes": "No trail. Straight-line distance and net elevation only.",
+   "notes": "Primitive but findable way trail (firsthand report from the game creator, who has camped at Morgenroth and visited several times). Distance and gain here are still straight-line estimates; replace with the creator's GPS track when available.",
    "sources": [
     "https://carto.nationalmap.gov/arcgis/rest/services/geonames/MapServer",
-    "https://epqs.nationalmap.gov/v1/json"
+    "https://epqs.nationalmap.gov/v1/json",
+    "firsthand: game creator (Strava activity \"Hike to camp at Morgenroth Lake\", strava.com/activities/5761886000)"
    ]
   },
   {
@@ -2470,7 +2472,7 @@
   {
    "from": "sol_duc_park",
    "to": "heart_lake",
-   "miles": 1.0,
+   "miles": 1,
    "gain_ft": 590,
    "loss_ft": 0,
    "trail_class": "maintained",
@@ -3463,7 +3465,7 @@
     "Day 2: light-pack climb to Heart Lake and the High Divide crest",
     "Cold soak at Lower Bridge Creek pools"
    ],
-   "total_miles": 17.0,
+   "total_miles": 17,
    "difficulty": "moderate",
    "best_months": "June to September",
    "highlights": [
@@ -3494,7 +3496,7 @@
     {
      "day": 2,
      "to": "lunch_lake",
-     "miles": 0.0,
+     "miles": 0,
      "gain_ft": 0
     },
     {
@@ -3672,7 +3674,7 @@
     {
      "day": 3,
      "to": "lunch_lake",
-     "miles": 0.0,
+     "miles": 0,
      "gain_ft": 0
     },
     {
@@ -3711,19 +3713,19 @@
     {
      "day": 1,
      "to": "hoh_lake",
-     "miles": 9.0,
+     "miles": 9,
      "gain_ft": 3680
     },
     {
      "day": 2,
      "to": "hoh_lake",
-     "miles": 0.0,
+     "miles": 0,
      "gain_ft": 0
     },
     {
      "day": 3,
      "to": "sol_duc_trailhead",
-     "miles": 9.0,
+     "miles": 9,
      "gain_ft": 1080
     }
    ],
@@ -3731,7 +3733,7 @@
     "Sunrise from Bogachiel Peak",
     "Walk the High Divide east to Heart Lake and back"
    ],
-   "total_miles": 18.0,
+   "total_miles": 18,
    "difficulty": "hard",
    "best_months": "late July to September",
    "highlights": [
@@ -3756,7 +3758,7 @@
     {
      "day": 1,
      "to": "hoh_lake",
-     "miles": 9.0,
+     "miles": 9,
      "gain_ft": 3680
     },
     {
@@ -3805,7 +3807,7 @@
     {
      "day": 2,
      "to": "hoh_lake",
-     "miles": 3.0,
+     "miles": 3,
      "gain_ft": 1030
     },
     {
@@ -3857,7 +3859,7 @@
     {
      "day": 2,
      "to": "appleton_pass",
-     "miles": 0.0,
+     "miles": 0,
      "gain_ft": 0
     },
     {
@@ -3915,7 +3917,7 @@
     {
      "day": 4,
      "to": "sol_duc_trailhead",
-     "miles": 9.0,
+     "miles": 9,
      "gain_ft": 1080
     }
    ],
@@ -4100,12 +4102,12 @@
     {
      "day": 1,
      "to": "pyramid_peak_trailhead",
-     "miles": 7.0,
+     "miles": 7,
      "gain_ft": 2770
     }
    ],
    "layover_ideas": [],
-   "total_miles": 7.0,
+   "total_miles": 7,
    "difficulty": "hard",
    "best_months": "April to November (snow possible in winter)",
    "highlights": [
@@ -4130,14 +4132,14 @@
     {
      "day": 1,
      "to": "spruce_railroad_lyre_river_trailhead",
-     "miles": 8.0,
+     "miles": 8,
      "gain_ft": 140
     }
    ],
    "layover_ideas": [
     "Short version: Devil's Punchbowl and the McFee Tunnel (about 2.2 mi round trip)"
    ],
-   "total_miles": 8.0,
+   "total_miles": 8,
    "difficulty": "easy",
    "best_months": "year-round",
    "highlights": [
@@ -4163,14 +4165,14 @@
     {
      "day": 1,
      "to": "marymere_falls_trailhead",
-     "miles": 15.0,
+     "miles": 15,
      "gain_ft": 4260
     }
    ],
    "layover_ideas": [
     "Overnight: NPS says camp anywhere off vegetation, 200 ft from water, on Aurora Ridge (permit required)"
    ],
-   "total_miles": 15.0,
+   "total_miles": 15,
    "difficulty": "hard",
    "best_months": "July to October",
    "highlights": [
