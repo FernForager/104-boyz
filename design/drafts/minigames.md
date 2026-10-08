@@ -1,6 +1,6 @@
 # The eight minigames
 
-*Draft for the creator, written 2026-10-08 for the new direction. It follows decisions 21 to 34 in `design/PENDING_DECISIONS.md`, which override `GAME_DESIGN.md` (called "the doc" here) wherever they disagree. It builds on the two sibling drafts: `drafts/daily_fkt.md` (the modes; its section 6.3 already sets the minigames' engine rules) and `drafts/frame_home.md` (the cabin, the flat lay and the camp tiles). Nothing here is decided until you say so. The calls you need to make are in [section 12](#12-decisions-for-you).*
+*Draft for the creator, written 2026-10-08 for the new direction. It follows decisions 21 to 34 in `design/PENDING_DECISIONS.md`, which override `GAME_DESIGN.md` (called "the doc" here) wherever they disagree. It builds on the two sibling drafts: `drafts/daily_fkt.md`, called **the modes draft** here (its section 6.3 already sets the minigames' engine rules), and `drafts/frame_home.md`, called **the hub draft** (the cabin, the flat lay and the camp grid). Section numbers alone, like (8.5), are the doc's. Nothing here is decided until you say so. The calls you need to make are in [section 12](#12-decisions-for-you).*
 
 *Every in-game word in this file (names, button labels, hints, result lines, wireframe text) is a **draft placeholder** for you to rewrite (decision 21). Short ones are marked [draft]; every wireframe is a draft as a whole. The minigames' names are working titles. The Boyz appear only as `{BOY_n}`, and Jon only by his first name. Numbers marked (design) are starting values for the harness to tune, not facts.*
 
@@ -110,7 +110,7 @@ That is the whole rule. Each minigame names its two halves, the way the real act
 - **While you play, the number moves.** The modifier minigames show a live line under the picture: `made it 91% ▸ 93%` [draft]. You watch your own hands move the odds. It is the clearest way to show that skill shifts the dice and doesn't replace them.
 - **Then the roll.** On a ♦ the compass spins (8.8). On a plain % the outcome shows at once.
 
-**The roll is fixed at the confirming tap.** Its key is the content key the doc already uses (8.14), so quitting mid-minigame changes nothing, and a second try at the same place on the same day is the same roll. The minigame's own seed is separate, so playing well never peeks at the roll.
+**The roll is fixed at the confirming tap.** Its key is the content key the doc already uses (8.14), so quitting mid-minigame changes nothing. A genuine second attempt (wading in again after a failure) is a new roll, as the doc already rules. The minigame's own seed is separate, so playing well never peeks at the roll.
 
 **Why this rule and not the other two:**
 
@@ -134,7 +134,7 @@ The button reads `{hand}87-94%`. With Auto on, it reads `91%`, which is the doc'
 
 ### 1.4 Auto, assists and access
 
-**Auto is par.** Each minigame has one fixed *Auto* result, set near the median of first-week players in playtests and then frozen. It is never the best result, so it needs no mark on any board (the modes draft's 6.3, rule 7).
+**Auto is par.** Each minigame has one fixed *Auto*: a script or a bot, tuned so its result sits near the median of first-week players in playtests, and then frozen. It is never the best result, so it needs no mark on any board (the modes draft's 6.3, rule 7).
 
 - **In Open, Auto grows with the hiker** where a skill exists: self-arrest's Auto reacts faster at higher snow skill, the ford's Auto steps better at higher river skill. That is the doc's "experience: better information, not better dice" (7.10), applied to hands.
 - **In the daily and FKTs,** every hiker has the standard skills, so Auto is the same for everyone.
@@ -148,7 +148,7 @@ The button reads `{hand}87-94%`. With Auto on, it reads `91%`, which is the doc'
 - **Every touch target is at least 44 pt**, as everywhere (12.1). Picking a berry uses a fingertip cursor drawn above the thumb, so small targets never hide under it.
 - **Nothing depends on color alone.** Ripe berries are darker *and* carry a highlight pixel. A rough patch of trail looks different, not just tinted.
 - **Nothing depends on sound alone.** Every audio tell (the sneaker wave, the bear's woof) has a picture tell.
-- **Reduce Motion:** no screen shake, no parallax, no particle bursts (a 1-frame palette flash instead), and falling things vanish instead of falling where the fall isn't the game. The motion that *is* the game (a dropping can item, the slide) stays, slowed by nothing, and *Auto* is offered on the card.
+- **Reduce Motion:** no screen shake, no parallax, no particle bursts (a 1-frame palette flash instead), and falling things vanish instead of falling where the fall isn't the game. The motion that *is* the game (a dropping item, the slide) stays as it is, and *Auto* is offered first on the card.
 - **VoiceOver:** the card's buttons are real HTML; *Auto* is the playable path; the picture has alt text built from its layers (11.9), and a live region reads key moments [draft lines].
 - **A tap skips** every animation that isn't play (the doc's rule, 12.1).
 - **No haptics.** The doc says iOS has no vibration API, which is still true. An undocumented trick (a hidden `<input type="checkbox" switch>` clicked from script) can make Safari tick, but reports say it is fragile and may already be patched. I recommend we don't depend on it (decision 22).
@@ -281,7 +281,7 @@ Every minigame ships only when all of these are true on your phone:
 
 ### 2.1 What it is
 
-Every overnight in the park needs a hard-sided bear canister for all food, trash and scented items (the park's food-storage page). The doc already makes the can a real limit (5.5): rigid walls leave gaps, so only about 85% of it is usable. **This minigame is where that 85% comes from.** Pack carelessly and you get about 75%. Pack well and you get about 92%. *Auto* gets 85%, the doc's number.
+Every night in the park's wilderness needs an approved hard-sided food container, a bear can, for all food, trash and scented items (the park's food-storage page). The doc already makes the can a real limit (5.5): rigid walls leave gaps, so only about 85% of it is usable. **This minigame is where that 85% comes from.** Pack carelessly and you get about 75%. Pack well and you get about 92%. *Auto* gets 85%, the doc's number.
 
 You see the can side-on, cut away like a diagram. Your food waits on the deck. One item at a time hangs over the rim under your thumb. Let go and it drops, rolls, settles and squishes. Two of the same item that touch zip into one bag, which takes less room than two wrappers. Tortillas dropped against the wall line it. At the end you press the lid shut, or you pull out what won't fit.
 
@@ -336,11 +336,11 @@ The doc's own trip (B.2): three nights clockwise, the standard 11.5 L can, a typ
 | Time | What happens |
 |---|---|
 | 0.0 s | Tap the can on the deck. The deck tips away and the can turns side-on, cut away. The food lines up as the queue: the last day first |
-| 0.6 s | Thumb down. Day 3's chili mac hangs over the rim. The dotted line shows where it lands |
+| 0.6 s | Thumb down. Day 4's lunch, the walk-out day's, hangs over the rim. The dotted line shows where it lands |
 | 1.2 s | Lift. It drops, lands with a soft thump and settles in a third of a second. The next item is already under your thumb |
-| 2-9 s | Day 3: two oatmeal packets that touch zip into one bag (x2), then bars and trail mix into the gaps |
+| 2-9 s | Day 4, then Day 3: the chili mac against the wall, two oatmeal packets that touch zip into one bag (x2), bars and trail mix into the gaps |
 | 9-20 s | Day 2. The tortillas go against the left wall and unroll into a liner |
-| 20-30 s | Day 1 and the small bags. A bar bag x2 meets another x2: zip, x4 |
+| 20-30 s | Day 1's dinner and the small bags. A bar bag x2 meets another x2: zip, x4 |
 | 30-34 s | The smellables bag, last, so it's on top for tonight's toothbrush. It sits three pixels over the rim |
 | 34-37 s | *Close the lid.* Hold: the pouches crinkle down, and the lid clicks three times |
 | 37 s | The result line, then back to the deck with the can shut |
@@ -370,10 +370,10 @@ So the standard can is about 96 pixels wide and fills three quarters of the tall
 - Velocity is the change in position, damped by 248/256 a tick, with a cap of 4 pixels a tick, so nothing tunnels and everything settles in under half a second.
 - **Squish.** A soft body's radius shrinks under the weight on it, down to a floor:
 
-| Kind | Shrinks to | Crushed? |
+| Kind | Its area shrinks to | Crushed? |
 |---|---|---|
 | Rigid: cans, the IPA, fruit, the egg box | 100% | Never |
-| Zip bags and pouches | 85% of its area | Never |
+| Zip bags and pouches | 85% | Never |
 | Crushable as sold: chips, crackers, cookies, bagels | 60% | Below 80%: morale −1 |
 
 **Merges.** Two bodies of the **same item** (the same food id, or the same kind of small bag) that touch for a quarter second while both are slow become one zip bag:
@@ -445,7 +445,7 @@ There are no dice in the can. It is pure input.
 
 The can has no randomness at all: no seed, no stream. A pack is a pure function of the can model, the queue and the input stream. The same drops give the same pack on every phone and in Node, which is what makes a shared flat lay reproducible.
 
-**Par is a bot, not a number.** *Auto* runs the par bot: for each item it tries x positions 8 pixels apart, simulates one second of each, and takes the lowest resting point (the leftmost on a tie). It is deterministic, so Auto's pack of a given menu is the same for everyone. The bot is tuned so its average over the reference menus is 85% (2.14).
+**Par is a bot, not a number.** *Auto* runs the par bot: for each item it tries x positions 8 pixels apart, simulates one second of each, and takes the lowest resting point (the leftmost on a tie). A whole can takes it about a second, in a worker, while the drops play. It is deterministic, so Auto's pack of a given menu is the same for everyone. The bot is tuned so its average over the reference menus is 85% (2.14).
 
 **In the action log,** only the last pack before *Start walking* is kept.
 
@@ -497,7 +497,7 @@ The can has no randomness at all: no seed, no stream. A pack is a pure function 
 | 4 nights, the loaner | Careless 1.1 L out; par 0.1 L; careful none | A golden test |
 | The makers' check | Standard can, dense food, best hands: about 6 days | A golden test |
 | The watermelon | Never fits the small can | A golden test |
-| Speed | Under 1 ms a tick with 40 bodies on an iPhone 12 | Device |
+| Speed | Under 0.5 ms a tick with 40 bodies on an iPhone 12, so two ticks and the drawing fit in 2 ms | Device |
 
 ### 2.15 The polish list
 
@@ -510,7 +510,7 @@ The can has no randomness at all: no seed, no stream. A pack is a pure function 
 7. What didn't fit flies back to the deck and lies beside the shut can in the flat lay, a small truthful joke in the share image.
 8. The HUD always names the next item, its liters and its day.
 9. Repack is one tap and instant.
-10. The three cans feel different in the hand.
+10. The four cans feel different in the hand.
 11. The result line is one line.
 12. The first pack ever shows the ghost thumb twice: once for the drop, once for the press.
 
@@ -733,7 +733,7 @@ No music. The trail's evening is the sound:
 
 ### 4.1 What it is
 
-In late summer the High Divide and the Seven Lakes Basin are full of huckleberries and blueberries. Trip reports call the bushes waist-high and say the berries slowed them down, which is the whole game. You stop at a patch, comb ripe berries into your cup with your thumb, eat some, save some, and go on, a little later and a little happier.
+In late summer the High Divide and the Seven Lakes Basin are full of huckleberries and blueberries. Trip reports describe waist-high bushes full of ripe berries, and the stopping is the whole game. You stop at a patch, comb ripe berries into your cup with your thumb, eat some, save some, and go on, a little later and a little happier.
 
 **The rule is real.** Olympic's Superintendent's Compendium (updated January 2026) lets visitors collect edible fruits and berries **by hand, for personal consumption, up to 1 quart per person per day**, but not within 200 feet of nature trails, special trails and natural study areas. Everything else growing in the park stays put (the doc's flower press is a trap for that reason, 6.9). So the berries are the one thing you may pick, and the cup in the minigame *is* the quart: when it's full, you're done for the day.
 
@@ -760,7 +760,7 @@ In late summer the High Divide and the Seven Lakes Basin are full of huckleberri
 | Sep 15-30 | About 60%, some shriveled | Leaves turn rust |
 | Oct 1-15 | 30-50%, then frost | "Tons of ripe huckleberries" on October 11, 2024 |
 
-A low snow year moves it about two weeks earlier, a high one two to three weeks later. The USFS puts big huckleberry's ripening at "generally... late July to late September." The shares are design values.
+A low snow year moves it about two weeks earlier, a high one two to three weeks later. For big huckleberry, the USFS says ripening "generally extends from late July to late September" (in the Cascades). The shares are design values.
 
 **How it starts.** A trail moment the Director deals on a segment with a berry tag, in season, at most once a day: *the bushes here are heavy with berries* [draft], with *Stop and pick* and *Keep walking*. A camp tile at Lunch Lake and Heart Lake offers it too.
 
@@ -1225,3 +1225,359 @@ The waist row's fatal share at the worst hands: 70% fail x 15% swept x the doc's
 
 **Polish:** the step lands on touch-down with a splash; a surge is always readable a second ahead; numbness shows in the feet bar *and* in the hiker's smaller steps; the far bank's first dry step has its own crunch; the outcome never contradicts what you just played (a fail shows as a slip on the last step, never as a sudden teleport).
 
+---
+
+## 8. Pitching a tent in the rain
+
+*Stake the windward corner, fling the fly in a lull, and keep the inside dry.*
+
+### 8.1 What it is
+
+You reach camp and it's raining. Every second the tent is up without its fly, the inside gets wetter, and a wet inside means a wet bag means a cold night. In dry weather *Make camp* stays one tap, as now (12.14). In rain or real wind, the tent goes up by hand.
+
+**The technique is real.** Most modern double-wall tents can pitch their rainfly first and hang the inner from inside it; otherwise you get the inner up as fast as you can before the fly. Avoid low spots that flood, face the door away from the wind, and keep anything wet in the porch (advnture, *How to pitch a tent in the rain*).
+
+### 8.2 Where and when
+
+- **Any camp arrival in showers, rain, a storm, or strong wind:** the west side, the coast, the shoulder season, and sometimes the High Divide (B.3's last day was showers).
+- **The camp tile** *Rain pitch* in the hub draft's camp grid opens it.
+- **Open:** every such camp. **Hike of the Day:** overnights, in camp, off the clock, but the night it makes sets tomorrow's legs. **FKTs:** multi-day routes.
+- **Practice:** the cabin's lawn, when it is really raining at Lake Quinault (the hub draft bakes the lake's real forecast, its 3.4). The lawn is where the crew's tents go anyway.
+
+### 8.3 By shelter
+
+| Shelter (catalog) | Order | The inside |
+|---|---|---|
+| Trekking-pole tent (`tent_1p_trekking_pole`) | Fly first, then the inner from inside | Stays dry if the fly goes up clean |
+| Domes (`tent_2p_dome`, `tent_3p_dome`, `tent_4season`) | Inner first, then the fly | Wet until the fly is on |
+| Tarp (`tarp_flat`, `poncho_tarp`) | Stakes and a ridgeline | A roof, not a box: the wind decides the edges |
+| Bivies, the tube tent, the hammock | No minigame | One tap, as now |
+
+Some real domes can pitch fly-first too; that could become a catalog tag later.
+
+### 8.4 Controls and the loop
+
+Six steps, one gesture each, 25 to 40 seconds:
+
+1. **The pad and the door:** tap a tent pad and drag toward where the door should face. The tells: a sheen of standing water (a low spot), a dead snag overhead, a slope.
+2. **The windward corner:** tap the corner the rain is coming from (the rain's slant shows the wind). Stake the wrong one first and the next gust lifts the tent: tap to grab it.
+3. **The poles:** one drag along their path (a dome), or two taps to plant your trekking poles.
+4. **The fly:** swipe up and over, in a lull. In a gust it balloons; grab it and try again.
+5. **Stakes and lines:** tap each point. A slack line shows as a sagging row of pixels.
+6. **In.** The gear goes in, and anything wet stays in the porch.
+
+**Wetness:** while the inner is exposed, it gets wetter every tick at the rain's rate (showers 1, rain 2, storm 4 units a tick, design).
+
+### 8.5 What it feeds
+
+| Result | Goes into |
+|---|---|
+| The inside more than 30% damp | The bag counts as damp: 60% of its warmth (7.9) |
+| A slack, sagging pitch | Condensation and drips overnight: the bag gets damper by morning |
+| The door into the wind | +10% damp |
+| A low pad | A night card: water under the floor at 2 am (spirits, wet gear) |
+| The snag pad | A night card: the dead tree groans in the wind. Spirits only, never harm (9.5: no death from a random draw) |
+| Time | The evening's light (1 real second = 20 game seconds, design) |
+
+**No dice inside.** The minigame sets inputs. The night roll (7.9) uses them, and the bedtime screen shows its honest % as it always has.
+
+### 8.6 Determinism, access, art and sound
+
+- **Determinism:** `hash(seed, "mini", "tent", camp, day)` sets the gusts and the pads' tells; the rain's rate comes from the zone's weather that evening.
+- **Access:** **Auto** pitches at par (the inside about 15% damp, a decent pitch). **VoiceOver:** Auto. **Reduce Motion:** the fly snaps between three frames instead of billowing.
+- **Art:** the camp from three quarters above; rain as the doc's `vlines` curtains, slanted by the wind; each tent in four states (flat, poles up, fly on, guyed out); the sag row; puddle sheen as the rain-glint cycle (11.5).
+- **Sound, and the reward:** rain on bare ground is a hiss. The moment the fly is on, it becomes rain on nylon, a soft drumming close overhead. That change is the best sound in the minigame. Stakes tap into soil, the fly snaps in a gust, the zipper runs at the end.
+
+### 8.7 Tuning and polish
+
+| Target | Value |
+|---|---|
+| Length | 25 to 40 s |
+| Auto | About 15% damp, pitch 70 |
+| A clean expert, trekking-pole tent | Under 5% damp, pitch 95 |
+| A first try, dome, heavy rain | 30 to 45% damp |
+
+**Polish:** the rain's slant always tells you the wind; a gust is visible half a second before it hits; the sound change when the fly goes on; a grabbed tent never flies off screen; the result says, in one line, how you'll sleep.
+
+---
+
+## 9. Razor clamming
+
+*A winter night, a minus tide, a lantern, and the first fifteen.*
+
+### 9.1 What it is
+
+Razor clamming on the Washington coast happens on low tides, often at night in winter, with a lantern, a clam gun or shovel, and a bucket. You walk the wet sand looking for **shows**, the marks a clam leaves when it pulls in its neck or starts to dig: a **dimple**, a **doughnut** with raised sides, or a **keyhole** in drier sand (Evergreen Coast's guide). Bigger holes often mean bigger clams. You work the tube down around it, put your thumb over the vent, and pull, quickly, because razor clams dig fast in soft wet sand. Pounding the sand near the surf can make them show.
+
+Jon's clamming is one of your own stories of 104: after a long day of hiking or razor clamming, home to the tub. This is the minigame that makes it playable.
+
+### 9.2 The real rules
+
+| Rule | Source |
+|---|---|
+| Digs are set by WDFW after marine-toxin tests; final approval usually comes about a week or less ahead | WDFW |
+| Fall and winter digs (October to mid-March) are on afternoon and evening low tides, digging noon to midnight; spring digs are on morning tides | WDFW |
+| The daily limit is 15. Diggers must keep the first 15 they dig, regardless of size or condition, each digger's in a separate container | WDFW |
+| All diggers 16 or older need a license | WDFW, 2025 |
+| A shovel, or a tube at least 4 in outside diameter (4 x 3 in if elliptical) | WAC 220-330-120; WDFW |
+| Kalaloch is in the park, from the South Beach campground north to Beach Trail 3; the park runs its fishery with WDFW; the Quinault Nation's treaty rights cover it, as do the Hoh's and Quileute's | WDFW, NPS |
+| Razor clam harvest on the rest of the park's coast is always closed | NPS, 2011 |
+| Kalaloch was fully or partially closed in 16 of the 17 years to 2022, with no 2022/23 season; it was not open in 2025-26 ("depressed populations") | NPS 2022; WDFW 2025 |
+| On October 6, 2026, WDFW postponed the season set to open October 9 (domoic acid) | WDFW |
+| At Kalaloch there are no streetlights: "Flashlights or lanterns are a must for all after-dark digs" | NPS, 2006 |
+
+### 9.3 What the game does with that
+
+- **Kalaloch is rare.** It opens only in a seeded good clam year, about one season in six (design), which the cabin hears about. Rare is true to the record, and it makes the in-park dig special.
+- **The regular dig is at Mocrocks,** the WDFW beach that runs from the Copalis River to the south boundary of the Quinault Indian Reservation. It's outside the park, and it's real. The game never sends anyone onto reservation beaches.
+- **The dig calendar** is built from the tide predictions the game already ships (NOAA La Push with offsets, 7.8): an evening low below 0.0 ft from October to mid-March, a morning one from mid-March to May, minus a seeded toxin closure about one series in five (design). It feels real and it is not a claim: the dig screen says, in your words, that real digs are announced by WDFW [draft].
+- **The license** is a store item, sold at the general store. Without one, an officer's check is a ticket card (design), never a death.
+
+### 9.4 Where and when
+
+- **From the cabin.** The clam gun leaning on the shed (the hub draft's 3.10) becomes the door on dig nights: *Dig tonight* [draft]. The car drives to the beach.
+- **Open:** a cabin outing between trips. The hiker can't die here: there is no ♦ anywhere in a dig.
+- **Hike of the Day:** a winter variant on real minus-tide days, the *Dig of the Day* [draft] (decision 19): the same beach, shows, clams and waves for everyone, and the score is your time to the limit.
+- **FKTs:** never.
+
+### 9.5 Controls
+
+- **Drag** to walk the beach. The lantern's pool of light moves with you, and shows appear in it.
+- **Tap a show** to set the gun over it.
+- **Hold** to work the tube down. A depth gauge rises beside it.
+- **Release** to pull the core. If the tube went past the clam, it's in the core. If not, the core is empty and the clam has gone deeper.
+- **Double-tap the sand** near the surf to pound it: nearby clams show.
+- **With a shovel:** faster, but a release at the wrong moment cuts the clam, and a cut clam still counts toward your 15. That's the rule, and the reason to dig well.
+
+### 9.6 The loop
+
+The tide window runs from an hour and a half before the low to an hour after, about 2.5 game hours in about 50 seconds.
+
+| Time | What happens |
+|---|---|
+| 0 s | The car's lights go off. Dark, surf, the lantern's hiss. Your pool of light on wet sand |
+| 2-10 s | A keyhole, a dimple. Tap, hold, release: thwop, a clam. Another. The bucket clinks |
+| 10-25 s | Toward the surf, where the shows are bigger. A run-up washes past your boots every few seconds |
+| 25 s | A deeper roar. A white line rising past the last one. You step back up the beach in time, or you don't |
+| 25-45 s | Fifteen, if you're good |
+| 50 s | The tide turns. The count is the count |
+
+### 9.7 What skill is
+
+Reading shows (bigger holes, bigger clams), working the tube to the right depth (too shallow is empty, too deep is wasted time), choosing between the busy surf line and the safer high sand, and reading the sneaker wave.
+
+### 9.8 What it feeds
+
+| Result | Goes into |
+|---|---|
+| The count | Up to 15. A clam feed by the fire bowl that night |
+| A good feed | A full heart for the next trip: spirits +1 at its start (design) |
+| The sneaker wave | Soaked to the waist and knocked down (Trouble, rung 2); the lantern drops and it's dark for three seconds |
+| The cold | A winter night on the coast through the heat balance; dry clothes in the car fix it |
+| No license | A ticket card, if checked |
+| The tub | Your call (decision 18) |
+
+**The ocean is never a joke.** Sneaker waves are real. The game's wave can soak you and knock you down; the line that follows is a ranger's about never turning your back on the ocean [draft], in your words.
+
+### 9.9 Odds, determinism and access
+
+- **Odds:** no dice inside the dig and no ♦. The waves are seeded and visible.
+- **Determinism:** `hash(seed, "mini", "clams", beach, date)` places the shows, the clams' sizes and depths, and the waves. On the Dig of the Day everyone walks the same beach.
+- **Access:** **Auto** digs at par: 12 clams, no soaking. **VoiceOver:** Auto. **Reduce Motion:** the surf's cycle steps in whole pixels; the knock-down is a cut, not a tumble. **Sound off:** the sneaker wave's white line is drawn two seconds early.
+
+### 9.10 Art and sound
+
+- **Art:** the night beach as a radial pool of lantern light (paper cream into navy into ink); wet sand in slate with a glacier-blue sheen; the shows as 2 to 5 pixel sprites; the surf with the doc's surf cycle (11.5); the gun as a 2x8 tube; clams in paper cream and sage; the bucket's count.
+- **Sound:** the surf bed (CC0), wind, the lantern's hiss; the gun's *thwop* (a low noise burst with a falling pitch), a clam's squirt, the bucket's clink rising a step per clam to fifteen; the sneaker wave's deeper roar two seconds before it arrives. No music on the beach; the cabin's music comes back when the car does.
+
+### 9.11 Tuning and polish
+
+| Target | Value |
+|---|---|
+| Session | About 50 s |
+| Shows in the lantern's pool | 4 to 8 |
+| A first-timer | 8 to 10 clams |
+| An expert | The limit in about 40 s |
+| Auto | 12 clams, dry |
+| Sneaker waves | 1 or 2 a night |
+
+**Polish:** every thwop lands within a frame of the release; a missed core looks and sounds empty; the clam count is always on screen; the lantern pool feels warm against the dark; the walk back to the car is one screen with the bucket's weight in the sprite's lean.
+
+---
+
+## 10. Engine, files and tests
+
+### 10.1 The contract
+
+Every minigame's core is a pure module in `engine/`, with the same six functions:
+
+```js
+// engine/mini/<game>.js (pure)
+init(params)        // -> state
+step(state, input)  // one tick
+done(state)         // -> true or false
+result(state)       // -> the result
+par(params)         // -> Auto's result
+bounds(params)      // -> worst, best
+```
+
+- **`params`** are frozen from the trip at that moment: the can and the queue; the place, date and weather; the segment and pace; the slope and the start. Nothing else reaches the core.
+- **`result`** is one of three kinds (1.3): an input (`bearcan`, `alpenglow`, `berries`, `tent`, `clams`), a modifier (`ford`, `descent`) or a band (`arrest`).
+- **`bounds`** gives the button its hands range. For a modifier it is the clamp. For a band it is simulated: no input at all, and a perfect script.
+- **`par`** is Auto: a bot or a fixed script, deterministic.
+- **`run(params, log)`** in `core.js` replays an input stream to a result, for tests, the board's verifier and bug reports.
+
+### 10.2 Files
+
+| File | What it is |
+|---|---|
+| `web/js/engine/mini/core.js` | The tick, integer helpers, the input format, `run()` |
+| `web/js/engine/mini/bearcan.js` and seven more | The eight cores |
+| `web/js/engine/mini/tables.js` | Build-time integer tables: light curves, slope sines, surge patterns |
+| `web/js/ui/mini/host.js` | The 120 Hz loop, input capture, pause, resume, saving inputs |
+| `web/js/ui/mini/card.js` | The card, the live odds line, the result line |
+| `web/js/ui/mini/*.js` | One renderer each |
+| `web/js/gfx/round.js` | Round sprites pre-rasterized for the fat pixel |
+| `content/mini/*.json` | Each minigame's tuning values |
+| `sims/bots/mini/*.mjs` | Careless, par and careful bots for each |
+| `test/mini/*.test.mjs` | Golden streams and the checks below |
+
+**Changes elsewhere:** `rng.js` gains the `mini` stream; `odds.js` computes hands ranges and the worst-hands fatal share; `ui/choices.js` draws the hand glyph; the card lint checks ♦ across hands ranges (F.3); `pack.js` and `food.js` take the can's fit from the pack instead of the flat 85%.
+
+### 10.3 Tests
+
+1. **Golden streams** for each minigame replay to identical results in Node and in Safari (the build plan's replay self-check, S3).
+2. **60 and 120 Hz** give identical results from the same stream.
+3. **Bounds hold:** no bot ever beats `best` or falls below `worst`.
+4. **Par is stable:** the same params give the same result, every run.
+5. **Human limits:** the verifier rejects taps closer than about 40 ms and frame-perfect patterns (the modes draft's 6.3).
+6. **The ♦ lint** across hands ranges (1.3).
+7. **The tuning targets** in sections 2 to 9 run nightly as a report, not a gate (the doc's F.1 way).
+8. **The ban list:** `Math.random`, `Date`, `Math.sin`, `Math.exp` and the rest throw inside `engine/mini/` (E.8).
+
+### 10.4 Budgets
+
+- **Under 2 ms a frame** on an iPhone 12, simulation and drawing together.
+- **At most one extra canvas,** inside the doc's limit of three (E.10).
+- **The bear can's worst case:** 40 bodies, 6 passes, 120 ticks a second.
+- **Paused** on `visibilitychange`.
+
+---
+
+## 11. What ships when
+
+| Step | What | With | Sessions |
+|---|---|---|---|
+| MG0 | The host, the contract, hands ranges, the card, Auto, settings, the `mini` stream | M1a's S8 (odds) and S10 (store and pack) | 1 |
+| MG1 | The bear can, its par bot, the flat lay's hook | S10 | 1 |
+| MG2 | The alpenglow shot, `alpen`, the photo in the trip report | S12 (the crest, the Olympus plate) | 1 |
+| MG3 | Huckleberries and the bear's tell | S13 or S14 | 1 |
+| — | Tuning the three | S18 and S19 | Inside them |
+| M1b | Self-arrest and snow school; the tent in the rain; the can remembers | M1b, with the shoulder season | 2 to 3 |
+| T1 | The technical descent | The first FKT, right after M1a | 1 |
+| M2 | The ford | The Hoh's braids | 1 |
+| Clams | Razor clams from the shed | M1b, or M4 with the coast (decision 17) | 1 to 2 |
+
+**About four sessions in M1a.** The build plan keeps up to three spare sessions there, so this mostly uses them.
+
+**Cut first, if M1a runs long:** the bear's tell (keep the berry patch), the film camera and the gifts, and the can's special items except the tortilla liner. **Never cut:** Auto, the hands range on the button, determinism, and the result line.
+
+---
+
+## 12. Decisions for you
+
+Each has a recommendation; any can be overruled.
+
+1. **The one rule:** hands decide what hands control, dice decide the rest, and the button shows the whole range first (recommended). The alternatives: skill only ever sets inputs (no modifier minigames), or skill replaces the dice.
+2. **A ♦ that opens a minigame** shows its fatal share at the worst hands, marked *up to* (recommended), or the share at Auto.
+3. **Auto at par,** near the median of first-week players and then frozen, unmarked on boards (recommended, as in the modes draft).
+4. **The live odds line** while you play: on (recommended) or off.
+5. **The can's order is always right** in v1, with no *Set aside* (recommended); and repacking is free until *Start walking*, in the daily too.
+6. **Merges save 10%,** one bag instead of two wrappers, which is the reason the merge is there. Or merges with no saving: strictly honest, much less fun.
+7. **The can remembers** through the trip from M1b (recommended), or packs once.
+8. **Photos earn no score** (recommended). And a photo-of-the-day board on overnight dailies: yes or not yet.
+9. **Alpenglow practice only at the real dusk** at Lake Quinault (recommended), or any time.
+10. **The film camera hides its photos** until the trip report (recommended).
+11. **The cup is the quart,** and stepping into the meadow costs Leave No Trace −2 (recommended).
+12. **A Larry option:** with the munchies (2.6), the berries go in your mouth instead of the cup, and the cup never fills. In or out.
+13. **Self-arrest's death roll** of 20% for a slide into rocks, and its line under YOU PERISHED, which is yours to write.
+14. **The ice axe:** the doc's flat +25 becomes self-belay +10 plus the arrest (recommended).
+15. **Snow school with Jon** as self-arrest's practice, and *Try a slide* once on safe snow (recommended).
+16. **The ford:** spots and footwork, and no practice anywhere (recommended).
+17. **Clams:** Kalaloch rare and Mocrocks regular, from the clam gun on the shed (recommended); and when: M1b or M4.
+18. **The tub after a winter night dig.** It breaks the hub draft's "big hike" rule (its 3.7), but it is Jon's own ritual in your words. Yes or no.
+19. **The Dig of the Day** as a winter daily on real minus tides. Yes or not yet.
+20. **Easter eggs, with consent:** a career's 104th clam gets a line from Jon; badge #104 catches the alpenglow in a porch photo; the permit number on a sticker on the can's lid in the share image. Any, all or none.
+21. **The words:** the eight names, the cards, the result lines, every [draft] in this file, and the snow line under YOU PERISHED.
+22. **Haptics:** none (recommended), or the fragile iOS switch trick behind a setting.
+
+---
+
+## 13. Facts checked
+
+Checked on 2026-10-08. Where a page refused a direct fetch, the line says so.
+
+**Razor clams**
+
+- [WDFW, digs beginning Oct. 6 (released Sept. 30, 2025)](https://wdfw.wa.gov/newsroom/news-release/wdfw-approves-seven-days-coastal-razor-clam-digs-beginning-oct-6): the daily limit of 15; "all diggers must keep the first 15 clams they dig, regardless of size or condition"; a separate container each; a license for every digger 16 or older; evening digs "noon to midnight only"; final approval "usually occurs about a week or less" ahead; Kalaloch not open for "continuing issues with depressed populations of harvestable clams."
+- [WDFW, razor clam seasons and beaches (rules)](https://wdfw.wa.gov/fishing/shellfish/razorclams/rules_regs.html): the five beaches, Kalaloch "from the South Beach campground north to ONP Beach Trail 3"; co-management with the coastal tribes (the Quinault Nation's rights cover Copalis, Mocrocks and Kalaloch; the Hoh's and Quileute's cover Kalaloch); afternoon and evening tides October to mid-March, morning tides after; a shovel or a tube; the October 9-14, 2026 dig postponed for domoic acid.
+- [WDFW, the current season](https://wdfw.wa.gov/fishing/shellfish/razorclams/current.html): postponed on October 6, 2026; 40 tentative days from October 9 to December 27 on four beaches, not Kalaloch.
+- [WDFW, the razor clam species page](https://wdfw.wa.gov/species-habitats/species/siliqua-patula): 3 to 6 inches, rarely 7; a five-year life; a tube of at least 4 in outside diameter (4 x 3 in elliptical); keep the first 15.
+- [WAC 220-330-120, 2019 archive copy](https://lawfilesext.leg.wa.gov/Law/WACArchive/2019/htm/WAC%20220%20%20TITLE/WAC%20220%20-330%20%20CHAPTER/WAC%20220%20-330%20-120.htm): the tube rule. I read an archive copy, not the current code.
+- [NPS, the 2022/23 season canceled](https://www.nps.gov/olym/learn/news/razorclam2022.htm): about 1.2 million adults averaging 3.4 in; the NIX gill pathogen; "fully or partially closed in 16 of the last 17 years"; surveys with the Quinault Indian Nation, the Hoh Tribe and WDFW.
+- [NPS, 2011](https://www.nps.gov/olym/learn/news/2011-razor-clam-harvest-suspended.htm): "Razor clam harvest for all other coastal waters of the intertidal zone in Olympic National Park is always closed."
+- [NPS, October 2006 dig](https://www.nps.gov/olym/learn/news/october-razor-clam-dig.htm): evening digs after dark; "Flashlights or lanterns are a must"; the Park Service approved the Kalaloch dig.
+- [WDFW, 2006 (archived)](https://wdfw.wa.gov/newsroom/news-release/three-beaches-will-open-razor-clam-dig-decision-kalaloch-delayed-until-next-week): the park "manages the recreational fishery cooperatively with WDFW"; two passing test digs before it opens.
+- [Evergreen Coast, razor clamming](https://www.evergreencoastwa.com/razor-clamming/): the dimple, doughnut and keyhole shows; the tube worked 6 to 10 in down, thumb over the vent; clams "dig quite fast in the soft fluid sand"; pounding the beach.
+- **Not checked:** how fast a razor clam digs in numbers, and drive times from the lake to the beaches. The game's dig calendar, the good-clam-year odds and the toxin closures are design.
+
+**Bear canisters**
+
+- [BearVault BV500](https://www.bearvault.com/products/bv500): 700 cu in, 11.5 L; 8.7 x 12.7 in; 2 lb 9 oz; "Fits up to 7 days of food for one person."
+- [BearVault BV450](https://www.bearvault.com/products/bv450): 440 cu in, 7.2 L; 8.7 x 8.3 in; "about 3-4 days."
+- [ADK's Garcia listing](https://adk.org/shop/bear-resistant-canister/) and other retailers (via search): 614 cu in, about 10 L; about 8.8 x 12 in. Weights disagree between sources.
+- Bearikade Weekender: 650 cu in, about 9 x 10 in, from reviews ([Backpacker](https://www.backpacker.com/survival/gear-review-wild-ideas-bearikade-weekender-bear-canister/?scope=anon), [Trailspace](https://www.trailspace.com/gear/wild-ideas/bearikade-weekender/)); not the maker's own page.
+- [Olympic's food storage page](https://www.nps.gov/olym/planyourvisit/wilderness-food-storage.htm): canisters required in all wilderness areas; the park's own approved list (Garcia 812, Bearikade Weekender and Expedition, BearVault models, and others); loaners at the Port Angeles and Quinault WICs, sometimes gone on busy weekends.
+- [Circle radius distributions determine random close packing density (arXiv 2404.02316)](https://arxiv.org/pdf/2404.02316): 2D random close packing about 0.840 as a likely lower bound; equal discs measured 0.862; the hexagonal maximum about 0.907.
+- The cans' shapes in 2.6 come from these outside dimensions. The 85%, 75% and 92% figures, the 10% merge saving and the squish floors are design.
+
+**Huckleberries**
+
+- [Olympic's Superintendent's Compendium](https://www.nps.gov/olym/learn/management/superintendent-s-compendium.htm), updated January 21, 2026, under 36 CFR 2.1(c): edible fruits and berries "may be collected by hand for personal consumption," "1 quart per person per day," not "within 200 feet of nature trails, special trails, and natural study areas." The section 1.4 list of those trails is still to be read into `park_rules.json`.
+- WTA trip reports on the High Divide loop: [August 14, 2021](https://adminonly.wta.org/go-hiking/trip-reports/trip_report-2021-08-16-9745394850) (ripe huckleberries between Heart Lake and Sol Duc Park, waist-high bushes; bears); [August 15, 2020](https://adminonly.wta.org/go-hiking/trip-reports/trip_report-2020-08-17-9571113598) (looked ripe, "tasted very sour"); [September 15, 2025](https://adminonly.wta.org/go-hiking/trip-reports/trip_report-2025-09-17.035851286867) (blueberries abundant from past Deer Lake until after Heart Lake); [October 11, 2024](https://adminonly.wta.org/go-hiking/trip-reports/trip_report-2024-10-13.190339779846) ("tons of ripe huckleberries").
+- [USFS, big huckleberry position statement (Gifford Pinchot NF)](https://www.fs.usda.gov/media/252929): found "south through the Cascade and Olympic mountains"; mostly 900 to 1,800 m; ripening "generally extends from late July to late September"; a major bear food; a sacred first food. The page downloaded as a Word file, read as text in isolation.
+- Blueberries, raw: about 57 to 64 kcal per 100 g in USDA FoodData Central entries, read through a mirror ([getfoodfacts](https://getfoodfacts.com/food/blueberries-raw-171711)), not FDC itself. A quart (4 cups of 148 g) is then about 340 to 380 kcal. Huckleberries are assumed similar (design).
+- `sol_duc_high_divide.json`: huckleberries at the High Divide, Sol Duc Park and Lunch Lake, ripe August to early September; 4 to 11 bears a trip in August 2026; the bear-in-the-berries card.
+
+**Alpenglow**
+
+- [AMS Glossary, alpenglow](https://glossary.ametsoc.org/wiki/Alpenglow): the three phases and their colors, from the search summary; the page refused a direct fetch.
+- [Wikipedia, Alpenglow](https://en.wikipedia.org/wiki/Alpenglow): strictly, indirect light seen only after sunset or before sunrise; more loosely, any rosy light of the low sun.
+- Computed here: from the High Divide junction (47.9043, −123.7784) to Mount Olympus's West Peak (47.8014, −123.7108), 7.8 mi at 156°. Sunset azimuth at 47.9° N: 304° on July 15, 292° on August 15, 275° on September 15 (standard formula, the sun's center at −0.833°).
+
+**Self-arrest**
+
+- [Ortovox Safety Academy, self-arrest techniques](https://www.ortovox.com/uk/safety-academy-lab-ice/chapter-2/self-arrest-techniques): falls on 30 to 35° terrain; speeds that "can approach free fall"; the position "as quickly as possible"; the grip; rolling onto the stomach; toes in without crampons; knees bent with crampons, or "a somersault and injury."
+- [Wikipedia, Self-arrest](https://en.wikipedia.org/wiki/Self-arrest): an "instinctive and instantaneous movement" before speed builds.
+- **Not read:** REI's guide (it refused the fetch) and *Freedom of the Hills*. The slide's speeds and braking in 6.4 are design numbers from simple physics (friction 0.10 on hard snow, 0.35 on soft), not measurements.
+
+**Fords**
+
+- [NPS, stream crossing safety (Katahdin Woods and Waters)](https://www.nps.gov/kaww/stream-crossing-safety.htm): release the waist and sternum belts; face upstream in faster water; the widest or most braided part is usually shallowest; one foot at a time; a pole held upstream; turn around if too high, too cold or too swift.
+- [NPS, Queets River Trail](https://www.nps.gov/olym/planyourvisit/queets-river-trail.htm): the ford is "commonly waist deep in summer," and can be fordable going in and not coming out.
+- I found no Olympic-specific page on crossing technique. The fords' places and notes come from the region files; `loss_in_current` from `gear_catalog.json`.
+
+**Tents**
+
+- [Advnture, how to pitch a tent in the rain](https://advnture.com/how-to/pitch-a-tent-in-the-rain): fast-fly pitching first; otherwise the inner as fast as possible; avoid low-lying depressions; the door away from the wind; nothing wet past the inner zipper.
+
+**Games and platform**
+
+- *The Oregon Trail*'s carry limit: ["You collected 4,000 pounds of food, but you could only bring 100 pounds back"](https://explainxkcd.com/623), and the [fan wiki](https://oregontrail.fandom.com/wiki/Oregon_Trail_(computer_game)) on the 100-pound cap in early versions.
+- iOS haptics: Safari has no Vibration API; a hidden `<input type="checkbox" switch>` clicked from script reportedly gives a haptic tick ([Ionic issue 29942](https://github.com/ionic-team/ionic-framework/issues/29942), [ios-haptics README](https://unpkg.com/ios-haptics@0.0.8/README.md)). A report that iOS 26.5 patched it is unconfirmed.
+
+**From the repo**
+
+- `GAME_DESIGN.md`: odds and bands (8.1, 8.5 to 8.8, 8.11, 8.14), the can (5.5, 6.3), the body and night models (7.9), snow and rivers (7.6, 7.7), movement (7.4), the death rules (9.1, 9.5), the Bonfire Lily (10.2), art and palette (11), audio (13), randomness (E.8), performance (E.10).
+- `food_catalog.json`: item volumes, crushable foods, the canisters' `usable_l` and the packing tips. `gear_catalog.json`: cameras, shelters, the ice axe's `skill_needed`, `loss_in_current`.
+- The region files: berries, bears, scene notes, fords and the snowfield hazard. The two sibling drafts: `daily_fkt.md` (6.3, 4.8) and `frame_home.md` (3.2, 3.7, 3.10, 8, the camp grid).
