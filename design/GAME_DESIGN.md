@@ -1,6 +1,6 @@
 # Olympic Peninsula Hiker
 
-*Master game design document. Working title. Status: design (no game code yet). Written 2026-10-08 for `fernforager/104-boyz`; final revision after a design review and the data fact-check.*
+*Master game design document. Working title. Status: design (no game code yet). Written 2026-10-08 for `fernforager/104-boyz`; final revision after a design review and the data fact-check, then updated the same day for your decision on how harsh: **old school, death is game over** (9.4-9.5).*
 
 *This document merges the park research in `design/data/` with three proposals: `proposals/storybook.md` (feel, voice, art, screens), `proposals/simulation.md` (state, odds, consequences) and `proposals/engine.md` (data, engine, tools). Where they disagreed, this document makes one call (section 1.2). Where this document and a proposal differ, this document wins; the proposals stay as detailed reference.*
 
@@ -8,7 +8,7 @@
 > 1. [The one-page pitch](#1-one-page-pitch)
 > 2. [Decisions needed from you](#decisions-needed-from-you): the last section, a short list, each with a recommended default
 > 3. [The first book](#36-the-first-book): what a new player meets
-> 4. Your own example, how it ends: [A.5 to A.7](#a5-the-ending) (Olympus in one night with day gear)
+> 4. Your own example, how it ends, and how often it ends for good: [A.5 to A.7](#a5-the-ending) (Olympus in one night with day gear)
 >
 > **With 20 more minutes:** [player experience](#2-player-experience-and-tone), [the core loop](#3-core-loop) and [all of Appendix A](#appendix-a-olympus-in-one-night-with-day-gear). Everything else is reference; the engineering detail lives in Appendices E and F.
 
@@ -58,13 +58,13 @@
 - **Drive** to the trailhead and take a last look at what to leave in the car.
 - **Hike** by turning pages. About 3 to 5 real decisions a day. Camp, cook, watch the light change, sleep, wake up.
 
-**Decisions with honest odds.** Every risky choice shows the chance it goes all right: `Wade across now  83%`. Tap the small (i) beside it to see why: the river's depth at this hour, the poles you packed (+10), the tent strapped outside (-3). Choices that could turn serious get a red diamond, the chance it goes badly in red (`Climb the ladder ♦ 79% · 21% fall`), a confirming tap and a short compass roll. If you lack knowledge (no tide table, no forecast), the number blurs into a range, so knowing things matters as much as carrying things.
+**Decisions with honest odds.** Every risky choice shows the chance it goes all right: `Wade across now  83%`. Tap the small (i) beside it to see why: the river's depth at this hour, the poles you packed (+10), the tent strapped outside (-3). Choices that could turn serious get a red diamond, the chance it goes badly in red (`Climb the ladder ♦ 79% · 21% fall`), a confirming tap and a short compass roll. When a choice could end the book, its **fatal share** shows in red too (`21% fall · 0.2% fatal`), and no setting hides it. If you lack knowledge (no tide table, no forecast), the number blurs into a range, and a fatal share shows the worst end of it, so knowing things matters as much as carrying things.
 
-**Consequences, gentle but real.** Plan well and it is as easy and lovely as backpacking: sensible trips finish happily at least 95% of the time. Try Mount Olympus in one night with day-hike gear, and you will have a problem: trouble or worse at least 80% of the time. In the default **Storybook** mode every story ends with you safely home. The worst case is a trip that ends early or a kind ranger with a thermos, then you plan again. An optional **Perilous** mode brings back real Sierra-style deaths at flagged moments.
+**Consequences: hard, final and fair.** This is an old-school game. The hiker can die, and death ends the book for good: no Restore, no turning back a page. But planning is what keeps you alive. Plan well and it is as easy and lovely as backpacking: sensible trips finish happily at least 95% of the time and end in death at most 1 time in 200 (the model says far less). A book can end only at a red-diamond choice that showed its fatal share, or after two warnings you walked past, and every such moment offers a sure way out that costs time, comfort or score, never the hiker. Try Mount Olympus in one night with day-hike gear and keep pushing, and you will have a problem: trouble or worse every time, and about 1 book in 14 ends on the mountain (A.6). Take the turnaround the game offers, and almost nobody dies. A dead hiker's book stays on the shelf with a black ribbon and an epitaph, the Trail Register remembers them, and the next hiker inherits their field guide. For younger readers, an optional, clearly labeled **Storybook** setting ends every story with the hiker safely home.
 
 **The park.** Six researched regions join into one trail network: 449 places, about 450 trail segments and 150 classic trips. Version 1.0 plays the three must-haves: Mount Olympus with every camp on the Hoh, Seven Lakes Basin and the High Divide, and Royal Basin. The endpaper map always shows the whole park; valleys not yet built are pencil sketches, "pages still being drawn", until they arrive (milestones M4 and M5).
 
-**Mount Olympus itself.** The summit is roped glacier climbing. In v1.0 you reach it by hiring a (fictional) guide at the outfitter counter. Anyone may put the summit on a plan, and anyone who tries the ice unroped meets an honest choice at the edge of the glacier, with a sure way to turn around (4.2).
+**Mount Olympus itself.** The summit is roped glacier climbing. In v1.0 you reach it by hiring a (fictional) guide at the outfitter counter. Anyone may put the summit on a plan, and anyone who tries the ice unroped meets an honest ♦ choice at the edge of the glacier, fatal share and all, with a sure way to turn around (4.2).
 
 **Lots of outcomes.** About 218 gear items and 86 foods become about 40 event tags. Every card reads those tags, the place, the weather, the hour and what already happened. Version 1.0 has about 260 hand-written cards with about 730 choices, and their combinations make nearly every multi-night trip tell its own story (8.12). A test harness proves each item matters somewhere.
 
@@ -74,7 +74,7 @@
 
 ### 1.1 What a play session looks like
 
-A **first book** reaches its first trail page within about 8 minutes of opening, prologue included (3.6). A returning player spends 4 to 8 minutes planning, shopping and packing ("Fill from the list" and "Like last time" keep it quick), then 4 to 6 minutes per hiking day. A two-night trip is a 20 to 30 minute book. Every page autosaves, so a phone call never loses a page.
+A **first book** reaches its first trail page within about 8 minutes of opening, prologue included (3.6). A returning player spends 4 to 8 minutes planning, shopping and packing ("Fill from the list" and "Like last time" keep it quick), then 4 to 6 minutes per hiking day. A two-night trip is a 20 to 30 minute book. Every page autosaves, so a phone call never loses a page, and nothing ever goes back: what happened, happened.
 
 ### 1.2 Calls this document makes
 
