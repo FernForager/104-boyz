@@ -514,3 +514,396 @@ The can has no randomness at all: no seed, no stream. A pack is a pure function 
 11. The result line is one line.
 12. The first pack ever shows the ghost thumb twice: once for the drop, once for the press.
 
+---
+
+## 3. The alpenglow shot
+
+*Fifty seconds of real light on Mount Olympus, and one photo to keep.*
+
+### 3.1 What it is
+
+On a clear evening at a high camp or a viewpoint, if you carry a camera or a phone, the sunset becomes a shot. The light runs from the last sun on the peak, through the true alpenglow, to blue hour, about one game minute to each real second. You frame it, hold still and shoot. Your best photo becomes the trip's picture.
+
+**The light is real light.** The American Meteorological Society's glossary describes alpenglow in three phases: the peak's color in the low evening sun; then, a few minutes after the sun has gone below the horizon, the true alpenglow, purer and pinker; then a more diffuse afterglow, with purples. Strictly, alpenglow is indirect light, seen only after sunset or before sunrise (Wikipedia). The minigame plays those phases in order, and its one trick is learning their tell.
+
+**The geometry is real too.** From the High Divide, Mount Olympus is 7.8 miles away across the Hoh, bearing about 156° (south-southeast), computed from the region data's coordinates. In mid-August the sun sets at about 292° (west-northwest), behind your right shoulder as you face the peak. So the last light falls across Olympus's western and northern faces, which are the ones you're looking at.
+
+### 3.2 Where and when
+
+| Place | Subject | Notes |
+|---|---|---|
+| The High Divide crest | Mount Olympus across the Hoh | The first playable's great view; the doc's Olympus plate (B.3) |
+| Bogachiel Peak | Olympus, the basin's lakes below | B.3's sunset; its north-face snowfield is a lily place (10.2) |
+| Heart Lake Junction camp | Olympus | The crest's one camp; carry water |
+| Hoh Lake | Olympus across the valley | The region data's scene notes |
+| Heart Lake | The ridge above the lake | The region data asks for a pink sky variant |
+| Lunch Lake | The Bogachiel ridge and its snowfield | Only while the snow lasts (July into August) |
+| The cabin's porch | The peak above the trees | Practice, at the real dusk at Lake Quinault |
+| Later | Glacier Meadows, Royal Basin, Hurricane Ridge, Lake Morgenroth | With their milestones |
+
+- **How it starts:** the evening's sunset choice, *Watch sunset* in the hub draft's camp grid or B.3's *Bogachiel Peak for sunset?*, with a camera or a phone in the kit. Without one, the sunset plays as it does now: one screen and the lift in spirits.
+- **Weather decides if there is a shot.** Clear and partly cloudy evenings play it. Overcast plays a gray, quiet version with no pink. Rain and fog skip it.
+- **Open:** every such evening. **Hike of the Day:** overnight dailies, in camp, off the clock. **FKTs:** never.
+- **Practice at the cabin** happens only at the real dusk at Lake Quinault, when the cabin's own peak goes pink (the hub draft's 3.4). That is *Sword & Sworcery*'s spirit, and it makes the porch worth opening at sunset (decision 9).
+
+### 3.3 The light, phase by phase
+
+Mid-August on Bogachiel Peak: sunset 8:29 pm and civil dusk 9:03 (the doc's daylight table, 7.2). The minigame runs from 15 minutes before sunset to civil dusk, about 49 seconds.
+
+| Real s | Clock | The light on Olympus | Exposure |
+|---|---|---|---|
+| 0-15 | 8:14-8:29 | Low warm sun on the west faces | Instant |
+| 15-21 | 8:29-8:35 | Sunset where you stand. Olympus is 2,500 ft higher, so the shadow climbs it from the valley up | Instant |
+| 21-26 | about 8:35-8:40 | The summit goes cold and flat: the lull, and the tell | 0.25 s |
+| 3 to 5 s, inside 23-32 | about 8:38-8:47 | **True alpenglow:** the pink comes back, purer | 0.25 s |
+| 32-40 | 8:47-8:55 | Afterglow: softer, toward purple | 0.5-1 s |
+| 40-49 | 8:55-9:03 | Blue hour: the snow goes glacier blue (11.4) | 2 s |
+
+**Five light levels** on the subject's snow, drawn with the doc's ordered dithers: shadow (glacier blue), a speckle of pink (`checker25`), half pink (`checker`), mostly pink, and full alpenglow pink with a snow highlight on the ridges. The low warm sun before sunset uses paper cream on snow, never gold (11.1).
+
+**The tell** is the skill: the summit's last warm pixel goes out, the whole peak sits flat and cold for a few seconds, and then the pink comes back. Players who learn the lull stop shooting the sunset and wait.
+
+### 3.4 Controls
+
+- **Drag on the picture** to pan. The scene is twice as wide as the frame, so you choose what's in it. Panning has no inertia.
+- **Press and hold the shutter** (lower right, in the thumb zone). A small meter fills for the exposure; lift when it's full. Moving your thumb while it fills blurs the photo. Lifting early underexposes it.
+- **Tap the lens chip** to switch wide and 2x (the compact camera and the DSLR).
+- **Done** ends it. Waiting to the end of blue hour ends it too.
+- **Up to twelve shots** a session with a digital camera or phone (design). With the film camera, as many as are left on the roll.
+
+### 3.5 The screen
+
+```
+┌──────────────────────────────────────┐
+│ Bogachiel Peak · 8:41 pm   shots 4   │
+│ ┌──────────────────────────────────┐ │
+│ │ ┌                              ┐ │ │
+│ │    OLYMPUS, its snow going pink  │ │
+│ │    above the shadowed Hoh        │ │
+│ │                                  │ │
+│ │  a subalpine fir, lower left     │ │
+│ │ └                              ┘ │ │
+│ └──────────────────────────────────┘ │
+│ ◀ drag to frame ▶       [ wide | 2x ]│
+│ light ▂▄▆                            │
+│                                      │
+│ [ Done ]                  ( ◉ hold ) │
+└──────────────────────────────────────┘
+```
+
+*(The light meter shows only the light now, never what's coming.)*
+
+### 3.6 The loop, second by second
+
+Bogachiel Peak, August 14, clear, with a phone and trekking poles:
+
+| Time | What happens |
+|---|---|
+| 0 s | The card: *Play* or *Auto*. Play. The frame opens on Olympus, warm in the low sun |
+| 3 s | You pan left until the summit sits on the right third line and a fir fills the lower left |
+| 8 s | A shot of the golden peak, instant. Fine, not great |
+| 16 s | The sun sets behind you. The shadow line starts up from the Hoh |
+| 21 s | The last warm pixel leaves the summit. Everything goes flat. You wait |
+| 26 s | Pink speckles the snow, then half, then full. Hold the shutter: a quarter second, thumb still |
+| 27 s | The print slides up: ★★★ |
+| 35 s | One more in the afterglow for the purple. Your thumb drifts: one pixel of blur |
+| 44 s | Blue hour. You tap *Done*, or stay to the end with the headlamp off |
+
+Result line: `★★★ Olympus at alpenglow · spirits ♥ · back by headlamp` [draft].
+
+### 3.7 The photo's score
+
+| Part | Points | How |
+|---|---|---|
+| Light | 0-50 | The level at mid-exposure: shadow 0, speckle 20, half 30, mostly 40, full 50. Golden sun 25, the climbing shadow line 30, afterglow 30, blue hour 20 |
+| Frame | 0-30 | The summit near a thirds point: 20 within 4 px, 14 within 10, 8 within 20, else 3. Something in the lower third (a fir, the tent, a lake): +5. The summit not cut by the edge: +5 |
+| Sharp | 0-20 | Blur 0 px: 20; 1: 12; 2: 5; 3 or more: 0 |
+| Gift | 0-10 | A seeded moment in frame: a marmot on the near rock, a raven, a bear on a far meadow, clouds lit pink |
+
+- **Exposure:** lifting early scales the light points by how much of the meter filled.
+- **Blur** is the thumb's travel during the exposure, one pixel per 6 pt. Trekking poles, or a rock at the spot, halve it (a monopod, or a brace).
+- **Stars:** 80 or more ★★★, 60 or more ★★, 35 or more ★. A lower one is still kept.
+- **The best shot** of the session becomes its photo. A tap in the album can swap it.
+
+### 3.8 Cameras
+
+Every camera is already in `gear_catalog.json`:
+
+| Camera | Frame | In low light | Notes |
+|---|---|---|---|
+| Phone (`phone`) | Wide | Exposure x1 | About 2% of the battery a session (design) |
+| Compact (`camera_compact`) | Wide or 2x | x1 | 350 shots a charge |
+| DSLR (`camera_dslr`) | Wide or 2x | x0.5: steadier at blue hour | Heavy |
+| Disposable film (`camera_disposable_film`) | Wide | x1 | 27 shots for the whole trip, and no preview |
+
+**Film is the purist's choice.** You see only the counter click down. The prints arrive in the trip report like an envelope from the drugstore, and you find out then whether you caught it.
+
+### 3.9 What skill is
+
+- **Waiting for the lull.** The great shot is after sunset, not at it.
+- **Framing before the light.** The peak is brief, so the frame has to be ready.
+- **A still thumb** at a quarter second, and a braced one at blue hour.
+- **Knowing when to stop,** and when to stay for the blue.
+
+### 3.10 What it feeds
+
+| Result | Goes into | Notes |
+|---|---|---|
+| ★, ★★ or ★★★ | Spirits +1, +1 or +2 (design) | On top of the sunset's own lift (7.9) |
+| The photo | The trip report's cover, the share card, the fire bowl's album | The hub draft's 6.18 and 3.2 |
+| Staying to the end | The Bonfire Lily's whole-sunset term, +0.03 (10.2) | *Done* before blue hour ends drops it |
+| Standing still at dusk | Warmth, through the heat balance (7.9) | A warm layer covers it |
+| A viewpoint away from camp | The walk back by headlamp, with its honest checks | As in B.3 |
+| The phone or camera | Battery | A dead phone takes the light and the time source with it (7.9) |
+| Score | Nothing | The sunset's points come from being there, so a bad photo never costs any |
+
+**The lily never appears in a photo,** and nothing in the minigame hints at it. It comes, when it comes, at the end of blue hour, after the shot is over (10.2). Gold never appears in the viewfinder.
+
+### 3.11 Odds
+
+None inside the shot. It is pure input. The sunset choice that leads here shows its costs as it does now (time, cold, dark), and the walk back in the dark shows its % as it does now.
+
+### 3.12 Determinism
+
+- **The light curve** comes from the date's sunset and dusk (the daylight table), the zone's weather that evening, and `hash(seed, "mini", "alpenglow", place, date)`, which sets the peak's timing inside its window, its strength, the clouds and the gift. Everything is integer tables.
+- **A photo is about ten bytes:** the place, the date, the tick, the frame's x, the lens, the blur, how full the meter was and the gift. The share PNG renders from those on any phone, identically, and a crew link can carry a photo without an image.
+- **On an overnight daily** everyone at the same camp gets the same light, so a photo-of-the-day board is possible (decision 8).
+
+### 3.13 Access
+
+- **Auto** [draft: *One good photo*] shoots once in the mostly-pink moment, centered, sharp: about 68, ★★. Auto never makes ★★★.
+- **Steady hands** (Open): no blur.
+- **VoiceOver:** a live region reads the light (*Sun on the summit. The shadow reaches the top. Pink comes back. Blue hour.* [draft]); the shutter is a button; the photo gets alt text from its layers.
+- **Reduce Motion:** the light already changes in still steps; the shutter's flash becomes a 1-frame ink border.
+- **Color:** the light meter shows the level as bars, not only as pink.
+
+### 3.14 Art
+
+- **Panoramas** for each spot, 320 pixels wide: the composed scene with the Olympus skyline (11.7), drawn twice the frame's width.
+- **A new pseudo-color, `alpen`,** for the subject's snow: it resolves by level through snow, paper cream, alpenglow pink and glacier blue with the ordered dithers. A per-row mask moves the shadow line up the peak one row at a time.
+- **The rest of the scene** steps through the doc's Day, Dusk and Blue hour tables at set ticks (11.4).
+- **Lit clouds:** the cloud stamps take `alpen` too.
+- **Gifts:** the marmot and the bear exist; a raven (5x3) is new.
+- **The viewfinder:** ink corner marks, the light bars, the shot counter, the film counter.
+- **The print:** a paper-cream border and a date line, for the album, the fire bowl and the share card.
+
+### 3.15 Sound
+
+No music. The trail's evening is the sound:
+
+- **The wind eases** as the air goes still: the bed thins over the minute.
+- **The place's evening birds,** as the sound draft picks them, and a far creek where there is one.
+- **The marmot's whistle** when the gift is a marmot (the doc's cue, 13.2).
+- **The shutter:** two soft clicks, 2 kHz then 1.2 kHz, 8 ms each. **The film advance:** a ratchet of eight clicks.
+- **No jingle for ★★★.** I recommend the quiet as the reward (decision 32 keeps music for a few key moments, and this is the place's own).
+
+### 3.16 Tuning targets
+
+| Target | Value | Measured by |
+|---|---|---|
+| Session | 45 to 55 s: sunset −15 min to civil dusk | The daylight table |
+| The peak (full pink) | 3 to 5 s, starting 3 to 10 s after the summit goes cold | The seed's range |
+| Clear evenings | Always reach full pink | A golden test |
+| Partly cloudy | Lit clouds 40% (gift +10), plain 30%, blocked 30% (half pink at most) | The harness |
+| Overcast | A speckle at most | A golden test |
+| Auto | About 68, ★★; never ★★★ | A golden test |
+| First tries | Median about 55 (★); ★★★ about 1 in 10 | Five playtests |
+| After five evenings | Median about 75 (★★); ★★★ about 4 in 10 | Your own evenings |
+| Blur | 1 pixel per 6 pt of thumb travel | Device |
+| Gifts | About 1 evening in 4, clear or partly cloudy | The harness |
+
+### 3.17 The polish list
+
+1. The light is the star: every spot is checked at every level side by side with the mockup.
+2. The shadow line climbs a row at a time and never jumps.
+3. The tell reads: the last warm pixel, a beat of flat cold, then pink.
+4. The shutter clicks on touch-down; the meter fills after.
+5. Panning stops dead when the thumb lifts.
+6. The print slides up in six frames.
+7. Film shows only the counter, and the trip report deals the prints one by one.
+8. The best shot is picked for you, and is easy to swap.
+9. No text in the viewfinder but the counter.
+10. The photo is pixel-for-pixel the scene, because it is the scene's own render.
+
+---
+
+## 4. Huckleberries
+
+*Comb a ripe bush with your thumb. The cup is the park's quart.*
+
+### 4.1 What it is
+
+In late summer the High Divide and the Seven Lakes Basin are full of huckleberries and blueberries. Trip reports call the bushes waist-high and say the berries slowed them down, which is the whole game. You stop at a patch, comb ripe berries into your cup with your thumb, eat some, save some, and go on, a little later and a little happier.
+
+**The rule is real.** Olympic's Superintendent's Compendium (updated January 2026) lets visitors collect edible fruits and berries **by hand, for personal consumption, up to 1 quart per person per day**, but not within 200 feet of nature trails, special trails and natural study areas. Everything else growing in the park stays put (the doc's flower press is a trap for that reason, 6.9). So the berries are the one thing you may pick, and the cup in the minigame *is* the quart: when it's full, you're done for the day.
+
+**And respectfully.** Big huckleberry is a sacred first food for many Northwest tribes (USFS). The game picks berries the way the park allows: by hand, a quart, for yourself.
+
+### 4.2 Where and when
+
+**Places** (the region data's `wildlife_and_plants` and recent trip reports):
+
+- the High Divide crest, and the stretch from past Deer Lake along the basin until the trail re-enters the trees after Heart Lake (a September 15, 2025 report);
+- between Heart Lake and Sol Duc Park, where the bushes are waist-high (August 14, 2021);
+- Sol Duc Park, Lunch Lake and Hoh Lake;
+- later, Lake of the Angels (its region notes mention ripe blueberries) and other high meadows.
+
+**Never within 200 feet of a nature trail or special trail.** The compendium's section 1.4 lists those trails; that list still has to go into `park_rules.json` before berries can be dealt anywhere near one.
+
+**The season** (normal snow year; the doc's snow year shifts it, 7.6):
+
+| Dates | Ripe share | What the reports say |
+|---|---|---|
+| Before Aug 1 | Under 10% | A few early bushes |
+| Aug 1-10 | 10-40% | Can look ripe and taste sour (August 15, 2020) |
+| Aug 10-Sep 15 | 50-75% | The peak (2021, 2025 reports) |
+| Sep 15-30 | About 60%, some shriveled | Leaves turn rust |
+| Oct 1-15 | 30-50%, then frost | "Tons of ripe huckleberries" on October 11, 2024 |
+
+A low snow year moves it about two weeks earlier, a high one two to three weeks later. The USFS puts big huckleberry's ripening at "generally... late July to late September." The shares are design values.
+
+**How it starts.** A trail moment the Director deals on a segment with a berry tag, in season, at most once a day: *the bushes here are heavy with berries* [draft], with *Stop and pick* and *Keep walking*. A camp tile at Lunch Lake and Heart Lake offers it too.
+
+**Modes.** **Open:** in season. **Hike of the Day:** yes, and the clock runs, so it is a real trade. **FKTs:** yes, as fuel.
+
+### 4.3 Controls
+
+- **Drag your thumb through the bush.** A small fingertip cursor floats about 36 pt above your thumb, so you can see what you're touching. Berries under the fingertip are picked.
+- **Slow and steady picks.** Strokes faster than about 1.5 pixels a tick knock berries off instead; they drop to the ground and are gone (design).
+- **Dragging through leaves** parts them and shows the berries behind, but knocks off about one berry cluster in four under them (design).
+- **Tap the cup** to stop.
+
+### 4.4 The screen
+
+```
+┌──────────────────────────────────────┐
+│ Above Sol Duc Park · Aug 22 · 1:10   │
+│ ┌──────────────────────────────────┐ │
+│ │  BUSHES: dark berries with a     │ │
+│ │  pale bloom, green ones, leaves  │ │
+│ │            ◇ fingertip           │ │
+│ │                                  │ │
+│ │        (your thumb, below)       │ │
+│ └──────────────────────────────────┘ │
+│ Cup ▓▓▓▓▓▓░░░░ 0.6 qt · +21 min      │
+│ ripe 92%                             │
+│                       [ That's it ]  │
+└──────────────────────────────────────┘
+```
+
+### 4.5 The loop, second by second
+
+August 22, a sunny morning between Heart Lake and Sol Duc Park, with a pot in the pack:
+
+| Time | What happens |
+|---|---|
+| 0 s | *Stop and pick.* Three bushes fill the picture, heavy with dark berries |
+| 1-6 s | A slow stroke along a branch: plink, plink, plink, each one a note higher. Five ripe clusters |
+| 7 s | Too fast across the next branch: three clusters drop and bounce once. A dull tick |
+| 8-20 s | Through the leaves at the bottom, which hide a lot of fruit. A green cluster gets picked by mistake: a dry click |
+| 21 s | A bush at the edge shakes. A dark shape, gone. A low woof |
+| 22 s | You tap the cup. *Back away* [draft]. A bear in the berries, far off, which is the best kind |
+| 23 s | Result: 0.6 quart, 92% ripe, 17 game minutes |
+
+Result line: `0.6 qt · about 220 kcal · half saved for breakfast · ♥` [draft].
+
+### 4.6 The bush
+
+- **Clusters, not berries.** A quart of wild berries is many hundreds of berries. Each target is a cluster, 1/48 of a quart (design), about 3x3 pixels.
+- **About 70 clusters** a screen across two or three bushes; the date sets the share that's ripe (4.2), and leaves hide about 30%.
+- **Ripe** clusters are dark with a one-pixel pale bloom. **Unripe** ones are pale and smaller, with no bloom. **Shriveled** ones are small and brown, late in the season.
+- **What you pick counts toward the quart,** ripe or not. Unripe picks are sour.
+- **Next bush** [draft] moves along the trail for two game minutes when one's picked out.
+- **Eaten or saved.** With a pot or a zip bag in the pack, half of what you pick is saved for the next breakfast or dinner. Without one, you eat it all now.
+
+### 4.7 What skill is
+
+- **Planning a stroke** that runs through ripe clusters and misses the green ones.
+- **Speed control:** fast enough to fill the cup, slow enough to keep the berries.
+- **Working the leaves:** where the hidden fruit is, and what parting them costs.
+- **Knowing when to stop:** the clock in a timed mode; the bear.
+
+### 4.8 The bear
+
+Bears love these slopes in berry season: the region data logs 4 to 11 bears a trip in August 2026, and huckleberries are a major part of a bear's summer diet (USFS).
+
+- **Dice:** whether a bear is in this patch. It is drawn when the patch opens: about 3% of patches in July and 8% in August and September (design).
+- **Hands:** what you do about it. The tell comes at a seeded moment: a bush at the edge shakes, a dark shape shows for three frames, and there's a low woof. Stop within about three seconds (tap the cup, *Back away* [draft]) and it's a quiet Look at a bear in the berries, a lift in spirits. Keep picking and the region's **bear-in-the-berries** card fires, with its own honest odds.
+- **No harm by design.** No wildlife card has a fatal branch (9.5, principle 2). The worst the bear card does is cost time, or, if food is outside a can, take it.
+- **The tell is never a jump scare.** It is seen and heard, and it is never only a sound.
+
+### 4.9 What it feeds
+
+| Result | Goes into | Notes |
+|---|---|---|
+| Berries eaten now | Calories | About 340-380 kcal a quart (USDA blueberry figures, design for huckleberries) |
+| Berries saved | +1 morale at the next breakfast or dinner [draft: huckleberry oatmeal] | Spoils in 2 days |
+| The trip's first berries | Spirits +1 | Sour early berries give none |
+| A full quart | Spirits +1 | — |
+| Unripe picks | Count toward the quart; spirits −1 past a quarter of the cup | — |
+| Time | 1 real second = 45 game seconds (design) | On the clock in timed modes |
+| The patch off the trail | Leave No Trace −2 | The trail-side patch is sure (below) |
+| The bear | A quiet Look, or the bear card | 4.8 |
+| FKT fuel | The runner's carbohydrate store, at the modes draft's cap (its 4.8) | Grazing costs seconds |
+
+**On the trail or into the meadow.** Some patches offer a choice first: *Pick along the trail* (sure) or *Step into the meadow* (better bushes, Leave No Trace −2) [draft]. The meadows on the Divide are fragile, and the choice teaches it.
+
+**In the daily,** a full quart costs about 25 game minutes and pays about 360 kcal. That is rarely worth it for the time, and sometimes worth it for the legs. Exactly the kind of choice the board should reward thinking about.
+
+### 4.10 Odds
+
+None in the picking. It is pure input. The bear's presence is a seeded fact you can read in time; the bear card, if you walk into it, shows its own %.
+
+### 4.11 Determinism
+
+`hash(seed, "mini", "berries", segment, day, patch)` lays out the bushes, the ripeness, the hidden fruit and the bear. On a daily, everyone combs the same bushes. Picking is judged in ticks and world pixels, so a stroke is the same stroke on every phone.
+
+### 4.12 Access
+
+- **Auto** [draft: *Graze a while*]: half a quart, 85% ripe, 15 game minutes, and it always backs away from a bear.
+- **VoiceOver:** three buttons, *Pick 10 minutes*, *Pick 20 minutes* and *Fill the quart* [draft], at Auto's rate.
+- **Tap to pick** (Open assist): a tap picks the nearest ripe cluster within 20 pixels.
+- **Reduce Motion:** bushes don't sway; knocked-off berries vanish instead of falling.
+- **Color:** ripe means darker *and* a bloom pixel; unripe means paler *and* smaller.
+
+### 4.13 Art
+
+- **Bushes** as stamps in forest and moss, with rust and brick leaves from mid-September (the palette's own note for fall huckleberry, 11.1).
+- **Clusters:** ripe in night navy with a glacier-blue bloom (huckleberry) or slate with a bloom (blueberry); unripe in sage or alpenglow pink; shriveled in bark.
+- **The cup:** your pot, mug or a zip bag from the kit, filling a pixel at a time. Bare hands if you have neither.
+- **The fingertip:** a small ink-outlined diamond.
+- **The bear's tell:** a 3-frame dark shape in a far bush.
+
+### 4.14 Sound
+
+- **The plink.** Each ripe cluster lands in the cup with its own note, and the pitch climbs one step of a pentatonic scale every eighth of a quart, so a full cup plays a little tune. This is the takoyaki feel: many small touches, each with its sound.
+- **A dry click** for an unripe pick, **a dull tick** for a dropped cluster, **a rustle** (filtered noise) through leaves.
+- **The bear:** a low woof, and the bush's shake.
+- **The place underneath:** wind in the heather, a far marmot.
+
+### 4.15 Tuning targets
+
+| Target | Value | Measured by |
+|---|---|---|
+| Session | 25 to 40 s; the player stops | Playtests |
+| A full quart | 48 clusters; an expert in about 30 s (about 22 game minutes) | Bots, playtests |
+| A first-timer | About half a quart in 40 s, 75% ripe | Five playtests |
+| An expert | A quart in 30 s, 95% ripe, under 5% knocked off | Your own picking |
+| Auto | Half a quart, 85% ripe, 15 game minutes | A golden test |
+| The bush | About 70 clusters a screen; ripe share by date | A golden test per date |
+| The bear | 3% of patches in July, 8% in Aug-Sep (design) | The harness |
+| The daily's trade | A quart: about 25 game minutes for about 360 kcal | The harness |
+
+### 4.16 The polish list
+
+1. Every ripe cluster plinks into the cup, and a full cup plays its tune.
+2. The fingertip is always visible above the thumb.
+3. A knocked-off cluster bounces once and is gone.
+4. The bush sways a pixel where you comb.
+5. The cup rises a pixel per cluster.
+6. Unripe picks look and sound wrong at once.
+7. The bear's tell is unmistakable and never a jump scare.
+8. The cup is the stop button.
+9. No text while picking.
+10. The trip's first ripe berry gets a one-frame snow sparkle.
+
