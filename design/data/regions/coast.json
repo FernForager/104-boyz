@@ -28,7 +28,7 @@
       "lat": null,
       "lon": null,
       "camp": null,
-      "description": "Overnight cars may not stay at the trailhead, so backpackers leave them on a grassy yard about half a mile back down the road and drop cash in a box.",
+      "description": "Overnight cars may not stay at the trailhead, so backpackers leave them on a grassy yard half a mile to a mile back down the road, across from Tsoo-Yess Beach, and drop cash in a box.",
       "scene_art_notes": "Foreground: a hand-lettered cardboard sign 'OVERNIGHT PARKING' (no real business name) and a lockbox; midground: rows of dusty cars on a lawn beside a house; sky: low grey; landmark: spruce wall at the yard's edge.",
       "sources": [
         "https://www.wta.org/go-hiking/hikes/shi-shi-beach-and-point-of-arches",
@@ -669,7 +669,7 @@
         "fires_allowed": true,
         "toilet": true,
         "water": "Ellen Creek (south) and small creeks; filter or boil.",
-        "notes": "Fires only in existing fire rings on the beach, driftwood only (NPS Rialto page); 2026 fire ban caveat applies. Park-approved bear canister required for all food, garbage and scented items (hanging is not allowed; raccoons defeat hangs). Pit toilet just south of Hole-in-the-Wall near 'split rock'."
+        "notes": "Fires only in existing fire rings on the beach, driftwood only (NPS Rialto page); 2026 fire ban caveat applies. Park-approved bear canister required for all food, garbage and scented items (hanging is not allowed; raccoons defeat hangs). Pit toilet just south of Hole-in-the-Wall near 'split rock'. The NPS North Coast page calls this camp area 'Ellen Creek' (privy listed there); recreation.gov books it as Hole-in-the-Wall. No camping between the Quillayute River and Ellen Creek."
       },
       "description": "A busy camp area close to Rialto, with sites strung along the beach between Ellen Creek and the arch.",
       "scene_art_notes": "Foreground: tents among drift logs; midground: beach; sky: grey; landmark: the arch.",
@@ -1448,7 +1448,7 @@
         "traffic"
       ],
       "snow_free_typical": "year-round (no snow; winter storms, high tides and swollen creeks are the seasonal limits)",
-      "notes": "Overnight hikers drop packs at the trailhead, then park about 0.6 mi back at a private yard and walk the road. 2026 reports: $20/night cash in a lockbox (older info: $10/day).",
+      "notes": "Overnight hikers drop packs at the trailhead, then park at the private paid lot back toward Neah Bay across from Tsoo-Yess Beach (WTA: ~0.6 mi; NPS: ~1 mi) and walk the road. 2026 reports: $20/night cash in a lockbox (older info: $10/day).",
       "sources": [
         "https://www.wta.org/go-hiking/hikes/shi-shi-beach-and-point-of-arches",
         "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-08-31.170542995377",
@@ -2099,6 +2099,26 @@
       ]
     },
     {
+      "from": "second_beach",
+      "to": "teahwhit_head",
+      "miles": 1.0,
+      "gain_ft": 0,
+      "loss_ft": 0,
+      "trail_class": "beach",
+      "hazards": [
+        "tide_dependent",
+        "sneaker_waves",
+        "sea_caves"
+      ],
+      "snow_free_typical": "year-round (no snow; winter storms, high tides and swollen creeks are the seasonal limits)",
+      "notes": "Day wander south to the arch and sea caves at the foot of Teahwhit Head, about a mile from where the trail reaches the beach. Dead end: the headland can never be rounded, and coming back requires the tide not to have risen behind you.",
+      "sources": [
+        "https://www.wta.org/go-hiking/hikes/second-beach",
+        "https://www.recreation.gov/api/permitcontent/4098362",
+        "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-08-12.063717791001"
+      ]
+    },
+    {
       "from": "third_beach_trailhead",
       "to": "third_beach",
       "miles": 1.4,
@@ -2130,7 +2150,7 @@
         "creek_crossing"
       ],
       "snow_free_typical": "year-round (no snow; winter storms, high tides and swollen creeks are the seasonal limits)",
-      "notes": "Walk south along Third Beach past the waterfall that pours off Taylor Point (Strawberry Bay Falls). Teahwhit Head (north) and Taylor Point cannot be rounded at shore level. Distance estimated from coordinates.",
+      "notes": "Walk south along Third Beach past the waterfall that pours off Taylor Point (Strawberry Bay Falls). Bluff erosion has pushed debris onto the beach that must be negotiated at high tide (NPS). Teahwhit Head (north) and Taylor Point cannot be rounded at shore level. Distance estimated from coordinates.",
       "sources": [
         "https://www.nps.gov/olym/planyourvisit/south-coast-route.htm",
         "https://www.nps.gov/olym/planyourvisit/third-beach-trail.htm",
@@ -2446,7 +2466,7 @@
         "barnacles"
       ],
       "snow_free_typical": "year-round (no snow; winter storms, high tides and swollen creeks are the seasonal limits)",
-      "notes": "Diamond Rock: passable only at 2 ft or lower (NPS: ~1.5 mi north of Oil City TH); can be impassable in daylight for several consecutive days. ~400 m of barnacled boulder field - you cannot wade around if you miss the tide (2026). One 2025 party squeezed through at a rising ~5 ft tide with waves to mid-thigh and called it the most dangerous moment of their trip.",
+      "notes": "Diamond Rock: passable only at 2 ft or lower and there is NO overland route (NPS: ~1.5 mi north of Oil City TH, a rocky point with cliffs entering the water); can stay impassable for consecutive days. ~400 m of barnacled boulder field - you cannot wade around if you miss the tide (2026). One 2025 party squeezed through at a rising ~5 ft tide with waves to mid-thigh and called it the most dangerous moment of their trip.",
       "sources": [
         "https://www.nps.gov/olym/planyourvisit/south-coast-route.htm",
         "https://www.nps.gov/olym/planyourvisit/third-beach-trail.htm",
@@ -3486,6 +3506,163 @@
       ]
     },
     {
+      "id": "ozette_to_seafield_creek",
+      "name": "Ozette to Seafield Creek (quiet camp beyond the river)",
+      "trailhead": "ozette_trailhead",
+      "shape": "out_and_back",
+      "nights_typical": [
+        2,
+        2
+      ],
+      "itinerary": [
+        {
+          "day": 1,
+          "to": "seafield_creek",
+          "miles": 7.5,
+          "gain_ft": 290
+        },
+        {
+          "day": 2,
+          "to": "seafield_creek",
+          "miles": 0,
+          "gain_ft": 0
+        },
+        {
+          "day": 3,
+          "to": "ozette_trailhead",
+          "miles": 7.5,
+          "gain_ft": 325
+        }
+      ],
+      "layover_ideas": [
+        "Day hike north toward Point of the Arches through the overland ropes (turn around with time to beat the tide)",
+        "Beachcomb the river mouth at low tide"
+      ],
+      "total_miles": 15.0,
+      "difficulty": "hard",
+      "best_months": "June-September",
+      "highlights": [
+        "Ozette River ford",
+        "Solitude at Seafield Creek",
+        "Sea otters among dense stacks"
+      ],
+      "what_goes_wrong_for_underprepared_hikers": [
+        "Fording the Ozette River at mid-tide (rib-deep in Aug 2026)",
+        "Seafield is limited to 6 people a night - no permit, no camp"
+      ]
+    },
+    {
+      "id": "yellow_banks_overnight",
+      "name": "Ozette to Yellow Banks",
+      "trailhead": "ozette_trailhead",
+      "shape": "out_and_back",
+      "nights_typical": [
+        1,
+        2
+      ],
+      "itinerary": [
+        {
+          "day": 1,
+          "to": "yellow_banks",
+          "miles": 5.6,
+          "gain_ft": 130
+        },
+        {
+          "day": 2,
+          "to": "ozette_trailhead",
+          "miles": 5.6,
+          "gain_ft": 160
+        }
+      ],
+      "layover_ideas": [
+        "Layover: low-tide walk south into the boulder 'purgatory' and back",
+        "Petroglyph detour via Cape Alava on the way out (adds ~2.5 mi)"
+      ],
+      "total_miles": 11.2,
+      "difficulty": "moderate",
+      "best_months": "May-September",
+      "highlights": [
+        "Ochre bluffs",
+        "Bluff-top rope camps",
+        "First taste of the Shipwreck Coast"
+      ],
+      "what_goes_wrong_for_underprepared_hikers": [
+        "Arriving at the 5 ft headland north of Yellow Banks on a rising tide",
+        "No rope or gloves for the bluff-top sites; camping on cobbles instead"
+      ]
+    },
+    {
+      "id": "pnt_coastal_finale",
+      "name": "Pacific Northwest Trail finale: Oil City to Cape Alava",
+      "trailhead": "oil_city_trailhead",
+      "shape": "traverse",
+      "nights_typical": [
+        5,
+        7
+      ],
+      "itinerary": [
+        {
+          "day": 1,
+          "to": "mosquito_creek",
+          "miles": 6.1,
+          "gain_ft": 640
+        },
+        {
+          "day": 2,
+          "to": "toleak_point",
+          "miles": 4.8,
+          "gain_ft": 385
+        },
+        {
+          "day": 3,
+          "to": "third_beach_trailhead",
+          "miles": 6.4,
+          "gain_ft": 710
+        },
+        {
+          "day": 4,
+          "to": "chilean_memorial",
+          "miles": 12.5,
+          "gain_ft": 70
+        },
+        {
+          "day": 5,
+          "to": "norwegian_memorial",
+          "miles": 5.8,
+          "gain_ft": 50
+        },
+        {
+          "day": 6,
+          "to": "sand_point",
+          "miles": 7.0,
+          "gain_ft": 0
+        },
+        {
+          "day": 7,
+          "to": "cape_alava",
+          "miles": 2.7,
+          "gain_ft": 0
+        }
+      ],
+      "layover_ideas": [
+        "Layover at Toleak Point",
+        "Layover at Norwegian Memorial"
+      ],
+      "total_miles": 45.3,
+      "difficulty": "expert",
+      "best_months": "June-September (not possible while Mora Road is closed to pedestrians, July 8 - Oct 15/Nov 9, 2026)",
+      "highlights": [
+        "Diamond Rock at dawn",
+        "Road walk past La Push and Mora",
+        "Finishing at the trail's western terminus at Cape Alava"
+      ],
+      "what_goes_wrong_for_underprepared_hikers": [
+        "PNT zone permits stop at Sand Point - Wedding Rocks and Cape Alava need their own quota reservation",
+        "Day 4 includes an 8.8 mi road walk the planner forgot",
+        "Every tide gate on both coasts must line up with daylight"
+      ]
+    },
+    {
       "id": "north_coast_full",
       "name": "Shi Shi to Rialto: the whole North Coast",
       "trailhead": "shi_shi_trailhead",
@@ -4449,7 +4626,7 @@
       "confidence": "high"
     },
     {
-      "rule": "Makah Recreation Pass ($20 per vehicle, valid the calendar year) is required to use Shi Shi Beach trail and other Makah Reservation sites; display in the windshield. No overnight parking at the Shi Shi trailhead.",
+      "rule": "Makah Recreation Pass ($20 per vehicle, valid the calendar year) is required to use Shi Shi Beach trail and other Makah Reservation sites; display in the windshield. No overnight parking at the Shi Shi trailhead: NPS directs overnighters to private paid parking about a mile back toward Neah Bay, across from Tsoo-Yess Beach.",
       "applies_to": [
         "shi_shi_trailhead",
         "neah_bay"
@@ -4504,6 +4681,15 @@
       ],
       "source": "https://www.nps.gov/olym/planyourvisit/wilderness-coast.htm",
       "confidence": "high"
+    },
+    {
+      "rule": "Olympic National Park entrance fee applies in fee areas such as Ozette (2026: $30 per vehicle for 7 days, $55 park annual pass, America the Beautiful pass accepted); how it is collected at the Ozette trailhead (self-pay) was not confirmed.",
+      "applies_to": [
+        "ozette_trailhead",
+        "rialto_beach_trailhead"
+      ],
+      "source": "https://www.nps.gov/olym/planyourvisit/fees.htm",
+      "confidence": "medium"
     },
     {
       "rule": "Plan short days: NPS says even strong hikers are usually limited to 5-10 miles per day on the coast because of tides, rock and sand.",
@@ -4674,6 +4860,7 @@
     "Drive minutes are OSRM estimates and do not account for 2026 closures (Mora Road, Hoh River Bridge) or pilot-car delays.",
     "Ericson's Bay trail length: NPS GIS 1.86 mi; Wikipedia 2.5 mi; trip report 'two miles'.",
     "Allen's Bay abandoned route from Lake Ozette to Norwegian Memorial / Kayostla Beach exists but is overgrown (Aug 2025 report); not included as a segment.",
+    "Pacific Northwest Trail: western terminus at Cape Alava and the Oil City-Third Beach / Rialto-Sand Point zone structure come from recreation.gov PNT zone descriptions and general knowledge; confirm with the PNT Association/NPS PNT page.",
     "Kalaloch Tree of Life 2026 condition unconfirmed; coordinates not taken from an authoritative source.",
     "No reservation system for Shi Shi overnight parking was found; it is a private cash lot (the task brief mentioned 'reservation parking').",
     "Oil City Road leaving US 101 north of the Hoh River Bridge (so unaffected by 2026 bridge closures) is inferred from WTA directions (MP 177-178, 'just north of the Hoh River').",
@@ -4786,10 +4973,12 @@
     "https://www.wta.org/go-hiking/trip-reports/trip_report-2025-04-15.075811477732",
     "https://www.oregonhikers.org/field_guide/Ozette_to_Rialto_Beach_Hike",
     "https://router.project-osrm.org/",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-08-12.063717791001",
     "https://www.nps.gov/olym/planyourvisit/wilderness-reservations.htm",
     "https://www.nps.gov/olym/learn/news/favorable-weather-conditions-allow-olympic-national-park-to-return-to-standard-fire-regulations.htm",
     "https://www.nps.gov/olym/learn/news/crews-extinguish-two-small-lightning-fires-continue-to-work-mt-barnes-and-mount-tom-creek-fires.htm",
     "https://outdoor-society.com/makah-tribal-petroglyphs-vandalized-in-olympic-national-park/",
+    "https://www.nps.gov/olym/planyourvisit/fees.htm",
     "https://wsdot.wa.gov/construction-planning/search-projects/us-101-hoh-river-bridge-emergency-repair",
     "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-04-26.113548650568",
     "https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=9442396&product=predictions&datum=MLLW&interval=hilo&begin_date=20260101&end_date=20261231",

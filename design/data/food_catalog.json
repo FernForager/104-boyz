@@ -1,6 +1,2923 @@
 {
-  "needs": {},
-  "items": [],
-  "bear_can_capacity": {},
-  "notes": "SKELETON - catalog in progress."
+ "needs": {
+  "calories_per_day": {
+   "basis": "A 165 lb adult carrying about 30 lb. Scale by body weight: roughly 15 to 20 kcal per pound of body weight on a moderate hiking day. Children and small adults need less; big hikers and heavy packs need more.",
+   "by_effort": {
+    "rest_or_layover_day": {
+     "kcal": 2200,
+     "example": "A layover at Lunch Lake or Hoh Lake: short wanders, fishing, sketching."
+    },
+    "easy": {
+     "kcal": 2800,
+     "example": "Under 8 miles and under 1,500 ft of gain, such as Ozette to Cape Alava (about 3 miles, nearly flat) or Hoh trailhead to Five Mile Island."
+    },
+    "moderate": {
+     "kcal": 3300,
+     "example": "Roughly 7 to 12 miles with 1,500 to 3,000 ft of gain, such as the Upper Dungeness trailhead to Royal Lake (about 7 miles, 2,500 ft)."
+    },
+    "strenuous": {
+     "kcal": 4000,
+     "example": "12+ miles or 3,000+ ft of gain, such as Hoh trailhead to Glacier Meadows (about 17 miles and nearly 4,000 ft), Sol Duc trailhead to Seven Lakes Basin, or the full High Divide loop in a day."
+    },
+    "summit_day": {
+     "kcal": 4800,
+     "example": "Glacier Meadows to the summit of Mount Olympus and back: 12 to 16 hours on snow, ice and rock."
+    }
+   },
+   "temperature_multiplier": {
+    "warm_nights_above_50f": 1.0,
+    "cool_nights_40_to_50f": 1.05,
+    "cold_nights_30_to_40f": 1.1,
+    "freezing_nights_below_30f": 1.2,
+    "snow_camping": 1.3
+   },
+   "wet_and_windy": "Add about 10% on a day spent cold and wet (shivering burns calories), which matches simulation.md's +10% when Cold for more than 2 hours.",
+   "practical_targets": "Most hikers eat less than they burn, and a deficit of 500 to 1,000 kcal a day is normal and harmless on trips under a week. Pack 2,500 to 3,500 kcal per day for most people, about 1.5 to 2 lb of food. Aim for at least 100 kcal per ounce across the whole food bag (125+ on long trips). Fresh fruit, cans and soup are under 50.",
+   "game_formula": "simulation.md 7.2: burn/day = 10.6 x bodyLb (BMR) + 0.5 x (bodyLb + packLb) x effort-miles + 300 camp; +10% if Cold over 2 h."
+  },
+  "water_l_per_day": {
+   "basis": "Drinking water for a 165 lb hiker, not counting cooking water.",
+   "table": {
+    "cool_below_60f": {
+     "easy": 2.5,
+     "moderate": 3.0,
+     "strenuous": 4.0
+    },
+    "mild_60_to_75f": {
+     "easy": 3.0,
+     "moderate": 4.0,
+     "strenuous": 5.0
+    },
+    "hot_above_75f": {
+     "easy": 4.0,
+     "moderate": 5.0,
+     "strenuous": 6.5
+    }
+   },
+   "per_moving_hour": "About 0.4 to 0.5 L in cool weather, 0.75 to 1.0 L on a hot, exposed climb (simulation.md 7.3 uses 0.45 L x heat and climb multipliers).",
+   "cooking": "Add 0.5 to 1.5 L per day for meals and hot drinks (see each food's water_l); it must be treated or boiled too.",
+   "olympic_notes": "Most valley and lake trails cross water every mile or two. Dry stretches that need 2 to 3 L carried: the Hoh Lake Trail switchbacks, the High Divide crest and Bogachiel Peak in late summer, Klahhane Ridge, and Grand Ridge (Obstruction Point to Deer Park), which has no water at all. Coast creeks are tannic and tea-colored but fine once treated. Glacial rivers (Hoh, Elwha below the glaciers, Queets) carry silt that clogs filters: let it settle or use side creeks.",
+   "electrolytes": "On hot climbs, salt matters as much as water: salty snacks, soup and electrolyte mixes prevent the headache and cramps that come from drinking only plain water."
+  },
+  "fuel_g_per_day": {
+   "basis": "Grams of isobutane canister fuel per person per day with an upright canister stove at about 60 °F with little wind. About 7 g brings 0.5 L to a boil; simmering burns about 1 g per minute.",
+   "by_cooking_style": {
+    "no_cook": 0,
+    "cold_soak": 0,
+    "hot_drink_only": 7,
+    "boil_dinner_only": 9,
+    "boil_breakfast_and_dinner": 16,
+    "boil_meals_plus_hot_drinks": 24,
+    "simmer_cooking": 34,
+    "melting_snow_for_all_water": 130
+   },
+   "style_notes": {
+    "boil_meals_plus_hot_drinks": "The common pattern: oatmeal and coffee, cocoa or soup at night, a boil-in-bag dinner. About 1.5 L boiled per day.",
+    "simmer_cooking": "Pasta and rice sides and mac and cheese simmer for 7 minutes or more.",
+    "melting_snow_for_all_water": "Snow camps such as the Snow Dome high camp when meltwater is frozen: 3 to 4 L from snow per day, needs a stove that works in cold (white gas or a regulated canister stove)."
+   },
+   "multipliers": {
+    "cold_below_40f": 1.3,
+    "wind_no_windscreen": 1.5,
+    "integrated_stove": 0.65,
+    "alcohol_stove": "about 2x the grams, and no shut-off valve (often banned in Stage 2 fire restrictions)"
+   },
+   "canister_budget": "A 110 g canister is about 14 half-liter boils in mild weather: 4 to 5 days of boil-meals-plus-hot-drinks for one person. A 230 g canister lasts one person about 9 days or two people 4 to 5 days. Keep a 20% reserve; the game should show a half-used canister's fuel as a gauge rather than make you guess."
+  },
+  "food_weight_and_volume_per_day": {
+   "dense": {
+    "lb": 1.5,
+    "l": 1.6,
+    "example": "oats, tortillas, peanut butter, olive oil, cheese, nuts, couscous"
+   },
+   "typical": {
+    "lb": 1.75,
+    "l": 2.0,
+    "example": "a mix of grocery staples, bars and repacked freeze-dried dinners"
+   },
+   "bulky": {
+    "lb": 2.25,
+    "l": 2.6,
+    "example": "freeze-dried pouches as sold, chips, crackers, fresh fruit"
+   },
+   "note": "Volume, not weight, usually decides how many days fit in the bear canister. See bear_can_capacity.sample_days_computed for menus built from this catalog."
+  }
+ },
+ "items": [
+  {
+   "id": "oatmeal_packet",
+   "name": "Instant Oatmeal Packet (flavored)",
+   "unit": "1 packet (43 g)",
+   "calories": 160,
+   "weight_oz": 1.5,
+   "volume_l": 0.12,
+   "volume_repacked_l": 0.12,
+   "price_usd": 0.5,
+   "prep": "boil",
+   "fuel_g": 4,
+   "water_l": 0.25,
+   "morale": 1,
+   "tags": [
+    "breakfast",
+    "hot"
+   ],
+   "spoils_days": null,
+   "crushable": false,
+   "needs": [
+    "stove",
+    "pot_or_mug"
+   ],
+   "sold_at": [
+    "grocery",
+    "outfitter"
+   ],
+   "real_world_notes": "Most hikers need two or three packets for a real breakfast. Also edible cold-soaked.",
+   "flavor": "A little paper packet of oats that turns into a warm, sweet breakfast in two minutes.",
+   "kcal_per_oz": 107,
+   "kcal_per_l": 1333
+  },
+  {
+   "id": "oats_rolled",
+   "name": "Rolled Oats (1 cup, bagged)",
+   "unit": "1 cup dry (80 g)",
+   "calories": 300,
+   "weight_oz": 2.8,
+   "volume_l": 0.25,
+   "volume_repacked_l": 0.25,
+   "price_usd": 0.35,
+   "prep": "cold_soak",
+   "fuel_g": 0,
+   "water_l": 0.3,
+   "morale": 0,
+   "tags": [
+    "breakfast"
+   ],
+   "spoils_days": null,
+   "crushable": false,
+   "needs": [
+    "container"
+   ],
+   "sold_at": [
+    "grocery",
+    "outfitter"
+   ],
+   "real_world_notes": "Cheap and dense. Soak overnight in the cold-soak jar or cook in the morning (about 4 g of fuel).",
+   "flavor": "Plain oats from the bulk bin, waiting for a spoonful of something sweet.",
+   "kcal_per_oz": 107,
+   "kcal_per_l": 1200
+  },
+  {
+   "id": "granola_milk",
+   "name": "Granola with Powdered Milk (bagged)",
+   "unit": "1 cup granola + 1/3 cup milk powder",
+   "calories": 660,
+   "weight_oz": 5.0,
+   "volume_l": 0.35,
+   "volume_repacked_l": 0.35,
+   "price_usd": 1.4,
+   "prep": "no_cook",
+   "fuel_g": 0,
+   "water_l": 0.25,
+   "morale": 2,
+   "tags": [
+    "breakfast"
+   ],
+   "spoils_days": null,
+   "crushable": false,
+   "needs": [],
+   "sold_at": [
+    "grocery",
+    "outfitter"
+   ],
+   "flavor": "Crunchy clusters and a scoop of milk powder: just add cold creek water and stir.",
+   "kcal_per_oz": 132,
+   "kcal_per_l": 1886
+  },
+  {
+   "id": "milk_powder",
+   "name": "Whole Milk Powder",
+   "unit": "1/2 cup (32 g)",
+   "calories": 160,
+   "weight_oz": 1.1,
+   "volume_l": 0.07,
+   "volume_repacked_l": 0.07,
+   "price_usd": 0.6,
+   "prep": "no_cook",
+   "fuel_g": 0,
+   "water_l": 0.25,
+   "morale": 0,
+   "tags": [
+    "breakfast"
+   ],
+   "spoils_days": null,
+   "crushable": false,
+   "needs": [],
+   "sold_at": [
+    "grocery",
+    "outfitter"
+   ],
+   "flavor": "White powder that becomes milk with a splash of water and a little imagination.",
+   "kcal_per_oz": 145,
+   "kcal_per_l": 2286
+  },
+  {
+   "id": "breakfast_skillet_fd",
+   "name": "Freeze-Dried Breakfast Skillet (2 servings)",
+   "unit": "1 pouch",
+   "calories": 560,
+   "weight_oz": 4.2,
+   "volume_l": 1.5,
+   "volume_repacked_l": 0.6,
+   "price_usd": 11.5,
+   "prep": "boil",
+   "fuel_g": 7,
+   "water_l": 0.5,
+   "morale": 2,
+   "tags": [
+    "breakfast",
+    "hot"
+   ],
+   "spoils_days": null,
+   "crushable": false,
+   "needs": [
+    "stove",
+    "pot_or_mug"
+   ],
+   "sold_at": [
+    "outfitter"
+   ],
+   "real_world_notes": "Pouches are puffy; repacking into a zip bag saves canister space but then you need a pot or cozy to rehydrate in.",
+   "flavor": "Eggs, potatoes and peppers in a crinkly pouch, ready when the water bubbles.",
+   "kcal_per_oz": 133,
+   "kcal_per_l": 933
+  },
+  {
+   "id": "toaster_pastries",
+   "name": "Toaster Pastries (2)",
+   "unit": "1 foil pack of 2",
+   "calories": 380,
+   "weight_oz": 3.5,
+   "volume_l": 0.25,
+   "volume_repacked_l": 0.25,
+   "price_usd": 1.0,
+   "prep": "no_cook",
+   "fuel_g": 0,
+   "water_l": 0,
+   "morale": 2,
+   "tags": [
+    "breakfast",
+    "treat"
+   ],
+   "spoils_days": null,
+   "crushable": true,
+   "needs": [],
+   "sold_at": [
+    "grocery"
+   ],
+   "flavor": "Two frosted pastries, a little broken at the corners, perfectly fine cold.",
+   "kcal_per_oz": 109,
+   "kcal_per_l": 1520
+  },
+  {
+   "id": "bagel",
+   "name": "Bagel",
+   "unit": "1 bagel",
+   "calories": 270,
+   "weight_oz": 3.5,
+   "volume_l": 0.35,
+   "volume_repacked_l": 0.35,
+   "price_usd": 1.0,
+   "prep": "no_cook",
+   "fuel_g": 0,
+   "water_l": 0,
+   "morale": 1,
+   "tags": [
+    "breakfast",
+    "lunch",
+    "spoils"
+   ],
+   "spoils_days": 5,
+   "crushable": true,
+   "needs": [],
+   "sold_at": [
+    "grocery"
+   ],
+   "flavor": "A chewy bagel, best on the first morning and still good on the third.",
+   "kcal_per_oz": 77,
+   "kcal_per_l": 771
+  },
+  {
+   "id": "hard_boiled_eggs",
+   "name": "Hard-Boiled Eggs (4, made at home)",
+   "unit": "4 eggs in a container",
+   "calories": 310,
+   "weight_oz": 7.0,
+   "volume_l": 0.3,
+   "volume_repacked_l": 0.3,
+   "price_usd": 1.5,
+   "prep": "fresh",
+   "fuel_g": 0,
+   "water_l": 0,
+   "morale": 2,
+   "tags": [
+    "breakfast",
+    "lunch",
+    "fresh",
+    "heavy",
+    "spoils",
+    "smelly"
+   ],
+   "spoils_days": 2,
+   "crushable": true,
+   "needs": [],
+   "sold_at": [
+    "home"
+   ],
+   "real_world_notes": "Keep cool and eat within two days.",
+   "flavor": "Four eggs boiled the night before, wrapped in a napkin like small treasures.",
+   "kcal_per_oz": 44,
+   "kcal_per_l": 1033
+  },
+  {
+   "id": "cinnamon_roll",
+   "name": "Bakery Cinnamon Roll",
+   "unit": "1 roll",
+   "calories": 500,
+   "weight_oz": 5.0,
+   "volume_l": 0.5,
+   "volume_repacked_l": 0.5,
+   "price_usd": 4.5,
+   "prep": "fresh",
+   "fuel_g": 0,
+   "water_l": 0,
+   "morale": 3,
+   "tags": [
+    "breakfast",
+    "treat",
+    "fresh",
+    "spoils"
+   ],
+   "spoils_days": 2,
+   "crushable": true,
+   "needs": [],
+   "sold_at": [
+    "grocery"
+   ],
+   "flavor": "A sticky roll from the bakery in town, saved for the first morning at the lake.",
+   "kcal_per_oz": 100,
+   "kcal_per_l": 1000
+  },
+  {
+   "id": "coffee_instant",
+   "name": "Instant Coffee Packet",
+   "unit": "1 stick",
+   "calories": 10,
+   "weight_oz": 0.1,
+   "volume_l": 0.01,
+   "volume_repacked_l": 0.01,
+   "price_usd": 0.75,
+   "prep": "boil",
+   "fuel_g": 4,
+   "water_l": 0.3,
+   "morale": 2,
+   "tags": [
+    "breakfast",
+    "hot",
+    "caffeine"
+   ],
+   "spoils_days": null,
+   "crushable": false,
+   "needs": [
+    "stove",
+    "pot_or_mug"
+   ],
+   "sold_at": [
+    "grocery",
+    "outfitter"
+   ],
+   "real_world_notes": "Caffeine users skipping coffee get a headache by midday (a real effect, and a fair game penalty).",
+   "flavor": "A thin paper stick of coffee that wakes the whole camp with its smell.",
+   "kcal_per_oz": 100,
+   "kcal_per_l": 1000
+  },
+  {
+   "id": "coffee_ground",
+   "name": "Ground Coffee for the Pour-Over (1 day)",
+   "unit": "2 scoops",
+   "calories": 5,
+   "weight_oz": 0.7,
+   "volume_l": 0.05,
+   "volume_repacked_l": 0.05,
+   "price_usd": 0.6,
+   "prep": "boil",
+   "fuel_g": 5,
+   "water_l": 0.35,
+   "morale": 3,
+   "tags": [
+    "breakfast",
+    "hot",
+    "caffeine"
+   ],
+   "spoils_days": null,
+   "crushable": false,
+   "needs": [
+    "coffee_pour_over",
+    "stove",
+    "pot_or_mug"
+   ],
+   "sold_at": [
+    "grocery",
+    "outfitter"
+   ],
+   "real_world_notes": "Grounds are trash: pack them out.",
+   "flavor": "Fresh-ground coffee, dripped slowly as the sun climbs over the ridge.",
+   "kcal_per_oz": 7,
+   "kcal_per_l": 100
+  },
+  {
+   "id": "tea_bags",
+   "name": "Tea Bags (3)",
+   "unit": "3 bags",
+   "calories": 0,
+   "weight_oz": 0.2,
+   "volume_l": 0.02,
+   "volume_repacked_l": 0.02,
+   "price_usd": 0.4,
+   "prep": "boil",
+   "fuel_g": 4,
+   "water_l": 0.3,
+   "morale": 1,
+   "tags": [
+    "breakfast",
+    "hot",
+    "caffeine"
+   ],
+   "spoils_days": null,
+   "crushable": false,
+   "needs": [
+    "stove",
+    "pot_or_mug"
+   ],
+   "sold_at": [
+    "grocery",
+    "outfitter"
+   ],
+   "flavor": "Three tea bags for a quiet cup while the mist rises from the meadow.",
+   "kcal_per_oz": 0,
+   "kcal_per_l": 0
+  },
+  {
+   "id": "cocoa_packet",
+   "name": "Hot Cocoa Packet",
+   "unit": "1 packet (28 g)",
+   "calories": 120,
+   "weight_oz": 1.0,
+   "volume_l": 0.04,
+   "volume_repacked_l": 0.04,
+   "price_usd": 0.4,
+   "prep": "boil",
+   "fuel_g": 4,
+   "water_l": 0.25,
+   "morale": 2,
+   "tags": [
+    "treat",
+    "hot"
+   ],
+   "spoils_days": null,
+   "crushable": false,
+   "needs": [
+    "stove",
+    "pot_or_mug"
+   ],
+   "sold_at": [
+    "grocery",
+    "outfitter"
+   ],
+   "flavor": "Chocolate powder that turns a cold evening into a cozy one.",
+   "kcal_per_oz": 120,
+   "kcal_per_l": 3000
+  },
+  {
+   "id": "soup_packet",
+   "name": "Instant Soup Packet",
+   "unit": "1 packet",
+   "calories": 70,
+   "weight_oz": 0.7,
+   "volume_l": 0.03,
+   "volume_repacked_l": 0.03,
+   "price_usd": 0.6,
+   "prep": "boil",
+   "fuel_g": 4,
+   "water_l": 0.25,
+   "morale": 1,
+   "tags": [
+    "dinner",
+    "hot",
+    "electrolyte"
+   ],
+   "spoils_days": null,
+   "crushable": false,
+   "needs": [
+    "stove",
+    "pot_or_mug"
+   ],
+   "sold_at": [
+    "grocery",
+    "outfitter"
+   ],
+   "real_world_notes": "Salt and warmth on a cold, wet evening matter more than the calories.",
+   "flavor": "Salty, steaming soup in a mug, the best thing to hold when your fingers are cold.",
+   "kcal_per_oz": 100,
+   "kcal_per_l": 2333
+  },
+  {
+   "id": "electrolyte_stick",
+   "name": "Electrolyte Drink Mix Stick",
+   "unit": "1 stick (17 g)",
+   "calories": 60,
+   "weight_oz": 0.6,
+   "volume_l": 0.02,
+   "volume_repacked_l": 0.02,
+   "price_usd": 1.0,
+   "prep": "no_cook",
+   "fuel_g": 0,
+   "water_l": 0.5,
+   "morale": 1,
+   "tags": [
+    "snack",
+    "electrolyte"
+   ],
+   "spoils_days": null,
+   "crushable": false,
+   "needs": [],
+   "sold_at": [
+    "grocery",
+    "outfitter"
+   ],
+   "real_world_notes": "Helps on hot climbs and long days; also masks the taste of treated water.",
+   "flavor": "A fizzy, lemony powder that puts back the salt you sweated out on the climb.",
+   "kcal_per_oz": 100,
+   "kcal_per_l": 3000
+  },
+  {
+   "id": "drink_mix_orange",
+   "name": "Powdered Orange Drink",
+   "unit": "1 packet for 1 L",
+   "calories": 140,
+   "weight_oz": 1.3,
+   "volume_l": 0.04,
+   "volume_repacked_l": 0.04,
+   "price_usd": 0.4,
+   "prep": "no_cook",
+   "fuel_g": 0,
+   "water_l": 1.0,
+   "morale": 1,
+   "tags": [
+    "snack"
+   ],
+   "spoils_days": null,
+   "crushable": false,
+   "needs": [],
+   "sold_at": [
+    "grocery"
+   ],
+   "flavor": "Bright orange powder that makes creek water taste like a birthday party.",
+   "kcal_per_oz": 108,
+   "kcal_per_l": 3500
+  },
+  {
+   "id": "energy_gel",
+   "name": "Caffeinated Energy Gel",
+   "unit": "1 gel (32 g)",
+   "calories": 100,
+   "weight_oz": 1.1,
+   "volume_l": 0.03,
+   "volume_repacked_l": 0.03,
+   "price_usd": 2.25,
+   "prep": "no_cook",
+   "fuel_g": 0,
+   "water_l": 0,
+   "morale": 0,
+   "tags": [
+    "snack",
+    "caffeine"
+   ],
+   "spoils_days": null,
+   "crushable": false,
+   "needs": [],
+   "sold_at": [
+    "outfitter"
+   ],
+   "flavor": "A sticky squeeze of sugar for the last steep mile.",
+   "kcal_per_oz": 91,
+   "kcal_per_l": 3333
+  },
+  {
+   "id": "energy_chews",
+   "name": "Energy Chews",
+   "unit": "1 pack (50 g)",
+   "calories": 160,
+   "weight_oz": 1.8,
+   "volume_l": 0.05,
+   "volume_repacked_l": 0.05,
+   "price_usd": 2.5,
+   "prep": "no_cook",
+   "fuel_g": 0,
+   "water_l": 0,
+   "morale": 1,
+   "tags": [
+    "snack",
+    "electrolyte"
+   ],
+   "spoils_days": null,
+   "crushable": false,
+   "needs": [],
+   "sold_at": [
+    "outfitter"
+   ],
+   "flavor": "Chewy little squares, like gumdrops with a job to do.",
+   "kcal_per_oz": 89,
+   "kcal_per_l": 3200
+  },
+  {
+   "id": "tortillas_flour",
+   "name": "Large Flour Tortillas (4)",
+   "unit": "4 tortillas, 10 inch",
+   "calories": 800,
+   "weight_oz": 8.0,
+   "volume_l": 0.4,
+   "volume_repacked_l": 0.4,
+   "price_usd": 2.0,
+   "prep": "no_cook",
+   "fuel_g": 0,
+   "water_l": 0,
+   "morale": 1,
+   "tags": [
+    "lunch",
+    "dinner"
+   ],
+   "spoils_days": 14,
+   "crushable": false,
+   "needs": [],
+   "sold_at": [
+    "grocery"
+   ],
+   "real_world_notes": "The backpacker's bread: flat, dense, and they don't crush.",
+   "flavor": "Soft, flat tortillas that never squash and curl neatly around the inside of the canister.",
+   "kcal_per_oz": 100,
+   "kcal_per_l": 2000
+  },
+  {
+   "id": "peanut_butter_jar",
+   "name": "Peanut Butter (16 oz jar)",
+   "unit": "1 jar",
+   "calories": 2660,
+   "weight_oz": 17.5,
+   "volume_l": 0.55,
+   "volume_repacked_l": 0.55,
+   "price_usd": 3.5,
+   "prep": "no_cook",
+   "fuel_g": 0,
+   "water_l": 0,
+   "morale": 2,
+   "tags": [
+    "lunch",
+    "snack"
+   ],
+   "spoils_days": null,
+   "crushable": false,
+   "needs": [],
+   "sold_at": [
+    "grocery"
+   ],
+   "real_world_notes": "About 150 kcal per ounce even with the jar. The empty jar becomes a cold-soak jar.",
+   "flavor": "A whole jar of peanut butter, enough to make friends with everyone at camp.",
+   "kcal_per_oz": 152,
+   "kcal_per_l": 4836
+  },
+  {
+   "id": "peanut_butter_packet",
+   "name": "Peanut Butter Squeeze Packet",
+   "unit": "1 packet (32 g)",
+   "calories": 190,
+   "weight_oz": 1.15,
+   "volume_l": 0.04,
+   "volume_repacked_l": 0.04,
+   "price_usd": 1.25,
+   "prep": "no_cook",
+   "fuel_g": 0,
+   "water_l": 0,
+   "morale": 2,
+   "tags": [
+    "lunch",
+    "snack"
+   ],
+   "spoils_days": null,
+   "crushable": false,
+   "needs": [],
+   "sold_at": [
+    "grocery",
+    "outfitter"
+   ],
+   "flavor": "A little pouch of peanut butter you can squeeze straight onto a tortilla.",
+   "kcal_per_oz": 165,
+   "kcal_per_l": 4750
+  },
+  {
+   "id": "chocolate_spread_cups",
+   "name": "Chocolate Hazelnut Spread Cups (3)",
+   "unit": "3 single cups",
+   "calories": 240,
+   "weight_oz": 1.6,
+   "volume_l": 0.06,
+   "volume_repacked_l": 0.06,
+   "price_usd": 1.75,
+   "prep": "no_cook",
+   "fuel_g": 0,
+   "water_l": 0,
+   "morale": 3,
+   "tags": [
+    "lunch",
+    "treat"
+   ],
+   "spoils_days": null,
+   "crushable": false,
+   "needs": [],
+   "sold_at": [
+    "grocery"
+   ],
+   "flavor": "Three tiny cups of chocolate spread, for very good tortillas on very good days.",
+   "kcal_per_oz": 150,
+   "kcal_per_l": 4000
+  },
+  {
+   "id": "cheese_hard",
+   "name": "Aged Cheddar Block (8 oz)",
+   "unit": "8 oz block",
+   "calories": 900,
+   "weight_oz": 8.0,
+   "volume_l": 0.25,
+   "volume_repacked_l": 0.25,
+   "price_usd": 5.0,
+   "prep": "no_cook",
+   "fuel_g": 0,
+   "water_l": 0,
+   "morale": 2,
+   "tags": [
+    "lunch",
+    "smelly"
+   ],
+   "spoils_days": 10,
+   "crushable": false,
+   "needs": [],
+   "sold_at": [
+    "grocery"
+   ],
+   "real_world_notes": "Hard cheeses keep a week or more unrefrigerated; oils sweat out in heat but it stays safe.",
+   "flavor": "A golden block of sharp cheese that gets a little sweaty and a lot more delicious.",
+   "kcal_per_oz": 112,
+   "kcal_per_l": 3600
+  },
+  {
+   "id": "cheese_minis",
+   "name": "Wax-Coated Mini Cheeses (5)",
+   "unit": "5 cheeses (100 g)",
+   "calories": 350,
+   "weight_oz": 3.5,
+   "volume_l": 0.2,
+   "volume_repacked_l": 0.2,
+   "price_usd": 4.5,
+   "prep": "no_cook",
+   "fuel_g": 0,
+   "water_l": 0,
+   "morale": 2,
+   "tags": [
+    "lunch",
+    "snack",
+    "spoils"
+   ],
+   "spoils_days": 7,
+   "crushable": false,
+   "needs": [],
+   "sold_at": [
+    "grocery"
+   ],
+   "flavor": "Five little cheeses in red wax coats, like a row of tiny lanterns.",
+   "kcal_per_oz": 100,
+   "kcal_per_l": 1750
+  },
+  {
+   "id": "salami_dry",
+   "name": "Dry Salami (8 oz)",
+   "unit": "8 oz stick",
+   "calories": 880,
+   "weight_oz": 8.0,
+   "volume_l": 0.25,
+   "volume_repacked_l": 0.25,
+   "price_usd": 7.0,
+   "prep": "no_cook",
+   "fuel_g": 0,
+   "water_l": 0,
+   "morale": 2,
+   "tags": [
+    "lunch",
+    "smelly"
+   ],
+   "spoils_days": 14,
+   "crushable": false,
+   "needs": [],
+   "sold_at": [
+    "grocery"
+   ],
+   "flavor": "A peppery salami, the kind of smell that makes every animal in the forest curious.",
+   "kcal_per_oz": 110,
+   "kcal_per_l": 3520
+  },
+  {
+   "id": "jerky_beef",
+   "name": "Beef Jerky",
+   "unit": "1 bag (3.25 oz)",
+   "calories": 260,
+   "weight_oz": 3.25,
+   "volume_l": 0.3,
+   "volume_repacked_l": 0.3,
+   "price_usd": 8.5,
+   "prep": "no_cook",
+   "fuel_g": 0,
+   "water_l": 0,
+   "morale": 2,
+   "tags": [
+    "lunch",
+    "snack",
+    "smelly"
+   ],
+   "spoils_days": null,
+   "crushable": false,
+   "needs": [],
+   "sold_at": [
+    "grocery",
+    "outfitter"
+   ],
+   "flavor": "Chewy strips of jerky to gnaw on while you watch the clouds.",
+   "kcal_per_oz": 80,
+   "kcal_per_l": 867
+  },
+  {
+   "id": "tuna_pouch",
+   "name": "Tuna Foil Pouch",
+   "unit": "1 pouch (2.6 oz)",
+   "calories": 90,
+   "weight_oz": 2.6,
+   "volume_l": 0.12,
+   "volume_repacked_l": 0.12,
+   "price_usd": 2.0,
+   "prep": "no_cook",
+   "fuel_g": 0,
+   "water_l": 0,
+   "morale": 1,
+   "tags": [
+    "lunch",
+    "dinner",
+    "smelly"
+   ],
+   "spoils_days": null,
+   "crushable": false,
+   "needs": [],
+   "sold_at": [
+    "grocery"
+   ],
+   "real_world_notes": "Protein, not calories: only about 35 kcal per ounce. Pack the empty pouch out sealed in a zip bag.",
+   "flavor": "A flat silver pouch of tuna, the smelliest thing in the canister by far.",
+   "kcal_per_oz": 35,
+   "kcal_per_l": 750
+  },
+  {
+   "id": "chicken_pouch",
+   "name": "Chicken Foil Pouch",
+   "unit": "1 pouch (2.6 oz)",
+   "calories": 90,
+   "weight_oz": 2.6,
+   "volume_l": 0.12,
+   "volume_repacked_l": 0.12,
+   "price_usd": 2.75,
+   "prep": "no_cook",
+   "fuel_g": 0,
+   "water_l": 0,
+   "morale": 1,
+   "tags": [
+    "lunch",
+    "dinner",
+    "smelly"
+   ],
+   "spoils_days": null,
+   "crushable": false,
+   "needs": [],
+   "sold_at": [
+    "grocery"
+   ],
+   "flavor": "Tender chicken in a pouch, for tucking into a tortilla or a pot of noodles.",
+   "kcal_per_oz": 35,
+   "kcal_per_l": 750
+  },
+  {
+   "id": "crackers_wheat",
+   "name": "Wheat Crackers (box)",
+   "unit": "1 box (9 oz)",
+   "calories": 1120,
+   "weight_oz": 9.0,
+   "volume_l": 1.6,
+   "volume_repacked_l": 1.0,
+   "price_usd": 3.5,
+   "prep": "no_cook",
+   "fuel_g": 0,
+   "water_l": 0,
+   "morale": 1,
+   "tags": [
+    "lunch",
+    "snack"
+   ],
+   "spoils_days": null,
+   "crushable": true,
+   "needs": [],
+   "sold_at": [
+    "grocery"
+   ],
+   "flavor": "Crisp crackers that will be crumbs by day two, and tasty crumbs at that.",
+   "kcal_per_oz": 124,
+   "kcal_per_l": 1120
+  },
+  {
+   "id": "hummus_dry",
+   "name": "Dehydrated Hummus Mix (1 cup)",
+   "unit": "1 cup dry (113 g)",
+   "calories": 450,
+   "weight_oz": 4.0,
+   "volume_l": 0.25,
+   "volume_repacked_l": 0.25,
+   "price_usd": 5.0,
+   "prep": "cold_soak",
+   "fuel_g": 0,
+   "water_l": 0.3,
+   "morale": 2,
+   "tags": [
+    "lunch"
+   ],
+   "spoils_days": null,
+   "crushable": false,
+   "needs": [
+    "container"
+   ],
+   "sold_at": [
+    "grocery",
+    "outfitter"
+   ],
+   "flavor": "Dry hummus that comes alive with a splash of water and a drizzle of oil.",
+   "kcal_per_oz": 112,
+   "kcal_per_l": 1800
+  },
+  {
+   "id": "sandwich_deli",
+   "name": "Deli Sandwich (made at home)",
+   "unit": "1 sandwich",
+   "calories": 550,
+   "weight_oz": 9.0,
+   "volume_l": 0.6,
+   "volume_repacked_l": 0.6,
+   "price_usd": 6.0,
+   "prep": "fresh",
+   "fuel_g": 0,
+   "water_l": 0,
+   "morale": 3,
+   "tags": [
+    "lunch",
+    "fresh",
+    "spoils",
+    "smelly"
+   ],
+   "spoils_days": 1,
+   "crushable": true,
+   "needs": [],
+   "sold_at": [
+    "home",
+    "grocery"
+   ],
+   "flavor": "A thick sandwich wrapped in paper, the finest lunch in the world on the first day.",
+   "kcal_per_oz": 61,
+   "kcal_per_l": 917
+  },
+  {
+   "id": "pizza_cold",
+   "name": "Two Slices of Cold Pizza",
+   "unit": "2 slices",
+   "calories": 620,
+   "weight_oz": 9.0,
+   "volume_l": 0.6,
+   "volume_repacked_l": 0.6,
+   "price_usd": 6.0,
+   "prep": "fresh",
+   "fuel_g": 0,
+   "water_l": 0,
+   "morale": 3,
+   "tags": [
+    "lunch",
+    "treat",
+    "fresh",
+    "spoils",
+    "smelly"
+   ],
+   "spoils_days": 1,
+   "crushable": true,
+   "needs": [],
+   "sold_at": [
+    "home",
+    "grocery"
+   ],
+   "flavor": "Last night's pizza, folded in foil, tastes even better at a trailside log.",
+   "kcal_per_oz": 69,
+   "kcal_per_l": 1033
+  },
+  {
+   "id": "olive_oil",
+   "name": "Olive Oil (4 fl oz leakproof bottle)",
+   "unit": "1 bottle (8 tbsp)",
+   "calories": 960,
+   "weight_oz": 4.3,
+   "volume_l": 0.15,
+   "volume_repacked_l": 0.15,
+   "price_usd": 2.5,
+   "prep": "no_cook",
+   "fuel_g": 0,
+   "water_l": 0,
+   "morale": 1,
+   "tags": [
+    "dinner"
+   ],
+   "spoils_days": null,
+   "crushable": false,
+   "needs": [],
+   "sold_at": [
+    "grocery"
+   ],
+   "real_world_notes": "The densest food there is: about 220 kcal per ounce. A tablespoon in each dinner is the classic trick for fitting more calories in the canister.",
+   "flavor": "A small bottle of golden oil that makes every supper richer and every pack lighter.",
+   "kcal_per_oz": 223,
+   "kcal_per_l": 6400
+  },
+  {
+   "id": "ramen_brick",
+   "name": "Instant Ramen",
+   "unit": "1 brick (3 oz)",
+   "calories": 380,
+   "weight_oz": 3.0,
+   "volume_l": 0.4,
+   "volume_repacked_l": 0.25,
+   "price_usd": 0.5,
+   "prep": "boil",
+   "fuel_g": 8,
+   "water_l": 0.5,
+   "morale": 1,
+   "tags": [
+    "dinner",
+    "hot",
+    "electrolyte"
+   ],
+   "spoils_days": null,
+   "crushable": true,
+   "needs": [
+    "stove",
+    "pot_or_mug"
+   ],
+   "sold_at": [
+    "grocery",
+    "outfitter"
+   ],
+   "real_world_notes": "Cheap and salty; light on calories for a whole dinner. Can be cold-soaked in a jar for 30 minutes.",
+   "flavor": "A square of curly noodles and a salty flavor packet, the oldest friend of every backpacker.",
+   "kcal_per_oz": 127,
+   "kcal_per_l": 1520
+  },
+  {
+   "id": "ramen_cup",
+   "name": "Instant Noodle Cup (foam)",
+   "unit": "1 cup",
+   "calories": 290,
+   "weight_oz": 2.25,
+   "volume_l": 0.6,
+   "volume_repacked_l": 0.25,
+   "price_usd": 1.0,
+   "prep": "boil",
+   "fuel_g": 5,
+   "water_l": 0.3,
+   "morale": 1,
+   "tags": [
+    "dinner",
+    "hot",
+    "electrolyte"
+   ],
+   "spoils_days": null,
+   "crushable": true,
+   "needs": [
+    "stove",
+    "pot_or_mug"
+   ],
+   "sold_at": [
+    "grocery"
+   ],
+   "real_world_notes": "The cup is mostly air and becomes bulky trash.",
+   "flavor": "Noodles in their own foam cup, which takes up far more room than noodles should.",
+   "kcal_per_oz": 129,
+   "kcal_per_l": 1160
+  },
+  {
+   "id": "mac_cheese_box",
+   "name": "Boxed Macaroni and Cheese",
+   "unit": "1 box (7.25 oz)",
+   "calories": 750,
+   "weight_oz": 7.25,
+   "volume_l": 0.7,
+   "volume_repacked_l": 0.45,
+   "price_usd": 1.5,
+   "prep": "boil",
+   "fuel_g": 17,
+   "water_l": 0.75,
+   "morale": 2,
+   "tags": [
+    "dinner",
+    "hot"
+   ],
+   "spoils_days": null,
+   "crushable": false,
+   "needs": [
+    "stove",
+    "pot_or_mug"
+   ],
+   "sold_at": [
+    "grocery"
+   ],
+   "real_world_notes": "Needs about 7 minutes of simmering and stirring: double the fuel of a boil-only meal. Use powdered milk and olive oil instead of butter.",
+   "flavor": "Orange cheese powder and little elbow noodles, a supper that tastes like being eight years old.",
+   "kcal_per_oz": 103,
+   "kcal_per_l": 1667
+  },
+  {
+   "id": "pasta_side",
+   "name": "Flavored Pasta Side Pouch",
+   "unit": "1 pouch (4.3 oz)",
+   "calories": 500,
+   "weight_oz": 4.3,
+   "volume_l": 0.5,
+   "volume_repacked_l": 0.35,
+   "price_usd": 1.75,
+   "prep": "boil",
+   "fuel_g": 15,
+   "water_l": 0.6,
+   "morale": 2,
+   "tags": [
+    "dinner",
+    "hot"
+   ],
+   "spoils_days": null,
+   "crushable": false,
+   "needs": [
+    "stove",
+    "pot_or_mug"
+   ],
+   "sold_at": [
+    "grocery"
+   ],
+   "real_world_notes": "A thru-hiker staple. About 7 minutes of simmering.",
+   "flavor": "Creamy noodles from a paper pouch, stirred over a little blue flame.",
+   "kcal_per_oz": 116,
+   "kcal_per_l": 1429
+  },
+  {
+   "id": "rice_side",
+   "name": "Flavored Rice Side Pouch",
+   "unit": "1 pouch (5.6 oz)",
+   "calories": 560,
+   "weight_oz": 5.6,
+   "volume_l": 0.5,
+   "volume_repacked_l": 0.35,
+   "price_usd": 1.75,
+   "prep": "boil",
+   "fuel_g": 16,
+   "water_l": 0.6,
+   "morale": 2,
+   "tags": [
+    "dinner",
+    "hot"
+   ],
+   "spoils_days": null,
+   "crushable": false,
+   "needs": [
+    "stove",
+    "pot_or_mug"
+   ],
+   "sold_at": [
+    "grocery"
+   ],
+   "real_world_notes": "About 7 minutes of simmering; scorches in thin pots.",
+   "flavor": "Seasoned rice that fills the tent with a smell like a warm kitchen.",
+   "kcal_per_oz": 100,
+   "kcal_per_l": 1600
+  },
+  {
+   "id": "instant_rice",
+   "name": "Instant Rice",
+   "unit": "1 cup dry (95 g)",
+   "calories": 340,
+   "weight_oz": 3.3,
+   "volume_l": 0.25,
+   "volume_repacked_l": 0.25,
+   "price_usd": 0.6,
+   "prep": "boil",
+   "fuel_g": 5,
+   "water_l": 0.3,
+   "morale": 0,
+   "tags": [
+    "dinner",
+    "hot"
+   ],
+   "spoils_days": null,
+   "crushable": false,
+   "needs": [
+    "stove",
+    "pot_or_mug"
+   ],
+   "sold_at": [
+    "grocery"
+   ],
+   "flavor": "Quick rice that needs only hot water, a lid and five minutes of patience.",
+   "kcal_per_oz": 103,
+   "kcal_per_l": 1360
+  },
+  {
+   "id": "couscous",
+   "name": "Couscous",
+   "unit": "1 cup dry (173 g)",
+   "calories": 650,
+   "weight_oz": 6.0,
+   "volume_l": 0.25,
+   "volume_repacked_l": 0.25,
+   "price_usd": 1.25,
+   "prep": "boil",
+   "fuel_g": 6,
+   "water_l": 0.4,
+   "morale": 1,
+   "tags": [
+    "dinner",
+    "hot"
+   ],
+   "spoils_days": null,
+   "crushable": false,
+   "needs": [
+    "stove",
+    "pot_or_mug"
+   ],
+   "sold_at": [
+    "grocery"
+   ],
+   "real_world_notes": "Dense and fast: pour in boiling water, cover, wait 5 minutes. Also cold-soaks in about 20 minutes.",
+   "flavor": "Tiny golden pasta grains that soften in hot water while you put on your warm socks.",
+   "kcal_per_oz": 108,
+   "kcal_per_l": 2600
+  },
+  {
+   "id": "pasta_angel_hair",
+   "name": "Angel Hair Pasta (half pound)",
+   "unit": "8 oz",
+   "calories": 840,
+   "weight_oz": 8.0,
+   "volume_l": 0.5,
+   "volume_repacked_l": 0.5,
+   "price_usd": 1.2,
+   "prep": "boil",
+   "fuel_g": 14,
+   "water_l": 0.8,
+   "morale": 1,
+   "tags": [
+    "dinner",
+    "hot"
+   ],
+   "spoils_days": null,
+   "crushable": false,
+   "needs": [
+    "stove",
+    "pot_or_mug"
+   ],
+   "sold_at": [
+    "grocery"
+   ],
+   "real_world_notes": "Thin pasta cooks in 4 minutes. Strain the water at least 200 ft from lakes and streams.",
+   "flavor": "Thin noodles, broken in half to fit the pot, waiting for a spoonful of oil and cheese.",
+   "kcal_per_oz": 105,
+   "kcal_per_l": 1680
+  },
+  {
+   "id": "mashed_potatoes",
+   "name": "Instant Mashed Potatoes Pouch",
+   "unit": "1 pouch (4 oz)",
+   "calories": 440,
+   "weight_oz": 4.0,
+   "volume_l": 0.4,
+   "volume_repacked_l": 0.4,
+   "price_usd": 1.5,
+   "prep": "boil",
+   "fuel_g": 7,
+   "water_l": 0.5,
+   "morale": 2,
+   "tags": [
+    "dinner",
+    "hot"
+   ],
+   "spoils_days": null,
+   "crushable": false,
+   "needs": [
+    "stove",
+    "pot_or_mug"
+   ],
+   "sold_at": [
+    "grocery"
+   ],
+   "real_world_notes": "Add olive oil and bacon bits for a famous trail dinner.",
+   "flavor": "Fluffy potato flakes that turn into a warm, buttery mountain in your pot.",
+   "kcal_per_oz": 110,
+   "kcal_per_l": 1100
+  },
+  {
+   "id": "stuffing_mix",
+   "name": "Boxed Stuffing Mix",
+   "unit": "1 box (6 oz)",
+   "calories": 660,
+   "weight_oz": 6.0,
+   "volume_l": 0.9,
+   "volume_repacked_l": 0.6,
+   "price_usd": 2.5,
+   "prep": "boil",
+   "fuel_g": 6,
+   "water_l": 0.4,
+   "morale": 2,
+   "tags": [
+    "dinner",
+    "hot"
+   ],
+   "spoils_days": null,
+   "crushable": true,
+   "needs": [
+    "stove",
+    "pot_or_mug"
+   ],
+   "sold_at": [
+    "grocery"
+   ],
+   "flavor": "Herby bread crumbs that taste like a holiday, even in a tent.",
+   "kcal_per_oz": 110,
+   "kcal_per_l": 1100
+  },
+  {
+   "id": "refried_beans_flakes",
+   "name": "Instant Refried Bean Flakes",
+   "unit": "1 cup dry (100 g)",
+   "calories": 360,
+   "weight_oz": 3.5,
+   "volume_l": 0.25,
+   "volume_repacked_l": 0.25,
+   "price_usd": 3.0,
+   "prep": "boil",
+   "fuel_g": 5,
+   "water_l": 0.35,
+   "morale": 1,
+   "tags": [
+    "lunch",
+    "dinner",
+    "hot"
+   ],
+   "spoils_days": null,
+   "crushable": false,
+   "needs": [
+    "stove",
+    "pot_or_mug"
+   ],
+   "sold_at": [
+    "grocery",
+    "outfitter"
+   ],
+   "real_world_notes": "Rolled in tortillas with cheese and hot sauce: the burrito night. Also cold-soaks.",
+   "flavor": "Bean flakes that become a warm, thick filling for a tortilla supper.",
+   "kcal_per_oz": 103,
+   "kcal_per_l": 1440
+  },
+  {
+   "id": "bacon_bits",
+   "name": "Real Bacon Bits",
+   "unit": "1 pouch (2.5 oz)",
+   "calories": 300,
+   "weight_oz": 2.5,
+   "volume_l": 0.12,
+   "volume_repacked_l": 0.12,
+   "price_usd": 4.0,
+   "prep": "no_cook",
+   "fuel_g": 0,
+   "water_l": 0,
+   "morale": 2,
+   "tags": [
+    "dinner",
+    "smelly"
+   ],
+   "spoils_days": null,
+   "crushable": false,
+   "needs": [],
+   "sold_at": [
+    "grocery"
+   ],
+   "flavor": "Crunchy bits of bacon that make every pot of potatoes or noodles a celebration.",
+   "kcal_per_oz": 120,
+   "kcal_per_l": 2500
+  },
+  {
+   "id": "condiment_kit",
+   "name": "Hot Sauce, Salt and Pepper Packets",
+   "unit": "a small bag of packets",
+   "calories": 0,
+   "weight_oz": 0.5,
+   "volume_l": 0.03,
+   "volume_repacked_l": 0.03,
+   "price_usd": 1.0,
+   "prep": "no_cook",
+   "fuel_g": 0,
+   "water_l": 0,
+   "morale": 1,
+   "tags": [
+    "dinner"
+   ],
+   "spoils_days": null,
+   "crushable": false,
+   "needs": [],
+   "sold_at": [
+    "grocery"
+   ],
+   "real_world_notes": "Food fatigue is real on longer trips; a little spice keeps the same dinner interesting.",
+   "flavor": "A handful of tiny packets that rescue a boring supper.",
+   "kcal_per_oz": 0,
+   "kcal_per_l": 0
+  },
+  {
+   "id": "fd_chili_mac",
+   "name": "Freeze-Dried Chili Mac with Beef (2 servings)",
+   "unit": "1 pouch",
+   "calories": 580,
+   "weight_oz": 4.8,
+   "volume_l": 1.5,
+   "volume_repacked_l": 0.6,
+   "price_usd": 12.5,
+   "prep": "boil",
+   "fuel_g": 9,
+   "water_l": 0.6,
+   "morale": 2,
+   "tags": [
+    "dinner",
+    "hot"
+   ],
+   "spoils_days": null,
+   "crushable": false,
+   "needs": [
+    "stove",
+    "pot_or_mug"
+   ],
+   "sold_at": [
+    "outfitter"
+   ],
+   "real_world_notes": "Freeze-dried pouches are light and easy (just add boiling water and wait 10 minutes) but expensive and puffy: one pouch as sold fills about a seventh of a standard canister. Repacked in a zip bag it takes 0.6 L.",
+   "flavor": "Beefy noodles and beans that puff up in their pouch like a little miracle.",
+   "kcal_per_oz": 121,
+   "kcal_per_l": 967
+  },
+  {
+   "id": "fd_pad_thai",
+   "name": "Freeze-Dried Chicken Pad Thai (2 servings)",
+   "unit": "1 pouch",
+   "calories": 760,
+   "weight_oz": 5.1,
+   "volume_l": 1.5,
+   "volume_repacked_l": 0.6,
+   "price_usd": 13.95,
+   "prep": "boil",
+   "fuel_g": 9,
+   "water_l": 0.6,
+   "morale": 3,
+   "tags": [
+    "dinner",
+    "hot"
+   ],
+   "spoils_days": null,
+   "crushable": false,
+   "needs": [
+    "stove",
+    "pot_or_mug"
+   ],
+   "sold_at": [
+    "outfitter"
+   ],
+   "real_world_notes": "Freeze-dried pouches are light and easy (just add boiling water and wait 10 minutes) but expensive and puffy: one pouch as sold fills about a seventh of a standard canister. Repacked in a zip bag it takes 0.6 L.",
+   "flavor": "Peanutty noodles with a squeeze of lime powder, the fanciest supper on the mountain.",
+   "kcal_per_oz": 149,
+   "kcal_per_l": 1267
+  },
+  {
+   "id": "fd_lasagna",
+   "name": "Freeze-Dried Lasagna with Meat Sauce (2 servings)",
+   "unit": "1 pouch",
+   "calories": 580,
+   "weight_oz": 4.8,
+   "volume_l": 1.5,
+   "volume_repacked_l": 0.6,
+   "price_usd": 13.0,
+   "prep": "boil",
+   "fuel_g": 9,
+   "water_l": 0.6,
+   "morale": 2,
+   "tags": [
+    "dinner",
+    "hot"
+   ],
+   "spoils_days": null,
+   "crushable": false,
+   "needs": [
+    "stove",
+    "pot_or_mug"
+   ],
+   "sold_at": [
+    "outfitter"
+   ],
+   "real_world_notes": "Freeze-dried pouches are light and easy (just add boiling water and wait 10 minutes) but expensive and puffy: one pouch as sold fills about a seventh of a standard canister. Repacked in a zip bag it takes 0.6 L.",
+   "flavor": "Lasagna in a bag, a little jumbled up, but every bit as cheesy.",
+   "kcal_per_oz": 121,
+   "kcal_per_l": 967
+  },
+  {
+   "id": "fd_stroganoff",
+   "name": "Freeze-Dried Beef Stroganoff (2 servings)",
+   "unit": "1 pouch",
+   "calories": 620,
+   "weight_oz": 4.8,
+   "volume_l": 1.5,
+   "volume_repacked_l": 0.6,
+   "price_usd": 12.5,
+   "prep": "boil",
+   "fuel_g": 9,
+   "water_l": 0.6,
+   "morale": 2,
+   "tags": [
+    "dinner",
+    "hot"
+   ],
+   "spoils_days": null,
+   "crushable": false,
+   "needs": [
+    "stove",
+    "pot_or_mug"
+   ],
+   "sold_at": [
+    "outfitter"
+   ],
+   "real_world_notes": "Freeze-dried pouches are light and easy (just add boiling water and wait 10 minutes) but expensive and puffy: one pouch as sold fills about a seventh of a standard canister. Repacked in a zip bag it takes 0.6 L.",
+   "flavor": "Creamy noodles and mushrooms that warm you from the inside out.",
+   "kcal_per_oz": 129,
+   "kcal_per_l": 1033
+  },
+  {
+   "id": "fd_curry_veg",
+   "name": "Freeze-Dried Vegetable Coconut Curry (2 servings)",
+   "unit": "1 pouch",
+   "calories": 720,
+   "weight_oz": 5.5,
+   "volume_l": 1.5,
+   "volume_repacked_l": 0.6,
+   "price_usd": 13.5,
+   "prep": "boil",
+   "fuel_g": 9,
+   "water_l": 0.6,
+   "morale": 2,
+   "tags": [
+    "dinner",
+    "hot"
+   ],
+   "spoils_days": null,
+   "crushable": false,
+   "needs": [
+    "stove",
+    "pot_or_mug"
+   ],
+   "sold_at": [
+    "outfitter"
+   ],
+   "real_world_notes": "Freeze-dried pouches are light and easy (just add boiling water and wait 10 minutes) but expensive and puffy: one pouch as sold fills about a seventh of a standard canister. Repacked in a zip bag it takes 0.6 L. Vegan.",
+   "flavor": "A golden coconut curry that smells like faraway places.",
+   "kcal_per_oz": 131,
+   "kcal_per_l": 1200
+  },
+  {
+   "id": "fd_berry_crumble",
+   "name": "Freeze-Dried Berry Crumble",
+   "unit": "1 pouch",
+   "calories": 520,
+   "weight_oz": 3.9,
+   "volume_l": 0.9,
+   "volume_repacked_l": 0.4,
+   "price_usd": 8.5,
+   "prep": "cold_soak",
+   "fuel_g": 0,
+   "water_l": 0.2,
+   "morale": 3,
+   "tags": [
+    "dinner",
+    "treat"
+   ],
+   "spoils_days": null,
+   "crushable": false,
+   "needs": [
+    "container"
+   ],
+   "sold_at": [
+    "outfitter"
+   ],
+   "flavor": "Berries and crumbly topping, a dessert that makes any camp feel like a party.",
+   "kcal_per_oz": 133,
+   "kcal_per_l": 1300
+  },
+  {
+   "id": "fd_ice_cream",
+   "name": "Freeze-Dried Ice Cream Sandwich",
+   "unit": "1 package",
+   "calories": 130,
+   "weight_oz": 0.8,
+   "volume_l": 0.15,
+   "volume_repacked_l": 0.15,
+   "price_usd": 4.5,
+   "prep": "no_cook",
+   "fuel_g": 0,
+   "water_l": 0,
+   "morale": 2,
+   "tags": [
+    "treat"
+   ],
+   "spoils_days": null,
+   "crushable": true,
+   "needs": [],
+   "sold_at": [
+    "outfitter"
+   ],
+   "flavor": "Astronaut ice cream that squeaks between your teeth and never melts.",
+   "kcal_per_oz": 162,
+   "kcal_per_l": 867
+  },
+  {
+   "id": "mre_meal",
+   "name": "Military-Style Ready Meal with Flameless Heater",
+   "unit": "1 meal bag",
+   "calories": 1250,
+   "weight_oz": 18.0,
+   "volume_l": 1.4,
+   "volume_repacked_l": 1.4,
+   "price_usd": 15.0,
+   "prep": "no_cook",
+   "fuel_g": 0,
+   "water_l": 0.1,
+   "morale": 1,
+   "tags": [
+    "lunch",
+    "dinner"
+   ],
+   "spoils_days": null,
+   "crushable": false,
+   "needs": [],
+   "sold_at": [
+    "outfitter"
+   ],
+   "real_world_notes": "Heats itself with a chemical heater (no stove, allowed in fire bans), but heavy and full of packaging to pack out.",
+   "flavor": "A heavy brown bag with a whole dinner inside and a heater that hisses like a kettle.",
+   "kcal_per_oz": 69,
+   "kcal_per_l": 893
+  },
+  {
+   "id": "canned_chili",
+   "name": "Canned Chili with Beans",
+   "unit": "1 can (15 oz)",
+   "calories": 520,
+   "weight_oz": 17.0,
+   "volume_l": 0.5,
+   "volume_repacked_l": 0.5,
+   "price_usd": 3.0,
+   "prep": "boil",
+   "fuel_g": 8,
+   "water_l": 0,
+   "morale": 2,
+   "tags": [
+    "dinner",
+    "heavy",
+    "hot",
+    "smelly"
+   ],
+   "spoils_days": null,
+   "crushable": false,
+   "needs": [
+    "can_opener_or_knife",
+    "stove",
+    "pot_or_mug"
+   ],
+   "sold_at": [
+    "grocery"
+   ],
+   "real_world_notes": "About 30 kcal per ounce, a quarter of the density of real trail food, plus a steel can to pack out. Eat it the first night or leave it in the car.",
+   "flavor": "A heavy can of chili that tastes wonderful and weighs as much as a small rock.",
+   "kcal_per_oz": 31,
+   "kcal_per_l": 1040
+  },
+  {
+   "id": "canned_baked_beans",
+   "name": "Canned Baked Beans",
+   "unit": "1 can (16 oz)",
+   "calories": 480,
+   "weight_oz": 18.0,
+   "volume_l": 0.55,
+   "volume_repacked_l": 0.55,
+   "price_usd": 2.0,
+   "prep": "no_cook",
+   "fuel_g": 0,
+   "water_l": 0,
+   "morale": 1,
+   "tags": [
+    "dinner",
+    "heavy",
+    "smelly"
+   ],
+   "spoils_days": null,
+   "crushable": false,
+   "needs": [
+    "can_opener_or_knife"
+   ],
+   "sold_at": [
+    "grocery"
+   ],
+   "real_world_notes": "Heavy and the can is smelly trash. Edible cold.",
+   "flavor": "Sweet beans in a tall can, a cowboy supper with a cowboy's weight.",
+   "kcal_per_oz": 27,
+   "kcal_per_l": 873
+  },
+  {
+   "id": "canned_soup",
+   "name": "Canned Chicken Noodle Soup (ready-to-serve)",
+   "unit": "1 can (18.6 oz)",
+   "calories": 200,
+   "weight_oz": 20.5,
+   "volume_l": 0.6,
+   "volume_repacked_l": 0.6,
+   "price_usd": 3.0,
+   "prep": "boil",
+   "fuel_g": 6,
+   "water_l": 0,
+   "morale": 1,
+   "tags": [
+    "dinner",
+    "heavy",
+    "hot",
+    "electrolyte"
+   ],
+   "spoils_days": null,
+   "crushable": false,
+   "needs": [
+    "stove",
+    "pot_or_mug"
+   ],
+   "sold_at": [
+    "grocery"
+   ],
+   "real_world_notes": "The worst calorie density on the shelf: about 10 kcal per ounce. Every creek on the way has the same water for free.",
+   "flavor": "A can that is mostly water, carried all the way up a mountain made of water.",
+   "kcal_per_oz": 10,
+   "kcal_per_l": 333
+  },
+  {
+   "id": "canned_peaches",
+   "name": "Canned Peaches in Syrup",
+   "unit": "1 can (15 oz)",
+   "calories": 280,
+   "weight_oz": 17.0,
+   "volume_l": 0.5,
+   "volume_repacked_l": 0.5,
+   "price_usd": 2.5,
+   "prep": "no_cook",
+   "fuel_g": 0,
+   "water_l": 0,
+   "morale": 3,
+   "tags": [
+    "snack",
+    "treat",
+    "heavy"
+   ],
+   "spoils_days": null,
+   "crushable": false,
+   "needs": [
+    "can_opener_or_knife"
+   ],
+   "sold_at": [
+    "grocery"
+   ],
+   "real_world_notes": "A classic summit-or-lake treat for people who don't mind the weight. Drink the syrup; pack out the can.",
+   "flavor": "Golden peaches swimming in syrup, the most beautiful heavy thing you will ever carry.",
+   "kcal_per_oz": 16,
+   "kcal_per_l": 560
+  },
+  {
+   "id": "canned_sardines",
+   "name": "Sardines in Oil",
+   "unit": "1 tin (3.75 oz)",
+   "calories": 200,
+   "weight_oz": 4.5,
+   "volume_l": 0.15,
+   "volume_repacked_l": 0.15,
+   "price_usd": 2.5,
+   "prep": "no_cook",
+   "fuel_g": 0,
+   "water_l": 0,
+   "morale": 0,
+   "tags": [
+    "lunch",
+    "dinner",
+    "heavy",
+    "smelly"
+   ],
+   "spoils_days": null,
+   "crushable": false,
+   "needs": [],
+   "sold_at": [
+    "grocery"
+   ],
+   "real_world_notes": "Pull-tab tin. Oily, salty and smelly; the empty tin must be rinsed and sealed for the canister.",
+   "flavor": "Little silver fish in a flat tin, loved by some hikers and by every raccoon on the coast.",
+   "kcal_per_oz": 44,
+   "kcal_per_l": 1333
+  },
+  {
+   "id": "canned_luncheon_meat",
+   "name": "Canned Spiced Luncheon Meat",
+   "unit": "1 can (12 oz)",
+   "calories": 1080,
+   "weight_oz": 13.5,
+   "volume_l": 0.4,
+   "volume_repacked_l": 0.4,
+   "price_usd": 4.5,
+   "prep": "no_cook",
+   "fuel_g": 0,
+   "water_l": 0,
+   "morale": 1,
+   "tags": [
+    "lunch",
+    "dinner",
+    "smelly"
+   ],
+   "spoils_days": null,
+   "crushable": false,
+   "needs": [],
+   "sold_at": [
+    "grocery"
+   ],
+   "real_world_notes": "The one canned food that isn't a calorie trap (about 80 kcal per ounce), but still a heavy, smelly can.",
+   "flavor": "A pink, salty block of meat that is better fried, but fine cold on a cracker.",
+   "kcal_per_oz": 80,
+   "kcal_per_l": 2700
+  },
+  {
+   "id": "hardtack",
+   "name": "Hardtack Biscuits (6)",
+   "unit": "6 biscuits",
+   "calories": 1000,
+   "weight_oz": 9.0,
+   "volume_l": 0.5,
+   "volume_repacked_l": 0.5,
+   "price_usd": 6.0,
+   "prep": "no_cook",
+   "fuel_g": 0,
+   "water_l": 0,
+   "morale": -2,
+   "tags": [
+    "snack"
+   ],
+   "spoils_days": null,
+   "crushable": false,
+   "needs": [],
+   "sold_at": [
+    "outfitter"
+   ],
+   "real_world_notes": "Nearly indestructible and never spoils, but tastes like cardboard and must be soaked to chew.",
+   "flavor": "Square biscuits as hard as roof tiles, which will outlast the trip, the pack and possibly the hiker.",
+   "kcal_per_oz": 111,
+   "kcal_per_l": 2000
+  },
+  {
+   "id": "protein_powder",
+   "name": "Unflavored Protein Powder",
+   "unit": "2 scoops (60 g)",
+   "calories": 240,
+   "weight_oz": 2.1,
+   "volume_l": 0.15,
+   "volume_repacked_l": 0.15,
+   "price_usd": 2.5,
+   "prep": "no_cook",
+   "fuel_g": 0,
+   "water_l": 0.4,
+   "morale": -1,
+   "tags": [
+    "breakfast",
+    "snack"
+   ],
+   "spoils_days": null,
+   "crushable": false,
+   "needs": [],
+   "sold_at": [
+    "grocery",
+    "outfitter"
+   ],
+   "flavor": "Chalky powder that makes the water gray and the hiker sad.",
+   "kcal_per_oz": 114,
+   "kcal_per_l": 1600
+  },
+  {
+   "id": "trail_mix",
+   "name": "Trail Mix with Chocolate",
+   "unit": "1 bag (8 oz)",
+   "calories": 1240,
+   "weight_oz": 8.0,
+   "volume_l": 0.45,
+   "volume_repacked_l": 0.45,
+   "price_usd": 5.0,
+   "prep": "no_cook",
+   "fuel_g": 0,
+   "water_l": 0,
+   "morale": 2,
+   "tags": [
+    "lunch",
+    "snack"
+   ],
+   "spoils_days": null,
+   "crushable": false,
+   "needs": [],
+   "sold_at": [
+    "grocery",
+    "outfitter"
+   ],
+   "real_world_notes": "About 155 kcal per ounce. The chocolate melts into clumps on hot days.",
+   "flavor": "Peanuts, raisins and chocolate drops, the kind of handful that keeps feet moving.",
+   "kcal_per_oz": 155,
+   "kcal_per_l": 2756
+  },
+  {
+   "id": "mixed_nuts",
+   "name": "Salted Mixed Nuts",
+   "unit": "1 bag (8 oz)",
+   "calories": 1360,
+   "weight_oz": 8.0,
+   "volume_l": 0.4,
+   "volume_repacked_l": 0.4,
+   "price_usd": 6.5,
+   "prep": "no_cook",
+   "fuel_g": 0,
+   "water_l": 0,
+   "morale": 2,
+   "tags": [
+    "snack",
+    "electrolyte"
+   ],
+   "spoils_days": null,
+   "crushable": false,
+   "needs": [],
+   "sold_at": [
+    "grocery"
+   ],
+   "flavor": "Salty nuts that crunch like walking on autumn leaves.",
+   "kcal_per_oz": 170,
+   "kcal_per_l": 3400
+  },
+  {
+   "id": "granola_bar",
+   "name": "Crunchy Granola Bars (2-bar pouch)",
+   "unit": "1 pouch, 2 bars",
+   "calories": 190,
+   "weight_oz": 1.5,
+   "volume_l": 0.06,
+   "volume_repacked_l": 0.06,
+   "price_usd": 0.75,
+   "prep": "no_cook",
+   "fuel_g": 0,
+   "water_l": 0,
+   "morale": 1,
+   "tags": [
+    "breakfast",
+    "snack"
+   ],
+   "spoils_days": null,
+   "crushable": true,
+   "needs": [],
+   "sold_at": [
+    "grocery",
+    "outfitter"
+   ],
+   "flavor": "Two crunchy bars that crumble into a thousand sweet pieces in your pocket.",
+   "kcal_per_oz": 127,
+   "kcal_per_l": 3167
+  },
+  {
+   "id": "energy_bar",
+   "name": "Energy Bar",
+   "unit": "1 bar (2.4 oz)",
+   "calories": 250,
+   "weight_oz": 2.4,
+   "volume_l": 0.08,
+   "volume_repacked_l": 0.08,
+   "price_usd": 2.0,
+   "prep": "no_cook",
+   "fuel_g": 0,
+   "water_l": 0,
+   "morale": 1,
+   "tags": [
+    "snack"
+   ],
+   "spoils_days": null,
+   "crushable": false,
+   "needs": [],
+   "sold_at": [
+    "grocery",
+    "outfitter"
+   ],
+   "flavor": "A chewy bar that tastes of oats and good intentions.",
+   "kcal_per_oz": 104,
+   "kcal_per_l": 3125
+  },
+  {
+   "id": "protein_bar",
+   "name": "Protein Bar",
+   "unit": "1 bar (2.1 oz)",
+   "calories": 220,
+   "weight_oz": 2.1,
+   "volume_l": 0.07,
+   "volume_repacked_l": 0.07,
+   "price_usd": 2.5,
+   "prep": "no_cook",
+   "fuel_g": 0,
+   "water_l": 0,
+   "morale": 0,
+   "tags": [
+    "snack"
+   ],
+   "spoils_days": null,
+   "crushable": false,
+   "needs": [],
+   "sold_at": [
+    "grocery",
+    "outfitter"
+   ],
+   "flavor": "A dense, chewy bar, best eaten with a big drink of water.",
+   "kcal_per_oz": 105,
+   "kcal_per_l": 3143
+  },
+  {
+   "id": "bar_choc",
+   "name": "Milk Chocolate Bar",
+   "unit": "1 bar (1.55 oz)",
+   "calories": 210,
+   "weight_oz": 1.55,
+   "volume_l": 0.05,
+   "volume_repacked_l": 0.05,
+   "price_usd": 1.75,
+   "prep": "no_cook",
+   "fuel_g": 0,
+   "water_l": 0,
+   "morale": 2,
+   "tags": [
+    "snack",
+    "treat"
+   ],
+   "spoils_days": null,
+   "crushable": false,
+   "needs": [],
+   "sold_at": [
+    "grocery",
+    "outfitter"
+   ],
+   "real_world_notes": "Melts above about 80 °F; fine again after a cold night.",
+   "flavor": "A bar of chocolate, broken into squares and shared at the top of the pass.",
+   "kcal_per_oz": 135,
+   "kcal_per_l": 4200
+  },
+  {
+   "id": "candy_bar_nougat",
+   "name": "Peanut Nougat Candy Bar",
+   "unit": "1 bar (1.86 oz)",
+   "calories": 250,
+   "weight_oz": 1.86,
+   "volume_l": 0.06,
+   "volume_repacked_l": 0.06,
+   "price_usd": 1.75,
+   "prep": "no_cook",
+   "fuel_g": 0,
+   "water_l": 0,
+   "morale": 2,
+   "tags": [
+    "snack",
+    "treat"
+   ],
+   "spoils_days": null,
+   "crushable": false,
+   "needs": [],
+   "sold_at": [
+    "grocery",
+    "outfitter"
+   ],
+   "flavor": "Caramel, nougat and peanuts: a whole picnic in one wrapper.",
+   "kcal_per_oz": 134,
+   "kcal_per_l": 4167
+  },
+  {
+   "id": "peanut_butter_cups",
+   "name": "Peanut Butter Cups (2)",
+   "unit": "1 pack of 2",
+   "calories": 210,
+   "weight_oz": 1.5,
+   "volume_l": 0.05,
+   "volume_repacked_l": 0.05,
+   "price_usd": 1.75,
+   "prep": "no_cook",
+   "fuel_g": 0,
+   "water_l": 0,
+   "morale": 3,
+   "tags": [
+    "snack",
+    "treat"
+   ],
+   "spoils_days": null,
+   "crushable": false,
+   "needs": [],
+   "sold_at": [
+    "grocery"
+   ],
+   "flavor": "Two little chocolate cups with peanut butter hearts, saved for a special view.",
+   "kcal_per_oz": 140,
+   "kcal_per_l": 4200
+  },
+  {
+   "id": "gummy_candy",
+   "name": "Gummy Bears",
+   "unit": "1 bag (5 oz)",
+   "calories": 450,
+   "weight_oz": 5.0,
+   "volume_l": 0.25,
+   "volume_repacked_l": 0.25,
+   "price_usd": 2.5,
+   "prep": "no_cook",
+   "fuel_g": 0,
+   "water_l": 0,
+   "morale": 2,
+   "tags": [
+    "snack",
+    "treat"
+   ],
+   "spoils_days": null,
+   "crushable": false,
+   "needs": [],
+   "sold_at": [
+    "grocery"
+   ],
+   "flavor": "A bag of chewy bears in every color, a tiny parade for the trail.",
+   "kcal_per_oz": 90,
+   "kcal_per_l": 1800
+  },
+  {
+   "id": "hard_candy",
+   "name": "Lemon Drops",
+   "unit": "1 bag (3 oz)",
+   "calories": 330,
+   "weight_oz": 3.0,
+   "volume_l": 0.1,
+   "volume_repacked_l": 0.1,
+   "price_usd": 2.0,
+   "prep": "no_cook",
+   "fuel_g": 0,
+   "water_l": 0,
+   "morale": 1,
+   "tags": [
+    "snack",
+    "treat"
+   ],
+   "spoils_days": null,
+   "crushable": false,
+   "needs": [],
+   "sold_at": [
+    "grocery"
+   ],
+   "flavor": "Sour little candies that make your mouth pucker and your legs keep going.",
+   "kcal_per_oz": 110,
+   "kcal_per_l": 3300
+  },
+  {
+   "id": "dried_mango",
+   "name": "Dried Mango Slices",
+   "unit": "1 bag (4 oz)",
+   "calories": 360,
+   "weight_oz": 4.0,
+   "volume_l": 0.25,
+   "volume_repacked_l": 0.25,
+   "price_usd": 5.0,
+   "prep": "no_cook",
+   "fuel_g": 0,
+   "water_l": 0,
+   "morale": 2,
+   "tags": [
+    "snack"
+   ],
+   "spoils_days": null,
+   "crushable": false,
+   "needs": [],
+   "sold_at": [
+    "grocery",
+    "outfitter"
+   ],
+   "flavor": "Chewy orange slices of mango, sweet as a summer afternoon.",
+   "kcal_per_oz": 90,
+   "kcal_per_l": 1440
+  },
+  {
+   "id": "raisins",
+   "name": "Raisins",
+   "unit": "1 box (6 oz)",
+   "calories": 510,
+   "weight_oz": 6.0,
+   "volume_l": 0.25,
+   "volume_repacked_l": 0.25,
+   "price_usd": 3.0,
+   "prep": "no_cook",
+   "fuel_g": 0,
+   "water_l": 0,
+   "morale": 1,
+   "tags": [
+    "breakfast",
+    "snack"
+   ],
+   "spoils_days": null,
+   "crushable": false,
+   "needs": [],
+   "sold_at": [
+    "grocery"
+   ],
+   "flavor": "Wrinkly little raisins that taste like sunshine saved for later.",
+   "kcal_per_oz": 85,
+   "kcal_per_l": 2040
+  },
+  {
+   "id": "fig_bars",
+   "name": "Fig Bars (2-pack)",
+   "unit": "1 pack of 2",
+   "calories": 200,
+   "weight_oz": 2.0,
+   "volume_l": 0.07,
+   "volume_repacked_l": 0.07,
+   "price_usd": 1.25,
+   "prep": "no_cook",
+   "fuel_g": 0,
+   "water_l": 0,
+   "morale": 1,
+   "tags": [
+    "snack"
+   ],
+   "spoils_days": null,
+   "crushable": false,
+   "needs": [],
+   "sold_at": [
+    "grocery"
+   ],
+   "flavor": "Soft cake bars with a sticky fig middle.",
+   "kcal_per_oz": 100,
+   "kcal_per_l": 2857
+  },
+  {
+   "id": "potato_chips",
+   "name": "Potato Chips",
+   "unit": "1 bag (8 oz)",
+   "calories": 1280,
+   "weight_oz": 8.0,
+   "volume_l": 3.5,
+   "volume_repacked_l": 1.0,
+   "price_usd": 4.5,
+   "prep": "no_cook",
+   "fuel_g": 0,
+   "water_l": 0,
+   "morale": 3,
+   "tags": [
+    "snack",
+    "treat",
+    "electrolyte"
+   ],
+   "spoils_days": null,
+   "crushable": true,
+   "needs": [],
+   "sold_at": [
+    "grocery"
+   ],
+   "real_world_notes": "Calorie-dense by weight but enormous by volume: the bag alone can fill a third of a canister. Crush it to crumbs (still tasty) or eat it on day one.",
+   "flavor": "A big crinkly bag of chips, light as a feather and as big as a pillow.",
+   "kcal_per_oz": 160,
+   "kcal_per_l": 1280
+  },
+  {
+   "id": "pretzels",
+   "name": "Pretzels",
+   "unit": "1 bag (10 oz)",
+   "calories": 1100,
+   "weight_oz": 10.0,
+   "volume_l": 1.8,
+   "volume_repacked_l": 0.9,
+   "price_usd": 3.5,
+   "prep": "no_cook",
+   "fuel_g": 0,
+   "water_l": 0,
+   "morale": 1,
+   "tags": [
+    "snack",
+    "electrolyte"
+   ],
+   "spoils_days": null,
+   "crushable": true,
+   "needs": [],
+   "sold_at": [
+    "grocery"
+   ],
+   "flavor": "Salty twists that crunch loudly enough to scare off a chipmunk.",
+   "kcal_per_oz": 110,
+   "kcal_per_l": 1222
+  },
+  {
+   "id": "sandwich_cookies",
+   "name": "Chocolate Sandwich Cookies",
+   "unit": "1 sleeve (6 oz)",
+   "calories": 830,
+   "weight_oz": 6.0,
+   "volume_l": 0.5,
+   "volume_repacked_l": 0.5,
+   "price_usd": 2.5,
+   "prep": "no_cook",
+   "fuel_g": 0,
+   "water_l": 0,
+   "morale": 3,
+   "tags": [
+    "snack",
+    "treat"
+   ],
+   "spoils_days": null,
+   "crushable": true,
+   "needs": [],
+   "sold_at": [
+    "grocery"
+   ],
+   "flavor": "Dark cookies with sweet cream in the middle, twisted apart by the lake at dusk.",
+   "kcal_per_oz": 138,
+   "kcal_per_l": 1660
+  },
+  {
+   "id": "smores_kit",
+   "name": "S'mores Kit (marshmallows, graham crackers, chocolate)",
+   "unit": "1 kit for 4",
+   "calories": 940,
+   "weight_oz": 8.0,
+   "volume_l": 1.6,
+   "volume_repacked_l": 1.6,
+   "price_usd": 6.0,
+   "prep": "no_cook",
+   "fuel_g": 0,
+   "water_l": 0,
+   "morale": 1,
+   "tags": [
+    "treat"
+   ],
+   "spoils_days": null,
+   "crushable": true,
+   "needs": [],
+   "sold_at": [
+    "grocery"
+   ],
+   "real_world_notes": "Campfires are prohibited above 3,500 ft in Olympic and were banned park-wide in late summer 2026; most backcountry camps never allow them. A stove-toasted marshmallow works, sort of. Morale is +3 only with a legal fire.",
+   "flavor": "Marshmallows, crackers and chocolate, waiting hopefully for a campfire.",
+   "kcal_per_oz": 118,
+   "kcal_per_l": 588
+  },
+  {
+   "id": "apple",
+   "name": "Apple",
+   "unit": "1 large apple",
+   "calories": 95,
+   "weight_oz": 7.0,
+   "volume_l": 0.3,
+   "volume_repacked_l": 0.3,
+   "price_usd": 1.0,
+   "prep": "fresh",
+   "fuel_g": 0,
+   "water_l": 0,
+   "morale": 2,
+   "tags": [
+    "snack",
+    "fresh",
+    "heavy"
+   ],
+   "spoils_days": 14,
+   "crushable": false,
+   "needs": [],
+   "sold_at": [
+    "grocery"
+   ],
+   "real_world_notes": "Only about 14 kcal per ounce. Pack the core out; it is not 'natural' litter in an alpine meadow.",
+   "flavor": "A crisp red apple, heavy in the pack and perfect at the top of a long climb.",
+   "kcal_per_oz": 14,
+   "kcal_per_l": 317
+  },
+  {
+   "id": "orange",
+   "name": "Orange",
+   "unit": "1 orange",
+   "calories": 70,
+   "weight_oz": 7.0,
+   "volume_l": 0.3,
+   "volume_repacked_l": 0.3,
+   "price_usd": 1.0,
+   "prep": "fresh",
+   "fuel_g": 0,
+   "water_l": 0,
+   "morale": 2,
+   "tags": [
+    "snack",
+    "fresh",
+    "heavy"
+   ],
+   "spoils_days": 10,
+   "crushable": false,
+   "needs": [],
+   "sold_at": [
+    "grocery"
+   ],
+   "real_world_notes": "Peels take years to break down; pack them out.",
+   "flavor": "A bright orange that fills the whole trail with its smell when you peel it.",
+   "kcal_per_oz": 10,
+   "kcal_per_l": 233
+  },
+  {
+   "id": "banana",
+   "name": "Banana",
+   "unit": "1 banana",
+   "calories": 105,
+   "weight_oz": 4.5,
+   "volume_l": 0.3,
+   "volume_repacked_l": 0.3,
+   "price_usd": 0.3,
+   "prep": "fresh",
+   "fuel_g": 0,
+   "water_l": 0,
+   "morale": 2,
+   "tags": [
+    "breakfast",
+    "snack",
+    "fresh",
+    "heavy",
+    "spoils"
+   ],
+   "spoils_days": 3,
+   "crushable": true,
+   "needs": [],
+   "sold_at": [
+    "grocery"
+   ],
+   "flavor": "A yellow banana that will be brown and squashed by day three, and still delicious.",
+   "kcal_per_oz": 23,
+   "kcal_per_l": 350
+  },
+  {
+   "id": "baby_carrots",
+   "name": "Baby Carrots",
+   "unit": "1 bag (8 oz)",
+   "calories": 80,
+   "weight_oz": 8.0,
+   "volume_l": 0.3,
+   "volume_repacked_l": 0.3,
+   "price_usd": 2.0,
+   "prep": "fresh",
+   "fuel_g": 0,
+   "water_l": 0,
+   "morale": 1,
+   "tags": [
+    "lunch",
+    "snack",
+    "fresh",
+    "heavy",
+    "spoils"
+   ],
+   "spoils_days": 5,
+   "crushable": false,
+   "needs": [],
+   "sold_at": [
+    "grocery"
+   ],
+   "flavor": "Crunchy little carrots, the kind of snack a rabbit would pack.",
+   "kcal_per_oz": 10,
+   "kcal_per_l": 267
+  },
+  {
+   "id": "avocado",
+   "name": "Avocado",
+   "unit": "1 avocado",
+   "calories": 240,
+   "weight_oz": 7.0,
+   "volume_l": 0.3,
+   "volume_repacked_l": 0.3,
+   "price_usd": 1.5,
+   "prep": "fresh",
+   "fuel_g": 0,
+   "water_l": 0,
+   "morale": 2,
+   "tags": [
+    "lunch",
+    "fresh",
+    "heavy",
+    "spoils"
+   ],
+   "spoils_days": 3,
+   "crushable": true,
+   "needs": [],
+   "sold_at": [
+    "grocery"
+   ],
+   "flavor": "A green avocado that is either perfect or a rock; you'll find out on day two.",
+   "kcal_per_oz": 34,
+   "kcal_per_l": 800
+  },
+  {
+   "id": "cherry_tomatoes",
+   "name": "Cherry Tomatoes",
+   "unit": "1 pint",
+   "calories": 55,
+   "weight_oz": 10.0,
+   "volume_l": 0.5,
+   "volume_repacked_l": 0.5,
+   "price_usd": 3.5,
+   "prep": "fresh",
+   "fuel_g": 0,
+   "water_l": 0,
+   "morale": 2,
+   "tags": [
+    "lunch",
+    "snack",
+    "fresh",
+    "heavy",
+    "spoils"
+   ],
+   "spoils_days": 4,
+   "crushable": true,
+   "needs": [],
+   "sold_at": [
+    "grocery"
+   ],
+   "flavor": "Little red tomatoes that pop like tiny water balloons.",
+   "kcal_per_oz": 6,
+   "kcal_per_l": 110
+  },
+  {
+   "id": "watermelon_personal",
+   "name": "Personal Watermelon",
+   "unit": "1 small melon (4 lb)",
+   "calories": 400,
+   "weight_oz": 64.0,
+   "volume_l": 3.5,
+   "volume_repacked_l": 3.5,
+   "price_usd": 5.0,
+   "prep": "fresh",
+   "fuel_g": 0,
+   "water_l": 0,
+   "morale": 3,
+   "tags": [
+    "snack",
+    "treat",
+    "fresh",
+    "heavy",
+    "spoils"
+   ],
+   "spoils_days": 7,
+   "crushable": false,
+   "needs": [],
+   "sold_at": [
+    "grocery"
+   ],
+   "real_world_notes": "Four pounds for 400 kcal, and the rind is heavy trash to pack out. The legendary summit watermelon is a joke trip and a joy card.",
+   "flavor": "A round green watermelon, the most ridiculous thing to carry up a mountain and the most wonderful thing to share at the top.",
+   "kcal_per_oz": 6,
+   "kcal_per_l": 114
+  }
+ ],
+ "bear_can_capacity": {
+  "rule": "Olympic National Park requires a park-approved hard-sided bear canister for all food, trash and scented items on every wilderness overnight (2026 rules). Hanging is not allowed and soft bear sacks are not on the approved list. Only nighttime storage matters: the first day's lunch and snacks can ride outside the canister, and food goes back in before dark.",
+  "why_fewer_days_than_you_think": [
+   "Round, rigid walls and a narrow opening leave gaps: food fills only about 85% of the stated capacity (usable_l).",
+   "Smellables need room too: toothpaste, sunscreen, lip balm, bug spray, hand sanitizer and the growing bag of trash take about 0.3 L plus 0.1 L per night (simulation.md 6.4).",
+   "Food packaging is mostly air. A freeze-dried pouch as sold takes about 1.5 L for one dinner; repacked in a zip bag it takes 0.6 L.",
+   "Crushable foods (chips, crackers, cookies) are calorie-dense by weight but fluffy by volume.",
+   "Two people with one canister share one space: plan per person-day, not per trip."
+  ],
+  "how_to_read_the_table": "person_days_* = usable_l divided by food liters per person-day (dense 1.6, typical 2.0, bulky 2.6). solo_3_nights_after_smellables_typical subtracts 0.6 L of smellables first. Canister values are read from gear_catalog.json at build time, so the two files always agree.",
+  "canisters": {
+   "canister_standard:premium": {
+    "name": "Carbon-Fiber Bear Canister (10.6 L)",
+    "capacity_l": 10.6,
+    "usable_l": 9.0,
+    "weight_oz": 31,
+    "approved_olympic_2026": true,
+    "person_days_dense_1_6": 5.6,
+    "person_days_typical_2_0": 4.5,
+    "person_days_bulky_2_6": 3.5,
+    "solo_3_nights_after_smellables_typical": 4.2
+   },
+   "canister_standard": {
+    "name": "Bear Canister, Standard 11.5 L",
+    "capacity_l": 11.5,
+    "usable_l": 9.8,
+    "weight_oz": 41,
+    "approved_olympic_2026": true,
+    "person_days_dense_1_6": 6.1,
+    "person_days_typical_2_0": 4.9,
+    "person_days_bulky_2_6": 3.8,
+    "solo_3_nights_after_smellables_typical": 4.6
+   },
+   "canister_small": {
+    "name": "Bear Canister, Small 7.2 L",
+    "capacity_l": 7.2,
+    "usable_l": 6.1,
+    "weight_oz": 33,
+    "approved_olympic_2026": true,
+    "person_days_dense_1_6": 3.8,
+    "person_days_typical_2_0": 3.0,
+    "person_days_bulky_2_6": 2.3,
+    "solo_3_nights_after_smellables_typical": 2.8
+   },
+   "canister_classic": {
+    "name": "Bear Canister, Classic Opaque 10 L",
+    "capacity_l": 10.1,
+    "usable_l": 8.6,
+    "weight_oz": 44,
+    "approved_olympic_2026": true,
+    "person_days_dense_1_6": 5.4,
+    "person_days_typical_2_0": 4.3,
+    "person_days_bulky_2_6": 3.3,
+    "solo_3_nights_after_smellables_typical": 4.0
+   },
+   "canister_wic_loaner": {
+    "name": "Loaner Bear Canister (free from the WIC)",
+    "capacity_l": 10.1,
+    "usable_l": 8.6,
+    "weight_oz": 44,
+    "approved_olympic_2026": true,
+    "person_days_dense_1_6": 5.4,
+    "person_days_typical_2_0": 4.3,
+    "person_days_bulky_2_6": 3.3,
+    "solo_3_nights_after_smellables_typical": 4.0
+   },
+   "bear_sack_soft": {
+    "name": "Woven Bear-Resistant Food Sack",
+    "capacity_l": 10.6,
+    "usable_l": 9.0,
+    "weight_oz": 8,
+    "approved_olympic_2026": false,
+    "person_days_dense_1_6": 5.6,
+    "person_days_typical_2_0": 4.5,
+    "person_days_bulky_2_6": 3.5,
+    "solo_3_nights_after_smellables_typical": 4.2
+   }
+  },
+  "sample_days_computed": {
+   "dense_day": {
+    "description": "A dense, no-nonsense day: cold-soaked oats, tortilla lunches, nuts and chocolate, couscous with olive oil.",
+    "items": [
+     {
+      "id": "oats_rolled",
+      "qty": 1
+     },
+     {
+      "id": "milk_powder",
+      "qty": 1
+     },
+     {
+      "id": "coffee_instant",
+      "qty": 1
+     },
+     {
+      "id": "tortillas_flour",
+      "qty": 0.5
+     },
+     {
+      "id": "peanut_butter_packet",
+      "qty": 2
+     },
+     {
+      "id": "cheese_hard",
+      "qty": 0.25
+     },
+     {
+      "id": "salami_dry",
+      "qty": 0.25
+     },
+     {
+      "id": "trail_mix",
+      "qty": 0.5
+     },
+     {
+      "id": "bar_choc",
+      "qty": 1
+     },
+     {
+      "id": "energy_bar",
+      "qty": 1
+     },
+     {
+      "id": "couscous",
+      "qty": 1
+     },
+     {
+      "id": "olive_oil",
+      "qty": 0.25
+     },
+     {
+      "id": "condiment_kit",
+      "qty": 0.2
+     },
+     {
+      "id": "cocoa_packet",
+      "qty": 1
+     }
+    ],
+    "calories": 3785,
+    "weight_lb": 1.9,
+    "kcal_per_oz": 124,
+    "volume_l_as_sold": 1.42,
+    "volume_l_repacked": 1.42,
+    "fuel_g": 14,
+    "price_usd": 16.93
+   },
+   "typical_day": {
+    "description": "A typical first-timer day: oatmeal packets, bars, a tortilla lunch, a freeze-dried dinner and cocoa.",
+    "items": [
+     {
+      "id": "oatmeal_packet",
+      "qty": 2
+     },
+     {
+      "id": "coffee_instant",
+      "qty": 1
+     },
+     {
+      "id": "granola_bar",
+      "qty": 2
+     },
+     {
+      "id": "tortillas_flour",
+      "qty": 0.5
+     },
+     {
+      "id": "peanut_butter_packet",
+      "qty": 2
+     },
+     {
+      "id": "jerky_beef",
+      "qty": 0.5
+     },
+     {
+      "id": "trail_mix",
+      "qty": 0.5
+     },
+     {
+      "id": "candy_bar_nougat",
+      "qty": 1
+     },
+     {
+      "id": "dried_mango",
+      "qty": 0.5
+     },
+     {
+      "id": "fd_chili_mac",
+      "qty": 1
+     },
+     {
+      "id": "cocoa_packet",
+      "qty": 1
+     }
+    ],
+    "calories": 3370,
+    "weight_lb": 1.73,
+    "kcal_per_oz": 122,
+    "volume_l_as_sold": 2.75,
+    "volume_l_repacked": 1.85,
+    "fuel_g": 25,
+    "price_usd": 30.65
+   },
+   "bulky_day": {
+    "description": "A bulky, cheerful day: pastries, a bagel lunch, chips, an apple, pad thai as sold, cookies.",
+    "items": [
+     {
+      "id": "toaster_pastries",
+      "qty": 1
+     },
+     {
+      "id": "coffee_instant",
+      "qty": 1
+     },
+     {
+      "id": "bagel",
+      "qty": 1
+     },
+     {
+      "id": "cheese_hard",
+      "qty": 0.25
+     },
+     {
+      "id": "potato_chips",
+      "qty": 0.5
+     },
+     {
+      "id": "apple",
+      "qty": 1
+     },
+     {
+      "id": "granola_bar",
+      "qty": 1
+     },
+     {
+      "id": "fd_pad_thai",
+      "qty": 1
+     },
+     {
+      "id": "sandwich_cookies",
+      "qty": 0.5
+     },
+     {
+      "id": "cocoa_packet",
+      "qty": 1
+     }
+    ],
+    "calories": 3105,
+    "weight_lb": 1.92,
+    "kcal_per_oz": 101,
+    "volume_l_as_sold": 4.57,
+    "volume_l_repacked": 2.42,
+    "fuel_g": 17,
+    "price_usd": 23.6
+   },
+   "trap_day_cans": {
+    "description": "The canned-food trap: soup, chili, peaches and a sandwich. Heavy, low in calories, and the cans won't fit the canister.",
+    "items": [
+     {
+      "id": "sandwich_deli",
+      "qty": 1
+     },
+     {
+      "id": "canned_soup",
+      "qty": 1
+     },
+     {
+      "id": "canned_chili",
+      "qty": 1
+     },
+     {
+      "id": "canned_peaches",
+      "qty": 1
+     },
+     {
+      "id": "apple",
+      "qty": 1
+     },
+     {
+      "id": "coffee_instant",
+      "qty": 1
+     }
+    ],
+    "calories": 1655,
+    "weight_lb": 4.41,
+    "kcal_per_oz": 23,
+    "volume_l_as_sold": 2.51,
+    "volume_l_repacked": 2.51,
+    "fuel_g": 18,
+    "price_usd": 16.25
+   }
+  },
+  "packing_tips": [
+   "Repack freeze-dried meals and boxed foods into zip bags at home (or at the store counter in game): it can add a day or two of capacity.",
+   "Pack the canister in order of use: tonight's dinner on top, the last day's food at the bottom.",
+   "Fill the gaps: tortillas curl around the inside wall, small packets slide into corners.",
+   "Eat the bulkiest food first; the canister empties fastest when chips and pouches go early.",
+   "Choose dense calories: olive oil, nut butters, nuts, chocolate, cheese, couscous and tortillas.",
+   "Two hikers on a long trip usually need two canisters; a small one per person often beats one large one for packing.",
+   "Food that doesn't fit at night is overflow: the night-visitor roll applies (simulation.md 6.4), and on the coast the raccoons are very good at this game."
+  ]
+ },
+ "notes": "Food catalog for Olympic Peninsula Hiker (design data, 2026-10). Each item is one 'unit' as bought (see unit): calories, weight_oz (including packaging), volume_l as sold, volume_repacked_l after repacking into a zip bag (equal to volume_l when repacking doesn't help), price_usd at a 2026 grocery or outfitter (sold_at says where; 'home' means made from your own kitchen, priced at its cost). prep: no_cook, boil (needs stove, fuel and a pot or mug), cold_soak (needs a jar or pot and time), fresh (perishable, eaten as is). fuel_g is grams of canister fuel per unit with an upright canister stove in mild weather (about 7 g per half-liter boil plus about 1 g per minute of simmering); apply the needs.fuel_g_per_day multipliers for cold, wind and stove type. water_l is the water needed to prepare it (not drinking water). morale runs from -2 (sad) to +3 (joyful) and feeds dinner and snack joy (simulation.md 7.2 'yum'; suggested mapping yum = max(0, morale)). TAGS come from the fixed list: breakfast, lunch, dinner, snack, treat, fresh, heavy, hot, spoils, smelly, caffeine, electrolyte. Four are derived by the build script so they stay consistent: fresh (prep is fresh), hot (prep is boil), heavy (at least 4 oz and under 50 kcal per ounce), spoils (spoils_days of 7 or fewer). smelly marks strong-odor foods (cured meat, fish, strong cheese) that raise night-visitor odds when they overflow the canister; every food item is a smellable for canister purposes. crushable foods lose morale (not calories) when packed under heavy items. kcal_per_oz and kcal_per_l are computed. Trap foods (canned goods, watermelon, foam cups) are honest: their notes and densities are shown in the store. Brand names are generic. Values are typical label numbers rounded for play."
 }

@@ -1,0 +1,2643 @@
+{
+ "meta": {
+  "file": "park_rules.json",
+  "project": "Olympic Peninsula Hiker (working title)",
+  "scope": "Park-wide rules, climate, tides, SAR/incident patterns, and current road/facility conditions for Olympic National Park.",
+  "researched_on": "2026-10-07",
+  "status": "IN PROGRESS - permits, food, regs, trail+road conditions, fires, climate, tides done; SAR, wildlife, game notes pending",
+  "confidence_scale": "high = stated on an nps.gov/recreation.gov page fetched for this file; medium = secondary source or older official page; low = inferred or general knowledge, verify before shipping",
+  "staleness_rule": "Any condition claim dated before 2025-01-01 is flagged stale:true."
+ },
+ "permits": {
+  "summary": "Every overnight stay in the ONP wilderness needs a wilderness camping permit, year-round. Reservations are first-come, first-served on Recreation.gov (permit 4098362); there is no early-access lottery. Summer-season quota inventory is bulk-released April 15 at 7:00 AM Pacific and is not topped up later.",
+  "required_for": {
+   "value": "All overnight stays in undeveloped (backcountry) areas, year-round. Day hikes need no wilderness permit (park entrance fee/pass still applies).",
+   "confidence": "high",
+   "source_ids": [
+    "nps_wilderness_regs",
+    "nps_wic"
+   ]
+  },
+  "system": {
+   "value": "Recreation.gov permit #4098362 (Olympic National Park Wilderness Permits). You pick an entry trailhead, then a camp area for each night. Once WIC staff issue the permit (about 3 days before the start), you log in and print it yourself.",
+   "confidence": "high",
+   "source_ids": [
+    "nps_wilderness_reservations",
+    "recgov_onp_permit"
+   ]
+  },
+  "lottery": {
+   "value": "None. ONP has no early-access lottery (unlike Mount Rainier); all reservations first-come, first-served.",
+   "confidence": "medium",
+   "source_ids": [
+    "wnpf_permits_2024"
+   ],
+   "note": "Source dated 2024; no contrary 2025-2026 evidence found."
+  },
+  "seasons": {
+   "summer": {
+    "dates": "May 15 - October 15",
+    "release": "April 15, 7:00 AM Pacific",
+    "confidence": "high",
+    "source_ids": [
+     "nps_wilderness_reservations"
+    ]
+   },
+   "winter": {
+    "dates": "October 16 - May 14",
+    "release": "mid-September (per WTA)",
+    "confidence": "medium",
+    "source_ids": [
+     "wta_permit_info"
+    ]
+   },
+   "high_elevation_note": {
+    "value": "High-elevation camps are typically reservable mid-July to mid-October only. Earlier or later high trips must be arranged by phoning the WIC. Sol Duc/Seven Lakes Basin quota season is narrower than May 15-Oct 15 and depends on snow.",
+    "confidence": "high",
+    "source_ids": [
+     "nps_wilderness_reservations"
+    ]
+   }
+  },
+  "walk_ups": {
+   "value": "No camp sites are held for same-day walk-ups. Some inventory shows 'In Station' on Recreation.gov and can only be booked by contacting the WIC.",
+   "confidence": "medium",
+   "source_ids": [
+    "nps_wilderness_reservations",
+    "wta_permit_info"
+   ]
+  },
+  "fees_2026": {
+   "per_adult_per_night_usd": 8,
+   "youth_15_and_under": 0,
+   "reservation_fee_usd_per_permit": 6,
+   "annual_wilderness_pass_usd": 45,
+   "annual_pass_note": "Covers nightly fees (not the $6 reservation fee) for 12 months from purchase month.",
+   "worked_example": "2 adults x 4 nights = $64 + $6 = $70",
+   "confidence": "high",
+   "source_ids": [
+    "nps_wilderness_reservations"
+   ]
+  },
+  "park_entrance_fees": {
+   "value": "Separate from wilderness fees. ONP charges a per-vehicle entrance fee (7-day) at staffed entrances (e.g. Hurricane Ridge, Elwha, Sol Duc, Hoh, Staircase); America the Beautiful interagency pass and the Olympic annual pass are accepted.",
+   "vehicle_7day_usd": 30,
+   "olympic_annual_pass_usd": 55,
+   "confidence": "medium",
+   "note": "Dollar values from general NPS fee schedule knowledge (2020-present). Not re-verified on nps.gov/olym/planyourvisit/fees.htm in this session - verify.",
+   "source_ids": []
+  },
+  "quota_areas": {
+   "value": [
+    {
+     "area": "Ozette Coast (Yellow Banks to Point of the Arches)",
+     "notes": "Includes Cape Alava and Sand Point camps."
+    },
+    {
+     "area": "Royal Basin / Royal Lake"
+    },
+    {
+     "area": "Lake Constance"
+    },
+    {
+     "area": "Upper Lena Lake",
+     "notes": "No camping within 0.25 mi of Scout Lake; camp only at marked sites."
+    },
+    {
+     "area": "East Fork Quinault River / Enchanted Valley",
+     "notes": "Trial quota since May 15, 2024, up to 3 years: max 208 users or 30 permits per night, whichever first. Final decision not found as of 2026-10."
+    },
+    {
+     "area": "Flapjack Lakes (including Gladys Divide)",
+     "notes": "CLOSED 2025-2026 by Bear Gulch Fire (see current_conditions)."
+    },
+    {
+     "area": "Grand Valley and Badger Valley"
+    },
+    {
+     "area": "Sol Duc / Seven Lakes Basin / Mink Lake area (including Cat Basin, High Divide, Little Divide)"
+    },
+    {
+     "area": "Hoh Lake and C.B. Flats"
+    },
+    {
+     "area": "Hoh River Trail - Elk Lake, Martin Creek, and Glacier Meadows camps are quota sites; Hoh River group and stock sites are quota sites"
+    }
+   ],
+   "rules_in_quota_areas": [
+    "Camp only in designated sites (red camps on the Trip Planner map).",
+    "No deviation from the permit itinerary except in an emergency.",
+    "Groups of 7-12 must reserve group sites in all quota areas.",
+    "Quota inventory is bulk-released; no later release."
+   ],
+   "non_quota": "Brown camps on the Trip Planner map: permits not limited, but a permit (and fee) is still required.",
+   "confidence": "high",
+   "last_verified": "nps.gov wilderness-reservations page, last updated 2026-02-12",
+   "source_ids": [
+    "nps_wilderness_reservations"
+   ]
+  },
+  "group_size": {
+   "standard_party": "1-6 people",
+   "large_group": "7-12 people; must use designated group sites in Sol Duc/Seven Lakes Basin, Hoh Lake Trail, Hoh River Trail, Grand Valley, Upper Lena Lake and Lake Constance (and all quota areas per reservations page). Many camps can only take 1-6.",
+   "max": "12 people and 8 head of stock",
+   "affiliated_groups": "May not combine above 12; must camp and travel at least 1 mile apart.",
+   "confidence": "high",
+   "source_ids": [
+    "nps_wilderness_regs",
+    "nps_group_camping"
+   ]
+  },
+  "cancellation_and_changes": {
+   "value": "Cancel 3+ days before start: camping fee refunded, $6 kept. Within 3 days or no-show: no refund. Party size/camp changes allowed (if space) until the day before or until issued; after issuance only a WIC ranger can change it.",
+   "confidence": "high",
+   "source_ids": [
+    "nps_wilderness_reservations"
+   ]
+  },
+  "wilderness_information_centers": {
+   "port_angeles_wic": {
+    "location": "Olympic National Park Visitor Center, 3002 Mount Angeles Road, Port Angeles, WA 98362",
+    "phone": "(360) 565-3100",
+    "hours": "Daily 9 AM - 5 PM, year-round; closed Thanksgiving and Christmas",
+    "role": "Issues permits for the whole park; handles advance reservations for quota areas; loans bear canisters during business hours.",
+    "confidence": "high",
+    "source_ids": [
+     "nps_wic"
+    ]
+   },
+   "quinault_wic": {
+    "location": "Quinault Rain Forest Ranger Station, 913 North Shore Road, Amanda Park, WA 98526",
+    "phone": "(360) 288-2444",
+    "normal_season": "Memorial Day weekend through end of September",
+    "status_2026": "CLOSED for the 2026 season (trail conditions page, Sept 2026). Year-round bear canister return bin.",
+    "confidence": "high",
+    "source_ids": [
+     "nps_wic",
+     "nps_trail_conditions"
+    ]
+   },
+   "other_ranger_stations_for_game": {
+    "value": "Historically seasonal WICs/ranger stations also operated at the Hoh Rain Forest Visitor Center, Staircase Ranger Station, Kalaloch, Ozette and Sol Duc; in 2026 nps.gov lists only Port Angeles (year-round) and Quinault (seasonal, closed 2026) as WICs. Game can show other stations as 'ranger station - info only'.",
+    "confidence": "medium",
+    "source_ids": [
+     "nps_wic"
+    ]
+   }
+  },
+  "trip_planner_map": {
+   "value": "The NPS Wilderness Trip Planner / Wilderness Trail & Campsite map color-codes camps: red/yellow = quota (designated sites, reservation needed), brown = non-quota. It also marks toilets.",
+   "confidence": "high",
+   "source_ids": [
+    "nps_wilderness_reservations",
+    "nps_caring_for_wilderness"
+   ]
+  },
+  "national_forest_note": {
+   "value": "Trailheads on Olympic National Forest land (e.g. Lena Lake, Lake Constance approach via Dosewallips Road, Royal Basin via Dungeness trailhead, Upper Quinault) may require a Northwest Forest Pass or America the Beautiful pass for parking; forest rules differ (e.g. dogs allowed on forest trails, no permit for forest camps outside the park).",
+   "confidence": "medium",
+   "source_ids": [
+    "nps_wilderness_regs"
+   ]
+  }
+ },
+ "food_storage": {
+  "summary": "As of 2026, approved hard-sided Animal Resistant Food Containers (ARFC, 'bear cans') are required in ALL wilderness areas of the park, including the entire wilderness coast. Hanging food and bear wires no longer count as compliant. All food, garbage and scented items stay in the can 24 hours a day except while being carried, prepared or eaten.",
+  "rule": {
+   "value": "ARFCs required in all wilderness areas. Front-country alternatives: hard-sided vehicle or park food locker.",
+   "confidence": "high",
+   "source_ids": [
+    "nps_food_storage",
+    "nps_wilderness_regs",
+    "nps_trail_conditions"
+   ],
+   "page_dates": "food storage page updated 2026-07-07; regulations page updated 2026-03-30; trail conditions updated 2026-09-30"
+  },
+  "history": {
+   "value": "Before the 2026 park-wide rule, canisters were required only in certain zones (High Divide/Seven Lakes Basin, the wilderness coast, Enchanted Valley after 2015 bear closures, Grand Valley/Royal Basin and several lake camps) and food could be hung (12 ft up, 10 ft out from trunk) or put on bear wires elsewhere. The Pacific Northwest Trail Association describes the 2026 change as 'most wilderness areas'; NPS pages say 'all'. Game should follow NPS: canister everywhere overnight.",
+   "older_hanging_standard": "12 ft high and 10 ft from the nearest trunk (2009 NPS release) - historical only",
+   "confidence": "medium",
+   "stale": true,
+   "source_ids": [
+    "pnt_bear_cans",
+    "nps_2009_food_release"
+   ]
+  },
+  "hanging_and_wires": {
+   "value": "Not compliant in 2026. Older bear wires still physically exist at some camps (e.g. Elwha, Hoh, Quinault valleys) but do not satisfy the rule.",
+   "confidence": "medium",
+   "source_ids": [
+    "pnt_bear_cans",
+    "nps_food_storage"
+   ]
+  },
+  "scented_items": [
+   "toothpaste",
+   "deodorant",
+   "sunscreen",
+   "hand sanitizer",
+   "lip balm/chapstick",
+   "feminine products",
+   "garbage",
+   "all food"
+  ],
+  "approved_containers_2026": {
+   "list_updated": "2026-06-25",
+   "note": "Unlisted containers are not permitted regardless of maker claims; damaged/cracked cans not allowed. Volumes below are manufacturer specs from general knowledge (not on NPS page) - medium/low confidence; verify per model.",
+   "items": [
+    {
+     "brand": "BearVault",
+     "models": [
+      "BV One.1 (BV ONE, adjustable; approved July 2026)",
+      "BV110b",
+      "BV200",
+      "BV250",
+      "BV300",
+      "BV350",
+      "BV400",
+      "BV425",
+      "BV450",
+      "BV475",
+      "BV500"
+     ],
+     "volumes_l": {
+      "BV425": 7.2,
+      "BV450": 7.0,
+      "BV475": 9.0,
+      "BV500": 11.5
+     },
+     "volume_confidence": "medium"
+    },
+    {
+     "brand": "Garcia (Backpackers' Cache)",
+     "models": [
+      "Model 812"
+     ],
+     "volumes_l": {
+      "812": 10.8
+     },
+     "volume_confidence": "medium"
+    },
+    {
+     "brand": "Bare Boxer",
+     "models": [
+      "Contender 101",
+      "Champ 202"
+     ],
+     "volumes_l": {
+      "Contender 101": 4.3,
+      "Champ 202": 6.6
+     },
+     "volume_confidence": "low"
+    },
+    {
+     "brand": "Bearikade (Wild Ideas)",
+     "models": [
+      "Weekender MKII",
+      "Expedition MKII"
+     ],
+     "volumes_l": {
+      "Weekender MKII": 10.0,
+      "Expedition MKII": 13.4
+     },
+     "volume_confidence": "medium"
+    },
+    {
+     "brand": "Counter Assault",
+     "models": [
+      "Bear Keg"
+     ],
+     "volumes_l": {
+      "Bear Keg": 11.0
+     },
+     "volume_confidence": "medium"
+    },
+    {
+     "brand": "Grub Can / Holly's Homemade",
+     "models": [
+      "Carbon/Kevlar 4.5L",
+      "Carbon/Kevlar 6.6L"
+     ],
+     "volumes_l": {
+      "4.5L": 4.5,
+      "6.6L": 6.6
+     },
+     "volume_confidence": "high"
+    },
+    {
+     "brand": "Lighter1",
+     "models": [
+      "Big Daddy",
+      "Lil Sam"
+     ],
+     "volumes_l": {
+      "Big Daddy": 10.5,
+      "Lil Sam": 4.6
+     },
+     "volume_confidence": "low"
+    },
+    {
+     "brand": "REI",
+     "models": [
+      "Traverse Modular Bear Canister, Model 25200"
+     ],
+     "volumes_l": {},
+     "volume_confidence": "low"
+    },
+    {
+     "brand": "Purple Mountain Engineering",
+     "models": [
+      "Tahoe (discontinued)"
+     ],
+     "volumes_l": {},
+     "volume_confidence": "low"
+    },
+    {
+     "brand": "UDAP",
+     "models": [
+      "No-Fed-Bear"
+     ],
+     "volumes_l": {
+      "No-Fed-Bear": 7.4
+     },
+     "volume_confidence": "low"
+    }
+   ],
+   "stock_panniers": [
+    "Bear Aware Panniers",
+    "Bear Country Camping SFO and HFO",
+    "Berner Bear Box",
+    "DeCarteret Aluminum Stock Panniers",
+    "Outfitters Supply TrailMax Bear Proof Pack Panniers",
+    "Steel salvage drum with security lid (e.g. 8-gal open head)"
+   ],
+   "confidence": "high",
+   "source_ids": [
+    "nps_food_storage",
+    "bearvault_media_2026"
+   ]
+  },
+  "loaner_program": {
+   "value": "Free loaner canisters for permit holders at the Port Angeles WIC (and Quinault when open) during business hours; not reservable; can run out on busy weekends. Local outfitters also rent.",
+   "confidence": "high",
+   "source_ids": [
+    "nps_food_storage",
+    "nps_wic"
+   ]
+  },
+  "game_capacity_rule_of_thumb": {
+   "value": "A typical ~7-11 L canister holds about 3-7 days of food for one person depending on how dense the food is; a game can model canister volume vs. food volume as a hard pack-fitting constraint.",
+   "confidence": "low",
+   "source_ids": []
+  },
+  "small_animal_problems": {
+   "value": "Rodents (mice, chipmunks, ground squirrels, marmots), gray jays, ravens and on the coast raccoons are the most frequent food thieves. Raccoons on the wilderness coast are notorious for opening packs and soft containers. Royal Basin had rodent problems reported in June 2026. Mountain goats and deer seek salt from urine and sweaty gear. Food loss and chewed gear are realistic minor consequences.",
+   "examples": [
+    {
+     "place": "Royal Basin",
+     "date": "2026-06-05",
+     "report": "rodent problems reported",
+     "confidence": "high"
+    },
+    {
+     "place": "Wilderness coast",
+     "date": "long-standing",
+     "report": "raccoons take food from unattended packs/tents; canisters required on the entire coast",
+     "confidence": "medium"
+    }
+   ],
+   "source_ids": [
+    "nps_trail_conditions",
+    "nps_food_storage"
+   ]
+  },
+  "bear_incidents_context": {
+   "value": "Enchanted Valley was closed to camping in 2015 after bears obtained food and became habituated; reopened with canisters required. A possibly habituated bear was reported near Boulder Creek camp (Elwha) in 2026.",
+   "confidence": "high",
+   "source_ids": [
+    "nps_enchanted_bears",
+    "nps_trail_conditions"
+   ]
+  }
+ },
+ "campfires": {
+  "elevation_limit": {
+   "value": "Campfires and wood-burning camp stoves allowed only below 3,500 ft. Gas/canister stoves allowed everywhere unless a ban says otherwise.",
+   "confidence": "high",
+   "source_ids": [
+    "nps_wilderness_regs"
+   ]
+  },
+  "named_no_fire_areas": {
+   "value": [
+    "Wilderness coast between the headland at Wedding Rocks and the headland north of Yellow Banks (Ozette area, includes Sand Point) - no fires or wood stoves",
+    "Olympic Hot Springs and Boulder Creek Campground - year-round burn ban",
+    "Hoh River Trail at and above Elk Lake (incl. Glacier Meadows)",
+    "Lake Constance",
+    "Lake Angeles and Heather Park camps (above 3,500 ft)",
+    "Flapjack Lakes (above 3,500 ft)",
+    "Wagonwheel Lake",
+    "Mt. Storm King (day use only, no fires)",
+    "All high camps above 3,500 ft (Seven Lakes Basin, High Divide, Royal Basin, Grand Valley, etc.)"
+   ],
+   "confidence": "high",
+   "source_ids": [
+    "nps_wilderness_regs",
+    "nps_trail_conditions"
+   ]
+  },
+  "coast_rules": {
+   "value": "Where fires are allowed on the coast, use driftwood below the high tide line, small fires, never against drift logs (log fires can burn for days and drift logs can roll); no fires Wedding Rocks to north of Yellow Banks.",
+   "confidence": "medium",
+   "note": "Driftwood/below-high-tide guidance is long-standing NPS coast guidance; the Wedding Rocks-Yellow Banks ban is high confidence.",
+   "source_ids": [
+    "nps_wilderness_regs"
+   ]
+  },
+  "seasonal_bans": {
+   "value": "Park-wide campfire restrictions are imposed in dry late summers (e.g. Sept 2012, summer 2015 Paradise Fire year, 2021 heat wave, 2023, 2024 - lifted Sept 2024) and in 2025 during the Bear Gulch Fire. Typical window: July-September. Game: roll a seasonal fire ban in Aug-Sep with some probability.",
+   "confidence": "medium",
+   "source_ids": [
+    "nps_fire_restrictions_news"
+   ]
+  },
+  "attendance": {
+   "value": "Campers must stay with a campfire from start to finish and extinguish it fully.",
+   "confidence": "high",
+   "source_ids": [
+    "nps_fire_restrictions_news"
+   ]
+  }
+ },
+ "pets_stock_drones_other": {
+  "pets": {
+   "value": "Not allowed on park trails, meadows, beaches or undeveloped areas. Exceptions: leashed pets on Rialto Beach north to Ellen Creek and on the Kalaloch beach strip between the Hoh and Quinault reservations (no camping with pets there), and the Spruce Railroad Trail. Pets are allowed on adjacent Olympic National Forest trails.",
+   "confidence": "high",
+   "source_ids": [
+    "nps_wilderness_regs"
+   ]
+  },
+  "stock": {
+   "value": "Only horses, mules, burros and llamas. Max 12 people/8 stock. Above 3,500 ft stock must camp only in designated stock camps and stay on maintained trails. Pellets or rolled grain only (no loose hay/viable seed). Tie 200+ ft from water using hitch rails or highlines, not trees. Grazing within 1/4 mi of stock camps, move every 12 h. Many trails closed to stock (nature trails, most coast; Hoh River Trail beyond Martin Creek stock camp except llamas).",
+   "confidence": "high",
+   "source_ids": [
+    "nps_wilderness_regs",
+    "nps_trail_conditions"
+   ]
+  },
+  "drones": {
+   "value": "Launching, landing or operating unmanned aircraft anywhere on park lands or waters is prohibited.",
+   "confidence": "high",
+   "source_ids": [
+    "nps_wilderness_regs"
+   ]
+  },
+  "bicycles_wheels": {
+   "value": "No bicycles or wheeled devices on park trails except the Spruce Railroad Trail; bikes may be used on closed roads (e.g. washed-out Olympic Hot Springs Road to the Boulder Creek trailhead).",
+   "confidence": "high",
+   "source_ids": [
+    "nps_wilderness_regs",
+    "nps_trail_conditions"
+   ]
+  },
+  "weapons": {
+   "value": "Weapons other than legally carried firearms are prohibited on trails/undeveloped areas; discharging firearms is prohibited. (Page phrasing on firearms is inconsistent; follow federal law: possession per state law, discharge prohibited.)",
+   "confidence": "medium",
+   "source_ids": [
+    "nps_wilderness_regs"
+   ]
+  },
+  "fishing": {
+   "value": "No state license required inside the park; park fishing regulations apply. Elwha River and tributaries closed to fishing.",
+   "confidence": "high",
+   "source_ids": [
+    "nps_wilderness_regs",
+    "nps_trail_conditions"
+   ]
+  }
+ },
+ "leave_no_trace_and_waste": {
+  "status_of_lnt": "LNT principles are guidance, not regulation, except where codified (food storage, fires, designated sites in quota areas, waste rules).",
+  "human_waste": {
+   "value": "Use backcountry toilets (privies/vault/composting toilets) where present. If more than 1/4 mile from a privy, dig a cathole 8 inches deep at least 200 ft (about 70 steps) from water, trails and camps; pack out toilet paper. Urinate on rocks or trail tread so deer and goats do not dig up plants for salt.",
+   "confidence": "high",
+   "source_ids": [
+    "nps_trail_conditions",
+    "nps_caring_for_wilderness"
+   ]
+  },
+  "toilets": {
+   "value": "Toilets are marked on the Wilderness Trail & Campsite map; NPS has installed self-contained vault toilets at the busiest backcountry areas (e.g. Seven Lakes Basin, where full waste containers are flown out). Staffing limits mean seats may not be cleaned regularly. Lake Constance: south vault toilet closed, north composting toilet open (June 2026).",
+   "confidence": "high",
+   "source_ids": [
+    "nps_caring_for_wilderness",
+    "nps_trail_conditions",
+    "wta_drop_in_bucket"
+   ]
+  },
+  "mount_olympus_and_glaciers": {
+   "value": "No blue-bag deposit on the lateral moraine; Mount Olympus climbers must pack out human waste (WAG bags).",
+   "confidence": "high",
+   "source_ids": [
+    "nps_trail_conditions"
+   ]
+  },
+  "coast": {
+   "value": "Use pit/composting toilets at coast camps where they exist (e.g. Cape Alava, Sand Point, Third Beach, Toleak Point area); otherwise bury waste away from creeks and camps. Filter or boil water - iodine/chemical alone is not effective against Cryptosporidium; some creeks are brackish at high tide.",
+   "confidence": "medium",
+   "note": "Specific toilet locations should be checked against the trip planner map.",
+   "source_ids": [
+    "nps_trail_conditions",
+    "nps_coast_page"
+   ]
+  },
+  "camping_placement": {
+   "value": "In quota areas camp only at designated sites. Elsewhere use established sites ('good campsites are found, not made'). Upper Lena Lake: no camping within 0.25 mi of Scout Lake. General LNT: camp and wash 200 ft from lakes/streams.",
+   "confidence": "medium",
+   "source_ids": [
+    "nps_lnt",
+    "nps_trail_conditions"
+   ]
+  },
+  "washing": {
+   "value": "Carry water 200 ft from lakes and streams; use tiny amounts of biodegradable soap; scatter strained gray water.",
+   "confidence": "medium",
+   "source_ids": [
+    "nps_lnt_general"
+   ]
+  },
+  "water_treatment": {
+   "value": "Treat all water: filter or boil. Chemical treatments are not effective against Cryptosporidium (park guidance).",
+   "confidence": "high",
+   "source_ids": [
+    "nps_trail_conditions"
+   ]
+  }
+ },
+ "climate": {
+  "summary": "Olympic has a marine climate with a very wet season (Oct-Apr) and a short, fairly dry summer (Jul-Aug). The west side (coast, Hoh, Queets, Quinault, Bogachiel) gets ~100-170 in of precipitation a year; the northeast rain shadow (Port Angeles, Sequim, Dungeness/Gray Wolf, Royal Basin) gets far less (Port Angeles ~26 in). High country above ~4,500 ft is normally snowbound from November to June; Hurricane Ridge averages roughly 30-35 ft of snowfall a year. July-September is the backpacking season for high routes.",
+  "nps_statements": {
+   "value": "Coast and west-facing valleys get 100-170 in/yr; Port Angeles 25-30 in; Hurricane Ridge 30-35 ft snow/yr; high trails may be impassable from snow into June (later in big years); snow can return to the high country as early as late September; by late October rain and wind reach the valleys and beaches. Summer thunderstorms in high country; summer coastal fog.",
+   "confidence": "high",
+   "source_ids": [
+    "nps_weather"
+   ]
+  },
+  "zones": {
+   "coast": {
+    "proxy_station": "Quillayute Airport (UIL), 180 ft, 3 mi inland from La Push - NOAA 1991-2020 normals",
+    "monthly": [
+     {
+      "month": "Jan",
+      "high_f": 47.5,
+      "low_f": 35.9,
+      "precip_in": 15.59,
+      "days_ge_0_01in": 22.2,
+      "days_ge_0_10in": 18.3
+     },
+     {
+      "month": "Feb",
+      "high_f": 49.1,
+      "low_f": 35.2,
+      "precip_in": 9.73,
+      "days_ge_0_01in": 18.9,
+      "days_ge_0_10in": 14.6
+     },
+     {
+      "month": "Mar",
+      "high_f": 51.2,
+      "low_f": 36.7,
+      "precip_in": 11.78,
+      "days_ge_0_01in": 22.2,
+      "days_ge_0_10in": 17.3
+     },
+     {
+      "month": "Apr",
+      "high_f": 54.8,
+      "low_f": 38.9,
+      "precip_in": 8.11,
+      "days_ge_0_01in": 19.2,
+      "days_ge_0_10in": 13.4
+     },
+     {
+      "month": "May",
+      "high_f": 60.0,
+      "low_f": 43.4,
+      "precip_in": 4.25,
+      "days_ge_0_01in": 15.0,
+      "days_ge_0_10in": 9.3
+     },
+     {
+      "month": "Jun",
+      "high_f": 63.3,
+      "low_f": 47.7,
+      "precip_in": 3.3,
+      "days_ge_0_01in": 14.5,
+      "days_ge_0_10in": 7.1
+     },
+     {
+      "month": "Jul",
+      "high_f": 67.6,
+      "low_f": 51.0,
+      "precip_in": 1.58,
+      "days_ge_0_01in": 9.0,
+      "days_ge_0_10in": 3.4
+     },
+     {
+      "month": "Aug",
+      "high_f": 68.9,
+      "low_f": 51.1,
+      "precip_in": 2.64,
+      "days_ge_0_01in": 8.8,
+      "days_ge_0_10in": 3.7
+     },
+     {
+      "month": "Sep",
+      "high_f": 66.7,
+      "low_f": 47.5,
+      "precip_in": 4.56,
+      "days_ge_0_01in": 11.1,
+      "days_ge_0_10in": 7.0
+     },
+     {
+      "month": "Oct",
+      "high_f": 58.7,
+      "low_f": 42.4,
+      "precip_in": 10.68,
+      "days_ge_0_01in": 17.8,
+      "days_ge_0_10in": 13.8
+     },
+     {
+      "month": "Nov",
+      "high_f": 51.2,
+      "low_f": 38.1,
+      "precip_in": 15.26,
+      "days_ge_0_01in": 21.9,
+      "days_ge_0_10in": 17.6
+     },
+     {
+      "month": "Dec",
+      "high_f": 46.7,
+      "low_f": 35.3,
+      "precip_in": 13.84,
+      "days_ge_0_01in": 22.5,
+      "days_ge_0_10in": 18.1
+     }
+    ],
+    "annual_precip_in": 101.32,
+    "annual_days_ge_0_01in": 203.1,
+    "notes": "Beach itself is a few degrees cooler in summer (fog, onshore wind). Summer fog is common mornings. Snow at sea level is rare (Quillayute ~13 in/yr in 1966-2005 record, usually melts in a day).",
+    "confidence": "high",
+    "source_ids": [
+     "noaa_normals_1991_2020",
+     "wrcc_quillayute"
+    ]
+   },
+   "rain_forest_valleys": {
+    "proxy_station": "Clearwater (Queets valley edge, ~250 ft) - NOAA 1991-2020 normals; Hoh RS/Quinault RS are wetter (Hoh ~140-150 in, Quinault ~130-140 in)",
+    "monthly": [
+     {
+      "month": "Jan",
+      "high_f": 47.2,
+      "low_f": 35.7,
+      "precip_in": 17.65,
+      "days_ge_0_01in": 22.9
+     },
+     {
+      "month": "Feb",
+      "high_f": 50.8,
+      "low_f": 34.3,
+      "precip_in": 10.37,
+      "days_ge_0_01in": 18.5
+     },
+     {
+      "month": "Mar",
+      "high_f": 53.7,
+      "low_f": 36.6,
+      "precip_in": 13.05,
+      "days_ge_0_01in": 22.4
+     },
+     {
+      "month": "Apr",
+      "high_f": 58.6,
+      "low_f": 38.5,
+      "precip_in": 8.68,
+      "days_ge_0_01in": 18.0
+     },
+     {
+      "month": "May",
+      "high_f": 63.9,
+      "low_f": 42.7,
+      "precip_in": 5.04,
+      "days_ge_0_01in": 14.7
+     },
+     {
+      "month": "Jun",
+      "high_f": 67.1,
+      "low_f": 47.0,
+      "precip_in": 3.49,
+      "days_ge_0_01in": 13.4
+     },
+     {
+      "month": "Jul",
+      "high_f": 71.6,
+      "low_f": 50.0,
+      "precip_in": 1.81,
+      "days_ge_0_01in": 8.3
+     },
+     {
+      "month": "Aug",
+      "high_f": 72.5,
+      "low_f": 49.8,
+      "precip_in": 2.69,
+      "days_ge_0_01in": 8.4
+     },
+     {
+      "month": "Sep",
+      "high_f": 70.2,
+      "low_f": 46.4,
+      "precip_in": 4.8,
+      "days_ge_0_01in": 9.8
+     },
+     {
+      "month": "Oct",
+      "high_f": 60.7,
+      "low_f": 42.1,
+      "precip_in": 10.51,
+      "days_ge_0_01in": 17.7
+     },
+     {
+      "month": "Nov",
+      "high_f": 51.4,
+      "low_f": 37.7,
+      "precip_in": 16.59,
+      "days_ge_0_01in": 22.2
+     },
+     {
+      "month": "Dec",
+      "high_f": 45.9,
+      "low_f": 34.5,
+      "precip_in": 15.04,
+      "days_ge_0_01in": 22.8
+     }
+    ],
+    "annual_precip_in": 109.72,
+    "hoh_rain_forest_annual_precip_in": {
+     "value": "about 140 (often quoted 12-14 ft/yr)",
+     "confidence": "medium",
+     "note": "No official NOAA normals station at the Hoh visitor center found; NPS gives 100-170 in range for west-side valleys."
+    },
+    "upper_valley_note": "Up-valley camps (e.g. Hoh: Olympus Guard Station ~950 ft, Elk Lake ~2,550 ft) are wetter and a few degrees cooler; lapse ~3-3.5 F per 1,000 ft.",
+    "confidence": "high",
+    "source_ids": [
+     "noaa_normals_1991_2020"
+    ]
+   },
+   "rain_shadow_lowlands_and_north_valleys": {
+    "stations": {
+     "port_angeles": {
+      "elev_ft": 100,
+      "monthly": [
+       {
+        "month": "Jan",
+        "high_f": 44.7,
+        "low_f": 36.5,
+        "precip_in": 3.81,
+        "days_ge_0_01in": 19.1
+       },
+       {
+        "month": "Feb",
+        "high_f": 46.0,
+        "low_f": 37.1,
+        "precip_in": 2.41,
+        "days_ge_0_01in": 13.8
+       },
+       {
+        "month": "Mar",
+        "high_f": 48.9,
+        "low_f": 38.7,
+        "precip_in": 2.36,
+        "days_ge_0_01in": 15.7
+       },
+       {
+        "month": "Apr",
+        "high_f": 54.0,
+        "low_f": 42.1,
+        "precip_in": 1.57,
+        "days_ge_0_01in": 12.3
+       },
+       {
+        "month": "May",
+        "high_f": 59.6,
+        "low_f": 47.7,
+        "precip_in": 1.08,
+        "days_ge_0_01in": 10.6
+       },
+       {
+        "month": "Jun",
+        "high_f": 63.3,
+        "low_f": 51.2,
+        "precip_in": 1.08,
+        "days_ge_0_01in": 9.6
+       },
+       {
+        "month": "Jul",
+        "high_f": 67.3,
+        "low_f": 54.5,
+        "precip_in": 0.55,
+        "days_ge_0_01in": 5.8
+       },
+       {
+        "month": "Aug",
+        "high_f": 67.4,
+        "low_f": 54.7,
+        "precip_in": 0.67,
+        "days_ge_0_01in": 5.6
+       },
+       {
+        "month": "Sep",
+        "high_f": 64.5,
+        "low_f": 51.4,
+        "precip_in": 1.22,
+        "days_ge_0_01in": 7.5
+       },
+       {
+        "month": "Oct",
+        "high_f": 55.5,
+        "low_f": 45.1,
+        "precip_in": 3.16,
+        "days_ge_0_01in": 14.6
+       },
+       {
+        "month": "Nov",
+        "high_f": 48.6,
+        "low_f": 39.5,
+        "precip_in": 4.39,
+        "days_ge_0_01in": 18.2
+       },
+       {
+        "month": "Dec",
+        "high_f": 44.4,
+        "low_f": 36.6,
+        "precip_in": 4.24,
+        "days_ge_0_01in": 18.3
+       }
+      ],
+      "annual_precip_in": 26.54
+     },
+     "elwha_ranger_station": {
+      "elev_ft": 390,
+      "monthly": [
+       {
+        "month": "Jan",
+        "high_f": 41.1,
+        "low_f": 32.8,
+        "precip_in": 8.87,
+        "days_ge_0_01in": 17.8
+       },
+       {
+        "month": "Feb",
+        "high_f": 43.8,
+        "low_f": 32.8,
+        "precip_in": 6.14,
+        "days_ge_0_01in": 15.4
+       },
+       {
+        "month": "Mar",
+        "high_f": 49.7,
+        "low_f": 34.9,
+        "precip_in": 6.94,
+        "days_ge_0_01in": 18.2
+       },
+       {
+        "month": "Apr",
+        "high_f": 56.3,
+        "low_f": 37.8,
+        "precip_in": 3.28,
+        "days_ge_0_01in": 13.8
+       },
+       {
+        "month": "May",
+        "high_f": 63.4,
+        "low_f": 43.2,
+        "precip_in": 1.91,
+        "days_ge_0_01in": 11.5
+       },
+       {
+        "month": "Jun",
+        "high_f": 67.2,
+        "low_f": 47.2,
+        "precip_in": 1.39,
+        "days_ge_0_01in": 9.5
+       },
+       {
+        "month": "Jul",
+        "high_f": 73.6,
+        "low_f": 50.7,
+        "precip_in": 0.74,
+        "days_ge_0_01in": 4.9
+       },
+       {
+        "month": "Aug",
+        "high_f": 74.5,
+        "low_f": 51.6,
+        "precip_in": 1.14,
+        "days_ge_0_01in": 4.8
+       },
+       {
+        "month": "Sep",
+        "high_f": 68.1,
+        "low_f": 48.0,
+        "precip_in": 1.63,
+        "days_ge_0_01in": 8.0
+       },
+       {
+        "month": "Oct",
+        "high_f": 55.5,
+        "low_f": 41.5,
+        "precip_in": 5.85,
+        "days_ge_0_01in": 15.0
+       },
+       {
+        "month": "Nov",
+        "high_f": 45.6,
+        "low_f": 36.1,
+        "precip_in": 10.06,
+        "days_ge_0_01in": 18.6
+       },
+       {
+        "month": "Dec",
+        "high_f": 40.7,
+        "low_f": 32.7,
+        "precip_in": 9.92,
+        "days_ge_0_01in": 18.4
+       }
+      ],
+      "annual_precip_in": 57.87
+     }
+    },
+    "notes": "Inland valleys (Elwha) are warmer by day in summer (mid-70s F) and colder at night in winter than the coast.",
+    "confidence": "high",
+    "source_ids": [
+     "noaa_normals_1991_2020"
+    ]
+   },
+   "subalpine_4000_6000ft": {
+    "stations": {
+     "waterhole_snotel": {
+      "elev_ft": 5010,
+      "location": "Obstruction Point Road near Waterhole, ~3 mi from Obstruction Point (Grand Valley/Badger Valley country)",
+      "period": "2000-2026 daily",
+      "monthly": [
+       {
+        "month": "Jan",
+        "high_f": 35.2,
+        "low_f": 26.0,
+        "precip_in": 11.1,
+        "days_ge_0_10in": 18.2
+       },
+       {
+        "month": "Feb",
+        "high_f": 34.3,
+        "low_f": 22.8,
+        "precip_in": 6.7,
+        "days_ge_0_10in": 15.1
+       },
+       {
+        "month": "Mar",
+        "high_f": 36.6,
+        "low_f": 23.6,
+        "precip_in": 8.7,
+        "days_ge_0_10in": 18.1
+       },
+       {
+        "month": "Apr",
+        "high_f": 41.6,
+        "low_f": 26.4,
+        "precip_in": 4.4,
+        "days_ge_0_10in": 14.5
+       },
+       {
+        "month": "May",
+        "high_f": 49.0,
+        "low_f": 32.8,
+        "precip_in": 2.6,
+        "days_ge_0_10in": 11.1
+       },
+       {
+        "month": "Jun",
+        "high_f": 54.4,
+        "low_f": 37.7,
+        "precip_in": 1.6,
+        "days_ge_0_10in": 7.0
+       },
+       {
+        "month": "Jul",
+        "high_f": 62.0,
+        "low_f": 43.9,
+        "precip_in": 0.5,
+        "days_ge_0_10in": 2.7
+       },
+       {
+        "month": "Aug",
+        "high_f": 62.3,
+        "low_f": 44.7,
+        "precip_in": 1.1,
+        "days_ge_0_10in": 3.7
+       },
+       {
+        "month": "Sep",
+        "high_f": 56.0,
+        "low_f": 40.3,
+        "precip_in": 2.3,
+        "days_ge_0_10in": 7.3
+       },
+       {
+        "month": "Oct",
+        "high_f": 45.6,
+        "low_f": 33.9,
+        "precip_in": 6.1,
+        "days_ge_0_10in": 13.2
+       },
+       {
+        "month": "Nov",
+        "high_f": 37.1,
+        "low_f": 27.8,
+        "precip_in": 11.6,
+        "days_ge_0_10in": 18.5
+       },
+       {
+        "month": "Dec",
+        "high_f": 32.8,
+        "low_f": 24.2,
+        "precip_in": 12.1,
+        "days_ge_0_10in": 18.0
+       }
+      ],
+      "annual_precip_in": 68.5
+     },
+     "buckinghorse_snotel": {
+      "elev_ft": 4850,
+      "location": "Upper Elwha interior near Hayes River/Dodger Point country - wetter interior subalpine",
+      "period": "2008-2026 daily",
+      "monthly": [
+       {
+        "month": "Jan",
+        "high_f": 39.8,
+        "low_f": 29.2,
+        "precip_in": 18.6,
+        "days_ge_0_10in": 18.4
+       },
+       {
+        "month": "Feb",
+        "high_f": 37.1,
+        "low_f": 25.1,
+        "precip_in": 12.5,
+        "days_ge_0_10in": 16.8
+       },
+       {
+        "month": "Mar",
+        "high_f": 39.2,
+        "low_f": 26.6,
+        "precip_in": 15.3,
+        "days_ge_0_10in": 19.4
+       },
+       {
+        "month": "Apr",
+        "high_f": 44.4,
+        "low_f": 29.7,
+        "precip_in": 7.7,
+        "days_ge_0_10in": 14.7
+       },
+       {
+        "month": "May",
+        "high_f": 52.3,
+        "low_f": 36.6,
+        "precip_in": 3.9,
+        "days_ge_0_10in": 9.8
+       },
+       {
+        "month": "Jun",
+        "high_f": 57.5,
+        "low_f": 41.0,
+        "precip_in": 2.2,
+        "days_ge_0_10in": 6.7
+       },
+       {
+        "month": "Jul",
+        "high_f": 65.7,
+        "low_f": 47.9,
+        "precip_in": 0.7,
+        "days_ge_0_10in": 2.5
+       },
+       {
+        "month": "Aug",
+        "high_f": 66.6,
+        "low_f": 49.4,
+        "precip_in": 1.8,
+        "days_ge_0_10in": 4.5
+       },
+       {
+        "month": "Sep",
+        "high_f": 58.3,
+        "low_f": 43.8,
+        "precip_in": 5.7,
+        "days_ge_0_10in": 9.9
+       },
+       {
+        "month": "Oct",
+        "high_f": 48.7,
+        "low_f": 36.9,
+        "precip_in": 14.5,
+        "days_ge_0_10in": 15.5
+       },
+       {
+        "month": "Nov",
+        "high_f": 40.4,
+        "low_f": 30.0,
+        "precip_in": 22.1,
+        "days_ge_0_10in": 20.7
+       },
+       {
+        "month": "Dec",
+        "high_f": 36.5,
+        "low_f": 26.4,
+        "precip_in": 20.7,
+        "days_ge_0_10in": 20.2
+       }
+      ],
+      "annual_precip_in": 125.7
+     },
+     "dungeness_snotel": {
+      "elev_ft": 3990,
+      "location": "Upper Dungeness (rain shadow; Royal Basin approach)",
+      "period": "2000-2026 daily",
+      "monthly": [
+       {
+        "month": "Jan",
+        "high_f": 41.2,
+        "low_f": 30.3,
+        "precip_in": 6.8
+       },
+       {
+        "month": "Feb",
+        "high_f": 41.1,
+        "low_f": 27.6,
+        "precip_in": 3.6
+       },
+       {
+        "month": "Mar",
+        "high_f": 43.7,
+        "low_f": 28.9,
+        "precip_in": 4.8
+       },
+       {
+        "month": "Apr",
+        "high_f": 47.8,
+        "low_f": 32.2,
+        "precip_in": 3.0
+       },
+       {
+        "month": "May",
+        "high_f": 54.0,
+        "low_f": 37.5,
+        "precip_in": 2.3
+       },
+       {
+        "month": "Jun",
+        "high_f": 59.1,
+        "low_f": 42.6,
+        "precip_in": 1.6
+       },
+       {
+        "month": "Jul",
+        "high_f": 67.0,
+        "low_f": 48.9,
+        "precip_in": 0.6
+       },
+       {
+        "month": "Aug",
+        "high_f": 67.6,
+        "low_f": 49.7,
+        "precip_in": 0.8
+       },
+       {
+        "month": "Sep",
+        "high_f": 61.4,
+        "low_f": 45.2,
+        "precip_in": 1.8
+       },
+       {
+        "month": "Oct",
+        "high_f": 51.9,
+        "low_f": 38.6,
+        "precip_in": 4.4
+       },
+       {
+        "month": "Nov",
+        "high_f": 43.4,
+        "low_f": 32.3,
+        "precip_in": 7.6
+       },
+       {
+        "month": "Dec",
+        "high_f": 38.3,
+        "low_f": 28.7,
+        "precip_in": 7.7
+       }
+      ],
+      "annual_precip_in": 45.0
+     }
+    },
+    "notes": "Computed for this file from NRCS SNOTEL daily data (means of daily max/min; precipitation from daily accumulations). SNOTEL temperatures sit in clearings and can read a little warm on sunny days. Exposed ridges and passes (High Divide 5,100-5,400 ft, Grand Pass 6,450 ft) are windier and colder. Summer nights at Seven Lakes Basin/Royal Basin/Grand Valley commonly 35-45 F; frost possible any month, likely by mid-September.",
+    "confidence": "high",
+    "source_ids": [
+     "nrcs_snotel"
+    ]
+   },
+   "alpine_glacier_6000ft_plus": {
+    "value": "No long-term weather station on Mount Olympus. Estimate from Waterhole (5,010 ft) with a lapse of ~3.5 F per 1,000 ft: at Glacier Meadows (~4,200-4,300 ft) roughly like Waterhole; at Blue Glacier/Snow Dome (6,500-7,000 ft) July-Aug highs ~55-58 F and lows ~38-40 F on fair days; at the summit (7,980 ft) July-Aug highs ~50 F, lows near freezing. Storms bring sub-freezing temps, wind and whiteout any month. Mount Olympus receives an estimated 200+ in of precipitation (mostly snow) a year, feeding its glaciers.",
+    "estimated": true,
+    "confidence": "low",
+    "source_ids": [
+     "nrcs_snotel",
+     "igra_quillayute"
+    ]
+   }
+  },
+  "freezing_level_ft": {
+   "method": "Computed for this file from 1991-2020 00Z/12Z Quillayute (UIL) radiosonde soundings (NOAA IGRA2, station USM00072797): lowest height where air temperature crosses 0 C, by month. These are free-air values over the coast; snow level in precipitation is typically ~1,000 ft below the freezing level. Low percentiles include cold clear mornings where the surface itself is at or below freezing.",
+   "monthly": [
+    {
+     "month": "Jan",
+     "median": 4200,
+     "p10": 400,
+     "p25": 2600,
+     "p75": 6700,
+     "p90": 9100
+    },
+    {
+     "month": "Feb",
+     "median": 3700,
+     "p10": 200,
+     "p25": 2400,
+     "p75": 5800,
+     "p90": 8500
+    },
+    {
+     "month": "Mar",
+     "median": 3700,
+     "p10": 1800,
+     "p25": 2700,
+     "p75": 5600,
+     "p90": 7900
+    },
+    {
+     "month": "Apr",
+     "median": 4500,
+     "p10": 2700,
+     "p25": 3400,
+     "p75": 6500,
+     "p90": 9300
+    },
+    {
+     "month": "May",
+     "median": 7100,
+     "p10": 3700,
+     "p25": 4900,
+     "p75": 9700,
+     "p90": 11600
+    },
+    {
+     "month": "Jun",
+     "median": 9100,
+     "p10": 5300,
+     "p25": 6700,
+     "p75": 11000,
+     "p90": 12500
+    },
+    {
+     "month": "Jul",
+     "median": 12200,
+     "p10": 8600,
+     "p25": 10300,
+     "p75": 13700,
+     "p90": 14800
+    },
+    {
+     "month": "Aug",
+     "median": 12500,
+     "p10": 8900,
+     "p25": 10800,
+     "p75": 13900,
+     "p90": 14900
+    },
+    {
+     "month": "Sep",
+     "median": 11600,
+     "p10": 6900,
+     "p25": 8800,
+     "p75": 13400,
+     "p90": 14700
+    },
+    {
+     "month": "Oct",
+     "median": 8000,
+     "p10": 4700,
+     "p25": 5800,
+     "p75": 11000,
+     "p90": 12900
+    },
+    {
+     "month": "Nov",
+     "median": 5100,
+     "p10": 2600,
+     "p25": 3600,
+     "p75": 7800,
+     "p90": 9900
+    },
+    {
+     "month": "Dec",
+     "median": 4000,
+     "p10": 800,
+     "p25": 2800,
+     "p75": 6200,
+     "p90": 8400
+    }
+   ],
+   "game_use": "Roll a daily freezing level from the month's distribution (e.g. normal or triangular fit to p10/median/p90), shift down 2,000-4,000 ft on storm days. If camp elevation > freezing level - 1,000 ft and it is precipitating, it snows.",
+   "confidence": "high",
+   "source_ids": [
+    "igra_quillayute"
+   ]
+  },
+  "snow_free_dates": {
+   "method": "Computed for this file from NRCS SNOTEL daily snow-water-equivalent: melt-out = first day after Mar 1 with zero SWE for 3 days running.",
+   "waterhole_5010ft": {
+    "median": "June 17",
+    "earliest": "May 1 (2015)",
+    "latest": "July 24 (2011)",
+    "recent": {
+     "2023": "May 28",
+     "2024": "June 1",
+     "2025": "June 4",
+     "2026": "May 11 (low snowpack: peak SWE 18.8 in vs ~44 in median)"
+    }
+   },
+   "buckinghorse_4850ft": {
+    "median": "June 24",
+    "earliest": "May 2 (2015)",
+    "latest": "Aug 11 (2011)",
+    "recent": {
+     "2024": "June 14",
+     "2025": "June 16",
+     "2026": "May 21"
+    }
+   },
+   "dungeness_3990ft": {
+    "median": "late April (Apr 29)",
+    "note": "Rain-shadow site melts ~7-8 weeks earlier than Waterhole."
+   },
+   "trail_rule_of_thumb": {
+    "value": "Lowland/valley trails below ~2,500 ft are mostly snow-free year-round except brief storms. 3,500-4,500 ft: snow-free roughly late May-mid June. Open subalpine benches 4,500-5,200 ft (Grand Valley, Royal Lake, Seven Lakes Basin floor): typically late June-early July. North-facing slopes, passes and gullies above 5,000 ft (High Divide between Heart Lake and Bogachiel Peak, Hoh Lake-Bogachiel, Appleton Pass, Grand Pass, Royal Basin upper, Anderson Pass, Low Divide, Lake Constance outlet, Glacier Meadows/avalanche chute) hold steep snow until mid-to-late July in a normal year and into August in big years; NPS reserves high camps mid-July to mid-October for this reason. Ice axe/traction useful for snowfields early season.",
+    "confidence": "medium",
+    "source_ids": [
+     "nrcs_snotel",
+     "nps_wilderness_reservations",
+     "nps_trail_conditions",
+     "nps_weather"
+    ]
+   },
+   "first_autumn_snow": {
+    "value": "First lasting snow (>=1 in SWE) at Waterhole: median about Nov 1; at Buckinghorse about Oct 25; earliest Sept 30 (2013). Light dustings above 5,000 ft can come any time after mid-September.",
+    "confidence": "high",
+    "source_ids": [
+     "nrcs_snotel",
+     "nps_weather"
+    ]
+   },
+   "peak_swe_inches_waterhole": {
+    "value": "median ~44 in; range 7.4 (2015) to 65.9 (2011)",
+    "confidence": "high",
+    "source_ids": [
+     "nrcs_snotel"
+    ]
+   }
+  },
+  "rivers": {
+   "pattern": "Two high-water seasons. (1) Rain floods Oct/Nov-Feb from atmospheric rivers ('Pineapple Express'): rivers can rise 5-10x in a day (e.g. Hoh went ~2,600 to >27,000 cfs in under 24 h in Dec 2024). (2) Snowmelt high water May-early July on rivers fed by high country (Elwha, Dungeness, Hoh, Quinault), worst in late afternoon/evening on warm days and lowest in early morning. Lowest, easiest fords: late July-September. Autumn rains usually return in early-mid October.",
+   "usgs_monthly_mean_cfs_1991_2020": {
+    "hoh_at_us101": [
+     4241,
+     3084,
+     2808,
+     2296,
+     2095,
+     1966,
+     1571,
+     1154,
+     1074,
+     2295,
+     4361,
+     4055
+    ],
+    "queets_near_clearwater": [
+     8901,
+     6101,
+     5872,
+     4434,
+     2916,
+     2186,
+     1391,
+     1001,
+     1296,
+     3954,
+     8277,
+     8074
+    ],
+    "quinault_at_quinault_lake": [
+     5038,
+     3709,
+     3373,
+     2885,
+     2739,
+     2341,
+     1494,
+     856,
+     890,
+     2395,
+     4928,
+     4788
+    ],
+    "elwha_at_mcdonald_bridge": [
+     2277,
+     1786,
+     1497,
+     1392,
+     1928,
+     1943,
+     1304,
+     691,
+     501,
+     932,
+     1994,
+     2085
+    ],
+    "dungeness_near_sequim": [
+     496,
+     404,
+     338,
+     340,
+     565,
+     643,
+     451,
+     241,
+     155,
+     217,
+     418,
+     450
+    ],
+    "months": "Jan..Dec"
+   },
+   "ford_notes": "Queets River ford at the trailhead is generally only possible below ~800 cfs (NPS), i.e. typically August-September, and still waist-deep. Other named fords that become dangerous in rain or snowmelt: Hoh River Trail fords before Olympus Guard Station, North Fork Sol Duc at 1 mi, Ozette River (coast), Goodman/Falls/Mosquito creeks (south coast), Cameron Creek, White Creek (East Fork Quinault), Elip and Wild Rose creeks and the Quinault near Sixteen Mile (North Fork), Big Creek (Quinault), Upper Duckabush, Lena Creek, Nine Stream (N Fork Skokomish), Elwha south of Chicago Camp, Calawah and Bogachiel (Snider-Jackson).",
+   "confidence": "high",
+   "source_ids": [
+    "usgs_nwis_stats",
+    "nps_trail_conditions",
+    "pdn_hoh_2025"
+   ]
+  },
+  "daylight_48N": {
+   "location": "computed for 47.95 N, 123.6 W (central park), sea-level horizon, 15th of each month, Pacific time with DST",
+   "monthly": [
+    {
+     "month": "Jan",
+     "sunrise": "7:59",
+     "sunset": "16:47",
+     "daylight_h": 8.8,
+     "civil_dawn": "7:24",
+     "civil_dusk": "17:22"
+    },
+    {
+     "month": "Feb",
+     "sunrise": "7:22",
+     "sunset": "17:35",
+     "daylight_h": 10.2,
+     "civil_dawn": "6:50",
+     "civil_dusk": "18:07"
+    },
+    {
+     "month": "Mar",
+     "sunrise": "7:30",
+     "sunset": "19:18",
+     "daylight_h": 11.8,
+     "civil_dawn": "6:59",
+     "civil_dusk": "19:49"
+    },
+    {
+     "month": "Apr",
+     "sunrise": "6:27",
+     "sunset": "20:02",
+     "daylight_h": 13.6,
+     "civil_dawn": "5:54",
+     "civil_dusk": "20:35"
+    },
+    {
+     "month": "May",
+     "sunrise": "5:37",
+     "sunset": "20:44",
+     "daylight_h": 15.1,
+     "civil_dawn": "5:00",
+     "civil_dusk": "21:21"
+    },
+    {
+     "month": "Jun",
+     "sunrise": "5:14",
+     "sunset": "21:15",
+     "daylight_h": 16.0,
+     "civil_dawn": "4:33",
+     "civil_dusk": "21:56"
+    },
+    {
+     "month": "Jul",
+     "sunrise": "5:30",
+     "sunset": "21:11",
+     "daylight_h": 15.7,
+     "civil_dawn": "4:50",
+     "civil_dusk": "21:50"
+    },
+    {
+     "month": "Aug",
+     "sunrise": "6:08",
+     "sunset": "20:30",
+     "daylight_h": 14.4,
+     "civil_dawn": "5:34",
+     "civil_dusk": "21:05"
+    },
+    {
+     "month": "Sep",
+     "sunrise": "6:50",
+     "sunset": "19:30",
+     "daylight_h": 12.7,
+     "civil_dawn": "6:19",
+     "civil_dusk": "20:01"
+    },
+    {
+     "month": "Oct",
+     "sunrise": "7:32",
+     "sunset": "18:28",
+     "daylight_h": 10.9,
+     "civil_dawn": "7:01",
+     "civil_dusk": "18:59"
+    },
+    {
+     "month": "Nov",
+     "sunrise": "7:20",
+     "sunset": "16:39",
+     "daylight_h": 9.3,
+     "civil_dawn": "6:46",
+     "civil_dusk": "17:13"
+    },
+    {
+     "month": "Dec",
+     "sunrise": "7:57",
+     "sunset": "16:22",
+     "daylight_h": 8.4,
+     "civil_dawn": "7:21",
+     "civil_dusk": "16:58"
+    }
+   ],
+   "solstices": {
+    "june_21_h": 16.0,
+    "dec_21_h": 8.4
+   },
+   "notes": "Deep valleys lose 1-2 h of direct sun at each end of the day. Daylight in October is ~5 h shorter than in late June - a real planning constraint for long days.",
+   "confidence": "high",
+   "source_ids": [
+    "computed_noaa_solar"
+   ]
+  },
+  "storms_and_seasons": {
+   "summer": "July-August is the driest window (Quillayute ~9 rain days/month vs ~22 in winter). Afternoon thunderstorms occasionally hit the high country; marine fog on the coast; heat waves (e.g. late June 2021) can push valleys above 90 F and accelerate snowmelt.",
+   "first_autumn_storms": "The first significant Pacific frontal system usually arrives late September to mid-October (Quillayute precipitation jumps from ~4.6 in in September to ~10.7 in in October). Historic big autumn windstorms: Columbus Day Storm (Oct 12, 1962). Atmospheric rivers cluster Oct-Feb.",
+   "winter": "Nov-Mar: 20+ precip days/month on the west side; snow level often 1,500-4,000 ft; high country under 5-15 ft of snow; Hurricane Ridge winter-only weekend access.",
+   "spring": "Apr-Jun: still wet; snowmelt raises rivers; avalanches on steep slopes into June; high trails snowbound.",
+   "confidence": "medium",
+   "source_ids": [
+    "noaa_normals_1991_2020",
+    "nps_weather",
+    "nrcs_snotel"
+   ]
+  }
+ },
+ "tides": {
+  "summary": "The Olympic coast has mixed, mainly semidiurnal tides: usually two highs and two lows per day of unequal height (a 'higher high' and 'lower high', a 'higher low' and 'lower low'), with roughly 6 h 12 min between successive high and low and each day's pattern ~50 min later than the day before. Occasionally only one low or one high falls on a calendar day. Heights are referenced to MLLW (0.0 ft = mean lower low water), so a 'minus tide' is lower than average.",
+  "reference_station": {
+   "name": "La Push, Quillayute River, WA",
+   "noaa_id": "9442396",
+   "nps_recommends": "NPS tells coastal hikers to use NOAA predictions for station 9442396.",
+   "confidence": "high",
+   "source_ids": [
+    "nps_tides_safety",
+    "noaa_coops_9442396"
+   ]
+  },
+  "datums_la_push_ft_above_mllw": {
+   "MHHW": 8.52,
+   "MHW": 7.81,
+   "MSL": 4.58,
+   "MTL": 4.6,
+   "MLW": 1.38,
+   "MLLW": 0.0,
+   "highest_astronomical_tide": 11.11,
+   "lowest_astronomical_tide": -3.22,
+   "mean_range_MN": 6.44,
+   "diurnal_range_GT": 8.52,
+   "epoch": "1983-2001",
+   "confidence": "high",
+   "source_ids": [
+    "noaa_coops_9442396"
+   ]
+  },
+  "neah_bay_for_comparison": {
+   "MHHW": 7.96,
+   "mean_range": 5.52,
+   "note": "Neah Bay (9443090) near Shi Shi has similar timing, ~0.5 ft smaller range."
+  },
+  "constituents_la_push": {
+   "note": "Top harmonic constituents (amplitude ft, Greenwich phase deg, speed deg/hr) from NOAA. Form factor (K1+O1)/(M2+S2) = 0.58 -> mixed, mainly semidiurnal.",
+   "list": [
+    {
+     "name": "M2",
+     "amp_ft": 3.061,
+     "phase_gmt": 234.9,
+     "speed": 28.984104
+    },
+    {
+     "name": "K1",
+     "amp_ft": 1.411,
+     "phase_gmt": 239.6,
+     "speed": 15.041069
+    },
+    {
+     "name": "S2",
+     "amp_ft": 0.873,
+     "phase_gmt": 262.0,
+     "speed": 30.0
+    },
+    {
+     "name": "O1",
+     "amp_ft": 0.86,
+     "phase_gmt": 223.8,
+     "speed": 13.943035
+    },
+    {
+     "name": "N2",
+     "amp_ft": 0.64,
+     "phase_gmt": 210.2,
+     "speed": 28.43973
+    },
+    {
+     "name": "SA",
+     "amp_ft": 0.561,
+     "phase_gmt": 286.5,
+     "speed": 0.0410686
+    },
+    {
+     "name": "P1",
+     "amp_ft": 0.44,
+     "phase_gmt": 235.8,
+     "speed": 14.958931
+    },
+    {
+     "name": "K2",
+     "amp_ft": 0.236,
+     "phase_gmt": 254.4,
+     "speed": 30.082138
+    },
+    {
+     "name": "Q1",
+     "amp_ft": 0.151,
+     "phase_gmt": 216.0,
+     "speed": 13.398661
+    }
+   ],
+   "mean_level_above_mllw_ft": 4.58,
+   "confidence": "high",
+   "source_ids": [
+    "noaa_coops_9442396"
+   ]
+  },
+  "observed_2026_statistics": {
+   "method": "From NOAA 2026 high/low predictions at La Push (MLLW, local time).",
+   "low_tide_range_ft": [
+    -3.18,
+    5.1
+   ],
+   "high_tide_range_ft": [
+    4.82,
+    11.01
+   ],
+   "by_month": [
+    {
+     "month": "Jan",
+     "days_any_low_below_0": 14,
+     "days_any_low_below_1": 21,
+     "days_daylight_low_below_1": 16,
+     "days_daylight_low_below_2": 20,
+     "max_high_ft": 10.8,
+     "lowest_low_ft": -2.0
+    },
+    {
+     "month": "Feb",
+     "days_any_low_below_0": 10,
+     "days_any_low_below_1": 21,
+     "days_daylight_low_below_1": 18,
+     "days_daylight_low_below_2": 25,
+     "max_high_ft": 10.26,
+     "lowest_low_ft": -1.47
+    },
+    {
+     "month": "Mar",
+     "days_any_low_below_0": 8,
+     "days_any_low_below_1": 25,
+     "days_daylight_low_below_1": 25,
+     "days_daylight_low_below_2": 31,
+     "max_high_ft": 9.8,
+     "lowest_low_ft": -0.74
+    },
+    {
+     "month": "Apr",
+     "days_any_low_below_0": 12,
+     "days_any_low_below_1": 24,
+     "days_daylight_low_below_1": 20,
+     "days_daylight_low_below_2": 29,
+     "max_high_ft": 10.01,
+     "lowest_low_ft": -2.0
+    },
+    {
+     "month": "May",
+     "days_any_low_below_0": 19,
+     "days_any_low_below_1": 26,
+     "days_daylight_low_below_1": 18,
+     "days_daylight_low_below_2": 24,
+     "max_high_ft": 10.04,
+     "lowest_low_ft": -2.85
+    },
+    {
+     "month": "Jun",
+     "days_any_low_below_0": 19,
+     "days_any_low_below_1": 26,
+     "days_daylight_low_below_1": 17,
+     "days_daylight_low_below_2": 19,
+     "max_high_ft": 9.91,
+     "lowest_low_ft": -3.18
+    },
+    {
+     "month": "Jul",
+     "days_any_low_below_0": 22,
+     "days_any_low_below_1": 28,
+     "days_daylight_low_below_1": 16,
+     "days_daylight_low_below_2": 18,
+     "max_high_ft": 9.67,
+     "lowest_low_ft": -3.0
+    },
+    {
+     "month": "Aug",
+     "days_any_low_below_0": 17,
+     "days_any_low_below_1": 29,
+     "days_daylight_low_below_1": 12,
+     "days_daylight_low_below_2": 17,
+     "max_high_ft": 9.31,
+     "lowest_low_ft": -2.31
+    },
+    {
+     "month": "Sep",
+     "days_any_low_below_0": 16,
+     "days_any_low_below_1": 24,
+     "days_daylight_low_below_1": 7,
+     "days_daylight_low_below_2": 13,
+     "max_high_ft": 9.4,
+     "lowest_low_ft": -1.14
+    },
+    {
+     "month": "Oct",
+     "days_any_low_below_0": 13,
+     "days_any_low_below_1": 22,
+     "days_daylight_low_below_1": 7,
+     "days_daylight_low_below_2": 9,
+     "max_high_ft": 10.2,
+     "lowest_low_ft": -1.65
+    },
+    {
+     "month": "Nov",
+     "days_any_low_below_0": 14,
+     "days_any_low_below_1": 21,
+     "days_daylight_low_below_1": 12,
+     "days_daylight_low_below_2": 14,
+     "max_high_ft": 10.79,
+     "lowest_low_ft": -2.07
+    },
+    {
+     "month": "Dec",
+     "days_any_low_below_0": 13,
+     "days_any_low_below_1": 19,
+     "days_daylight_low_below_1": 13,
+     "days_daylight_low_below_2": 15,
+     "max_high_ft": 11.01,
+     "lowest_low_ft": -2.18
+    }
+   ],
+   "daylight_definition": "low tide between 07:00 and 19:59 local",
+   "timing_pattern": "Spring-summer: the lowest (minus) tides fall in early-mid morning (05:00-10:00). Autumn-winter: the lowest tides fall in the evening (17:00-21:00), often after dark. Hence daylight low-tide windows are scarcest Sept-Oct.",
+   "spring_neap": "Biggest ranges and minus tides come every ~14.8 days around new and full moon (spring tides); smaller ranges near quarter moons (neap tides), when some low-tide-only points may stay closed for several days.",
+   "confidence": "high",
+   "source_ids": [
+    "noaa_coops_9442396"
+   ]
+  },
+  "how_hikers_use_tides": {
+   "rules": [
+    "Carry a current tide table (La Push 9442396) and a coast map that marks headlands as passable below a stated tide height, 'round at low tide', 'caution' or impassable (Custom Correct and NPS maps).",
+    "A point labeled 'passable below X ft' can be rounded only while the predicted tide is below X ft MLLW; plan to round it within 1-2 hours before low tide, on a falling tide, never on a rising tide.",
+    "Some headlands are never passable on the beach - use the overland trail, marked by round red-and-black targets, often with ropes, cable ladders or wooden ladders (ropes are not NPS-maintained; test them).",
+    "Storm surge, swell and strong onshore wind raise water above predictions, especially Oct-Apr; add margin.",
+    "Creek mouths (Goodman, Falls, Mosquito, Cedar, Ozette River, etc.) are deeper at high tide and after rain - cross at low tide.",
+    "Camp above the high-tide line and beware floating/rolling drift logs in surf."
+   ],
+   "named_examples_ft": {
+    "note": "Point-by-point details belong in the coast region file. Examples from NPS route pages: South Coast - Diamond Rock passable below ~2 ft (can stay closed for days); between Scott Creek and Strawberry Point ~4 ft; ~3 mi south of Third Beach ~4.5 ft; Scott's Bluff north-side washout passable on beach only below 1 ft (2026). North Coast from Rialto - 2.4 mi N ~5 ft; Cape Johnson (4.3 mi N) ~4 ft; 5.1 mi N ~5.5 ft; 7.9 mi S of Ozette TH ~6 ft; several 4-6 ft points between Point of the Arches and Seafield Creek.",
+    "confidence": "medium",
+    "source_ids": [
+     "nps_south_coast_route",
+     "nps_north_coast_route",
+     "nps_trail_conditions"
+    ]
+   },
+   "confidence": "high",
+   "source_ids": [
+    "nps_coast_page",
+    "nps_tides_safety"
+   ]
+  },
+  "game_simulation": {
+   "recommended": "Sum of cosines with the La Push constituents above: h(t) = 4.58 + sum_i A_i * cos(speed_i * t_hours + phase_i). Use M2, S2, N2, K1, O1, P1 at minimum; this yields realistic unequal semidiurnal tides, a spring-neap cycle (~14.8 d) and occasional single-low days. For a storybook game the absolute astronomical phase need not match the real calendar: pick a random epoch per trip (or anchor t=0 to the in-game date's moon phase) and keep it consistent across the trip so the printed in-game tide table matches what happens.",
+   "simplified_option": "h(t) = 4.6 + 3.1*cos(2pi*(t/12.42) + a) + 0.9*cos(2pi*(t/12.00) + b) + 1.4*cos(2pi*(t/23.93) + c) + 0.9*cos(2pi*(t/25.82) + d), hours; random a-d per trip.",
+   "storm_surge": "Add +0.5 to +2 ft on storm days (more in winter) and hide it from the printed table - the player only learns it via the narrator ('the sea is running higher than your tide card promised').",
+   "point_check": "For each tidal point: passable on beach if h(t) < limit_ft (+ margin for surf); else take overland trail (if one exists: slower, slip risk, rope events) or wait. Being caught between two closed points on a rising tide = classic 'cliffed out' scenario (in gentle mode: you wait, cold and wet, until the tide drops).",
+   "printed_table_format": "Show 'TIDES - LA PUSH' with date, time (h:mm am/pm) and height to 0.1 ft for each H/L, as hikers see on NPS/Recreation.gov printouts.",
+   "confidence": "medium",
+   "source_ids": [
+    "noaa_coops_9442396"
+   ]
+  }
+ },
+ "search_and_rescue": {
+  "status": "pending"
+ },
+ "wildlife": {
+  "status": "pending"
+ },
+ "current_conditions": {
+  "as_of": "2026-10-04 (NPS Alerts & Conditions page); trail details from NPS trail conditions page updated 2026-09-30; road page updated 2026-08-07",
+  "trails": {
+   "staircase_bear_gulch_fire": {
+    "value": "Bear Gulch Fire (2025) closed Staircase-area trails. As of 2026-09-30 still CLOSED: North Fork Skokomish (Staircase to First Divide), Four Stream, Wagonwheel Lake, Flapjack Lakes, Gladys Divide, Black and White Lakes primitive, Smith Lake, Home Sweet Home, Six Ridge (Mt. Olson junction to N Fork). Reopened: Staircase Rapids Loop; Six Ridge Lake Sundown to Belview Camp. Six Ridge Primitive closed since 2025-08-01.",
+    "date": "2026-09-30",
+    "confidence": "high",
+    "source_ids": [
+     "nps_trail_conditions"
+    ]
+   },
+   "elwha": {
+    "value": "Olympic Hot Springs Road washed out; vehicles stop at Madison Falls parking; adds ~6.5 mi to Whiskey Bend TH and ~8 mi to Boulder Creek TH (bikes allowed on road, not past trailhead). Elwha River Trail cleared to Hayes River Camp; 45 trees down Hayes River to Chicago Camp; landslide undercutting 20 ft section ~0.5 mi south of Hayes River junction; ford south of Chicago Camp (no log). Fire-damaged sections (2023 Delabarre/Elwha-area fires).",
+    "date": "2026-08-23",
+    "confidence": "high",
+    "source_ids": [
+     "nps_trail_conditions"
+    ]
+   },
+   "hoh": {
+    "value": "Hoh River Trail: two fords before Olympus Guard Station (low on 2026-06-01, impassable in moderate/heavy rain); 37 downed trees TH to Glacier Meadows; avalanche-chute ladder (below Glacier Meadows) has 3 broken and 1 missing rungs; 5 Mile Island stock hitch washed away; no fires at/above Elk Lake. Hoh Lake trail cleared (2026-08-17), no water until C.B. Flats.",
+    "date": "2026-06-14 / 2026-08-17",
+    "confidence": "high",
+    "source_ids": [
+     "nps_trail_conditions"
+    ]
+   },
+   "bogachiel": {
+    "value": "Washout before Mosquito Creek (steep bypass); Bogachiel Camp sites eroded into river; washout between Flapjack and 15 Mile camps.",
+    "date": "2026-06-14",
+    "confidence": "high",
+    "source_ids": [
+     "nps_trail_conditions"
+    ]
+   },
+   "sol_duc_high_divide": {
+    "value": "Sol Duc River trail minimal blowdown; High Divide and Lunch Lake had patchy steep snow Heart Lake-Lunch Lake (mid-June 2026); North Fork Sol Duc ford at 1 mi 3-4 ft deep (2026-06-02).",
+    "date": "2026-06-15",
+    "confidence": "high",
+    "source_ids": [
+     "nps_trail_conditions"
+    ]
+   },
+   "hurricane_ridge_area": {
+    "value": "Royal Basin snow-free to Royal Lake (2026-06-05), rodents, no self-pay parking box. Lower Gray Wolf washout - upper Gray Wolf/Slab Camp not reachable from Lower Gray Wolf TH. Heather Park steep snow, washouts. Little River slide 0.5 mi past first foot-log.",
+    "date": "2026-06-05",
+    "confidence": "high",
+    "source_ids": [
+     "nps_trail_conditions"
+    ]
+   },
+   "dosewallips": {
+    "value": "Dosewallips Road washed out east of the (former) campground - adds 6.5 mi of road walking. West Fork snow-free to Anderson Pass with several fords; Main Fork 19 + 21 trees down to Hayden Pass; Hayden Pass eroded/exposed west side.",
+    "date": "2026-06-05 / 2026-07-11",
+    "confidence": "high",
+    "source_ids": [
+     "nps_trail_conditions"
+    ]
+   },
+   "queets": {
+    "value": "Queets River ford at trailhead dangerous; more likely fordable below ~800 cfs (Hwy 101 gauge), still waist-deep; generally not fordable late fall-spring. 29 trees down to Bob Creek; washout 0.3 mi west of Bob Creek; camping past Bob Creek not recommended (2015 Paradise Fire).",
+    "date": "2026-07-20",
+    "confidence": "high",
+    "source_ids": [
+     "nps_trail_conditions"
+    ]
+   },
+   "quinault": {
+    "value": "South Shore Road washout (outside park) - Graves Creek and North Fork reached only via North Shore Road. Quinault WIC closed for 2026. North Fork: Stalding Creek bridge damaged/closed (ford). East Fork: washout ~1/3 mi before Enchanted Valley; White Creek ford; large bear population in Enchanted Valley. Big Creek: no bridge.",
+    "date": "2026-09-29",
+    "confidence": "high",
+    "source_ids": [
+     "nps_trail_conditions"
+    ]
+   },
+   "coast": {
+    "value": "South Coast: large washout north side of Scott's Bluff - beach passage only below 1 ft tide. Ozette River ford required on Shi Shi-Cape Alava, may be impossible in winter or at high tide. Headland ropes not NPS-maintained. Cannonball Island (Tskawahyah) closed (Makah/Ozette reservation).",
+    "date": "2026-06-11 to 2026-06-15",
+    "confidence": "high",
+    "source_ids": [
+     "nps_trail_conditions"
+    ]
+   },
+   "duckabush_lena": {
+    "value": "Duckabush: 50+ trees down to Upper Duckabush ford; ford hazardous/impassable winter, early summer and after rain. Upper Lena Lake open, Lena Creek ford hazardous at times.",
+    "date": "2026-09-30",
+    "confidence": "high",
+    "source_ids": [
+     "nps_trail_conditions"
+    ]
+   }
+  },
+  "roads": {
+   "note": "Road status changes often. Every entry carries the date of the claim. Game can treat these as 'fall 2026' defaults and roll seasonal/random closures on top.",
+   "road_weather_line": {
+    "value": "(360) 565-3131 recorded road and weather line",
+    "confidence": "medium",
+    "date": "2024 (WTA); still cited by press in 2026",
+    "source_ids": [
+     "wta_winter_2024"
+    ]
+   },
+   "items": [
+    {
+     "road": "Hurricane Ridge Road (Port Angeles - Heart O' the Hills - Hurricane Ridge, 17 mi)",
+     "status": "OPEN to the ridge; Hurricane Hill Road open",
+     "date": "2026-10-04",
+     "seasonal_pattern": "Summer: open daily, may close for weather. Winter (late Nov - end Mar): Fridays-Sundays and holiday Mondays only, weather permitting, all vehicles must carry chains (2025-26 schedule; 2024-25 hours were 9 AM-4 PM, cars out by 5 PM). Mar 31 - Apr 30: may open/close depending on conditions.",
+     "work_2026": "Water system and utility replacement in Hurricane Ridge developed area; asphalt patching and striping may cause rolling closures.",
+     "services": "Intermittent staffing, limited services, NO potable water on Hurricane Ridge (2026). No overnight camping in lots.",
+     "confidence": "high",
+     "source_ids": [
+      "nps_conditions",
+      "nps_roads",
+      "nps_bugler_winter_2025"
+     ]
+    },
+    {
+     "road": "Hurricane Ridge Day Lodge",
+     "status": "DESTROYED by fire May 7, 2023; demolished fall 2023. Temporary restroom trailers and a visitor contact station (installed 2023) remain the only facilities: no food, rentals, indoor warming space or drinking water.",
+     "replacement": "Pre-design (architect: Anderson Hallas Architects); ~$80M secured in 2024 disaster supplemental; design/RFP expected 2027, construction possibly from 2028.",
+     "date": "2026-01 to 2026-04 reporting",
+     "confidence": "high",
+     "source_ids": [
+      "nps_hr_lodge_project",
+      "pdn_murray_2026"
+     ]
+    },
+    {
+     "road": "Obstruction Point Road (gravel, ~7.8-8 mi from Hurricane Ridge)",
+     "status": "OPEN (opened 2026-06-17)",
+     "date": "2026-10-04",
+     "seasonal_pattern": "Typically mid-July to mid-October; snow drifts often delay opening; not suitable for RVs, trailers or buses. Closed rest of 2022 season; closed during 2023 fires.",
+     "confidence": "high",
+     "source_ids": [
+      "nps_conditions",
+      "nps_roads",
+      "pdn_obstruction"
+     ]
+    },
+    {
+     "road": "Deer Park Road (gravel, steep, from US-101 east of Port Angeles)",
+     "status": "OPEN (opened 2026-06-09); not suitable for RVs or trailers",
+     "date": "2026-06-09",
+     "seasonal_pattern": "Typically opens early-mid June, closes mid-October (weather). Upper road snowbound in winter.",
+     "confidence": "high",
+     "source_ids": [
+      "nps_roads"
+     ]
+    },
+    {
+     "road": "Olympic Hot Springs Road (Elwha)",
+     "status": "CLOSED TO VEHICLES at Madison Falls parking area due to washout (since 2015 floods; continuously closed since at least 2021). Open to pedestrians, bicycles, stock and leashed pets. Adds ~6.5 mi to Whiskey Bend TH and ~8 mi to Boulder Creek (Appleton Pass/Hot Springs) TH.",
+     "long_term": "NPS studied relocating ~1 mi of road near Sanders Creek out of the floodplain (2018-2019 FONSI for geotech, ~$8.3M estimate); no 2025-2026 construction decision found.",
+     "date": "road page entry 2021-05-07, reconfirmed on conditions page 2026-10-04",
+     "confidence": "high",
+     "source_ids": [
+      "nps_conditions",
+      "nps_roads",
+      "nps_trail_conditions"
+     ]
+    },
+    {
+     "road": "Sol Duc Road",
+     "status": "OPEN (reopened 2026-03-24 after winter closure)",
+     "seasonal_pattern": "Often closed or gated in winter (snow to ~2,000 ft; Sol Duc Hot Springs Resort closed in winter). Sol Duc Hot Springs Resort, RV park and campground open summer 2026.",
+     "date": "2026-03-24 / 2026-10-04",
+     "confidence": "high",
+     "source_ids": [
+      "nps_roads",
+      "nps_conditions"
+     ]
+    },
+    {
+     "road": "Upper Hoh Road",
+     "status": "OPEN",
+     "history": "Washout at MP 9.7 in Dec 2024 flood (Hoh River rose from ~2,600 to >27,000 cfs in under a day); reopened 2025-05-08 with state emergency funds. Brief Aug 2025 closure from culvert work flooding. 2026 repairs at MP 0.3 and 0.8 with one-way traffic and up to 20-min delays late May-Aug 2026.",
+     "visitor_center": "Hoh Rain Forest VC open daily 9 AM-4:30 PM (2026); entrance waits up to 2 hours in summer - arrive before 8 AM or after 5 PM.",
+     "date": "2026-05-05 / 2026-10-04",
+     "confidence": "high",
+     "source_ids": [
+      "nps_roads",
+      "nps_conditions",
+      "pdn_hoh_2025"
+     ]
+    },
+    {
+     "road": "Lower and Upper Queets Roads",
+     "status": "OPEN; not recommended for RVs/trailers; subject to closure on short notice for hazardous weather",
+     "date": "2025-11-13 / 2026-10-04",
+     "confidence": "high",
+     "source_ids": [
+      "nps_roads",
+      "nps_conditions"
+     ]
+    },
+    {
+     "road": "Quinault - North Shore Road",
+     "status": "OPEN; the only access to Graves Creek and North Fork trailheads",
+     "date": "2026-05-05",
+     "confidence": "high",
+     "source_ids": [
+      "nps_roads"
+     ]
+    },
+    {
+     "road": "Quinault - South Shore Road",
+     "status": "PARTIAL CLOSURE: washout ~8 mi from US-101 (Jefferson County, outside park)",
+     "date": "2025-11-13, reconfirmed 2026-10-04",
+     "confidence": "high",
+     "source_ids": [
+      "nps_roads",
+      "nps_conditions"
+     ]
+    },
+    {
+     "road": "Graves Creek Road (to East Fork Quinault/Enchanted Valley TH)",
+     "status": "OPEN since 2026-05-28; RVs and trailers prohibited. Was closed spring 2026 (erosion at mile 4.1; reported 2026-04-23). History: 2023 Pony Bridge/road bridge repairs.",
+     "date": "2026-05-28",
+     "confidence": "high",
+     "source_ids": [
+      "nps_roads",
+      "wta_headlines_2026_04_23"
+     ]
+    },
+    {
+     "road": "North Fork Quinault Road",
+     "status": "OPEN; narrow gravel, not recommended for RVs/trailers",
+     "date": "2026-05-05",
+     "confidence": "high",
+     "source_ids": [
+      "nps_roads",
+      "nps_conditions"
+     ]
+    },
+    {
+     "road": "Dosewallips Road",
+     "status": "CLOSED TO VEHICLES at washout (Olympic National Forest land) ~6.5 mi before the old Dosewallips campground/ranger station; hikers walk the old road. Washout dates to 2002; USFS rebuild project shown 'Cancelled' (page updated 2025-09-18). Feb 2026 trip report: Pass Creek bridge on the road walk ~0.7 mi past the decommissioned ranger station collapsed.",
+     "date": "road page entry 2017-08-25; USFS 2025-09-18; trip report 2026-02-14",
+     "confidence": "high",
+     "source_ids": [
+      "nps_roads",
+      "usfs_dose_washout",
+      "nps_trail_conditions"
+     ]
+    },
+    {
+     "road": "Staircase Road (FS-24 / North Fork Skokomish)",
+     "status": "OPEN since 2026-07-08 after a 12-month closure for the 2025 Bear Gulch Fire. Developed area, campground, ranger station and Staircase Rapids Loop open; ALL wilderness trails beyond the developed area remain closed (as of 2026-09-30). FS-2451 and Copper Creek Trail (national forest) closed.",
+     "date": "2026-07-08 / 2026-09-30",
+     "confidence": "high",
+     "source_ids": [
+      "nps_staircase_reopen",
+      "nps_roads",
+      "nps_trail_conditions"
+     ]
+    },
+    {
+     "road": "Hoko-Ozette Road / SR 112 (Ozette)",
+     "status": "Hoko-Ozette Road OPEN; SR 112 has had frequent closures/detours from flooding and landslides - check WSDOT. Ozette primitive campground open but often closes in winter for flooding.",
+     "date": "2025-11-13 / 2026-10-04",
+     "confidence": "high",
+     "source_ids": [
+      "nps_roads",
+      "nps_conditions"
+     ]
+    },
+    {
+     "road": "Mora Road (to Rialto Beach)",
+     "status": "CLOSED beyond Mora Campground to vehicles, bikes and pedestrians July 8 - Oct 15, 2026 for permanent repair of 2019 flood damage near MP 1.25. Rialto Beach (south trailhead of the North Coast route) not reachable by road until it reopens. Mora Campground open.",
+     "date": "2026-07-08 to 2026-10-15 (some press said Oct 5; NPS says Oct 15)",
+     "confidence": "high",
+     "source_ids": [
+      "nps_conditions",
+      "nps_roads",
+      "pdn_mora_2026"
+     ]
+    },
+    {
+     "road": "Kalaloch / US-101 coast",
+     "status": "Area open; Kalaloch ranger station closed; Kalaloch Campground reservations May 15-Sep 20, 2026; South Beach CG first-come May 19-Oct 10, 2026.",
+     "date": "2026-10-04",
+     "confidence": "high",
+     "source_ids": [
+      "nps_conditions"
+     ]
+    },
+    {
+     "road": "Lake Crescent",
+     "status": "Lake Crescent Lodge open; Fairholme Campground, Fairholme Store and Log Cabin Resort closed; Storm King Ranger Station closed for season.",
+     "date": "2026-10-04",
+     "confidence": "high",
+     "source_ids": [
+      "nps_conditions"
+     ]
+    },
+    {
+     "road": "Forest Road 29 (Sitkum-Sol Duc, national forest)",
+     "status": "Intermittent construction Apr 29 - Oct 2026 (2021 atmospheric-river damage repairs).",
+     "date": "2026-04-23",
+     "confidence": "medium",
+     "source_ids": [
+      "wta_headlines_2026_04_23"
+     ]
+    }
+   ]
+  },
+  "fires": {
+   "bear_gulch_fire_2025": {
+    "value": "Human-caused; started 2025-07-06 near Mount Rose (Olympic National Forest) above Lake Cushman; ~20,232 acres; 100% contained Nov 2025 (USFS says 2025-11-12). Closed Staircase area for a year; wilderness trails in N Fork Skokomish drainage still closed 2026-09-30 for hazard assessment and bridge/privy repair.",
+    "confidence": "high",
+    "source_ids": [
+     "nps_staircase_reopen",
+     "usfs_bear_gulch",
+     "iqair_bear_gulch"
+    ]
+   },
+   "fires_2026": {
+    "value": "Mount Tom Creek Fire (lightning, near Mount Olympus, Hoh drainage) burning from June 2026; Lake of the Gods camp closed (June). Aug 2026: Mt. Barnes Fire (0.5 ac, reported Aug 14, ~1.5 mi SE of Mt. Barnes summit), Maiden 2 fire (0.7 ac, near Maiden Peak, extinguished), small tree fire near Deer Park CG (extinguished). No closures as of 2026-08-26.",
+    "confidence": "high",
+    "source_ids": [
+     "wta_headlines_2026_06_25",
+     "nps_fire_2026_08_26"
+    ]
+   },
+   "campfire_ban_2026": {
+    "value": "Stage 2 fire restrictions from 2026-08-07: ALL campfires prohibited in Olympic NP and Olympic NF (including charcoal); gas/propane stoves OK if 3+ ft from flammable vegetation. Still in effect 2026-08-26; no lifting notice found as of 2026-10-07 (autumn rains usually lift bans mid/late September).",
+    "confidence": "medium",
+    "source_ids": [
+     "nps_fire_2026_08_26",
+     "pdn_burn_ban_2026"
+    ]
+   },
+   "fires_2023": {
+    "value": "Lightning on 2023-08-28 started several fires: Delabarre (~4,165 ac, upper Elwha) and Low Divide (~340 ac, N Fork Quinault) were largest; closures included Elwha River Trail to Low Divide, Hayden Pass, Dosewallips, N Fork Quinault, Skyline, Martins Park, Obstruction Point Road. Most reopened 2024. Burned sections still produce blowdown and hazard trees (2026 reports).",
+    "confidence": "high",
+    "stale": true,
+    "source_ids": [
+     "nps_fire_2023",
+     "nps_2024_permits_news"
+    ]
+   },
+   "older_fires_still_visible": "Paradise Fire 2015 (Queets valley above Bob Creek), Hayes Fire 2016 (Hayden Pass blowdown), 1978 burn on Hoh Lake trail."
+  }
+ },
+ "game_design_notes": {
+  "status": "pending"
+ },
+ "sources": [
+  {
+   "id": "nps_wilderness_reservations",
+   "title": "Wilderness Reservations - Olympic National Park",
+   "url": "https://www.nps.gov/olym/planyourvisit/wilderness-reservations.htm",
+   "publisher": "NPS",
+   "page_date": "2026-02-12",
+   "accessed": "2026-10-07"
+  },
+  {
+   "id": "nps_wic",
+   "title": "Olympic National Park Wilderness Information Centers",
+   "url": "https://www.nps.gov/olym/planyourvisit/wic.htm",
+   "publisher": "NPS",
+   "page_date": "2026-09-29",
+   "accessed": "2026-10-07"
+  },
+  {
+   "id": "nps_wilderness_regs",
+   "title": "Wilderness Regulations",
+   "url": "https://www.nps.gov/olym/planyourvisit/wilderness-regulations.htm",
+   "publisher": "NPS",
+   "page_date": "2026-03-30",
+   "accessed": "2026-10-07"
+  },
+  {
+   "id": "nps_group_camping",
+   "title": "Group Camping (wilderness)",
+   "url": "https://www.nps.gov/olym/planyourvisit/wilderness-group-camping.htm",
+   "publisher": "NPS",
+   "page_date": null,
+   "accessed": "2026-10-07"
+  },
+  {
+   "id": "nps_food_storage",
+   "title": "Wilderness Food Storage",
+   "url": "https://www.nps.gov/olym/planyourvisit/wilderness-food-storage.htm",
+   "publisher": "NPS",
+   "page_date": "2026-07-07 (approved list 2026-06-25)",
+   "accessed": "2026-10-07"
+  },
+  {
+   "id": "nps_trail_conditions",
+   "title": "Wilderness Trail Conditions",
+   "url": "https://www.nps.gov/olym/planyourvisit/wilderness-trail-conditions.htm",
+   "publisher": "NPS",
+   "page_date": "2026-09-30",
+   "accessed": "2026-10-07"
+  },
+  {
+   "id": "nps_caring_for_wilderness",
+   "title": "Caring for The Daniel J. Evans Wilderness",
+   "url": "https://www.nps.gov/olym/planyourvisit/caring-for-wilderness.htm",
+   "publisher": "NPS",
+   "page_date": null,
+   "accessed": "2026-10-07"
+  },
+  {
+   "id": "nps_lnt",
+   "title": "Protect Olympic - Leave No Trace",
+   "url": "https://www.nps.gov/olym/planyourvisit/wilderness-leave-no-trace.htm",
+   "publisher": "NPS",
+   "page_date": null,
+   "accessed": "2026-10-07"
+  },
+  {
+   "id": "nps_lnt_general",
+   "title": "Leave No Trace (NPS general)",
+   "url": "https://www.nps.gov/natt/learn/leave-no-trace.htm",
+   "publisher": "NPS",
+   "page_date": null,
+   "accessed": "2026-10-07"
+  },
+  {
+   "id": "recgov_onp_permit",
+   "title": "Olympic National Park Wilderness Permits",
+   "url": "https://www.recreation.gov/permits/4098362",
+   "publisher": "Recreation.gov",
+   "page_date": null,
+   "accessed": "2026-10-07"
+  },
+  {
+   "id": "wta_permit_info",
+   "title": "Backcountry & Wilderness Permit Info",
+   "url": "https://www.wta.org/go-outside/passes/backcountry-wilderness-permit-info",
+   "publisher": "Washington Trails Association",
+   "page_date": null,
+   "accessed": "2026-10-07"
+  },
+  {
+   "id": "wnpf_permits_2024",
+   "title": "Backcountry Beginners: How to Secure an Olympic Backcountry Permit",
+   "url": "https://wnpf.org/2024/01/30/backcountry-beginners-how-to-secure-an-olympic-backcountry-permit",
+   "publisher": "Washington's National Park Fund",
+   "page_date": "2024-01-30",
+   "accessed": "2026-10-07"
+  },
+  {
+   "id": "pnt_bear_cans",
+   "title": "Olympic National Park Requires Bear Cans Throughout All Wilderness Areas",
+   "url": "https://www.pnt.org/olympic-national-park-requires-bear-cans-throughout-all-wilderness-areas/",
+   "publisher": "Pacific Northwest Trail Association",
+   "page_date": "2026 (undated)",
+   "accessed": "2026-10-07"
+  },
+  {
+   "id": "bearvault_media_2026",
+   "title": "BearVault press (BV ONE approved for ONP)",
+   "url": "https://bearvault.com/pages/media",
+   "publisher": "BearVault (vendor)",
+   "page_date": "2026-07-02",
+   "accessed": "2026-10-07"
+  },
+  {
+   "id": "nps_2009_food_release",
+   "title": "Campers and Hikers Reminded to Keep Food Safe",
+   "url": "https://www.nps.gov/olym/learn/news/campers-hikers-reminded-to-keep-food-safe.htm",
+   "publisher": "NPS",
+   "page_date": "2009",
+   "accessed": "2026-10-07"
+  },
+  {
+   "id": "nps_enchanted_bears",
+   "title": "Enchanted Valley Re-opens to Camping Today; Bear Canisters Required",
+   "url": "https://www.nps.gov/olym/learn/news/enchanted-valley-reopens-to-camping-bear-canisters-required.htm",
+   "publisher": "NPS",
+   "page_date": "2015",
+   "accessed": "2026-10-07"
+  },
+  {
+   "id": "nps_fire_restrictions_news",
+   "title": "Favorable weather conditions allow Olympic National Park to return to standard fire regulations",
+   "url": "https://www.nps.gov/olym/learn/news/favorable-weather-conditions-allow-olympic-national-park-to-return-to-standard-fire-regulations.htm",
+   "publisher": "NPS",
+   "page_date": "2024-09",
+   "accessed": "2026-10-07"
+  },
+  {
+   "id": "wta_drop_in_bucket",
+   "title": "A Drop in the Bucket (backcountry toilets)",
+   "url": "https://www.wta.org/news/magazine/features/a-drop-in-the-bucket",
+   "publisher": "Washington Trails Association",
+   "page_date": null,
+   "accessed": "2026-10-07"
+  },
+  {
+   "id": "nps_coast_page",
+   "title": "Hiking the Wilderness Coast",
+   "url": "https://www.nps.gov/olym/planyourvisit/wilderness-coast.htm",
+   "publisher": "NPS",
+   "page_date": "2025-04-16",
+   "accessed": "2026-10-07"
+  },
+  {
+   "id": "nps_conditions",
+   "title": "Alerts & Conditions",
+   "url": "https://www.nps.gov/olym/planyourvisit/conditions.htm",
+   "publisher": "NPS",
+   "page_date": "2026-10-04",
+   "accessed": "2026-10-07"
+  },
+  {
+   "id": "nps_roads",
+   "title": "Current Road Conditions",
+   "url": "https://www.nps.gov/olym/planyourvisit/current-road-conditions.htm",
+   "publisher": "NPS",
+   "page_date": "2026-08-07",
+   "accessed": "2026-10-07"
+  },
+  {
+   "id": "nps_bugler_winter_2025",
+   "title": "Winter 2025-2026 Bugler Newspaper",
+   "url": "https://www.nps.gov/olym/learn/news/winter-2025-2026-bugler-newspaper.htm",
+   "publisher": "NPS",
+   "page_date": "2025-11",
+   "accessed": "2026-10-07"
+  },
+  {
+   "id": "wta_winter_2024",
+   "title": "Hiker Headlines: Winter schedule for national parks (10-31-24)",
+   "url": "https://www.wta.org/news/signpost/hiker-headlines-longmire-to-paradise-hurricane-ridge-roads-winter-access-new-trail-mural-10-31-24",
+   "publisher": "WTA",
+   "page_date": "2024-10-31",
+   "accessed": "2026-10-07"
+  },
+  {
+   "id": "nps_hr_lodge_project",
+   "title": "Hurricane Ridge Day Lodge Reconstruction Project",
+   "url": "https://www.nps.gov/olym/learn/management/hurricane-ridge-day-lodge-reconstruction-project.htm",
+   "publisher": "NPS",
+   "page_date": "2026",
+   "accessed": "2026-10-07"
+  },
+  {
+   "id": "pdn_murray_2026",
+   "title": "Murray: Hurricane Ridge Day Lodge rebuild remains a focus",
+   "url": "https://www.peninsuladailynews.com/?p=267827",
+   "publisher": "Peninsula Daily News",
+   "page_date": "2026-04",
+   "accessed": "2026-10-07"
+  },
+  {
+   "id": "pdn_obstruction",
+   "title": "Obstruction Point Road seasonal notices (various years)",
+   "url": "https://www.nps.gov/olym/learn/news/obstruction-point-road-to-close-september-23-for-resurfacing.htm",
+   "publisher": "NPS/PDN",
+   "page_date": "2009-2022",
+   "accessed": "2026-10-07"
+  },
+  {
+   "id": "pdn_hoh_2025",
+   "title": "Upper Hoh Road reopens after repairs completed",
+   "url": "https://peninsuladailynews.com/news/upper-hoh-road-reopens-after-repairs-completed",
+   "publisher": "Peninsula Daily News",
+   "page_date": "2025-05",
+   "accessed": "2026-10-07"
+  },
+  {
+   "id": "wta_headlines_2026_04_23",
+   "title": "Hiker Headlines: Harts Pass Road, Graves Creek Road, permits release (4-23-26)",
+   "url": "https://www.wta.org/news/signpost/hiker-headlines-harts-pass-road-graves-creek-road-permits-release-4-23-26",
+   "publisher": "WTA",
+   "page_date": "2026-04-23",
+   "accessed": "2026-10-07"
+  },
+  {
+   "id": "usfs_dose_washout",
+   "title": "Dosewallips Road Washout (project page)",
+   "url": "https://www.fs.usda.gov/r06/olympic/projects/7483",
+   "publisher": "USFS Olympic NF",
+   "page_date": "2025-09-18",
+   "accessed": "2026-10-07"
+  },
+  {
+   "id": "nps_staircase_reopen",
+   "title": "Staircase Developed Area to Reopen July 8 After Year-Long Closure",
+   "url": "https://www.nps.gov/olym/learn/news/staircase-developed-area-to-reopen-july-8-after-year-long-closure.htm",
+   "publisher": "NPS",
+   "page_date": "2026-07-02",
+   "accessed": "2026-10-07"
+  },
+  {
+   "id": "pdn_mora_2026",
+   "title": "Road work to limit traffic on Mora Road",
+   "url": "https://www.peninsuladailynews.com/?p=266665",
+   "publisher": "Peninsula Daily News",
+   "page_date": "2026-04",
+   "accessed": "2026-10-07"
+  },
+  {
+   "id": "usfs_bear_gulch",
+   "title": "Bear Gulch Fire",
+   "url": "https://www.fs.usda.gov/r06/olympic/fire/info/bear-gulch-fire",
+   "publisher": "USFS Olympic NF",
+   "page_date": "2025-11",
+   "accessed": "2026-10-07"
+  },
+  {
+   "id": "iqair_bear_gulch",
+   "title": "Wildfire Map Spotlight: Bear Gulch Fire",
+   "url": "https://www.iqair.com/us/newsroom/wildfire-map-spotlight-bear-gulch-fire-mason-county-washington",
+   "publisher": "IQAir",
+   "page_date": "2025-11-06",
+   "accessed": "2026-10-07"
+  },
+  {
+   "id": "wta_headlines_2026_06_25",
+   "title": "Hiker Headlines: Olympic National Park lightning fire... (6-25-26)",
+   "url": "https://www.wta.org/news/signpost/hiker-headlines-olympic-national-park-lightning-fire-mount-rainier-fire-ban-speak-up-for-trails-rainy-weekend-6-25-26",
+   "publisher": "WTA",
+   "page_date": "2026-06-25",
+   "accessed": "2026-10-07"
+  },
+  {
+   "id": "nps_fire_2026_08_26",
+   "title": "Crews extinguish two small lightning fires, continue to work Mt. Barnes and Mount Tom Creek fires",
+   "url": "https://www.nps.gov/olym/learn/news/crews-extinguish-two-small-lightning-fires-continue-to-work-mt-barnes-and-mount-tom-creek-fires.htm",
+   "publisher": "NPS",
+   "page_date": "2026-08-26",
+   "accessed": "2026-10-07"
+  },
+  {
+   "id": "pdn_burn_ban_2026",
+   "title": "Burning prohibited in national park, forest",
+   "url": "https://www.peninsuladailynews.com/?p=271315",
+   "publisher": "Peninsula Daily News",
+   "page_date": "2026-08-11",
+   "accessed": "2026-10-07"
+  },
+  {
+   "id": "nps_fire_2023",
+   "title": "Olympic National Park Fire Update (Sept-Oct 2023)",
+   "url": "https://www.nps.gov/olym/learn/news/olympic-national-park-fire-update-september-29.htm",
+   "publisher": "NPS",
+   "page_date": "2023-09/10",
+   "accessed": "2026-10-07"
+  },
+  {
+   "id": "nps_2024_permits_news",
+   "title": "Overnight wilderness permits available April 15; East Fork Quinault pilot; most trails damaged by 2023 fires will reopen",
+   "url": "https://www.nps.gov/olym/learn/news/overnight-wilderness-permits-available-april-15-east-fork-quinault-river-trail-and-enchanted-valley-pilot-project-begins-may-15-most-trails-damaged-by-2023-fires-will-reopen.htm",
+   "publisher": "NPS",
+   "page_date": "2024-04",
+   "accessed": "2026-10-07"
+  },
+  {
+   "id": "nps_weather",
+   "title": "Weather - Olympic National Park",
+   "url": "https://www.nps.gov/olym/planyourvisit/weather.htm",
+   "publisher": "NPS",
+   "page_date": null,
+   "accessed": "2026-10-07"
+  },
+  {
+   "id": "noaa_normals_1991_2020",
+   "title": "NOAA NCEI U.S. Climate Normals 1991-2020 (Quillayute USW00094240, Port Angeles USC00456624, Elwha RS USC00452548, Clearwater USC00451496)",
+   "url": "https://www.ncei.noaa.gov/access/services/data/v1?dataset=normals-monthly-1991-2020&stations=USW00094240,USC00456624,USC00452548,USC00451496&format=csv&dataTypes=MLY-TMAX-NORMAL,MLY-TMIN-NORMAL,MLY-PRCP-NORMAL,MLY-PRCP-AVGNDS-GE001HI",
+   "publisher": "NOAA NCEI",
+   "page_date": "2021",
+   "accessed": "2026-10-07"
+  },
+  {
+   "id": "wrcc_quillayute",
+   "title": "WRCC Period of Record Monthly Climate Summaries (Quillayute, Port Angeles, Elwha RS, Clearwater)",
+   "url": "https://wrcc.dri.edu/summary/climsmwa.html",
+   "publisher": "Western Regional Climate Center",
+   "page_date": "POR to 2005",
+   "accessed": "2026-10-07"
+  },
+  {
+   "id": "nrcs_snotel",
+   "title": "NRCS SNOTEL daily data: Waterhole (974), Buckinghorse (1107), Dungeness (943)",
+   "url": "https://wcc.sc.egov.usda.gov/awdbRestApi/services/v1/data?stationTriplets=974:WA:SNTL&elements=WTEQ,SNWD,TMAX,TMIN,PRCP&duration=DAILY",
+   "publisher": "USDA NRCS",
+   "page_date": "data through 2026-10-06",
+   "accessed": "2026-10-07"
+  },
+  {
+   "id": "igra_quillayute",
+   "title": "IGRA v2 radiosonde soundings, Quillayute USM00072797 (1991-2020 used)",
+   "url": "https://www.ncei.noaa.gov/data/integrated-global-radiosonde-archive/access/data-por/USM00072797-data.txt.zip",
+   "publisher": "NOAA NCEI",
+   "page_date": "2026-10-06",
+   "accessed": "2026-10-07"
+  },
+  {
+   "id": "usgs_nwis_stats",
+   "title": "USGS NWIS monthly mean discharge statistics (12041200, 12040500, 12039500, 12045500, 12048000)",
+   "url": "https://waterservices.usgs.gov/nwis/stat/?format=rdb&sites=12041200,12045500,12040500,12039500,12048000&statReportType=monthly&statTypeCd=mean&parameterCd=00060",
+   "publisher": "USGS",
+   "page_date": null,
+   "accessed": "2026-10-07"
+  },
+  {
+   "id": "computed_noaa_solar",
+   "title": "Sunrise/sunset computed with NOAA general solar position equations (zenith 90.833; civil 96)",
+   "url": "https://gml.noaa.gov/grad/solcalc/solareqns.PDF",
+   "publisher": "NOAA GML (method)",
+   "page_date": null,
+   "accessed": "2026-10-07"
+  },
+  {
+   "id": "noaa_coops_9442396",
+   "title": "NOAA CO-OPS La Push 9442396 datums, harmonic constituents and 2026 predictions",
+   "url": "https://tidesandcurrents.noaa.gov/stationhome.html?id=9442396",
+   "publisher": "NOAA CO-OPS",
+   "page_date": "epoch 1983-2001; 2026 predictions",
+   "accessed": "2026-10-07"
+  },
+  {
+   "id": "nps_tides_safety",
+   "title": "Tides and Your Safety",
+   "url": "https://www.nps.gov/olym/planyourvisit/tides-and-your-safety.htm",
+   "publisher": "NPS",
+   "page_date": "2023-12-06",
+   "accessed": "2026-10-07"
+  },
+  {
+   "id": "nps_south_coast_route",
+   "title": "South Coast Route - Olympic Wilderness",
+   "url": "https://www.nps.gov/olym/planyourvisit/south-coast-route.htm",
+   "publisher": "NPS",
+   "page_date": null,
+   "accessed": "2026-10-07"
+  },
+  {
+   "id": "nps_north_coast_route",
+   "title": "North Coast Route - Olympic Wilderness",
+   "url": "https://www.nps.gov/olym/planyourvisit/north-coast-route.htm",
+   "publisher": "NPS",
+   "page_date": null,
+   "accessed": "2026-10-07"
+  }
+ ]
+}

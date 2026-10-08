@@ -1,7 +1,6066 @@
 {
-  "notes": "SKELETON - catalog in progress. Weights in ounces, packed volumes in liters, prices in 2026 USD.",
-  "packs": [],
-  "items": [],
-  "pack_guidance": {},
-  "rentals": ""
+ "notes": "Gear catalog for Olympic Peninsula Hiker (design data, 2026-10). UNITS: weight_oz is ounces (16 oz = 1 lb; 1 L of water = 35.2 oz). volume_l is packed liters: stuffed size for soft goods, OUTSIDE size for rigid items (canisters, pots), and for 'worn' items the volume they take if carried instead. price_usd is the 2026 shelf price at an ordinary outfitter, before any in-game store multiplier (the last-chance store on the drive can mark up). CARRY: 'inside' must ride inside the pack; 'outside_strappable' may go inside or on an outside strap, tool loop or side pocket (outside = exposed to rain and snags, simulation.md 6.3); 'worn' is on the body by default and counts toward skin-out weight but not pack weight or pack volume. TEN_ESSENTIALS uses the modern ten (navigation, headlamp, sun, first_aid, knife = knife plus repair kit, fire, shelter, extra_food, extra_water, extra_clothes); the planner's checklist lights up a slot when any carried item fills it. TIERS: top-level fields are the standard version; each tier entry overrides name, weight, volume, price and any stats it lists, and may add or remove tags. Items without tiers come in one version. TAGS are what the event engine reads (simulation.md 6.6): the packing code turns item tags and stats into derived trip tags, for example rain_top + rain_bottom, insulation:N = sum of stats.insulation, sleep:T from stats.temp_rating_f, padR from stats.r_value, shelter:tent/tarp/bivy/hammock/none from shelter_* tags, water_treat:*, water_capL from stats.liters, nav:* from nav_* tags, canister:L from stats.capacity_l. Every tag is defined in tag_glossary; key stats in stat_glossary. TRAPS: items tagged 'trap' are real mistakes people make (cotton, canned food lives in the food catalog, hang kits, drones). The store shows their true weight and the notes are honest, so a trap is a choice, never a trick. RULES baked into notes reflect the 2026 region data in design/data/regions: approved hard-sided bear canisters are required for every wilderness overnight, soft bear sacks are not on the approved list, hanging food is not acceptable, campfires are prohibited above 3,500 ft and were under a park-wide Stage 2 ban from August 2026, drones and plant collecting are prohibited, and no state fishing license is needed inside the park. NAMES: all product names are generic or fictional; '-class' size references (BV500-class etc.) appear only in notes as the sizes backpackers know, never as products for sale. Weights, volumes and prices are typical values sanity-checked against 2025-2026 retail listings and reviews, rounded for play.",
+ "packs": [
+  {
+   "id": "daypack_20",
+   "name": "Town Book Bag 20",
+   "volume_l": 20,
+   "weight_oz": 14,
+   "comfortable_max_load_lb": 10,
+   "price_usd": 39,
+   "frame": "none",
+   "hipbelt": "none",
+   "outside_slots": {
+    "side_pockets": 1,
+    "front_mesh_l": 0,
+    "bottom_straps": 0,
+    "top_strap": 0,
+    "tool_loops": 0,
+    "side_compression_straps": 0,
+    "hipbelt_pockets": 0
+   },
+   "rain_resistance": 0,
+   "tags": [
+    "daypack",
+    "no_hipbelt",
+    "cotton_canvas",
+    "absorbs_water",
+    "trap"
+   ],
+   "real_world_notes": "A school or commuter bag: canvas or thin nylon, no hip belt, no frame, one bottle pocket. Fine for a 2-mile nature walk; on a 10-mile day with 3 L of water the shoulder straps cut in and the canvas soaks through in drizzle.",
+   "flavor": "The little bag has carried lunches and library books for years, and it looks surprised to be going up a mountain."
+  },
+  {
+   "id": "daypack_28",
+   "name": "Ridge Runner Daypack 28",
+   "volume_l": 28,
+   "weight_oz": 26,
+   "comfortable_max_load_lb": 18,
+   "price_usd": 129,
+   "frame": "framesheet",
+   "hipbelt": "webbing",
+   "outside_slots": {
+    "side_pockets": 2,
+    "front_mesh_l": 3,
+    "bottom_straps": 0,
+    "top_strap": 0,
+    "tool_loops": 0,
+    "side_compression_straps": 0,
+    "hipbelt_pockets": 2
+   },
+   "rain_resistance": 1,
+   "tags": [
+    "daypack",
+    "ventilated_back"
+   ],
+   "real_world_notes": "A real hiking daypack: light framesheet, mesh back, webbing hip belt, room for the ten essentials, rain shell, puffy, 3 L of water and lunch. It cannot hold a sleeping bag, shelter and bear canister together, which is the point of the Mount Olympus warning.",
+   "flavor": "It holds everything a long day needs and not one thing more, like a well-packed lunch box."
+  },
+  {
+   "id": "fastpack_35",
+   "name": "Featherline Fastpack 35",
+   "volume_l": 35,
+   "weight_oz": 29,
+   "comfortable_max_load_lb": 22,
+   "price_usd": 179,
+   "frame": "framesheet",
+   "hipbelt": "padded",
+   "outside_slots": {
+    "side_pockets": 2,
+    "front_mesh_l": 4,
+    "bottom_straps": 1,
+    "top_strap": 0,
+    "tool_loops": 0,
+    "side_compression_straps": 0,
+    "hipbelt_pockets": 2
+   },
+   "rain_resistance": 1,
+   "tags": [
+    "fastpack",
+    "ultralight"
+   ],
+   "real_world_notes": "Enough for one or two summer nights only with an ultralight kit (quilt, trekking-pole tent, small canister). A BV500-class canister eats a third of it. Overloading past about 22 lb makes the hip belt fold and the shoulders ache.",
+   "flavor": "A quick, light pack for quick, light people who have already decided what they can live without."
+  },
+  {
+   "id": "weekender_50",
+   "name": "Lake Basin Weekender 50",
+   "volume_l": 50,
+   "weight_oz": 42,
+   "comfortable_max_load_lb": 32,
+   "price_usd": 239,
+   "frame": "internal",
+   "hipbelt": "padded",
+   "outside_slots": {
+    "side_pockets": 2,
+    "front_mesh_l": 6,
+    "bottom_straps": 2,
+    "top_strap": 0,
+    "tool_loops": 1,
+    "side_compression_straps": 0,
+    "hipbelt_pockets": 2
+   },
+   "rain_resistance": 1,
+   "tags": [
+    "overnight"
+   ],
+   "real_world_notes": "The sweet spot for 2 to 4 nights in summer with a reasonably modern kit, including a full-size bear canister mounted vertically. Tight with a synthetic bag or a bulky tent.",
+   "flavor": "It is the kind of pack that has seen a hundred lakes and still has room for one more apple."
+  },
+  {
+   "id": "ultralight_55",
+   "name": "Thru-Line Ultralight 55",
+   "volume_l": 55,
+   "weight_oz": 31,
+   "comfortable_max_load_lb": 30,
+   "price_usd": 299,
+   "frame": "framesheet",
+   "hipbelt": "padded",
+   "outside_slots": {
+    "side_pockets": 2,
+    "front_mesh_l": 8,
+    "bottom_straps": 0,
+    "top_strap": 1,
+    "tool_loops": 2,
+    "side_compression_straps": 2,
+    "hipbelt_pockets": 2
+   },
+   "rain_resistance": 2,
+   "tags": [
+    "overnight",
+    "ultralight",
+    "waterproof_fabric"
+   ],
+   "real_world_notes": "Laminated waterproof-ish fabric and a minimal frame. Wonderful under 30 lb, punishing above it: the frame cannot transfer a heavy canister-plus-water load to the hips. Seams still leak in the Hoh, so use a liner anyway.",
+   "flavor": "It weighs almost nothing and asks only that you bring almost nothing."
+  },
+  {
+   "id": "trekker_65",
+   "name": "Hurricane Ridge Trekker 65",
+   "volume_l": 65,
+   "weight_oz": 70,
+   "comfortable_max_load_lb": 42,
+   "price_usd": 319,
+   "frame": "internal",
+   "hipbelt": "padded",
+   "outside_slots": {
+    "side_pockets": 2,
+    "front_mesh_l": 6,
+    "bottom_straps": 2,
+    "top_strap": 1,
+    "tool_loops": 2,
+    "side_compression_straps": 2,
+    "hipbelt_pockets": 2
+   },
+   "rain_resistance": 1,
+   "tags": [
+    "overnight",
+    "multi_day",
+    "adjustable_torso"
+   ],
+   "real_world_notes": "The classic 4 to 7 night pack with a stout frame and an adjustable torso. It carries a canister, a winter-ish bag and climbing hardware without complaint, and tempts you to fill every liter.",
+   "flavor": "A big, patient pack with a strong back, and it will carry whatever you ask, even the things you should have left at home."
+  },
+  {
+   "id": "expedition_80",
+   "name": "Blue Glacier Expedition 80",
+   "volume_l": 80,
+   "weight_oz": 88,
+   "comfortable_max_load_lb": 55,
+   "price_usd": 399,
+   "frame": "internal",
+   "hipbelt": "heavy",
+   "outside_slots": {
+    "side_pockets": 2,
+    "front_mesh_l": 8,
+    "bottom_straps": 2,
+    "top_strap": 1,
+    "tool_loops": 2,
+    "side_compression_straps": 2,
+    "hipbelt_pockets": 2
+   },
+   "rain_resistance": 1,
+   "tags": [
+    "overnight",
+    "multi_day",
+    "expedition",
+    "heavy",
+    "adjustable_torso"
+   ],
+   "real_world_notes": "Built for glacier approaches, winter trips and long traverses: rope, crampons, a 0 °F bag and a week of food. Overkill for a summer weekend, where its own 5.5 lb becomes dead weight and the extra space invites overpacking.",
+   "flavor": "It is as tall as a fox standing on another fox, and it was made for the long road to the snow."
+  },
+  {
+   "id": "external_frame_70",
+   "name": "Grandpa's External Frame 70",
+   "volume_l": 70,
+   "weight_oz": 80,
+   "comfortable_max_load_lb": 45,
+   "price_usd": 35,
+   "frame": "external",
+   "hipbelt": "padded",
+   "outside_slots": {
+    "side_pockets": 2,
+    "front_mesh_l": 0,
+    "bottom_straps": 2,
+    "top_strap": 2,
+    "tool_loops": 2,
+    "side_compression_straps": 2,
+    "hipbelt_pockets": 0
+   },
+   "rain_resistance": 0,
+   "tags": [
+    "overnight",
+    "multi_day",
+    "external_frame",
+    "vintage",
+    "lots_of_straps",
+    "snags"
+   ],
+   "real_world_notes": "A garage-sale aluminum frame with a canvas bag. It carries heavy loads surprisingly well on smooth trail and stays cool on the back, but the high frame snags on blowdown and brush, sways on ladders and log crossings, and the bag is not waterproof.",
+   "flavor": "Its aluminum frame clinks like a wind chime, and it remembers trails that were built before you were born."
+  }
+ ],
+ "items": [
+  {
+   "id": "tent_2p_dome",
+   "name": "Two-Person Dome Tent",
+   "category": "shelter",
+   "weight_oz": 67,
+   "volume_l": 5.5,
+   "carry": "outside_strappable",
+   "price_usd": 349,
+   "ten_essentials": "shelter",
+   "tags": [
+    "shelter_tent",
+    "freestanding",
+    "waterproof",
+    "bug_proof",
+    "compressible"
+   ],
+   "stats": {
+    "capacity_people": 2,
+    "freestanding": true,
+    "rain_rating": 2,
+    "wind_rating": 2,
+    "condensation": 2,
+    "warmth_bonus_f": 5,
+    "setup_min": 8,
+    "poles_l": 1.0
+   },
+   "tiers": [
+    {
+     "tier": "cheap",
+     "name": "Bargain Bin Dome Tent",
+     "weight_oz": 92,
+     "volume_l": 7.5,
+     "price_usd": 139,
+     "stats": {
+      "rain_rating": 1,
+      "wind_rating": 1,
+      "condensation": 3
+     },
+     "tags_add": [
+      "heavy"
+     ],
+     "note": "Fiberglass poles snap in cold wind; the short fly lets rain splash in."
+    },
+    {
+     "tier": "premium",
+     "name": "Featherdome UL2",
+     "weight_oz": 44,
+     "volume_l": 3.8,
+     "price_usd": 529,
+     "stats": {
+      "rain_rating": 2,
+      "wind_rating": 1,
+      "condensation": 2
+     },
+     "tags_add": [
+      "ultralight",
+      "fragile"
+     ],
+     "note": "Semi-freestanding; thin floor wants a footprint on coast gravel."
+    }
+   ],
+   "real_world_notes": "A double-wall 3-season dome. Pitches on rock, gravel bars and wooden tent pads where stakes won't go. Poles can ride in a side pocket to save inside volume. Split it with a partner: one carries the body, one the fly and poles.",
+   "flavor": "A small round house of green nylon, just big enough for two sleepers and one pair of muddy boots."
+  },
+  {
+   "id": "tent_1p_trekking_pole",
+   "name": "Solo Trekking-Pole Tent",
+   "category": "shelter",
+   "weight_oz": 27,
+   "volume_l": 2.5,
+   "carry": "outside_strappable",
+   "price_usd": 299,
+   "ten_essentials": "shelter",
+   "tags": [
+    "shelter_tent",
+    "needs_poles",
+    "ultralight",
+    "waterproof",
+    "bug_proof"
+   ],
+   "stats": {
+    "capacity_people": 1,
+    "freestanding": false,
+    "rain_rating": 2,
+    "wind_rating": 1,
+    "condensation": 3,
+    "warmth_bonus_f": 4,
+    "setup_min": 10,
+    "needs_stakes": 6
+   },
+   "tiers": [
+    {
+     "tier": "premium",
+     "name": "Cloudspun Solo (composite fabric)",
+     "weight_oz": 18,
+     "volume_l": 2.2,
+     "price_usd": 649,
+     "stats": {
+      "condensation": 3
+     },
+     "tags_add": [
+      "fragile"
+     ],
+     "note": "Very light and does not sag when wet; costly."
+    }
+   ],
+   "real_world_notes": "Pitched with your trekking poles instead of tent poles, so it is useless without them. Needs good stake ground; tricky on rock slabs, wooden platforms and loose beach sand without sand anchors.",
+   "flavor": "It stands up tall on your two walking sticks, like a small kite that has decided to stay on the ground."
+  },
+  {
+   "id": "tent_3p_dome",
+   "name": "Three-Person Family Dome",
+   "category": "shelter",
+   "weight_oz": 92,
+   "volume_l": 7.5,
+   "carry": "outside_strappable",
+   "price_usd": 399,
+   "ten_essentials": "shelter",
+   "tags": [
+    "shelter_tent",
+    "freestanding",
+    "waterproof",
+    "bug_proof",
+    "heavy"
+   ],
+   "stats": {
+    "capacity_people": 3,
+    "freestanding": true,
+    "rain_rating": 2,
+    "wind_rating": 2,
+    "condensation": 1,
+    "warmth_bonus_f": 4,
+    "setup_min": 10,
+    "poles_l": 1.3
+   },
+   "real_world_notes": "Roomy enough to play cards through a rainy layover. Heavy for one carrier; shared among three it is reasonable. Larger footprint is hard to fit on small designated tent pads.",
+   "flavor": "There is room inside for three sleepers, a card game, and a long rainy afternoon."
+  },
+  {
+   "id": "tent_4season",
+   "name": "Four-Season Mountain Tent",
+   "category": "shelter",
+   "weight_oz": 124,
+   "volume_l": 8.0,
+   "carry": "outside_strappable",
+   "price_usd": 749,
+   "ten_essentials": "shelter",
+   "tags": [
+    "shelter_tent",
+    "freestanding",
+    "waterproof",
+    "four_season",
+    "storm_worthy",
+    "heavy"
+   ],
+   "stats": {
+    "capacity_people": 2,
+    "freestanding": true,
+    "rain_rating": 3,
+    "wind_rating": 3,
+    "condensation": 2,
+    "warmth_bonus_f": 8,
+    "setup_min": 12,
+    "snow_load": true
+   },
+   "real_world_notes": "Steep walls, extra poles, snow flaps. The right shelter for the Snow Dome high camp, winter Hurricane Ridge or a storm on an exposed ridge. Too hot and heavy for a summer valley.",
+   "flavor": "Its walls are steep and its poles are many, and it does not mind when the wind sings all night."
+  },
+  {
+   "id": "tarp_flat",
+   "name": "Flat Tarp 8 x 10 with Cord and Stakes",
+   "category": "shelter",
+   "weight_oz": 16,
+   "volume_l": 1.2,
+   "carry": "inside",
+   "price_usd": 129,
+   "ten_essentials": "shelter",
+   "tags": [
+    "shelter_tarp",
+    "needs_poles",
+    "waterproof",
+    "ultralight",
+    "versatile"
+   ],
+   "stats": {
+    "capacity_people": 2,
+    "freestanding": false,
+    "rain_rating": 1,
+    "wind_rating": 1,
+    "condensation": 0,
+    "warmth_bonus_f": 2,
+    "setup_min": 12,
+    "bug_proof": false,
+    "skill_needed": "campcraft"
+   },
+   "real_world_notes": "Light and versatile but needs skill: a good pitch takes practice, and sideways rain and wind on the High Divide or the coast find every gap. No bug protection. Can also be a midday rain kitchen for a group.",
+   "flavor": "It is only a square of fabric, but in the right hands it becomes a roof, a porch, or a rainy-day kitchen."
+  },
+  {
+   "id": "bivy_sack",
+   "name": "Waterproof Bivy Sack",
+   "category": "shelter",
+   "weight_oz": 17,
+   "volume_l": 1.5,
+   "carry": "inside",
+   "price_usd": 219,
+   "ten_essentials": "shelter",
+   "tags": [
+    "shelter_bivy",
+    "waterproof",
+    "breathable"
+   ],
+   "stats": {
+    "capacity_people": 1,
+    "freestanding": false,
+    "rain_rating": 2,
+    "wind_rating": 3,
+    "condensation": 3,
+    "warmth_bonus_f": 6,
+    "setup_min": 2
+   },
+   "real_world_notes": "A waterproof-breathable bag around your sleeping bag. Fine on a clear alpine night; miserable in a 12-hour Olympic rain because there is nowhere to change, cook or sit, and condensation dampens a down bag.",
+   "flavor": "It is a sleeping bag for your sleeping bag, snug as a seed in its shell."
+  },
+  {
+   "id": "emergency_bivy",
+   "name": "Emergency Reflective Bivy",
+   "category": "shelter",
+   "weight_oz": 3.8,
+   "volume_l": 0.3,
+   "carry": "inside",
+   "price_usd": 45,
+   "ten_essentials": "shelter",
+   "tags": [
+    "emergency_shelter",
+    "ultralight"
+   ],
+   "stats": {
+    "capacity_people": 1,
+    "warmth_bonus_f": 10,
+    "reusable": "a few times",
+    "condensation": 3
+   },
+   "real_world_notes": "A reflective, waterproof sack for an unplanned night out. It turns a dangerous bivouac into a long, crinkly, damp one. Counts as the shelter essential on day hikes.",
+   "flavor": "It crinkles like candy paper and holds your own warmth close, just in case the day runs longer than planned."
+  },
+  {
+   "id": "space_blanket",
+   "name": "Foil Space Blanket",
+   "category": "shelter",
+   "weight_oz": 1.8,
+   "volume_l": 0.1,
+   "carry": "inside",
+   "price_usd": 5,
+   "ten_essentials": "shelter",
+   "tags": [
+    "emergency_shelter",
+    "ultralight",
+    "fragile"
+   ],
+   "stats": {
+    "warmth_bonus_f": 5,
+    "reusable": false
+   },
+   "real_world_notes": "Better than nothing and almost weightless, but it tears easily and blows away in wind. A day hiker's last line of defense.",
+   "flavor": "A silver sheet as thin as a moth's wing, folded small and hoping never to be opened."
+  },
+  {
+   "id": "tube_tent_plastic",
+   "name": "Plastic Tube Tent",
+   "category": "shelter",
+   "weight_oz": 30,
+   "volume_l": 1.5,
+   "carry": "inside",
+   "price_usd": 15,
+   "ten_essentials": "shelter",
+   "tags": [
+    "shelter_tarp",
+    "cheap",
+    "trap"
+   ],
+   "stats": {
+    "capacity_people": 1,
+    "rain_rating": 1,
+    "wind_rating": 0,
+    "condensation": 3,
+    "warmth_bonus_f": 2,
+    "needs_trees": true
+   },
+   "real_world_notes": "A cheap polyethylene tube strung on a cord between two trees. Open ends let rain blow through; condensation drips on you all night. Nostalgic, heavy for what it does.",
+   "flavor": "It looks like a long plastic bread bag, and on a rainy night it feels like one, too."
+  },
+  {
+   "id": "hammock_system",
+   "name": "Camping Hammock with Bug Net and Rain Fly",
+   "category": "shelter",
+   "weight_oz": 38,
+   "volume_l": 3.5,
+   "carry": "inside",
+   "price_usd": 249,
+   "ten_essentials": "shelter",
+   "tags": [
+    "shelter_hammock",
+    "needs_trees",
+    "bug_proof",
+    "camp_comfort"
+   ],
+   "stats": {
+    "capacity_people": 1,
+    "rain_rating": 2,
+    "wind_rating": 1,
+    "warmth_bonus_f": -5,
+    "needs_trees": true,
+    "underquilt_needed_below_f": 60
+   },
+   "real_world_notes": "Wonderful in the rain-forest valleys and on lumpy ground, impossible above treeline (High Divide meadows, Hoh Lake edges, beach sand). Cold from below without an underquilt or pad.",
+   "flavor": "Strung between two old trees, it rocks you to sleep the way the wind rocks a nest."
+  },
+  {
+   "id": "tent_footprint",
+   "name": "Tent Footprint",
+   "category": "shelter",
+   "weight_oz": 6,
+   "volume_l": 0.5,
+   "carry": "inside",
+   "price_usd": 59,
+   "ten_essentials": null,
+   "tags": [
+    "shelter_accessory"
+   ],
+   "stats": {
+    "floor_protection": true
+   },
+   "real_world_notes": "Protects a thin tent floor from coast gravel, sharp rock and mud. Optional on soft forest duff.",
+   "flavor": "A thin sheet that keeps the tent floor safe from pebbles that would rather be poking."
+  },
+  {
+   "id": "stakes_sand_snow",
+   "name": "Sand and Snow Stakes (set of 6)",
+   "category": "shelter",
+   "weight_oz": 6,
+   "volume_l": 0.4,
+   "carry": "inside",
+   "price_usd": 34,
+   "ten_essentials": null,
+   "tags": [
+    "shelter_accessory",
+    "sand_snow_anchor"
+   ],
+   "stats": {
+    "count": 6
+   },
+   "real_world_notes": "Wide stakes that hold in beach sand and soft snow, where thin wire stakes pull out. Useful on the wilderness coast and early-season high camps.",
+   "flavor": "Broad little paddles that grip the sand and the snow when skinny stakes give up."
+  },
+  {
+   "id": "bag_down_30",
+   "name": "Down Sleeping Bag 30 °F",
+   "category": "sleep",
+   "weight_oz": 32,
+   "volume_l": 7.0,
+   "carry": "inside",
+   "price_usd": 349,
+   "ten_essentials": null,
+   "tags": [
+    "sleep_bag",
+    "insulating",
+    "down",
+    "compressible",
+    "wet_sensitive"
+   ],
+   "stats": {
+    "temp_rating_f": 30,
+    "comfort_f": 40,
+    "fill": "down_800",
+    "wet_warmth_retained": 0.25,
+    "compressed_volume_l": 4.5
+   },
+   "tiers": [
+    {
+     "tier": "cheap",
+     "name": "Down Sleeping Bag 30 °F (650 fill)",
+     "weight_oz": 42,
+     "volume_l": 9.5,
+     "price_usd": 199,
+     "stats": {
+      "fill": "down_650",
+      "compressed_volume_l": 6.5
+     }
+    },
+    {
+     "tier": "premium",
+     "name": "Down Sleeping Bag 30 °F (900 fill, water-resistant down)",
+     "weight_oz": 24,
+     "volume_l": 5.0,
+     "price_usd": 499,
+     "stats": {
+      "fill": "down_900_treated",
+      "wet_warmth_retained": 0.4,
+      "compressed_volume_l": 3.2
+     },
+     "tags_add": [
+      "ultralight"
+     ]
+    }
+   ],
+   "real_world_notes": "The standard Olympic summer bag. Most nights at 4,000 to 5,000 ft in July to August fall into the 35 to 50 °F range. Down loses most of its loft when soaked, so a pack liner matters in the Hoh and on the coast.",
+   "flavor": "A soft cloud of feathers that remembers the warmth you give it and gives it back all night."
+  },
+  {
+   "id": "bag_down_20",
+   "name": "Down Sleeping Bag 20 °F",
+   "category": "sleep",
+   "weight_oz": 40,
+   "volume_l": 9.0,
+   "carry": "inside",
+   "price_usd": 429,
+   "ten_essentials": null,
+   "tags": [
+    "sleep_bag",
+    "insulating",
+    "down",
+    "compressible",
+    "wet_sensitive"
+   ],
+   "stats": {
+    "temp_rating_f": 20,
+    "comfort_f": 30,
+    "fill": "down_800",
+    "wet_warmth_retained": 0.25,
+    "compressed_volume_l": 6.0
+   },
+   "tiers": [
+    {
+     "tier": "cheap",
+     "name": "Down Sleeping Bag 20 °F (650 fill)",
+     "weight_oz": 52,
+     "volume_l": 12.0,
+     "price_usd": 249,
+     "stats": {
+      "fill": "down_650",
+      "compressed_volume_l": 8.0
+     }
+    },
+    {
+     "tier": "premium",
+     "name": "Down Sleeping Bag 20 °F (900 fill, water-resistant down)",
+     "weight_oz": 30,
+     "volume_l": 6.5,
+     "price_usd": 589,
+     "stats": {
+      "fill": "down_900_treated",
+      "wet_warmth_retained": 0.4,
+      "compressed_volume_l": 4.2
+     },
+     "tags_add": [
+      "ultralight"
+     ]
+    }
+   ],
+   "real_world_notes": "The safe choice for shoulder seasons (June and September to October) and for high camps such as Glacier Meadows, Seven Lakes Basin and Royal Basin, where frost is possible any month.",
+   "flavor": "A thicker cloud, for nights when the stars are sharp and the meadow grass turns white with frost."
+  },
+  {
+   "id": "bag_down_0",
+   "name": "Down Expedition Bag 0 °F",
+   "category": "sleep",
+   "weight_oz": 56,
+   "volume_l": 15.0,
+   "carry": "inside",
+   "price_usd": 649,
+   "ten_essentials": null,
+   "tags": [
+    "sleep_bag",
+    "insulating",
+    "down",
+    "compressible",
+    "wet_sensitive",
+    "heavy",
+    "four_season"
+   ],
+   "stats": {
+    "temp_rating_f": 0,
+    "comfort_f": 12,
+    "fill": "down_800",
+    "wet_warmth_retained": 0.25,
+    "compressed_volume_l": 10.0
+   },
+   "real_world_notes": "Winter and early-season summit camps only. In August it is a sauna that fills half a 50 L pack.",
+   "flavor": "So puffy and warm that it could keep a snowbank cozy."
+  },
+  {
+   "id": "bag_synth_30",
+   "name": "Synthetic Sleeping Bag 30 °F",
+   "category": "sleep",
+   "weight_oz": 48,
+   "volume_l": 12.0,
+   "carry": "inside",
+   "price_usd": 169,
+   "ten_essentials": null,
+   "tags": [
+    "sleep_bag",
+    "insulating",
+    "synthetic",
+    "warm_when_wet",
+    "bulky"
+   ],
+   "stats": {
+    "temp_rating_f": 30,
+    "comfort_f": 40,
+    "fill": "synthetic",
+    "wet_warmth_retained": 0.6,
+    "compressed_volume_l": 9.0
+   },
+   "real_world_notes": "Cheaper and forgiving when damp, which counts for something in the rain forest and on the coast. But it is half again as heavy and nearly twice as bulky as down, which squeezes the bear canister out of a 50 L pack.",
+   "flavor": "A plain, sturdy bag that stays warm even when the clouds come inside the tent."
+  },
+  {
+   "id": "bag_synth_20",
+   "name": "Synthetic Sleeping Bag 20 °F",
+   "category": "sleep",
+   "weight_oz": 64,
+   "volume_l": 15.0,
+   "carry": "inside",
+   "price_usd": 199,
+   "ten_essentials": null,
+   "tags": [
+    "sleep_bag",
+    "insulating",
+    "synthetic",
+    "warm_when_wet",
+    "bulky",
+    "heavy"
+   ],
+   "stats": {
+    "temp_rating_f": 20,
+    "comfort_f": 30,
+    "fill": "synthetic",
+    "wet_warmth_retained": 0.6,
+    "compressed_volume_l": 11.5
+   },
+   "real_world_notes": "Warm and wet-tolerant, but 4 lb and enormous. It nearly fills a 50 L pack together with a canister and tent. A classic 'it won't close' item.",
+   "flavor": "It is warm as a bear's winter den, and nearly as big."
+  },
+  {
+   "id": "bag_synth_45",
+   "name": "Summer Synthetic Bag 45 °F",
+   "category": "sleep",
+   "weight_oz": 26,
+   "volume_l": 7.0,
+   "carry": "inside",
+   "price_usd": 89,
+   "ten_essentials": null,
+   "tags": [
+    "sleep_bag",
+    "insulating",
+    "synthetic",
+    "warm_when_wet"
+   ],
+   "stats": {
+    "temp_rating_f": 45,
+    "comfort_f": 55,
+    "fill": "synthetic",
+    "wet_warmth_retained": 0.6,
+    "compressed_volume_l": 5.0
+   },
+   "real_world_notes": "Fine for low coastal camps in August. Cold at any subalpine camp; needs a puffy worn to bed or a liner.",
+   "flavor": "A thin summer bag, good for warm beaches and nights that smell of salt and driftwood."
+  },
+  {
+   "id": "bag_flannel_rectangle",
+   "name": "Flannel-Lined Rectangular Bag",
+   "category": "sleep",
+   "weight_oz": 96,
+   "volume_l": 28.0,
+   "carry": "outside_strappable",
+   "price_usd": 49,
+   "ten_essentials": null,
+   "tags": [
+    "sleep_bag",
+    "insulating",
+    "cotton",
+    "heavy",
+    "bulky",
+    "trap"
+   ],
+   "stats": {
+    "temp_rating_f": 40,
+    "comfort_f": 55,
+    "fill": "polyester_batting_cotton_liner",
+    "wet_warmth_retained": 0.15,
+    "compressed_volume_l": 24.0
+   },
+   "real_world_notes": "A car-camping bag. The cotton flannel lining soaks up damp and never dries; at 6 lb and the size of a beach ball it rides outside the pack, where the rain finds it. A trap.",
+   "flavor": "It has ducks printed on the lining and smells like the cabin, but it was never meant to climb mountains."
+  },
+  {
+   "id": "quilt_down_30",
+   "name": "Down Backpacking Quilt 30 °F",
+   "category": "sleep",
+   "weight_oz": 22,
+   "volume_l": 5.0,
+   "carry": "inside",
+   "price_usd": 299,
+   "ten_essentials": null,
+   "tags": [
+    "sleep_quilt",
+    "insulating",
+    "down",
+    "compressible",
+    "wet_sensitive",
+    "ultralight"
+   ],
+   "stats": {
+    "temp_rating_f": 30,
+    "comfort_f": 40,
+    "fill": "down_850",
+    "wet_warmth_retained": 0.25,
+    "compressed_volume_l": 3.2,
+    "drafty": true
+   },
+   "real_world_notes": "No hood and an open back; relies on the sleeping pad below and a warm hat. Drafty for restless sleepers or windy, cold nights.",
+   "flavor": "Like a feather blanket from home that learned to tuck itself in."
+  },
+  {
+   "id": "quilt_down_20",
+   "name": "Down Backpacking Quilt 20 °F",
+   "category": "sleep",
+   "weight_oz": 26,
+   "volume_l": 6.0,
+   "carry": "inside",
+   "price_usd": 349,
+   "ten_essentials": null,
+   "tags": [
+    "sleep_quilt",
+    "insulating",
+    "down",
+    "compressible",
+    "wet_sensitive",
+    "ultralight"
+   ],
+   "stats": {
+    "temp_rating_f": 20,
+    "comfort_f": 32,
+    "fill": "down_850",
+    "wet_warmth_retained": 0.25,
+    "compressed_volume_l": 4.0,
+    "drafty": true
+   },
+   "real_world_notes": "A popular 3-season ultralight choice. Pair with a pad of R 3 or more and a beanie.",
+   "flavor": "Warm and light as a snowfall that never melts."
+  },
+  {
+   "id": "liner_silk",
+   "name": "Silk Sleeping Bag Liner",
+   "category": "sleep",
+   "weight_oz": 5,
+   "volume_l": 0.3,
+   "carry": "inside",
+   "price_usd": 69,
+   "ten_essentials": null,
+   "tags": [
+    "sleep_accessory",
+    "insulating",
+    "ultralight"
+   ],
+   "stats": {
+    "warmth_bonus_f": 4
+   },
+   "real_world_notes": "Adds a few degrees and keeps the bag cleaner. Small gain for small weight.",
+   "flavor": "Smooth as a ribbon, it slips inside your bag and adds a little warmth."
+  },
+  {
+   "id": "liner_fleece",
+   "name": "Fleece Sleeping Bag Liner",
+   "category": "sleep",
+   "weight_oz": 14,
+   "volume_l": 1.8,
+   "carry": "inside",
+   "price_usd": 45,
+   "ten_essentials": null,
+   "tags": [
+    "sleep_accessory",
+    "insulating",
+    "warm_when_wet"
+   ],
+   "stats": {
+    "warmth_bonus_f": 8
+   },
+   "real_world_notes": "A cheap way to stretch a 40 °F bag toward 30 °F. Bulky for what it does.",
+   "flavor": "A fuzzy sleeve of fleece that makes a summer bag brave enough for autumn."
+  },
+  {
+   "id": "compression_sack",
+   "name": "Compression Stuff Sack",
+   "category": "sleep",
+   "weight_oz": 4,
+   "volume_l": 0.2,
+   "carry": "inside",
+   "price_usd": 32,
+   "ten_essentials": null,
+   "tags": [
+    "sleep_accessory",
+    "compression"
+   ],
+   "stats": {
+    "volume_reduction": 0.3
+   },
+   "real_world_notes": "Squeezes a sleeping bag or puffy to about 70% of its stuffed volume. The trick that makes a canister and a bag share a small pack.",
+   "flavor": "Pull the straps and the puffy bag sighs and shrinks, as if holding its breath."
+  },
+  {
+   "id": "pad_foam_ccf",
+   "name": "Closed-Cell Foam Pad (accordion)",
+   "category": "sleep",
+   "weight_oz": 14,
+   "volume_l": 10.0,
+   "carry": "outside_strappable",
+   "price_usd": 55,
+   "ten_essentials": null,
+   "tags": [
+    "sleep_pad",
+    "foam",
+    "unbreakable",
+    "bulky"
+   ],
+   "stats": {
+    "r_value": 2.0,
+    "pad_type": "closed_cell_foam",
+    "puncture_risk": 0
+   },
+   "real_world_notes": "Can't puncture, doubles as a sit pad, works as a pack frame sheet. Too bulky to fit inside, so it rides on the outside in rain and brush. Alone it is cold below about 40 °F; stacked under an inflatable it adds R 2.",
+   "flavor": "A folding mat of bumpy foam that never pops and never complains."
+  },
+  {
+   "id": "pad_foam_torso",
+   "name": "Torso-Length Foam Pad",
+   "category": "sleep",
+   "weight_oz": 5,
+   "volume_l": 3.5,
+   "carry": "outside_strappable",
+   "price_usd": 29,
+   "ten_essentials": null,
+   "tags": [
+    "sleep_pad",
+    "foam",
+    "unbreakable",
+    "ultralight"
+   ],
+   "stats": {
+    "r_value": 1.5,
+    "pad_type": "closed_cell_foam",
+    "puncture_risk": 0,
+    "length": "torso"
+   },
+   "real_world_notes": "An ultralight trick: shoulders to hips only, with the pack under your legs. Cold feet on cold nights.",
+   "flavor": "Half a mat for half a sleeper, and the other half is up to you."
+  },
+  {
+   "id": "pad_inflatable",
+   "name": "Insulated Inflatable Pad (R 4)",
+   "category": "sleep",
+   "weight_oz": 16,
+   "volume_l": 1.5,
+   "carry": "inside",
+   "price_usd": 179,
+   "ten_essentials": null,
+   "tags": [
+    "sleep_pad",
+    "inflatable",
+    "puncture_risk",
+    "insulating"
+   ],
+   "stats": {
+    "r_value": 4.2,
+    "pad_type": "insulated_air",
+    "puncture_risk": 1
+   },
+   "tiers": [
+    {
+     "tier": "cheap",
+     "name": "Uninsulated Air Pad (R 1.5)",
+     "weight_oz": 22,
+     "volume_l": 2.0,
+     "price_usd": 69,
+     "stats": {
+      "r_value": 1.5,
+      "pad_type": "air"
+     },
+     "tags_remove": [
+      "insulating"
+     ]
+    },
+    {
+     "tier": "premium",
+     "name": "Four-Season Air Pad (R 7)",
+     "weight_oz": 18,
+     "volume_l": 1.6,
+     "price_usd": 239,
+     "stats": {
+      "r_value": 7.0
+     },
+     "tags_add": [
+      "four_season"
+     ]
+    }
+   ],
+   "real_world_notes": "Warm, comfortable, packs small. Can puncture, especially if strapped outside on brushy trail or used on sharp beach gravel; a patch kit fixes most leaks. Inflate with a pump sack in cold weather to keep breath moisture out.",
+   "flavor": "Blow it up with twenty breaths and it becomes a soft, warm raft for the night."
+  },
+  {
+   "id": "pad_self_inflating",
+   "name": "Self-Inflating Foam Pad (R 3.5)",
+   "category": "sleep",
+   "weight_oz": 32,
+   "volume_l": 4.0,
+   "carry": "outside_strappable",
+   "price_usd": 109,
+   "ten_essentials": null,
+   "tags": [
+    "sleep_pad",
+    "self_inflating",
+    "puncture_risk",
+    "heavy"
+   ],
+   "stats": {
+    "r_value": 3.5,
+    "pad_type": "self_inflating",
+    "puncture_risk": 1
+   },
+   "real_world_notes": "Durable and comfortable but heavy and bulky; often ends up strapped under the pack.",
+   "flavor": "It unrolls with a slow, sleepy sigh as it fills itself with air."
+  },
+  {
+   "id": "pillow_inflatable",
+   "name": "Inflatable Pillow",
+   "category": "sleep",
+   "weight_oz": 2.6,
+   "volume_l": 0.2,
+   "carry": "inside",
+   "price_usd": 39,
+   "ten_essentials": null,
+   "tags": [
+    "camp_comfort",
+    "sleep_accessory"
+   ],
+   "stats": {
+    "sleep_quality": 1
+   },
+   "real_world_notes": "Better sleep for 2.6 oz. A stuff sack full of clothes works too.",
+   "flavor": "A little cloud for your head, small enough to fit in your fist."
+  },
+  {
+   "id": "tee_cotton",
+   "name": "Cotton T-Shirt",
+   "category": "clothing",
+   "weight_oz": 6,
+   "volume_l": 0.6,
+   "carry": "worn",
+   "price_usd": 12,
+   "ten_essentials": null,
+   "tags": [
+    "cotton",
+    "base_layer",
+    "slow_drying",
+    "trap"
+   ],
+   "stats": {
+    "insulation": 1,
+    "covers": [
+     "torso"
+    ],
+    "wet_warmth_retained": 0.0,
+    "dry_time_h": 10
+   },
+   "real_world_notes": "'Cotton kills': cotton holds water, loses all insulation when wet and stays wet. On a 55 °F rainy day in the Hoh it chills you even while you hike. Fine for the car ride home.",
+   "flavor": "Soft and comfy in town, but on a misty trail it drinks up the rain and holds onto the cold."
+  },
+  {
+   "id": "jeans_denim",
+   "name": "Blue Jeans",
+   "category": "clothing",
+   "weight_oz": 24,
+   "volume_l": 1.8,
+   "carry": "worn",
+   "price_usd": 45,
+   "ten_essentials": null,
+   "tags": [
+    "cotton",
+    "slow_drying",
+    "heavy",
+    "trap"
+   ],
+   "stats": {
+    "insulation": 2,
+    "covers": [
+     "legs"
+    ],
+    "wet_warmth_retained": 0.0,
+    "dry_time_h": 24,
+    "chafing": true
+   },
+   "real_world_notes": "Heavy when dry, twice as heavy when wet, restrict knee movement on high steps, chafe, and never dry in Olympic humidity. The classic trap item.",
+   "flavor": "Stiff and sturdy as a barn door, and just as heavy once the rain soaks in."
+  },
+  {
+   "id": "hoodie_cotton",
+   "name": "Cotton Hoodie Sweatshirt",
+   "category": "clothing",
+   "weight_oz": 20,
+   "volume_l": 3.5,
+   "carry": "inside",
+   "price_usd": 35,
+   "ten_essentials": "extra_clothes",
+   "tags": [
+    "cotton",
+    "insulating",
+    "slow_drying",
+    "bulky",
+    "trap"
+   ],
+   "stats": {
+    "insulation": 6,
+    "covers": [
+     "torso",
+     "head"
+    ],
+    "wet_warmth_retained": 0.05,
+    "dry_time_h": 20
+   },
+   "real_world_notes": "Cozy at camp only if it stays perfectly dry. Damp hoodies are cold hoodies. Takes the volume of a puffy for a third of the warmth.",
+   "flavor": "A cuddly old sweatshirt that turns heavy and gray as soon as the fog finds it."
+  },
+  {
+   "id": "tee_synthetic",
+   "name": "Synthetic Hiking Tee",
+   "category": "clothing",
+   "weight_oz": 4.2,
+   "volume_l": 0.4,
+   "carry": "worn",
+   "price_usd": 35,
+   "ten_essentials": null,
+   "tags": [
+    "base_layer",
+    "quick_dry",
+    "synthetic"
+   ],
+   "stats": {
+    "insulation": 1,
+    "covers": [
+     "torso"
+    ],
+    "wet_warmth_retained": 0.4,
+    "dry_time_h": 1.5,
+    "odor": "high"
+   },
+   "real_world_notes": "Wicks and dries fast; smells strongly after day two.",
+   "flavor": "Light as a leaf and quick to dry, though by the third day it smells like a busy trail."
+  },
+  {
+   "id": "tee_merino",
+   "name": "Merino Wool Tee",
+   "category": "clothing",
+   "weight_oz": 5,
+   "volume_l": 0.4,
+   "carry": "worn",
+   "price_usd": 75,
+   "ten_essentials": null,
+   "tags": [
+    "base_layer",
+    "wool",
+    "warm_when_wet"
+   ],
+   "stats": {
+    "insulation": 1,
+    "covers": [
+     "torso"
+    ],
+    "wet_warmth_retained": 0.5,
+    "dry_time_h": 3,
+    "odor": "low"
+   },
+   "real_world_notes": "Comfortable over a range of temperatures, resists odor for days, still warm-ish when damp. Pricier and less durable than synthetic.",
+   "flavor": "A soft wool shirt that keeps you warm when it's cool and cool when it's warm, like a sheep's own coat."
+  },
+  {
+   "id": "base_top_synthetic",
+   "name": "Synthetic Long-Sleeve Base Layer",
+   "category": "clothing",
+   "weight_oz": 7,
+   "volume_l": 0.6,
+   "carry": "inside",
+   "price_usd": 45,
+   "ten_essentials": "extra_clothes",
+   "tags": [
+    "base_layer",
+    "insulating",
+    "quick_dry",
+    "synthetic"
+   ],
+   "stats": {
+    "insulation": 3,
+    "covers": [
+     "torso"
+    ],
+    "wet_warmth_retained": 0.4,
+    "dry_time_h": 2
+   },
+   "real_world_notes": "A light warm layer for hiking in cool mist or sleeping. Kept dry in a stuff sack, it doubles as the camp shirt.",
+   "flavor": "A thin, stretchy layer that fits close and keeps the chill from sneaking in."
+  },
+  {
+   "id": "base_top_merino",
+   "name": "Merino Long-Sleeve Base Layer",
+   "category": "clothing",
+   "weight_oz": 8.5,
+   "volume_l": 0.7,
+   "carry": "inside",
+   "price_usd": 99,
+   "ten_essentials": "extra_clothes",
+   "tags": [
+    "base_layer",
+    "insulating",
+    "wool",
+    "warm_when_wet"
+   ],
+   "stats": {
+    "insulation": 3,
+    "covers": [
+     "torso"
+    ],
+    "wet_warmth_retained": 0.5,
+    "dry_time_h": 3,
+    "odor": "low"
+   },
+   "real_world_notes": "The favorite sleeping and camp layer for multi-day trips. Kept dry, it is the reward at the end of a wet day.",
+   "flavor": "Pulling on this dry wool shirt at camp feels like coming home."
+  },
+  {
+   "id": "base_bottom_synthetic",
+   "name": "Synthetic Long Underwear Bottoms",
+   "category": "clothing",
+   "weight_oz": 6,
+   "volume_l": 0.5,
+   "carry": "inside",
+   "price_usd": 40,
+   "ten_essentials": "extra_clothes",
+   "tags": [
+    "base_layer",
+    "insulating",
+    "quick_dry",
+    "synthetic"
+   ],
+   "stats": {
+    "insulation": 2,
+    "covers": [
+     "legs"
+    ],
+    "wet_warmth_retained": 0.4,
+    "dry_time_h": 2
+   },
+   "real_world_notes": "Warm legs at camp and in the sleeping bag; adds several degrees to a bag's comfort.",
+   "flavor": "A pair of thin, warm leggings that make a cold sleeping bag feel friendlier."
+  },
+  {
+   "id": "base_bottom_merino",
+   "name": "Merino Long Underwear Bottoms",
+   "category": "clothing",
+   "weight_oz": 7.5,
+   "volume_l": 0.6,
+   "carry": "inside",
+   "price_usd": 95,
+   "ten_essentials": "extra_clothes",
+   "tags": [
+    "base_layer",
+    "insulating",
+    "wool",
+    "warm_when_wet"
+   ],
+   "stats": {
+    "insulation": 2,
+    "covers": [
+     "legs"
+    ],
+    "wet_warmth_retained": 0.5,
+    "dry_time_h": 3
+   },
+   "real_world_notes": "As above, in wool: warmer when damp, less smelly.",
+   "flavor": "Wool leggings for the frosty hours between supper and sunrise."
+  },
+  {
+   "id": "pants_hiking",
+   "name": "Nylon Hiking Pants",
+   "category": "clothing",
+   "weight_oz": 12,
+   "volume_l": 0.9,
+   "carry": "worn",
+   "price_usd": 79,
+   "ten_essentials": null,
+   "tags": [
+    "quick_dry",
+    "synthetic",
+    "brush_protection"
+   ],
+   "stats": {
+    "insulation": 1,
+    "covers": [
+     "legs"
+    ],
+    "wet_warmth_retained": 0.3,
+    "dry_time_h": 2,
+    "wind_block": 1
+   },
+   "real_world_notes": "Dry quickly, shed light drizzle, protect legs from devil's club, nettles, salal and mosquitoes on overgrown trails.",
+   "flavor": "Tough, light trousers that brush past nettles and thorns without a scratch."
+  },
+  {
+   "id": "shorts_hiking",
+   "name": "Hiking Shorts",
+   "category": "clothing",
+   "weight_oz": 5,
+   "volume_l": 0.4,
+   "carry": "worn",
+   "price_usd": 55,
+   "ten_essentials": null,
+   "tags": [
+    "quick_dry",
+    "synthetic"
+   ],
+   "stats": {
+    "insulation": 0,
+    "covers": [],
+    "wet_warmth_retained": 0.3,
+    "dry_time_h": 1
+   },
+   "real_world_notes": "Cool on hot climbs like the Hoh Lake switchbacks or Appleton Pass. Bare legs get wet and scratched in brushy, dewy meadows.",
+   "flavor": "Breezy shorts for sunny switchbacks and knees that like the fresh air."
+  },
+  {
+   "id": "pants_convertible",
+   "name": "Convertible Zip-Off Pants",
+   "category": "clothing",
+   "weight_oz": 14,
+   "volume_l": 1.0,
+   "carry": "worn",
+   "price_usd": 75,
+   "ten_essentials": null,
+   "tags": [
+    "quick_dry",
+    "synthetic",
+    "brush_protection",
+    "versatile"
+   ],
+   "stats": {
+    "insulation": 1,
+    "covers": [
+     "legs"
+    ],
+    "wet_warmth_retained": 0.3,
+    "dry_time_h": 2
+   },
+   "real_world_notes": "Pants in the morning dew, shorts on the afternoon climb. The zippers chafe some hikers.",
+   "flavor": "Trousers in the morning and shorts by noon, with a zip in between."
+  },
+  {
+   "id": "underwear_synthetic",
+   "name": "Synthetic Underwear (2 pairs)",
+   "category": "clothing",
+   "weight_oz": 4,
+   "volume_l": 0.3,
+   "carry": "inside",
+   "price_usd": 30,
+   "ten_essentials": null,
+   "tags": [
+    "base_layer",
+    "quick_dry",
+    "synthetic"
+   ],
+   "stats": {
+    "pairs": 2,
+    "chafe_protection": true
+   },
+   "real_world_notes": "Two pairs: wear one, rinse and dry one. Cotton underwear chafes badly on long, wet days.",
+   "flavor": "Two pairs that take turns: one on the trail and one drying on the tent line."
+  },
+  {
+   "id": "socks_cotton",
+   "name": "Cotton Tube Socks (3 pairs)",
+   "category": "clothing",
+   "weight_oz": 7,
+   "volume_l": 0.5,
+   "carry": "inside",
+   "price_usd": 9,
+   "ten_essentials": null,
+   "tags": [
+    "cotton",
+    "slow_drying",
+    "blister_risk",
+    "trap"
+   ],
+   "stats": {
+    "pairs": 3,
+    "blister_risk": 3,
+    "wet_warmth_retained": 0.0
+   },
+   "real_world_notes": "Wet cotton socks bunch, rub and soften skin; the fastest way to blisters on a long descent.",
+   "flavor": "Bright white socks that slump and squish as soon as your boots get damp."
+  },
+  {
+   "id": "socks_wool_hiking",
+   "name": "Wool Hiking Socks (2 pairs)",
+   "category": "clothing",
+   "weight_oz": 6,
+   "volume_l": 0.4,
+   "carry": "worn",
+   "price_usd": 48,
+   "ten_essentials": "extra_clothes",
+   "tags": [
+    "wool",
+    "warm_when_wet",
+    "cushioned"
+   ],
+   "stats": {
+    "pairs": 2,
+    "blister_risk": 1,
+    "wet_warmth_retained": 0.5
+   },
+   "real_world_notes": "Two pairs minimum, plus a dedicated dry pair for sleeping. Wool stays warm when damp and resists blisters.",
+   "flavor": "Thick wool socks that hug your feet like a pair of friendly sheep."
+  },
+  {
+   "id": "socks_liner",
+   "name": "Thin Liner Socks (2 pairs)",
+   "category": "clothing",
+   "weight_oz": 2,
+   "volume_l": 0.1,
+   "carry": "inside",
+   "price_usd": 28,
+   "ten_essentials": null,
+   "tags": [
+    "synthetic",
+    "quick_dry",
+    "blister_prevention"
+   ],
+   "stats": {
+    "pairs": 2,
+    "blister_risk": -1
+   },
+   "real_world_notes": "Worn under hiking socks to reduce friction. Some hikers swear by them, others never use them.",
+   "flavor": "Two thin socks that slide against each other, so your skin doesn't have to."
+  },
+  {
+   "id": "socks_waterproof",
+   "name": "Waterproof Membrane Socks",
+   "category": "clothing",
+   "weight_oz": 3.5,
+   "volume_l": 0.3,
+   "carry": "inside",
+   "price_usd": 49,
+   "ten_essentials": null,
+   "tags": [
+    "waterproof",
+    "warm_when_wet"
+   ],
+   "stats": {
+    "pairs": 1,
+    "blister_risk": 1
+   },
+   "real_world_notes": "Keep feet warm and dry-ish in trail runners on wet trails and snow. Sweaty in warm weather; overtopped by deep fords.",
+   "flavor": "Socks with a secret raincoat inside them."
+  },
+  {
+   "id": "booties_down",
+   "name": "Down Camp Booties",
+   "category": "clothing",
+   "weight_oz": 4,
+   "volume_l": 1.2,
+   "carry": "inside",
+   "price_usd": 69,
+   "ten_essentials": null,
+   "tags": [
+    "insulating",
+    "down",
+    "camp_comfort",
+    "wet_sensitive"
+   ],
+   "stats": {
+    "insulation": 2,
+    "covers": [
+     "feet"
+    ],
+    "camp_only": true
+   },
+   "real_world_notes": "Pure camp and sleeping luxury for cold-footed hikers. Useless wet.",
+   "flavor": "Puffy slippers that make your toes forget they ever walked ten miles."
+  },
+  {
+   "id": "fleece_jacket",
+   "name": "Fleece Jacket (100 weight)",
+   "category": "clothing",
+   "weight_oz": 12,
+   "volume_l": 2.5,
+   "carry": "inside",
+   "price_usd": 69,
+   "ten_essentials": "extra_clothes",
+   "tags": [
+    "insulating",
+    "synthetic",
+    "warm_when_wet",
+    "breathable"
+   ],
+   "stats": {
+    "insulation": 10,
+    "covers": [
+     "torso"
+    ],
+    "wet_warmth_retained": 0.7,
+    "dry_time_h": 2,
+    "wind_block": 0
+   },
+   "real_world_notes": "Warm when damp, breathable, cheap, durable. Lets wind through and does not compress, so it is bulkier than its warmth suggests.",
+   "flavor": "A fuzzy jacket, warm as a sheepdog's coat, that doesn't mind a little mist."
+  },
+  {
+   "id": "fleece_grid_hoody",
+   "name": "Grid Fleece Hoody",
+   "category": "clothing",
+   "weight_oz": 10,
+   "volume_l": 2.0,
+   "carry": "inside",
+   "price_usd": 129,
+   "ten_essentials": "extra_clothes",
+   "tags": [
+    "insulating",
+    "synthetic",
+    "warm_when_wet",
+    "breathable"
+   ],
+   "stats": {
+    "insulation": 8,
+    "covers": [
+     "torso",
+     "head"
+    ],
+    "wet_warmth_retained": 0.7,
+    "dry_time_h": 1.5
+   },
+   "real_world_notes": "An active layer for cold mornings and windy passes: breathes while you climb.",
+   "flavor": "A light, checkered fleece that keeps you warm on the move without letting you overheat."
+  },
+  {
+   "id": "puffy_down",
+   "name": "Down Puffy Jacket",
+   "category": "clothing",
+   "weight_oz": 11,
+   "volume_l": 2.5,
+   "carry": "inside",
+   "price_usd": 279,
+   "ten_essentials": "extra_clothes",
+   "tags": [
+    "insulating",
+    "down",
+    "compressible",
+    "wet_sensitive"
+   ],
+   "stats": {
+    "insulation": 18,
+    "covers": [
+     "torso"
+    ],
+    "wet_warmth_retained": 0.25,
+    "dry_time_h": 12
+   },
+   "tiers": [
+    {
+     "tier": "cheap",
+     "name": "Down Jacket (650 fill)",
+     "weight_oz": 16,
+     "volume_l": 3.5,
+     "price_usd": 149,
+     "stats": {
+      "insulation": 15
+     }
+    },
+    {
+     "tier": "premium",
+     "name": "Hooded Down Parka (950 fill)",
+     "weight_oz": 19,
+     "volume_l": 5.0,
+     "price_usd": 449,
+     "stats": {
+      "insulation": 28,
+      "covers": [
+       "torso",
+       "head"
+      ]
+     },
+     "tags_add": [
+      "four_season"
+     ]
+    }
+   ],
+   "real_world_notes": "The camp jacket. The most warmth per ounce, crucial on evenings at Glacier Meadows or watching the sunset from Bogachiel Peak. Keep it dry: wear it under the rain shell only at camp, never while hiking in rain.",
+   "flavor": "A jacket made of warm air and feathers, perfect for sitting still and watching the sky turn gold."
+  },
+  {
+   "id": "puffy_synthetic",
+   "name": "Synthetic Puffy Jacket",
+   "category": "clothing",
+   "weight_oz": 14,
+   "volume_l": 3.5,
+   "carry": "inside",
+   "price_usd": 199,
+   "ten_essentials": "extra_clothes",
+   "tags": [
+    "insulating",
+    "synthetic",
+    "warm_when_wet"
+   ],
+   "stats": {
+    "insulation": 15,
+    "covers": [
+     "torso"
+    ],
+    "wet_warmth_retained": 0.6,
+    "dry_time_h": 4
+   },
+   "real_world_notes": "A bit heavier and bulkier than down, but it keeps working in the coast's sea fog and the rain forest's drizzle.",
+   "flavor": "A puffy coat that keeps its promise even when the fog rolls in from the sea."
+  },
+  {
+   "id": "vest_down",
+   "name": "Down Vest",
+   "category": "clothing",
+   "weight_oz": 7,
+   "volume_l": 1.5,
+   "carry": "inside",
+   "price_usd": 179,
+   "ten_essentials": "extra_clothes",
+   "tags": [
+    "insulating",
+    "down",
+    "compressible",
+    "wet_sensitive"
+   ],
+   "stats": {
+    "insulation": 8,
+    "covers": [
+     "torso"
+    ],
+    "wet_warmth_retained": 0.25
+   },
+   "real_world_notes": "Core warmth with free arms. A summer layer that is not enough on its own for a cold night.",
+   "flavor": "A puffy vest that keeps your middle warm and leaves your arms free to point at things."
+  },
+  {
+   "id": "pants_down",
+   "name": "Down Camp Pants",
+   "category": "clothing",
+   "weight_oz": 9,
+   "volume_l": 2.0,
+   "carry": "inside",
+   "price_usd": 199,
+   "ten_essentials": null,
+   "tags": [
+    "insulating",
+    "down",
+    "compressible",
+    "wet_sensitive"
+   ],
+   "stats": {
+    "insulation": 8,
+    "covers": [
+     "legs"
+    ],
+    "wet_warmth_retained": 0.25,
+    "camp_only": true
+   },
+   "real_world_notes": "Shoulder-season and summit-camp luxury. Turn a 30 °F bag into a 20 °F system.",
+   "flavor": "Puffy trousers that make a cold evening feel like sitting by a stove."
+  },
+  {
+   "id": "wind_shell",
+   "name": "Wind Shell Jacket",
+   "category": "clothing",
+   "weight_oz": 3.5,
+   "volume_l": 0.3,
+   "carry": "inside",
+   "price_usd": 99,
+   "ten_essentials": null,
+   "tags": [
+    "wind_top",
+    "ultralight",
+    "breathable"
+   ],
+   "stats": {
+    "insulation": 2,
+    "covers": [
+     "torso"
+    ],
+    "wind_block": 3,
+    "rain_rating": 0
+   },
+   "real_world_notes": "Blocks wind on the High Divide and at passes, breathes on the climb, and weighs almost nothing. Not rain gear.",
+   "flavor": "A whisper-thin jacket that tells the wind politely to go around."
+  },
+  {
+   "id": "sweater_wool_vintage",
+   "name": "Old Wool Sweater",
+   "category": "clothing",
+   "weight_oz": 28,
+   "volume_l": 5.0,
+   "carry": "inside",
+   "price_usd": 25,
+   "ten_essentials": "extra_clothes",
+   "tags": [
+    "insulating",
+    "wool",
+    "warm_when_wet",
+    "heavy",
+    "bulky",
+    "vintage"
+   ],
+   "stats": {
+    "insulation": 10,
+    "covers": [
+     "torso"
+    ],
+    "wet_warmth_retained": 0.6,
+    "dry_time_h": 12
+   },
+   "real_world_notes": "A thrift-store Fair Isle sweater. Warm even when damp, as old-timers knew, but heavy and bulky next to modern layers.",
+   "flavor": "Grandmother knitted it before anyone said 'ultralight', and it is still warm as toast."
+  },
+  {
+   "id": "beanie_wool",
+   "name": "Wool Beanie",
+   "category": "clothing",
+   "weight_oz": 2,
+   "volume_l": 0.2,
+   "carry": "inside",
+   "price_usd": 29,
+   "ten_essentials": "extra_clothes",
+   "tags": [
+    "insulating",
+    "wool",
+    "warm_when_wet"
+   ],
+   "stats": {
+    "insulation": 3,
+    "covers": [
+     "head"
+    ]
+   },
+   "real_world_notes": "Cheap warmth for 2 oz. Sleep in it.",
+   "flavor": "A wool cap with a little pompom, the warmest two ounces you will ever carry."
+  },
+  {
+   "id": "balaclava",
+   "name": "Balaclava",
+   "category": "clothing",
+   "weight_oz": 1.5,
+   "volume_l": 0.1,
+   "carry": "inside",
+   "price_usd": 25,
+   "ten_essentials": null,
+   "tags": [
+    "insulating",
+    "synthetic"
+   ],
+   "stats": {
+    "insulation": 2,
+    "covers": [
+     "head",
+     "neck"
+    ]
+   },
+   "real_world_notes": "Face and neck protection for summit wind and winter.",
+   "flavor": "A hood that keeps your cheeks warm when the summit wind bites."
+  },
+  {
+   "id": "gloves_liner",
+   "name": "Liner Gloves",
+   "category": "clothing",
+   "weight_oz": 1.5,
+   "volume_l": 0.1,
+   "carry": "inside",
+   "price_usd": 25,
+   "ten_essentials": "extra_clothes",
+   "tags": [
+    "insulating",
+    "synthetic"
+   ],
+   "stats": {
+    "insulation": 1,
+    "covers": [
+     "hands"
+    ]
+   },
+   "real_world_notes": "Light gloves for cold mornings, trekking poles and fiddling with the stove.",
+   "flavor": "Thin gloves for chilly fingers that still want to tie knots."
+  },
+  {
+   "id": "gloves_insulated",
+   "name": "Insulated Waterproof Gloves",
+   "category": "clothing",
+   "weight_oz": 5.5,
+   "volume_l": 0.5,
+   "carry": "inside",
+   "price_usd": 79,
+   "ten_essentials": null,
+   "tags": [
+    "insulating",
+    "waterproof",
+    "synthetic"
+   ],
+   "stats": {
+    "insulation": 3,
+    "covers": [
+     "hands"
+    ]
+   },
+   "real_world_notes": "Needed for snow travel, ice axe work and the Blue Glacier. Wet hands go numb fast on snow.",
+   "flavor": "Thick gloves that keep your fingers warm while you hold the cold handle of an ice axe."
+  },
+  {
+   "id": "neck_gaiter",
+   "name": "Neck Gaiter Tube",
+   "category": "clothing",
+   "weight_oz": 1.3,
+   "volume_l": 0.1,
+   "carry": "worn",
+   "price_usd": 22,
+   "ten_essentials": null,
+   "tags": [
+    "versatile",
+    "synthetic"
+   ],
+   "stats": {
+    "insulation": 1,
+    "covers": [
+     "neck"
+    ],
+    "sun_protection": 1
+   },
+   "real_world_notes": "Sun shield, warm hat, headband or dust mask in one tube.",
+   "flavor": "A stretchy tube that can be a hat, a scarf, or a sun shade, whatever the day needs."
+  },
+  {
+   "id": "bandana_cotton",
+   "name": "Cotton Bandana",
+   "category": "clothing",
+   "weight_oz": 1,
+   "volume_l": 0.1,
+   "carry": "worn",
+   "price_usd": 6,
+   "ten_essentials": null,
+   "tags": [
+    "cotton",
+    "versatile"
+   ],
+   "stats": {
+    "uses": [
+     "sweat",
+     "sun",
+     "pre-filter",
+     "pot holder",
+     "sling",
+     "flag"
+    ]
+   },
+   "real_world_notes": "The one cotton item backpackers love: a sweat rag, sun shade, pot grabber, pre-filter for silty glacial water and emergency sling. Being wet is the point.",
+   "flavor": "A square of red cloth with a hundred jobs and no complaints."
+  },
+  {
+   "id": "rain_jacket",
+   "name": "Rain Jacket",
+   "category": "rain",
+   "weight_oz": 10,
+   "volume_l": 1.0,
+   "carry": "inside",
+   "price_usd": 179,
+   "ten_essentials": "extra_clothes",
+   "tags": [
+    "rain_top",
+    "waterproof",
+    "wind_top",
+    "breathable"
+   ],
+   "stats": {
+    "rain_rating": 2,
+    "breathability": 2,
+    "wind_block": 3,
+    "insulation": 2,
+    "covers": [
+     "torso",
+     "head"
+    ]
+   },
+   "tiers": [
+    {
+     "tier": "cheap",
+     "name": "Budget Rain Jacket (2.5-layer)",
+     "weight_oz": 12,
+     "volume_l": 1.0,
+     "price_usd": 79,
+     "stats": {
+      "rain_rating": 1,
+      "breathability": 1
+     },
+     "note": "Wets out within an hour of steady rain; clammy on climbs."
+    },
+    {
+     "tier": "premium",
+     "name": "Storm Shell (3-layer, pit zips)",
+     "weight_oz": 13,
+     "volume_l": 1.1,
+     "price_usd": 349,
+     "stats": {
+      "rain_rating": 3,
+      "breathability": 3
+     },
+     "tags_add": [
+      "storm_worthy"
+     ]
+    }
+   ],
+   "real_world_notes": "Non-negotiable on the Olympic Peninsula, where the west-side valleys get 140 to 170 inches of rain a year and summer showers can happen anywhere. Even the best jacket wets out after hours of steady rain; you hike damp but warm.",
+   "flavor": "A crinkly jacket with a hood, the most important thing in the pack on a mountain where the clouds live."
+  },
+  {
+   "id": "rain_pants",
+   "name": "Rain Pants",
+   "category": "rain",
+   "weight_oz": 8,
+   "volume_l": 0.8,
+   "carry": "inside",
+   "price_usd": 129,
+   "ten_essentials": "extra_clothes",
+   "tags": [
+    "rain_bottom",
+    "waterproof"
+   ],
+   "stats": {
+    "rain_rating": 2,
+    "breathability": 1,
+    "wind_block": 3,
+    "insulation": 1,
+    "covers": [
+     "legs"
+    ]
+   },
+   "tiers": [
+    {
+     "tier": "cheap",
+     "name": "Budget Rain Pants",
+     "weight_oz": 10,
+     "volume_l": 0.9,
+     "price_usd": 49,
+     "stats": {
+      "rain_rating": 1,
+      "breathability": 0
+     }
+    },
+    {
+     "tier": "premium",
+     "name": "Full-Zip Storm Pants",
+     "weight_oz": 11,
+     "volume_l": 1.0,
+     "price_usd": 229,
+     "stats": {
+      "rain_rating": 3,
+      "breathability": 2
+     },
+     "tags_add": [
+      "storm_worthy"
+     ]
+    }
+   ],
+   "real_world_notes": "Often left behind to save space, and then missed: wet brush soaks your legs even after the rain stops (Bogachiel, upper Hoh, coastal overland trails). Also a warm layer at a windy camp.",
+   "flavor": "Swishy trousers that keep your knees dry when the meadow grass is full of last night's rain."
+  },
+  {
+   "id": "poncho",
+   "name": "Hooded Rain Poncho",
+   "category": "rain",
+   "weight_oz": 11,
+   "volume_l": 1.0,
+   "carry": "inside",
+   "price_usd": 45,
+   "ten_essentials": "extra_clothes",
+   "tags": [
+    "poncho",
+    "rain_top",
+    "waterproof",
+    "covers_pack"
+   ],
+   "stats": {
+    "rain_rating": 2,
+    "breathability": 3,
+    "wind_block": 1,
+    "covers": [
+     "torso",
+     "head",
+     "pack"
+    ]
+   },
+   "tiers": [
+    {
+     "tier": "cheap",
+     "name": "Emergency Plastic Poncho",
+     "weight_oz": 2,
+     "volume_l": 0.1,
+     "price_usd": 3,
+     "stats": {
+      "rain_rating": 1,
+      "durability": 0
+     },
+     "tags_add": [
+      "fragile"
+     ],
+     "note": "Tears on the first branch."
+    }
+   ],
+   "real_world_notes": "Covers you and your pack and breathes well, but flaps like a sail in wind on ridges and the coast and snags on brush. Leaves the lower legs wet.",
+   "flavor": "A big green cape that keeps the rain off both you and your pack, as long as the wind stays calm."
+  },
+  {
+   "id": "poncho_tarp",
+   "name": "Silnylon Poncho-Tarp",
+   "category": "rain",
+   "weight_oz": 10,
+   "volume_l": 0.8,
+   "carry": "inside",
+   "price_usd": 99,
+   "ten_essentials": "shelter",
+   "tags": [
+    "poncho",
+    "rain_top",
+    "waterproof",
+    "shelter_tarp",
+    "versatile",
+    "ultralight"
+   ],
+   "stats": {
+    "rain_rating": 2,
+    "wind_block": 1,
+    "capacity_people": 1,
+    "warmth_bonus_f": 1
+   },
+   "real_world_notes": "Rain gear by day and a tiny lean-to by night. A real shelter only for skilled minimalists in mild weather; in a storm you have neither a dry shelter nor dry clothes.",
+   "flavor": "By day it is a raincoat, and by night it becomes a tiny roof, if you know the trick."
+  },
+  {
+   "id": "umbrella_trekking",
+   "name": "Hiking Umbrella",
+   "category": "rain",
+   "weight_oz": 7,
+   "volume_l": 0.5,
+   "carry": "outside_strappable",
+   "price_usd": 49,
+   "ten_essentials": null,
+   "tags": [
+    "umbrella",
+    "rain_top",
+    "sun_shade"
+   ],
+   "stats": {
+    "rain_rating": 2,
+    "wind_ok_mph": 10,
+    "breathability": 3
+   },
+   "real_world_notes": "Wonderful in the windless rain-forest valleys (Hoh, Quinault, Bogachiel): no sweaty hood, and you can read the map. Useless on the windy High Divide or the coast, and awkward on overgrown trail.",
+   "flavor": "Under its dome the rain sounds like popcorn, and the forest stays quiet and green around you."
+  },
+  {
+   "id": "pack_cover",
+   "name": "Pack Rain Cover",
+   "category": "rain",
+   "weight_oz": 4.5,
+   "volume_l": 0.3,
+   "carry": "inside",
+   "price_usd": 35,
+   "ten_essentials": null,
+   "tags": [
+    "waterproofing_cover"
+   ],
+   "stats": {
+    "wet_chance_mult": 0.35
+   },
+   "real_world_notes": "Sheds most rain but water still runs down your back into the pack, and it blows off in wind. Better with a liner.",
+   "flavor": "A shower cap for your backpack."
+  },
+  {
+   "id": "pack_liner_compactor",
+   "name": "Trash-Compactor Bag Pack Liner",
+   "category": "rain",
+   "weight_oz": 2.5,
+   "volume_l": 0.0,
+   "carry": "inside",
+   "price_usd": 2,
+   "ten_essentials": null,
+   "tags": [
+    "waterproofing_liner",
+    "ultralight",
+    "cheap"
+   ],
+   "stats": {
+    "wet_chance_mult": 0.05
+   },
+   "real_world_notes": "The cheapest serious waterproofing: line the pack, put the sleeping bag and dry clothes inside, twist the top. Survives a fall in a ford. Replace when punctured.",
+   "flavor": "A plain plastic bag, and the reason your sleeping bag is still dry after a day of rain."
+  },
+  {
+   "id": "pack_liner_drybag",
+   "name": "Roll-Top Pack Liner (50 L)",
+   "category": "rain",
+   "weight_oz": 3.5,
+   "volume_l": 0.0,
+   "carry": "inside",
+   "price_usd": 45,
+   "ten_essentials": null,
+   "tags": [
+    "waterproofing_liner"
+   ],
+   "stats": {
+    "wet_chance_mult": 0.03,
+    "durable": true
+   },
+   "real_world_notes": "A tougher, reusable version of the compactor bag.",
+   "flavor": "A tough, rolled-top bag that keeps the inside of your pack as dry as a cupboard."
+  },
+  {
+   "id": "dry_bag_small",
+   "name": "Small Dry Bag (5 L)",
+   "category": "rain",
+   "weight_oz": 1.5,
+   "volume_l": 0.1,
+   "carry": "inside",
+   "price_usd": 19,
+   "ten_essentials": null,
+   "tags": [
+    "waterproofing_item"
+   ],
+   "stats": {
+    "capacity_l": 5
+   },
+   "real_world_notes": "For dry camp clothes, electronics and the map. Dry clothes at camp are the single biggest comfort in the Olympics.",
+   "flavor": "A little waterproof sack for the things that must stay dry no matter what."
+  },
+  {
+   "id": "dry_bag_large",
+   "name": "Large Dry Bag (20 L)",
+   "category": "rain",
+   "weight_oz": 3,
+   "volume_l": 0.2,
+   "carry": "inside",
+   "price_usd": 29,
+   "ten_essentials": null,
+   "tags": [
+    "waterproofing_item"
+   ],
+   "stats": {
+    "capacity_l": 20
+   },
+   "real_world_notes": "Makes a sleeping bag strapped outside the pack survive the rain.",
+   "flavor": "A big waterproof sack, roomy enough to keep a whole sleeping bag dry."
+  },
+  {
+   "id": "zip_bags_gallon",
+   "name": "Gallon Zip Bags (10)",
+   "category": "rain",
+   "weight_oz": 2,
+   "volume_l": 0.1,
+   "carry": "inside",
+   "price_usd": 4,
+   "ten_essentials": null,
+   "tags": [
+    "waterproofing_item",
+    "cheap",
+    "versatile"
+   ],
+   "stats": {
+    "count": 10
+   },
+   "real_world_notes": "Map case, phone sleeve, trash bag, food repackaging. Pack out every wrapper.",
+   "flavor": "Ten clear bags for maps, snacks, socks and the wrappers you will carry home."
+  },
+  {
+   "id": "trail_runners",
+   "name": "Trail Running Shoes",
+   "category": "footwear",
+   "weight_oz": 21,
+   "volume_l": 4.0,
+   "carry": "worn",
+   "price_usd": 149,
+   "ten_essentials": null,
+   "tags": [
+    "footwear_hiking",
+    "quick_dry",
+    "ultralight",
+    "breathable"
+   ],
+   "stats": {
+    "ankle_support": 0,
+    "traction": 2,
+    "dry_time_h": 4,
+    "blister_risk": 1,
+    "waterproof": false,
+    "ford_ok": true
+   },
+   "real_world_notes": "Light, comfortable, and dry fast after fords and rain. They will get wet on Olympic trails, so plan for wet feet and good socks. Less support with heavy loads and less protection on scree and snow.",
+   "flavor": "Light shoes that splash through puddles and dry again by lunchtime."
+  },
+  {
+   "id": "boots_mid_waterproof",
+   "name": "Waterproof Mid Hiking Boots",
+   "category": "footwear",
+   "weight_oz": 40,
+   "volume_l": 6.0,
+   "carry": "worn",
+   "price_usd": 219,
+   "ten_essentials": null,
+   "tags": [
+    "footwear_hiking",
+    "waterproof",
+    "ankle_support"
+   ],
+   "stats": {
+    "ankle_support": 2,
+    "traction": 2,
+    "dry_time_h": 24,
+    "blister_risk": 2,
+    "waterproof": true,
+    "ford_ok": false
+   },
+   "real_world_notes": "Dry in puddles and light rain, supportive under a heavy pack. Once water comes over the top (fords, all-day rain) they stay wet for days. Break them in before the trip: new boots are a blister machine.",
+   "flavor": "Sturdy boots that keep the puddles out, until the day the river comes over the top."
+  },
+  {
+   "id": "boots_leather",
+   "name": "Full-Grain Leather Backpacking Boots",
+   "category": "footwear",
+   "weight_oz": 56,
+   "volume_l": 7.0,
+   "carry": "worn",
+   "price_usd": 299,
+   "ten_essentials": null,
+   "tags": [
+    "footwear_hiking",
+    "waterproof",
+    "ankle_support",
+    "heavy"
+   ],
+   "stats": {
+    "ankle_support": 3,
+    "traction": 3,
+    "dry_time_h": 48,
+    "blister_risk": 3,
+    "waterproof": true,
+    "ford_ok": false,
+    "break_in_miles": 50
+   },
+   "real_world_notes": "Bombproof support for heavy loads, scree and kicking steps in snow. Heavy: a pound on the feet costs about as much energy as several pounds on the back.",
+   "flavor": "Heavy leather boots that clomp like a pony and last as long as one."
+  },
+  {
+   "id": "boots_mountaineering",
+   "name": "Crampon-Compatible Mountaineering Boots",
+   "category": "footwear",
+   "weight_oz": 76,
+   "volume_l": 9.0,
+   "carry": "worn",
+   "price_usd": 449,
+   "ten_essentials": null,
+   "tags": [
+    "footwear_mountaineering",
+    "waterproof",
+    "ankle_support",
+    "heavy",
+    "glacier_travel",
+    "traction_snow"
+   ],
+   "stats": {
+    "ankle_support": 3,
+    "traction": 3,
+    "dry_time_h": 48,
+    "blister_risk": 3,
+    "waterproof": true,
+    "crampon_compatible": true,
+    "insulation": 2,
+    "rent_usd_per_day": 30
+   },
+   "real_world_notes": "Stiff soles for kicking steps and wearing strap or hybrid crampons on the Blue Glacier and Snow Dome. Miserable for the 17 forest miles up the Hoh; most climbers carry them and hike in lighter shoes. Commonly rented.",
+   "flavor": "Stiff as a pair of wooden clogs, these boots were made to bite into snow and ice."
+  },
+  {
+   "id": "sneakers_canvas",
+   "name": "Canvas Sneakers",
+   "category": "footwear",
+   "weight_oz": 24,
+   "volume_l": 5.0,
+   "carry": "worn",
+   "price_usd": 45,
+   "ten_essentials": null,
+   "tags": [
+    "footwear_casual",
+    "cotton",
+    "slow_drying",
+    "trap"
+   ],
+   "stats": {
+    "ankle_support": 0,
+    "traction": 0,
+    "dry_time_h": 36,
+    "blister_risk": 3,
+    "waterproof": false
+   },
+   "real_world_notes": "Cotton canvas uppers and smooth soles: slippery on wet roots, rocks and ladders, soggy for days. A trap.",
+   "flavor": "Fine for the school yard, but their smooth soles slide on wet roots like butter on a pan."
+  },
+  {
+   "id": "sandals_sport",
+   "name": "Strap Sport Sandals",
+   "category": "footwear",
+   "weight_oz": 20,
+   "volume_l": 2.5,
+   "carry": "outside_strappable",
+   "price_usd": 99,
+   "ten_essentials": null,
+   "tags": [
+    "camp_shoes",
+    "ford_shoes",
+    "quick_dry"
+   ],
+   "stats": {
+    "traction": 1,
+    "ford_ok": true,
+    "camp_comfort": 2
+   },
+   "real_world_notes": "Ford shoes and camp shoes in one: secure heel straps for the Queets ford, the Elwha or coast creeks, and dry boots afterward. Toes are exposed to rocks.",
+   "flavor": "Strappy sandals that grip the river stones while your boots ride safe and dry on your pack."
+  },
+  {
+   "id": "camp_shoes_foam",
+   "name": "Foam Camp Clogs",
+   "category": "footwear",
+   "weight_oz": 13,
+   "volume_l": 3.0,
+   "carry": "outside_strappable",
+   "price_usd": 45,
+   "ten_essentials": null,
+   "tags": [
+    "camp_shoes",
+    "bulky"
+   ],
+   "stats": {
+    "traction": 0,
+    "ford_ok": false,
+    "camp_comfort": 2,
+    "loss_in_current": 0.3
+   },
+   "real_world_notes": "Let tired, wrinkled feet dry out at camp. Fine for shallow creek crossings, but they float away in real current.",
+   "flavor": "Squishy clogs for the evening, when your feet have done their work and want to rest."
+  },
+  {
+   "id": "flip_flops",
+   "name": "Flip-Flops",
+   "category": "footwear",
+   "weight_oz": 8,
+   "volume_l": 1.0,
+   "carry": "outside_strappable",
+   "price_usd": 10,
+   "ten_essentials": null,
+   "tags": [
+    "camp_shoes",
+    "cheap"
+   ],
+   "stats": {
+    "traction": 0,
+    "ford_ok": false,
+    "camp_comfort": 1,
+    "loss_in_current": 0.6
+   },
+   "real_world_notes": "Light camp shoes, but the worst ford shoes: they pull off in current and leave you barefoot on slick rocks.",
+   "flavor": "Flip, flop, flip, flop, until the river takes one away to the sea."
+  },
+  {
+   "id": "gaiters_low",
+   "name": "Low Trail Gaiters",
+   "category": "footwear",
+   "weight_oz": 2,
+   "volume_l": 0.1,
+   "carry": "worn",
+   "price_usd": 29,
+   "ten_essentials": null,
+   "tags": [
+    "gaiters",
+    "ultralight"
+   ],
+   "stats": {
+    "keeps_out": [
+     "grit",
+     "pebbles",
+     "needles"
+    ]
+   },
+   "real_world_notes": "Keep sand, pebbles and fir needles out of trail runners. Handy on coast beaches.",
+   "flavor": "Little cuffs that keep pebbles from sneaking into your shoes."
+  },
+  {
+   "id": "gaiters_tall",
+   "name": "Tall Waterproof Gaiters",
+   "category": "footwear",
+   "weight_oz": 10,
+   "volume_l": 0.6,
+   "carry": "inside",
+   "price_usd": 69,
+   "ten_essentials": null,
+   "tags": [
+    "gaiters",
+    "waterproof",
+    "traction_snow"
+   ],
+   "stats": {
+    "keeps_out": [
+     "snow",
+     "mud",
+     "wet_brush"
+    ],
+    "covers": [
+     "legs"
+    ]
+   },
+   "real_world_notes": "For snowfields, postholing, muddy trail and wet brush. Standard kit for Glacier Meadows and early-season passes.",
+   "flavor": "Tall leggings that keep the snow and mud on the outside, where they belong."
+  },
+  {
+   "id": "stove_canister",
+   "name": "Canister Stove (upright)",
+   "category": "cook",
+   "weight_oz": 3,
+   "volume_l": 0.3,
+   "carry": "inside",
+   "price_usd": 59,
+   "ten_essentials": "fire",
+   "tags": [
+    "stove",
+    "stove_canister",
+    "needs_fuel_canister",
+    "ultralight",
+    "shutoff_valve"
+   ],
+   "stats": {
+    "boil_min_per_l": 4.0,
+    "fuel_g_per_l_boil": 14,
+    "simmer": true,
+    "cold_penalty_below_f": 35,
+    "wind_penalty": 1.5
+   },
+   "tiers": [
+    {
+     "tier": "cheap",
+     "name": "Budget Canister Stove",
+     "weight_oz": 4,
+     "volume_l": 0.3,
+     "price_usd": 25,
+     "stats": {
+      "boil_min_per_l": 5,
+      "fuel_g_per_l_boil": 17,
+      "wind_penalty": 2.0
+     },
+     "note": "No piezo, flimsy pot supports."
+    },
+    {
+     "tier": "premium",
+     "name": "Regulated Canister Stove",
+     "weight_oz": 3.4,
+     "volume_l": 0.3,
+     "price_usd": 89,
+     "stats": {
+      "boil_min_per_l": 3.5,
+      "fuel_g_per_l_boil": 12,
+      "cold_penalty_below_f": 20
+     }
+    }
+   ],
+   "real_world_notes": "Light, simple, allowed during most fire bans because it has a shut-off valve. Weak in cold and wind; a windscreen (never wrapped tightly around the canister) helps. Needs a separately sold fuel canister and a lighter.",
+   "flavor": "A tiny folding stove that blooms with a blue flower of flame."
+  },
+  {
+   "id": "stove_integrated",
+   "name": "Integrated Canister Stove System",
+   "category": "cook",
+   "weight_oz": 14,
+   "volume_l": 1.3,
+   "carry": "inside",
+   "price_usd": 169,
+   "ten_essentials": "fire",
+   "tags": [
+    "stove",
+    "stove_canister",
+    "needs_fuel_canister",
+    "pot_included",
+    "shutoff_valve",
+    "rigid"
+   ],
+   "stats": {
+    "boil_min_per_l": 3.0,
+    "fuel_g_per_l_boil": 9,
+    "simmer": false,
+    "pot_l": 1.0,
+    "wind_penalty": 1.1
+   },
+   "real_world_notes": "Stove and heat-exchanger pot in one: fast, fuel-efficient, wind-resistant, but poor for real cooking or simmering. A 110 g canister nests inside.",
+   "flavor": "Stove and pot fit together like an acorn in its cap, and the water boils before you can count your mosquito bites."
+  },
+  {
+   "id": "stove_alcohol",
+   "name": "Alcohol Can Stove",
+   "category": "cook",
+   "weight_oz": 1,
+   "volume_l": 0.2,
+   "carry": "inside",
+   "price_usd": 20,
+   "ten_essentials": "fire",
+   "tags": [
+    "stove",
+    "stove_alcohol",
+    "needs_alcohol_fuel",
+    "ultralight",
+    "no_shutoff_fire_ban"
+   ],
+   "stats": {
+    "boil_min_per_l": 9,
+    "fuel_g_per_l_boil": 30,
+    "simmer": false,
+    "wind_penalty": 2.0
+   },
+   "real_world_notes": "Ultralight and silent, but slow, nearly invisible flame, and no shut-off valve. Typically prohibited under Stage 2 fire restrictions, and Olympic had a park-wide Stage 2 ban in late summer 2026.",
+   "flavor": "A little tin cup that burns with a pale flame you can barely see, so watch your sleeves."
+  },
+  {
+   "id": "stove_white_gas",
+   "name": "White-Gas Liquid-Fuel Stove",
+   "category": "cook",
+   "weight_oz": 14,
+   "volume_l": 1.0,
+   "carry": "inside",
+   "price_usd": 159,
+   "ten_essentials": "fire",
+   "tags": [
+    "stove",
+    "stove_liquid",
+    "needs_white_gas",
+    "shutoff_valve",
+    "cold_reliable",
+    "heavy"
+   ],
+   "stats": {
+    "boil_min_per_l": 4.0,
+    "fuel_g_per_l_boil": 16,
+    "simmer": true,
+    "cold_penalty_below_f": -10,
+    "needs_priming": true
+   },
+   "real_world_notes": "Works in deep cold and for melting snow on a glacier camp. Heavier, needs priming and pumping, and can flare if mishandled.",
+   "flavor": "It roars like a little jet engine, and it is happiest on the coldest morning of the trip."
+  },
+  {
+   "id": "fuel_canister_110",
+   "name": "Fuel Canister 110 g",
+   "category": "cook",
+   "weight_oz": 7,
+   "volume_l": 0.5,
+   "carry": "inside",
+   "price_usd": 7,
+   "ten_essentials": null,
+   "tags": [
+    "fuel",
+    "fuel_canister",
+    "rigid"
+   ],
+   "stats": {
+    "fuel_g": 110,
+    "boils_0_5l_mild": 14,
+    "empty_oz": 3.4
+   },
+   "real_world_notes": "Isobutane-propane mix. About 14 half-liter boils in mild, calm weather, fewer in cold and wind. Enough for 2 to 3 nights of boil-only cooking for one person. Cannot be mailed or flown; buy it in town.",
+   "flavor": "A small round can full of tomorrow morning's coffee."
+  },
+  {
+   "id": "fuel_canister_230",
+   "name": "Fuel Canister 230 g",
+   "category": "cook",
+   "weight_oz": 13,
+   "volume_l": 1.0,
+   "carry": "inside",
+   "price_usd": 9,
+   "ten_essentials": null,
+   "tags": [
+    "fuel",
+    "fuel_canister",
+    "rigid"
+   ],
+   "stats": {
+    "fuel_g": 230,
+    "boils_0_5l_mild": 30,
+    "empty_oz": 5
+   },
+   "real_world_notes": "About 30 half-liter boils. Right for a week solo or 3 to 4 nights for two.",
+   "flavor": "A bigger can of blue flame, for longer trips and more hot chocolate."
+  },
+  {
+   "id": "fuel_canister_450",
+   "name": "Fuel Canister 450 g",
+   "category": "cook",
+   "weight_oz": 23,
+   "volume_l": 2.0,
+   "carry": "inside",
+   "price_usd": 13,
+   "ten_essentials": null,
+   "tags": [
+    "fuel",
+    "fuel_canister",
+    "rigid",
+    "heavy"
+   ],
+   "stats": {
+    "fuel_g": 450,
+    "boils_0_5l_mild": 58,
+    "empty_oz": 7.5
+   },
+   "real_world_notes": "For groups, winter trips and snow melting.",
+   "flavor": "A heavy can, big enough for a whole group's suppers or a pot full of melted snow."
+  },
+  {
+   "id": "fuel_alcohol",
+   "name": "Denatured Alcohol (8 fl oz bottle)",
+   "category": "cook",
+   "weight_oz": 8,
+   "volume_l": 0.3,
+   "carry": "inside",
+   "price_usd": 6,
+   "ten_essentials": null,
+   "tags": [
+    "fuel",
+    "fuel_alcohol"
+   ],
+   "stats": {
+    "fuel_g": 190,
+    "boils_0_5l_mild": 12
+   },
+   "real_world_notes": "Fuel for the alcohol stove. Store it far from food; leaks taint everything.",
+   "flavor": "A small bottle of clear fuel, labeled carefully so no one mistakes it for water."
+  },
+  {
+   "id": "fuel_white_gas",
+   "name": "White Gas (20 fl oz fuel bottle, full)",
+   "category": "cook",
+   "weight_oz": 22,
+   "volume_l": 0.7,
+   "carry": "inside",
+   "price_usd": 32,
+   "ten_essentials": null,
+   "tags": [
+    "fuel",
+    "fuel_liquid",
+    "heavy"
+   ],
+   "stats": {
+    "fuel_g": 440,
+    "boils_0_5l_mild": 28
+   },
+   "real_world_notes": "Fuel for the liquid-fuel stove, with a refillable aluminum bottle.",
+   "flavor": "A red metal bottle sloshing with fuel for cold mornings on the glacier."
+  },
+  {
+   "id": "pot_titanium_750",
+   "name": "Titanium Pot 750 mL",
+   "category": "cook",
+   "weight_oz": 3.8,
+   "volume_l": 0.8,
+   "carry": "inside",
+   "price_usd": 49,
+   "ten_essentials": null,
+   "tags": [
+    "pot",
+    "ultralight",
+    "rigid"
+   ],
+   "stats": {
+    "capacity_l": 0.75,
+    "nests": [
+     "stove_canister",
+     "fuel_canister_110"
+    ]
+   },
+   "real_world_notes": "A one-person boil pot and mug in one. A small canister and stove nest inside, so it takes almost no extra volume.",
+   "flavor": "A shiny little pot that holds the stove, the fuel, and later, the soup."
+  },
+  {
+   "id": "pot_aluminum_1_3l",
+   "name": "Aluminum Cook Pot 1.3 L with Lid",
+   "category": "cook",
+   "weight_oz": 8,
+   "volume_l": 1.4,
+   "carry": "inside",
+   "price_usd": 39,
+   "ten_essentials": null,
+   "tags": [
+    "pot",
+    "rigid"
+   ],
+   "stats": {
+    "capacity_l": 1.3,
+    "nests": [
+     "stove_canister",
+     "fuel_canister_230"
+    ],
+    "simmer_friendly": true
+   },
+   "real_world_notes": "Right for two people or for real cooking (pasta sides, rice). Spreads heat well for simmering.",
+   "flavor": "A dented, friendly pot that has cooked a hundred suppers for two."
+  },
+  {
+   "id": "skillet_cast_iron",
+   "name": "Cast-Iron Skillet",
+   "category": "cook",
+   "weight_oz": 80,
+   "volume_l": 2.5,
+   "carry": "outside_strappable",
+   "price_usd": 35,
+   "ten_essentials": null,
+   "tags": [
+    "pot",
+    "heavy",
+    "luxury",
+    "trap"
+   ],
+   "stats": {
+    "capacity_l": 1.0,
+    "joy": 2
+   },
+   "real_world_notes": "Five pounds of cast iron for camp pancakes. It works, it tastes wonderful, and it hurts every step of the way. A trap with a happy ending.",
+   "flavor": "Heavy as a sleeping cat and twice as stubborn, it makes the best pancakes on the whole mountain."
+  },
+  {
+   "id": "spork_titanium",
+   "name": "Long-Handled Titanium Spoon",
+   "category": "cook",
+   "weight_oz": 0.6,
+   "volume_l": 0.0,
+   "carry": "inside",
+   "price_usd": 12,
+   "ten_essentials": null,
+   "tags": [
+    "utensil",
+    "ultralight"
+   ],
+   "stats": {
+    "reaches_bottom_of_pouch": true
+   },
+   "real_world_notes": "A long handle reaches the bottom of a meal pouch without messy fingers.",
+   "flavor": "A long spoon for reaching the very last bite at the bottom of the bag."
+  },
+  {
+   "id": "mug_insulated",
+   "name": "Insulated Camp Mug",
+   "category": "cook",
+   "weight_oz": 3,
+   "volume_l": 0.5,
+   "carry": "outside_strappable",
+   "price_usd": 25,
+   "ten_essentials": null,
+   "tags": [
+    "mug",
+    "camp_comfort"
+   ],
+   "stats": {
+    "capacity_l": 0.35,
+    "joy": 1,
+    "snag_risk": true
+   },
+   "real_world_notes": "A hot drink that stays hot. Often clipped to the outside of the pack, where it clanks and sometimes vanishes in the brush.",
+   "flavor": "A cup to wrap both hands around while the morning mist lifts off the lake."
+  },
+  {
+   "id": "lighter_mini",
+   "name": "Mini Lighter",
+   "category": "cook",
+   "weight_oz": 0.4,
+   "volume_l": 0.0,
+   "carry": "inside",
+   "price_usd": 2,
+   "ten_essentials": "fire",
+   "tags": [
+    "fire_starter"
+   ],
+   "stats": {
+    "strikes": 1000,
+    "cold_penalty_below_f": 25
+   },
+   "real_world_notes": "Carry two: one in the cook kit, one in the first aid kit. Butane lighters struggle when cold; keep one in a pocket.",
+   "flavor": "A small lighter that clicks and gives a little flame, the size of your thumb."
+  },
+  {
+   "id": "matches_storm",
+   "name": "Storm-Proof Matches with Strikers",
+   "category": "cook",
+   "weight_oz": 1,
+   "volume_l": 0.1,
+   "carry": "inside",
+   "price_usd": 9,
+   "ten_essentials": "fire",
+   "tags": [
+    "fire_starter",
+    "waterproof"
+   ],
+   "stats": {
+    "count": 25,
+    "burns_wet": true
+   },
+   "real_world_notes": "Burn even after being dunked; the ten-essentials fire backup.",
+   "flavor": "Matches that keep burning even when the wind blows and the rain falls."
+  },
+  {
+   "id": "firestarter_cubes",
+   "name": "Firestarter Cubes",
+   "category": "cook",
+   "weight_oz": 1,
+   "volume_l": 0.1,
+   "carry": "inside",
+   "price_usd": 6,
+   "ten_essentials": "fire",
+   "tags": [
+    "fire_starter",
+    "emergency"
+   ],
+   "stats": {
+    "count": 12
+   },
+   "real_world_notes": "For an emergency fire, which is allowed in a true emergency even during bans. Campfires are otherwise prohibited above 3,500 ft in Olympic and under seasonal bans.",
+   "flavor": "Little waxy blocks that help a struggling fire catch, for emergencies only."
+  },
+  {
+   "id": "windscreen",
+   "name": "Folding Stove Windscreen",
+   "category": "cook",
+   "weight_oz": 1.2,
+   "volume_l": 0.1,
+   "carry": "inside",
+   "price_usd": 14,
+   "ten_essentials": null,
+   "tags": [
+    "stove_accessory"
+   ],
+   "stats": {
+    "fuel_saving": 0.25
+   },
+   "real_world_notes": "Saves fuel on windy ridges. With canister stoves, never fully enclose the canister (overheating).",
+   "flavor": "A little fence that keeps the wind from stealing your flame."
+  },
+  {
+   "id": "cold_soak_jar",
+   "name": "Cold-Soak Jar (screw-top)",
+   "category": "cook",
+   "weight_oz": 2,
+   "volume_l": 0.7,
+   "carry": "inside",
+   "price_usd": 3,
+   "ten_essentials": null,
+   "tags": [
+    "cold_soak",
+    "no_stove_ok",
+    "rigid"
+   ],
+   "stats": {
+    "capacity_l": 0.6
+   },
+   "real_world_notes": "A washed-out peanut butter jar for no-stove meals: add couscous, ramen, oats or beans and water, wait 30 to 90 minutes. Saves the stove's weight but no hot meals.",
+   "flavor": "An old peanut butter jar that turns noodles soft with nothing but water and patience."
+  },
+  {
+   "id": "coffee_pour_over",
+   "name": "Collapsible Pour-Over Coffee Dripper",
+   "category": "cook",
+   "weight_oz": 0.8,
+   "volume_l": 0.1,
+   "carry": "inside",
+   "price_usd": 18,
+   "ten_essentials": null,
+   "tags": [
+    "luxury",
+    "camp_comfort",
+    "caffeine_ritual"
+   ],
+   "stats": {
+    "joy": 2,
+    "needs": [
+     "stove"
+    ]
+   },
+   "real_world_notes": "Real coffee at the lake. Grounds must be packed out (they don't belong in the creek or soil).",
+   "flavor": "A folding coffee cone, so the morning can smell like home, even at the edge of a mountain lake."
+  },
+  {
+   "id": "camp_soap_scrubber",
+   "name": "Biodegradable Soap and Scrubber",
+   "category": "cook",
+   "weight_oz": 2,
+   "volume_l": 0.1,
+   "carry": "inside",
+   "price_usd": 7,
+   "ten_essentials": null,
+   "tags": [
+    "hygiene",
+    "smellable"
+   ],
+   "stats": {
+    "lnt": "use 200 ft from water"
+   },
+   "real_world_notes": "A few drops for pots and hands, used 200 ft from lakes and streams. Goes in the canister at night (scented).",
+   "flavor": "A tiny bottle of soap that smells faintly of peppermint, for washing up far from the lake."
+  },
+  {
+   "id": "filter_squeeze",
+   "name": "Squeeze Water Filter",
+   "category": "water",
+   "weight_oz": 3,
+   "volume_l": 0.3,
+   "carry": "inside",
+   "price_usd": 45,
+   "ten_essentials": null,
+   "tags": [
+    "water_treat_filter",
+    "ultralight",
+    "freeze_sensitive"
+   ],
+   "stats": {
+    "flow_l_per_min": 1.2,
+    "removes": [
+     "bacteria",
+     "protozoa"
+    ],
+    "freeze_damage": true,
+    "clog_in_silty_water": true
+   },
+   "real_world_notes": "Fast and light. Removes bacteria and protozoa (Giardia, Cryptosporidium), not viruses (low risk in the backcountry here). If it freezes it can crack invisibly: sleep with it on frosty nights. Glacial silt from the Hoh and Elwha clogs it; settle water or pre-filter through a bandana.",
+   "flavor": "A soft pouch and a small filter that turn creek water into drinking water with a gentle squeeze."
+  },
+  {
+   "id": "filter_pump",
+   "name": "Pump Water Filter",
+   "category": "water",
+   "weight_oz": 11,
+   "volume_l": 0.8,
+   "carry": "inside",
+   "price_usd": 99,
+   "ten_essentials": null,
+   "tags": [
+    "water_treat_filter",
+    "shallow_source_ok"
+   ],
+   "stats": {
+    "flow_l_per_min": 1.0,
+    "removes": [
+     "bacteria",
+     "protozoa"
+    ],
+    "freeze_damage": true,
+    "field_cleanable": true
+   },
+   "real_world_notes": "Draws from shallow seeps and small pools on the High Divide crest where you can't dip a bottle. Heavier; the cartridge can be scrubbed when silt clogs it.",
+   "flavor": "Pump, pump, pump, and the clear water trickles into your bottle, one splash at a time."
+  },
+  {
+   "id": "filter_gravity",
+   "name": "Gravity Filter 4 L",
+   "category": "water",
+   "weight_oz": 12,
+   "volume_l": 1.0,
+   "carry": "inside",
+   "price_usd": 119,
+   "ten_essentials": null,
+   "tags": [
+    "water_treat_filter",
+    "group"
+   ],
+   "stats": {
+    "flow_l_per_min": 1.5,
+    "removes": [
+     "bacteria",
+     "protozoa"
+    ],
+    "freeze_damage": true,
+    "capacity_l": 4
+   },
+   "real_world_notes": "Hang it on a branch and do camp chores while it filters. Great for groups and layover days.",
+   "flavor": "Hang the bag on a branch and let gravity do the work while you set up camp."
+  },
+  {
+   "id": "purifier_uv",
+   "name": "UV Light Purifier Pen",
+   "category": "water",
+   "weight_oz": 5,
+   "volume_l": 0.2,
+   "carry": "inside",
+   "price_usd": 99,
+   "ten_essentials": null,
+   "tags": [
+    "water_treat_uv",
+    "needs_battery",
+    "fragile"
+   ],
+   "stats": {
+    "treat_min_per_l": 1.5,
+    "removes": [
+     "bacteria",
+     "protozoa",
+     "viruses"
+    ],
+    "fails_in_turbid_water": true,
+    "battery_l": 50
+   },
+   "real_world_notes": "Kills viruses too, but fails in silty or tannic water (glacial Hoh and Elwha, tea-colored coast creeks) and needs a charged battery. The bulb is glass.",
+   "flavor": "A little wand that glows blue in the water, like a firefly that keeps you healthy."
+  },
+  {
+   "id": "tablets_chlorine_dioxide",
+   "name": "Chlorine Dioxide Tablets (30)",
+   "category": "water",
+   "weight_oz": 1,
+   "volume_l": 0.05,
+   "carry": "inside",
+   "price_usd": 15,
+   "ten_essentials": null,
+   "tags": [
+    "water_treat_chem",
+    "ultralight",
+    "backup"
+   ],
+   "stats": {
+    "count": 30,
+    "liters_each": 1,
+    "wait_min": 30,
+    "wait_min_crypto": 240,
+    "removes": [
+     "bacteria",
+     "viruses",
+     "protozoa"
+    ]
+   },
+   "real_world_notes": "Light, foolproof backup if a filter breaks or freezes. Thirty minutes for most pathogens, four hours for Cryptosporidium. Slight chlorine taste.",
+   "flavor": "Tiny tablets that fizz in your bottle and ask you to wait half an hour."
+  },
+  {
+   "id": "drops_chlorine_dioxide",
+   "name": "Two-Part Chlorine Dioxide Drops",
+   "category": "water",
+   "weight_oz": 3,
+   "volume_l": 0.1,
+   "carry": "inside",
+   "price_usd": 15,
+   "ten_essentials": null,
+   "tags": [
+    "water_treat_chem"
+   ],
+   "stats": {
+    "liters_total": 100,
+    "wait_min": 35,
+    "removes": [
+     "bacteria",
+     "viruses",
+     "protozoa"
+    ]
+   },
+   "real_world_notes": "Cheap treatment for a group. Mixing two drops and waiting five minutes before adding takes some fiddling with cold fingers.",
+   "flavor": "Two little bottles: mix them, wait, and then the water is ready."
+  },
+  {
+   "id": "bottle_disposable_1l",
+   "name": "1 L Disposable Water Bottle",
+   "category": "water",
+   "weight_oz": 1.3,
+   "volume_l": 0.0,
+   "carry": "outside_strappable",
+   "price_usd": 2,
+   "ten_essentials": "extra_water",
+   "tags": [
+    "water_container",
+    "ultralight",
+    "side_pocket"
+   ],
+   "stats": {
+    "liters": 1.0,
+    "full_volume_l": 1.1
+   },
+   "real_world_notes": "The hiker standard: light, fits side pockets and threads onto squeeze filters. Weighs 2.2 lb when full.",
+   "flavor": "A plain, light bottle that rides in your side pocket and fills at every creek."
+  },
+  {
+   "id": "bottle_hard_1l",
+   "name": "1 L Hard Plastic Bottle",
+   "category": "water",
+   "weight_oz": 6.2,
+   "volume_l": 1.1,
+   "carry": "outside_strappable",
+   "price_usd": 18,
+   "ten_essentials": "extra_water",
+   "tags": [
+    "water_container",
+    "rigid",
+    "hot_water_safe"
+   ],
+   "stats": {
+    "liters": 1.0,
+    "full_volume_l": 1.2,
+    "hot_water_bottle": true
+   },
+   "real_world_notes": "Nearly indestructible. On a cold night, fill it with hot water, close it tightly and tuck it in the sleeping bag.",
+   "flavor": "A tough bottle that can be filled with hot water and hugged on a frosty night."
+  },
+  {
+   "id": "bottle_insulated_steel",
+   "name": "Insulated Steel Bottle 0.75 L",
+   "category": "water",
+   "weight_oz": 13,
+   "volume_l": 1.0,
+   "carry": "outside_strappable",
+   "price_usd": 35,
+   "ten_essentials": null,
+   "tags": [
+    "water_container",
+    "heavy",
+    "camp_comfort"
+   ],
+   "stats": {
+    "liters": 0.75,
+    "keeps_hot_h": 12
+   },
+   "real_world_notes": "Heavy for a water bottle, but tea stays hot from breakfast to the summit.",
+   "flavor": "It keeps your tea hot all the way to the top of the pass."
+  },
+  {
+   "id": "bladder_2l",
+   "name": "2 L Hydration Bladder",
+   "category": "water",
+   "weight_oz": 6,
+   "volume_l": 0.3,
+   "carry": "inside",
+   "price_usd": 39,
+   "ten_essentials": "extra_water",
+   "tags": [
+    "water_container",
+    "hands_free"
+   ],
+   "stats": {
+    "liters": 2.0,
+    "full_volume_l": 2.2
+   },
+   "real_world_notes": "Hands-free sipping keeps you drinking on climbs, but you can't see how much is left, and it is hard to refill in a full pack.",
+   "flavor": "A soft water bag with a long straw, so you can sip without stopping."
+  },
+  {
+   "id": "water_bag_3l",
+   "name": "Collapsible 3 L Water Bag",
+   "category": "water",
+   "weight_oz": 2.5,
+   "volume_l": 0.1,
+   "carry": "inside",
+   "price_usd": 20,
+   "ten_essentials": "extra_water",
+   "tags": [
+    "water_container",
+    "camp_water"
+   ],
+   "stats": {
+    "liters": 3.0,
+    "full_volume_l": 3.2
+   },
+   "real_world_notes": "Carry water up to a dry camp or a dry crest (the High Divide in late summer) and saves trips to the lake.",
+   "flavor": "It folds as flat as a pancake and fills up as round as a pumpkin."
+  },
+  {
+   "id": "map_topo_park",
+   "name": "Olympic Mountains Waterproof Topo Map",
+   "category": "nav",
+   "weight_oz": 3,
+   "volume_l": 0.2,
+   "carry": "inside",
+   "price_usd": 15,
+   "ten_essentials": "navigation",
+   "tags": [
+    "nav_map",
+    "waterproof"
+   ],
+   "stats": {
+    "scale": "1:75,000-class",
+    "covers": "whole park"
+   },
+   "real_world_notes": "A waterproof topographic trail map of the whole park. With a compass and the skill to use it, it finds the way when fog hides the High Divide cairns or snow buries the trail. Paper never runs out of battery.",
+   "flavor": "A folded map with all the rivers drawn in blue and all the mountains drawn in wiggly brown rings."
+  },
+  {
+   "id": "map_park_brochure",
+   "name": "Park Brochure Map",
+   "category": "nav",
+   "weight_oz": 1,
+   "volume_l": 0.1,
+   "carry": "inside",
+   "price_usd": 0,
+   "ten_essentials": null,
+   "tags": [
+    "nav_map_poor",
+    "trap"
+   ],
+   "stats": {
+    "scale": "overview",
+    "contour_lines": false
+   },
+   "real_world_notes": "The free visitor map from the entrance station is for driving, not for finding a trail junction in fog. Better than nothing; not a real navigation map.",
+   "flavor": "A cheerful little map that shows the roads, the visitor centers, and not much else."
+  },
+  {
+   "id": "map_coast_strip",
+   "name": "Wilderness Coast Strip Map",
+   "category": "nav",
+   "weight_oz": 2,
+   "volume_l": 0.1,
+   "carry": "inside",
+   "price_usd": 15,
+   "ten_essentials": "navigation",
+   "tags": [
+    "nav_map",
+    "coast",
+    "waterproof"
+   ],
+   "stats": {
+    "shows": [
+     "impassable headlands",
+     "tide-dependent points",
+     "overland trails",
+     "rope ladders"
+    ]
+   },
+   "real_world_notes": "Shows which headlands can be rounded only at low tide, which are impassable, and where the overland trails and rope ladders are, with the tide height each point needs. Essential with a tide table.",
+   "flavor": "A long, skinny map of the coast, with little red marks where the sea comes all the way up to the cliffs."
+  },
+  {
+   "id": "tide_table",
+   "name": "Tide Table Booklet",
+   "category": "nav",
+   "weight_oz": 1,
+   "volume_l": 0.02,
+   "carry": "inside",
+   "price_usd": 2,
+   "ten_essentials": "navigation",
+   "tags": [
+    "tide_table",
+    "coast"
+   ],
+   "stats": {
+    "station": "La Push (with offsets)",
+    "year": 2026
+   },
+   "real_world_notes": "Coast hikers must know when the tide is low enough to round each headland. A phone app works only while the battery lasts. Needs a time source (watch or phone).",
+   "flavor": "A thin booklet that knows exactly when the sea will breathe in and when it will breathe out."
+  },
+  {
+   "id": "compass_baseplate",
+   "name": "Baseplate Compass with Declination",
+   "category": "nav",
+   "weight_oz": 1.6,
+   "volume_l": 0.05,
+   "carry": "inside",
+   "price_usd": 39,
+   "ten_essentials": "navigation",
+   "tags": [
+    "nav_compass"
+   ],
+   "stats": {
+    "declination_adjust": true,
+    "declination_deg_east": 15
+   },
+   "real_world_notes": "With a topo map, the most reliable way to hold a bearing across a whited-out snowfield or meadow. Magnetic declination on the Peninsula is about 15° east.",
+   "flavor": "A clear compass with a red needle that always remembers which way is north."
+  },
+  {
+   "id": "compass_button",
+   "name": "Keychain Button Compass",
+   "category": "nav",
+   "weight_oz": 0.2,
+   "volume_l": 0.0,
+   "carry": "inside",
+   "price_usd": 5,
+   "ten_essentials": null,
+   "tags": [
+    "nav_compass_poor"
+   ],
+   "stats": {
+    "accuracy_deg": 15
+   },
+   "real_world_notes": "Tells you roughly which way is north, not a bearing. A toy, not a tool.",
+   "flavor": "A tiny compass on a keyring that wobbles and guesses."
+  },
+  {
+   "id": "gps_handheld",
+   "name": "Handheld GPS",
+   "category": "nav",
+   "weight_oz": 8,
+   "volume_l": 0.3,
+   "carry": "inside",
+   "price_usd": 299,
+   "ten_essentials": "navigation",
+   "tags": [
+    "nav_gps",
+    "needs_battery",
+    "waterproof"
+   ],
+   "stats": {
+    "battery_h": 16,
+    "battery_type": "AA x2"
+   },
+   "real_world_notes": "Shows exactly where you are, even on a buried trail. Batteries die in cold; carry spares.",
+   "flavor": "A sturdy little screen with a dot that shows exactly where you are standing."
+  },
+  {
+   "id": "phone",
+   "name": "Smartphone",
+   "category": "nav",
+   "weight_oz": 7,
+   "volume_l": 0.1,
+   "carry": "worn",
+   "price_usd": 0,
+   "ten_essentials": null,
+   "tags": [
+    "phone",
+    "nav_gps_if_maps",
+    "time_source",
+    "camera_basic",
+    "needs_battery",
+    "fragile",
+    "light_phone"
+   ],
+   "stats": {
+    "battery_h_airplane": 48,
+    "battery_h_normal": 12,
+    "flashlight_lumens": 40,
+    "cell_signal": "rare"
+   },
+   "real_world_notes": "Already owned (price 0). In airplane mode with downloaded offline maps it is a decent GPS, clock, camera and dim flashlight. Cell service is absent in almost all of the park's backcountry. Cold, rain and a dropped phone end its usefulness.",
+   "flavor": "Your telephone, which up here becomes a camera, a clock, and a map, but rarely a telephone."
+  },
+  {
+   "id": "app_offline_maps",
+   "name": "Offline Topo Map App (annual)",
+   "category": "nav",
+   "weight_oz": 0,
+   "volume_l": 0.0,
+   "carry": "inside",
+   "price_usd": 40,
+   "ten_essentials": "navigation",
+   "tags": [
+    "nav_gps_if_maps"
+   ],
+   "stats": {
+    "requires": "phone",
+    "maps_downloaded": true
+   },
+   "real_world_notes": "Turns the phone into a GPS with topo maps, if the maps were downloaded at home before the trip. Weightless but battery-limited.",
+   "flavor": "Maps that live inside your telephone and need no paper at all, only a little battery."
+  },
+  {
+   "id": "power_bank_10k",
+   "name": "Power Bank 10,000 mAh",
+   "category": "nav",
+   "weight_oz": 7,
+   "volume_l": 0.2,
+   "carry": "inside",
+   "price_usd": 35,
+   "ten_essentials": null,
+   "tags": [
+    "battery_bank",
+    "rechargeable"
+   ],
+   "stats": {
+    "phone_charges": 2.5,
+    "headlamp_charges": 8
+   },
+   "real_world_notes": "About 2 to 3 phone charges. Enough for 3 to 5 days of careful phone use.",
+   "flavor": "A small brick that stores electricity, like a snack for your telephone."
+  },
+  {
+   "id": "power_bank_20k",
+   "name": "Power Bank 20,000 mAh",
+   "category": "nav",
+   "weight_oz": 13,
+   "volume_l": 0.3,
+   "carry": "inside",
+   "price_usd": 55,
+   "ten_essentials": null,
+   "tags": [
+    "battery_bank",
+    "rechargeable",
+    "heavy"
+   ],
+   "stats": {
+    "phone_charges": 5,
+    "headlamp_charges": 16
+   },
+   "real_world_notes": "For long trips or heavy camera and GPS use. Weighs as much as a day of food.",
+   "flavor": "A bigger brick with a week's worth of electricity inside."
+  },
+  {
+   "id": "satellite_messenger",
+   "name": "Satellite Messenger with SOS",
+   "category": "nav",
+   "weight_oz": 4,
+   "volume_l": 0.1,
+   "carry": "worn",
+   "price_usd": 349,
+   "ten_essentials": null,
+   "tags": [
+    "messenger",
+    "sos",
+    "needs_battery",
+    "time_source"
+   ],
+   "stats": {
+    "battery_days": 10,
+    "subscription_usd_per_month": 15,
+    "two_way_text": true
+   },
+   "real_world_notes": "Two-way texts and an SOS button that work almost anywhere under open sky; deep forest and canyon walls slow or block messages. A rescue still takes hours to days in the Olympics. Requires a subscription.",
+   "flavor": "A small orange box that can whisper to the satellites, so someone always knows where you are."
+  },
+  {
+   "id": "watch_altimeter",
+   "name": "Altimeter Watch",
+   "category": "nav",
+   "weight_oz": 2,
+   "volume_l": 0.0,
+   "carry": "worn",
+   "price_usd": 199,
+   "ten_essentials": null,
+   "tags": [
+    "time_source",
+    "altimeter",
+    "needs_battery"
+   ],
+   "stats": {
+    "battery_days": 20,
+    "barometer": true
+   },
+   "real_world_notes": "Time for the tides and the turnaround, altitude for finding where you are on a long climb. A falling barometer warns of an incoming front.",
+   "flavor": "A wristwatch that knows how high you are and whether the weather is changing its mind."
+  },
+  {
+   "id": "watch_basic",
+   "name": "Plain Digital Watch",
+   "category": "nav",
+   "weight_oz": 1.5,
+   "volume_l": 0.0,
+   "carry": "worn",
+   "price_usd": 25,
+   "ten_essentials": null,
+   "tags": [
+    "time_source"
+   ],
+   "stats": {
+    "battery_days": 700,
+    "alarm": true
+   },
+   "real_world_notes": "A reliable clock for tide windows and alpine starts that never runs out of battery on a trip.",
+   "flavor": "A simple watch that beeps at dawn and keeps time with the tides."
+  },
+  {
+   "id": "guidebook_olympics",
+   "name": "Trail Guidebook to the Olympics",
+   "category": "nav",
+   "weight_oz": 12,
+   "volume_l": 0.6,
+   "carry": "inside",
+   "price_usd": 25,
+   "ten_essentials": null,
+   "tags": [
+    "guidebook",
+    "reading"
+   ],
+   "stats": {
+    "joy": 1,
+    "route_info": true
+   },
+   "real_world_notes": "Trail descriptions, mileages and history. Most hikers photocopy the relevant pages instead of carrying the whole book.",
+   "flavor": "A well-thumbed book that tells you what is around the next bend, and who named it."
+  },
+  {
+   "id": "headlamp",
+   "name": "Headlamp",
+   "category": "light",
+   "weight_oz": 3,
+   "volume_l": 0.1,
+   "carry": "inside",
+   "price_usd": 39,
+   "ten_essentials": "headlamp",
+   "tags": [
+    "light_headlamp",
+    "needs_battery"
+   ],
+   "stats": {
+    "lumens": 350,
+    "battery_h_low": 40,
+    "battery_h_high": 4,
+    "battery_type": "AAA x3"
+   },
+   "tiers": [
+    {
+     "tier": "cheap",
+     "name": "Budget Headlamp",
+     "weight_oz": 2.5,
+     "volume_l": 0.1,
+     "price_usd": 15,
+     "stats": {
+      "lumens": 100,
+      "battery_h_low": 20,
+      "battery_h_high": 2
+     }
+    },
+    {
+     "tier": "premium",
+     "name": "Rechargeable Headlamp (USB)",
+     "weight_oz": 2.7,
+     "volume_l": 0.1,
+     "price_usd": 69,
+     "stats": {
+      "lumens": 450,
+      "battery_h_low": 50,
+      "battery_type": "rechargeable"
+     },
+     "tags_add": [
+      "rechargeable"
+     ]
+    }
+   ],
+   "real_world_notes": "A headlamp is the difference between an awkward late arrival and a night lost on the trail. Every party member needs their own. Tree cover in the river valleys makes it dark well before official sunset.",
+   "flavor": "A small light worn on your forehead, so your hands are free and the dark is a little smaller."
+  },
+  {
+   "id": "batteries_spare_aaa",
+   "name": "Spare AAA Batteries (3)",
+   "category": "light",
+   "weight_oz": 1.2,
+   "volume_l": 0.0,
+   "carry": "inside",
+   "price_usd": 6,
+   "ten_essentials": "headlamp",
+   "tags": [
+    "battery_spare"
+   ],
+   "stats": {
+    "count": 3,
+    "lithium": false
+   },
+   "real_world_notes": "Spare batteries for the headlamp or GPS. Lithium cells work better in the cold.",
+   "flavor": "Three little batteries, waiting quietly in case the night is long."
+  },
+  {
+   "id": "flashlight_big",
+   "name": "Big D-Cell Flashlight",
+   "category": "light",
+   "weight_oz": 22,
+   "volume_l": 1.0,
+   "carry": "inside",
+   "price_usd": 20,
+   "ten_essentials": null,
+   "tags": [
+    "light_flashlight",
+    "heavy",
+    "trap"
+   ],
+   "stats": {
+    "lumens": 150,
+    "battery_h_low": 20,
+    "hands_free": false
+   },
+   "real_world_notes": "Heavy, needs a free hand, and the beam wobbles while you walk. A nostalgic trap; a headlamp does the job at an eighth of the weight.",
+   "flavor": "A long silver flashlight from the kitchen drawer, heavy as a rolling pin."
+  },
+  {
+   "id": "lantern_inflatable_solar",
+   "name": "Inflatable Solar Lantern",
+   "category": "light",
+   "weight_oz": 4,
+   "volume_l": 0.3,
+   "carry": "inside",
+   "price_usd": 25,
+   "ten_essentials": null,
+   "tags": [
+    "light_lantern",
+    "camp_comfort",
+    "solar"
+   ],
+   "stats": {
+    "lumens": 75,
+    "battery_h_low": 24,
+    "charges_in_sun_h": 8,
+    "joy": 1
+   },
+   "real_world_notes": "A soft glow in the tent. Charges poorly under rain-forest canopy and in fog.",
+   "flavor": "A glowing paper-lantern ball that makes the tent feel like a little house."
+  },
+  {
+   "id": "first_aid_basic",
+   "name": "Basic First Aid Kit",
+   "category": "first_aid",
+   "weight_oz": 5,
+   "volume_l": 0.5,
+   "carry": "inside",
+   "price_usd": 25,
+   "ten_essentials": "first_aid",
+   "tags": [
+    "first_aid_1"
+   ],
+   "stats": {
+    "level": 1,
+    "contents": [
+     "bandages",
+     "gauze",
+     "tape",
+     "antiseptic wipes",
+     "ibuprofen",
+     "tweezers"
+    ]
+   },
+   "real_world_notes": "Handles cuts, scrapes and headaches. Not enough for a sprain or a bad fall far from the road.",
+   "flavor": "A small red pouch with bandages, tape, and a little bottle of courage."
+  },
+  {
+   "id": "first_aid_complete",
+   "name": "Comprehensive Backcountry First Aid Kit",
+   "category": "first_aid",
+   "weight_oz": 14,
+   "volume_l": 1.2,
+   "carry": "inside",
+   "price_usd": 60,
+   "ten_essentials": "first_aid",
+   "tags": [
+    "first_aid_2"
+   ],
+   "stats": {
+    "level": 2,
+    "contents": [
+     "wound care",
+     "blister care",
+     "elastic wrap",
+     "medications",
+     "trauma pad",
+     "gloves",
+     "irrigation syringe",
+     "instruction booklet"
+    ]
+   },
+   "real_world_notes": "Manages a sprain, a deep cut or a wet, cold companion long enough to walk out or wait for help.",
+   "flavor": "A thicker pouch with a little booklet inside, for the days when something goes truly wrong."
+  },
+  {
+   "id": "blister_kit",
+   "name": "Blister Kit",
+   "category": "first_aid",
+   "weight_oz": 1.5,
+   "volume_l": 0.1,
+   "carry": "inside",
+   "price_usd": 14,
+   "ten_essentials": "first_aid",
+   "tags": [
+    "blister_kit"
+   ],
+   "stats": {
+    "contents": [
+     "hydrocolloid patches",
+     "rigid tape",
+     "moleskin",
+     "tiny scissors"
+    ]
+   },
+   "real_world_notes": "Treat hot spots the moment you feel them; a blister on day one can end a five-day trip. Wet feet in the Olympics make this especially important.",
+   "flavor": "Tape and patches for feet that have walked too far in damp socks."
+  },
+  {
+   "id": "meds_kit",
+   "name": "Trail Medicine Kit",
+   "category": "first_aid",
+   "weight_oz": 1,
+   "volume_l": 0.1,
+   "carry": "inside",
+   "price_usd": 15,
+   "ten_essentials": "first_aid",
+   "tags": [
+    "meds"
+   ],
+   "stats": {
+    "contents": [
+     "ibuprofen",
+     "antihistamine",
+     "anti-diarrheal",
+     "electrolyte tabs"
+    ]
+   },
+   "real_world_notes": "A few doses each of pain relief, allergy, stomach and electrolyte medicine. Bring any personal prescriptions.",
+   "flavor": "A tiny case of pills and powders, each one a small comfort for a hard day."
+  },
+  {
+   "id": "splint_moldable",
+   "name": "Moldable Foam Splint",
+   "category": "first_aid",
+   "weight_oz": 4,
+   "volume_l": 0.3,
+   "carry": "inside",
+   "price_usd": 20,
+   "ten_essentials": "first_aid",
+   "tags": [
+    "splint"
+   ],
+   "stats": {
+    "length_in": 36
+   },
+   "real_world_notes": "Stabilizes an injured ankle or wrist for a slow walk out. Also improvised from a foam pad and trekking poles.",
+   "flavor": "A soft metal strip that bends into whatever shape a hurt ankle needs."
+  },
+  {
+   "id": "hand_sanitizer",
+   "name": "Hand Sanitizer (2 oz)",
+   "category": "first_aid",
+   "weight_oz": 2,
+   "volume_l": 0.06,
+   "carry": "inside",
+   "price_usd": 4,
+   "ten_essentials": null,
+   "tags": [
+    "hygiene",
+    "smellable"
+   ],
+   "stats": {
+    "illness_reduction": 0.3
+   },
+   "real_world_notes": "Most 'trail sickness' is passed hand to mouth, not through water. Clean hands after the cathole and before dinner. Scented; it goes in the canister.",
+   "flavor": "A small bottle that keeps unseen germs from joining you for supper."
+  },
+  {
+   "id": "toiletry_kit",
+   "name": "Toothbrush, Toothpaste and Lip Balm",
+   "category": "first_aid",
+   "weight_oz": 2,
+   "volume_l": 0.1,
+   "carry": "inside",
+   "price_usd": 6,
+   "ten_essentials": null,
+   "tags": [
+    "hygiene",
+    "smellable"
+   ],
+   "stats": {
+    "canister_l": 0.1
+   },
+   "real_world_notes": "Toothpaste and lip balm are smellables that must go in the bear canister at night. Spit toothpaste 200 ft from water and camp.",
+   "flavor": "A small toothbrush, a tiny tube of minty paste, and a stick of balm for windburned lips."
+  },
+  {
+   "id": "repair_kit_basic",
+   "name": "Basic Repair Kit",
+   "category": "repair",
+   "weight_oz": 2,
+   "volume_l": 0.1,
+   "carry": "inside",
+   "price_usd": 12,
+   "ten_essentials": "knife",
+   "tags": [
+    "repair_kit"
+   ],
+   "stats": {
+    "contents": [
+     "duct tape wrap",
+     "needle and thread",
+     "safety pins",
+     "zip ties",
+     "spare buckle",
+     "cord"
+    ]
+   },
+   "real_world_notes": "Fixes a broken buckle, torn strap, blown seam or flapping sole well enough to finish the trip.",
+   "flavor": "Pins, thread, tape and a spare buckle, for mending what the trail has torn."
+  },
+  {
+   "id": "pad_patch_kit",
+   "name": "Sleeping Pad Patch Kit",
+   "category": "repair",
+   "weight_oz": 0.5,
+   "volume_l": 0.0,
+   "carry": "inside",
+   "price_usd": 8,
+   "ten_essentials": null,
+   "tags": [
+    "repair_kit",
+    "pad_repair"
+   ],
+   "stats": {
+    "patches": 6
+   },
+   "real_world_notes": "Without it, a punctured air pad is a cold, sleepless night on the ground.",
+   "flavor": "Six little patches that turn a sad, flat pad back into a bed."
+  },
+  {
+   "id": "repair_tape",
+   "name": "Gear Repair Tape Patches",
+   "category": "repair",
+   "weight_oz": 0.5,
+   "volume_l": 0.0,
+   "carry": "inside",
+   "price_usd": 7,
+   "ten_essentials": null,
+   "tags": [
+    "repair_kit",
+    "fabric_repair"
+   ],
+   "stats": {
+    "patches": 4
+   },
+   "real_world_notes": "Sticky patches for torn rain jackets, tents and down puffies leaking feathers.",
+   "flavor": "Sticky patches that hold in the feathers when a puffy jacket gets a tear."
+  },
+  {
+   "id": "pole_splint",
+   "name": "Tent Pole Repair Sleeve",
+   "category": "repair",
+   "weight_oz": 0.5,
+   "volume_l": 0.0,
+   "carry": "inside",
+   "price_usd": 6,
+   "ten_essentials": null,
+   "tags": [
+    "repair_kit",
+    "pole_repair"
+   ],
+   "stats": {},
+   "real_world_notes": "Splints a cracked tent pole so the tent stands through the night.",
+   "flavor": "A short metal tube that hugs a broken tent pole until it is strong again."
+  },
+  {
+   "id": "duct_tape_roll",
+   "name": "Whole Roll of Duct Tape",
+   "category": "repair",
+   "weight_oz": 10,
+   "volume_l": 0.4,
+   "carry": "inside",
+   "price_usd": 8,
+   "ten_essentials": null,
+   "tags": [
+    "repair_kit",
+    "heavy",
+    "trap"
+   ],
+   "stats": {},
+   "real_world_notes": "A whole roll fixes everything and weighs 10 oz. Wrapping 5 ft around a trekking pole or bottle does the same job for an ounce.",
+   "flavor": "A big silver roll of tape, ready to fix everything twice, or ten times."
+  },
+  {
+   "id": "seam_sealer",
+   "name": "Seam Sealer Tube",
+   "category": "repair",
+   "weight_oz": 1,
+   "volume_l": 0.05,
+   "carry": "inside",
+   "price_usd": 9,
+   "ten_essentials": null,
+   "tags": [
+    "repair_kit"
+   ],
+   "stats": {
+    "cure_h": 8
+   },
+   "real_world_notes": "Fixes a leaking tent seam, but it has to cure for hours. Better done at home.",
+   "flavor": "A small tube of glue that stops a leaky tent from dripping on your nose."
+  },
+  {
+   "id": "sunscreen",
+   "name": "Sunscreen SPF 50 (3 oz)",
+   "category": "sun",
+   "weight_oz": 3.5,
+   "volume_l": 0.1,
+   "carry": "inside",
+   "price_usd": 12,
+   "ten_essentials": "sun",
+   "tags": [
+    "sun_screen",
+    "smellable"
+   ],
+   "stats": {
+    "spf": 50
+   },
+   "real_world_notes": "Snowfields and high meadows reflect strong sun, even on cool days. Sunscreen is scented, so it goes in the canister at night.",
+   "flavor": "Creamy lotion that keeps your nose from turning as pink as a salmonberry."
+  },
+  {
+   "id": "sunglasses",
+   "name": "Sunglasses",
+   "category": "sun",
+   "weight_oz": 1,
+   "volume_l": 0.1,
+   "carry": "worn",
+   "price_usd": 25,
+   "ten_essentials": "sun",
+   "tags": [
+    "sun_glasses"
+   ],
+   "stats": {
+    "category": 3
+   },
+   "real_world_notes": "Fine for trail and meadow. Too little for long snow travel.",
+   "flavor": "Dark glasses for bright meadows and glittering lakes."
+  },
+  {
+   "id": "glacier_glasses",
+   "name": "Glacier Glasses (category 4, side shields)",
+   "category": "sun",
+   "weight_oz": 1.5,
+   "volume_l": 0.2,
+   "carry": "worn",
+   "price_usd": 79,
+   "ten_essentials": "sun",
+   "tags": [
+    "sun_glasses",
+    "glacier_travel"
+   ],
+   "stats": {
+    "category": 4,
+    "prevents": "snow_blindness"
+   },
+   "real_world_notes": "Required for the Blue Glacier and the Snow Dome: hours on bright snow without them cause snow blindness, a painful sunburn of the eyes that appears that night.",
+   "flavor": "Very dark glasses with little side shields, so the snow cannot dazzle you."
+  },
+  {
+   "id": "sun_hat",
+   "name": "Wide-Brim Sun Hat",
+   "category": "sun",
+   "weight_oz": 3,
+   "volume_l": 0.4,
+   "carry": "worn",
+   "price_usd": 39,
+   "ten_essentials": "sun",
+   "tags": [
+    "sun_hat",
+    "rain_brim"
+   ],
+   "stats": {
+    "sun_protection": 3
+   },
+   "real_world_notes": "Shades the face and neck on exposed climbs, sheds light rain off glasses.",
+   "flavor": "A floppy hat with a wide brim, like a small umbrella for sunny days."
+  },
+  {
+   "id": "ball_cap",
+   "name": "Ball Cap",
+   "category": "sun",
+   "weight_oz": 2.5,
+   "volume_l": 0.3,
+   "carry": "worn",
+   "price_usd": 25,
+   "ten_essentials": "sun",
+   "tags": [
+    "sun_hat"
+   ],
+   "stats": {
+    "sun_protection": 1
+   },
+   "real_world_notes": "Shades the eyes, leaves ears and neck to burn.",
+   "flavor": "A cap with a curved brim, good for keeping the sun out of your eyes."
+  },
+  {
+   "id": "sun_hoody",
+   "name": "UPF Sun Hoody",
+   "category": "sun",
+   "weight_oz": 6,
+   "volume_l": 0.5,
+   "carry": "worn",
+   "price_usd": 65,
+   "ten_essentials": "sun",
+   "tags": [
+    "sun_clothing",
+    "quick_dry",
+    "synthetic"
+   ],
+   "stats": {
+    "upf": 50,
+    "insulation": 1,
+    "covers": [
+     "torso",
+     "head"
+    ]
+   },
+   "real_world_notes": "Sun protection without reapplying sunscreen, and a light bug barrier. Popular for long exposed days.",
+   "flavor": "A thin, airy shirt with a hood that keeps the sun off your neck and arms."
+  },
+  {
+   "id": "lip_balm_spf",
+   "name": "SPF Lip Balm",
+   "category": "sun",
+   "weight_oz": 0.25,
+   "volume_l": 0.0,
+   "carry": "inside",
+   "price_usd": 4,
+   "ten_essentials": "sun",
+   "tags": [
+    "sun_screen",
+    "smellable"
+   ],
+   "stats": {
+    "spf": 30
+   },
+   "real_world_notes": "Sun and wind crack lips quickly on snow. A smellable for the canister.",
+   "flavor": "A tiny stick that keeps wind and sun from chapping your smile."
+  },
+  {
+   "id": "canister_standard",
+   "name": "Bear Canister, Standard 11.5 L",
+   "category": "food_storage",
+   "weight_oz": 41,
+   "volume_l": 12.4,
+   "carry": "inside",
+   "price_usd": 95,
+   "ten_essentials": null,
+   "tags": [
+    "bear_resistant",
+    "canister",
+    "park_approved",
+    "rigid"
+   ],
+   "stats": {
+    "capacity_l": 11.5,
+    "usable_l": 9.8,
+    "person_days_typical": 5,
+    "approved_olympic_2026": true,
+    "lid": "tool-free screw lid"
+   },
+   "tiers": [
+    {
+     "tier": "premium",
+     "name": "Carbon-Fiber Bear Canister (10.6 L)",
+     "weight_oz": 31,
+     "volume_l": 11.2,
+     "price_usd": 329,
+     "stats": {
+      "capacity_l": 10.6,
+      "usable_l": 9.0,
+      "person_days_typical": 4.5,
+      "lid": "coin-screw lid"
+     },
+     "tags_add": [
+      "ultralight"
+     ],
+     "note": "Lighter and costlier; slightly smaller inside."
+    }
+   ],
+   "real_world_notes": "Required for every overnight in Olympic wilderness in 2026: food, trash and every scented item go inside at night, and hanging is not allowed. Holds about 5 person-days of food (the BV500-class size most backpackers know). volume_l is the outside size; capacity_l is what fits inside. Free loaners at the Port Angeles WIC when available.",
+   "flavor": "A sturdy plastic barrel with a twist lid, the one thing a hungry bear cannot open."
+  },
+  {
+   "id": "canister_small",
+   "name": "Bear Canister, Small 7.2 L",
+   "category": "food_storage",
+   "weight_oz": 33,
+   "volume_l": 8.1,
+   "carry": "inside",
+   "price_usd": 85,
+   "ten_essentials": null,
+   "tags": [
+    "bear_resistant",
+    "canister",
+    "park_approved",
+    "rigid"
+   ],
+   "stats": {
+    "capacity_l": 7.2,
+    "usable_l": 6.1,
+    "person_days_typical": 3,
+    "approved_olympic_2026": true
+   },
+   "real_world_notes": "The BV450-class size. Fits a fastpack and holds about 3 person-days of food. Great for one or two nights solo; on longer trips the food simply won't fit.",
+   "flavor": "A smaller barrel, just right for a short trip and a careful eater."
+  },
+  {
+   "id": "canister_classic",
+   "name": "Bear Canister, Classic Opaque 10 L",
+   "category": "food_storage",
+   "weight_oz": 44,
+   "volume_l": 12.0,
+   "carry": "inside",
+   "price_usd": 80,
+   "ten_essentials": null,
+   "tags": [
+    "bear_resistant",
+    "canister",
+    "park_approved",
+    "rigid",
+    "heavy"
+   ],
+   "stats": {
+    "capacity_l": 10.1,
+    "usable_l": 8.6,
+    "person_days_typical": 4,
+    "approved_olympic_2026": true,
+    "lid": "coin-twist latches"
+   },
+   "real_world_notes": "The heavy, black workhorse common in loaner fleets. The coin latches are fiddly with cold fingers; carry a coin or use a spoon handle.",
+   "flavor": "A heavy black drum with two little locks that open with a coin and a bit of patience."
+  },
+  {
+   "id": "canister_wic_loaner",
+   "name": "Loaner Bear Canister (free from the WIC)",
+   "category": "food_storage",
+   "weight_oz": 44,
+   "volume_l": 12.0,
+   "carry": "inside",
+   "price_usd": 0,
+   "ten_essentials": null,
+   "tags": [
+    "bear_resistant",
+    "canister",
+    "park_approved",
+    "rigid",
+    "heavy",
+    "loaner"
+   ],
+   "stats": {
+    "capacity_l": 10.1,
+    "usable_l": 8.6,
+    "person_days_typical": 4,
+    "approved_olympic_2026": true,
+    "availability_summer_weekend": 0.7,
+    "availability_midweek": 0.95
+   },
+   "real_world_notes": "The Port Angeles Wilderness Information Center lends canisters free when they have them (the Quinault station was closed in 2026). Availability is first come, first served; return it after the trip.",
+   "flavor": "A well-traveled canister with scuffs from a hundred trips, borrowed from the rangers and returned with thanks."
+  },
+  {
+   "id": "bear_sack_soft",
+   "name": "Woven Bear-Resistant Food Sack",
+   "category": "food_storage",
+   "weight_oz": 8,
+   "volume_l": 0.5,
+   "carry": "inside",
+   "price_usd": 99,
+   "ten_essentials": null,
+   "tags": [
+    "bear_resistant_soft",
+    "not_park_approved",
+    "ultralight",
+    "trap"
+   ],
+   "stats": {
+    "capacity_l": 10.6,
+    "approved_olympic_2026": false,
+    "crushable_contents": true
+   },
+   "real_world_notes": "Light and approved in some other wilderness areas, but NOT on Olympic's 2026 approved list. Using it instead of a canister breaks the rules, can earn a citation, and leaves food crushed and slobbered if an animal works on it.",
+   "flavor": "A tough white sack that would be fine in some forests, but not in this park."
+  },
+  {
+   "id": "odor_proof_bags",
+   "name": "Odor-Barrier Bags (2)",
+   "category": "food_storage",
+   "weight_oz": 1,
+   "volume_l": 0.0,
+   "carry": "inside",
+   "price_usd": 15,
+   "ten_essentials": null,
+   "tags": [
+    "odor_barrier",
+    "not_park_approved"
+   ],
+   "stats": {
+    "count": 2
+   },
+   "real_world_notes": "Reduce smells inside a canister or pack, but they are not food storage on their own.",
+   "flavor": "Thick bags that keep the smell of salami from drifting out into the night."
+  },
+  {
+   "id": "hang_kit",
+   "name": "Bear Hang Kit (rope, carabiner, stuff sack)",
+   "category": "food_storage",
+   "weight_oz": 6,
+   "volume_l": 0.4,
+   "carry": "inside",
+   "price_usd": 25,
+   "ten_essentials": null,
+   "tags": [
+    "hang",
+    "not_park_approved",
+    "trap"
+   ],
+   "stats": {
+    "cord_ft": 50
+   },
+   "real_world_notes": "Hanging food is prohibited in Olympic wilderness as of 2026 (bear wires removed or not acceptable), and raccoons defeat hangs on the coast. Makes a good clothesline.",
+   "flavor": "A long cord and a little bag, from the days when food was hung from tall branches, before the bears learned the trick."
+  },
+  {
+   "id": "trekking_poles",
+   "name": "Trekking Poles (pair)",
+   "category": "traction",
+   "weight_oz": 17,
+   "volume_l": 0.6,
+   "carry": "outside_strappable",
+   "price_usd": 99,
+   "ten_essentials": null,
+   "tags": [
+    "poles",
+    "ford_aid",
+    "knee_saver"
+   ],
+   "stats": {
+    "ford_bonus": 10,
+    "footing_bonus": 5,
+    "descent_knee_saving": 0.2
+   },
+   "tiers": [
+    {
+     "tier": "cheap",
+     "name": "Aluminum Poles (budget)",
+     "weight_oz": 22,
+     "volume_l": 0.7,
+     "price_usd": 39,
+     "stats": {
+      "ford_bonus": 8
+     },
+     "note": "Flick-locks loosen; tips wear fast."
+    },
+    {
+     "tier": "premium",
+     "name": "Carbon Folding Poles",
+     "weight_oz": 11,
+     "volume_l": 0.5,
+     "price_usd": 189,
+     "stats": {
+      "ford_bonus": 10
+     },
+     "tags_add": [
+      "ultralight",
+      "fragile"
+     ],
+     "note": "Carbon can snap if wedged between rocks."
+    }
+   ],
+   "real_world_notes": "Steadier fords, easier descents on the knees, balance on snow and slick roots, and they pitch a trekking-pole tent. Stowed on the pack for ladders and hand-over-hand scrambles.",
+   "flavor": "Two walking sticks that make you a four-legged animal on slippery ground."
+  },
+  {
+   "id": "traction_chains",
+   "name": "Slip-On Traction Chains",
+   "category": "traction",
+   "weight_oz": 13,
+   "volume_l": 0.6,
+   "carry": "inside",
+   "price_usd": 79,
+   "ten_essentials": null,
+   "tags": [
+    "traction",
+    "traction_snow"
+   ],
+   "stats": {
+    "traction": 3,
+    "ice_ok": "packed snow and thin ice",
+    "steep_snow_ok": false
+   },
+   "real_world_notes": "Slip-on chains for icy trail and firm snow patches, common on high trails through early July and after October frosts. Not crampons: no use on steep glacier ice.",
+   "flavor": "Little chains with tiny teeth that bite into icy snow, so your shoes don't slip."
+  },
+  {
+   "id": "crampons_steel",
+   "name": "Steel 12-Point Crampons",
+   "category": "traction",
+   "weight_oz": 36,
+   "volume_l": 1.5,
+   "carry": "outside_strappable",
+   "price_usd": 199,
+   "ten_essentials": null,
+   "tags": [
+    "traction",
+    "traction_snow",
+    "glacier_travel",
+    "heavy",
+    "sharp"
+   ],
+   "stats": {
+    "traction": 5,
+    "ice_ok": "glacier ice",
+    "steep_snow_ok": true,
+    "rent_usd_per_day": 15,
+    "needs_boots": "stiff boots for strap/hybrid bindings"
+   },
+   "real_world_notes": "Real glacier crampons for the Blue Glacier and the Snow Dome. They need stiff boots and practice; the points shred gaiters, pant legs and sleeping pads if packed carelessly.",
+   "flavor": "Spiky steel frames that strap to your boots and grip the glacier like a goat's hooves."
+  },
+  {
+   "id": "crampons_aluminum",
+   "name": "Aluminum Crampons",
+   "category": "traction",
+   "weight_oz": 21,
+   "volume_l": 1.2,
+   "carry": "outside_strappable",
+   "price_usd": 169,
+   "ten_essentials": null,
+   "tags": [
+    "traction",
+    "traction_snow",
+    "sharp"
+   ],
+   "stats": {
+    "traction": 4,
+    "ice_ok": "snow, not hard ice",
+    "steep_snow_ok": true
+   },
+   "real_world_notes": "Light crampons for snow slopes and spring passes. Dull quickly on rock and lose grip on hard glacier ice.",
+   "flavor": "Light, silvery crampons for snowy slopes, though the hard blue ice may laugh at them."
+  },
+  {
+   "id": "ice_axe",
+   "name": "Mountaineering Ice Axe (65 cm)",
+   "category": "traction",
+   "weight_oz": 17,
+   "volume_l": 1.5,
+   "carry": "outside_strappable",
+   "price_usd": 109,
+   "ten_essentials": null,
+   "tags": [
+    "ice_axe",
+    "traction_snow",
+    "glacier_travel"
+   ],
+   "stats": {
+    "self_arrest": true,
+    "rent_usd_per_day": 10,
+    "skill_needed": "snow"
+   },
+   "tiers": [
+    {
+     "tier": "premium",
+     "name": "Ultralight Aluminum Axe",
+     "weight_oz": 12,
+     "volume_l": 1.3,
+     "price_usd": 139,
+     "stats": {
+      "self_arrest": true,
+      "hard_ice": false
+     },
+     "tags_add": [
+      "ultralight"
+     ]
+    }
+   ],
+   "real_world_notes": "Self-arrest on steep snow, the avalanche chutes below Glacier Meadows in early season, and every glacier step. Useful only if you know how to self-arrest; many trips stop at the lateral moraine for exactly that reason.",
+   "flavor": "A long-handled pick that can stop a slide down a snowy slope, if you know how to hold it."
+  },
+  {
+   "id": "snowshoes",
+   "name": "Snowshoes",
+   "category": "traction",
+   "weight_oz": 64,
+   "volume_l": 6.0,
+   "carry": "outside_strappable",
+   "price_usd": 229,
+   "ten_essentials": null,
+   "tags": [
+    "traction_snow",
+    "flotation",
+    "heavy",
+    "bulky",
+    "winter"
+   ],
+   "stats": {
+    "flotation": 3
+   },
+   "real_world_notes": "Floats you over deep snow at Hurricane Ridge in winter and on early-season approaches. Big and heavy on the pack when the trail is bare.",
+   "flavor": "Wide, flat shoes that let you walk on top of the snow, like a snowshoe hare."
+  },
+  {
+   "id": "helmet_climbing",
+   "name": "Climbing Helmet",
+   "category": "climbing",
+   "weight_oz": 12,
+   "volume_l": 4.5,
+   "carry": "outside_strappable",
+   "price_usd": 79,
+   "ten_essentials": null,
+   "tags": [
+    "helmet",
+    "glacier_travel",
+    "rockfall_protection",
+    "bulky"
+   ],
+   "stats": {
+    "rockfall_protection": 2,
+    "rent_usd_per_day": 8
+   },
+   "real_world_notes": "Rockfall is a real hazard below Olympus's summit block and in loose chutes. Bulky; clips outside the pack.",
+   "flavor": "A hard hat for the mountain, because sometimes the mountain drops small stones."
+  },
+  {
+   "id": "harness_alpine",
+   "name": "Alpine Climbing Harness",
+   "category": "climbing",
+   "weight_oz": 10,
+   "volume_l": 0.8,
+   "carry": "inside",
+   "price_usd": 79,
+   "ten_essentials": null,
+   "tags": [
+    "harness",
+    "glacier_travel"
+   ],
+   "stats": {
+    "rent_usd_per_day": 8
+   },
+   "real_world_notes": "Needed to rope up for the crevassed Blue Glacier and Snow Dome, and to rappel or belay on the summit block.",
+   "flavor": "A set of loops and buckles that ties you safely to your friends on the ice."
+  },
+  {
+   "id": "rope_glacier_30m",
+   "name": "Glacier Rope 30 m (8 mm, dry-treated)",
+   "category": "climbing",
+   "weight_oz": 46,
+   "volume_l": 4.0,
+   "carry": "outside_strappable",
+   "price_usd": 199,
+   "ten_essentials": null,
+   "tags": [
+    "rope",
+    "glacier_travel",
+    "heavy",
+    "needs_partner"
+   ],
+   "stats": {
+    "length_m": 30,
+    "diameter_mm": 8,
+    "min_party": 2,
+    "rent_usd_per_day": 20
+   },
+   "real_world_notes": "A rope team of at least two (three is better for crevasse rescue) is standard on the Blue Glacier. A rope alone does nothing without the skills to stop a fall and haul someone out.",
+   "flavor": "A long, bright rope that ties a team together, so no one walks the glacier alone."
+  },
+  {
+   "id": "crevasse_rescue_kit",
+   "name": "Crevasse Rescue Kit",
+   "category": "climbing",
+   "weight_oz": 40,
+   "volume_l": 2.5,
+   "carry": "outside_strappable",
+   "price_usd": 249,
+   "ten_essentials": null,
+   "tags": [
+    "glacier_travel",
+    "rescue_hardware",
+    "heavy",
+    "needs_partner"
+   ],
+   "stats": {
+    "contents": [
+     "2 snow pickets",
+     "2 pulleys",
+     "prusik cords",
+     "4 locking carabiners",
+     "slings",
+     "ice screw"
+    ],
+    "rent_usd_per_day": 15
+   },
+   "real_world_notes": "Pickets, pulleys, prusiks and carabiners to anchor and haul a partner from a crevasse. Pickets ride outside the pack.",
+   "flavor": "Pulleys and cords and clinking metal, for pulling a friend out of a crack in the ice."
+  },
+  {
+   "id": "avalanche_kit",
+   "name": "Avalanche Beacon, Probe and Shovel",
+   "category": "climbing",
+   "weight_oz": 50,
+   "volume_l": 3.0,
+   "carry": "inside",
+   "price_usd": 499,
+   "ten_essentials": null,
+   "tags": [
+    "avalanche_gear",
+    "winter",
+    "heavy",
+    "needs_partner"
+   ],
+   "stats": {
+    "rent_usd_per_day": 25
+   },
+   "real_world_notes": "Winter and spring snow travel only (Hurricane Ridge backcountry, early-season approaches). Useless alone: a partner with a beacon has to dig you out.",
+   "flavor": "A beeping box, a long folding pole, and a little shovel, for snowy slopes in winter."
+  },
+  {
+   "id": "permit_wilderness",
+   "name": "Wilderness Camping Permit",
+   "category": "tool",
+   "weight_oz": 0.2,
+   "volume_l": 0.0,
+   "carry": "inside",
+   "price_usd": 14,
+   "ten_essentials": null,
+   "tags": [
+    "permit",
+    "required_overnight"
+   ],
+   "stats": {
+    "fee_reservation_usd": 6,
+    "fee_per_adult_night_usd": 8,
+    "youth_15_under": "free",
+    "annual_pass_usd": 45,
+    "price_note": "price_usd shown for 1 adult, 1 night"
+   },
+   "real_world_notes": "Required for every overnight in Olympic wilderness: $6 reservation plus $8 per adult (16+) per night in 2026; the $45 annual wilderness pass covers the nightly fees. Quota areas (upper Hoh, Hoh Lake, Seven Lakes Basin, Royal Basin, Grand Valley, the Ozette coast) fill months ahead. Camp only where the permit says.",
+   "flavor": "A paper with your name and your camps on it, which is how the rangers know where to look for you."
+  },
+  {
+   "id": "knife_folding",
+   "name": "Small Folding Knife",
+   "category": "tool",
+   "weight_oz": 2,
+   "volume_l": 0.05,
+   "carry": "inside",
+   "price_usd": 35,
+   "ten_essentials": "knife",
+   "tags": [
+    "knife"
+   ],
+   "stats": {
+    "blade_in": 2.75
+   },
+   "real_world_notes": "Cuts cord, moleskin, cheese and salami. A small blade is plenty.",
+   "flavor": "A little folding knife for cheese, string, and other small important jobs."
+  },
+  {
+   "id": "multitool",
+   "name": "Multitool with Pliers",
+   "category": "tool",
+   "weight_oz": 8,
+   "volume_l": 0.1,
+   "carry": "inside",
+   "price_usd": 99,
+   "ten_essentials": "knife",
+   "tags": [
+    "knife",
+    "pliers",
+    "heavy"
+   ],
+   "stats": {
+    "tools": [
+     "pliers",
+     "knife",
+     "screwdriver",
+     "file",
+     "scissors"
+    ]
+   },
+   "real_world_notes": "Pliers fix stoves and crampons and pull splinters. Heavy if you just need a knife.",
+   "flavor": "A folding bundle of tiny tools, from pliers to scissors, all in one hand."
+  },
+  {
+   "id": "hatchet",
+   "name": "Camp Hatchet",
+   "category": "tool",
+   "weight_oz": 24,
+   "volume_l": 0.8,
+   "carry": "outside_strappable",
+   "price_usd": 35,
+   "ten_essentials": null,
+   "tags": [
+    "hatchet",
+    "heavy",
+    "trap"
+   ],
+   "stats": {},
+   "real_world_notes": "Cutting live trees and vegetation is prohibited in the park, campfires are banned above 3,500 ft and under seasonal bans, and dead-and-down wood is often scarce. A heavy trap.",
+   "flavor": "A sharp little ax that would rather be chopping firewood at a cabin than riding up a mountain."
+  },
+  {
+   "id": "trowel",
+   "name": "Ultralight Trowel",
+   "category": "tool",
+   "weight_oz": 0.6,
+   "volume_l": 0.0,
+   "carry": "inside",
+   "price_usd": 20,
+   "ten_essentials": null,
+   "tags": [
+    "trowel",
+    "lnt",
+    "ultralight"
+   ],
+   "stats": {
+    "cathole_depth_in": 8
+   },
+   "real_world_notes": "For a cathole 6 to 8 inches deep, 200 ft from water, camp and trail, where there is no privy. Many camps have privies; many don't.",
+   "flavor": "A small orange shovel for a small, private job."
+  },
+  {
+   "id": "toilet_paper_kit",
+   "name": "Toilet Paper Kit",
+   "category": "tool",
+   "weight_oz": 2,
+   "volume_l": 0.2,
+   "carry": "inside",
+   "price_usd": 4,
+   "ten_essentials": null,
+   "tags": [
+    "toilet_paper",
+    "lnt"
+   ],
+   "stats": {
+    "pack_out_bag": true
+   },
+   "real_world_notes": "Toilet paper plus a zip bag to pack it out. Buried paper gets dug up by animals; in the alpine and on snow, pack it out.",
+   "flavor": "A small roll of soft paper and a bag to carry it home in."
+  },
+  {
+   "id": "wag_bags",
+   "name": "Human Waste Bags (2)",
+   "category": "tool",
+   "weight_oz": 4,
+   "volume_l": 0.3,
+   "carry": "inside",
+   "price_usd": 7,
+   "ten_essentials": null,
+   "tags": [
+    "wag_bag",
+    "lnt",
+    "glacier_travel"
+   ],
+   "stats": {
+    "count": 2
+   },
+   "real_world_notes": "Pack-out waste bags are standard practice on glaciers and snow, where nothing breaks down. Climbers on the Blue Glacier should expect to carry them.",
+   "flavor": "Special bags for carrying out what cannot be left on the snow, which is not glamorous, but is kind."
+  },
+  {
+   "id": "whistle",
+   "name": "Safety Whistle",
+   "category": "tool",
+   "weight_oz": 0.3,
+   "volume_l": 0.0,
+   "carry": "worn",
+   "price_usd": 6,
+   "ten_essentials": null,
+   "tags": [
+    "signal"
+   ],
+   "stats": {
+    "range_mi": 1
+   },
+   "real_world_notes": "Three blasts mean help. Carries farther than a voice and costs no energy.",
+   "flavor": "A little whistle on your shoulder strap that can call far louder than you can."
+  },
+  {
+   "id": "signal_mirror",
+   "name": "Signal Mirror",
+   "category": "tool",
+   "weight_oz": 0.7,
+   "volume_l": 0.0,
+   "carry": "inside",
+   "price_usd": 12,
+   "ten_essentials": null,
+   "tags": [
+    "signal"
+   ],
+   "stats": {
+    "range_mi": 10,
+    "needs_sun": true
+   },
+   "real_world_notes": "Can flash a helicopter or a distant hiker on a sunny day; useless in fog.",
+   "flavor": "A small mirror that catches the sun and sends it flashing across the valley."
+  },
+  {
+   "id": "paracord_50ft",
+   "name": "Cord, 50 ft",
+   "category": "tool",
+   "weight_oz": 4,
+   "volume_l": 0.2,
+   "carry": "inside",
+   "price_usd": 10,
+   "ten_essentials": null,
+   "tags": [
+    "cord",
+    "versatile"
+   ],
+   "stats": {
+    "length_ft": 50
+   },
+   "real_world_notes": "Clothesline, guylines, splint lashing, broken bootlace replacement.",
+   "flavor": "A long, thin cord, ready to become a clothesline, a bootlace, or a guyline."
+  },
+  {
+   "id": "bear_spray",
+   "name": "Bear Spray",
+   "category": "tool",
+   "weight_oz": 11,
+   "volume_l": 0.4,
+   "carry": "outside_strappable",
+   "price_usd": 50,
+   "ten_essentials": null,
+   "tags": [
+    "bear_spray",
+    "heavy"
+   ],
+   "stats": {
+    "range_ft": 30
+   },
+   "real_world_notes": "Olympic has black bears, cougars and mountain goats, but serious attacks are rare. Spray must be carried where you can reach it in a second, not in the pack. Most Olympic hikers don't carry it; the canister is the real bear safety tool.",
+   "flavor": "A heavy can of pepper spray, carried in hope of never using it."
+  },
+  {
+   "id": "solar_panel_small",
+   "name": "Folding Solar Panel",
+   "category": "tool",
+   "weight_oz": 10,
+   "volume_l": 0.3,
+   "carry": "outside_strappable",
+   "price_usd": 69,
+   "ten_essentials": null,
+   "tags": [
+    "solar",
+    "rechargeable"
+   ],
+   "stats": {
+    "watts": 10,
+    "rain_forest_efficiency": 0.1,
+    "alpine_sun_efficiency": 0.8
+   },
+   "real_world_notes": "Charges well in the sunny alpine meadows of the High Divide in August; nearly useless under rain-forest canopy or in a week of coastal fog.",
+   "flavor": "A small black panel that drinks sunlight, if the clouds leave any for it."
+  },
+  {
+   "id": "bug_headnet",
+   "name": "Bug Head Net",
+   "category": "comfort",
+   "weight_oz": 1,
+   "volume_l": 0.1,
+   "carry": "inside",
+   "price_usd": 10,
+   "ten_essentials": null,
+   "tags": [
+    "bug"
+   ],
+   "stats": {
+    "bug_protection": 2
+   },
+   "real_world_notes": "Mosquito season peaks in high meadows and lake basins in July (Seven Lakes Basin, Royal Basin); for 1 oz it saves your sanity.",
+   "flavor": "A fine net to wear over your hat when the mosquitoes come to sing."
+  },
+  {
+   "id": "bug_repellent",
+   "name": "Picaridin Insect Repellent",
+   "category": "comfort",
+   "weight_oz": 2,
+   "volume_l": 0.1,
+   "carry": "inside",
+   "price_usd": 12,
+   "ten_essentials": null,
+   "tags": [
+    "bug",
+    "smellable"
+   ],
+   "stats": {
+    "bug_protection": 2,
+    "hours": 8
+   },
+   "real_world_notes": "Effective against mosquitoes, biting flies and ticks, and gentler on gear than DEET. Smellable: canister at night.",
+   "flavor": "A little spray that makes the mosquitoes wonder whether you are worth the trouble."
+  },
+  {
+   "id": "permethrin_treatment",
+   "name": "Permethrin Clothing Treatment",
+   "category": "comfort",
+   "weight_oz": 0,
+   "volume_l": 0.0,
+   "carry": "inside",
+   "price_usd": 18,
+   "ten_essentials": null,
+   "tags": [
+    "bug",
+    "pre_trip"
+   ],
+   "stats": {
+    "bug_protection": 1,
+    "lasts_washes": 6
+   },
+   "real_world_notes": "Treat clothing at home before the trip; it repels ticks and mosquitoes for weeks. Weightless on the trail.",
+   "flavor": "A spray used at home, so your shirt keeps the bugs away all by itself."
+  },
+  {
+   "id": "sit_pad",
+   "name": "Foam Sit Pad",
+   "category": "comfort",
+   "weight_oz": 2,
+   "volume_l": 0.5,
+   "carry": "outside_strappable",
+   "price_usd": 15,
+   "ten_essentials": null,
+   "tags": [
+    "sit_pad",
+    "camp_comfort"
+   ],
+   "stats": {
+    "joy": 1,
+    "r_value": 1
+   },
+   "real_world_notes": "A dry, warm seat on wet logs and cold rock. Doubles as a pad extension under the feet.",
+   "flavor": "A square of foam that makes every damp log a dry chair."
+  },
+  {
+   "id": "camp_chair_ultralight",
+   "name": "Ultralight Camp Chair",
+   "category": "comfort",
+   "weight_oz": 18,
+   "volume_l": 2.5,
+   "carry": "inside",
+   "price_usd": 149,
+   "ten_essentials": null,
+   "tags": [
+    "chair",
+    "luxury",
+    "camp_comfort"
+   ],
+   "stats": {
+    "joy": 3,
+    "joy_layover": 6
+   },
+   "tiers": [
+    {
+     "tier": "cheap",
+     "name": "Folding Car-Camping Chair",
+     "weight_oz": 96,
+     "volume_l": 15.0,
+     "price_usd": 25,
+     "stats": {
+      "joy": 3,
+      "joy_layover": 6
+     },
+     "tags_add": [
+      "heavy",
+      "bulky",
+      "trap"
+     ],
+     "note": "Rides outside like a second backpack."
+    }
+   ],
+   "real_world_notes": "A real backrest at camp. Heavy for a single item, wonderful on layover days.",
+   "flavor": "A folding chair, light as a picnic basket, for sitting like a king by the lake."
+  },
+  {
+   "id": "pack_towel",
+   "name": "Quick-Dry Pack Towel",
+   "category": "comfort",
+   "weight_oz": 2,
+   "volume_l": 0.2,
+   "carry": "inside",
+   "price_usd": 20,
+   "ten_essentials": null,
+   "tags": [
+    "towel",
+    "camp_comfort"
+   ],
+   "stats": {
+    "joy": 1
+   },
+   "real_world_notes": "Dry off after a lake swim or wipe condensation from the tent walls.",
+   "flavor": "A thin towel that dries almost as fast as you do."
+  },
+  {
+   "id": "earplugs_eyemask",
+   "name": "Earplugs and Eye Mask",
+   "category": "comfort",
+   "weight_oz": 0.5,
+   "volume_l": 0.0,
+   "carry": "inside",
+   "price_usd": 8,
+   "ten_essentials": null,
+   "tags": [
+    "sleep_aid"
+   ],
+   "stats": {
+    "sleep_quality": 1
+   },
+   "real_world_notes": "Rain on the fly, snoring neighbors, mice and early summer light at 5 AM all steal sleep.",
+   "flavor": "Soft plugs and a dark mask, for sleeping through snoring, mice, and an early sunrise."
+  },
+  {
+   "id": "hand_warmers",
+   "name": "Chemical Hand Warmers (2 pairs)",
+   "category": "comfort",
+   "weight_oz": 3.6,
+   "volume_l": 0.1,
+   "carry": "inside",
+   "price_usd": 6,
+   "ten_essentials": null,
+   "tags": [
+    "warmer",
+    "camp_comfort"
+   ],
+   "stats": {
+    "hours_each": 8,
+    "warmth_bonus_f": 3
+   },
+   "real_world_notes": "Tuck one in the sleeping bag's foot box on a cold night, or in gloves for the summit.",
+   "flavor": "Little packets that grow warm when you shake them, like a pocket-sized campfire."
+  },
+  {
+   "id": "wet_wipes",
+   "name": "Unscented Wet Wipes (pack out)",
+   "category": "comfort",
+   "weight_oz": 4,
+   "volume_l": 0.2,
+   "carry": "inside",
+   "price_usd": 5,
+   "ten_essentials": null,
+   "tags": [
+    "hygiene",
+    "smellable",
+    "pack_out"
+   ],
+   "stats": {
+    "joy": 1
+   },
+   "real_world_notes": "A camp 'shower'. They never decompose: every used wipe gets packed out.",
+   "flavor": "Damp little cloths that make a dusty face feel almost clean again."
+  },
+  {
+   "id": "deodorant",
+   "name": "Deodorant Stick",
+   "category": "comfort",
+   "weight_oz": 2.5,
+   "volume_l": 0.1,
+   "carry": "inside",
+   "price_usd": 6,
+   "ten_essentials": null,
+   "tags": [
+    "hygiene",
+    "smellable",
+    "trap"
+   ],
+   "stats": {},
+   "real_world_notes": "A smellable that takes canister space and attracts curious animals. The forest does not mind how you smell.",
+   "flavor": "A sweet-smelling stick that the squirrels find more interesting than you do."
+  },
+  {
+   "id": "book_paperback",
+   "name": "Paperback Book",
+   "category": "luxury",
+   "weight_oz": 8,
+   "volume_l": 0.6,
+   "carry": "inside",
+   "price_usd": 15,
+   "ten_essentials": null,
+   "tags": [
+    "luxury",
+    "reading"
+   ],
+   "stats": {
+    "joy": 2,
+    "joy_layover": 4,
+    "joy_rain_day": 5
+   },
+   "real_world_notes": "The tent-bound rainy afternoon's best friend.",
+   "flavor": "A paperback with soft corners, for reading in the tent while the rain drums its fingers on the roof."
+  },
+  {
+   "id": "harmonica",
+   "name": "Harmonica",
+   "category": "luxury",
+   "weight_oz": 2,
+   "volume_l": 0.1,
+   "carry": "inside",
+   "price_usd": 35,
+   "ten_essentials": null,
+   "tags": [
+    "luxury",
+    "music"
+   ],
+   "stats": {
+    "joy": 2,
+    "joy_camp": 3,
+    "neighbors_annoyed": 0.2
+   },
+   "real_world_notes": "Light music at camp; keep it soft and short where other campers are close.",
+   "flavor": "A little silver harmonica, for playing a slow tune while the sun goes down."
+  },
+  {
+   "id": "ukulele",
+   "name": "Travel Ukulele",
+   "category": "luxury",
+   "weight_oz": 24,
+   "volume_l": 6.0,
+   "carry": "outside_strappable",
+   "price_usd": 59,
+   "ten_essentials": null,
+   "tags": [
+    "luxury",
+    "music",
+    "heavy",
+    "bulky",
+    "fragile"
+   ],
+   "stats": {
+    "joy": 3,
+    "joy_camp": 4,
+    "neighbors_annoyed": 0.3
+   },
+   "real_world_notes": "Camp songs at the lake. Rides outside the pack and snags on everything.",
+   "flavor": "A small four-stringed guitar that turns any campsite into a concert hall."
+  },
+  {
+   "id": "playing_cards",
+   "name": "Deck of Playing Cards",
+   "category": "luxury",
+   "weight_oz": 3,
+   "volume_l": 0.1,
+   "carry": "inside",
+   "price_usd": 5,
+   "ten_essentials": null,
+   "tags": [
+    "luxury",
+    "game"
+   ],
+   "stats": {
+    "joy": 1,
+    "joy_with_companions": 3,
+    "joy_rain_day": 3
+   },
+   "real_world_notes": "Rainy-day entertainment for two or more.",
+   "flavor": "A deck of cards for long, rainy afternoons and friendly arguments."
+  },
+  {
+   "id": "flying_disc",
+   "name": "Flying Disc",
+   "category": "luxury",
+   "weight_oz": 6,
+   "volume_l": 0.3,
+   "carry": "outside_strappable",
+   "price_usd": 12,
+   "ten_essentials": null,
+   "tags": [
+    "luxury",
+    "game"
+   ],
+   "stats": {
+    "joy": 1,
+    "joy_beach": 3
+   },
+   "real_world_notes": "Wonderful on a wide coastal beach at low tide; pointless in a dense forest camp.",
+   "flavor": "A plastic disc that sails across the beach like a gull."
+  },
+  {
+   "id": "fishing_kit_fly",
+   "name": "Fixed-Line Fly Fishing Kit",
+   "category": "luxury",
+   "weight_oz": 5,
+   "volume_l": 0.5,
+   "carry": "inside",
+   "price_usd": 159,
+   "ten_essentials": null,
+   "tags": [
+    "luxury",
+    "fishing"
+   ],
+   "stats": {
+    "joy": 2,
+    "joy_layover": 5,
+    "catch_chance_lake": 0.4
+   },
+   "real_world_notes": "No Washington fishing license is needed inside the park, but park rules apply: artificial lures and flies only, single barbless hooks, and catch-and-release for native species in many waters. Check the current park fishing regulations.",
+   "flavor": "A long, thin rod that folds into a tube, for casting a tiny fly onto a quiet lake."
+  },
+  {
+   "id": "fishing_rod_spinning",
+   "name": "Telescoping Spinning Rod and Lures",
+   "category": "luxury",
+   "weight_oz": 14,
+   "volume_l": 0.8,
+   "carry": "outside_strappable",
+   "price_usd": 49,
+   "ten_essentials": null,
+   "tags": [
+    "luxury",
+    "fishing"
+   ],
+   "stats": {
+    "joy": 2,
+    "joy_layover": 4,
+    "catch_chance_lake": 0.35
+   },
+   "real_world_notes": "Bulkier than a fly kit; lures must be single barbless hooks under park rules. Bait is generally not allowed.",
+   "flavor": "A rod that slides out long and shiny, for trying your luck where the trout rise."
+  },
+  {
+   "id": "binoculars",
+   "name": "Compact Binoculars",
+   "category": "luxury",
+   "weight_oz": 12,
+   "volume_l": 0.8,
+   "carry": "inside",
+   "price_usd": 129,
+   "ten_essentials": null,
+   "tags": [
+    "binoculars",
+    "wildlife_viewing",
+    "fragile"
+   ],
+   "stats": {
+    "joy": 2,
+    "wildlife_sightings_mult": 1.5
+   },
+   "real_world_notes": "More marmots, elk, mountain goats, eagles and whales (from the coast in spring). Spot the route across a far snowfield.",
+   "flavor": "Two little telescopes that bring the marmots and eagles close enough to say hello."
+  },
+  {
+   "id": "camera_compact",
+   "name": "Compact Camera",
+   "category": "luxury",
+   "weight_oz": 8,
+   "volume_l": 0.3,
+   "carry": "inside",
+   "price_usd": 299,
+   "ten_essentials": null,
+   "tags": [
+    "camera",
+    "needs_battery",
+    "fragile"
+   ],
+   "stats": {
+    "joy": 2,
+    "journal_points": 0.6
+   },
+   "real_world_notes": "Better photos than a phone, with zoom for wildlife. Batteries drain fast in the cold.",
+   "flavor": "A small camera for catching rainbows and elk and the light on the mountains."
+  },
+  {
+   "id": "camera_dslr",
+   "name": "Big Camera with Zoom Lens",
+   "category": "luxury",
+   "weight_oz": 40,
+   "volume_l": 3.5,
+   "carry": "inside",
+   "price_usd": 1099,
+   "ten_essentials": null,
+   "tags": [
+    "camera",
+    "heavy",
+    "fragile",
+    "needs_battery"
+   ],
+   "stats": {
+    "joy": 3,
+    "journal_points": 0.7
+   },
+   "real_world_notes": "Glorious photos and two and a half pounds of fragile glass. Rain and fords are its enemies.",
+   "flavor": "A heavy camera with a long lens, for photographers who don't mind a heavy pack."
+  },
+  {
+   "id": "camera_disposable_film",
+   "name": "Disposable Film Camera",
+   "category": "luxury",
+   "weight_oz": 4,
+   "volume_l": 0.3,
+   "carry": "inside",
+   "price_usd": 20,
+   "ten_essentials": null,
+   "tags": [
+    "camera",
+    "vintage",
+    "cheap"
+   ],
+   "stats": {
+    "joy": 2,
+    "journal_points": 0.5,
+    "shots": 27,
+    "develop_after_trip": true
+   },
+   "real_world_notes": "Twenty-seven shots, no screen, and a surprise when the prints come back after the trip.",
+   "flavor": "A paper-and-plastic camera that keeps its pictures secret until you get home."
+  },
+  {
+   "id": "planisphere",
+   "name": "Star Chart Wheel",
+   "category": "luxury",
+   "weight_oz": 2,
+   "volume_l": 0.1,
+   "carry": "inside",
+   "price_usd": 15,
+   "ten_essentials": null,
+   "tags": [
+    "luxury",
+    "stars"
+   ],
+   "stats": {
+    "joy": 1,
+    "joy_clear_night": 3
+   },
+   "real_world_notes": "Away from city lights, the High Divide and the coast show the Milky Way in late summer.",
+   "flavor": "A turning wheel of stars that shows which ones are shining over your tent tonight."
+  },
+  {
+   "id": "plush_fox",
+   "name": "Little Plush Fox",
+   "category": "luxury",
+   "weight_oz": 3,
+   "volume_l": 0.4,
+   "carry": "inside",
+   "price_usd": 14,
+   "ten_essentials": null,
+   "tags": [
+    "luxury",
+    "mascot"
+   ],
+   "stats": {
+    "joy": 1,
+    "joy_bad_night": 3
+   },
+   "real_world_notes": "Weighs as much as a granola bar. Some backpackers carry a small mascot on every trip, and nobody needs to know.",
+   "flavor": "A small stuffed fox with a stitched-on smile, who has always wanted to see a mountain."
+  },
+  {
+   "id": "speaker_portable",
+   "name": "Portable Wireless Speaker",
+   "category": "luxury",
+   "weight_oz": 10,
+   "volume_l": 0.3,
+   "carry": "inside",
+   "price_usd": 49,
+   "ten_essentials": null,
+   "tags": [
+    "luxury",
+    "music",
+    "lnt_noise",
+    "trap",
+    "needs_battery"
+   ],
+   "stats": {
+    "joy": 1,
+    "neighbors_annoyed": 0.8,
+    "wildlife_sightings_mult": 0.5
+   },
+   "real_world_notes": "Music played aloud ruins the quiet for everyone and scares wildlife away. Leave No Trace includes sound; use earbuds or listen to the river instead.",
+   "flavor": "A little speaker that is loud enough to make the marmots and the neighbors leave."
+  },
+  {
+   "id": "drone_mini",
+   "name": "Mini Camera Drone",
+   "category": "luxury",
+   "weight_oz": 9,
+   "volume_l": 1.0,
+   "carry": "inside",
+   "price_usd": 399,
+   "ten_essentials": null,
+   "tags": [
+    "drone",
+    "prohibited",
+    "trap",
+    "needs_battery"
+   ],
+   "stats": {
+    "joy": 0,
+    "citation_chance": 0.5
+   },
+   "real_world_notes": "Launching, landing or operating drones anywhere on Olympic's lands or waters is prohibited (as in national parks generally). Expect a ranger conversation, a citation and grounded footage.",
+   "flavor": "A buzzing little flying camera that is not allowed to fly anywhere in this park."
+  },
+  {
+   "id": "flower_press",
+   "name": "Wooden Flower Press",
+   "category": "luxury",
+   "weight_oz": 14,
+   "volume_l": 1.0,
+   "carry": "inside",
+   "price_usd": 29,
+   "ten_essentials": null,
+   "tags": [
+    "flower_press",
+    "prohibited",
+    "trap"
+   ],
+   "stats": {
+    "joy": 0
+   },
+   "real_world_notes": "Picking plants and flowers in a national park is prohibited. The Golden Glow lesson: sketch the flower, don't pick it.",
+   "flavor": "Two little wooden boards for pressing flowers, which the mountain would rather keep."
+  },
+  {
+   "id": "sketchbook_pocket",
+   "name": "Pocket Sketchbook",
+   "category": "art",
+   "weight_oz": 6,
+   "volume_l": 0.3,
+   "carry": "inside",
+   "price_usd": 18,
+   "ten_essentials": null,
+   "tags": [
+    "sketchbook",
+    "journal"
+   ],
+   "stats": {
+    "journal_points": 1.0,
+    "pages": 80
+   },
+   "real_world_notes": "A small, sturdy sketchbook. Drawing what you find, rather than collecting it, is the oldest Leave No Trace keepsake.",
+   "flavor": "A little book of empty pages, waiting for a flower that no one has ever drawn."
+  },
+  {
+   "id": "pencils_graphite",
+   "name": "Drawing Pencils, Eraser and Sharpener",
+   "category": "art",
+   "weight_oz": 2,
+   "volume_l": 0.1,
+   "carry": "inside",
+   "price_usd": 12,
+   "ten_essentials": null,
+   "tags": [
+    "drawing_tools"
+   ],
+   "stats": {
+    "journal_points_bonus": 0.1
+   },
+   "real_world_notes": "Pencils work in the rain when pens won't.",
+   "flavor": "Three pencils, soft and hard, and a small eraser for second thoughts."
+  },
+  {
+   "id": "pencils_watercolor",
+   "name": "Watercolor Pencils (12 colors)",
+   "category": "art",
+   "weight_oz": 4,
+   "volume_l": 0.2,
+   "carry": "inside",
+   "price_usd": 25,
+   "ten_essentials": null,
+   "tags": [
+    "drawing_tools"
+   ],
+   "stats": {
+    "journal_points_bonus": 0.2
+   },
+   "real_world_notes": "Draw dry, then touch with a wet brush, or simply with a drop of rain.",
+   "flavor": "Twelve colors, from moss green to sunset gold."
+  },
+  {
+   "id": "watercolor_kit",
+   "name": "Travel Watercolor Kit with Water Brush",
+   "category": "art",
+   "weight_oz": 3,
+   "volume_l": 0.2,
+   "carry": "inside",
+   "price_usd": 45,
+   "ten_essentials": null,
+   "tags": [
+    "drawing_tools"
+   ],
+   "stats": {
+    "journal_points_bonus": 0.3
+   },
+   "real_world_notes": "A palm-sized pan set; the water brush holds its own water. Rinse water goes 200 ft from lakes.",
+   "flavor": "A tiny box of paints and a brush that carries its own water, for painting the sky."
+  },
+  {
+   "id": "journal_waterproof",
+   "name": "Waterproof Field Notebook and Pen",
+   "category": "art",
+   "weight_oz": 3,
+   "volume_l": 0.2,
+   "carry": "inside",
+   "price_usd": 15,
+   "ten_essentials": null,
+   "tags": [
+    "journal",
+    "waterproof"
+   ],
+   "stats": {
+    "journal_points": 0.8
+   },
+   "real_world_notes": "Writes in the rain. For trip notes, plant lists and the names of new friends.",
+   "flavor": "A notebook that doesn't mind the rain, for writing down everything you see."
+  },
+  {
+   "id": "field_guide_wildflowers",
+   "name": "Field Guide to Northwest Wildflowers",
+   "category": "art",
+   "weight_oz": 10,
+   "volume_l": 0.5,
+   "carry": "inside",
+   "price_usd": 22,
+   "ten_essentials": null,
+   "tags": [
+    "field_guide",
+    "plants"
+   ],
+   "stats": {
+    "journal_points_bonus": 0.3,
+    "identifies": [
+     "wildflowers",
+     "alpine plants"
+    ]
+   },
+   "real_world_notes": "Names the avalanche lilies, lupines, paintbrush, and Olympic endemics such as Piper's bellflower and Flett's violet.",
+   "flavor": "A book full of flowers, with one page still waiting for a picture."
+  },
+  {
+   "id": "field_guide_trees",
+   "name": "Field Guide to Trees, Ferns and Mosses",
+   "category": "art",
+   "weight_oz": 8,
+   "volume_l": 0.4,
+   "carry": "inside",
+   "price_usd": 20,
+   "ten_essentials": null,
+   "tags": [
+    "field_guide",
+    "plants"
+   ],
+   "stats": {
+    "journal_points_bonus": 0.2,
+    "identifies": [
+     "trees",
+     "ferns",
+     "mosses",
+     "lichens"
+    ]
+   },
+   "real_world_notes": "Sitka spruce or western hemlock? Licorice fern or sword fern? Turns the rain forest into a library.",
+   "flavor": "A guide to the tall trees and the soft green things that grow all over them."
+  },
+  {
+   "id": "field_guide_birds",
+   "name": "Field Guide to Birds and Mammals",
+   "category": "art",
+   "weight_oz": 10,
+   "volume_l": 0.5,
+   "carry": "inside",
+   "price_usd": 25,
+   "ten_essentials": null,
+   "tags": [
+    "field_guide",
+    "animals"
+   ],
+   "stats": {
+    "journal_points_bonus": 0.2,
+    "identifies": [
+     "birds",
+     "mammals"
+    ]
+   },
+   "real_world_notes": "Gray jays, ravens, sooty grouse, Olympic marmots (found nowhere else on Earth), elk and black bears.",
+   "flavor": "A book of feathers, fur, and footprints."
+  },
+  {
+   "id": "field_guide_tidepools",
+   "name": "Field Guide to Tide Pools",
+   "category": "art",
+   "weight_oz": 6,
+   "volume_l": 0.3,
+   "carry": "inside",
+   "price_usd": 18,
+   "ten_essentials": null,
+   "tags": [
+    "field_guide",
+    "coast",
+    "animals"
+   ],
+   "stats": {
+    "journal_points_bonus": 0.2,
+    "identifies": [
+     "sea stars",
+     "anemones",
+     "urchins",
+     "seaweeds"
+    ]
+   },
+   "real_world_notes": "For the coast at low tide: ochre stars, giant green anemones, gooseneck barnacles. Look but don't move them.",
+   "flavor": "A small guide to the bright, wet gardens that appear when the tide goes out."
+  }
+ ],
+ "pack_guidance": {
+  "base_weight": {
+   "definition": "Everything in and on the pack except consumables (food, water, fuel). Worn clothing and shoes are not counted.",
+   "categories_lb": {
+    "ultralight": "under 10",
+    "lightweight": "10 to 15",
+    "traditional": "15 to 25",
+    "heavy": "over 25"
+   },
+   "olympic_reality": "Olympic adds weight that ultralight lists from drier ranges leave out: a required 2 to 2.75 lb bear canister, real rain pants, and often traction or an ice axe early in the season. A sensible Olympic summer base weight is 14 to 20 lb; a Mount Olympus glacier kit is 25 to 35 lb before food."
+  },
+  "consumables": {
+   "food_lb_per_person_day": "1.5 (dense) to 2.25 (bulky or fresh); plan on about 1.75",
+   "water": "1 L weighs 2.2 lb. Most Olympic trails cross water often, so 1 to 2 L carried is usual; dry stretches (Hoh Lake Trail switchbacks, the High Divide crest in late summer) need 2 to 3 L.",
+   "fuel": "About 20 to 30 g of fuel per person per day for boil-only cooking (see food_catalog needs.fuel)."
+  },
+  "total_load_pct_body_weight": {
+   "day_hike": "10% or less",
+   "comfortable_backpacking": "up to 20%",
+   "acceptable": "20 to 25%",
+   "heavy": "25 to 30%: slower pace, sore hips and shoulders, harder fords and ladders",
+   "miserable": "over 30%: every climb is a grind, footing suffers, knees complain on descents",
+   "game_formula": "comfortLb = min(pack.comfortable_max_load_lb, 0.25 x bodyLb); r = packWeightLb / comfortLb. Feel: Light r <= 0.6, Comfortable <= 1.0, Heavy <= 1.3, Very heavy <= 1.6, Brutal <= 2.0, above 2.0 you can't leave the car (simulation.md 6.5)."
+  },
+  "pack_rating": "comfortable_max_load_lb is the load the frame and hip belt carry well. Beyond it, the frame flexes, the hip belt slides and the weight lands on the shoulders. Frameless and framesheet packs fall off sharply past their rating; internal and external frame packs degrade more gently.",
+  "volume_fill": {
+   "rule": "insideL = sum of inside items' volume_l (compressed volume when a compression sack is used) + 8% dead space around rigid items. Food rides inside the canister, so food volume counts against the canister's capacity_l, not the pack's.",
+   "roomy": "fill <= 0.85",
+   "snug": "<= 1.00",
+   "stuffed": "<= 1.10 (slow to pack each morning; the lid barely closes)",
+   "wont_close": "> 1.10: something comes out or goes outside"
+  },
+  "what_makes_a_pack_miserable": [
+   "Load above the pack's comfortable rating, or above about 25% of body weight.",
+   "Poor fit: torso length wrong, hip belt riding on the stomach instead of the hip bones.",
+   "Heavy items (canister, water, food) far from the back or high in a small pack, which pulls you backward and makes ladders and log crossings wobbly.",
+   "A Christmas tree of outside items: they swing, snag on brush and blowdown, soak up rain and fall off.",
+   "Water you can't reach without taking the pack off, so you stop drinking.",
+   "Wet gear: no liner, so the sleeping bag and dry clothes are damp by camp.",
+   "Hard objects poking the back: a canister sideways in a frameless pack, a stove against the spine.",
+   "Overstuffing: an 80 L pack filled to the top because the space was there.",
+   "Cotton anything that soaks up rain and doubles in weight."
+  ],
+  "packing_order": {
+   "bottom": "Sleeping bag and sleep clothes in a dry bag (not needed until camp).",
+   "core_against_back": "Heaviest items: bear canister standing upright, water bladder, stove and fuel.",
+   "top": "Puffy, rain gear, water filter, first aid kit, lunch: things you may need during the day.",
+   "lid_and_hip_belt": "Map, compass, phone, snacks, sunscreen, lip balm, headlamp, permit.",
+   "side_pockets": "Water bottles, tent poles, trekking poles when stowed, umbrella.",
+   "outside_straps": "Foam pad, tent in a dry bag, ice axe on the tool loop, crampons in a bag. Only what doesn't fit inside."
+  },
+  "sample_kits": "Representative kits computed from this catalog by the build script (food at 1.75 lb and 2.0 L per day; rigid items +8% volume). Design aids, not rules.",
+  "sample_kits_computed": {
+   "day_hike_sensible": {
+    "description": "A well-packed summer day hike (for example Hurricane Hill or Marymere Falls to Storm King's viewpoint).",
+    "pack": "daypack_28",
+    "nights": 0,
+    "worn": [
+     "trail_runners",
+     "tee_synthetic",
+     "pants_hiking",
+     "socks_wool_hiking",
+     "sun_hat",
+     "sunglasses",
+     "whistle"
+    ],
+    "carried": [
+     "rain_jacket",
+     "fleece_jacket",
+     "beanie_wool",
+     "map_topo_park",
+     "compass_baseplate",
+     "phone",
+     "headlamp",
+     "first_aid_basic",
+     "blister_kit",
+     "knife_folding",
+     "lighter_mini",
+     "emergency_bivy",
+     "sunscreen",
+     "filter_squeeze",
+     "bottle_disposable_1l",
+     "bottle_disposable_1l",
+     "toilet_paper_kit",
+     "trowel"
+    ],
+    "base_weight_lb": 5.6,
+    "total_pack_weight_lb": 11.0,
+    "worn_weight_lb": 3.0,
+    "inside_volume_l_if_all_inside": 6.8,
+    "of_which_could_strap_outside_l": 0.0,
+    "pack_volume_l": 28,
+    "load_ratio_r_for_165_lb_hiker": 0.61,
+    "food_l_outside_canister": 1.1,
+    "missing_ten_essentials": []
+   },
+   "summer_3_nights_seven_lakes": {
+    "description": "A sensible solo August trip: Sol Duc trailhead, Seven Lakes Basin, the High Divide and back.",
+    "pack": "weekender_50",
+    "nights": 3,
+    "worn": [
+     "trail_runners",
+     "tee_synthetic",
+     "pants_hiking",
+     "socks_wool_hiking",
+     "sun_hat",
+     "sunglasses",
+     "whistle",
+     "watch_basic"
+    ],
+    "carried": [
+     "tent_1p_trekking_pole",
+     "trekking_poles",
+     "bag_down_30",
+     "pad_inflatable",
+     "canister_standard",
+     "stove_canister",
+     "pot_titanium_750",
+     "fuel_canister_110",
+     "lighter_mini",
+     "spork_titanium",
+     "filter_squeeze",
+     "tablets_chlorine_dioxide",
+     "bottle_disposable_1l",
+     "bottle_disposable_1l",
+     "rain_jacket",
+     "rain_pants",
+     "puffy_down",
+     "base_top_merino",
+     "base_bottom_synthetic",
+     "beanie_wool",
+     "socks_wool_hiking",
+     "underwear_synthetic",
+     "headlamp",
+     "map_topo_park",
+     "compass_baseplate",
+     "phone",
+     "first_aid_basic",
+     "blister_kit",
+     "repair_kit_basic",
+     "pad_patch_kit",
+     "sunscreen",
+     "bug_headnet",
+     "bug_repellent",
+     "trowel",
+     "toilet_paper_kit",
+     "pack_liner_compactor",
+     "dry_bag_small",
+     "permit_wilderness",
+     "toiletry_kit",
+     "hand_sanitizer",
+     "sketchbook_pocket",
+     "pencils_graphite"
+    ],
+    "base_weight_lb": 18.4,
+    "total_pack_weight_lb": 28.1,
+    "worn_weight_lb": 3.1,
+    "inside_volume_l_if_all_inside": 35.8,
+    "of_which_could_strap_outside_l": 3.1,
+    "pack_volume_l": 50,
+    "load_ratio_r_for_165_lb_hiker": 0.88,
+    "food_l_outside_canister": 0.0,
+    "missing_ten_essentials": []
+   },
+   "olympus_blue_glacier_5_nights": {
+    "description": "A well-equipped July climb: Hoh trailhead to Glacier Meadows, summit day across the Blue Glacier, two partners sharing rope and rescue gear (this carrier holds the rope).",
+    "pack": "expedition_80",
+    "nights": 5,
+    "worn": [
+     "trail_runners",
+     "tee_synthetic",
+     "pants_hiking",
+     "socks_wool_hiking",
+     "sun_hat",
+     "glacier_glasses",
+     "whistle",
+     "watch_altimeter"
+    ],
+    "carried": [
+     "tent_2p_dome",
+     "trekking_poles",
+     "bag_down_20",
+     "pad_inflatable",
+     "canister_standard",
+     "stove_canister",
+     "pot_titanium_750",
+     "fuel_canister_230",
+     "lighter_mini",
+     "spork_titanium",
+     "filter_squeeze",
+     "tablets_chlorine_dioxide",
+     "bottle_disposable_1l",
+     "bottle_disposable_1l",
+     "rain_jacket",
+     "rain_pants",
+     "puffy_down",
+     "fleece_grid_hoody",
+     "base_top_merino",
+     "base_bottom_synthetic",
+     "beanie_wool",
+     "gloves_liner",
+     "gloves_insulated",
+     "socks_wool_hiking",
+     "underwear_synthetic",
+     "gaiters_tall",
+     "boots_mountaineering",
+     "crampons_steel",
+     "ice_axe",
+     "helmet_climbing",
+     "harness_alpine",
+     "rope_glacier_30m",
+     "headlamp",
+     "batteries_spare_aaa",
+     "map_topo_park",
+     "compass_baseplate",
+     "phone",
+     "satellite_messenger",
+     "first_aid_complete",
+     "blister_kit",
+     "repair_kit_basic",
+     "sunscreen",
+     "lip_balm_spf",
+     "wag_bags",
+     "toilet_paper_kit",
+     "pack_liner_compactor",
+     "dry_bag_small",
+     "permit_wilderness",
+     "toiletry_kit"
+    ],
+    "base_weight_lb": 38.5,
+    "total_pack_weight_lb": 52.1,
+    "worn_weight_lb": 3.1,
+    "inside_volume_l_if_all_inside": 67.3,
+    "of_which_could_strap_outside_l": 17.6,
+    "pack_volume_l": 80,
+    "load_ratio_r_for_165_lb_hiker": 1.26,
+    "food_l_outside_canister": 1.1,
+    "missing_ten_essentials": []
+   },
+   "olympus_day_gear_one_night_TRAP": {
+    "description": "The user's warning case: Glacier Meadows in one night with a day-hike kit and a borrowed canister. Note how nothing for the night fits.",
+    "pack": "daypack_28",
+    "nights": 1,
+    "worn": [
+     "sneakers_canvas",
+     "tee_cotton",
+     "jeans_denim",
+     "socks_cotton",
+     "ball_cap"
+    ],
+    "carried": [
+     "hoodie_cotton",
+     "map_park_brochure",
+     "phone",
+     "bottle_disposable_1l",
+     "canister_wic_loaner"
+    ],
+    "base_weight_lb": 6.2,
+    "total_pack_weight_lb": 10.4,
+    "worn_weight_lb": 4.0,
+    "inside_volume_l_if_all_inside": 16.7,
+    "of_which_could_strap_outside_l": 0.0,
+    "pack_volume_l": 28,
+    "load_ratio_r_for_165_lb_hiker": 0.58,
+    "food_l_outside_canister": 0.0,
+    "missing_ten_essentials": [
+     "fire",
+     "first_aid",
+     "headlamp",
+     "knife",
+     "navigation",
+     "shelter"
+    ]
+   }
+  }
+ },
+ "rentals": "BEAR CANISTERS: required for every wilderness overnight in Olympic in 2026 (park-approved hard-sided containers; soft sacks and hangs do not count). The Port Angeles Wilderness Information Center lends canisters free, first come, first served (the Quinault station was closed in 2026). In game: canister_wic_loaner, available about 70% of the time on summer weekends and 95% midweek. Outfitters typically rent canisters for about $4 to $6 a day or $15 to $25 a week, carbon canisters about $7 a day; buying ($80 to $95) beats renting after about three trips. SNOW AND GLACIER GEAR: outfitters in Port Angeles, Sequim and Seattle-area shops rent ice axes (about $10/day), steel crampons (about $15/day), mountaineering boots (about $25 to $35/day), helmets and harnesses (about $8/day each), glacier rope (about $20/day), crevasse rescue kits (about $15/day), avalanche beacon-probe-shovel sets (about $25/day), snowshoes (about $15/day) and slip-on traction chains (about $5/day, though most people just buy them). Deposits and ID are required, stock is limited on summer weekends (in game, roll availability and cap at 2 or 3 glacier sets), pickup happens during store hours the day before (which can push back the drive and the trailhead start), and late returns cost an extra day. Items with stats.rent_usd_per_day are rentable. SKILLS ARE NOT RENTABLE: an ice axe only helps if you can self-arrest, and a rope only helps a trained team of two or more. Most people who reach the summit of Mount Olympus go with experienced partners or a guide, and many turn back at the Blue Glacier's lateral moraine. OTHER: tide tables cost about $2 at outfitters and visitor-center shops. The permit is bought online or at the WIC, not at a store. There is no gear rental inside the park, so anything forgotten after the last-chance store stays forgotten.",
+ "tag_glossary": {
+  "absorbs_water": "Gets heavier when wet.",
+  "adjustable_torso": "Fits a range of torso lengths (fewer fit complaints).",
+  "altimeter": "Shows elevation; barometric weather hints.",
+  "animals": "Covers animals.",
+  "ankle_support": "Supports ankles under load.",
+  "avalanche_gear": "Avalanche rescue gear.",
+  "backup": "Good backup for a primary item.",
+  "base_layer": "Next-to-skin layer.",
+  "battery_bank": "Recharges phones, headlamps and GPS.",
+  "battery_spare": "Spare batteries.",
+  "bear_resistant": "Resists bears and other animals.",
+  "bear_resistant_soft": "Soft animal-resistant sack (not approved in Olympic).",
+  "bear_spray": "Bear spray.",
+  "binoculars": "Counts as binoculars.",
+  "blister_kit": "Counts as blister_kit.",
+  "blister_prevention": "Lowers blister chance.",
+  "blister_risk": "Raises blister chance.",
+  "breathable": "Lets sweat vapor escape.",
+  "brush_protection": "Protects legs from brush, nettles and devil's club.",
+  "bug": "Counts as bug protection.",
+  "bug_proof": "Keeps mosquitoes out.",
+  "bulky": "Unusually large packed volume for its job.",
+  "caffeine_ritual": "Morning coffee ritual; joy at breakfast.",
+  "camera": "Counts as camera.",
+  "camera_basic": "Basic camera (phone).",
+  "camp_comfort": "Makes camp more comfortable; joy at camp.",
+  "camp_shoes": "Counts as camp_shoes (feet recover at camp).",
+  "camp_water": "Lets you carry water to a dry camp.",
+  "canister": "Counts as canister:L (stats.capacity_l).",
+  "chair": "Camp chair (luxury:chair).",
+  "cheap": "Budget item.",
+  "coast": "Mainly useful on the wilderness coast.",
+  "cold_reliable": "Works well below freezing.",
+  "cold_soak": "Rehydrates food without a stove.",
+  "compressible": "Packs smaller in a compression sack.",
+  "compression": "Reduces another item's volume.",
+  "cord": "Cord.",
+  "cotton": "Cotton: no warmth when wet, slow to dry.",
+  "cotton_canvas": "Canvas pack body that soaks up rain.",
+  "covers_pack": "Also keeps the pack dry.",
+  "cushioned": "Padded for comfort.",
+  "daypack": "Pack meant for day hikes; no room for an overnight kit plus canister.",
+  "down": "Down fill: warmest per ounce, nearly useless when soaked.",
+  "drawing_tools": "Pencils or paints; improves sketches.",
+  "drone": "A drone (prohibited in national parks).",
+  "emergency": "Meant for emergencies.",
+  "emergency_shelter": "Emergency-only shelter for an unplanned night.",
+  "expedition": "Very large pack for glacier, winter or long trips.",
+  "external_frame": "Old-style exposed aluminum frame: carries heavy loads, snags, sways on ladders.",
+  "fabric_repair": "Fixes torn fabric.",
+  "fastpack": "Small, light pack for minimalist one- or two-night trips.",
+  "field_guide": "Counts as field_guide (names plants and animals).",
+  "fire_starter": "Counts as the fire essential.",
+  "first_aid_1": "Counts as first_aid:1.",
+  "first_aid_2": "Counts as first_aid:2.",
+  "fishing": "Counts as luxury:fishing.",
+  "flotation": "Keeps you on top of deep snow.",
+  "flower_press": "For pressing picked flowers (picking is prohibited).",
+  "foam": "Closed-cell foam: cannot puncture.",
+  "footwear_casual": "Street shoes, not made for trail.",
+  "footwear_hiking": "Hiking footwear.",
+  "footwear_mountaineering": "Stiff boots for crampons and snow.",
+  "ford_aid": "Helps at river fords.",
+  "ford_shoes": "Safe shoes for river fords.",
+  "four_season": "Built for snow, wind and cold.",
+  "fragile": "Can break, tear or puncture; damage rolls apply.",
+  "freestanding": "Pitches without stakes (rock, platforms, gravel).",
+  "freeze_sensitive": "Can be damaged invisibly by freezing.",
+  "fuel": "Stove fuel (see stats.fuel_g).",
+  "fuel_alcohol": "Alcohol fuel.",
+  "fuel_canister": "Isobutane canister fuel.",
+  "fuel_liquid": "White gas fuel.",
+  "gaiters": "Keeps debris, snow or water out of footwear.",
+  "game": "Game for camp.",
+  "glacier_travel": "Part of a glacier kit (Blue Glacier, Snow Dome).",
+  "group": "Most efficient when shared by a group.",
+  "guidebook": "Trail guidebook with route information.",
+  "hands_free": "Usable while walking without stopping.",
+  "hang": "Food-hanging gear (hangs not acceptable in Olympic in 2026).",
+  "harness": "Climbing harness.",
+  "hatchet": "A hatchet (cutting live vegetation is prohibited).",
+  "heavy": "Unusually heavy for its job.",
+  "helmet": "Climbing helmet.",
+  "hot_water_safe": "Can hold boiling water (hot-water-bottle trick).",
+  "hygiene": "Hygiene item; reduces illness or improves comfort.",
+  "ice_axe": "Counts as ice_axe.",
+  "inflatable": "Air pad: can puncture.",
+  "insulating": "Adds warmth (see stats.insulation or temp_rating_f).",
+  "journal": "A journal for notes.",
+  "knee_saver": "Eases steep descents on the knees.",
+  "knife": "Counts as the knife essential.",
+  "light_flashlight": "Handheld light (one hand busy).",
+  "light_headlamp": "Counts as light:headlamp.",
+  "light_lantern": "Camp lantern.",
+  "light_phone": "Phone flashlight as a weak light source.",
+  "lnt": "Supports Leave No Trace practice.",
+  "lnt_noise": "Creates noise that breaks Leave No Trace etiquette.",
+  "loaner": "Borrowed free; must be returned.",
+  "lots_of_straps": "Extra outside strap points.",
+  "luxury": "Not needed for safety; adds joy.",
+  "mascot": "A comforting companion object.",
+  "meds": "Basic medicines.",
+  "messenger": "Counts as messenger (satellite texts).",
+  "mug": "Drinking mug.",
+  "multi_day": "Pack sized for 4+ nights.",
+  "music": "Musical item.",
+  "nav_compass": "Counts as nav:compass (with a map: nav:map_compass).",
+  "nav_compass_poor": "A toy compass: rough direction only.",
+  "nav_gps": "Counts as nav:gps.",
+  "nav_gps_if_maps": "Counts as nav:gps if offline maps are present and the battery lasts.",
+  "nav_map": "Counts as nav:map.",
+  "nav_map_poor": "A map too vague for route finding (navigation checks get no bonus).",
+  "needs_alcohol_fuel": "Needs alcohol fuel to work.",
+  "needs_battery": "Stops working when its battery runs out.",
+  "needs_fuel_canister": "Needs a fuel canister to work.",
+  "needs_partner": "Only useful with at least one trained companion.",
+  "needs_poles": "Needs trekking poles to pitch.",
+  "needs_trees": "Needs two trees; useless above treeline and on beaches.",
+  "needs_white_gas": "Needs white gas to work.",
+  "no_hipbelt": "All weight rides on the shoulders.",
+  "no_shutoff_fire_ban": "No shut-off valve; usually banned under Stage 2 fire restrictions.",
+  "no_stove_ok": "Enables a no-stove food plan.",
+  "not_park_approved": "Does not meet Olympic's 2026 food-storage rule.",
+  "odor_barrier": "Reduces food smells.",
+  "overnight": "Pack sized for overnight trips.",
+  "pack_out": "Leaves trash that must be packed out.",
+  "pad_repair": "Fixes a punctured air pad.",
+  "park_approved": "On the park's 2026 approved list.",
+  "permit": "The wilderness permit.",
+  "phone": "The smartphone.",
+  "plants": "Covers plants.",
+  "pliers": "Has pliers.",
+  "pole_repair": "Fixes a broken tent pole.",
+  "poles": "Counts as poles.",
+  "poncho": "Poncho: covers the pack too; flaps in wind.",
+  "pot": "Cook pot.",
+  "pot_included": "Comes with its own pot.",
+  "pre_trip": "Applied at home before the trip; weighs nothing on the trail.",
+  "prohibited": "Use is against park rules; ranger and LNT consequences.",
+  "puncture_risk": "Can puncture (especially strapped outside in brush).",
+  "quick_dry": "Dries within a couple of hours.",
+  "rain_bottom": "Rain protection for the legs.",
+  "rain_brim": "Brim keeps rain off glasses.",
+  "rain_top": "Rain protection for the torso.",
+  "reading": "Something to read.",
+  "rechargeable": "Battery can be recharged from a power bank or panel.",
+  "repair_kit": "Counts as repair (fixes gear damage).",
+  "required_overnight": "Required by park rules for any overnight.",
+  "rescue_hardware": "Crevasse rescue hardware.",
+  "rigid": "Hard-shelled; adds dead space when packed (8% of volume).",
+  "rockfall_protection": "Reduces injury from falling rock.",
+  "rope": "Counts as rope.",
+  "sand_snow_anchor": "Holds in sand and soft snow.",
+  "self_inflating": "Foam-filled air pad.",
+  "shallow_source_ok": "Can draw from shallow seeps and puddles.",
+  "sharp": "Sharp points; can damage other gear if packed carelessly.",
+  "shelter_accessory": "Improves a shelter; not a shelter itself.",
+  "shelter_bivy": "Counts as shelter:bivy.",
+  "shelter_hammock": "Counts as shelter:hammock (needs trees).",
+  "shelter_tarp": "Counts as shelter:tarp (open sides, no bug protection).",
+  "shelter_tent": "Counts as shelter:tent.",
+  "shutoff_valve": "Has an on/off valve; allowed under most fire bans.",
+  "side_pocket": "Rides in a pack side pocket.",
+  "signal": "Signals for help.",
+  "sit_pad": "Sit pad.",
+  "sketchbook": "Counts as sketchbook (full Journal credit, the Golden Glow lesson).",
+  "sleep_accessory": "Improves sleep warmth or packing.",
+  "sleep_aid": "Improves sleep quality.",
+  "sleep_bag": "Sleeping bag.",
+  "sleep_pad": "Sleeping pad (see stats.r_value).",
+  "sleep_quilt": "Hoodless quilt; drafty but light.",
+  "slow_drying": "Takes many hours to dry; stays wet in Olympic humidity.",
+  "smellable": "Scented item that must go in the bear canister at night.",
+  "snags": "Catches on brush and blowdown; extra snag rolls.",
+  "solar": "Recharges from sunlight (weak under canopy and fog).",
+  "sos": "Can send an SOS.",
+  "splint": "Can splint an injured limb.",
+  "stars": "Stargazing.",
+  "storm_worthy": "Holds up in a full storm.",
+  "stove": "Counts as stove (hot food and drink, boiling water).",
+  "stove_accessory": "Improves stove efficiency.",
+  "stove_alcohol": "Burns denatured alcohol.",
+  "stove_canister": "Burns isobutane canisters.",
+  "stove_liquid": "Burns white gas; reliable in cold.",
+  "sun_clothing": "Sun-protective clothing.",
+  "sun_glasses": "Eye protection from sun and snow glare.",
+  "sun_hat": "Sun hat.",
+  "sun_screen": "Sunscreen.",
+  "sun_shade": "Provides shade.",
+  "synthetic": "Synthetic fiber: dries fast, keeps some warmth when wet.",
+  "tide_table": "Counts as tide_table (coast headland HUD).",
+  "time_source": "Tells time (tides, turnaround times).",
+  "toilet_paper": "Toilet paper.",
+  "towel": "Towel.",
+  "traction": "Counts as traction.",
+  "traction_snow": "Helps on snow.",
+  "trap": "A realistic mistake: the item works against you on most Olympic trips (notes explain why).",
+  "trowel": "Counts as trowel (catholes).",
+  "ultralight": "Unusually light for its job; often less durable.",
+  "umbrella": "Umbrella: great in calm rain, useless in wind.",
+  "unbreakable": "Cannot fail in normal use.",
+  "utensil": "Eating utensil.",
+  "ventilated_back": "Mesh back panel; less sweaty in heat.",
+  "versatile": "Has several uses; event cards may offer it as an alternative.",
+  "vintage": "Old-fashioned gear with charm and drawbacks.",
+  "wag_bag": "Pack-out waste bag.",
+  "warm_when_wet": "Keeps meaningful warmth when damp.",
+  "warmer": "Chemical heat pack.",
+  "water_container": "Adds water capacity (see stats.liters).",
+  "water_treat_chem": "Counts as water_treat:chem (wait time).",
+  "water_treat_filter": "Counts as water_treat:filter.",
+  "water_treat_uv": "Counts as water_treat:uv (fails in silty or tannic water).",
+  "waterproof": "Keeps water out.",
+  "waterproof_fabric": "Pack fabric sheds rain; seams can still leak.",
+  "waterproofing_cover": "Counts as waterproofing:cover.",
+  "waterproofing_item": "Keeps one bundle of gear dry.",
+  "waterproofing_liner": "Counts as waterproofing:liner.",
+  "wet_sensitive": "Loses most warmth when wet; keep it dry.",
+  "wildlife_viewing": "More and better wildlife sightings.",
+  "wind_top": "Blocks wind on the torso.",
+  "winter": "Mainly useful in winter and spring snow.",
+  "wool": "Wool: stays somewhat warm when wet, resists odor."
+ },
+ "stat_glossary": {
+  "temp_rating_f": "Sleeping bag or quilt lower-limit rating in °F (most sleepers want 10 °F of margin; see comfort_f).",
+  "comfort_f": "Temperature at which a typical sleeper is comfortable in the bag.",
+  "wet_warmth_retained": "Fraction of insulating value kept when soaked (down about 0.25, synthetic about 0.6, wool about 0.5, cotton 0).",
+  "compressed_volume_l": "Volume in a compression sack (see compression_sack).",
+  "r_value": "Sleeping pad thermal resistance. R 2 summer, R 3 to 4 three-season, R 5+ snow. R values add when pads are stacked.",
+  "insulation": "Warmth points of a garment, summed across worn layers for the evening warmth model (simulation.md 3 and 7).",
+  "covers": "Body zones a garment protects: torso, legs, head, hands, feet, neck, pack.",
+  "dry_time_h": "Hours to dry from soaked while worn or hung in mild, dry air.",
+  "wind_block": "0 to 3: how well a garment stops wind.",
+  "rain_rating": "0 to 3 for shelters and shells: how much rain gets through. 3 = storm-proof.",
+  "wind_rating": "0 to 3 for shelters: how well it stands up to gusts.",
+  "breathability": "0 to 3: how quickly sweat escapes (low values mean damp from the inside).",
+  "condensation": "0 to 3 for shelters: how wet the inside gets on still, humid nights (0 = none, tarp).",
+  "warmth_bonus_f": "Degrees F added to the sleep system's effective rating (tents trap a few degrees; hammocks lose some from below).",
+  "capacity_people": "How many sleepers a shelter holds.",
+  "capacity_l": "Usable inside volume of a container (canister, pot, dry bag).",
+  "usable_l": "Canister volume that food actually fills (about 85% of capacity_l because round walls leave dead space).",
+  "person_days_typical": "Days of food for one person that fit at about 2.0 L of food per day (see food_catalog bear_can_capacity).",
+  "approved_olympic_2026": "Whether the container is on the park-approved list for 2026.",
+  "liters": "Water a container carries.",
+  "full_volume_l": "Pack volume a water container takes when full.",
+  "flow_l_per_min": "Filter speed.",
+  "removes": "Pathogen classes a treatment handles.",
+  "wait_min": "Minutes before chemically treated water is safe for most pathogens.",
+  "fuel_g": "Grams of fuel in a canister or bottle.",
+  "boils_0_5l_mild": "Half-liter boils per container at about 60 °F with no wind (fewer in cold and wind).",
+  "fuel_g_per_l_boil": "Grams of fuel to bring 1 L to a boil in mild, calm conditions.",
+  "boil_min_per_l": "Minutes to boil 1 L in mild conditions.",
+  "lumens": "Light output on high.",
+  "battery_h_low": "Hours of light on the low setting.",
+  "battery_h_high": "Hours of light on high.",
+  "traction": "0 to 5 grip on snow and ice (shoes 0 to 3, traction chains 3, crampons 4 to 5).",
+  "ankle_support": "0 to 3; reduces sprain chance on rough trail with a heavy pack.",
+  "blister_risk": "0 to 3 (lower is better); liner socks are negative.",
+  "ford_ok": "Safe to wear across a river ford.",
+  "loss_in_current": "Chance a shoe is swept away when worn across a strong ford.",
+  "ford_bonus": "Added to ford checks.",
+  "footing_bonus": "Added to footing checks.",
+  "joy": "Spirits bonus per evening while carried and used.",
+  "joy_layover": "Spirits bonus on a layover day.",
+  "joy_rain_day": "Spirits bonus on a tent-bound rain day.",
+  "journal_points": "Journal credit for recording a discovery (the Golden Glow finale gives full credit to a sketch, partial to a photo).",
+  "journal_points_bonus": "Added to journal_points when used with a sketchbook or journal.",
+  "wildlife_sightings_mult": "Multiplier on wildlife card frequency.",
+  "rent_usd_per_day": "Typical rental price per day; the item can be rented in town.",
+  "wet_chance_mult": "Multiplier on the chance that inside gear gets damp in rain or a fall in a ford.",
+  "neighbors_annoyed": "Chance per evening that nearby campers are bothered (LNT card).",
+  "citation_chance": "Chance per use that a ranger issues a citation.",
+  "min_party": "Minimum party size for the item to work.",
+  "self_arrest": "Lets the hiker stop a slide on steep snow, if the snow skill is high enough.",
+  "skill_needed": "Skill that must be at least 2 for full effect.",
+  "needs": "Other items required for the item to be used."
+ }
 }
