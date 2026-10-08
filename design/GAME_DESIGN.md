@@ -1127,22 +1127,24 @@ You make it ............ 79%
 ███████████░░░░░▒▒▒▒▒▒
 clean 57 · shaky 22 · fall 21
 If you fall: 80% bruised,
-18% sprained ankle, 2% badly hurt
+18% sprained ankle, 2% badly hurt;
+half of the bad falls end the book
+Fatal: 21 x 2% x 50% = 0.2%
 ```
 
-**The compass roll** plays only on ♦ choices, after the confirming tap: a compass rose fills the picture, its dial painted with the same three bands (green clean, yellow shaky, red fail). The needle spins about 1.2 seconds with PC-speaker ticks and comes to rest **somewhere inside the band it landed in**, not at the exact roll, so a player who turns back a page can't read the number and nudge the odds just past it. Raw rolls appear only in the debug overlay and, from M6, the post-trip Notebook. A tap skips the spin. Ordinary risky choices go straight to the outcome page.
+**The compass roll** plays only on ♦ choices, after the confirming tap: a compass rose fills the picture, its dial painted with the same three bands (green clean, yellow shaky, red fail), plus a thin black sliver at the far end of the red for the fatal share when there is one. The needle spins about 1.2 seconds with PC-speaker ticks and comes to rest **somewhere inside the band it landed in**, not at the exact roll, so a player replaying the same weather on a new book (9.7) can't read the number and nudge the odds just past it. Raw rolls appear only in the debug overlay and, from M6, the post-trip Notebook. A tap skips the spin. Ordinary risky choices go straight to the outcome page.
 
 ### 8.9 Compound choices: an honest look-ahead
 
 Some choices aren't one roll: *push on to Glacier Meadows in the dark*, *wait for the tide*, *hike out tomorrow with 250 calories*. For these, the game plays the situation forward many times from the current state and shows how it tends to end.
 
 - **No peeking.** Each run resamples everything the player doesn't know, from the player's own information: the weather from the forecast for each lead time (or climatology beyond it), the river's hidden noise from its prior, the tide from its prior when no tide table is carried. The trip's real stored weather, river and tide are never read. The look-ahead is exactly as good as what you know, and it uses its own random stream, so the trip's dice are untouched.
-- **Two named policies.** Look-ahead bars and the Trip Outlook use *follow the plan (or this choice), and deviate only at forced crises*, so they tell you what happens if you stick to it. The test bots use their own styles, including *sensible* (F.2).
-- **On the button:** one word and a small three-color bar, `Push on · mostly trouble`. The numbers are in the Why sheet:
+- **Two named policies.** Look-ahead bars and the Trip Outlook use *follow the plan (or this choice), and deviate only at forced crises*, so they tell you what happens if you stick to it. At a later ♦ this policy keeps going and doesn't ask for help, so its fatal share is the honest price of sticking to the plan; taking a sure choice later can only lower it. The test bots use their own styles, including *sensible* (F.2).
+- **On the button:** one word and a small three-color bar, `Push on · mostly trouble`. When some runs end the book, the bar gets a black tip and the fatal share shows in red. The numbers are in the Why sheet:
 
-> **Push on to Glacier Meadows** · Arrive in OK shape **20%** · Arrive in serious trouble **60%** · Need help **20%**
+> **Push on to Glacier Meadows** · Arrive in OK shape **20%** · Arrive in serious trouble **55%** · Need help **20%** · **The book ends 5%**
 
-- **Budget:** the runs happen in a Web Worker, up to 400 within about 50 ms for a choice. With 400 runs the results round to 5%; if fewer finish, they round to 10% and read *about*. The Trip Outlook runs whole trips in the same worker in the background while you read the ranger's page, refining for up to about a second, and never blocks a page.
+- **Budget:** the runs happen in a Web Worker, up to 400 within about 50 ms for a choice. With 400 runs the results round to 5%; if fewer finish, they round to 10% and read *about*. A fatal share is shown to the nearest 1% instead, and never as 0 if any run ended the book, so the parts may not add to exactly 100. The Trip Outlook runs whole trips in the same worker in the background while you read the ranger's page, refining for up to about a second, and never blocks a page.
 
 ### 8.10 Chains, delays and memory: why things happen *because*
 
@@ -1163,6 +1165,8 @@ Some choices aren't one roll: *push on to Glacier Meadows in the dark*, *wait fo
 
 **Chains** are linked cards. The **Soggy Day chain**: showers on the Hoh with no rain pants (keep walking, or wait under a cedar for 45 minutes) → a damp camp (dry camp clothes, a fire if legal, a big hot dinner, or bed early in damp clothes) → *the cold hours* at night (the margin breakdown shows "damp clothes in bag -4 °F") → a grey morning (dry layers in the sun, press on, or turn around). The same first card plays four different ways depending on `rain_bottom`, `camp_clothes_dry`, `stove`, the sleeping bag and the elevation (fire rules).
 
+**Chains that can end a book** (Old School). A crisis chain may end in death only after **at least two explicit warnings the player walked past**, each a page that names the danger and offers a sure way out, and its last step is always a ♦ with its fatal share (9.5). The **Cold chain**: *shivering* (warning one: make camp, add layers, eat, turn back) → *stumbling* (warning two: stop and shelter, or call for help) → a ♦, *keep going* with its fatal share, beside *stop and wait for help*, which is sure. A ranger-voice nudge (7.3) or a Fork card on the way counts as a warning too. No step fires on a random draw: each needs the state the previous choice left. While the hiker is climbing, the chain rarely starts (climbing makes heat); it is the stop, the wind and the wet that start it.
+
 **Memory** stores small facts (`wet_from = "the Hoh"`), so later pages can echo them: *Her socks were still damp from the Hoh.*
 
 ### 8.11 One ford, five ways
@@ -1178,6 +1182,8 @@ The same braided-river card, with the gear and the hour changing everything. Eve
 | The afternoon again, but a dipper was bobbing on a rock and you watched | +5, and the range narrows | — |
 
 If the soak happens, the damp evening chain is queued **only if you have no dry camp clothes**. The pack decides whether a wet crossing becomes a bad night.
+
+None of these five can end the book: "swept" at thigh depth means a rescue. **At waist depth** (flow 2.5, base 25) it can. The same tired, heavy, pole-less hiker gets 25 - 5 - 10 = 10 clean, shaky 25, so the button reads **♦ 35% · 65% goes badly · 2% fatal** in Old School: 65% fail x 15% swept x a 20% death roll (9.5) = 2.0%. *Camp, cross at dawn* sits right under it, sure.
 
 ### 8.12 How many outcomes, measured
 
@@ -1202,7 +1208,8 @@ This is the Oregon Trail learning loop made explicit, and the main tool for chec
 ### 8.14 Seeds and save-scumming
 
 - Randomness comes from one seeded generator split into named streams (weather, environment, permits, director, rolls, effects, text, art, store, lookahead). **Weather never shifts because you dawdled**, and editing text never changes an outcome.
-- **Rolls are keyed to content, not to page counts:** `hash(trip seed, node, card, choice, trip day, attempts here)`. An optional page inserted before a check (a sketch, a rest, a different chore order) changes nothing. Turn back a page and make the same choice at the same ladder on the same day, and you get the same result, the King's Quest way: a fall is a puzzle you solve by changing your approach (haul the pack up on a rope, wait for morning, take the overland trail), not by reloading. A different choice, a new day, or a genuine second attempt (trying the ford again after failing it) gets a fresh, equally honest roll.
+- **There is no going back, in either mode.** No Restore, no Turn Back a Page, no Back to Last Camp, no Restart Trip. Every page autosaves, and the save after a ♦ is written at the confirming tap, before the compass spins, so closing the app mid-spin changes nothing. A death is written to the shelf, the register and the field guide in that same save (E.6).
+- **Rolls are keyed to content, not to page counts:** `hash(trip seed, node, card, choice, trip day, attempts here)`. An optional page inserted before a check (a sketch, a rest, a different chore order) changes nothing. And the same choice at the same ladder on the same day, in the same weather, always gives the same result: on a new book with the same weather (Try this trip again, 9.7), or from an old copy of a save, a fall is still a fall. It is a puzzle you solve by changing your approach (haul the pack up on a rope, wait for morning, take the overland trail), the King's Quest way, never by reloading. A different choice, a new day, or a genuine second attempt (trying the ford again after failing it) gets a fresh, equally honest roll.
 - The compass shows only the band, never the exact roll (8.8).
 
 ---
@@ -1219,13 +1226,14 @@ This is the Oregon Trail learning loop made explicit, and the main tool for chec
 | 3 | Serious | Shivering or hypothermic, moderate sprain, bonked far from the car, no light on bad trail, stranded by the tide, lost in fog | A forced crisis card with at least one bail option and one help option |
 | 4a | Trip over | Walk out early | *The End, Sooner Than Planned* |
 | 4b | Rescue | Rangers walk you out, a carry-out, a helicopter (Olympus) or Coast Guard (coast) | *The End, With a Little Help* |
-| 5 | Death | **Perilous mode only**, at flagged moments | A Sierra death page |
+| 5 | Death | **Old School only**: a ♦ that showed its fatal share, or a chain's end after two warnings (9.5) | None. The death box, then GAME OVER and the memorial page |
 
 **Escalation rules:**
 1. A rung goes up only through a failed check, a crossed threshold, or a delayed payoff the player risked knowingly.
 2. Trouble becomes Serious only after a crisis card the player saw.
-3. Serious always offers a safe-ish option.
-4. In Storybook mode nothing goes above 4b.
+3. Serious always offers a safe-ish option, and any moment that could reach rung 5 offers a sure one (9.5).
+4. Rung 5 is reached only by the two fair paths in 9.5, never from a choice shown as `sure`.
+5. In Storybook mode nothing goes above 4b.
 
 ### 9.2 Help and rescue
 
