@@ -907,3 +907,321 @@ None in the picking. It is pure input. The bear's presence is a seeded fact you 
 9. No text while picking.
 10. The trip's first ripe berry gets a one-frame snow sparkle.
 
+---
+
+## 5. The technical descent
+
+*Roots and rocks coming at you, a tap for each, and the footsteps are the music.*
+
+### 5.1 What it is
+
+Going downhill fast on technical trail is a rhythm: roots, rocks, steps, a gravel patch, a wet slab. The modes draft already places this minigame (its 4.8): it fires on technical segments at Run or Race, sets the segment's time between x0.92 and x1.10, and feeds its stumbles into the footing check. This section fills it in, in the spirit of *Lonely Mountains: Downhill*: lines, flow, falls that teach, and no music.
+
+### 5.2 Where and when
+
+- **Segments tagged technical** with a steep descent (the doc's steep-descent term, 7.4), in your direction of travel. On the first playable: Deer Lake down past Canyon Creek to Sol Duc Falls, the stone staircase out of the basin, and the Bogachiel Peak spur. Later: the Hoh Lake trail's long drop to the Hoh, Appleton Pass, Hurricane Hill.
+- **FKTs:** at Run and Race. **Open and the daily:** at Push pace, which is already "worse footing, x0.88 time" (7.4).
+- **At most three a run,** the steepest. The rest resolve at Auto, so a long route doesn't become a rhythm marathon.
+- **Practice** is the FKT window itself: unlimited tries in fixed conditions (the modes draft's 4.7).
+
+### 5.3 Controls
+
+- **Tap** as each obstacle reaches the feet line: a foot over a root, onto a rock, down a step.
+- **Hold** to brake: the trail slows, the timing windows widen, and the clock runs.
+- **Release** to let it run.
+
+### 5.4 The loop
+
+About 35 seconds for a segment, whatever its real length. The trail scrolls down toward the hiker, seen from above, like a map unrolling.
+
+| Time | What happens |
+|---|---|
+| 0-5 s | Tread and a few roots. Each perfect tap adds a little speed: flow builds |
+| 5-15 s | A cluster of rock steps you can see coming. Brake through it, or trust your timing |
+| 15-25 s | Switchbacks with wet slabs: hold through the slab, tap the step after it |
+| 25-35 s | The creek gets louder, the trees open, Sol Duc Falls. The split |
+
+**Judging** (design): *perfect* within 5 ticks (about 42 ms), *good* within 11, otherwise a stumble. At Race the windows shrink 15%. After dark the headlamp's pool shows only about 1.2 seconds ahead instead of 2.
+
+**Flow:** each perfect tap adds 2% speed, up to +12%; a stumble takes away 8% and makes a scuff; braking takes 25% while held.
+
+### 5.5 What skill is
+
+Timing, reading the cluster ahead, braking *before* the rough bit instead of in it, and the nerve to let it run.
+
+### 5.6 What it feeds
+
+| Result | Goes into | Range |
+|---|---|---|
+| Flow and braking | The segment's time | x0.92 to x1.10; Auto x1.00 |
+| Stumbles | Your hands on the segment's footing check | 0 stumbles +6; 1 +3; 2 0; 3 −3; 4 −6; 5 or more −10 |
+| The footing check | Rolled ankle: mild (x1.15) or moderate (x1.6, Serious) | The modes draft's 4.8 |
+
+### 5.7 Odds
+
+**Hands decide the flow and the stumbles. The dice decide whether a stumble turns an ankle.** The pace chip shows the range before you choose it. On the Deer Lake descent at Race (design numbers, matched to the modes draft's "about 1 in 14" at par):
+
+| Hands | Clean | Made it | Rolls an ankle |
+|---|---|---|---|
+| Worst (−10) | 76 | 88% | 12% |
+| Auto (0) | 86 | 93% | 7%, about 1 in 14 |
+| Best (+6) | 92 | 96% | 4% |
+
+A moderate sprain is Serious, so the linter makes this a ♦ and the chip shows it so (8.1). The chip reads `Race ♦ {hand}88-96%` [draft], and the roll lands at the bottom of the segment, after the minigame, with the compass.
+
+### 5.8 Determinism
+
+The obstacle track comes from the segment's own profile (its steep feet, its class, the surface), the direction, wet or dry, light or dark, and the window's seed. Everyone in a window runs the same roots. Taps are judged in ticks, never against the sound. A latency setting of up to 150 ms is allowed and recorded in the log, and the verifier rejects inputs no hand could make (the modes draft's 6.3).
+
+### 5.9 Access
+
+**Auto** gives x1.00 and par hands. **Wide windows** (Open) makes them 50% wider. **Reduce Motion:** the scroll is the game, so it stays, but with no parallax or shake, and Auto is offered first on the card. **VoiceOver:** Auto. **Sound off:** every obstacle is visible ahead, and the feet line flashes on a perfect.
+
+### 5.10 Art and sound
+
+- **Art:** the trail from above as a ribbon of bark-brown tread through forest; roots as bark lines, rocks in slate with a glacier-blue edge, gravel as a `diag` dither, wet slabs as `hlines`; a new top-down hiker (7x7, the rust jacket); the headlamp's pool after dark (the doc's lamp pseudo-color).
+- **Sound, Lonely Mountains style:** footsteps by surface (a dirt thud, a rock clack, a root knock, a gravel scuff, a wet-slab slap), poles clicking, breath that quickens with speed, the creek rising as you near it. A stumble is a scuff and a skitter of pebbles. When the flow is perfect, the footsteps fall into an even rhythm: that is the music.
+
+### 5.11 Tuning targets
+
+| Target | Value | Measured by |
+|---|---|---|
+| Length | 30 to 40 s a segment | Playtests |
+| Obstacles | About 1.6 a second at Run, 2.2 at Race | The track builder |
+| Auto | x1.00, 2 stumbles | A golden test |
+| A clean expert | x0.93, 0 stumbles | Bots |
+| A first try | x1.04, 3 to 4 stumbles | Playtests |
+| The cap | Best to worst under 10% of a typical run (the modes draft's 6.3) | The harness |
+
+### 5.12 The polish list
+
+1. Every tap has its footstep, by surface, within a frame.
+2. You can always see the next rough patch before it matters.
+3. Flow feels like speed: the scroll and the footsteps quicken together.
+4. A stumble never feels random: the obstacle was there.
+5. The headlamp's pool makes night runs different, not unfair.
+6. The split appears the moment the segment ends.
+
+---
+
+## 6. Ice-axe self-arrest
+
+*Three seconds on hard snow. The one minigame that can be the last thing a hiker does.*
+
+### 6.1 What it is
+
+You slipped on steep snow. You are sliding, faster every tenth of a second, toward the rocks at the bottom. Roll toward the pick, drive it in, put your weight on it, and stop.
+
+**The technique is real.** Ortovox's safety academy teaches it this way: hold the axe diagonally across your body, one hand over the head and one on the shaft; roll onto your stomach; press the pick in and push your weight onto it; without crampons, dig in your toes; with crampons, bend your knees so the points stay off the snow, because a caught point "can result in a somersault and injury." It warns that falls happen on 30 to 35° slopes, that speeds can approach free fall, and that you should get into position "as quickly as possible." Wikipedia's account calls for an "instinctive and instantaneous movement," before speed builds.
+
+### 6.2 Where and when
+
+- **Only after a slip on a ♦.** Crossing steep snow is a choice with a sure way around (turn back, wait for softer afternoon snow, take another way). If its roll comes up *slide*, the minigame plays.
+- **Places:** the High Divide's early-season snowfields (the region's `snowfield_high_divide` hazard: the rim, Bogachiel Peak, Heart Lake Junction) in the shoulder season (M1b); later Royal Basin, Grand Pass, Anderson Pass and Appleton Pass.
+- **Never a fatal band at a `real_incident` site** (9.5, principle 3): not on the Olympus climbing route, and not on the shortcuts toward Boulder Lake near Mount Appleton. There, the worst is a rescue.
+- **On Jon's rope** (Olympus with Jon, 4.2) a fall is held. No minigame.
+- **Practice:** snow school with Jon, and once, the first time a hiker with an axe stands on safe snow, a flavor choice, *Try a slide* [draft] (15 minutes, Wet +1), on a slope with a clean runout.
+- **Modes:** Open, and the daily and FKTs in early season. The same rule everywhere.
+
+### 6.3 Controls
+
+The slide starts in one of four positions, drawn from the roll's effect stream (design: 40%, 30%, 20%, 10%):
+
+| Start | What you do | The real move |
+|---|---|---|
+| Feet first, on your front | Hold: dig in | The push-up position; brake with the axe |
+| Feet first, on your back | Swipe toward the pick, then hold | Roll onto your stomach, toward the axe's head |
+| Head first, on your front | Tap the snow beside you, then hold | Plant the pick to the side; your feet swing downhill |
+| Head first, on your back | Tap beside you, swipe, hold | Elbows in, knees up, roll onto your stomach |
+
+- **Hold** presses the pick in and puts weight on it. The braking builds over a third of a second.
+- **With crampons,** a roll started above 5 m/s catches a point one time in two (design) and flips you head first. A clean, early roll keeps your knees bent for you.
+- **Without crampons,** your toes dig in on your front: a little more braking.
+
+### 6.4 The physics
+
+Design values on a 30° slope. Snow is hard and icy before 10 am and soft after 1 pm (7.6).
+
+| Snow | After 1 s | After 2 s | After 3 s |
+|---|---|---|---|
+| Hard, no arrest | 4 m/s · 2 m | 8 m/s · 8 m | 12 m/s · 18 m |
+| Soft, no arrest | 2 m/s · 1 m | 4 m/s · 4 m | 6 m/s · 9 m |
+
+With the axe in, braking beats gravity by about 3 m/s² on hard snow and 6 on soft (design). Trekking poles brake at 40% of that; hands and boots alone, a little on hard snow and some on soft.
+
+| You're braking by | Hard snow, you stop at | Soft snow |
+|---|---|---|
+| 1.2 s (Auto at snow 1, a back start) | 7 m | 2 m |
+| 2.4 s (you froze) | 28 m | 7 m |
+
+So on hard morning snow with rocks 25 m below, a two-second freeze reaches the rocks, and the same freeze on soft afternoon snow is a scare. That is the lesson the slopes teach: the hour matters as much as the axe.
+
+### 6.5 Where you stop
+
+| Stopped within | Rung | What happens |
+|---|---|---|
+| 8 m | 1, Uncomfortable | A scare and snow up the sleeves: Wet +1 |
+| The runout's first two thirds | 2, Trouble | Scrapes; a lost pole or glove |
+| The last third | 2, Trouble | And a mild sprain |
+| The runout: the rocks | 3, Serious | Badly hurt, then the death roll |
+
+**The death roll** after a slide into rocks is 20% (design), a new row for the doc's table (9.5). Its cause key is `fall`, with a snow line under *YOU PERISHED* that is yours to write. Then the five death screens, unchanged.
+
+**Where the runout is clean** (a flat bench, a lake), the worst is Trouble, the crossing is a plain %, and the minigame is just a scare.
+
+### 6.6 Odds
+
+**Hands decide how fast you roll and dig in. The dice decide the slip, the way you land, and what the rocks do.** The ♦ button shows the slip as exact, and the fatal share at the worst hands, which means no arrest at all.
+
+Worked example (design numbers): early July, 8 am, the steep snow below the rim, no traction, an ice axe and poles, snow skill 1.
+
+| Part | Value |
+|---|---|
+| Base for this snow (hard, steep) | 80 |
+| No traction | −10 |
+| Ice axe, self-belay | +10 |
+| Trekking poles (8.5) | +5 |
+| Snow skill 1 | +2 |
+| Clean · shaky · made it | 87 · 7 · **94%** |
+| Slide | 6% |
+| Worst hands: all slides reach the rocks | 6% x 100% x 20% = **1.2%** |
+| Auto: 1 in 8 slides reach the rocks | 6% x 12.5% x 20% = 0.15%, shown 0.2% |
+
+```
+[ Cross the snow ♦ 94%         (i) ]
+  6% slide · up to 1.2% fatal
+[ Wait for softer snow    3 h  sure ]
+[ Go around by the trail  +1.4 mi   ]
+```
+
+With Auto on, the second line reads `6% slide · 0.2% fatal`. The Why sheet says it in a sentence: *If you slide, how you arrest decides how far. No arrest: the rocks. A quick one: a scare.* [draft]
+
+**The ice axe's old +25** (the doc's 6.7) becomes the self-belay's +10 on the slip plus the arrest after it. At Auto the two together are worth about what the +25 was (a tuning target).
+
+### 6.7 Determinism
+
+The slip is the ♦'s roll, keyed at the confirming tap. The start position and speed come from that roll's effect stream. The slope (angle, hardness by the hour, the runout) comes from the place's data. So everyone who slips in the same place on the same daily slides the same way, and only the hands differ. Auto's chance of reaching the rocks is computed exactly by running Auto's script on every possible start.
+
+### 6.8 Access
+
+**Auto** reacts in 0.8 s at snow 1, 0.1 s faster each level, down to 0.4 s. In a timed mode everyone's Auto is the same. **VoiceOver:** Auto. **Reduce Motion:** the slope scrolls, but the camera never shakes or tilts, and Auto is offered first. **Sound off:** the rocks and the speed bar are always on screen.
+
+### 6.9 Art and sound
+
+- **Art:** the tall plate as a slope scrolling past; the hiker sprite sliding in four poses, the axe drawn large enough to read which side the pick is on; the rocks waiting at the bottom; a pick-scrape trail in the snow as you brake; a speed bar.
+- **Sound:** the hiss of the slide, rising with speed; the pick's scrape, a harsh noise band that falls in pitch as you slow; your breath; then nothing but the wind. No music, and no sting unless it's the death sequence's own (13.2).
+
+### 6.10 Tuning targets
+
+| Target | Value | Measured by |
+|---|---|---|
+| Length | 2 to 6 s of sliding | The physics |
+| Reference slope (30°, hard, rocks at 25 m) | Novices stop short 70%; regulars 95%; Auto 87.5% | Playtests, a golden test |
+| Soft snow, same slope | Nearly everyone stops short | A golden test |
+| Snow school | 3 or 4 practice slides teach it | Playtests |
+| Axe value | Self-belay plus arrest at Auto ≈ the old +25 | The harness |
+
+### 6.11 The polish list
+
+1. The first tenth of a second makes the danger obvious: the tilt, the hiss, the rocks.
+2. The axe's pick is unmistakable, so the right swipe is never a guess.
+3. The bite builds over a third of a second and you feel it: the scrape deepens, the speed bar falls.
+4. Stopping is sudden and silent.
+5. Nothing in the slide is text.
+6. Snow school's first slide is in slow motion.
+
+---
+
+## 7. The cold creek ford
+
+*Step in the lulls between surges, before your feet go numb.*
+
+### 7.1 What it is
+
+A knee-deep or deeper river, glacial gray or snowmelt clear, and cold. You pick your spot, unbuckle your hip belt, and cross: one step at a time, each in the lull between surges, facing upstream with your poles. Wait too long for a lull and your feet go numb, and numb feet step badly.
+
+**The technique is real.** The Park Service's stream-crossing advice (Katahdin Woods and Waters) says to release the waist and sternum belts; face upstream and cross at a slight angle downstream in faster water; look for the widest or most braided part of the channel, usually the shallowest; move one foot at a time, sliding it along the bottom; hold a pole upstream for a three-point stance; and turn around or wait if the water is too high, too cold or too swift.
+
+### 7.2 Where and when
+
+- **The fords in the region data:** the Hoh's braids before Olympus Guard Station; the Queets at its trailhead (NPS: "commonly waist deep in summer," and it can be fordable on the way in and not on the way out); the Enchanted Valley washout and White Creek on the Quinault side; the Elwha just past Chicago Camp; Goodman Creek and Falls Creek on the coast, where high tide backs the sea up the channel; the Ozette River mouth; Lena Creek; the West Fork Dosewallips; the Upper Duckabush.
+- **Knee-deep or more.** Shallower fords stay narrated, as now (7.7).
+- **The High Divide loop has no fords** (its region data), so the ford arrives with the Hoh in M2.
+- **Modes:** Open, the daily (on the clock), FKTs. **No practice.** Fords aren't something to do for fun, and the first one a career meets is shallow.
+
+### 7.3 Before you step in
+
+One screen, three optional taps:
+
+- **Shoes:** boots, sandals or bare feet, from your kit. Sandals keep the boots dry for after. Flip-flops can wash away (the catalog's `loss_in_current`: 0.6 for flip-flops, 0.3 for foam camp shoes).
+- **Unbuckle the hip belt:** tap the buckle. It's the doc's +3 (7.7), and the click is satisfying.
+- **The spot,** where a ford has more than one: a riffle over gravel (shallow, fast), a smooth glide (deep, slow) or a braid (shallow and spread out). Each spot is the ford's flow index ± 0.1 (seeded, design), about ±4 points. You see how the water looks, not the number. *Scout upstream* (20 minutes, +5, 7.7) shows the numbers.
+
+### 7.4 Controls and the loop
+
+- **Tap to take a step,** best in a lull. Surges come every 1.2 to 2.0 s (seeded), as white bands sliding downstream; the lulls last 0.5 to 0.9 s.
+- **Hold to brace** through a surge: no wobble, but the cold keeps counting.
+- **8 to 12 steps** cross the river; 15 to 30 seconds.
+- **Footwork** starts at 0: each clean step +1 (up to +6), each step into a surge −2 (down to −8).
+- **Numb feet:** after 10 s in glacial water (15 s in rain-fed or snowmelt creeks), the lulls you can use shrink 10% a second (design). Bare feet go numb twice as fast.
+- **Poles** make the lulls feel 30% longer: the three-point stance.
+- **The live line** under the picture shows the made-it % moving with every step.
+- **At the far bank,** the roll: the compass on a ♦, straight to the outcome otherwise.
+
+```
+┌──────────────────────────────────────┐
+│ Hoh braids · knee-deep · glacial     │
+│ ┌──────────────────────────────────┐ │
+│ │ far bank ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒ │ │
+│ │ ≈≈≈ surge ≈≈≈▶       ≈≈≈≈▶       │ │
+│ │          o/  you, facing up      │ │
+│ │ ≈≈▶        ≈≈≈≈≈▶       ≈≈≈▶     │ │
+│ │ near bank ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒ │ │
+│ └──────────────────────────────────┘ │
+│ feet ▓▓▓▓▓░   step 4 of 9            │
+│ made it 91% ▸ 93%                    │
+│ tap: step · hold: brace              │
+└──────────────────────────────────────┘
+```
+
+### 7.5 Odds
+
+**Hands decide your spot and your steps. The dice decide the rock that rolls under a boot.** The ranges, worked from the doc's own ford (8.11) with footwork from −8 to +6 and one spot:
+
+| The ford | Clean at Auto | The button |
+|---|---|---|
+| Knee, no poles, two things strapped outside | 81 | `{hand}87-94%`, Auto 91% |
+| Thigh, 3 pm, no poles, heavy, tired | 47 | `♦ {hand}64-77%`, up to 36% goes badly (swept is a rescue) |
+| Waist, the same hiker | 12 | `♦ {hand}30-43%`, up to 2.1% fatal; Auto 1.9% |
+
+The waist row's fatal share at the worst hands: 70% fail x 15% swept x the doc's 20% death roll = 2.1%. At Auto it is the doc's own 1.9%. *Camp, cross at dawn* sits under it, sure, as it always has.
+
+### 7.6 What it feeds
+
+| Result | Goes into |
+|---|---|
+| The roll's outcome | The doc's fail table: soaked 70, a dropped item 15, swept 15 when the flow index is over 1.5 (8.3) |
+| Wet feet | Feet wear doubles while wet (7.9), unless sandals and dry socks after |
+| Minutes in the water | Warmth, through the heat balance (7.9) |
+| Lost footwear | On a fail, `loss_in_current` decides it |
+| Time | 1 real second = 20 game seconds (design); on the clock in timed modes |
+
+### 7.7 Determinism, access, art and sound
+
+- **Determinism:** `hash(seed, "mini", "ford", ford, day, attempt)` sets the surges and the spots' offsets; the river's true flow index comes from the depth model (7.7) at that hour. A second try after a failure is a new attempt, as the doc already rules (8.14).
+- **Access:** **Auto** steps at par (river skill raises it in Open). **Slow water** (Open) slows surges 30%. **Reduce Motion:** the water's bands move in whole-pixel steps with no shimmer. **Sound off:** surges are visible before they arrive.
+- **Art:** the river from above, in teal and glacier blue with the doc's river cycle (11.5), surges as white `hlines` bands; the hiker facing upstream with poles; cobbles under the water.
+- **Sound:** the river's roar, louder with the flow index; muffled clacks of cobbles underfoot; a sharp breath at the first step in; the surge as a rising rush. No music.
+
+### 7.8 Tuning and polish
+
+| Target | Value |
+|---|---|
+| Length | 15 to 30 s |
+| Auto | Footwork 0 |
+| A clean expert | +5 to +6 |
+| A first try | −2 to 0 |
+| Numbness | Bites after about 10 s in glacial water |
+
+**Polish:** the step lands on touch-down with a splash; a surge is always readable a second ahead; numbness shows in the feet bar *and* in the hiker's smaller steps; the far bank's first dry step has its own crunch; the outcome never contradicts what you just played (a fail shows as a slip on the last step, never as a sudden teleport).
+
