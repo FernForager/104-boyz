@@ -1,0 +1,20 @@
+{
+  "file": "wood_bibliography.json",
+  "status": "IN PROGRESS - skeleton written early; research continuing",
+  "compiled_on": "2026-10-08",
+  "author": {
+    "name": "Robert L. Wood",
+    "born": "1925-01-04, Springfield, Missouri",
+    "died": "2003-12-21",
+    "moved_to_seattle": 1946,
+    "source": "https://archiveswest.orbiscascade.org/ark:80444/xv89962"
+  },
+  "works_verified_so_far": [
+    "Across the Olympic Mountains: The Press Expedition, 1889-90 (Seattle: The Mountaineers and University of Washington Press, 1967; 2d ed. The Mountaineers 1976, ISBN 0916890112; paperback reprint Mountaineers Books 1989, ISBN 0898862191)",
+    "Trail Country: Olympic National Park (Seattle: The Mountaineers, 1968; xxi, 208 p.; foreword by John Osseward)",
+    "Wilderness Trails of Olympic National Park (Seattle: The Mountaineers, 1970; xx, 219 p.; trail and beach log sections of Trail Country)",
+    "Men, Mules, and Mountains: Lieutenant O'Neil's Olympic Expeditions (Seattle: The Mountaineers, 1976; xx, 483 p.; ISBN 0916890430)",
+    "Olympic Mountains Trail Guide: National Park & National Forest (The Mountaineers, 1984, ISBN 0898860873; 2nd ed. 1991, ISBN 0898863201; 3rd ed. 2000, ISBN 0898866189)",
+    "The Land That Slept Late: The Olympic Mountains in Legend and History (The Mountaineers, 1995; 175 p.; ISBN 0898864402)"
+  ]
+}
