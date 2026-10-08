@@ -4,9 +4,21 @@
   "project": "Olympic Peninsula Hiker (working title)",
   "scope": "Park-wide rules, climate, tides, SAR/incident patterns, and current road/facility conditions for Olympic National Park.",
   "researched_on": "2026-10-07",
-  "status": "IN PROGRESS - permits, food, regs, trail+road conditions, fires, climate, tides done; SAR, wildlife, game notes pending",
+  "status": "COMPLETE first pass (2026-10-07). See uncertain items flagged with confidence low/medium or stale:true.",
   "confidence_scale": "high = stated on an nps.gov/recreation.gov page fetched for this file; medium = secondary source or older official page; low = inferred or general knowledge, verify before shipping",
-  "staleness_rule": "Any condition claim dated before 2025-01-01 is flagged stale:true."
+  "staleness_rule": "Any condition claim dated before 2025-01-01 is flagged stale:true.",
+  "uncertain_summary": [
+   "Park-wide canister rule: NPS pages say 'all wilderness areas' (2026); PNTA says 'most'. Effective date of the change not published.",
+   "Enchanted Valley/East Fork Quinault trial quota (208 users/30 permits per night, from 2024, up to 3 years): no final decision found; a 2024 WTA piece cited 12 permits/night.",
+   "2026 Stage 2 campfire ban (from Aug 7): no lifting notice found as of 2026-10-07.",
+   "Lake of the Gods camp closure (Mount Tom Creek Fire, June 2026): current status unknown.",
+   "Mora Road reopening: NPS says Oct 15, 2026; a press report said Oct 5.",
+   "Staircase wilderness trails: no reopening date announced.",
+   "Hurricane Ridge winter 2026-27 schedule not yet published; 2025-26 was Fri-Sun + holiday Mondays with chains required.",
+   "Mount Olympus/alpine temperatures are estimates (no station).",
+   "Some canister volumes (Bare Boxer, Lighter1, REI, BV ONE) unverified.",
+   "Quinault WIC 'closed for 2026 season' (trail conditions page) vs. WIC page listing Memorial Day-September season."
+  ]
  },
  "permits": {
   "summary": "Every overnight stay in the ONP wilderness needs a wilderness camping permit, year-round. Reservations are first-come, first-served on Recreation.gov (permit 4098362); there is no early-access lottery. Summer-season quota inventory is bulk-released April 15 at 7:00 AM Pacific and is not topped up later.",
@@ -80,12 +92,30 @@
    ]
   },
   "park_entrance_fees": {
-   "value": "Separate from wilderness fees. ONP charges a per-vehicle entrance fee (7-day) at staffed entrances (e.g. Hurricane Ridge, Elwha, Sol Duc, Hoh, Staircase); America the Beautiful interagency pass and the Olympic annual pass are accepted.",
-   "vehicle_7day_usd": 30,
+   "value": "Separate from wilderness fees, collected at entrance stations (e.g. Heart O' the Hills/Hurricane Ridge, Elwha, Sol Duc, Hoh, Staircase).",
+   "private_vehicle_7day_usd": 30,
+   "motorcycle_7day_usd": 25,
+   "per_person_7day_usd": 15,
+   "youth_15_and_under": "free",
    "olympic_annual_pass_usd": 55,
-   "confidence": "medium",
-   "note": "Dollar values from general NPS fee schedule knowledge (2020-present). Not re-verified on nps.gov/olym/planyourvisit/fees.htm in this session - verify.",
-   "source_ids": []
+   "america_the_beautiful_2026_usd": {
+    "resident_annual": 80,
+    "non_resident_annual": 250,
+    "senior_annual": 20,
+    "senior_lifetime": 80,
+    "military_access_4th_grade_volunteer": 0
+   },
+   "frontcountry_campgrounds_usd_per_night": "15-24",
+   "fee_free_days_2026_examples": [
+    "Feb 16",
+    "May 25",
+    "Aug 25"
+   ],
+   "page_date": "2025-12-19",
+   "confidence": "high",
+   "source_ids": [
+    "nps_fees"
+   ]
   },
   "quota_areas": {
    "value": [
@@ -243,124 +273,126 @@
   ],
   "approved_containers_2026": {
    "list_updated": "2026-06-25",
-   "note": "Unlisted containers are not permitted regardless of maker claims; damaged/cracked cans not allowed. Volumes below are manufacturer specs from general knowledge (not on NPS page) - medium/low confidence; verify per model.",
+   "note": "Model list is from the NPS approved list (updated 2026-06-25). Unlisted containers are not permitted regardless of maker claims; damaged/cracked cans not allowed. Volumes/weights are manufacturer or retailer specs gathered for this file (not on the NPS page); null = not verified.",
    "items": [
     {
      "brand": "BearVault",
-     "models": [
-      "BV One.1 (BV ONE, adjustable; approved July 2026)",
-      "BV110b",
-      "BV200",
-      "BV250",
-      "BV300",
-      "BV350",
-      "BV400",
-      "BV425",
-      "BV450",
-      "BV475",
-      "BV500"
-     ],
-     "volumes_l": {
-      "BV425": 7.2,
-      "BV450": 7.0,
-      "BV475": 9.0,
-      "BV500": 11.5
-     },
-     "volume_confidence": "medium"
+     "model": "BV425 Sprint",
+     "volume_l": 5.0,
+     "volume_cu_in": 305,
+     "weight_oz": 28,
+     "days_food_solo": "1-3",
+     "confidence": "medium"
+    },
+    {
+     "brand": "BearVault",
+     "model": "BV450 Jaunt",
+     "volume_l": 7.2,
+     "volume_cu_in": 440,
+     "weight_oz": 33,
+     "days_food_solo": "3-4",
+     "confidence": "medium"
+    },
+    {
+     "brand": "BearVault",
+     "model": "BV475 Trek",
+     "volume_l": 9.3,
+     "volume_cu_in": 565,
+     "weight_oz": 36,
+     "days_food_solo": "5-6",
+     "confidence": "medium"
+    },
+    {
+     "brand": "BearVault",
+     "model": "BV500 Journey",
+     "volume_l": 11.5,
+     "volume_cu_in": 700,
+     "weight_oz": 41,
+     "days_food_solo": "up to 7",
+     "confidence": "medium"
+    },
+    {
+     "brand": "BearVault",
+     "model": "BV ONE / One.1 (adjustable, approved July 2026)",
+     "volume_l": null,
+     "confidence": "low"
+    },
+    {
+     "brand": "BearVault",
+     "model": "BV110b, BV200, BV250, BV300, BV350, BV400 (older models)",
+     "volume_l": null,
+     "confidence": "low"
     },
     {
      "brand": "Garcia (Backpackers' Cache)",
-     "models": [
-      "Model 812"
-     ],
-     "volumes_l": {
-      "812": 10.8
-     },
-     "volume_confidence": "medium"
-    },
-    {
-     "brand": "Bare Boxer",
-     "models": [
-      "Contender 101",
-      "Champ 202"
-     ],
-     "volumes_l": {
-      "Contender 101": 4.3,
-      "Champ 202": 6.6
-     },
-     "volume_confidence": "low"
+     "model": "Model 812",
+     "volume_l": 10.0,
+     "volume_cu_in": 614,
+     "weight_oz": 44,
+     "confidence": "medium",
+     "note": "Retailers list 600-615 cu in; weight ~2.7 lb from general knowledge"
     },
     {
      "brand": "Bearikade (Wild Ideas)",
-     "models": [
-      "Weekender MKII",
-      "Expedition MKII"
-     ],
-     "volumes_l": {
-      "Weekender MKII": 10.0,
-      "Expedition MKII": 13.4
-     },
-     "volume_confidence": "medium"
+     "model": "Weekender MKII",
+     "volume_l": 10.6,
+     "volume_cu_in": 650,
+     "confidence": "medium"
+    },
+    {
+     "brand": "Bearikade (Wild Ideas)",
+     "model": "Expedition MKII",
+     "volume_l": 14.7,
+     "volume_cu_in": 900,
+     "confidence": "medium",
+     "note": "Some sources say 842 cu in"
     },
     {
      "brand": "Counter Assault",
-     "models": [
-      "Bear Keg"
-     ],
-     "volumes_l": {
-      "Bear Keg": 11.0
-     },
-     "volume_confidence": "medium"
-    },
-    {
-     "brand": "Grub Can / Holly's Homemade",
-     "models": [
-      "Carbon/Kevlar 4.5L",
-      "Carbon/Kevlar 6.6L"
-     ],
-     "volumes_l": {
-      "4.5L": 4.5,
-      "6.6L": 6.6
-     },
-     "volume_confidence": "high"
-    },
-    {
-     "brand": "Lighter1",
-     "models": [
-      "Big Daddy",
-      "Lil Sam"
-     ],
-     "volumes_l": {
-      "Big Daddy": 10.5,
-      "Lil Sam": 4.6
-     },
-     "volume_confidence": "low"
-    },
-    {
-     "brand": "REI",
-     "models": [
-      "Traverse Modular Bear Canister, Model 25200"
-     ],
-     "volumes_l": {},
-     "volume_confidence": "low"
-    },
-    {
-     "brand": "Purple Mountain Engineering",
-     "models": [
-      "Tahoe (discontinued)"
-     ],
-     "volumes_l": {},
-     "volume_confidence": "low"
+     "model": "Bear Keg",
+     "volume_l": 11.7,
+     "volume_cu_in": 716,
+     "weight_oz": 58,
+     "confidence": "medium"
     },
     {
      "brand": "UDAP",
-     "models": [
-      "No-Fed-Bear"
-     ],
-     "volumes_l": {
-      "No-Fed-Bear": 7.4
-     },
-     "volume_confidence": "low"
+     "model": "No-Fed-Bear",
+     "volume_l": 7.6,
+     "volume_cu_in": "~460-500 ('2 gallons')",
+     "weight_oz": 38,
+     "confidence": "medium"
+    },
+    {
+     "brand": "Grub Can / Holly's Homemade",
+     "model": "Carbon/Kevlar 4.5L and 6.6L",
+     "volume_l": "4.5 / 6.6",
+     "confidence": "high"
+    },
+    {
+     "brand": "Bare Boxer",
+     "model": "Contender 101, Champ 202",
+     "volume_l": null,
+     "confidence": "low",
+     "note": "Small canisters (roughly 3-4.5 L) - unverified"
+    },
+    {
+     "brand": "Lighter1",
+     "model": "Big Daddy, Lil Sam",
+     "volume_l": null,
+     "confidence": "low"
+    },
+    {
+     "brand": "REI",
+     "model": "Traverse Modular Bear Canister, Model 25200",
+     "volume_l": null,
+     "confidence": "low"
+    },
+    {
+     "brand": "Purple Mountain Engineering",
+     "model": "Tahoe (discontinued)",
+     "volume_l": null,
+     "confidence": "low"
     }
    ],
    "stock_panniers": [
@@ -374,7 +406,9 @@
    "confidence": "high",
    "source_ids": [
     "nps_food_storage",
-    "bearvault_media_2026"
+    "bearvault_media_2026",
+    "sectionhiker_bearvault",
+    "retail_canister_specs"
    ]
   },
   "loaner_program": {
@@ -386,9 +420,11 @@
    ]
   },
   "game_capacity_rule_of_thumb": {
-   "value": "A typical ~7-11 L canister holds about 3-7 days of food for one person depending on how dense the food is; a game can model canister volume vs. food volume as a hard pack-fitting constraint.",
-   "confidence": "low",
-   "source_ids": []
+   "value": "BearVault rates its 11.5 L BV500 at up to ~7 days of food for one person and its 7.2 L BV450 at 3-4 days, i.e. very roughly 1.5-1.7 L of canister per person-day for typical backpacking food (dense, repackaged). Bulky or fresh food fills it faster. Two people on a 4-night trip typically need two cans or one large can plus very careful packing - a natural pack-fitting puzzle for the game.",
+   "confidence": "medium",
+   "source_ids": [
+    "sectionhiker_bearvault"
+   ]
   },
   "small_animal_problems": {
    "value": "Rodents (mice, chipmunks, ground squirrels, marmots), gray jays, ravens and on the coast raccoons are the most frequent food thieves. Raccoons on the wilderness coast are notorious for opening packs and soft containers. Royal Basin had rodent problems reported in June 2026. Mountain goats and deer seek salt from urine and sweaty gear. Food loss and chewed gear are realistic minor consequences.",
@@ -543,12 +579,12 @@
    ]
   },
   "coast": {
-   "value": "Use pit/composting toilets at coast camps where they exist (e.g. Cape Alava, Sand Point, Third Beach, Toleak Point area); otherwise bury waste away from creeks and camps. Filter or boil water - iodine/chemical alone is not effective against Cryptosporidium; some creeks are brackish at high tide.",
-   "confidence": "medium",
-   "note": "Specific toilet locations should be checked against the trip planner map.",
+   "value": "Toilets at the main camp concentrations at Cape Alava and Sand Point and at other high-use beach camps; elsewhere dig a cathole 6-8 in deep, 200 ft from camps and water. Camp above the high-tide line. Fires only on open beach, below the high-tide line and at least 10 ft from drift logs, using beach driftwood only; no fires from north of Yellow Banks to the headland at Wedding Rocks. No camping between the Quillayute River and Ellen Creek (Rialto Beach day-use strip); on the Kalaloch strip south of the Hoh River camping only in frontcountry campgrounds. Treat water: iodine does not kill Cryptosporidium; some creeks are brackish near high tide. Beware rolling drift logs in surf and washed-up metal canisters (report, do not touch).",
+   "confidence": "high",
+   "page_date": "2025-04-16",
    "source_ids": [
-    "nps_trail_conditions",
-    "nps_coast_page"
+    "nps_coast_page",
+    "nps_trail_conditions"
    ]
   },
   "camping_placement": {
@@ -581,7 +617,8 @@
    "confidence": "high",
    "source_ids": [
     "nps_weather"
-   ]
+   ],
+   "extra": "NPS: sea-level summer days usually 60-70 F; high-mountain winter lows seldom below 0 F; fog often forms after sunset and lingers to late morning (fog drip adds 30+ in of moisture to coastal forest)."
   },
   "zones": {
    "coast": {
@@ -694,7 +731,7 @@
     ]
    },
    "rain_forest_valleys": {
-    "proxy_station": "Clearwater (Queets valley edge, ~250 ft) - NOAA 1991-2020 normals; Hoh RS/Quinault RS are wetter (Hoh ~140-150 in, Quinault ~130-140 in)",
+    "proxy_station": "Clearwater (Queets valley edge, ~250 ft) - NOAA 1991-2020 normals. The Hoh Rain Forest is wetter (~135 in/yr per NPS).",
     "monthly": [
      {
       "month": "Jan",
@@ -783,9 +820,12 @@
     ],
     "annual_precip_in": 109.72,
     "hoh_rain_forest_annual_precip_in": {
-     "value": "about 140 (often quoted 12-14 ft/yr)",
-     "confidence": "medium",
-     "note": "No official NOAA normals station at the Hoh visitor center found; NPS gives 100-170 in range for west-side valleys."
+     "value": 135.0,
+     "alt": "NPS text says 'almost 12 feet' (~144 in); seasonal table shows 135.0 in/yr at the Hoh vs 103.0 at Kalaloch, 25.9 Port Angeles, 15.8 Sequim",
+     "confidence": "high",
+     "source_ids": [
+      "nps_weather_brochure"
+     ]
     },
     "upper_valley_note": "Up-valley camps (e.g. Hoh: Olympus Guard Station ~950 ft, Elk Lake ~2,550 ft) are wetter and a few degrees cooler; lapse ~3-3.5 F per 1,000 ft.",
     "confidence": "high",
@@ -1256,12 +1296,12 @@
     ]
    },
    "alpine_glacier_6000ft_plus": {
-    "value": "No long-term weather station on Mount Olympus. Estimate from Waterhole (5,010 ft) with a lapse of ~3.5 F per 1,000 ft: at Glacier Meadows (~4,200-4,300 ft) roughly like Waterhole; at Blue Glacier/Snow Dome (6,500-7,000 ft) July-Aug highs ~55-58 F and lows ~38-40 F on fair days; at the summit (7,980 ft) July-Aug highs ~50 F, lows near freezing. Storms bring sub-freezing temps, wind and whiteout any month. Mount Olympus receives an estimated 200+ in of precipitation (mostly snow) a year, feeding its glaciers.",
+    "value": "No long-term weather station on Mount Olympus (a station at 6,910 ft near the Blue Glacier ran 1957-1963). Estimate from Waterhole (5,010 ft) with a lapse of ~3.5 F per 1,000 ft: Glacier Meadows (~4,200 ft) similar to Waterhole; Blue Glacier/Snow Dome (6,500-7,000 ft) July-Aug highs ~55-58 F, lows ~38-40 F on fair days; summit (7,980 ft) July-Aug highs ~50 F, lows near freezing. Storms bring sub-freezing temps, wind and whiteout any month. NPS estimates over 50 ft of snow a year on Mount Olympus; published precipitation estimates range ~180-250 in/yr. Park glacier area shrank 46% from 1982 to 2015; Blue Glacier has retreated over 1/3 mile since 1919.",
     "estimated": true,
     "confidence": "low",
     "source_ids": [
      "nrcs_snotel",
-     "igra_quillayute"
+     "nps_weather_brochure"
     ]
    }
   },
@@ -1893,10 +1933,184 @@
   }
  },
  "search_and_rescue": {
-  "status": "pending"
+  "summary": "ONP typically handles about 50-60 search-and-rescue incidents a year (71 by early September 2019). Most are ground efforts for slips, trips and falls that leave someone unable to walk out (especially lower-leg injuries), overdue or lost parties, and hypothermia from cold rain; a smaller number involve river crossings, falls from cliffs/waterfalls, coastal tide strandings and climbing accidents on Mount Olympus. Helicopter support comes from Naval Air Station Whidbey Island, Coast Guard Air Station Port Angeles, and contract short-haul helicopters (e.g. from Mount Rainier). Cell coverage is absent in most of the backcountry.",
+  "annual_volume": {
+   "typical": "50-60 incidents/yr",
+   "example": "71 incidents by 2019-09-03",
+   "confidence": "medium",
+   "source_ids": [
+    "komo_sar",
+    "nps_laborday_2019"
+   ]
+  },
+  "patterns": [
+   {
+    "type": "slip_trip_fall_injury",
+    "description": "Ankle/leg injuries far from roads; patients carried or flown out. E.g. Labor Day 2019: hiker with ankle injury at Lake La Crosse walked 8 mi to Home Sweet Home for short-haul helicopter.",
+    "frequency": "most common",
+    "confidence": "medium",
+    "source_ids": [
+     "nps_laborday_2019",
+     "komo_sar"
+    ]
+   },
+   {
+    "type": "hypothermia",
+    "description": "The classic Olympic killer is not deep cold but 35-50 F rain with wind, wet cotton, and a party that keeps going or gets lost. Lost/disoriented hikers found hypothermic; Mount Olympus climbers benighted without gear. Early-season and autumn high-country trips, and the coast in winter storms, are highest risk.",
+    "frequency": "common factor",
+    "confidence": "medium",
+    "source_ids": [
+     "komo_sar"
+    ]
+   },
+   {
+    "type": "overdue_or_lost",
+    "description": "Overdue parties are reported by family; navigation errors on primitive routes (Bailey Range, Skyline, Six Ridge, snow-covered High Divide), off-trail descents into drainages. Example: Sept 2021, a solo backpacker on an Enchanted Valley-Marmot Lake-Six Ridge loop was reported overdue after ~8 days and hoisted from the Seven Stream drainage ravine, found by his flashlight, with minor injuries.",
+    "frequency": "common",
+    "confidence": "high",
+    "source_ids": [
+     "advnture_fisher_2021"
+    ]
+   },
+   {
+    "type": "river_crossing",
+    "description": "Swift, cold, glacier- or rain-fed rivers. Aug 2001: a hiker drowned fording the rain-swollen East Fork Quinault about 0.5 mi below Enchanted Valley Chalet where a bridge had washed out. Fords are worst during afternoon snowmelt (May-July) and autumn rain.",
+    "frequency": "occasional, high consequence",
+    "confidence": "high",
+    "stale": true,
+    "source_ids": [
+     "pdn_ef_quinault_2001"
+    ]
+   },
+   {
+    "type": "waterfall_and_riverbank_falls",
+    "description": "Sol Duc Falls: Sept 2019 a 15-year-old went over the falls (~40-50 ft) and survived via technical rope rescue; June 2025 an 18-year-old died after crossing the upper river and falling over the falls during hot-weather snowmelt flows.",
+    "frequency": "occasional",
+    "confidence": "high",
+    "source_ids": [
+     "nps_laborday_2019",
+     "pdn_soldUC_2025"
+    ]
+   },
+   {
+    "type": "coast_tide_and_logs",
+    "description": "Hikers stranded on rocks or cliffs by rising tide and hoisted by Coast Guard (Third Beach 2018, four hikers; Jefferson Cove/Hoh Head 2021, two hikers climbed a cliff to escape the tide and were hoisted at 2 a.m.; Shi Shi 2014). Injuries from falls on headland trails (Toleak Point 2016) and drift logs rolled by surf.",
+    "frequency": "occasional",
+    "confidence": "high",
+    "source_ids": [
+     "pdn_coast_rescues"
+    ]
+   },
+   {
+    "type": "mountaineering",
+    "description": "Mount Olympus (7,980 ft) via Hoh River Trail, Glacier Meadows, Blue Glacier, Snow Dome, Crystal Pass and summit block: crevasse falls (1993 fatal fall into crevasse after unroping on the Blue Glacier), falls from the summit block (2013 fatal), benightment and hypothermia, Glacier Meadows avalanche-chute ladder. NPS treats it as a technical climb (glacier travel, crevasse rescue gear).",
+    "frequency": "occasional",
+    "confidence": "high",
+    "source_ids": [
+     "aac_olympus_1993",
+     "kutv_olympus_2013",
+     "nps_trail_conditions"
+    ]
+   },
+   {
+    "type": "avalanche_and_steep_snow",
+    "description": "Early-season steep snow on passes and gullies (High Divide, Heather Park, Hayden Pass) and winter/spring avalanche chutes; Feb 2026 two hikers fell in an avalanche chute on Mount Ellinor (Olympic National Forest) and were helicopter-rescued.",
+    "frequency": "occasional",
+    "confidence": "medium",
+    "source_ids": [
+     "uscg_ellinor_2026",
+     "nps_trail_conditions"
+    ]
+   },
+   {
+    "type": "wildlife",
+    "description": "Rare. One fatal attack in park history: mountain goat, 2010. Cougar attacks on children: Lake Angeles 2023-07-29 (8-year-old, minor injuries), Hurricane Ridge near Victoria Overlook 2025-07-20 (4-year-old, flown to Harborview; collared cougar killed next morning). Black bear problems are about food, not attacks.",
+    "frequency": "rare",
+    "confidence": "high",
+    "source_ids": [
+     "nps_cougar_2023",
+     "kuow_cougar_2025"
+    ]
+   }
+  ],
+  "rescue_resources": {
+   "value": "Call 911 (park dispatch). Little or no cell service in valleys and most high country; texts sometimes get through from ridges. Satellite messengers/PLBs are the reliable option. Helicopter hoists: NAS Whidbey Island SAR (MH-60), USCG Air Station Port Angeles (MH-65), contract short-haul from Mount Rainier; ground teams include Olympic Mountain Rescue and county SAR. Weather often grounds aircraft for days.",
+   "confidence": "medium",
+   "source_ids": [
+    "nps_laborday_2019",
+    "advnture_fisher_2021"
+   ]
+  },
+  "nps_safety_advice": [
+   "Carry the Ten Essentials",
+   "Leave a trip plan and emergency plan",
+   "Learn wilderness first aid/CPR",
+   "Expect fast-changing autumn weather",
+   "Stay behind viewpoint fences; do not cross above waterfalls"
+  ],
+  "game_design_mapping": {
+   "note": "Incident types above map directly to game hazards. Suggested base per-day probabilities for a WELL-prepared party in good weather are low (well under 1%); multiply by risk factors: missing rain gear/insulation (x5 hypothermia in rain), cotton clothing (x3), no map/compass on primitive routes (x5 lost), fording at peak snowmelt afternoon or in rain (x5-10), coast without tide table (x10 stranding), early-season high route without traction (x5 slip), overdue beyond itinerary (rescue triggered). Numbers are design suggestions, not statistics.",
+   "confidence": "low"
+  }
  },
  "wildlife": {
-  "status": "pending"
+  "general_rules": {
+   "value": "Stay at least 50 yards from all wildlife (park regulation; the same page also says 75 ft for medium-large animals); if an animal reacts to you, you are too close. Never feed, bait or call wildlife. Report bears that come within 50 yards, enter camp or try for food; report all cougar sightings; report any mountain goat sighting anywhere on the peninsula; report aggressive elk.",
+   "page_date": "2026-05-15",
+   "confidence": "high",
+   "source_ids": [
+    "nps_wildlife_safety"
+   ]
+  },
+  "black_bear": {
+   "value": "Only black bears live in the park (no grizzlies). Problems are food-conditioning: Enchanted Valley closed to camping Apr-Jun 2015 after bears got human food (Pyrites Creek to O'Neil Pass junction); 'large bear population' noted there in 2026; possibly habituated bear at Boulder Creek camp 2026. Encounter: make noise, give space, stand your ground and look big, never run; secure food in canister 24 h; cook away from tents. Bears graze meadows (High Divide, Seven Lakes Basin, Enchanted Valley, Hoh) especially July-Sept huckleberry season.",
+   "confidence": "high",
+   "source_ids": [
+    "nps_enchanted_bears",
+    "nps_trail_conditions",
+    "nps_wildlife_safety"
+   ]
+  },
+  "cougar": {
+   "value": "The whole park is cougar habitat. Do not hike alone; keep children close and in sight; leave pets home. Encounter: do not run, group together, appear large, keep eyes on it, make noise and shout, throw rocks; if attacked fight back. Incidents: Lake Angeles 2023-07-29 (child, closure of Lake Angeles/Heather Park/Klahhane Ridge/Switchback trails), Hurricane Ridge 2025-07-20 (child, collared cougar killed). Report: (360) 565-3000 or 911.",
+   "confidence": "high",
+   "source_ids": [
+    "nps_cougar_2023",
+    "kuow_cougar_2025",
+    "nps_cougar_brochure"
+   ]
+  },
+  "mountain_goat": {
+   "value": "Non-native (about 12 released near Lake Crescent 1925-1929). Robert Boardman (63) was fatally gored on the Switchback Trail/Klahhane Ridge on 2010-10-16 - the only fatal wildlife attack in park history; the goat was shot. Goats sought human salt (urine, sweat). Removal: ~725 goats in 2018; 2018-2020 aerial captures translocated 325 to the Cascades; fall 2020 ground teams removed 31; 2021-2022 aerial lethal removal 192; active phase ended Aug 2022 with 548 removed. Maintenance phase since 2023; only 5 sightings (1 confirmed) 2023-2025. Game: goats are now essentially a historical/rare sighting; the salt-seeking lesson still applies to deer and marmots (urinate on rock away from trails).",
+   "confidence": "high",
+   "page_date": "2026-10-07",
+   "source_ids": [
+    "nps_goat_project",
+    "pdn_boardman"
+   ]
+  },
+  "roosevelt_elk": {
+   "value": "NPS calls elk one of the most dangerous animals in the park. Give extra room during the fall rut (roughly Sept-Oct) and spring calving (roughly late May-June). Common in Hoh, Queets, Quinault, Bogachiel valleys and on the coast near Kalaloch.",
+   "confidence": "medium",
+   "source_ids": [
+    "nps_wildlife_safety"
+   ]
+  },
+  "small_animals": {
+   "value": "Deer, marmots, chipmunks, mice, gray jays and ravens raid unattended food and chew packs, boots and trekking-pole grips for salt; raccoons are a well-known problem on the coast. Small animals near camp can draw predators and carry disease. All solved by canister + clean camp.",
+   "confidence": "medium",
+   "source_ids": [
+    "nps_food_storage",
+    "nps_trail_conditions"
+   ]
+  },
+  "marine": {
+   "value": "Do not approach or try to rescue stranded marine mammals on beaches; report them. Watch for gray whales (spring/fall migration), sea otters, harbor seals, bald eagles.",
+   "confidence": "medium",
+   "source_ids": [
+    "nps_wildlife_safety"
+   ]
+  }
  },
  "current_conditions": {
   "as_of": "2026-10-04 (NPS Alerts & Conditions page); trail details from NPS trail conditions page updated 2026-09-30; road page updated 2026-08-07",
@@ -2241,10 +2455,44 @@
     ]
    },
    "older_fires_still_visible": "Paradise Fire 2015 (Queets valley above Bob Creek), Hayes Fire 2016 (Hayden Pass blowdown), 1978 burn on Hoh Lake trail."
+  },
+  "facilities_other": {
+   "enchanted_valley_chalet": {
+    "value": "Historic 1930s chalet moved ~100 ft back from the eroding East Fork Quinault in Sept 2014; by Mar 2019 the bank was again ~5 ft away; 2020 EA recommended dismantling/removal; as of 2025-2026 reporting no final decision or action - the building still stands on its moving beams, closed to entry. Treat as a landmark, not shelter.",
+    "confidence": "medium",
+    "source_ids": [
+     "gearjunkie_chalet",
+     "nps_chalet_2014"
+    ]
+   }
   }
  },
  "game_design_notes": {
-  "status": "pending"
+  "rule_flavor_for_planning_phase": [
+   "Permit desk: player must choose a trailhead and a camp for every night; quota camps (Seven Lakes Basin, High Divide, Royal Lake, Grand Valley, Hoh Lake, Glacier Meadows, Elk Lake, Lake Constance, Upper Lena, Enchanted Valley, Ozette coast) can be 'full' on summer weekends; itinerary must be followed in quota zones.",
+   "Fee calculation: $8 per adult per night + $6 per permit; youth 15 and under free; optional $45 annual wilderness pass. Plus park entrance $30/vehicle (or annual pass).",
+   "Bear canister is mandatory for any overnight trip (loaner available at Port Angeles WIC but can run out on busy weekends) - canister volume caps food days and is a natural pack-fitting puzzle.",
+   "Season gate: high camps only reservable mid-July to mid-October; outside that window or in a big-snow year, steep snow and ice on passes.",
+   "Coast trips need a tide table printout and map; points have 'passable below X ft' limits.",
+   "Fire rules: no fires above 3,500 ft or on the Ozette coast; seasonal bans Aug-Sep (2026 had a Stage 2 total campfire ban from Aug 7) - packing a stove matters.",
+   "No dogs on park trails; no drones; group max 12."
+  ],
+  "fall_2026_scenario_defaults": {
+   "as_of": "2026-10-07",
+   "closed_or_altered": [
+    "Staircase wilderness trails closed (Bear Gulch Fire): Flapjack Lakes, N Fork Skokomish, Wagonwheel, Black and White Lakes, Home Sweet Home, Four Stream, Gladys Divide",
+    "Elwha road walk from Madison Falls (+6.5 mi to Whiskey Bend, +8 mi to Boulder Creek)",
+    "Dosewallips road walk (+6.5 mi)",
+    "Rialto Beach unreachable by road until Oct 15, 2026",
+    "South Shore Quinault Road washout (use North Shore)",
+    "Quinault WIC closed for 2026",
+    "Hurricane Ridge: no lodge, no potable water",
+    "Lake of the Gods camp closed in June 2026 (Mount Tom Creek Fire) - current status unknown"
+   ],
+   "permit_season": "Summer season ends Oct 15; from Oct 16 winter season rules apply (no quota at most high camps but snow likely)."
+  },
+  "worst_case_tone_support": "Real incident patterns (sprained ankle 8 miles from a helipad, a hypothermic night, a ford that should not have been tried, a tide that cut off a headland) give ready-made gentle 'ranger rescue / trip ends early' outcomes, and harsher optional-mode outcomes, without inventing implausible hazards.",
+  "confidence": "low (design suggestions)"
  },
  "sources": [
   {
@@ -2637,6 +2885,174 @@
    "url": "https://www.nps.gov/olym/planyourvisit/north-coast-route.htm",
    "publisher": "NPS",
    "page_date": null,
+   "accessed": "2026-10-07"
+  },
+  {
+   "id": "nps_fees",
+   "title": "Fees & Passes - Olympic National Park",
+   "url": "https://www.nps.gov/olym/planyourvisit/fees.htm",
+   "publisher": "NPS",
+   "page_date": "2025-12-19",
+   "accessed": "2026-10-07"
+  },
+  {
+   "id": "komo_sar",
+   "title": "Rise in search and rescue incidents at Olympic National Park",
+   "url": "https://komonews.com/news/local/spike-in-search-and-rescue-incidents-at-olympic-national-park",
+   "publisher": "KOMO News",
+   "page_date": "c. 2019",
+   "accessed": "2026-10-07"
+  },
+  {
+   "id": "nps_laborday_2019",
+   "title": "Multiple Search and Rescue Incidents over Labor Day Weekend",
+   "url": "https://www.nps.gov/olym/learn/news/multiple-search-and-rescue-incidents-over-labor-day-weekend.htm",
+   "publisher": "NPS",
+   "page_date": "2019-09-03",
+   "accessed": "2026-10-07"
+  },
+  {
+   "id": "advnture_fisher_2021",
+   "title": "Missing backpacker rescued a week after disappearing in Olympic National Park",
+   "url": "https://www.advnture.com/news/missing-backpacker-rescued-olympic-national-park",
+   "publisher": "Advnture",
+   "page_date": "2021-09-21",
+   "accessed": "2026-10-07"
+  },
+  {
+   "id": "pdn_ef_quinault_2001",
+   "title": "Olympic National Park: Woman swept into swollen river, drowns",
+   "url": "https://peninsuladailynews.com/news/olympic-national-park-woman-swept-into-swollen-river-drowns",
+   "publisher": "Peninsula Daily News",
+   "page_date": "2001-08",
+   "accessed": "2026-10-07"
+  },
+  {
+   "id": "pdn_soldUC_2025",
+   "title": "Sol Duc Falls fatality coverage (June 2025)",
+   "url": "https://www.rvtravel.com/waterfall-death-prompts-warning-for-hikers-campers-in-olympic-np-backcountry/",
+   "publisher": "RV Travel / regional press",
+   "page_date": "2025-06",
+   "accessed": "2026-10-07"
+  },
+  {
+   "id": "pdn_coast_rescues",
+   "title": "Coast Guard coastal rescues (Third Beach 2018, Hoh Head 2021, Shi Shi 2014, Toleak Point 2016)",
+   "url": "https://www.katu.com/news/local/coast-guard-rescues-2-stranded-hikers-in-olympic-national-park",
+   "publisher": "KATU / Peninsula Daily News / KING5",
+   "page_date": "2014-2021",
+   "accessed": "2026-10-07"
+  },
+  {
+   "id": "aac_olympus_1993",
+   "title": "Fall Into Crevasse, Uncontrolled Glissade, Descending Unroped - Mount Olympus",
+   "url": "https://publications.americanalpineclub.org/articles/13199405502",
+   "publisher": "American Alpine Club (Accidents in North American Mountaineering)",
+   "page_date": "1994",
+   "accessed": "2026-10-07"
+  },
+  {
+   "id": "kutv_olympus_2013",
+   "title": "Climber killed after fall on Mt. Olympus",
+   "url": "https://kutv.com/news/local/climber-killed-after-fall-on-mt-olympus",
+   "publisher": "KUTV (AP)",
+   "page_date": "2013",
+   "accessed": "2026-10-07"
+  },
+  {
+   "id": "uscg_ellinor_2026",
+   "title": "Coast Guard rescues 2 hikers from avalanche chute in Olympic National Forest",
+   "url": "https://www.news.uscg.mil/Press-Releases/Article/4407209/coast-guard-rescues-2-hikers-from-avalanche-chute-in-olympic-national-forest/",
+   "publisher": "USCG",
+   "page_date": "2026-02",
+   "accessed": "2026-10-07"
+  },
+  {
+   "id": "nps_cougar_2023",
+   "title": "8-Year-Old Attacked by Cougar at Lake Angeles Avoids Serious Injuries",
+   "url": "https://www.nps.gov/olym/learn/news/8-year-old-attacked-by-cougar-at-lake-angeles-avoids-serious-injuries.htm",
+   "publisher": "NPS",
+   "page_date": "2023-07-30",
+   "accessed": "2026-10-07"
+  },
+  {
+   "id": "kuow_cougar_2025",
+   "title": "Witness recounts cougar attack of 4-year-old, rescue by dad on Hurricane Ridge",
+   "url": "https://www.kuow.org/animals/2025-07-23/witness-recounts-cougar-attack-of-4-year-old-rescue-by-dad-on-hurricane-ridge",
+   "publisher": "KUOW",
+   "page_date": "2025-07-23",
+   "accessed": "2026-10-07"
+  },
+  {
+   "id": "nps_cougar_brochure",
+   "title": "Cougars (printer-friendly brochure)",
+   "url": "https://www.nps.gov/olym/planyourvisit/upload/cougars_printer-friendly.pdf",
+   "publisher": "NPS",
+   "page_date": "2007-04",
+   "accessed": "2026-10-07"
+  },
+  {
+   "id": "nps_wildlife_safety",
+   "title": "Wildlife Safety",
+   "url": "https://www.nps.gov/olym/planyourvisit/wildlife-safety.htm",
+   "publisher": "NPS",
+   "page_date": "2026-05-15",
+   "accessed": "2026-10-07"
+  },
+  {
+   "id": "nps_goat_project",
+   "title": "Mountain Goat Capture and Translocation / Removal",
+   "url": "https://www.nps.gov/olym/planyourvisit/mountain-goat-capture-and-translocation.htm",
+   "publisher": "NPS",
+   "page_date": "2026-10-07",
+   "accessed": "2026-10-07"
+  },
+  {
+   "id": "pdn_boardman",
+   "title": "Hiker killed by mountain goat in Olympic National Park",
+   "url": "https://www.peninsuladailynews.com/?p=105626",
+   "publisher": "Peninsula Daily News",
+   "page_date": "2010-10",
+   "accessed": "2026-10-07"
+  },
+  {
+   "id": "nps_weather_brochure",
+   "title": "Weather Brochure",
+   "url": "https://www.nps.gov/olym/planyourvisit/weather-brochure.htm",
+   "publisher": "NPS",
+   "page_date": "2021-11-09",
+   "accessed": "2026-10-07"
+  },
+  {
+   "id": "sectionhiker_bearvault",
+   "title": "BearVault canister reviews (BV425, BV475, BV500)",
+   "url": "https://sectionhiker.com/bearvault-new-canister-sizes-bv425-and-bv475/",
+   "publisher": "SectionHiker",
+   "page_date": null,
+   "accessed": "2026-10-07"
+  },
+  {
+   "id": "retail_canister_specs",
+   "title": "Retailer/review specs for Garcia 812, Bearikade, Bear Keg, No-Fed-Bear",
+   "url": "https://www.trailspace.com/gear/counter-assault/bear-keg/",
+   "publisher": "Trailspace / Campmor / ADK / Tractor Supply",
+   "page_date": null,
+   "accessed": "2026-10-07"
+  },
+  {
+   "id": "gearjunkie_chalet",
+   "title": "Enchanted Valley Chalet (status article)",
+   "url": "https://gearjunkie.com/parks-and-public-lands/enchanted-valley-chalet-olympic",
+   "publisher": "GearJunkie",
+   "page_date": "2025-2026 (undated)",
+   "accessed": "2026-10-07"
+  },
+  {
+   "id": "nps_chalet_2014",
+   "title": "East Fork Quinault River Protected; Enchanted Valley Chalet Relocated",
+   "url": "https://www.nps.gov/olym/learn/news/enchanted-valley-chalet-relocated.htm",
+   "publisher": "NPS",
+   "page_date": "2014-09",
    "accessed": "2026-10-07"
   }
  ]
