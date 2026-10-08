@@ -1,0 +1,2880 @@
+{
+  "region_id": "hoh_olympus",
+  "region_name": "Hoh River, Mount Olympus, Bogachiel & Queets (West-Side Rivers)",
+  "researched_on": "2026-10-07",
+  "summary": "The wet west side of Olympic National Park: three long, nearly flat rain-forest river valleys (Hoh, Bogachiel, Queets) and the park's signature expedition, the 17.4-mile Hoh River Trail to Glacier Meadows and the Blue Glacier, which is the approach to the glaciated summit of Mount Olympus (7,980 ft). The Hoh is easy walking for its first 13 miles, then climbs about 3,000 ft to Elk Lake and Glacier Meadows past a broken-runged ladder in a washed-out avalanche chute. The Queets starts with a cold, sometimes waist-deep river ford, and the upper Bogachiel is brushy and hard to follow. Bear canisters are required for every overnight in the wilderness (2026), and the upper Hoh and Hoh Lake are permit quota areas.",
+  "nodes": [
+    {
+      "id": "hoh_rain_forest_trailhead",
+      "name": "Hoh Rain Forest Visitor Center (Hoh River Trailhead)",
+      "type": "trailhead",
+      "elevation_ft": 578,
+      "lat": 47.8603,
+      "lon": -123.9349,
+      "camp": null,
+      "description": "The road simply stops, and the forest takes over. Moss hangs from every branch like green wool left out to dry, and somewhere behind the visitor center a creek is talking to itself.",
+      "scene_art_notes": "Foreground: carved wooden trail sign and a small log kiosk with a map board; midground: low ranger-station building with dark roof tucked under huge Sitka spruce trunks; sky: only a thin grey-green gap dithered light grey/light green; landmark: a moss-draped bigleaf maple arching over the start of the trail. Dominant EGA colors: dark green, light green, brown, dark grey.",
+      "sources": [
+        "https://www.nps.gov/olym/planyourvisit/visiting-the-hoh.htm",
+        "https://www.nps.gov/olym/planyourvisit/upload/OLYM_Trailheads.gpx",
+        "https://mountaineers.org/activities/routes-places/hoh-river"
+      ]
+    },
+    {
+      "id": "hoh_campground",
+      "name": "Hoh Campground",
+      "type": "amenity",
+      "elevation_ft": 586,
+      "lat": 47.8574,
+      "lon": -123.9342,
+      "camp": {
+        "sites": 72,
+        "reservation_or_quota": "Developed front-country campground (no wilderness permit). Reservations on Recreation.gov required June 12 - September 6, 2026; first-come first-served otherwise.",
+        "bear_can_required": false,
+        "food_storage": "locker",
+        "fires_allowed": true,
+        "toilet": true,
+        "water": "Campground water system (seasonal)",
+        "notes": "Night-before-the-hike option. Park rules require food and scented items to be kept in a hard-sided vehicle or park food locker. Elk rut has closed this campground to overnight use in the past (October 2015)."
+      },
+      "description": "Tents glow orange between trunks as wide as cars. At dusk you can hear the river and, in autumn, the strange squealing bugle of a bull elk somewhere in the dark.",
+      "scene_art_notes": "Foreground: picnic table and a small orange dome tent; midground: dark spruce trunks with a car tucked between them; sky: dusk purple dithered with dark blue; landmark: a campfire's yellow-red pixels and an elk silhouette at the clearing edge.",
+      "sources": [
+        "https://www.nps.gov/olym/planyourvisit/visiting-the-hoh.htm",
+        "https://www.nps.gov/olym/planyourvisit/conditions.htm",
+        "https://www.nps.gov/olym/learn/news/hoh-campground-closed-temporarily-due-to-elk-rut.htm"
+      ]
+    },
+    {
+      "id": "hall_of_mosses",
+      "name": "Hall of Mosses",
+      "type": "landmark",
+      "elevation_ft": 618,
+      "lat": 47.8636,
+      "lon": -123.9338,
+      "camp": null,
+      "description": "Old maples stand in a quiet ring, their arms so thick with club moss they look like they are wearing fur coats. Light comes down green, as if through a bottle.",
+      "scene_art_notes": "Foreground: nurse log with tiny hemlock seedlings in a row; midground: three bigleaf maples with drooping beards of club moss (dithered light green over dark green); sky: none, only a canopy of dithered greens; landmark: one giant maple whose limbs form an archway over the path.",
+      "sources": [
+        "https://www.nps.gov/olym/planyourvisit/visiting-the-hoh.htm",
+        "https://www.openstreetmap.org"
+      ]
+    },
+    {
+      "id": "spruce_nature_trail_riverbank",
+      "name": "Spruce Nature Trail - Hoh River bank",
+      "type": "landmark",
+      "elevation_ft": 603,
+      "lat": 47.8593,
+      "lon": -123.9261,
+      "camp": null,
+      "description": "The loop wanders out of the deep trees to a wide grey river braided over cobbles. Taft Creek runs clear beside the path, and young alders crowd the old flood channels.",
+      "scene_art_notes": "Foreground: rounded river cobbles (grey and white pixels); midground: braided milky-blue Hoh River channels with a drift-log jam; sky: a strip of pale grey cloud; landmark: a row of spruce growing in a straight line along an old nurse log (a colonnade).",
+      "sources": [
+        "https://www.nps.gov/olym/planyourvisit/visiting-the-hoh.htm",
+        "https://www.openstreetmap.org"
+      ]
+    },
+    {
+      "id": "one_mile_camp",
+      "name": "One Mile Camp (Hoh River gravel bar area)",
+      "type": "camp",
+      "elevation_ft": 625,
+      "lat": null,
+      "lon": null,
+      "camp": {
+        "sites": null,
+        "reservation_or_quota": "Listed on Recreation.gov as 'One mile Camp' (unlisted/walk-up zone; contact the Wilderness Information Center). Wilderness permit required.",
+        "bear_can_required": true,
+        "food_storage": "can",
+        "fires_allowed": true,
+        "toilet": false,
+        "water": "Hoh River (treat)",
+        "notes": "First river access on the Hoh River Trail (0.9 mi per NPS). Riverside gravel-bar camping; the park describes gravel bars on the Hoh as good low-impact sites. Fires only below 3,500 ft, dead-and-down wood, existing rings or below high-water line."
+      },
+      "description": "A short spur drops to a gravel bar where the river suddenly opens up. It is close enough to the car that you could still change your mind, and far enough that the forest has already swallowed the sound of the road.",
+      "scene_art_notes": "Foreground: small tent on grey gravel with a bear canister beside it; midground: wide milky-teal river and drift logs; sky: grey overcast dithered with white; landmark: a dark forest wall on the far bank.",
+      "sources": [
+        "https://www.recreation.gov/permits/4098362",
+        "https://www.nps.gov/olym/planyourvisit/visiting-the-hoh.htm",
+        "https://www.oregonhikers.org/field_guide/Hoh_River_to_Blue_Glacier_Hike"
+      ]
+    },
+    {
+      "id": "one_point_four_mile_camp",
+      "name": "1.4 Mile Camp",
+      "type": "camp",
+      "elevation_ft": 644,
+      "lat": null,
+      "lon": null,
+      "camp": {
+        "sites": null,
+        "reservation_or_quota": "Listed on Recreation.gov as '1.4 mile Camp' (unlisted zone; contact the Wilderness Information Center).",
+        "bear_can_required": true,
+        "food_storage": "can",
+        "fires_allowed": true,
+        "toilet": false,
+        "water": "Hoh River (treat)",
+        "notes": "Small riverside camping area near the 1.4-mile point. Details unverified."
+      },
+      "description": "A quiet bend where the trail brushes the river. The cottonwoods here drop yellow leaves in autumn that float away like little boats.",
+      "scene_art_notes": "Foreground: mossy log seat; midground: river bend with cobble bar; sky: thin grey band; landmark: a leaning cottonwood with yellow leaves (EGA yellow).",
+      "sources": [
+        "https://www.recreation.gov/permits/4098362"
+      ]
+    },
+    {
+      "id": "mineral_creek_falls",
+      "name": "Mineral Creek Falls",
+      "type": "landmark",
+      "elevation_ft": 693,
+      "lat": 47.8698,
+      "lon": -123.8846,
+      "camp": null,
+      "description": "A footbridge crosses Mineral Creek just as it tumbles down a mossy step of rock. The spray keeps the ferns around it dripping even on a dry day.",
+      "scene_art_notes": "Foreground: wooden footbridge planks; midground: white waterfall (dithered white/light cyan) over dark rock; sky: none; landmark: sword ferns and licorice ferns sprouting from the cliff.",
+      "sources": [
+        "https://www.nps.gov/olym/planyourvisit/visiting-the-hoh.htm",
+        "https://www.oregonhikers.org/field_guide/Hoh_River_to_Blue_Glacier_Hike",
+        "https://www.openstreetmap.org"
+      ]
+    },
+    {
+      "id": "mount_tom_creek_camp",
+      "name": "Mount Tom Creek Camp",
+      "type": "camp",
+      "elevation_ft": 681,
+      "lat": 47.867,
+      "lon": -123.8812,
+      "camp": {
+        "sites": 3,
+        "reservation_or_quota": "Reservable on Recreation.gov (Mt. Tom Creek; max 6 per site) plus 1 group site (7-12 people).",
+        "bear_can_required": true,
+        "food_storage": "can",
+        "fires_allowed": true,
+        "toilet": false,
+        "water": "Mount Tom Creek and the Hoh River (treat)",
+        "notes": "NPS lists 3 individual sites and 1 group site. Older NPS map data lists a bear wire, but 2026 rules require bear canisters; wires and hangs are not acceptable food storage."
+      },
+      "description": "A short side path leads to campsites near where Mount Tom Creek meets the Hoh. The creek is named for a glacier-capped peak you cannot yet see, hiding far up the valley.",
+      "scene_art_notes": "Foreground: tent pad under a spruce with exposed roots; midground: clear creek joining the grey river; sky: small gap of blue-grey; landmark: a fallen giant spruce with a root wad taller than the tent.",
+      "sources": [
+        "https://www.nps.gov/olym/planyourvisit/hoh-river-trail.htm",
+        "https://www.recreation.gov/permits/4098362",
+        "https://www.nps.gov/olym/planyourvisit/upload/OLYM_Camp_Areas.kml",
+        "https://www.oregonhikers.org/field_guide/Hoh_River_to_Blue_Glacier_Hike"
+      ]
+    },
+    {
+      "id": "three_point_three_mile_camp",
+      "name": "3.3 Mile Camp",
+      "type": "camp",
+      "elevation_ft": 717,
+      "lat": null,
+      "lon": null,
+      "camp": {
+        "sites": null,
+        "reservation_or_quota": "Listed on Recreation.gov as '3.3 mile Camp' (unlisted zone; contact the Wilderness Information Center).",
+        "bear_can_required": true,
+        "food_storage": "can",
+        "fires_allowed": true,
+        "toilet": false,
+        "water": "Hoh River (treat)",
+        "notes": "Minor riverside camping area; details unverified."
+      },
+      "description": "Past the creek the trail settles into a long, easy rhythm under spruce and hemlock. A small clearing near the river makes a pleasant place to stop if your feet are already sore.",
+      "scene_art_notes": "Foreground: flat mossy clearing; midground: gap in trees showing the river; sky: overcast grey; landmark: a stump with a young hemlock growing out of the top.",
+      "sources": [
+        "https://www.recreation.gov/permits/4098362"
+      ]
+    },
+    {
+      "id": "cedar_grove",
+      "name": "Cedar Grove",
+      "type": "landmark",
+      "elevation_ft": 782,
+      "lat": null,
+      "lon": null,
+      "camp": null,
+      "description": "Here the red-barked cedars grow in a family, their trunks fluted like old organ pipes. The ground smells sweet and spicy where their bark has peeled away.",
+      "scene_art_notes": "Foreground: ribbon of fibrous red-brown bark; midground: four fluted western redcedar trunks; sky: none; landmark: one hollow cedar with an opening big enough to step inside.",
+      "sources": [
+        "https://www.nps.gov/olym/planyourvisit/visiting-the-hoh.htm"
+      ]
+    },
+    {
+      "id": "five_mile_island_camp",
+      "name": "Five Mile Island Camp",
+      "type": "camp",
+      "elevation_ft": 782,
+      "lat": 47.8669,
+      "lon": -123.8412,
+      "camp": {
+        "sites": 3,
+        "reservation_or_quota": "Reservable on Recreation.gov (max 6 per site); also 2 group sites (7-12) and 1 stock site.",
+        "bear_can_required": true,
+        "food_storage": "can",
+        "fires_allowed": true,
+        "toilet": true,
+        "water": "Hoh River (treat)",
+        "notes": "Pit toilet in good order (May 2026 report). Popular day-hike turnaround and lunch spot on a sunny gravel island. The stock hitching post here washed away (NPS, June 2026)."
+      },
+      "description": "The forest steps back and a broad, sunny island of gravel lies in the river. On clear days you can lie on warm stones and watch the water braid and unbraid itself.",
+      "scene_art_notes": "Foreground: warm white-grey gravel with a lunch spread on a bandana; midground: braided teal channels around a willow island; sky: rare blue with white cumulus (dithered cyan/white); landmark: a distant forested ridge.",
+      "sources": [
+        "https://www.nps.gov/olym/planyourvisit/hoh-river-trail.htm",
+        "https://www.nps.gov/olym/planyourvisit/visiting-the-hoh.htm",
+        "https://www.nps.gov/olym/planyourvisit/wilderness-trail-conditions.htm",
+        "https://www.wta.org/go-hiking/hikes/hoh-river",
+        "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-05-11.091329167626"
+      ]
+    },
+    {
+      "id": "happy_four_camp",
+      "name": "Happy Four Camp and Shelter",
+      "type": "camp",
+      "elevation_ft": 800,
+      "lat": 47.8676,
+      "lon": -123.8292,
+      "camp": {
+        "sites": 2,
+        "reservation_or_quota": "Reservable on Recreation.gov (max 6 per site). No group or stock sites.",
+        "bear_can_required": true,
+        "food_storage": "can",
+        "fires_allowed": true,
+        "toilet": false,
+        "water": "Nearby side stream / Hoh River (treat)",
+        "notes": "Has a three-sided trail shelter, handy in rain. Older NPS map data lists a bear wire; canisters are now required."
+      },
+      "description": "A little log shelter waits beside the trail with its open side facing the woods, like a porch with no house. Rain drums on its roof while you stay dry inside.",
+      "scene_art_notes": "Foreground: three-sided log shelter with a shake roof; midground: two small tent pads; sky: grey rain streaks drawn as diagonal dithered lines; landmark: a sign on a post reading the camp name.",
+      "sources": [
+        "https://www.nps.gov/olym/planyourvisit/hoh-river-trail.htm",
+        "https://www.recreation.gov/permits/4098362",
+        "https://www.wta.org/go-hiking/hikes/hoh-river",
+        "https://www.openstreetmap.org"
+      ]
+    },
+    {
+      "id": "hoh_river_braid_crossings",
+      "name": "Hoh River braid crossings (near mile 8)",
+      "type": "river_ford",
+      "elevation_ft": 921,
+      "lat": null,
+      "lon": null,
+      "camp": null,
+      "description": "The trail dips across side channels of the river. In a dry spell they are only damp cobbles; after a storm they run brown, fast and loud.",
+      "scene_art_notes": "Foreground: wet cobbles and a hiking pole planted in shin-deep water; midground: a braid of brown-grey current with a log jam; sky: heavy dark grey cloud; landmark: the main river channel beyond, wide and churning.",
+      "sources": [
+        "https://www.nps.gov/olym/planyourvisit/hoh-river-trail.htm",
+        "https://www.nps.gov/olym/planyourvisit/wilderness-trail-conditions.htm",
+        "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-05-11.091329167626"
+      ]
+    },
+    {
+      "id": "olympus_guard_station",
+      "name": "Olympus Guard Station (Olympus Ranger Station) and Camp",
+      "type": "ranger_station",
+      "elevation_ft": 947,
+      "lat": 47.8778,
+      "lon": -123.7658,
+      "camp": {
+        "sites": 7,
+        "reservation_or_quota": "Reservable on Recreation.gov (max 6 per site); 2 group sites (OGS Group Sites, 7-12).",
+        "bear_can_required": true,
+        "food_storage": "can",
+        "fires_allowed": true,
+        "toilet": true,
+        "water": "Hoh River and side streams (treat). Some camp on the gravel bar across a small stream past the meadow.",
+        "notes": "Rustic log guard station built c. 1935 by the U.S. Forest Service, on the National Register of Historic Places (2007); a seasonal NPS outpost. Privy in good order (May 2026). A May 2026 hiker was told bear bags are no longer allowed - consistent with the 2026 canister rule."
+      },
+      "description": "A small log cabin with a shake roof sits in a grassy clearing, smoke-dark and patient, as it has since the 1930s. Elk sometimes graze right up to its porch, and bleached snags from an old fire stand on the ridge above.",
+      "scene_art_notes": "Foreground: split-rail hitching rail and a wooden bench; midground: brown log cabin with shake roof and a stone step, meadow grass (light green); sky: patchy blue and white; landmark: silver-grey fire snags on the north ridge and an elk cow in the meadow.",
+      "sources": [
+        "https://www.nps.gov/olym/planyourvisit/hoh-river-trail.htm",
+        "https://www.recreation.gov/permits/4098362",
+        "https://en.wikipedia.org/wiki/Olympus_Guard_Station",
+        "https://www.oregonhikers.org/field_guide/Hoh_River_to_Blue_Glacier_Hike",
+        "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-05-11.091329167626"
+      ]
+    },
+    {
+      "id": "hoh_lake_trail_junction",
+      "name": "Hoh River Trail / Hoh Lake Trail Junction",
+      "type": "junction",
+      "elevation_ft": 1013,
+      "lat": 47.8787,
+      "lon": -123.7547,
+      "camp": null,
+      "description": "A signpost points uphill toward Hoh Lake and Bogachiel Peak, five steep miles and three thousand feet above. The river trail keeps going straight and level, as if it has not noticed the mountain at all.",
+      "scene_art_notes": "Foreground: wooden junction sign with two arrows; midground: one path climbing left into burned silver snags, one continuing flat into green forest; sky: blue gap above the burn; landmark: Hoh Creek tumbling nearby.",
+      "sources": [
+        "https://www.nps.gov/olym/planyourvisit/hoh-lake-trail.htm",
+        "https://www.oregonhikers.org/field_guide/Hoh_River_to_Blue_Glacier_Hike",
+        "https://nps.gov/olym/planyourvisit/upload/Trails_Public_2019-2.kmz"
+      ]
+    },
+    {
+      "id": "lewis_meadow_camp",
+      "name": "Lewis Meadow Camp",
+      "type": "camp",
+      "elevation_ft": 995,
+      "lat": 47.8789,
+      "lon": -123.7382,
+      "camp": {
+        "sites": 2,
+        "reservation_or_quota": "Reservable on Recreation.gov (max 6 per site); 1 group site and 1 stock site.",
+        "bear_can_required": true,
+        "food_storage": "can",
+        "fires_allowed": true,
+        "toilet": true,
+        "water": "Slide Creek / Hoh River (treat)",
+        "notes": "Common first-night camp for Glacier Meadows and Mount Olympus parties (about 10 miles in). Mileage varies by source (9.9 to 10.8)."
+      },
+      "description": "Just past Slide Creek the trees open into a grassy meadow by the river, with the valley walls finally starting to rise steeply on both sides. It feels like the last flat place before the real climbing begins.",
+      "scene_art_notes": "Foreground: meadow grass and a tent; midground: river and alder; sky: steep valley walls framing a narrow sky band; landmark: a distant white peak tip just visible up-valley.",
+      "sources": [
+        "https://www.nps.gov/olym/planyourvisit/hoh-river-trail.htm",
+        "https://www.recreation.gov/permits/4098362",
+        "https://www.oregonhikers.org/field_guide/Hoh_River_to_Blue_Glacier_Hike",
+        "https://theoutbound.com/washington/backpacking/climb-mount-olympus-olympic-np"
+      ]
+    },
+    {
+      "id": "twelve_point_four_mile_camp",
+      "name": "12.4 Mile Camp",
+      "type": "camp",
+      "elevation_ft": 1283,
+      "lat": 47.8786,
+      "lon": -123.707,
+      "camp": {
+        "sites": null,
+        "reservation_or_quota": "Listed on Recreation.gov ('12.4 mile Camp', unlisted zone); historically non-reservable - check in with the Wilderness Information Center.",
+        "bear_can_required": true,
+        "food_storage": "can",
+        "fires_allowed": true,
+        "toilet": false,
+        "water": "Hoh River nearby (no guaranteed side-stream water)",
+        "notes": "Signed, popular small site near where the river narrows into a bedrock channel. A 2-tent site reported around mile 12.6 may be this or a neighbor."
+      },
+      "description": "The river squeezes into a slot of dark rock and roars. Your tent here hums all night with the sound of water working at stone.",
+      "scene_art_notes": "Foreground: small tent on a mossy bench; midground: narrow bedrock chute with white water; sky: thin strip between steep forested walls; landmark: a boulder the size of a cabin mid-river.",
+      "sources": [
+        "https://www.recreation.gov/permits/4098362",
+        "https://www.oregonhikers.org/field_guide/Hoh_River_to_Blue_Glacier_Hike",
+        "https://www.wta.org/go-hiking/hikes/hoh-river-blue-glacier",
+        "https://www.openstreetmap.org"
+      ]
+    },
+    {
+      "id": "thirteen_point_one_mile_site",
+      "name": "13.1 Mile Site",
+      "type": "camp",
+      "elevation_ft": 1362,
+      "lat": null,
+      "lon": null,
+      "camp": {
+        "sites": 1,
+        "reservation_or_quota": "Listed on Recreation.gov ('13.1 Mile Site', unlisted); historically non-reservable but you must check in with rangers.",
+        "bear_can_required": true,
+        "food_storage": "can",
+        "fires_allowed": null,
+        "toilet": false,
+        "water": "No guaranteed water",
+        "notes": "Small unsigned site just before the High Hoh Bridge. Site count is a single-site name per Recreation.gov listing; actual capacity unverified."
+      },
+      "description": "A tiny flat spot under the trees, just big enough for one tent, right before the trail leaps the gorge.",
+      "scene_art_notes": "Foreground: single tent squeezed between roots; midground: dark forest; sky: none; landmark: glimpse of the bridge railing through the trees.",
+      "sources": [
+        "https://www.recreation.gov/permits/4098362",
+        "https://www.oregonhikers.org/field_guide/Hoh_River_to_Blue_Glacier_Hike"
+      ]
+    },
+    {
+      "id": "high_hoh_bridge",
+      "name": "High Hoh Bridge",
+      "type": "landmark",
+      "elevation_ft": 1340,
+      "lat": 47.8766,
+      "lon": -123.6948,
+      "camp": null,
+      "description": "A bridge flies across a slot gorge more than a hundred feet above the river, which churns milky blue far below. Up-valley, for the first time, you glimpse ice on the Bailey Range.",
+      "scene_art_notes": "Foreground: wooden bridge deck and railing in perspective; midground: deep narrow gorge with turquoise-white water at the bottom (cyan/white dither); sky: blue with a white glaciated ridge on the horizon; landmark: ferns clinging to the gorge walls.",
+      "sources": [
+        "https://www.oregonhikers.org/field_guide/High_Hoh_Bridge",
+        "https://www.oregonhikers.org/field_guide/Hoh_River_to_Blue_Glacier_Hike",
+        "https://nps.gov/olym/planyourvisit/upload/Trails_Public_2019-2.kmz"
+      ]
+    },
+    {
+      "id": "thirteen_point_two_mile_site",
+      "name": "13.2 Mile Site",
+      "type": "camp",
+      "elevation_ft": 1420,
+      "lat": 47.8767,
+      "lon": -123.6946,
+      "camp": {
+        "sites": 1,
+        "reservation_or_quota": "Listed on Recreation.gov ('13.2 Mile Site', unlisted); non-reservable historically; ranger check-in required.",
+        "bear_can_required": true,
+        "food_storage": "can",
+        "fires_allowed": null,
+        "toilet": false,
+        "water": "Creek about 100 yards up-trail from the 13.3 site",
+        "notes": "One of the last non-quota sites below the climb. No bear wire (canister required anyway)."
+      },
+      "description": "Just across the gorge, a small mossy bench lets you sleep with the bridge in sight and the climb waiting for morning.",
+      "scene_art_notes": "Foreground: tent and a bear canister on moss; midground: bridge end in trees; sky: none; landmark: switchbacks visible climbing the slope behind.",
+      "sources": [
+        "https://www.recreation.gov/permits/4098362",
+        "https://www.oregonhikers.org/field_guide/Hoh_River_to_Blue_Glacier_Hike",
+        "https://www.openstreetmap.org"
+      ]
+    },
+    {
+      "id": "thirteen_point_three_mile_site",
+      "name": "13.3 Mile Site",
+      "type": "camp",
+      "elevation_ft": 1456,
+      "lat": 47.8757,
+      "lon": -123.6937,
+      "camp": {
+        "sites": 1,
+        "reservation_or_quota": "Listed on Recreation.gov ('13.3 Mile Site', unlisted); non-reservable historically; ranger check-in required.",
+        "bear_can_required": true,
+        "food_storage": "can",
+        "fires_allowed": null,
+        "toilet": false,
+        "water": "Small creek about 100 yards up-trail",
+        "notes": "Last non-quota site before Martin Creek, Elk Lake and Glacier Meadows."
+      },
+      "description": "The last quiet nook before the trail turns serious. A trickle of a creek just up the path fills your bottles one slow cup at a time.",
+      "scene_art_notes": "Foreground: water bottle under a tiny mossy trickle; midground: one tent; sky: none; landmark: first steep switchback signpost.",
+      "sources": [
+        "https://www.recreation.gov/permits/4098362",
+        "https://www.oregonhikers.org/field_guide/Hoh_River_to_Blue_Glacier_Hike",
+        "https://www.openstreetmap.org"
+      ]
+    },
+    {
+      "id": "martin_creek_camp",
+      "name": "Martin Creek Camp",
+      "type": "camp",
+      "elevation_ft": 2450,
+      "lat": 47.8596,
+      "lon": -123.6907,
+      "camp": {
+        "sites": null,
+        "reservation_or_quota": "Quota area (Upper Hoh). Reserve on Recreation.gov (Martin Creek, max 6; separate Martin Creek Stock Site, 12 people / 8 stock).",
+        "bear_can_required": true,
+        "food_storage": "can",
+        "fires_allowed": true,
+        "toilet": false,
+        "water": "Martin Creek (treat)",
+        "notes": "Last place on the trail where campfires are allowed (NPS: no fires above Martin Creek; none at or above Elk Lake). Toilet at Elk Lake, under a mile away. Stock may not camp above here; in 2026 stock are closed beyond Martin Creek except llamas."
+      },
+      "description": "After the long switchbacks, Martin Creek comes leaping down in white falls from the slopes above. The air is cooler here, and the trees are smaller and closer together.",
+      "scene_art_notes": "Foreground: log footbridge over a rushing creek; midground: stepped white cascade (Martin Creek Falls) on a dark slope; sky: blue-grey; landmark: the White Glacier gleaming on a far ridge.",
+      "sources": [
+        "https://www.nps.gov/olym/planyourvisit/hoh-river-trail.htm",
+        "https://www.nps.gov/olym/planyourvisit/wilderness-trail-conditions.htm",
+        "https://www.recreation.gov/permits/4098362",
+        "https://mountaineers.org/activities/routes-places/hoh-river",
+        "https://www.oregonhikers.org/field_guide/Hoh_River_to_Blue_Glacier_Hike"
+      ]
+    },
+    {
+      "id": "elk_lake",
+      "name": "Elk Lake Camp",
+      "type": "camp",
+      "elevation_ft": 2600,
+      "lat": 47.8575,
+      "lon": -123.6927,
+      "camp": {
+        "sites": 7,
+        "reservation_or_quota": "Quota area (Upper Hoh). Reserve on Recreation.gov; 2026 reservation season June 15 - October 15. 1 group site (7-12).",
+        "bear_can_required": true,
+        "food_storage": "can",
+        "fires_allowed": false,
+        "toilet": true,
+        "water": "Elk Lake and inlet streams (treat)",
+        "notes": "No campfires. Common camp for parties wanting to avoid carrying heavy packs up the Glacier Meadows ladder. Has a trail shelter per guidebook descriptions."
+      },
+      "description": "A small dark lake rests in a bowl of forest, its surface pocked by rising trout and falling drips. On a clear evening the snowy shoulder of Mount Olympus floats above the trees at its far end.",
+      "scene_art_notes": "Foreground: lakeshore with lily pads and a log; midground: still dark-blue lake reflecting trees; sky: evening blue fading to pink (magenta dither); landmark: white glaciated summit framed in a notch.",
+      "sources": [
+        "https://www.nps.gov/olym/planyourvisit/hoh-river-trail.htm",
+        "https://www.recreation.gov/permits/4098362",
+        "https://mountaineers.org/activities/routes-places/hoh-river",
+        "https://www.oregonhikers.org/field_guide/Hoh_River_to_Blue_Glacier_Hike"
+      ]
+    },
+    {
+      "id": "glacier_meadows_ladder_washout",
+      "name": "Glacier Meadows avalanche-chute washout and ladder",
+      "type": "landmark",
+      "elevation_ft": 4150,
+      "lat": null,
+      "lon": null,
+      "camp": null,
+      "description": "About a quarter mile before Glacier Meadows the trail simply ends at the edge of a raw, crumbling gully. A long ladder of rope and rungs, some of them cracked or missing, hangs down the loose slope and up the other side.",
+      "scene_art_notes": "Foreground: top rung of a cable ladder bolted to a grey dead tree with exposed roots; midground: steep tan-and-grey gully of loose rock dropping away, one small hiker halfway down; sky: blue with a falling pebble drawn mid-air; landmark: snow lingering in the chute bottom.",
+      "sources": [
+        "https://www.nps.gov/olym/planyourvisit/hoh-river-trail.htm",
+        "https://www.nps.gov/olym/planyourvisit/wilderness-trail-conditions.htm",
+        "https://www.recreation.gov/permits/4098362",
+        "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-06-17.212507219905",
+        "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-06-23.081200414632",
+        "https://www.wta.org/go-hiking/hikes/hoh-river-blue-glacier"
+      ]
+    },
+    {
+      "id": "glacier_meadows",
+      "name": "Glacier Meadows Camp",
+      "type": "camp",
+      "elevation_ft": 4300,
+      "lat": 47.8323,
+      "lon": -123.6915,
+      "camp": {
+        "sites": 11,
+        "reservation_or_quota": "Quota area (Upper Hoh). Reserve on Recreation.gov; 2026 reservation season June 15 - October 15. 1 group site (7-12).",
+        "bear_can_required": true,
+        "food_storage": "can",
+        "fires_allowed": false,
+        "toilet": true,
+        "water": "Small creek through camp (can shrink to shallow pools by September); a pool below the lateral moraine is also used.",
+        "notes": "End of the Hoh River Trail and base camp for the Blue Glacier and Mount Olympus. Two privies, the last before the glacier. Some tent sites sit under dead trees and some group pads flood in heavy rain (2025 reports). No camping between here and the Blue Glacier."
+      },
+      "description": "Subalpine firs stand in little clusters on a meadow of heather and late-melting snow, and the air finally smells of ice. Just above camp, a ridge of loose stones hides the great glacier from view.",
+      "scene_art_notes": "Foreground: tent among pointed subalpine firs, heather in magenta dots; midground: patches of white snow and a small creek; sky: clear cobalt (dithered blue/light blue); landmark: the grey crest of the lateral moraine with a white glint of ice beyond.",
+      "sources": [
+        "https://www.nps.gov/olym/planyourvisit/hoh-river-trail.htm",
+        "https://www.nps.gov/olym/planyourvisit/climbing-mount-olympus.htm",
+        "https://www.recreation.gov/permits/4098362",
+        "https://www.wta.org/go-hiking/trip-reports/trip_report-2025-09-13.120602405895",
+        "https://www.wta.org/go-hiking/hikes/hoh-river-blue-glacier"
+      ]
+    },
+    {
+      "id": "blue_glacier_moraine_trail_junction",
+      "name": "Blue Glacier trail junction (lateral vs. terminal moraine)",
+      "type": "junction",
+      "elevation_ft": 4405,
+      "lat": 47.8304,
+      "lon": -123.6883,
+      "camp": null,
+      "description": "Above camp a small arrow sign, easy to miss, points the way. One path goes up onto the long side moraine; the other wanders toward the glacier's snout.",
+      "scene_art_notes": "Foreground: tiny wooden arrow sign on a rock cairn; midground: two faint paths diverging through heather and boulders; sky: blue; landmark: white ice visible over the rubble.",
+      "sources": [
+        "https://nps.gov/olym/planyourvisit/upload/Trails_Public_2019-2.kmz",
+        "https://www.oregonhikers.org/field_guide/Hoh_River_to_Blue_Glacier_Hike",
+        "https://www.wta.org/go-hiking/hikes/hoh-river-blue-glacier"
+      ]
+    },
+    {
+      "id": "blue_glacier_terminal_moraine_viewpoint",
+      "name": "Blue Glacier terminal moraine viewpoint",
+      "type": "landmark",
+      "elevation_ft": 4200,
+      "lat": null,
+      "lon": null,
+      "camp": null,
+      "description": "The glacier ends in a dirty, cracked wall of ice above a cliff, dripping and groaning. Meltwater pours from beneath it, grey with stone-flour ground fine by the ice.",
+      "scene_art_notes": "Foreground: rubble and a milky meltwater stream; midground: icefall snout of blue-white ice streaked with grey; sky: light blue; landmark: cliff band below the ice with a waterfall.",
+      "sources": [
+        "https://www.oregonhikers.org/field_guide/Hoh_River_to_Blue_Glacier_Hike",
+        "https://en.wikipedia.org/wiki/Blue_Glacier",
+        "https://www.wta.org/go-hiking/hikes/hoh-river-blue-glacier"
+      ]
+    },
+    {
+      "id": "blue_glacier_lateral_moraine_viewpoint",
+      "name": "Blue Glacier lateral moraine viewpoint",
+      "type": "landmark",
+      "elevation_ft": 5100,
+      "lat": 47.8238,
+      "lon": -123.6815,
+      "camp": null,
+      "description": "You come up onto a knife-edge of stones and suddenly the whole Blue Glacier lies below you, a frozen river of cracks and blue pools sweeping up to the Snow Dome. Above it all, the rock towers of Mount Olympus stand against the sky.",
+      "scene_art_notes": "Foreground: hiker silhouette on a narrow grey moraine crest; midground: wide white-and-cyan glacier with dark crevasse lines (black pixel stripes); sky: deep blue with a few white clouds; landmark: the jagged West Peak and Five Fingers ridge at the top center.",
+      "sources": [
+        "https://www.nps.gov/olym/planyourvisit/visiting-the-hoh.htm",
+        "https://www.wta.org/go-hiking/hikes/hoh-river-blue-glacier",
+        "https://nps.gov/olym/planyourvisit/upload/Trails_Public_2019-2.kmz",
+        "https://www.oregonhikers.org/field_guide/Hoh_River_to_Blue_Glacier_Hike"
+      ]
+    },
+    {
+      "id": "blue_glacier",
+      "name": "Blue Glacier (lower glacier crossing)",
+      "type": "glacier",
+      "elevation_ft": 4700,
+      "lat": null,
+      "lon": null,
+      "camp": null,
+      "description": "Down on the ice the world turns into white and blue: meltwater streams run in carved channels, and cracks open from finger-width to wider than a stride. Every footstep crunches, and the rope between partners hums with attention.",
+      "scene_art_notes": "Foreground: crampon spikes on grey-white ice and a coil of red rope; midground: three roped climbers spaced along a line, blue meltwater pools and dark crevasses; sky: blue; landmark: the rounded white Snow Dome ahead.",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Blue_Glacier",
+        "https://www.northwestalpineguides.com/northwest-climbs/mount-olympus/",
+        "https://www.mountaineers.org/activities/trip-reports/mount-olympus-blue-glacier-11"
+      ]
+    },
+    {
+      "id": "caltech_rocks",
+      "name": "Caltech Rocks (climbers' camp)",
+      "type": "camp",
+      "elevation_ft": null,
+      "lat": null,
+      "lon": null,
+      "camp": {
+        "sites": null,
+        "reservation_or_quota": "Cross-country climbers' camp on Recreation.gov ('Caltech Rocks (No Campfires)', unlisted) - arrange with the Wilderness Information Center. Wilderness permit required.",
+        "bear_can_required": true,
+        "food_storage": "can",
+        "fires_allowed": false,
+        "toilet": false,
+        "water": "Snowmelt/meltwater (one report found water here)",
+        "notes": "Rock island just below the Snow Dome. WAG bags required. Minimal wind shelter reported (2026)."
+      },
+      "description": "A cluster of dark rocks pokes through the glacier like the back of a sleeping animal. Climbers pitch their tents in its lee and listen to the ice creak at night.",
+      "scene_art_notes": "Foreground: two tiny tents on flat stones; midground: black rock outcrop surrounded by snow; sky: purple-blue twilight with first stars (white pixels); landmark: Snow Dome slope rising behind.",
+      "sources": [
+        "https://www.nps.gov/olym/planyourvisit/climbing-mount-olympus.htm",
+        "https://www.recreation.gov/permits/4098362",
+        "https://www.mountaineers.org/activities/trip-reports/mount-olympus-blue-glacier-11"
+      ]
+    },
+    {
+      "id": "snow_dome",
+      "name": "Snow Dome (climbers' camp)",
+      "type": "camp",
+      "elevation_ft": 6786,
+      "lat": 47.8181,
+      "lon": -123.706,
+      "camp": {
+        "sites": null,
+        "reservation_or_quota": "Cross-country climbers' camp on Recreation.gov ('Snow Dome (No Campfires)', unlisted) - arrange with the Wilderness Information Center.",
+        "bear_can_required": true,
+        "food_storage": "can",
+        "fires_allowed": false,
+        "toilet": false,
+        "water": "Melt snow on a stove; last running water around 6,200 ft at the base of the dome (report).",
+        "notes": "Tent sites in the rocks of the lower dome and on top near Panic Peak (point 6,809 ft per a Mountaineers trip listing), where glacier researchers once kept a weather station. Reported camp elevations 6,600-6,800 ft. WAG bags required."
+      },
+      "description": "A great white hump of snow where two glaciers are born. From your tent door you can watch the sun sink into the Pacific, and the snow around you blushes pink and then gold.",
+      "scene_art_notes": "Foreground: tent with guy lines pinned by ice axes, a stove pot of snow; midground: smooth curved snowfield (white with light-cyan dither shading); sky: sunset bands of magenta, light red, yellow over a dark blue ocean line; landmark: the rocky summit block of Mount Olympus glowing.",
+      "sources": [
+        "https://www.nps.gov/olym/planyourvisit/climbing-mount-olympus.htm",
+        "https://www.openstreetmap.org",
+        "https://epqs.nationalmap.gov/v1/docs",
+        "https://theoutbound.com/washington/backpacking/climb-mount-olympus-olympic-np",
+        "https://www.wta.org/go-hiking/trip-reports/trip_report-2021-07-06-0044373470",
+        "https://www.mountaineers.org/activities/trip-reports/mount-olympus-blue-glacier-11"
+      ]
+    },
+    {
+      "id": "crystal_pass",
+      "name": "Crystal Pass",
+      "type": "pass",
+      "elevation_ft": 7250,
+      "lat": null,
+      "lon": null,
+      "camp": null,
+      "description": "A notch in the ridge guarded by a deep crack in the snow and a short, steep wall. Beyond it, a second glacier spreads out and the summit towers seem suddenly close.",
+      "scene_art_notes": "Foreground: blue-black bergschrund gap with a snow bridge; midground: steep white snow wall with a line of bootsteps; sky: deep blue; landmark: Five Fingers rock towers to one side.",
+      "sources": [
+        "https://www.northwestalpineguides.com/northwest-climbs/mount-olympus/",
+        "https://madisonmountaineering.com/climb-on-mt-olympus/",
+        "https://www.mountaineers.org/activities/trip-reports/mount-olympus-blue-glacier-11",
+        "https://www.summitpost.org/blue-glacier/155624"
+      ]
+    },
+    {
+      "id": "mount_olympus_false_summit",
+      "name": "Mount Olympus False Summit",
+      "type": "summit",
+      "elevation_ft": null,
+      "lat": null,
+      "lon": null,
+      "camp": null,
+      "description": "You top out on a white hump certain you have made it, and then see the real summit: a dark rock tower a little higher, across a dip of steep snow.",
+      "scene_art_notes": "Foreground: climber on a snowy hump pointing; midground: steep snow gully dropping away; sky: blue; landmark: the dark West Peak rock tower across the gap.",
+      "sources": [
+        "https://www.summitpost.org/blue-glacier/155624",
+        "https://www.mountaineers.org/activities/trip-reports/mount-olympus-blue-glacier-11"
+      ]
+    },
+    {
+      "id": "mount_olympus_west_peak",
+      "name": "Mount Olympus (West Peak summit)",
+      "type": "summit",
+      "elevation_ft": 7980,
+      "lat": 47.8014,
+      "lon": -123.7108,
+      "camp": null,
+      "description": "A small pile of rock at the very top of the peninsula, ringed in every direction by glaciers and then by green ridges and then, far off, by the grey sea. The wind up here has come across the whole Pacific to meet you.",
+      "scene_art_notes": "Foreground: rock summit block with a rappel sling and a climber sitting; midground: glaciers spilling away on three sides (white/cyan); sky: dark blue at top grading lighter; landmark: distant blue Pacific horizon line and lower peaks as grey silhouettes.",
+      "sources": [
+        "https://www.nps.gov/olym/planyourvisit/climbing-mount-olympus.htm",
+        "https://en.wikipedia.org/wiki/Mount_Olympus_(Washington)",
+        "https://www.northwestalpineguides.com/northwest-climbs/mount-olympus/"
+      ]
+    },
+    {
+      "id": "c_b_flats_group_site",
+      "name": "C.B. Flats Group Site",
+      "type": "camp",
+      "elevation_ft": 4091,
+      "lat": 47.8947,
+      "lon": -123.7898,
+      "camp": {
+        "sites": 1,
+        "reservation_or_quota": "Quota area (Hoh Lake). Group site only, 7-12 people, reserve on Recreation.gov.",
+        "bear_can_required": true,
+        "food_storage": "can",
+        "fires_allowed": false,
+        "toilet": true,
+        "water": "First water source on the Hoh Lake Trail climb (stream at the flats)",
+        "notes": "Half a mile below Hoh Lake. No campfires."
+      },
+      "description": "After hours of hot switchbacks through silver burned snags, a little flat of meadow and running water appears like a gift. Everyone drops their packs and drinks.",
+      "scene_art_notes": "Foreground: hikers' packs leaned on a log; midground: small meadow with a creek and wildflowers (yellow/magenta dots); sky: hot pale blue; landmark: silver snags on the ridge above.",
+      "sources": [
+        "https://www.nps.gov/olym/planyourvisit/hoh-lake-trail.htm",
+        "https://www.nps.gov/olym/planyourvisit/wilderness-trail-conditions.htm",
+        "https://www.recreation.gov/permits/4098362",
+        "https://www.nps.gov/olym/planyourvisit/upload/OLYM_Camp_Areas.kml"
+      ]
+    },
+    {
+      "id": "south_fork_hoh_trailhead",
+      "name": "South Fork Hoh Trailhead",
+      "type": "trailhead",
+      "elevation_ft": 828,
+      "lat": 47.7993,
+      "lon": -123.9544,
+      "camp": null,
+      "description": "At the end of a long gravel logging road, a quiet trail slips into the trees. Hardly anyone comes here, and the forest feels as if it has been waiting a long time for a visitor.",
+      "scene_art_notes": "Foreground: dusty gravel turnaround and a small kiosk with registration slips; midground: wall of old-growth trees; sky: grey; landmark: a single parked car.",
+      "sources": [
+        "https://www.wta.org/go-hiking/hikes/south-fork-hoh-river",
+        "https://www.nps.gov/olym/planyourvisit/upload/OLYM_Trailheads.gpx"
+      ]
+    },
+    {
+      "id": "big_flat_camp",
+      "name": "Big Flat Camp (South Fork Hoh)",
+      "type": "camp",
+      "elevation_ft": 723,
+      "lat": 47.7903,
+      "lon": -123.9348,
+      "camp": {
+        "sites": null,
+        "reservation_or_quota": "Listed on Recreation.gov ('Big Flat', unlisted zone) - contact the Wilderness Information Center.",
+        "bear_can_required": true,
+        "food_storage": "can",
+        "fires_allowed": true,
+        "toilet": false,
+        "water": "South Fork Hoh River (treat)",
+        "notes": "Signed campsite at about 1.3 miles with a short path to the river."
+      },
+      "description": "The trail drops onto a broad river flat of enormous spruce and maple. A short path leads to the water, where a dipper bobs on a rock and dives under.",
+      "scene_art_notes": "Foreground: tent between ferns; midground: huge spruce columns on a flat; sky: none; landmark: glimpse of a clear green river.",
+      "sources": [
+        "https://www.wta.org/go-hiking/hikes/south-fork-hoh-river",
+        "https://www.recreation.gov/permits/4098362",
+        "https://www.openstreetmap.org"
+      ]
+    },
+    {
+      "id": "south_fork_hoh_end_of_maintained_trail",
+      "name": "South Fork Hoh - end of maintained trail",
+      "type": "landmark",
+      "elevation_ft": 802,
+      "lat": 47.7828,
+      "lon": -123.8957,
+      "camp": null,
+      "description": "The path fades into grass and shrubs and then stops where the river has carried the old trail away. Beyond lies only gravel bar and wild valley.",
+      "scene_art_notes": "Foreground: faint trail ending at a crumbling cutbank; midground: broad gravel bars and a winding river; sky: grey-blue; landmark: forested walls narrowing up-valley toward snowy peaks.",
+      "sources": [
+        "https://www.nps.gov/olym/planyourvisit/wilderness-trail-conditions.htm",
+        "https://www.wta.org/go-hiking/hikes/south-fork-hoh-river",
+        "https://nps.gov/olym/planyourvisit/upload/Trails_Public_2019-2.kmz"
+      ]
+    },
+    {
+      "id": "bogachiel_trailhead",
+      "name": "Bogachiel Trailhead (end of Undi Road)",
+      "type": "trailhead",
+      "elevation_ft": 449,
+      "lat": 47.8822,
+      "lon": -124.275,
+      "camp": null,
+      "description": "A muddy turnaround at the end of a farm road, where the trail sets off through second-growth forest toward the park. Your boots are wet within five minutes, and that is just how it is here.",
+      "scene_art_notes": "Foreground: mud puddle with boot prints; midground: Forest Service trailhead sign and a few parked cars; sky: drizzle grey; landmark: alder and young spruce crowding the path.",
+      "sources": [
+        "https://www.wta.org/go-hiking/hikes/bogachiel-river",
+        "https://www.nps.gov/olym/planyourvisit/upload/OLYM_Trailheads.gpx"
+      ]
+    },
+    {
+      "id": "bogachiel_park_boundary",
+      "name": "Olympic National Park boundary (Bogachiel River Trail)",
+      "type": "landmark",
+      "elevation_ft": 351,
+      "lat": 47.8822,
+      "lon": -124.2472,
+      "camp": null,
+      "description": "A sign and a battered register box mark where the national forest ends and the park begins. Write your name; it is the last paperwork for a long while.",
+      "scene_art_notes": "Foreground: wooden park boundary sign and a register box on a post; midground: trail continuing into older, bigger trees; sky: grey; landmark: moss-heavy maple.",
+      "sources": [
+        "https://www.wta.org/go-hiking/hikes/bogachiel-river",
+        "https://nps.gov/olym/planyourvisit/upload/Trails_Public_2019-2.kmz"
+      ]
+    },
+    {
+      "id": "mosquito_creek_bogachiel",
+      "name": "Mosquito Creek (Bogachiel River Trail)",
+      "type": "river_ford",
+      "elevation_ft": 402,
+      "lat": null,
+      "lon": null,
+      "camp": null,
+      "description": "The trail drops back to the valley bottom at Mosquito Creek, where the river has bitten away the old path. A steep detour climbs around the gap along a narrow ledge.",
+      "scene_art_notes": "Foreground: fixed rope along a narrow ledge; midground: raw cutbank and the river below; sky: grey; landmark: Mosquito Creek splashing into the Bogachiel.",
+      "sources": [
+        "https://www.nps.gov/olym/planyourvisit/wilderness-trail-conditions.htm",
+        "https://www.wta.org/go-hiking/hikes/bogachiel-river"
+      ]
+    },
+    {
+      "id": "bogachiel_camp",
+      "name": "Bogachiel Camp (former Bogachiel Ranger Station site; Snider-Jackson junction)",
+      "type": "camp",
+      "elevation_ft": 449,
+      "lat": 47.8826,
+      "lon": -124.1676,
+      "camp": {
+        "sites": null,
+        "reservation_or_quota": "Reservable on Recreation.gov ('Bogachiel', group size 1-12).",
+        "bear_can_required": true,
+        "food_storage": "can",
+        "fires_allowed": true,
+        "toilet": false,
+        "water": "Bogachiel River (treat)",
+        "notes": "About 6 miles from the trailhead at the junction with the North Snider-Jackson (Rugged Ridge) trail. The ranger station, shelter and stable here washed away in 1989; most established sites have eroded into the river (NPS 2026) - camp on the river bar at low water."
+      },
+      "description": "Where Indian Creek meets the river, a ranger cabin once stood, until a flood carried it off. Now there is only a riverbank, a gravel bar, and the sound of water that remembers everything.",
+      "scene_art_notes": "Foreground: half-buried old foundation stones on gravel; midground: wide river bar with a tent; sky: grey with a pale sun; landmark: a trail sign pointing north to Rugged Ridge.",
+      "sources": [
+        "https://www.recreation.gov/permits/4098362",
+        "https://www.nps.gov/olym/planyourvisit/wilderness-trail-conditions.htm",
+        "https://www.wta.org/go-hiking/hikes/bogachiel-river",
+        "https://www.wta.org/go-hiking/hikes/rugged-ridge",
+        "https://www.nps.gov/olym/planyourvisit/upload/OLYM_Camp_Areas.kml"
+      ]
+    },
+    {
+      "id": "bogachiel_lower_crossing",
+      "name": "Bogachiel lower crossing (South Bank Trail junction)",
+      "type": "junction",
+      "elevation_ft": 504,
+      "lat": 47.8813,
+      "lon": -124.1333,
+      "camp": null,
+      "description": "A faint path splits off to a ford of the Bogachiel and the old south-bank trail. Most hikers keep to the north side.",
+      "scene_art_notes": "Foreground: weathered signpost; midground: gravel bar and a wide shallow ford; sky: grey; landmark: forest on the far bank.",
+      "sources": [
+        "https://nps.gov/olym/planyourvisit/upload/Trails_Public_2019-2.kmz"
+      ]
+    },
+    {
+      "id": "bogachiel_south_bank_snider_jackson_junction",
+      "name": "Bogachiel South Bank Trail / South Snider-Jackson Trail junction",
+      "type": "junction",
+      "elevation_ft": 559,
+      "lat": 47.8824,
+      "lon": -124.1049,
+      "camp": null,
+      "description": "On the south bank, the long primitive trail from the Hoh valley comes down off its ridge and meets the river path. Tumwata Creek here is the only water for miles back the way it came.",
+      "scene_art_notes": "Foreground: small creek and a muddy junction; midground: river through trees; sky: grey; landmark: steep forested ridge to the south.",
+      "sources": [
+        "https://www.nps.gov/olym/planyourvisit/wilderness-trail-conditions.htm",
+        "https://nps.gov/olym/planyourvisit/upload/Trails_Public_2019-2.kmz"
+      ]
+    },
+    {
+      "id": "flapjack_camp",
+      "name": "Flapjack Camp",
+      "type": "camp",
+      "elevation_ft": 601,
+      "lat": 47.8841,
+      "lon": -124.0897,
+      "camp": {
+        "sites": null,
+        "reservation_or_quota": "Reservable on Recreation.gov ('Flapjack', group size 1-12) plus Flapjack Stock Camp.",
+        "bear_can_required": true,
+        "food_storage": "can",
+        "fires_allowed": true,
+        "toilet": false,
+        "water": "Bogachiel River (treat)",
+        "notes": "10.3 miles from the USFS trailhead. Small sign at the turnoff; grassy spots set back from the trail; described as large but worn (2025)."
+      },
+      "description": "Two grassy tent spots wait in a hush of moss just off the trail. It is a good place to eat a big breakfast before the trail gets wild.",
+      "scene_art_notes": "Foreground: frying pan with pancakes on a small stove (a wink at the camp's name); midground: grassy clearing and a tent; sky: grey-green canopy; landmark: river glinting through trees.",
+      "sources": [
+        "https://www.recreation.gov/permits/4098362",
+        "https://www.nps.gov/olym/planyourvisit/upload/OLYM_Camp_Areas.kml",
+        "https://www.wta.org/go-hiking/trip-reports/trip_report.2022-09-13.2263064540"
+      ]
+    },
+    {
+      "id": "fifteen_mile_camp",
+      "name": "15 Mile Camp and Shelter (Bogachiel)",
+      "type": "camp",
+      "elevation_ft": 1124,
+      "lat": null,
+      "lon": null,
+      "camp": {
+        "sites": null,
+        "reservation_or_quota": "Listed on Recreation.gov ('15-mile', unlisted) - contact the Wilderness Information Center.",
+        "bear_can_required": true,
+        "food_storage": "can",
+        "fires_allowed": true,
+        "toilet": false,
+        "water": "A small rivulet about 100 yards up-trail (2022); another hiker found no water (September 2025).",
+        "notes": "Old shelter on a steep slope against the trail, re-roofed in 2022. No privy or bear wire. Above here the trail becomes hard to follow (NPS)."
+      },
+      "description": "An old shelter leans into the hillside beside the trail like a tired hiker. Beyond it, the river forks and the path grows faint.",
+      "scene_art_notes": "Foreground: weathered three-sided shelter with a new shake patch on the roof; midground: steep forested slope; sky: none; landmark: river fork visible below.",
+      "sources": [
+        "https://www.nps.gov/olym/planyourvisit/bogachiel-river-trail.htm",
+        "https://www.recreation.gov/permits/4098362",
+        "https://www.wta.org/go-hiking/trip-reports/trip_report.2022-09-13.2263064540"
+      ]
+    },
+    {
+      "id": "hyak_camp",
+      "name": "Hyak Camp",
+      "type": "camp",
+      "elevation_ft": 1381,
+      "lat": 47.924,
+      "lon": -123.9718,
+      "camp": {
+        "sites": null,
+        "reservation_or_quota": "Reservable on Recreation.gov ('Hyak', group size 1-12).",
+        "bear_can_required": true,
+        "food_storage": "can",
+        "fires_allowed": true,
+        "toilet": false,
+        "water": "Bogachiel River / North Fork (treat)",
+        "notes": "17.5 miles from the Bogachiel trailhead and 11.6 miles from Sol Duc Hot Springs Resort (Recreation.gov). Approach very overgrown (2025). Expect dense brush between Flapjack and the Mink Lake Trail junction."
+      },
+      "description": "A lonely camp deep in the upper valley, where few boots pass in a season. Salmonberry and devil's club close in around the path, and the river has gone small and clear.",
+      "scene_art_notes": "Foreground: devil's club leaves (big green hands) and red salmonberries; midground: small clearing with one tent; sky: none; landmark: clear narrow river over mossy boulders.",
+      "sources": [
+        "https://www.recreation.gov/permits/4098362",
+        "https://www.nps.gov/olym/planyourvisit/upload/OLYM_Camp_Areas.kml",
+        "https://www.wta.org/go-hiking/trip-reports/trip_report.2023-09-05.4326905155"
+      ]
+    },
+    {
+      "id": "twenty_one_mile_camp",
+      "name": "21 Mile Camp (Bogachiel)",
+      "type": "camp",
+      "elevation_ft": 2491,
+      "lat": null,
+      "lon": null,
+      "camp": {
+        "sites": null,
+        "reservation_or_quota": "Listed on Recreation.gov ('21-mile', unlisted) - contact the Wilderness Information Center.",
+        "bear_can_required": true,
+        "food_storage": "can",
+        "fires_allowed": true,
+        "toilet": false,
+        "water": "Nearby stream (treat)",
+        "notes": "Shelter is gone - only a pile of old wood remains (July 2025); the established campsite was in great shape (September 2025)."
+      },
+      "description": "Where a shelter once stood there is now just a heap of grey boards turning back into soil. The campsite beside it is still friendly, and the climb to the divide begins in the morning.",
+      "scene_art_notes": "Foreground: collapsed shelter boards furred with moss; midground: tent on a flat; sky: patch of blue through hemlocks; landmark: steep slope rising toward the Little Divide.",
+      "sources": [
+        "https://www.recreation.gov/permits/4098362",
+        "https://www.wta.org/go-hiking/trip-reports/trip_report.2023-09-05.4326905155"
+      ]
+    },
+    {
+      "id": "rugged_ridge_trailhead",
+      "name": "Rugged Ridge (North Snider-Jackson) Trailhead",
+      "type": "trailhead",
+      "elevation_ft": 1231,
+      "lat": 47.9377,
+      "lon": -124.1654,
+      "camp": null,
+      "description": "A small pullout at the end of a Forest Service road on a logged ridge. From here a primitive trail heads south over the hills toward the Bogachiel.",
+      "scene_art_notes": "Foreground: gravel pullout and a small wooden sign; midground: cut-over hillside with young trees; sky: grey-blue; landmark: forested ridges of the park to the south.",
+      "sources": [
+        "https://www.wta.org/go-hiking/hikes/rugged-ridge",
+        "https://www.nps.gov/olym/planyourvisit/upload/OLYM_Trailheads.gpx"
+      ]
+    },
+    {
+      "id": "calawah_river_ford",
+      "name": "Calawah River ford (North Snider-Jackson Trail)",
+      "type": "river_ford",
+      "elevation_ft": 732,
+      "lat": 47.9167,
+      "lon": -124.1573,
+      "camp": null,
+      "description": "The path runs straight into the South Fork Calawah and continues on the far bank. In late summer you may hop across on stones; after rain it is a cold, pushy wade.",
+      "scene_art_notes": "Foreground: stepping stones and a hiker with boots tied to the pack; midground: clear river; sky: grey; landmark: trail post on the far bank.",
+      "sources": [
+        "https://www.nps.gov/olym/planyourvisit/wilderness-trail-conditions.htm",
+        "https://www.wta.org/go-hiking/hikes/rugged-ridge",
+        "https://www.americanwhitewater.org/content/River/view/river-detail/2072/main"
+      ]
+    },
+    {
+      "id": "hoh_bogachiel_trailhead",
+      "name": "Hoh-Bogachiel (South Snider-Jackson) Trailhead",
+      "type": "trailhead",
+      "elevation_ft": 433,
+      "lat": 47.8202,
+      "lon": -124.0243,
+      "camp": null,
+      "description": "A modest trailhead along the Upper Hoh Road where a steep, little-used trail heads north over the ridge to the Bogachiel.",
+      "scene_art_notes": "Foreground: roadside pullout; midground: trail sign half-hidden by salal; sky: grey; landmark: steep forested ridge.",
+      "sources": [
+        "https://www.nps.gov/olym/planyourvisit/upload/OLYM_Trailheads.gpx",
+        "https://www.recreation.gov/permits/4098362"
+      ]
+    },
+    {
+      "id": "queets_trailhead",
+      "name": "Queets River Trailhead",
+      "type": "trailhead",
+      "elevation_ft": 291,
+      "lat": 47.6246,
+      "lon": -124.0144,
+      "camp": null,
+      "description": "The road ends at the river, and the trail begins on the other side of it. To go anywhere at all, you must first walk into the Queets.",
+      "scene_art_notes": "Foreground: small parking area and a sign warning about the ford; midground: wide gravel bar and the river; sky: grey-blue; landmark: trail opening in the forest on the far bank.",
+      "sources": [
+        "https://www.nps.gov/olym/planyourvisit/queets-river-trail.htm",
+        "https://www.wta.org/go-hiking/hikes/queets-river",
+        "https://www.nps.gov/olym/planyourvisit/upload/OLYM_Trailheads.gpx"
+      ]
+    },
+    {
+      "id": "queets_campground",
+      "name": "Queets Campground",
+      "type": "amenity",
+      "elevation_ft": null,
+      "lat": null,
+      "lon": null,
+      "camp": {
+        "sites": null,
+        "reservation_or_quota": "Primitive front-country campground (no wilderness permit). Open per NPS alerts (October 4, 2026).",
+        "bear_can_required": false,
+        "food_storage": "unknown",
+        "fires_allowed": null,
+        "toilet": null,
+        "water": "Queets River (treat)",
+        "notes": "About 0.2 miles downstream of the trailhead. May close on short notice for hazardous weather."
+      },
+      "description": "A handful of quiet sites under big trees beside the river, a long way from anywhere.",
+      "scene_art_notes": "Foreground: picnic table; midground: river through trees; sky: grey; landmark: Sams Rapids white water.",
+      "sources": [
+        "https://www.nps.gov/olym/planyourvisit/conditions.htm",
+        "https://howsyourriver.com/rapids/sams-rapid-2-queets-trailhead-to-hartzell-launch-wa"
+      ]
+    },
+    {
+      "id": "sams_rapids",
+      "name": "Sams Rapids (Queets River)",
+      "type": "landmark",
+      "elevation_ft": null,
+      "lat": null,
+      "lon": null,
+      "camp": null,
+      "description": "Just below where the Sams River joins, the Queets tumbles over a riffle of white water beside the campground. Its voice follows you to sleep.",
+      "scene_art_notes": "Foreground: river cobbles; midground: low white rapids (white/cyan dither) across a wide river; sky: grey; landmark: Sams River confluence upstream.",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Sams_River",
+        "https://howsyourriver.com/rapids/sams-rapid-2-queets-trailhead-to-hartzell-launch-wa"
+      ]
+    },
+    {
+      "id": "sams_river_loop_meadow",
+      "name": "Sams River Loop (meadow and homestead clearing)",
+      "type": "landmark",
+      "elevation_ft": null,
+      "lat": null,
+      "lon": null,
+      "camp": null,
+      "description": "A flat loop wanders through an old homestead meadow where elk graze, then back through hemlock forest and along the Queets.",
+      "scene_art_notes": "Foreground: tall meadow grass; midground: elk herd; sky: grey-blue; landmark: forest edge and an old fence post.",
+      "sources": [
+        "https://www.wta.org/go-hiking/hikes/sams-river",
+        "https://home.nps.gov/olym/planyourvisit/queets-area-brochure.htm",
+        "https://interpretivecenter.org/the-sams-river-loop-trail/"
+      ]
+    },
+    {
+      "id": "queets_river_ford",
+      "name": "Queets River ford (trailhead crossing)",
+      "type": "river_ford",
+      "elevation_ft": 290,
+      "lat": null,
+      "lon": null,
+      "camp": null,
+      "description": "Cold, fast, grey-green water as wide as a highway. In late summer it may reach your thighs; after rain it can reach your chest or simply refuse you.",
+      "scene_art_notes": "Foreground: hiker's legs in swirling water with two poles; midground: wide river with a marker blaze on a trunk on the far bank; sky: grey; landmark: Sams River entering from the right.",
+      "sources": [
+        "https://www.nps.gov/olym/planyourvisit/queets-river-trail.htm",
+        "https://www.nps.gov/olym/planyourvisit/wilderness-trail-conditions.htm",
+        "https://www.wta.org/go-hiking/hikes/queets-river",
+        "https://www.recreation.gov/permits/4098362"
+      ]
+    },
+    {
+      "id": "andrews_field",
+      "name": "Andrews Field",
+      "type": "landmark",
+      "elevation_ft": 351,
+      "lat": null,
+      "lon": null,
+      "camp": null,
+      "description": "An old homestead clearing gone wild with blackberry, thistle and alder. Elk trails cross it, and the barn that stood here is long gone.",
+      "scene_art_notes": "Foreground: tangled blackberry canes with dark berries; midground: open field and an elk; sky: grey; landmark: lone old apple tree (homestead relic) - optional.",
+      "sources": [
+        "https://www.wta.org/go-hiking/hikes/queets-river"
+      ]
+    },
+    {
+      "id": "coal_creek_queets_fir_spur",
+      "name": "Coal Creek crossing and Queets Fir spur",
+      "type": "landmark",
+      "elevation_ft": 351,
+      "lat": null,
+      "lon": null,
+      "camp": null,
+      "description": "A sun-bleached log carries you over Coal Creek. Just before it, an overgrown path wanders off toward a Douglas-fir once famous as one of the biggest in the world.",
+      "scene_art_notes": "Foreground: log bridge with an axe-flattened top; midground: creek; sky: none; landmark: enormous dark trunk barely visible through brush.",
+      "sources": [
+        "https://www.wta.org/go-hiking/hikes/queets-river",
+        "https://nps.gov/olym/planyourvisit/upload/Trails_Public_2019-2.kmz"
+      ]
+    },
+    {
+      "id": "queets_lower_crossing_junction",
+      "name": "Queets Lower Crossing junction",
+      "type": "junction",
+      "elevation_ft": 387,
+      "lat": 47.6403,
+      "lon": -123.946,
+      "camp": null,
+      "description": "A side path drops to a gravel bar favored by anglers, where an old crossing of the river used to be. Primitive campsites sit nearby.",
+      "scene_art_notes": "Foreground: fishing line glinting; midground: gravel bar and riffle; sky: grey-blue; landmark: far-bank forest.",
+      "sources": [
+        "https://www.wta.org/go-hiking/hikes/queets-river",
+        "https://en.wikipedia.org/wiki/Queets_River",
+        "https://nps.gov/olym/planyourvisit/upload/Trails_Public_2019-2.kmz"
+      ]
+    },
+    {
+      "id": "spruce_bottom_camp",
+      "name": "Spruce Bottom Camp",
+      "type": "camp",
+      "elevation_ft": 419,
+      "lat": 47.6529,
+      "lon": -123.9419,
+      "camp": {
+        "sites": null,
+        "reservation_or_quota": "Reservable on Recreation.gov ('Spruce Bottom', max group 12).",
+        "bear_can_required": true,
+        "food_storage": "can",
+        "fires_allowed": true,
+        "toilet": false,
+        "water": "Queets River (treat)",
+        "notes": "Fire pit beneath three close-grown trunks. No privy; the old shelter is gone. Good turnaround for a first Queets overnight."
+      },
+      "description": "Three giant spruce grow so close together they share one shadow, and a ring of stones beneath them holds old ashes. The river murmurs just out of sight.",
+      "scene_art_notes": "Foreground: stone fire ring and a log seat; midground: three fused spruce trunks; sky: none; landmark: river glimpsed through ferns.",
+      "sources": [
+        "https://www.recreation.gov/permits/4098362",
+        "https://www.wta.org/go-hiking/hikes/queets-river",
+        "https://www.nps.gov/olym/planyourvisit/upload/OLYM_Camp_Areas.kml"
+      ]
+    },
+    {
+      "id": "harlow_bottom",
+      "name": "Harlow Bottom (Bear Creek crossing)",
+      "type": "landmark",
+      "elevation_ft": 486,
+      "lat": null,
+      "lon": null,
+      "camp": null,
+      "description": "After a creek crossing, the trail enters about three miles of enormous spruce standing on a flat river terrace, quiet as a cathedral.",
+      "scene_art_notes": "Foreground: Bear Creek cobbles; midground: rows of massive spruce trunks; sky: none; landmark: shafts of light in the canopy.",
+      "sources": [
+        "https://www.wta.org/go-hiking/hikes/queets-river"
+      ]
+    },
+    {
+      "id": "bob_creek_camp",
+      "name": "Bob Creek Camp",
+      "type": "camp",
+      "elevation_ft": 582,
+      "lat": 47.6911,
+      "lon": -123.851,
+      "camp": {
+        "sites": null,
+        "reservation_or_quota": "Reservable on Recreation.gov ('Bob Creek', max group 12).",
+        "bear_can_required": true,
+        "food_storage": "can",
+        "fires_allowed": true,
+        "toilet": false,
+        "water": "Bob Creek / Queets River (treat)",
+        "notes": "Practical end of the maintained trail (WTA). A ~200-yard washout 0.3 mi west of Bob Creek has a river-side bypass (NPS, July 2026)."
+      },
+      "description": "Bob Creek splashes in from the hills, and a campsite waits at the far edge of the maintained trail. Beyond, the forest turns silver with old fire.",
+      "scene_art_notes": "Foreground: creek crossing on rocks; midground: tent in big trees; sky: grey; landmark: burned grey snags up-valley.",
+      "sources": [
+        "https://www.recreation.gov/permits/4098362",
+        "https://www.nps.gov/olym/planyourvisit/wilderness-trail-conditions.htm",
+        "https://www.wta.org/go-hiking/hikes/queets-river",
+        "https://www.nps.gov/olym/planyourvisit/upload/OLYM_Camp_Areas.kml"
+      ]
+    },
+    {
+      "id": "pelton_creek_camp",
+      "name": "Pelton Creek Camp",
+      "type": "camp",
+      "elevation_ft": null,
+      "lat": null,
+      "lon": null,
+      "camp": {
+        "sites": null,
+        "reservation_or_quota": "On Recreation.gov but hidden from the public list (contact the Wilderness Information Center). NPS does not recommend camping past Bob Creek due to standing dead trees from the 2015 Paradise Fire.",
+        "bear_can_required": true,
+        "food_storage": "can",
+        "fires_allowed": true,
+        "toilet": false,
+        "water": "Pelton Creek / Queets River (treat)",
+        "notes": "End of the Queets River Trail at 16.2 mi (NPS). Old shelter site; trail beyond Bob Creek is hard to follow."
+      },
+      "description": "At the far end of the valley, past miles of burned forest, a creek comes down from the hills where an old shelter once stood. Almost no one makes it this far.",
+      "scene_art_notes": "Foreground: charred log and fireweed (magenta); midground: grey standing snags; sky: smoky pale orange; landmark: green new growth around Pelton Creek.",
+      "sources": [
+        "https://www.nps.gov/olym/planyourvisit/wilderness-trail-conditions.htm",
+        "https://www.recreation.gov/permits/4098362",
+        "https://www.wta.org/go-hiking/hikes/queets-river"
+      ]
+    }
+  ],
+  "segments": [
+    {
+      "from": "hoh_rain_forest_trailhead",
+      "to": "hoh_campground",
+      "miles": 0.2,
+      "gain_ft": 0,
+      "loss_ft": 0,
+      "trail_class": "road_walk",
+      "hazards": [],
+      "snow_free_typical": "year-round",
+      "notes": "Campground loop road beside the visitor center. Distance estimated from map coordinates.",
+      "sources": ["https://www.nps.gov/olym/planyourvisit/visiting-the-hoh.htm", "https://www.openstreetmap.org"]
+    },
+    {
+      "from": "hoh_rain_forest_trailhead",
+      "to": "hall_of_mosses",
+      "miles": 0.4,
+      "gain_ft": 40,
+      "loss_ft": 0,
+      "trail_class": "maintained",
+      "hazards": [],
+      "snow_free_typical": "year-round",
+      "notes": "Hall of Mosses is a 0.8-mile loop from the visitor center; split here into two halves for the graph. Very crowded midday in summer.",
+      "sources": ["https://www.nps.gov/olym/planyourvisit/visiting-the-hoh.htm", "https://epqs.nationalmap.gov/v1/docs"]
+    },
+    {
+      "from": "hall_of_mosses",
+      "to": "hoh_rain_forest_trailhead",
+      "miles": 0.4,
+      "gain_ft": 0,
+      "loss_ft": 40,
+      "trail_class": "maintained",
+      "hazards": [],
+      "snow_free_typical": "year-round",
+      "notes": "Return half of the 0.8-mile Hall of Mosses loop.",
+      "sources": ["https://www.nps.gov/olym/planyourvisit/visiting-the-hoh.htm"]
+    },
+    {
+      "from": "hoh_rain_forest_trailhead",
+      "to": "spruce_nature_trail_riverbank",
+      "miles": 0.6,
+      "gain_ft": 25,
+      "loss_ft": 0,
+      "trail_class": "maintained",
+      "hazards": [],
+      "snow_free_typical": "year-round",
+      "notes": "Spruce Nature Trail is a 1.2-mile loop (NPS; other sources 1.25-1.4) past Taft Creek and the Hoh River; split into two halves for the graph.",
+      "sources": ["https://www.nps.gov/olym/planyourvisit/visiting-the-hoh.htm"]
+    },
+    {
+      "from": "spruce_nature_trail_riverbank",
+      "to": "hoh_rain_forest_trailhead",
+      "miles": 0.6,
+      "gain_ft": 0,
+      "loss_ft": 25,
+      "trail_class": "maintained",
+      "hazards": [],
+      "snow_free_typical": "year-round",
+      "notes": "Return half of the Spruce Nature Trail loop.",
+      "sources": ["https://www.nps.gov/olym/planyourvisit/visiting-the-hoh.htm"]
+    },
+    {
+      "from": "hoh_rain_forest_trailhead",
+      "to": "one_mile_camp",
+      "miles": 0.9,
+      "gain_ft": 50,
+      "loss_ft": 0,
+      "trail_class": "maintained",
+      "hazards": ["blowdown"],
+      "snow_free_typical": "year-round (rain; occasional winter snow)",
+      "notes": "Cross Taft Creek on a footbridge; first river access at 0.9 mi (NPS). Gain/loss for all Hoh River Trail segments computed from USGS 10 m DEM along NPS trail geometry (15 ft noise filter).",
+      "sources": ["https://www.nps.gov/olym/planyourvisit/visiting-the-hoh.htm", "https://www.oregonhikers.org/field_guide/Hoh_River_to_Blue_Glacier_Hike", "https://nps.gov/olym/planyourvisit/upload/Trails_Public_2019-2.kmz"]
+    },
+    {
+      "from": "one_mile_camp",
+      "to": "one_point_four_mile_camp",
+      "miles": 0.5,
+      "gain_ft": 16,
+      "loss_ft": 0,
+      "trail_class": "maintained",
+      "hazards": [],
+      "snow_free_typical": "year-round",
+      "notes": "",
+      "sources": ["https://www.recreation.gov/permits/4098362"]
+    },
+    {
+      "from": "one_point_four_mile_camp",
+      "to": "mineral_creek_falls",
+      "miles": 1.3,
+      "gain_ft": 162,
+      "loss_ft": 113,
+      "trail_class": "maintained",
+      "hazards": ["washout", "blowdown", "steep_scree"],
+      "snow_free_typical": "year-round",
+      "notes": "January 2026 winter damage: two washouts with downed trees just before Mineral Creek, the second requiring a steep loose-rock climb down and back up (may since be repaired).",
+      "sources": ["https://www.nps.gov/olym/planyourvisit/visiting-the-hoh.htm", "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-01-18.120947989550"]
+    },
+    {
+      "from": "mineral_creek_falls",
+      "to": "mount_tom_creek_camp",
+      "miles": 0.2,
+      "gain_ft": 0,
+      "loss_ft": 10,
+      "trail_class": "maintained",
+      "hazards": ["blowdown"],
+      "snow_free_typical": "year-round",
+      "notes": "Spur to Mount Tom Creek camps at 2.9 mi. A large blowdown was reported about 0.25 mi past the camp in January 2026.",
+      "sources": ["https://www.oregonhikers.org/field_guide/Hoh_River_to_Blue_Glacier_Hike", "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-01-18.120947989550"]
+    },
+    {
+      "from": "mount_tom_creek_camp",
+      "to": "three_point_three_mile_camp",
+      "miles": 0.4,
+      "gain_ft": 35,
+      "loss_ft": 0,
+      "trail_class": "maintained",
+      "hazards": ["blowdown"],
+      "snow_free_typical": "year-round",
+      "notes": "",
+      "sources": ["https://www.recreation.gov/permits/4098362"]
+    },
+    {
+      "from": "three_point_three_mile_camp",
+      "to": "cedar_grove",
+      "miles": 0.7,
+      "gain_ft": 62,
+      "loss_ft": 0,
+      "trail_class": "maintained",
+      "hazards": [],
+      "snow_free_typical": "year-round",
+      "notes": "Cedar Grove is an NPS-listed day-hike destination at 4.0 mi.",
+      "sources": ["https://www.nps.gov/olym/planyourvisit/visiting-the-hoh.htm"]
+    },
+    {
+      "from": "cedar_grove",
+      "to": "five_mile_island_camp",
+      "miles": 1.0,
+      "gain_ft": 0,
+      "loss_ft": 0,
+      "trail_class": "maintained",
+      "hazards": ["flooding", "blowdown"],
+      "snow_free_typical": "year-round",
+      "notes": "In January 2026 a 50-ft section about a mile before Five Mile Island was flooded ankle- to mid-calf deep after a blowdown. Five Mile Island is 5.0 mi per NPS (5.1-5.3 elsewhere).",
+      "sources": ["https://www.nps.gov/olym/planyourvisit/visiting-the-hoh.htm", "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-01-18.120947989550"]
+    },
+    {
+      "from": "five_mile_island_camp",
+      "to": "happy_four_camp",
+      "miles": 0.7,
+      "gain_ft": 16,
+      "loss_ft": 0,
+      "trail_class": "maintained",
+      "hazards": [],
+      "snow_free_typical": "year-round",
+      "notes": "Happy Four at 5.7 mi (Oregon Hikers; WTA and Mountaineers say 5.8).",
+      "sources": ["https://www.oregonhikers.org/field_guide/Hoh_River_to_Blue_Glacier_Hike", "https://www.wta.org/go-hiking/hikes/hoh-river"]
+    },
+    {
+      "from": "happy_four_camp",
+      "to": "hoh_river_braid_crossings",
+      "miles": 2.3,
+      "gain_ft": 203,
+      "loss_ft": 87,
+      "trail_class": "maintained",
+      "hazards": ["washout", "blowdown"],
+      "snow_free_typical": "year-round",
+      "notes": "Log crossings of a Hoh channel near the Clide Creek confluence. A creek cut through the trail embankment about a mile past Happy Four (January 2026); a 2023 report had half a mile underwater/washed out with a detour.",
+      "sources": ["https://www.oregonhikers.org/field_guide/Hoh_River_to_Blue_Glacier_Hike", "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-01-18.120947989550"]
+    },
+    {
+      "from": "hoh_river_braid_crossings",
+      "to": "olympus_guard_station",
+      "miles": 1.1,
+      "gain_ft": 41,
+      "loss_ft": 18,
+      "trail_class": "maintained",
+      "hazards": ["river_ford"],
+      "snow_free_typical": "year-round",
+      "notes": "NPS (06/14/26): two stream crossings before Olympus Guard Station must be forded; low as of 06/01/26, but they can become impassable in moderate to heavy rain. May 2026 report: mostly dry or very shallow.",
+      "sources": ["https://www.nps.gov/olym/planyourvisit/wilderness-trail-conditions.htm", "https://www.nps.gov/olym/planyourvisit/hoh-river-trail.htm", "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-05-11.091329167626"]
+    },
+    {
+      "from": "olympus_guard_station",
+      "to": "hoh_lake_trail_junction",
+      "miles": 0.6,
+      "gain_ft": 55,
+      "loss_ft": 0,
+      "trail_class": "maintained",
+      "hazards": [],
+      "snow_free_typical": "year-round",
+      "notes": "Olympus Guard Station is 9.1 mi (Oregon Hikers; other sources 9.2-9.5); junction at 9.7 mi, consistent with NPS Hoh Lake = 14.7 mi from trailhead.",
+      "sources": ["https://www.oregonhikers.org/field_guide/Hoh_River_to_Blue_Glacier_Hike", "https://www.nps.gov/olym/planyourvisit/hoh-lake-trail.htm"]
+    },
+    {
+      "from": "hoh_lake_trail_junction",
+      "to": "lewis_meadow_camp",
+      "miles": 0.7,
+      "gain_ft": 0,
+      "loss_ft": 21,
+      "trail_class": "maintained",
+      "hazards": [],
+      "snow_free_typical": "year-round",
+      "notes": "Cross Slide Creek just before Lewis Meadow (10.4 mi per Oregon Hikers overview; sources range 9.9-10.8).",
+      "sources": ["https://www.oregonhikers.org/field_guide/Hoh_River_to_Blue_Glacier_Hike"]
+    },
+    {
+      "from": "lewis_meadow_camp",
+      "to": "twelve_point_four_mile_camp",
+      "miles": 2.0,
+      "gain_ft": 330,
+      "loss_ft": 42,
+      "trail_class": "maintained",
+      "hazards": ["blowdown"],
+      "snow_free_typical": "typically March to December; winter snow possible",
+      "notes": "Valley narrows; trail starts to rise gently.",
+      "sources": ["https://www.oregonhikers.org/field_guide/Hoh_River_to_Blue_Glacier_Hike"]
+    },
+    {
+      "from": "twelve_point_four_mile_camp",
+      "to": "thirteen_point_one_mile_site",
+      "miles": 0.7,
+      "gain_ft": 253,
+      "loss_ft": 175,
+      "trail_class": "maintained",
+      "hazards": [],
+      "snow_free_typical": "typically March to December",
+      "notes": "",
+      "sources": ["https://www.oregonhikers.org/field_guide/Hoh_River_to_Blue_Glacier_Hike"]
+    },
+    {
+      "from": "thirteen_point_one_mile_site",
+      "to": "high_hoh_bridge",
+      "miles": 0.05,
+      "gain_ft": 24,
+      "loss_ft": 21,
+      "trail_class": "maintained",
+      "hazards": ["exposure"],
+      "snow_free_typical": "typically March to December",
+      "notes": "High Hoh Bridge spans a narrow gorge more than 100 ft above the river (Oregon Hikers places it at 13.1 mi; GIS and camp-name ordering put it between the 13.1 and 13.2 sites).",
+      "sources": ["https://www.oregonhikers.org/field_guide/High_Hoh_Bridge", "https://www.oregonhikers.org/field_guide/Hoh_River_to_Blue_Glacier_Hike"]
+    },
+    {
+      "from": "high_hoh_bridge",
+      "to": "thirteen_point_two_mile_site",
+      "miles": 0.05,
+      "gain_ft": 54,
+      "loss_ft": 0,
+      "trail_class": "maintained",
+      "hazards": [],
+      "snow_free_typical": "typically March to December",
+      "notes": "",
+      "sources": ["https://www.oregonhikers.org/field_guide/Hoh_River_to_Blue_Glacier_Hike"]
+    },
+    {
+      "from": "thirteen_point_two_mile_site",
+      "to": "thirteen_point_three_mile_site",
+      "miles": 0.1,
+      "gain_ft": 37,
+      "loss_ft": 0,
+      "trail_class": "maintained",
+      "hazards": [],
+      "snow_free_typical": "typically March to December",
+      "notes": "Water: creek about 100 yards past the 13.3 site.",
+      "sources": ["https://www.oregonhikers.org/field_guide/Hoh_River_to_Blue_Glacier_Hike"]
+    },
+    {
+      "from": "thirteen_point_three_mile_site",
+      "to": "martin_creek_camp",
+      "miles": 1.7,
+      "gain_ft": 1125,
+      "loss_ft": 57,
+      "trail_class": "maintained",
+      "hazards": [],
+      "snow_free_typical": "typically May to November",
+      "notes": "Switchbacks climb the south slope; viewpoint of the White Glacier and Martin Creek Falls. The NPS calls the first 13 miles generally flat, then steep to Glacier Meadows.",
+      "sources": ["https://www.nps.gov/olym/planyourvisit/hoh-river-trail.htm", "https://www.oregonhikers.org/field_guide/Hoh_River_to_Blue_Glacier_Hike", "https://mountaineers.org/activities/routes-places/hoh-river"]
+    },
+    {
+      "from": "martin_creek_camp",
+      "to": "elk_lake",
+      "miles": 0.3,
+      "gain_ft": 37,
+      "loss_ft": 0,
+      "trail_class": "maintained",
+      "hazards": ["river_ford"],
+      "snow_free_typical": "typically May to November",
+      "notes": "Martin Creek crossing. Elk Lake camp 15.3 mi (Mountaineers; other sources 14.8-15.5).",
+      "sources": ["https://mountaineers.org/activities/routes-places/hoh-river", "https://www.oregonhikers.org/field_guide/Hoh_River_to_Blue_Glacier_Hike"]
+    },
+    {
+      "from": "elk_lake",
+      "to": "glacier_meadows_ladder_washout",
+      "miles": 1.85,
+      "gain_ft": 1625,
+      "loss_ft": 39,
+      "trail_class": "maintained",
+      "hazards": ["snowfield", "avalanche_path", "exposure"],
+      "snow_free_typical": "mid-July to early October; steep snow in avalanche chutes often into July",
+      "notes": "Steep snow slopes between Elk Lake and Glacier Meadows in spring and early summer; an ice axe (and sometimes crampons) may be needed and the trail can be hidden under snow. NPS does not recommend winter travel above Elk Lake (avalanche chutes; ropes and anchors may be needed). Alder slope, creek crossings, views of Mount Tom.",
+      "sources": ["https://www.nps.gov/olym/planyourvisit/hoh-river-trail.htm", "https://www.nps.gov/olym/planyourvisit/climbing-mount-olympus.htm", "https://www.oregonhikers.org/field_guide/Hoh_River_to_Blue_Glacier_Hike"]
+    },
+    {
+      "from": "glacier_meadows_ladder_washout",
+      "to": "glacier_meadows",
+      "miles": 0.25,
+      "gain_ft": 167,
+      "loss_ft": 100,
+      "trail_class": "primitive",
+      "hazards": ["ladder", "washout", "rockfall", "steep_scree", "exposure", "avalanche_path"],
+      "snow_free_typical": "mid-July to early October",
+      "notes": "Hazardous slide area about 1/4 mile before Glacier Meadows: a ~100-ft cable/rope ladder down and across a loose avalanche-chute washout. NPS (06/14/26): 3 broken rungs, 1 missing. June 2026 report: anchored to a dead tree with over half its roots exposed, 2 broken and 5+ cracked rungs, real rockfall risk (helmets recommended), midday queues. One person on the ladder at a time. Gain/loss here are DEM net values plus the ~100 ft ladder descent and re-climb reported by guides (approximate).",
+      "sources": ["https://www.nps.gov/olym/planyourvisit/wilderness-trail-conditions.htm", "https://www.recreation.gov/permits/4098362", "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-06-17.212507219905", "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-06-23.081200414632", "https://www.wta.org/go-hiking/hikes/hoh-river-blue-glacier", "https://www.oregonhikers.org/field_guide/Hoh_River_to_Blue_Glacier_Hike"]
+    },
+    {
+      "from": "glacier_meadows",
+      "to": "blue_glacier_moraine_trail_junction",
+      "miles": 0.2,
+      "gain_ft": 215,
+      "loss_ft": 0,
+      "trail_class": "primitive",
+      "hazards": ["snowfield"],
+      "snow_free_typical": "late July to early October",
+      "notes": "Look for the small arrow sign among the campsites - it is easy to miss. Mileage from NPS GIS geometry (approximate).",
+      "sources": ["https://nps.gov/olym/planyourvisit/upload/Trails_Public_2019-2.kmz", "https://www.wta.org/go-hiking/hikes/hoh-river-blue-glacier"]
+    },
+    {
+      "from": "blue_glacier_moraine_trail_junction",
+      "to": "blue_glacier_terminal_moraine_viewpoint",
+      "miles": 0.4,
+      "gain_ft": null,
+      "loss_ft": null,
+      "trail_class": "primitive",
+      "hazards": ["steep_scree", "rockfall"],
+      "snow_free_typical": "late July to early October",
+      "notes": "Right branch, about 0.4 mi to the terminal moraine view of the glacier snout (Oregon Hikers). Less recommended than the lateral moraine view.",
+      "sources": ["https://www.oregonhikers.org/field_guide/Hoh_River_to_Blue_Glacier_Hike", "https://www.wta.org/go-hiking/hikes/hoh-river-blue-glacier"]
+    },
+    {
+      "from": "blue_glacier_moraine_trail_junction",
+      "to": "blue_glacier_lateral_moraine_viewpoint",
+      "miles": 0.9,
+      "gain_ft": 716,
+      "loss_ft": 0,
+      "trail_class": "primitive",
+      "hazards": ["snowfield", "exposure", "steep_scree"],
+      "snow_free_typical": "snowfields may remain into early August; best August to early October",
+      "notes": "Stepped trail through parkland to the crest of the lateral moraine (NPS: trail ends 18.5 mi at the Blue Glacier moraine; high point about 5,100 ft). The crest is a narrow ridge with steep drops on both sides.",
+      "sources": ["https://www.nps.gov/olym/planyourvisit/visiting-the-hoh.htm", "https://www.wta.org/go-hiking/hikes/hoh-river-blue-glacier", "https://www.oregonhikers.org/field_guide/Hoh_River_to_Blue_Glacier_Hike"]
+    },
+    {
+      "from": "blue_glacier_lateral_moraine_viewpoint",
+      "to": "blue_glacier",
+      "miles": 0.2,
+      "gain_ft": 0,
+      "loss_ft": 400,
+      "trail_class": "off_trail",
+      "hazards": ["steep_scree", "rockfall", "exposure", "cliff"],
+      "snow_free_typical": "climbing season late June to mid-August (NPS)",
+      "notes": "Climbers' descent off the moraine crest to the ice: stay high on the crest until a double cairn / white pole marks the way down a faint, poorly cairned boot path; about 400 vertical ft of loose scree and boulders (2023 report); described as 'terrible' in June 2026. Mileage is an estimate.",
+      "sources": ["https://www.mountaineers.org/activities/trip-reports/mount-olympus-blue-glacier-11", "https://theoutbound.com/washington/backpacking/climb-mount-olympus-olympic-np", "https://www.oregonhikers.org/field_guide/Hoh_River_to_Blue_Glacier_Hike"]
+    },
+    {
+      "from": "blue_glacier",
+      "to": "caltech_rocks",
+      "miles": 0.9,
+      "gain_ft": null,
+      "loss_ft": null,
+      "trail_class": "snow_or_glacier",
+      "hazards": ["glacier", "crevasse", "rope"],
+      "snow_free_typical": "never snow-free; climbing season late June to mid-August",
+      "notes": "Rope up and put on crampons; cross about a mile of glacier southwest toward the base of the Snow Dome (guide description). Bare ice near the moraine; the ice pitches up around 5,525 ft. Crevasses range from finger-width to a couple of feet; meltwater streams and blue pools. Mileage is an estimate (NPS gives 4-6 mi Glacier Meadows to summit in total).",
+      "sources": ["https://www.northwestalpineguides.com/northwest-climbs/mount-olympus/", "https://www.nps.gov/olym/planyourvisit/climbing-mount-olympus.htm", "https://www.mountaineers.org/activities/trip-reports/mount-olympus-blue-glacier-11"]
+    },
+    {
+      "from": "caltech_rocks",
+      "to": "snow_dome",
+      "miles": 0.5,
+      "gain_ft": null,
+      "loss_ft": null,
+      "trail_class": "snow_or_glacier",
+      "hazards": ["glacier", "crevasse", "snowfield", "exposure", "rope"],
+      "snow_free_typical": "never snow-free",
+      "notes": "Climb scree and snow up the steep east side of the Snow Dome; the easiest line changes through the season. Reported as the route's biggest objective hazard: steep runout snow in the morning and slushy blue ice on the afternoon descent (pickets and ice screws advised). Combined gain from the glacier surface to the Snow Dome is roughly 2,000 ft. Mileage is an estimate.",
+      "sources": ["https://theoutbound.com/washington/backpacking/climb-mount-olympus-olympic-np", "https://www.mountaineers.org/activities/trip-reports/mount-olympus-blue-glacier-11", "https://www.summitpost.org/blue-glacier/155624"]
+    },
+    {
+      "from": "snow_dome",
+      "to": "crystal_pass",
+      "miles": 0.8,
+      "gain_ft": 464,
+      "loss_ft": null,
+      "trail_class": "snow_or_glacier",
+      "hazards": ["glacier", "crevasse", "bergschrund", "rope"],
+      "snow_free_typical": "never snow-free",
+      "notes": "Traverse east/south through crevasses to Crystal Pass (7,200-7,250 ft). Late season, a wide bergschrund may span the glacier below the pass, and the final approach can be a ~30-ft, ~60-degree snow wall. Mileage is an estimate.",
+      "sources": ["https://www.northwestalpineguides.com/northwest-climbs/mount-olympus/", "https://madisonmountaineering.com/climb-on-mt-olympus/", "https://www.mountaineers.org/activities/trip-reports/mount-olympus-blue-glacier-11"]
+    },
+    {
+      "from": "crystal_pass",
+      "to": "mount_olympus_false_summit",
+      "miles": 0.6,
+      "gain_ft": null,
+      "loss_ft": null,
+      "trail_class": "snow_or_glacier",
+      "hazards": ["glacier", "crevasse", "exposure", "rope"],
+      "snow_free_typical": "never snow-free",
+      "notes": "Cross the pass, traverse just south of Five Fingers Ridge, then up and over the false summit. Parties without a boot path have missed the notch beside the false summit. Mileage is an estimate.",
+      "sources": ["https://www.summitpost.org/blue-glacier/155624", "https://www.mountaineers.org/activities/trip-reports/basic-glacier-climb-mount-olympus-blue-glacier-2"]
+    },
+    {
+      "from": "mount_olympus_false_summit",
+      "to": "mount_olympus_west_peak",
+      "miles": 0.3,
+      "gain_ft": null,
+      "loss_ft": null,
+      "trail_class": "off_trail",
+      "hazards": ["exposure", "rockfall", "bergschrund", "rope", "cliff"],
+      "snow_free_typical": "never snow-free (snow approach); rock block melts out mid-summer",
+      "notes": "Descend a steep ~200-ft snow gully off the false summit (one report: 'bowling alley', downclimbed one at a time), cross steep snow below the summit block, then one short pitch of low-to-mid fifth-class rock (about 5.4) on the North Ridge, protected with small nuts and cams to #2 and a slung boulder; rappel off (30 m rope works, 35 m+ preferred). The east-ridge alternative is mostly class 4 with loose rock. Early season the direct 'Fourth of July' line to the false/true saddle may be used; bergschrunds usually close it by late June (June 2026 report said it was still good). Mileage is an estimate.",
+      "sources": ["https://theoutbound.com/washington/backpacking/climb-mount-olympus-olympic-np", "https://www.summitpost.org/blue-glacier/155624", "https://www.northwestalpineguides.com/northwest-climbs/mount-olympus/", "https://www.mountaineers.org/activities/trip-reports/mount-olympus-blue-glacier-11"]
+    },
+    {
+      "from": "hoh_lake_trail_junction",
+      "to": "c_b_flats_group_site",
+      "miles": 4.5,
+      "gain_ft": 3484,
+      "loss_ft": 406,
+      "trail_class": "maintained",
+      "hazards": ["heat_exposure", "no_water", "snowfield"],
+      "snow_free_typical": "mid-July through September (NPS); lower half usually clear by June",
+      "notes": "Steep, exposed grade with 22 switchbacks through the 1978 Hoh Fire burn with little canopy; no water until C.B. Flats (NPS 8/17/26). Cleared and brushed in 2026. Not stock passable. NPS: Hoh Lake Trail is 6.4 mi from the Hoh River Trail to the Bogachiel Peak junction (6.5 on the conditions page); C.B. Flats is half a mile below Hoh Lake.",
+      "sources": ["https://www.nps.gov/olym/planyourvisit/hoh-lake-trail.htm", "https://www.nps.gov/olym/planyourvisit/wilderness-trail-conditions.htm", "https://www.recreation.gov/permits/4098362"]
+    },
+    {
+      "from": "c_b_flats_group_site",
+      "to": "hoh_lake",
+      "miles": 0.5,
+      "gain_ft": 463,
+      "loss_ft": 0,
+      "trail_class": "maintained",
+      "hazards": ["snowfield"],
+      "snow_free_typical": "mid-July through September",
+      "notes": "hoh_lake node is owned by the Sol Duc / High Divide region. NPS: Hoh Lake is 14.7 mi from the Hoh trailhead and 9.7 mi from the Sol Duc trailhead.",
+      "sources": ["https://www.nps.gov/olym/planyourvisit/hoh-lake-trail.htm"]
+    },
+    {
+      "from": "south_fork_hoh_trailhead",
+      "to": "big_flat_camp",
+      "miles": 1.3,
+      "gain_ft": 123,
+      "loss_ft": 124,
+      "trail_class": "maintained",
+      "hazards": ["blowdown", "river_ford"],
+      "snow_free_typical": "year-round (best late summer)",
+      "notes": "First 0.4 mi on state (DNR) land; stony stream bed crossing right at the start; small stream ~1 mi before descending to Big Flat. Low-maintenance.",
+      "sources": ["https://www.wta.org/go-hiking/hikes/south-fork-hoh-river", "https://nps.gov/olym/planyourvisit/upload/Trails_Public_2019-2.kmz"]
+    },
+    {
+      "from": "big_flat_camp",
+      "to": "south_fork_hoh_end_of_maintained_trail",
+      "miles": 2.9,
+      "gain_ft": 71,
+      "loss_ft": 0,
+      "trail_class": "primitive",
+      "hazards": ["blowdown", "brush", "washout"],
+      "snow_free_typical": "year-round (best late summer)",
+      "notes": "NPS conditions page lists 4.2 mi from trailhead to end of maintained trail; WTA puts the official end at 3.5 mi where the river washed out the old trail (trail rough and faint after 2.8 mi, brushy by midsummer). This uses the NPS figure. Beyond: gravel bars only, at low water after snowmelt.",
+      "sources": ["https://www.nps.gov/olym/planyourvisit/wilderness-trail-conditions.htm", "https://www.wta.org/go-hiking/hikes/south-fork-hoh-river"]
+    },
+    {
+      "from": "bogachiel_trailhead",
+      "to": "bogachiel_park_boundary",
+      "miles": 1.7,
+      "gain_ft": null,
+      "loss_ft": 98,
+      "trail_class": "maintained",
+      "hazards": ["mud", "blowdown"],
+      "snow_free_typical": "year-round (best May-September per NPS)",
+      "notes": "Olympic National Forest section; crosses Morganroth Creek on a log and Kahkwa Creek; Homestead Loop and Ira Spring Wetland loop junctions. Drops about 150 ft from trailhead to valley floor (WTA); loss shown is the DEM net. Often muddy or underwater fall through early summer.",
+      "sources": ["https://www.wta.org/go-hiking/hikes/bogachiel-river"]
+    },
+    {
+      "from": "bogachiel_park_boundary",
+      "to": "mosquito_creek_bogachiel",
+      "miles": 1.3,
+      "gain_ft": 54,
+      "loss_ft": 0,
+      "trail_class": "maintained",
+      "hazards": ["washout", "exposure", "rope"],
+      "snow_free_typical": "year-round",
+      "notes": "NPS (06/14/26): washed out just before Mosquito Creek; detour is steep with a short exposed section. WTA: rerouted with ropes above a cut bank and along a ledge over the river near 3 mi. Gain/loss for Bogachiel segments computed from USGS DEM along NPS trail geometry.",
+      "sources": ["https://www.nps.gov/olym/planyourvisit/wilderness-trail-conditions.htm", "https://www.wta.org/go-hiking/hikes/bogachiel-river"]
+    },
+    {
+      "from": "mosquito_creek_bogachiel",
+      "to": "bogachiel_camp",
+      "miles": 3.0,
+      "gain_ft": 134,
+      "loss_ft": 87,
+      "trail_class": "maintained",
+      "hazards": ["river_ford", "blowdown"],
+      "snow_free_typical": "year-round",
+      "notes": "Riverside site at about 4.8 mi after an unnamed creek. Bogachiel camp at 6.0 mi (Recreation.gov) at the Snider-Jackson junction.",
+      "sources": ["https://www.wta.org/go-hiking/hikes/bogachiel-river", "https://www.recreation.gov/permits/4098362"]
+    },
+    {
+      "from": "bogachiel_camp",
+      "to": "bogachiel_lower_crossing",
+      "miles": 2.0,
+      "gain_ft": 54,
+      "loss_ft": 0,
+      "trail_class": "maintained",
+      "hazards": ["blowdown", "brush"],
+      "snow_free_typical": "year-round",
+      "notes": "Beyond the 6.0-mile junction the trail is often rough, unmaintained and hard to follow (WTA). Mileage to the lower-crossing junction derived from NPS GIS geometry (approximate).",
+      "sources": ["https://www.wta.org/go-hiking/hikes/bogachiel-river", "https://nps.gov/olym/planyourvisit/upload/Trails_Public_2019-2.kmz"]
+    },
+    {
+      "from": "bogachiel_lower_crossing",
+      "to": "flapjack_camp",
+      "miles": 2.3,
+      "gain_ft": 350,
+      "loss_ft": 252,
+      "trail_class": "primitive",
+      "hazards": ["blowdown", "brush", "river_ford"],
+      "snow_free_typical": "year-round",
+      "notes": "Flapjack at 10.3 mi from the trailhead (Recreation.gov).",
+      "sources": ["https://www.recreation.gov/permits/4098362"]
+    },
+    {
+      "from": "flapjack_camp",
+      "to": "fifteen_mile_camp",
+      "miles": 4.7,
+      "gain_ft": 1101,
+      "loss_ft": 578,
+      "trail_class": "primitive",
+      "hazards": ["washout", "brush", "blowdown", "river_ford"],
+      "snow_free_typical": "April to November typically",
+      "notes": "NPS (06/14/26): washed out between Flapjack and 15 Mile camps and navigating around it can be difficult. Just before 15 Mile the river forks and the trail follows the north fork. Position of 15 Mile assumed at mile 15 from the trailhead (camp name).",
+      "sources": ["https://www.nps.gov/olym/planyourvisit/wilderness-trail-conditions.htm", "https://www.wta.org/go-hiking/trip-reports/trip_report.2022-09-13.2263064540"]
+    },
+    {
+      "from": "fifteen_mile_camp",
+      "to": "hyak_camp",
+      "miles": 2.5,
+      "gain_ft": 663,
+      "loss_ft": 411,
+      "trail_class": "way_trail",
+      "hazards": ["river_ford", "brush", "route_finding"],
+      "snow_free_typical": "May to November typically",
+      "notes": "Difficult to follow above 15 Mile (NPS; map and compass recommended). First river crossing past 15 Mile; Hyak about 3 mi beyond (2025 report). The Hyak-15 Mile stretch was reported as the worst, heavily overgrown and wet (September 2025).",
+      "sources": ["https://www.nps.gov/olym/planyourvisit/bogachiel-river-trail.htm", "https://www.recreation.gov/permits/4098362", "https://www.wta.org/go-hiking/trip-reports/trip_report.2023-09-05.4326905155"]
+    },
+    {
+      "from": "hyak_camp",
+      "to": "twenty_one_mile_camp",
+      "miles": 3.5,
+      "gain_ft": 1207,
+      "loss_ft": 107,
+      "trail_class": "way_trail",
+      "hazards": ["brush", "route_finding", "blowdown"],
+      "snow_free_typical": "June to October typically",
+      "notes": "Dense brush between Flapjack and the Mink Lake Trail junction (Recreation.gov). 21 Mile position assumed at mile 21 (camp name).",
+      "sources": ["https://www.recreation.gov/permits/4098362", "https://www.wta.org/go-hiking/trip-reports/trip_report.2023-09-05.4326905155"]
+    },
+    {
+      "from": "twenty_one_mile_camp",
+      "to": "little_divide",
+      "miles": 3.4,
+      "gain_ft": 2173,
+      "loss_ft": 491,
+      "trail_class": "primitive",
+      "hazards": ["route_finding", "snowfield"],
+      "snow_free_typical": "July to mid-October typically",
+      "notes": "Climbs to the Mink Lake / Little Divide trail junction (about 4,170 ft by DEM), the end of the Bogachiel River Trail: 24.4 mi from the trailhead (NPS trail page) or 21.6 mi from the park boundary (NPS conditions). little_divide is owned by the Sol Duc region; tread and maintenance improve after the junction. Campfires prohibited above 3,500 ft.",
+      "sources": ["https://www.nps.gov/olym/planyourvisit/bogachiel-river-trail.htm", "https://www.nps.gov/olym/planyourvisit/wilderness-trail-conditions.htm", "https://www.wta.org/go-hiking/trip-reports/trip_report.2023-09-05.4326905155"]
+    },
+    {
+      "from": "rugged_ridge_trailhead",
+      "to": "calawah_river_ford",
+      "miles": 2.8,
+      "gain_ft": 1096,
+      "loss_ft": 1542,
+      "trail_class": "primitive",
+      "hazards": ["route_finding"],
+      "snow_free_typical": "most of the year (low elevation, high point about 1,675 ft)",
+      "notes": "North Snider-Jackson (formerly Rugged Ridge) Primitive Trail; no trailhead signage (NPS 2026). Calawah crossing about 2.8 mi from the trailhead (American Whitewater). Access road closed near FS 29 for road failure, expected through September 2026.",
+      "sources": ["https://www.wta.org/go-hiking/hikes/rugged-ridge", "https://www.nps.gov/olym/planyourvisit/wilderness-trail-conditions.htm", "https://www.americanwhitewater.org/content/River/view/river-detail/2072/main"]
+    },
+    {
+      "from": "calawah_river_ford",
+      "to": "bogachiel_camp",
+      "miles": 3.5,
+      "gain_ft": 795,
+      "loss_ft": 1070,
+      "trail_class": "primitive",
+      "hazards": ["river_ford", "route_finding"],
+      "snow_free_typical": "most of the year",
+      "notes": "NPS lists the North Snider-Jackson trail as 6.3 mi from the park boundary to the Bogachiel River Trail junction; the Calawah ford can become hazardous at any time; not recommended for stock.",
+      "sources": ["https://www.nps.gov/olym/planyourvisit/wilderness-trail-conditions.htm", "https://www.wta.org/go-hiking/hikes/rugged-ridge"]
+    },
+    {
+      "from": "hoh_bogachiel_trailhead",
+      "to": "bogachiel_south_bank_snider_jackson_junction",
+      "miles": 10.0,
+      "gain_ft": 4243,
+      "loss_ft": 4118,
+      "trail_class": "primitive",
+      "hazards": ["no_water", "route_finding", "blowdown"],
+      "snow_free_typical": "roughly May to November (crosses a ridge near 3,200 ft)",
+      "notes": "South Snider-Jackson Primitive Trail (NPS: 10.0 mi). Climbs over a ridge to about 3,200 ft (DEM). Tumwata Creek at the north end is the only water source. Not currently stock passable.",
+      "sources": ["https://www.nps.gov/olym/planyourvisit/wilderness-trail-conditions.htm", "https://nps.gov/olym/planyourvisit/upload/Trails_Public_2019-2.kmz"]
+    },
+    {
+      "from": "bogachiel_south_bank_snider_jackson_junction",
+      "to": "flapjack_camp",
+      "miles": 0.8,
+      "gain_ft": 42,
+      "loss_ft": 0,
+      "trail_class": "primitive",
+      "hazards": ["river_ford"],
+      "snow_free_typical": "year-round, ford best late summer",
+      "notes": "Via the Bogachiel River South Bank Trail to the upper junction near Flapjack; the Bogachiel must be forded - often deep and can become hazardous (NPS). Mileage from NPS GIS geometry.",
+      "sources": ["https://www.nps.gov/olym/planyourvisit/wilderness-trail-conditions.htm", "https://nps.gov/olym/planyourvisit/upload/Trails_Public_2019-2.kmz"]
+    },
+    {
+      "from": "bogachiel_south_bank_snider_jackson_junction",
+      "to": "bogachiel_lower_crossing",
+      "miles": 1.5,
+      "gain_ft": 0,
+      "loss_ft": 55,
+      "trail_class": "primitive",
+      "hazards": ["river_ford"],
+      "snow_free_typical": "year-round, ford best late summer",
+      "notes": "South Bank Trail west to the lower crossing ford. Mileage from NPS GIS geometry.",
+      "sources": ["https://nps.gov/olym/planyourvisit/upload/Trails_Public_2019-2.kmz"]
+    },
+    {
+      "from": "queets_trailhead",
+      "to": "queets_campground",
+      "miles": 0.2,
+      "gain_ft": 0,
+      "loss_ft": 0,
+      "trail_class": "road_walk",
+      "hazards": [],
+      "snow_free_typical": "year-round",
+      "notes": "Campground is 0.2 mi downstream of the trailhead.",
+      "sources": ["https://howsyourriver.com/rapids/sams-rapid-2-queets-trailhead-to-hartzell-launch-wa"]
+    },
+    {
+      "from": "queets_campground",
+      "to": "sams_rapids",
+      "miles": 0.2,
+      "gain_ft": 0,
+      "loss_ft": 0,
+      "trail_class": "road_walk",
+      "hazards": [],
+      "snow_free_typical": "year-round",
+      "notes": "Class II- rapid about 0.4 river miles below the trailhead put-in, beside the campground (paddler source).",
+      "sources": ["https://howsyourriver.com/rapids/sams-rapid-2-queets-trailhead-to-hartzell-launch-wa", "https://en.wikipedia.org/wiki/Sams_River"]
+    },
+    {
+      "from": "queets_trailhead",
+      "to": "sams_river_loop_meadow",
+      "miles": 1.0,
+      "gain_ft": 25,
+      "loss_ft": 0,
+      "trail_class": "maintained",
+      "hazards": [],
+      "snow_free_typical": "year-round",
+      "notes": "Sams River Loop is a level 2.8-mile loop (NPS/WTA; ~50 ft gain); meadow at about 0.95 mi. Split into two legs for the graph. Winter storms often damage it.",
+      "sources": ["https://www.wta.org/go-hiking/hikes/sams-river", "https://interpretivecenter.org/the-sams-river-loop-trail/", "https://home.nps.gov/olym/planyourvisit/queets-area-brochure.htm"]
+    },
+    {
+      "from": "sams_river_loop_meadow",
+      "to": "queets_trailhead",
+      "miles": 1.8,
+      "gain_ft": 25,
+      "loss_ft": 50,
+      "trail_class": "maintained",
+      "hazards": [],
+      "snow_free_typical": "year-round",
+      "notes": "Return leg via hemlock forest, the ranger station road and the river.",
+      "sources": ["https://interpretivecenter.org/the-sams-river-loop-trail/"]
+    },
+    {
+      "from": "queets_trailhead",
+      "to": "queets_river_ford",
+      "miles": 0.1,
+      "gain_ft": 0,
+      "loss_ft": 0,
+      "trail_class": "primitive",
+      "hazards": [],
+      "snow_free_typical": "year-round",
+      "notes": "Follow the Sams River trail about 100 yards, then a worn path left to the gravel bars at the Sams/Queets confluence.",
+      "sources": ["https://www.wta.org/go-hiking/hikes/queets-river"]
+    },
+    {
+      "from": "queets_river_ford",
+      "to": "andrews_field",
+      "miles": 1.7,
+      "gain_ft": 46,
+      "loss_ft": 0,
+      "trail_class": "primitive",
+      "hazards": ["river_ford", "rapid_river_rise", "blowdown"],
+      "snow_free_typical": "ford usually feasible only late July to September",
+      "notes": "Ford the Sams first, then the Queets, aiming for a marker on a trunk on the north bank (or due north). Commonly waist deep in summer; NPS: more likely fordable when flow at Hwy 101 is below 800 cfs, but can still be waist deep or deeper; generally not fordable late fall, winter or spring; flow can rise within hours - avoid if rain is forecast. Can be impassable on the way OUT even if fine on the way in. Ford location shifts yearly. Gain/loss from USGS DEM along NPS geometry.",
+      "sources": ["https://www.nps.gov/olym/planyourvisit/queets-river-trail.htm", "https://www.nps.gov/olym/planyourvisit/wilderness-trail-conditions.htm", "https://www.wta.org/go-hiking/hikes/queets-river", "https://www.recreation.gov/permits/4098362"]
+    },
+    {
+      "from": "andrews_field",
+      "to": "coal_creek_queets_fir_spur",
+      "miles": 0.6,
+      "gain_ft": 0,
+      "loss_ft": 0,
+      "trail_class": "primitive",
+      "hazards": ["brush", "blowdown"],
+      "snow_free_typical": "year-round",
+      "notes": "Coal Creek crossed on a sun-bleached log at 2.4 mi; the abandoned spur to the Queets Fir starts just before and is nearly impossible to follow (injury risk).",
+      "sources": ["https://www.wta.org/go-hiking/hikes/queets-river"]
+    },
+    {
+      "from": "coal_creek_queets_fir_spur",
+      "to": "queets_lower_crossing_junction",
+      "miles": 1.6,
+      "gain_ft": 32,
+      "loss_ft": 0,
+      "trail_class": "primitive",
+      "hazards": ["washout", "brush", "blowdown"],
+      "snow_free_typical": "year-round",
+      "notes": "River at a crumbling bank at 3.5 mi, then a rough, hard-to-follow path; a 2025 reroute bypasses the old Lower Crossing junction and may change official mileages upriver. NPS (7/20/26): 18 downed trees between the ford and Spruce Bottom.",
+      "sources": ["https://www.wta.org/go-hiking/hikes/queets-river", "https://www.nps.gov/olym/planyourvisit/wilderness-trail-conditions.htm", "https://www.wta.org/go-hiking/trip-reports/trip_report-2025-08-11.083241103076"]
+    },
+    {
+      "from": "queets_lower_crossing_junction",
+      "to": "spruce_bottom_camp",
+      "miles": 1.0,
+      "gain_ft": 61,
+      "loss_ft": 40,
+      "trail_class": "primitive",
+      "hazards": ["blowdown", "brush"],
+      "snow_free_typical": "year-round",
+      "notes": "Spruce Bottom at 5.0 mi.",
+      "sources": ["https://www.wta.org/go-hiking/hikes/queets-river"]
+    },
+    {
+      "from": "spruce_bottom_camp",
+      "to": "harlow_bottom",
+      "miles": 2.5,
+      "gain_ft": 176,
+      "loss_ft": 112,
+      "trail_class": "primitive",
+      "hazards": ["washout", "brush", "river_ford", "route_finding", "stinging_plants"],
+      "snow_free_typical": "year-round",
+      "notes": "Washout beyond Spruce Bottom needs a rough reroute; creek crossing in an alder flat then a faint path; brushy, thorny open fields (salmonberry, nettles). Bear Creek crossing at 7.5 mi enters Harlow Bottom. NPS (7/20/26): 11 downed trees between Spruce Bottom and Bob Creek.",
+      "sources": ["https://www.wta.org/go-hiking/hikes/queets-river", "https://www.nps.gov/olym/planyourvisit/wilderness-trail-conditions.htm"]
+    },
+    {
+      "from": "harlow_bottom",
+      "to": "bob_creek_camp",
+      "miles": 3.5,
+      "gain_ft": 94,
+      "loss_ft": 0,
+      "trail_class": "primitive",
+      "hazards": ["washout", "brush", "route_finding"],
+      "snow_free_typical": "year-round",
+      "notes": "About 3 miles of big spruce. ~200-yard washout 0.3 mi west of Bob Creek with a bypass by the river (NPS 7/20/26). Bob Creek at 11.0 mi (WTA; American Whitewater 11.34).",
+      "sources": ["https://www.wta.org/go-hiking/hikes/queets-river", "https://www.nps.gov/olym/planyourvisit/wilderness-trail-conditions.htm"]
+    },
+    {
+      "from": "bob_creek_camp",
+      "to": "pelton_creek_camp",
+      "miles": 5.2,
+      "gain_ft": null,
+      "loss_ft": null,
+      "trail_class": "way_trail",
+      "hazards": ["route_finding", "burn_snags", "blowdown", "brush"],
+      "snow_free_typical": "year-round (low elevation; NPS gives trail range 360-800 ft)",
+      "notes": "NPS lists the Queets River Trail as 16.2 mi trailhead to Pelton Creek (trail page says 15.8 to end of trail). Past Bob Creek the trail is hard to follow after the 2015 Paradise Fire; camping not recommended due to standing dead trees. An August 2025 hiker turned back in the burn.",
+      "sources": ["https://www.nps.gov/olym/planyourvisit/wilderness-trail-conditions.htm", "https://www.nps.gov/olym/planyourvisit/queets-river-trail.htm", "https://www.wta.org/go-hiking/trip-reports/trip_report-2025-08-11.083241103076"]
+    }
+  ],
+  "trailheads": [
+    {
+      "node_id": "hoh_rain_forest_trailhead",
+      "access": "US 101 to Upper Hoh Road (turnoff about 13 mi south of Forks), then 18 mi paved east through the park entrance station to the road-end visitor center. Nearest town: Forks.",
+      "drive_minutes_from": {
+        "port_angeles": 143,
+        "forks": 58,
+        "quilcene_or_hoodsport": 211
+      },
+      "road_status_2026": "Open (NPS road page: Upper Hoh Road open, paved, last update 5/5/26; page updated 8/7/26). The Dec 10, 2025 atmospheric-river flood damaged the road near milepost 10 and closed the Hoh for about a month (planned reopening first week of January 2026). Earlier 2026 notice: storm-damaged spots at mileposts 0.3 and 0.8 meant one-way traffic and up to 20-minute delays late May-August. NPS alerts (10/4/26): area, trails, parking and restrooms open; visitor center 9-4:30 daily; summer entrance waits up to 2 hours - arrive before 8 am or after 5 pm.",
+      "notes": "Drive minutes are OSRM routing estimates (third value is from Quilcene; Hoodsport is ~261). NPS says about two hours from Port Angeles, under an hour from Forks. Park entrance fee/pass required. The US 101 Hoh River Bridge (MP 176.5) lies south of the Upper Hoh Road turnoff, so 2026 bridge closures cut off approach from the south (Kalaloch/Quinault) but not from Forks (inference; verify)."
+    },
+    {
+      "node_id": "bogachiel_trailhead",
+      "access": "US 101 about 5 mi south of Forks; turn east on Undi Road opposite Bogachiel State Park, ~2 mi to a Dead End sign, left on the bypass road ~2 mi, rejoin Undi Road ~2 mi to the road-end trailhead (Olympic National Forest). Nearest town: Forks.",
+      "drive_minutes_from": {
+        "port_angeles": 124,
+        "forks": 39,
+        "quilcene_or_hoodsport": 192
+      },
+      "road_status_2026": "No 2026 closure found (WTA page updated 9/24/26). App navigation and phone data can be unreliable; save directions.",
+      "notes": "OSRM estimates (third value from Quilcene). WTA: about 11 mi from Forks."
+    },
+    {
+      "node_id": "hoh_bogachiel_trailhead",
+      "access": "Upper Hoh Road (Hoh-Bogachiel / South Snider-Jackson Trailhead), a few miles east of US 101. Nearest town: Forks.",
+      "drive_minutes_from": {
+        "port_angeles": 130,
+        "forks": 45,
+        "quilcene_or_hoodsport": 198
+      },
+      "road_status_2026": "Upper Hoh Road open (NPS, last update 5/5/26).",
+      "notes": "OSRM estimates (third value from Quilcene)."
+    },
+    {
+      "node_id": "rugged_ridge_trailhead",
+      "access": "US 101 west from Port Angeles ~55 mi to Sitkum-Sol Duc Road (FS 29), 3.9 mi; slight right FR 2902 for 1.6 mi then 5.9 mi; slight right FR 2913 about 2.3 mi to near the end. Nearest town: Forks.",
+      "drive_minutes_from": {
+        "port_angeles": null,
+        "forks": null,
+        "quilcene_or_hoodsport": null
+      },
+      "road_status_2026": "Road to trailhead closed near the FS 29 junction due to road failure, expected through September 2026 (WTA, updated 9/24/26) - status after September unknown.",
+      "notes": "Primitive North Snider-Jackson Trail; no trailhead signage (NPS 2026)."
+    },
+    {
+      "node_id": "south_fork_hoh_trailhead",
+      "access": "US 101 ~15 mi south of Forks to the Hoh Mainline junction; Hoh Mainline 7 mi; left on Maple Creek Road; stay left after 1 mi; in 1.2 mi right on DNR road H 1000 (cross Owl Creek); ~5 mi more including a crossing of the South Fork Hoh near a DNR campground; stay right for the last 0.5 mi. Nearest town: Forks.",
+      "drive_minutes_from": {
+        "port_angeles": 165,
+        "forks": 80,
+        "quilcene_or_hoodsport": 233
+      },
+      "road_status_2026": "No 2026 report (NPS 6/14/26: no recent report). Gravel DNR logging roads.",
+      "notes": "Discover Pass required (DNR land). Parking for about six cars, no facilities. OSRM estimates (third value from Quilcene). Whether the Hoh Mainline turnoff is north or south of the US 101 Hoh River Bridge (MP 176.5) is unverified - if south, 2026 bridge closures block access from Forks."
+    },
+    {
+      "node_id": "queets_trailhead",
+      "access": "US 101 to the Upper Queets entrance (10.6 mi north of Amanda Park), then USFS 21 / Upper Queets River Road and Queets River Road (partly gravel) past the Queets Campground to the road end. Nearest towns: Amanda Park / Lake Quinault; Forks to the north.",
+      "drive_minutes_from": {
+        "port_angeles": 213,
+        "forks": 128,
+        "quilcene_or_hoodsport": 224
+      },
+      "road_status_2026": "NPS alerts (10/4/26): Upper Queets Road, Lower Queets Road and Queets Campground open; may close on short notice for hazardous weather (Road & Weather line 360-565-3131). Lower Queets Road is closed beyond Matheny Creek by an old landslide (NPS trail page). From Forks/Port Angeles you must cross the US 101 Hoh River Bridge: WSDOT full closures 5 am Oct 8 - noon Oct 13, 2026 (earlier Sept 24-29 and Oct 1-6), one-lane signals otherwise; detour around Hood Canal is about 4 hours.",
+      "notes": "OSRM estimates (third value from Hoodsport). Parking for about six vehicles; no restroom at the trailhead; the river has broken away part of the bank there."
+    }
+  ],
+  "classic_trips": [
+    {
+      "id": "hoh_hall_of_mosses_and_spruce_loops",
+      "name": "Hall of Mosses and Spruce Nature Trail",
+      "trailhead": "hoh_rain_forest_trailhead",
+      "shape": "loop",
+      "nights_typical": [0, 0],
+      "itinerary": [
+        {"day": 1, "to": "hoh_rain_forest_trailhead", "miles": 2.0, "gain_ft": 65}
+      ],
+      "layover_ideas": [],
+      "total_miles": 2.0,
+      "difficulty": "easy",
+      "best_months": "Year-round; early morning or evening to avoid crowds; spring for brightest moss",
+      "highlights": ["Moss-draped bigleaf maples", "Nurse logs and spruce colonnades", "Taft Creek and the Hoh River bank", "Roosevelt elk often near the visitor center"],
+      "what_goes_wrong_for_underprepared_hikers": ["Arriving at 11 am in July and waiting up to two hours at the entrance station", "Approaching elk for a photo during the autumn rut", "Cotton clothes soaked in an hour of drizzle"]
+    },
+    {
+      "id": "hoh_mineral_creek_falls_day",
+      "name": "Hoh River Trail to Mineral Creek Falls",
+      "trailhead": "hoh_rain_forest_trailhead",
+      "shape": "out_and_back",
+      "nights_typical": [0, 0],
+      "itinerary": [
+        {"day": 1, "to": "hoh_rain_forest_trailhead", "miles": 5.4, "gain_ft": 340}
+      ],
+      "layover_ideas": [],
+      "total_miles": 5.4,
+      "difficulty": "easy",
+      "best_months": "Year-round",
+      "highlights": ["First river access at 0.9 mi", "Footbridge at a mossy waterfall", "Mount Tom Creek campsites at 2.9 mi"],
+      "what_goes_wrong_for_underprepared_hikers": ["Winter washouts before Mineral Creek force a steep, loose scramble", "Turning an easy stroll into a soggy slog without rain gear"]
+    },
+    {
+      "id": "hoh_five_mile_island_day",
+      "name": "Hoh River Trail to Five Mile Island",
+      "trailhead": "hoh_rain_forest_trailhead",
+      "shape": "out_and_back",
+      "nights_typical": [0, 0],
+      "itinerary": [
+        {"day": 1, "to": "hoh_rain_forest_trailhead", "miles": 10.0, "gain_ft": 448}
+      ],
+      "layover_ideas": [],
+      "total_miles": 10.0,
+      "difficulty": "easy",
+      "best_months": "Year-round; best May-October",
+      "highlights": ["Cedar Grove at 4.0 mi", "Sunny gravel-bar lunch at Five Mile Island", "Elk in riverside meadows", "Views up to Bogachiel Peak"],
+      "what_goes_wrong_for_underprepared_hikers": ["Starting late in October and walking the last miles in the dark without a headlamp", "Flooded trail sections after storms"]
+    },
+    {
+      "id": "hoh_happy_four_first_overnight",
+      "name": "First backpack: Five Mile Island or Happy Four",
+      "trailhead": "hoh_rain_forest_trailhead",
+      "shape": "out_and_back",
+      "nights_typical": [1, 2],
+      "itinerary": [
+        {"day": 1, "to": "happy_four_camp", "miles": 5.7, "gain_ft": 341},
+        {"day": 2, "to": "hoh_rain_forest_trailhead", "miles": 5.7, "gain_ft": 123}
+      ],
+      "layover_ideas": ["Second night at Happy Four with a day walk to the river braid near mile 8 to watch for elk", "Lounge on the Five Mile Island gravel bar sketching river stones"],
+      "total_miles": 11.4,
+      "difficulty": "easy",
+      "best_months": "May-October (year-round possible)",
+      "highlights": ["Log shelter at Happy Four for rainy nights", "Privy at Five Mile Island", "Flat, forgiving trail"],
+      "what_goes_wrong_for_underprepared_hikers": ["No bear canister - permits now require one (free loans at the WIC)", "Bringing a bear-hang kit and finding hangs are no longer allowed", "Wet sleeping bag from an unlined pack in all-day rain"]
+    },
+    {
+      "id": "hoh_olympus_guard_station_layover",
+      "name": "Olympus Guard Station with a layover day",
+      "trailhead": "hoh_rain_forest_trailhead",
+      "shape": "out_and_back",
+      "nights_typical": [1, 3],
+      "itinerary": [
+        {"day": 1, "to": "olympus_guard_station", "miles": 9.1, "gain_ft": 585},
+        {"day": 2, "to": "olympus_guard_station", "miles": 0, "gain_ft": 0},
+        {"day": 3, "to": "hoh_rain_forest_trailhead", "miles": 9.1, "gain_ft": 228}
+      ],
+      "layover_ideas": ["Day hike to the High Hoh Bridge and back (8.1 mi, ~920 ft gain)", "Day hike partway up the Hoh Lake Trail switchbacks for views (start early - no water until C.B. Flats)", "Gravel-bar camp across the meadow stream and watch for elk at dusk"],
+      "total_miles": 18.2,
+      "difficulty": "moderate",
+      "best_months": "April-October",
+      "highlights": ["Historic 1935 log guard station", "Elk meadows", "Gravel-bar camping encouraged by the park"],
+      "what_goes_wrong_for_underprepared_hikers": ["Side-channel fords before the guard station rise after heavy rain - stuck on the wrong side", "Underestimating 9 miles with a heavy pack and arriving after dark"]
+    },
+    {
+      "id": "hoh_blue_glacier_classic_4_nights",
+      "name": "Hoh River Trail to Glacier Meadows and the Blue Glacier (classic)",
+      "trailhead": "hoh_rain_forest_trailhead",
+      "shape": "out_and_back",
+      "nights_typical": [3, 5],
+      "itinerary": [
+        {"day": 1, "to": "lewis_meadow_camp", "miles": 10.4, "gain_ft": 640},
+        {"day": 2, "to": "glacier_meadows", "miles": 7.0, "gain_ft": 3652},
+        {"day": 3, "to": "glacier_meadows", "miles": 3.0, "gain_ft": 931},
+        {"day": 4, "to": "five_mile_island_camp", "miles": 12.4, "gain_ft": 560},
+        {"day": 5, "to": "hoh_rain_forest_trailhead", "miles": 5.0, "gain_ft": 123}
+      ],
+      "layover_ideas": ["Day 3: lateral moraine viewpoint (1.1 mi each way, ~930 ft) and the terminal moraine spur (0.4 mi each way)", "Sunset on the lateral moraine crest, then back to camp with a headlamp", "Rest day at Elk Lake instead, day-hiking up past the ladder with a light pack"],
+      "total_miles": 37.8,
+      "difficulty": "hard",
+      "best_months": "Late July to late September (NPS best season late June-September; snow on the upper trail early)",
+      "highlights": ["High Hoh Bridge over the gorge", "Martin Creek Falls and the White Glacier", "Elk Lake reflection of Mount Olympus", "The whole Blue Glacier from the lateral moraine"],
+      "what_goes_wrong_for_underprepared_hikers": ["No Elk Lake/Glacier Meadows reservation in peak season - forced to camp low and do a 14-mile day", "Steep snow in the avalanche chutes in early July without an ice axe", "Broken-runged ladder with a top-heavy pack", "Running out of food after a storm day", "Rain-soaked gear at 4,300 ft with no warm layer"]
+    },
+    {
+      "id": "hoh_blue_glacier_fast_2_nights",
+      "name": "Blue Glacier fast trip via Elk Lake",
+      "trailhead": "hoh_rain_forest_trailhead",
+      "shape": "out_and_back",
+      "nights_typical": [2, 2],
+      "itinerary": [
+        {"day": 1, "to": "elk_lake", "miles": 15.3, "gain_ft": 2500},
+        {"day": 2, "to": "elk_lake", "miles": 6.4, "gain_ft": 2723},
+        {"day": 3, "to": "hoh_rain_forest_trailhead", "miles": 15.3, "gain_ft": 544}
+      ],
+      "layover_ideas": ["Day 2 is effectively a layover: leave the tent at Elk Lake and carry only a day pack over the ladder to the moraine"],
+      "total_miles": 37.0,
+      "difficulty": "hard",
+      "best_months": "August to mid-September",
+      "highlights": ["Avoids the ladder with a full pack", "Moraine view with a light pack"],
+      "what_goes_wrong_for_underprepared_hikers": ["15 miles with a full pack on day 1 - blisters by mile 10", "Daylight runs out on the long hike out in late September"]
+    },
+    {
+      "id": "hoh_valley_slow_ramble_5_nights",
+      "name": "Slow ramble up the Hoh to the ice (storybook pace)",
+      "trailhead": "hoh_rain_forest_trailhead",
+      "shape": "out_and_back",
+      "nights_typical": [5, 6],
+      "itinerary": [
+        {"day": 1, "to": "five_mile_island_camp", "miles": 5.0, "gain_ft": 325},
+        {"day": 2, "to": "lewis_meadow_camp", "miles": 5.4, "gain_ft": 315},
+        {"day": 3, "to": "elk_lake", "miles": 4.9, "gain_ft": 1860},
+        {"day": 4, "to": "glacier_meadows", "miles": 4.3, "gain_ft": 2723},
+        {"day": 5, "to": "olympus_guard_station", "miles": 8.3, "gain_ft": 455},
+        {"day": 6, "to": "hoh_rain_forest_trailhead", "miles": 9.1, "gain_ft": 228}
+      ],
+      "layover_ideas": ["Add a night at Glacier Meadows for sunset and sunrise on the moraine", "Add a night at Lewis Meadow to walk to the High Hoh Bridge without packs"],
+      "total_miles": 37.0,
+      "difficulty": "moderate",
+      "best_months": "Late July to mid-September",
+      "highlights": ["Short days and many camps - a different scene every night", "Moraine visit on day 4 with camp nearby"],
+      "what_goes_wrong_for_underprepared_hikers": ["Packing food for 3 days on a 6-day plan", "Quota permits for Elk Lake and Glacier Meadows on consecutive nights not reserved"]
+    },
+    {
+      "id": "mount_olympus_guided_style_5_days",
+      "name": "Mount Olympus via the Blue Glacier (5-day, guided-style)",
+      "trailhead": "hoh_rain_forest_trailhead",
+      "shape": "out_and_back",
+      "nights_typical": [4, 4],
+      "itinerary": [
+        {"day": 1, "to": "olympus_guard_station", "miles": 9.1, "gain_ft": 585},
+        {"day": 2, "to": "glacier_meadows", "miles": 8.3, "gain_ft": 3707},
+        {"day": 3, "to": "glacier_meadows", "miles": 8.6, "gain_ft": 3750},
+        {"day": 4, "to": "olympus_guard_station", "miles": 8.3, "gain_ft": 455},
+        {"day": 5, "to": "hoh_rain_forest_trailhead", "miles": 9.1, "gain_ft": 228}
+      ],
+      "layover_ideas": ["Weather day at Glacier Meadows (budget food for it)", "Crevasse-rescue practice on the lower Blue Glacier"],
+      "total_miles": 43.4,
+      "difficulty": "expert",
+      "best_months": "Late June to mid-August (NPS)",
+      "highlights": ["Pre-dawn moraine traverse and glacier crossing", "Snow Dome and Crystal Pass", "Fifth-class summit block and rappel", "Highest point of the Olympic Peninsula, 7,980 ft"],
+      "what_goes_wrong_for_underprepared_hikers": ["Arriving without glacier/crevasse-rescue skills or a rope team - the park says the climb is only for experienced mountaineers", "No helmet on the ladder or moraine (rockfall)", "Late start: slushy snow bridges and blue ice on the afternoon descent", "Missing the notch beside the false summit in a whiteout", "Forgetting WAG bags (required; no deposit on the moraine)", "Day-3 summit distance and gain are guide estimates (NWAG ~3.5 mi each way, 3,700-3,800 ft; NPS 4-6 mi)"]
+    },
+    {
+      "id": "mount_olympus_snow_dome_high_camp",
+      "name": "Mount Olympus with a Snow Dome high camp (4 days)",
+      "trailhead": "hoh_rain_forest_trailhead",
+      "shape": "out_and_back",
+      "nights_typical": [3, 3],
+      "itinerary": [
+        {"day": 1, "to": "elk_lake", "miles": 15.3, "gain_ft": 2500},
+        {"day": 2, "to": "snow_dome", "miles": 4.8, "gain_ft": 4800},
+        {"day": 3, "to": "glacier_meadows", "miles": 6.1, "gain_ft": 1800},
+        {"day": 4, "to": "hoh_rain_forest_trailhead", "miles": 17.4, "gain_ft": 683}
+      ],
+      "layover_ideas": ["Sunset over the Pacific from the Snow Dome", "Stay a second night on the Snow Dome if clouds hide the summit"],
+      "total_miles": 43.6,
+      "difficulty": "expert",
+      "best_months": "Late June to mid-August",
+      "highlights": ["Camp on the glacier near Panic Peak", "Short summit day from high camp"],
+      "what_goes_wrong_for_underprepared_hikers": ["No stove fuel to melt snow - no running water above about 6,200 ft", "Hauling a heavy pack across a crevassed glacier late in the day", "Wind with no rock shelter at Caltech Rocks or the Snow Dome", "Day 2-3 glacier mileages and gains are estimates"]
+    },
+    {
+      "id": "hoh_lake_from_the_hoh",
+      "name": "Hoh Lake from the Hoh River",
+      "trailhead": "hoh_rain_forest_trailhead",
+      "shape": "out_and_back",
+      "nights_typical": [2, 3],
+      "itinerary": [
+        {"day": 1, "to": "olympus_guard_station", "miles": 9.1, "gain_ft": 585},
+        {"day": 2, "to": "hoh_lake", "miles": 5.6, "gain_ft": 4002},
+        {"day": 3, "to": "hoh_rain_forest_trailhead", "miles": 14.7, "gain_ft": 634}
+      ],
+      "layover_ideas": ["Day hike from Hoh Lake up to the High Divide and Bogachiel Peak for the classic Mount Olympus view (Sol Duc region)"],
+      "total_miles": 29.4,
+      "difficulty": "hard",
+      "best_months": "Mid-July through September",
+      "highlights": ["22 switchbacks through the silver 1978 burn", "C.B. Flats meadow and stream", "Subalpine lake under Bogachiel Peak"],
+      "what_goes_wrong_for_underprepared_hikers": ["One liter of water on a hot afternoon climb - no water until C.B. Flats", "Snow near the top in early July without an ice axe"]
+    },
+    {
+      "id": "hoh_to_sol_duc_traverse",
+      "name": "Hoh to Sol Duc traverse via Hoh Lake",
+      "trailhead": "hoh_rain_forest_trailhead",
+      "shape": "point_to_point",
+      "nights_typical": [2, 4],
+      "itinerary": [
+        {"day": 1, "to": "olympus_guard_station", "miles": 9.1, "gain_ft": 585},
+        {"day": 2, "to": "hoh_lake", "miles": 5.6, "gain_ft": 4002},
+        {"day": 3, "to": "sol_duc_trailhead", "miles": 9.7, "gain_ft": null}
+      ],
+      "layover_ideas": ["Add nights in Seven Lakes Basin (Sol Duc region quota permits)"],
+      "total_miles": 24.4,
+      "difficulty": "hard",
+      "best_months": "Late July to mid-September",
+      "highlights": ["Rain forest to alpine lakes in one trip", "Views of Mount Olympus from the High Divide"],
+      "what_goes_wrong_for_underprepared_hikers": ["No car shuttle arranged between trailheads", "Seven Lakes Basin permits not reserved (separate quota)"]
+    },
+    {
+      "id": "bogachiel_river_day_or_overnight",
+      "name": "Bogachiel River to Bogachiel Camp",
+      "trailhead": "bogachiel_trailhead",
+      "shape": "out_and_back",
+      "nights_typical": [0, 1],
+      "itinerary": [
+        {"day": 1, "to": "bogachiel_camp", "miles": 6.0, "gain_ft": 188},
+        {"day": 2, "to": "bogachiel_trailhead", "miles": 6.0, "gain_ft": 185}
+      ],
+      "layover_ideas": ["Explore the gravel bars at low water", "Short walk up the Snider-Jackson trail toward Indian Pass"],
+      "total_miles": 12.0,
+      "difficulty": "easy",
+      "best_months": "May-October (year-round, very muddy in winter)",
+      "highlights": ["Quiet, uncrowded rain forest", "Wildlife sightings fairly common", "Site of the washed-away ranger station"],
+      "what_goes_wrong_for_underprepared_hikers": ["Steep washout detour near Mosquito Creek with a short exposed ledge", "Campsites eroded into the river - nowhere flat at high water"]
+    },
+    {
+      "id": "bogachiel_flapjack_layover",
+      "name": "Bogachiel to Flapjack with a layover",
+      "trailhead": "bogachiel_trailhead",
+      "shape": "out_and_back",
+      "nights_typical": [2, 2],
+      "itinerary": [
+        {"day": 1, "to": "flapjack_camp", "miles": 10.3, "gain_ft": 592},
+        {"day": 2, "to": "flapjack_camp", "miles": 0, "gain_ft": 0},
+        {"day": 3, "to": "bogachiel_trailhead", "miles": 10.3, "gain_ft": 437}
+      ],
+      "layover_ideas": ["Walk upriver toward the Flapjack-15 Mile washout to scout", "Sketch mosses and fungi on the river terrace"],
+      "total_miles": 20.6,
+      "difficulty": "moderate",
+      "best_months": "June-September",
+      "highlights": ["Solitude", "Big trees on river terraces"],
+      "what_goes_wrong_for_underprepared_hikers": ["Losing the tread past the 6-mile junction", "Creek crossings rising after rain"]
+    },
+    {
+      "id": "bogachiel_to_sol_duc_traverse",
+      "name": "Bogachiel to Sol Duc Hot Springs via the Little Divide",
+      "trailhead": "bogachiel_trailhead",
+      "shape": "traverse",
+      "nights_typical": [3, 4],
+      "itinerary": [
+        {"day": 1, "to": "flapjack_camp", "miles": 10.3, "gain_ft": 592},
+        {"day": 2, "to": "hyak_camp", "miles": 7.2, "gain_ft": 1764},
+        {"day": 3, "to": "little_divide", "miles": 6.9, "gain_ft": 3380},
+        {"day": 4, "to": "mink_lake_trailhead", "miles": 4.7, "gain_ft": null}
+      ],
+      "layover_ideas": ["Night at 21 Mile instead of pushing to the divide", "Berries near the Mink Lake junction in late summer"],
+      "total_miles": 29.1,
+      "difficulty": "hard",
+      "best_months": "Late July to September",
+      "highlights": ["Wildest river valley on the west side", "Climb from lowland rain forest to the subalpine Little Divide", "Finish at the hot springs"],
+      "what_goes_wrong_for_underprepared_hikers": ["Route-finding above 15 Mile without map and compass skills", "Washout between Flapjack and 15 Mile", "Dense wet brush soaks everything - no rain pants", "No car shuttle back to Undi Road (about two hours of driving)"]
+    },
+    {
+      "id": "snider_jackson_traverse",
+      "name": "Snider-Jackson Traverse (Rugged Ridge to the Bogachiel)",
+      "trailhead": "rugged_ridge_trailhead",
+      "shape": "point_to_point",
+      "nights_typical": [0, 1],
+      "itinerary": [
+        {"day": 1, "to": "bogachiel_camp", "miles": 6.3, "gain_ft": 1891},
+        {"day": 2, "to": "bogachiel_trailhead", "miles": 6.0, "gain_ft": 185}
+      ],
+      "layover_ideas": [],
+      "total_miles": 12.3,
+      "difficulty": "moderate",
+      "best_months": "July-September (lower Calawah flows)",
+      "highlights": ["Calawah River ford", "Over the hills to the Bogachiel"],
+      "what_goes_wrong_for_underprepared_hikers": ["Trailhead road closed (through at least September 2026)", "Calawah ford high after rain", "No signage at the trailhead"]
+    },
+    {
+      "id": "hoh_bogachiel_south_snider_jackson",
+      "name": "Hoh to Bogachiel over the South Snider-Jackson Trail",
+      "trailhead": "hoh_bogachiel_trailhead",
+      "shape": "point_to_point",
+      "nights_typical": [1, 2],
+      "itinerary": [
+        {"day": 1, "to": "flapjack_camp", "miles": 10.8, "gain_ft": 4285},
+        {"day": 2, "to": "bogachiel_trailhead", "miles": 10.3, "gain_ft": 437}
+      ],
+      "layover_ideas": ["Layover at Flapjack"],
+      "total_miles": 21.1,
+      "difficulty": "hard",
+      "best_months": "August-September (low water for the Bogachiel ford)",
+      "highlights": ["Lonely primitive ridge route", "River ford into the Bogachiel"],
+      "what_goes_wrong_for_underprepared_hikers": ["No water for 10 miles until Tumwata Creek", "Bogachiel ford too deep - stranded on the south bank", "Primitive tread and blowdown slow the pace"]
+    },
+    {
+      "id": "south_fork_hoh_big_flat",
+      "name": "South Fork Hoh to Big Flat and the end of trail",
+      "trailhead": "south_fork_hoh_trailhead",
+      "shape": "out_and_back",
+      "nights_typical": [0, 1],
+      "itinerary": [
+        {"day": 1, "to": "big_flat_camp", "miles": 1.3, "gain_ft": 123},
+        {"day": 2, "to": "south_fork_hoh_trailhead", "miles": 7.1, "gain_ft": 195}
+      ],
+      "layover_ideas": ["Walk the gravel bars beyond the end of trail at low water"],
+      "total_miles": 8.4,
+      "difficulty": "easy",
+      "best_months": "July-September",
+      "highlights": ["Quiet old growth", "Black bears often seen along the access road"],
+      "what_goes_wrong_for_underprepared_hikers": ["No Discover Pass at the DNR trailhead", "Getting lost on unsigned logging roads without saved directions"]
+    },
+    {
+      "id": "queets_spruce_bottom_overnight",
+      "name": "Queets River to Spruce Bottom",
+      "trailhead": "queets_trailhead",
+      "shape": "out_and_back",
+      "nights_typical": [1, 1],
+      "itinerary": [
+        {"day": 1, "to": "spruce_bottom_camp", "miles": 5.0, "gain_ft": 139},
+        {"day": 2, "to": "queets_trailhead", "miles": 5.0, "gain_ft": 40}
+      ],
+      "layover_ideas": ["Side visit to Andrews Field for elk", "Fish the Lower Crossing gravel bar"],
+      "total_miles": 10.0,
+      "difficulty": "moderate",
+      "best_months": "Late July to September (ford)",
+      "highlights": ["The ford itself", "Homestead clearings and huge spruce", "Very few people"],
+      "what_goes_wrong_for_underprepared_hikers": ["Rain overnight raises the Queets - trapped on the far bank with one day of food", "Crossing without poles or water shoes", "Cotton and no dry bag after a waist-deep ford"]
+    },
+    {
+      "id": "queets_bob_creek",
+      "name": "Queets River to Bob Creek",
+      "trailhead": "queets_trailhead",
+      "shape": "out_and_back",
+      "nights_typical": [2, 3],
+      "itinerary": [
+        {"day": 1, "to": "spruce_bottom_camp", "miles": 5.0, "gain_ft": 139},
+        {"day": 2, "to": "bob_creek_camp", "miles": 6.0, "gain_ft": 270},
+        {"day": 3, "to": "bob_creek_camp", "miles": 0, "gain_ft": 0},
+        {"day": 4, "to": "queets_trailhead", "miles": 11.0, "gain_ft": 152}
+      ],
+      "layover_ideas": ["Explore Harlow Bottom's giant spruce", "Look (from a distance) at the 2015 burn above Bob Creek"],
+      "total_miles": 22.0,
+      "difficulty": "hard",
+      "best_months": "August-September",
+      "highlights": ["Three miles of giant spruce in Harlow Bottom", "Solitude"],
+      "what_goes_wrong_for_underprepared_hikers": ["Losing the faint tread in alder flats and blackberry fields", "Nettles and thorns in shorts", "Pushing into the burn past Bob Creek among standing dead trees"]
+    },
+    {
+      "id": "queets_sams_river_loop",
+      "name": "Sams River Loop",
+      "trailhead": "queets_trailhead",
+      "shape": "loop",
+      "nights_typical": [0, 0],
+      "itinerary": [
+        {"day": 1, "to": "queets_trailhead", "miles": 2.8, "gain_ft": 50}
+      ],
+      "layover_ideas": [],
+      "total_miles": 2.8,
+      "difficulty": "easy",
+      "best_months": "Year-round",
+      "highlights": ["Homestead meadow with elk", "Sams River and Queets confluence", "No ford needed"],
+      "what_goes_wrong_for_underprepared_hikers": ["Storm damage on the loop in winter"]
+    }
+  ],
+  "hazards": [
+    {
+      "id": "hoh_side_channel_fords",
+      "name": "Hoh side-channel fords before Olympus Guard Station",
+      "where": ["hoh_river_braid_crossings", "happy_four_camp>hoh_river_braid_crossings", "hoh_river_braid_crossings>olympus_guard_station"],
+      "season": "Any time after moderate to heavy rain; highest October-June and during warm-weather snowmelt",
+      "real_world": "Two stream crossings near mile 8 must be forded. In dry spells they are nearly dry; in moderate to heavy rain they can become impassable (NPS 2026).",
+      "game_event_idea": "The braid runs brown and loud after a night of rain. Options: (A) Wade now: unbuckle hip belt, face upstream, use poles - success 85% with trekking poles, 60% without; failure = soaked gear and a dropped item. (B) Wait for the river to drop: lose half a day; 70% chance it is ankle-deep by morning; costs one extra food day. (C) Scout upstream for a log: 50% find one; slip chance 20% without good boots. (D) Turn back to Happy Four and enjoy a shorter trip.",
+      "mitigations": ["trekking_poles", "water_shoes", "dry_bag", "extra_food_day", "weather_forecast_check"]
+    },
+    {
+      "id": "glacier_meadows_ladder",
+      "name": "Glacier Meadows washout ladder",
+      "where": ["glacier_meadows_ladder_washout", "glacier_meadows_ladder_washout>glacier_meadows"],
+      "season": "Year-round; worst with snow, ice or rain; rockfall any time",
+      "real_world": "About a quarter mile before Glacier Meadows, a ~100-ft cable/rope ladder crosses a loose avalanche-chute washout. In 2026 it had several broken, cracked or missing rungs, was anchored to a dead tree with exposed roots, and had rockfall risk and midday queues. Guidebooks suggest camping below it with heavy packs.",
+      "game_event_idea": "The ladder sways over the gully; a pebble clicks down past you. Options: (A) Climb with your full pack - success depends on pack weight: under 30 lb 95%, 30-45 lb 85%, over 45 lb 70%; failure = scraped hands, dropped trekking pole or twisted ankle. (B) Lower your pack on a cord first (requires 30 ft of cord/rope) - 98%. (C) Wear a helmet - rockfall injury chance drops from 10% to 2%. (D) Camp at Elk Lake and day-hike past it tomorrow with a light pack.",
+      "mitigations": ["helmet", "light_pack", "gloves", "rope_or_cord", "camp_at_elk_lake"]
+    },
+    {
+      "id": "elk_lake_to_glacier_meadows_snow_chutes",
+      "name": "Steep snow in the avalanche chutes above Elk Lake",
+      "where": ["elk_lake>glacier_meadows_ladder_washout"],
+      "season": "Winter through early summer (often into July); winter travel above Elk Lake not recommended",
+      "real_world": "Steep snow slopes cross avalanche chutes between Elk Lake and Glacier Meadows; an ice axe may be required, the trail can be hidden, and in winter ropes and anchors may be needed (NPS).",
+      "game_event_idea": "A hard, icy snow tongue fills the chute; the runout ends in rocks. Options: (A) Kick steps with ice axe - 95% (axe + self-arrest skill), 75% axe only. (B) Wait for the sun to soften it (lose 2 hours) - +10% success. (C) Cross without an axe - 55%; a slip without an axe ends the trip with a rescue in gentle mode. (D) Turn around and camp at Elk Lake.",
+      "mitigations": ["ice_axe", "microspikes", "crampons", "self_arrest_skill", "early_or_late_start_timing"]
+    },
+    {
+      "id": "lateral_moraine_descent",
+      "name": "Knife-edge lateral moraine and scree descent to the Blue Glacier",
+      "where": ["blue_glacier_lateral_moraine_viewpoint", "blue_glacier_lateral_moraine_viewpoint>blue_glacier"],
+      "season": "Climbing season (late June-mid August); conditions worsen as the glacier thins",
+      "real_world": "The moraine crest is a narrow ridge with steep drops; climbers must stay high until a double cairn/white pole marks a faint, loose descent of about 400 vertical ft to the ice. Climbers call it the crux and report it getting worse.",
+      "game_event_idea": "Fog rolls in on the moraine crest. Options: (A) Follow the cairns slowly - navigation check: 90% with GPS track, 70% with map and compass, 50% neither. (B) Drop down early where it looks easier - 40% cliffed out, lose 2 hours. (C) Wait for the fog to lift (lose 1 hour, 60% it lifts). (D) Call it a viewpoint day and enjoy the glacier from above.",
+      "mitigations": ["helmet", "gps_track", "map_and_compass", "trekking_poles"]
+    },
+    {
+      "id": "blue_glacier_crevasses",
+      "name": "Crevasses on the Blue Glacier",
+      "where": ["blue_glacier", "blue_glacier>caltech_rocks", "caltech_rocks>snow_dome", "snow_dome>crystal_pass"],
+      "season": "Late June-mid August climbing season; snow bridges weaken through the day and season",
+      "real_world": "Glacier travel with crevasses from finger-width to a couple of feet on the lower glacier and larger ones higher up; NPS says only experienced mountaineers with glacier travel and crevasse rescue skills and gear should attempt Mount Olympus.",
+      "game_event_idea": "A sagging line in the snow crosses your path. Options: (A) Rope up and probe - crevasse-fall chance 2%, and a fall is held. (B) Walk unroped - fall chance 10%; in gentle mode a fall means a helicopter rescue and the trip ends; in Sierra mode it is fatal. (C) Detour wide around the sag (lose 30 min, chance 1%). Percentages double after 1 pm (soft bridges).",
+      "mitigations": ["rope", "harness", "crevasse_rescue_kit", "glacier_partner", "early_start", "probing_with_axe"]
+    },
+    {
+      "id": "snow_dome_runout_traverse",
+      "name": "Snow Dome steep runout traverse and afternoon blue ice",
+      "where": ["caltech_rocks>snow_dome", "snow_dome"],
+      "season": "Climbing season",
+      "real_world": "Reported as the route's biggest objective hazard: a steep runout snow traverse in the morning and a ~200-ft descending traverse on slushy blue ice in the afternoon; pickets and ice screws advised.",
+      "game_event_idea": "Hard morning snow tilts toward a drop. Options: (A) Place pickets as running protection (slow, 98%). (B) Move together without protection (fast, 85%). (C) Wait until the snow softens (lose 1 hour; afternoon blue ice later is worse).",
+      "mitigations": ["pickets", "ice_screws", "crampons", "ice_axe"]
+    },
+    {
+      "id": "crystal_pass_bergschrund",
+      "name": "Bergschrund and snow wall at Crystal Pass",
+      "where": ["crystal_pass", "snow_dome>crystal_pass"],
+      "season": "Worsens from July onward",
+      "real_world": "Late season, a wide bergschrund can span the glacier below Crystal Pass; one report found an open crevasse splitting the bootpath and a ~30-ft, ~60-degree snow wall.",
+      "game_event_idea": "The bootpath ends at a blue-black gap. Options: (A) Cross the remaining snow bridge roped (80%). (B) Climb the steep snow wall with two tools (needs a second tool or good axe skill; 85%). (C) Try the direct 'Fourth of July' line instead (great in June, mostly impassable after late June). (D) Turn around - the Snow Dome view is your summit.",
+      "mitigations": ["rope", "second_ice_tool", "pickets", "early_season_timing"]
+    },
+    {
+      "id": "summit_block",
+      "name": "Fifth-class summit block and rappel",
+      "where": ["mount_olympus_false_summit>mount_olympus_west_peak", "mount_olympus_west_peak"],
+      "season": "Climbing season; afternoon clouds common",
+      "real_world": "One short pitch of low-to-mid fifth-class rock (about 5.4) on the North Ridge with a rappel off; the steep snow gully off the false summit is a rockfall/sliding 'bowling alley'.",
+      "game_event_idea": "The final tower is wet and a cloud is building. Options: (A) Lead the pitch (needs rock rack and rope; 90% dry, 70% wet). (B) Scramble the loose east side (class 4, 75%, rockfall 10%). (C) Set a turnaround time and stop at the false summit - a gentle 'almost' ending with full sketch credit.",
+      "mitigations": ["rock_rack", "rope_35m", "helmet", "turnaround_time", "climbing_partner"]
+    },
+    {
+      "id": "olympus_weather_whiteout",
+      "name": "Storms and whiteouts on Mount Olympus",
+      "where": ["blue_glacier", "snow_dome", "crystal_pass", "mount_olympus_west_peak", "glacier_meadows"],
+      "season": "Any season; storms move in quickly off the Pacific",
+      "real_world": "The summit area is one of the wettest places in the contiguous US; climbers report finding the route hard without a boot path, and storms move quickly (NPS).",
+      "game_event_idea": "Morning: grey cap on the summit, wind rising. Options: (A) Go anyway (summit chance 40%, lost-route chance 25%). (B) Wait a day at camp (costs one food day; 60% clear tomorrow). (C) Descend now (safe; trip ends without summit).",
+      "mitigations": ["gps_track", "wands", "extra_food_day", "4_season_tent", "weather_forecast_check"]
+    },
+    {
+      "id": "queets_ford",
+      "name": "Queets River ford",
+      "where": ["queets_river_ford", "queets_river_ford>andrews_field"],
+      "season": "Usually feasible only late July-September; generally not fordable late fall, winter or spring",
+      "real_world": "Required ford at the trailhead, commonly waist deep in summer; NPS suggests flow at the Hwy 101 gauge under 800 cfs, and flow can rise within hours. It can be impassable on the way out even if fine on the way in.",
+      "game_event_idea": "On the way out, the river is higher than when you came in. Options: (A) Cross now with poles and a partner (success scales with flow: low 90%, moderate 60%, high 25%; failure in gentle mode = swept, gear lost, rescue; Sierra mode = drowning). (B) Wait a day on the far bank (needs an extra food day; 70% chance it drops). (C) Link arms in a group of three (+15%). (D) Never start if rain is forecast (planning screen choice).",
+      "mitigations": ["trekking_poles", "water_shoes", "extra_food_day", "dry_bag", "weather_forecast_check", "partner"]
+    },
+    {
+      "id": "bogachiel_route_finding_and_washouts",
+      "name": "Upper Bogachiel washouts, brush and faint trail",
+      "where": ["mosquito_creek_bogachiel", "flapjack_camp>fifteen_mile_camp", "fifteen_mile_camp>hyak_camp", "hyak_camp>twenty_one_mile_camp"],
+      "season": "Year-round; brush peaks mid-summer",
+      "real_world": "Washouts near Mosquito Creek (steep detour, short exposed section) and between Flapjack and 15 Mile; above 15 Mile the trail is difficult to follow; dense brush to the Mink Lake junction.",
+      "game_event_idea": "The tread vanishes into salmonberry taller than your head. Options: (A) Bushwhack along the river (slow; 20% chance to soak and lose a dry layer). (B) Backtrack to the last sure tread and search (lose 1 hour, 80% find it). (C) Use map, compass or GPS (95%). (D) Camp early at 15 Mile and decide tomorrow.",
+      "mitigations": ["map_and_compass", "gps_track", "rain_pants", "gaiters", "gloves"]
+    },
+    {
+      "id": "snider_jackson_fords",
+      "name": "Bogachiel and Calawah fords on the Snider-Jackson trails",
+      "where": ["calawah_river_ford", "bogachiel_south_bank_snider_jackson_junction>flapjack_camp", "bogachiel_south_bank_snider_jackson_junction>bogachiel_lower_crossing"],
+      "season": "Any time after rain; easiest late summer",
+      "real_world": "NPS: the Bogachiel must be forded on the South Snider-Jackson route and often runs deep; the Calawah ford on the North Snider-Jackson can become hazardous at any time.",
+      "game_event_idea": "Same ford mechanic as the Queets with smaller rivers: (A) Wade (low flow 95%, after rain 60%). (B) Wait. (C) Retreat over the ridge (long, dry, 10 miles without water).",
+      "mitigations": ["trekking_poles", "water_shoes", "extra_water_capacity"]
+    },
+    {
+      "id": "hoh_lake_trail_heat",
+      "name": "Hot, dry climb through the 1978 burn",
+      "where": ["hoh_lake_trail_junction>c_b_flats_group_site"],
+      "season": "July-September afternoons",
+      "real_world": "Steep, exposed grade with 22 switchbacks and little canopy through the 1978 Hoh Fire burn; no water until C.B. Flats (NPS 2026).",
+      "game_event_idea": "Halfway up, the sun bakes the silver snags. Options: (A) Push on (if water carried under 2 L: 30% heat exhaustion - lose half a day). (B) Rest in the only shade (lose 1 hour). (C) Planning choice: start at dawn and carry 3 L (no risk).",
+      "mitigations": ["extra_water_capacity", "sun_hat", "early_start", "electrolytes"]
+    },
+    {
+      "id": "bears_and_food_storage",
+      "name": "Black bears and food storage",
+      "where": ["glacier_meadows", "elk_lake", "hoh_lake", "c_b_flats_group_site", "olympus_guard_station", "flapjack_camp", "spruce_bottom_camp"],
+      "season": "April-November, especially berry season",
+      "real_world": "Approved bear canisters are required for all overnight wilderness stays (2026); bear wires and hangs are not acceptable; elk and bear are frequently seen on the Hoh Lake Trail in summer and fall.",
+      "game_event_idea": "A bear noses around camp at dusk. Outcome depends on packing: canister locked and 100 ft from tent = bear wanders off (98%). Canister unlocked = 40% bear gets food, trip ends early and a ranger write-up. No canister (hang or tent) = 70% food lost, trip ends; also a citation event at the trailhead check.",
+      "mitigations": ["bear_canister", "cook_away_from_tent", "scented_items_in_can"]
+    },
+    {
+      "id": "elk_rut",
+      "name": "Rutting bull elk",
+      "where": ["hoh_rain_forest_trailhead", "hoh_campground", "olympus_guard_station", "andrews_field", "sams_river_loop_meadow"],
+      "season": "September-October",
+      "real_world": "Bulls bugle, spar and chase; Hoh-area elk are habituated, and the park has closed the Hoh campground for the rut. Keep at least 50 yards (park release) and back away from aggressive animals.",
+      "game_event_idea": "A bull steps onto the trail, grinding his teeth. Options: (A) Back away slowly and detour through the trees (lose 20 min, safe). (B) Wait behind a big tree (safe, lose 40 min). (C) Try to pass close for a photo (30% charged - trampled pack, minor injury).",
+      "mitigations": ["patience", "binoculars", "camera_zoom"]
+    },
+    {
+      "id": "rain_and_hypothermia",
+      "name": "Rain forest rain and cold",
+      "where": ["hoh_rain_forest_trailhead", "glacier_meadows", "bogachiel_camp", "spruce_bottom_camp"],
+      "season": "Mostly October-May, but any month",
+      "real_world": "The Hoh Rain Forest averages about 140 inches of precipitation a year (NPS); higher camps can be cold and wet even in summer.",
+      "game_event_idea": "Third day of steady rain. Outcome by packing: rain jacket + synthetic/wool layers + dry bag = morale fine. Cotton or no pack liner = 40% chance 'wet and shivering' status (must turn back or rest a day). Options: (A) Hole up in the Happy Four shelter. (B) Hike fast to stay warm. (C) Turn back.",
+      "mitigations": ["rain_jacket", "rain_pants", "wool_or_synthetic_layers", "pack_liner", "tarp"]
+    },
+    {
+      "id": "blowdown_slowdown",
+      "name": "Blowdown and storm damage",
+      "where": ["hoh_rain_forest_trailhead>one_mile_camp", "one_point_four_mile_camp>mineral_creek_falls", "queets_river_ford>andrews_field", "spruce_bottom_camp>harlow_bottom"],
+      "season": "Winter and spring storms; crews clear in summer",
+      "real_world": "In June 2026 NPS counted 37 downed trees between the Hoh trailhead and Glacier Meadows; in July 2026, 29 between the Queets ford and Bob Creek.",
+      "game_event_idea": "A giant spruce lies across the trail chest-high. Options: (A) Climb over (10% slip, scraped shin). (B) Crawl under (pack snags; 5% tears a strap). (C) Detour through the root wad mud (lose 15 min).",
+      "mitigations": ["gloves", "trekking_poles", "time_buffer"]
+    },
+    {
+      "id": "underprepared_day_hike_to_glacier",
+      "name": "Trying the Blue Glacier as a day hike",
+      "where": ["hoh_rain_forest_trailhead", "glacier_meadows", "blue_glacier_lateral_moraine_viewpoint"],
+      "season": "Any",
+      "real_world": "The lateral moraine is 18.5 miles one way (37 miles round trip, ~5,100 ft gain); there is no camping between Glacier Meadows and the Blue Glacier and the upper camps are quota-limited.",
+      "game_event_idea": "The player chose 'day hike' gear for the Blue Glacier. At mile 13 (High Hoh Bridge) at 3 pm: (A) Push on - darkness on the ladder, 50% forced bivy without a sleeping bag (cold, hungry, ranger finds you in the morning in gentle mode). (B) Turn back now (arrive at the car after dark; fine with a headlamp, 30% fall without one). (C) Beg a spare spot at a camp - not allowed without a permit; ranger event.",
+      "mitigations": ["headlamp", "plan_overnight", "permit"]
+    },
+    {
+      "id": "permit_quota_full",
+      "name": "Quota camps full (Martin Creek, Elk Lake, Glacier Meadows, Hoh Lake, C.B. Flats)",
+      "where": ["martin_creek_camp", "elk_lake", "glacier_meadows", "c_b_flats_group_site"],
+      "season": "Reservation season June 15-October 15 (Glacier Meadows/Elk Lake, 2026)",
+      "real_world": "These are quota areas; permits are limited and changes must be made before the trip. Camping is allowed only at the camp on your permit.",
+      "game_event_idea": "Planning screen: Glacier Meadows shows FULL for your dates. Options: (A) Shift dates midweek (70% open). (B) Camp at Lewis Meadow or the 13-mile sites and do a long day to the moraine. (C) Book Elk Lake instead and day-hike over the ladder. (D) Go after October 15 when quotas end - but snow and short days arrive.",
+      "mitigations": ["early_reservation", "flexible_dates", "lower_camp_strategy"]
+    },
+    {
+      "id": "drive_hoh_bridge_and_entrance",
+      "name": "Road delays: US 101 Hoh River Bridge closures and Hoh entrance lines",
+      "where": ["hoh_rain_forest_trailhead", "queets_trailhead", "south_fork_hoh_trailhead"],
+      "season": "Bridge: September-October 2026 closures, one-lane signals ongoing; entrance lines: summer",
+      "real_world": "WSDOT closed the US 101 Hoh River Bridge (MP 176.5) for up to six days at a time in fall 2026 with a ~4-hour detour; summer waits at the Hoh entrance station reach two hours.",
+      "game_event_idea": "Drive-to-trailhead scene: (A) Leave at 5 am - no line, sunrise elk. (B) Leave at 10 am - 50% two-hour wait, start hiking at 1 pm (shorter first day). (C) Trailhead south of a closed bridge - 4-hour detour or pick a different trailhead.",
+      "mitigations": ["early_departure", "check_road_status", "backup_trailhead"]
+    },
+    {
+      "id": "paradise_fire_snags",
+      "name": "Standing dead trees in the Paradise Fire burn",
+      "where": ["bob_creek_camp>pelton_creek_camp", "pelton_creek_camp"],
+      "season": "Year-round; worst in wind",
+      "real_world": "The 2015 Paradise Fire burned the upper Queets; NPS says camping past Bob Creek is not recommended due to standing dead trees and the trail is hard to follow.",
+      "game_event_idea": "Wind rises at a burned camp. Options: (A) Pitch under the snags (10% a limb falls near you - scare in gentle mode). (B) Walk back to Bob Creek in the dusk (safe, tiring). (C) Camp on an open gravel bar (safe if river low).",
+      "mitigations": ["look_up_before_pitching", "headlamp", "time_buffer"]
+    },
+    {
+      "id": "untreated_water",
+      "name": "Untreated water",
+      "where": ["one_mile_camp", "five_mile_island_camp", "glacier_meadows", "spruce_bottom_camp", "bogachiel_camp"],
+      "season": "Year-round",
+      "real_world": "NPS: boil, filter or chemically treat all water to prevent Giardia; glacial water is silty.",
+      "game_event_idea": "Your filter clogs on silty Hoh water. Options: (A) Let a pot settle overnight then filter (slow, safe). (B) Use backup tablets (safe if packed). (C) Drink untreated (10% stomach trouble a week later - comic epilogue).",
+      "mitigations": ["water_filter", "backup_tablets", "pot_for_settling"]
+    },
+    {
+      "id": "early_snow_october",
+      "name": "Early autumn snow and short days",
+      "where": ["glacier_meadows", "elk_lake", "hoh_lake", "little_divide"],
+      "season": "Late September-November",
+      "real_world": "After the quota season ends October 15, upper Hoh camps are open but early snow, avalanche chutes and short daylight make the upper trail much harder; NPS does not recommend winter travel above Elk Lake.",
+      "game_event_idea": "Morning at Elk Lake: four inches of new snow. Options: (A) Continue to Glacier Meadows (needs traction + axe; ladder icy 60%). (B) Enjoy a snowy layover at Elk Lake. (C) Head down early.",
+      "mitigations": ["microspikes", "ice_axe", "warm_sleeping_bag", "headlamp"]
+    }
+  ],
+  "wildlife_and_plants": [
+    {"name": "Roosevelt elk", "kind": "animal", "where": ["hoh_rain_forest_trailhead", "olympus_guard_station", "lewis_meadow_camp", "andrews_field", "sams_river_loop_meadow"], "notes": "Large herds graze the river meadows; bulls bugle and spar in the September-October rut. Keep at least 50 yards away (park release; the elk page asks for 100 ft).", "game_idea": "Helper/advisor character (an old cow elk who knows the river crossings) and a rut hazard; sketchable."},
+    {"name": "American black bear", "kind": "animal", "where": ["hoh_lake", "c_b_flats_group_site", "glacier_meadows", "south_fork_hoh_trailhead", "bogachiel_camp"], "notes": "Frequently seen on the Hoh Lake Trail in summer and early fall (NPS); bears seen near the South Fork Hoh DNR campground.", "game_idea": "Homage nod to the book's Bear: a calm bear met at a berry patch who teaches 'keep your food locked'; sketchable."},
+    {"name": "Cougar (mountain lion)", "kind": "animal", "where": ["bogachiel_camp", "queets_lower_crossing_junction"], "notes": "Present park-wide but rarely seen; tracks on gravel bars are more likely than sightings.", "game_idea": "Tracks-in-the-mud journal entry; rare tense encounter (stand tall, do not run)."},
+    {"name": "Banana slug", "kind": "animal", "where": ["hall_of_mosses", "happy_four_camp", "flapjack_camp"], "notes": "Bright yellow slugs on the rain forest floor and trail after rain.", "game_idea": "Comic sketch target; slows you down if you stop to count them."},
+    {"name": "American dipper", "kind": "animal", "where": ["big_flat_camp", "mineral_creek_falls", "hoh_river_braid_crossings"], "notes": "Small grey bird that bobs on rocks and walks underwater in fast streams.", "game_idea": "Guide bird that shows the safest place to cross a stream (bonus to ford chance if you watched it)."},
+    {"name": "Pacific wren", "kind": "animal", "where": ["hall_of_mosses", "cedar_grove", "spruce_bottom_camp"], "notes": "Tiny brown bird with an enormous bubbling song in old-growth understory.", "game_idea": "Morning song cue; sketchable."},
+    {"name": "Varied thrush", "kind": "animal", "where": ["lewis_meadow_camp", "elk_lake", "hyak_camp"], "notes": "Its single long, eerie whistle carries through foggy forest.", "game_idea": "Sound-only creature in fog scenes; journal riddle."},
+    {"name": "Bald eagle", "kind": "animal", "where": ["five_mile_island_camp", "queets_lower_crossing_junction"], "notes": "Hunts salmon along the big rivers.", "game_idea": "Sky sprite over river scenes; sketchable."},
+    {"name": "Salmon and steelhead (coho, winter steelhead)", "kind": "animal", "where": ["spruce_nature_trail_riverbank", "five_mile_island_camp", "queets_lower_crossing_junction"], "notes": "The Hoh and Queets are wild salmon rivers; an interpretive sign at the Hoh notes coho in Taft Creek. No fishing license needed in the park, but regulations apply.", "game_idea": "Optional fishing mini-choice (needs tackle; affects food)."},
+    {"name": "Douglas squirrel", "kind": "animal", "where": ["mount_tom_creek_camp", "elk_lake"], "notes": "Chattering little red squirrel that scolds hikers from conifer branches.", "game_idea": "Scolding alarm event if food is left out."},
+    {"name": "Rough-skinned newt", "kind": "animal", "where": ["elk_lake", "spruce_bottom_camp"], "notes": "Slow orange-bellied newt of ponds and wet trails; toxic skin - do not handle.", "game_idea": "Sketch, don't touch lesson."},
+    {"name": "Olympic marmot", "kind": "animal", "where": ["hoh_lake", "c_b_flats_group_site"], "notes": "Endemic marmot of subalpine meadows; more common on the High Divide side of Hoh Lake. Presence at specific Hoh-region sites unverified.", "game_idea": "Whistling lookout helper near the top of the Hoh Lake Trail; sketchable endemic."},
+    {"name": "Sitka spruce", "kind": "plant", "where": ["hoh_rain_forest_trailhead", "harlow_bottom", "spruce_bottom_camp", "big_flat_camp"], "notes": "Signature giant of the west-side valleys, often growing in rows (colonnades) on old nurse logs.", "game_idea": "Field-guide spread entry; scale reference in scenes."},
+    {"name": "Western hemlock and nurse logs", "kind": "plant", "where": ["hall_of_mosses", "one_mile_camp"], "notes": "Hemlock seedlings sprout on fallen logs, leaving stilted roots when the log rots away.", "game_idea": "Sketchable 'tree on stilts' journal entry."},
+    {"name": "Western redcedar", "kind": "plant", "where": ["cedar_grove"], "notes": "Fluted red trunks and stringy bark at the Cedar Grove (4.0 mi).", "game_idea": "Field-guide entry; shelter-from-rain choice under a big cedar."},
+    {"name": "Bigleaf maple with club moss (Selaginella oregana)", "kind": "plant", "where": ["hall_of_mosses"], "notes": "Maples draped in club moss give the Hall of Mosses its name (NPS).", "game_idea": "Signature opening-scene sketch."},
+    {"name": "Douglas-fir (Queets Fir)", "kind": "plant", "where": ["coal_creek_queets_fir_spur"], "notes": "The abandoned spur near Coal Creek leads toward a Douglas-fir once famed as among the largest in the world; the path is nearly impossible to follow.", "game_idea": "Optional risky detour for a rare journal page."},
+    {"name": "Licorice fern and sword fern", "kind": "plant", "where": ["mineral_creek_falls", "hall_of_mosses"], "notes": "Licorice fern grows from mossy branches; sword fern carpets the floor.", "game_idea": "Field-guide entries."},
+    {"name": "Devil's club", "kind": "plant", "where": ["hyak_camp", "harlow_bottom", "fifteen_mile_camp"], "notes": "Huge maple-like leaves on spiny stems; painful to grab while bushwhacking.", "game_idea": "Brush hazard; gloves mitigate."},
+    {"name": "Stinging nettle", "kind": "plant", "where": ["spruce_bottom_camp", "harlow_bottom", "andrews_field"], "notes": "Brushy, thorny open fields on the Queets include nettles (WTA).", "game_idea": "Shorts-vs-pants packing consequence."},
+    {"name": "Salmonberry, thimbleberry and huckleberries", "kind": "plant", "where": ["andrews_field", "hyak_camp", "little_divide", "glacier_meadows"], "notes": "Berries along brushy trails in summer; huckleberries near the Mink Lake junction in late summer (2023 report).", "game_idea": "Snack bonus; also attracts bears (shared berry patch scene)."},
+    {"name": "Skunk cabbage", "kind": "plant", "where": ["bogachiel_park_boundary", "andrews_field"], "notes": "Bright yellow spathes in spring swamps; skunky smell.", "game_idea": "Spring-only sketch."},
+    {"name": "Lettuce lichen / lungwort (Lobaria) and beard lichens", "kind": "lichen", "where": ["hall_of_mosses", "cedar_grove", "harlow_bottom"], "notes": "Leafy green lichens fall from old-growth canopies after storms; pale beard lichens hang from branches.", "game_idea": "Field-guide entries; 'gift from the canopy' after wind."},
+    {"name": "Chanterelles and other autumn mushrooms", "kind": "fungus", "where": ["happy_four_camp", "bogachiel_camp"], "notes": "Autumn fungi on the rain forest floor. Check park gathering rules before picking anything; the game should model sketching rather than picking.", "game_idea": "Sketch-not-pick choice, echoing the homage's ending."},
+    {"name": "Subalpine fir, mountain hemlock and heather", "kind": "plant", "where": ["glacier_meadows", "c_b_flats_group_site"], "notes": "Spire-shaped firs and pink heather at Glacier Meadows' subalpine parkland.", "game_idea": "Scene palette transition from rain forest to alpine."},
+    {"name": "Avalanche lily and glacier lily", "kind": "plant", "where": ["glacier_meadows", "blue_glacier_moraine_trail_junction", "c_b_flats_group_site"], "notes": "Early-summer lilies blooming right at the edge of melting snow (general subalpine Olympic flora; exact sites unverified).", "game_idea": "Seasonal sketch that only appears in July."},
+    {"name": "Olympic Mountain groundsel (Senecio neowebsteri)", "kind": "plant", "where": ["blue_glacier_lateral_moraine_viewpoint", "snow_dome"], "notes": "Rare yellow composite endemic to the Olympic Mountains, growing on alpine talus; flowers late summer (mid-July to mid-September observations). Occurrence on the Mount Olympus massif specifically is unverified.", "game_idea": "Candidate real-world 'golden glow' analog: a small golden flower on high scree, found only after camping high and watching the sunset - to be sketched, never picked."},
+    {"name": "Piper's bellflower (Campanula piperi)", "kind": "plant", "where": ["blue_glacier_lateral_moraine_viewpoint"], "notes": "Olympic endemic of high rock crevices with blue star-shaped flowers (site-specific occurrence unverified).", "game_idea": "Rare endemic sketch for the journal."},
+    {"name": "Snow algae (watermelon snow)", "kind": "plant", "where": ["snow_dome", "blue_glacier"], "notes": "Pinkish algae tint summer snowfields; do not eat the snow.", "game_idea": "Mysterious pink snow sketch; a gentle science note."}
+  ],
+  "permit_and_rules": [
+    {"rule": "A wilderness permit is required for every overnight stay in the park wilderness, year-round, by advance reservation on Recreation.gov; the WIC issues it 3 days before the trip and you print it yourself.", "applies_to": ["all camps"], "source": "https://www.recreation.gov/permits/4098362", "confidence": "high"},
+    {"rule": "Fees: $6 non-refundable reservation fee per permit plus $8 per adult (16+) per night; youth 15 and under free; Annual Wilderness Pass $45 covers nightly fees for the holder. Permit holder must be at least 16.", "applies_to": ["all camps"], "source": "https://www.recreation.gov/permits/4098362", "confidence": "high"},
+    {"rule": "2026 reservation windows: summer season (May 15-October 15) opened April 15, 2026 at 7 am; Glacier Meadows/Elk Lake reservation season June 15-October 15, 2026; winter season (October 16-May 14) reservations opened September 15, 2026.", "applies_to": ["glacier_meadows", "elk_lake", "all camps"], "source": "https://www.recreation.gov/permits/4098362", "confidence": "high"},
+    {"rule": "Quota areas include Hoh Lake and the Upper Hoh River (Martin Creek, Elk Lake, Glacier Meadows); itinerary changes must be made on Recreation.gov or at a WIC before the trip; camp only in the camp area on your permit for that night.", "applies_to": ["martin_creek_camp", "elk_lake", "glacier_meadows", "c_b_flats_group_site", "hoh_lake"], "source": "https://www.recreation.gov/permits/4098362", "confidence": "high"},
+    {"rule": "Maximum group size 12 people and 8 stock. On the Hoh River Trail and Hoh Lake Trail, individual sites are limited to 6; groups of 7-12 must use designated group sites. Affiliated groups may not combine above 12 and must camp and travel at least 1 mile apart.", "applies_to": ["all Hoh camps", "c_b_flats_group_site"], "source": "https://www.nps.gov/olym/planyourvisit/wilderness-regulations.htm", "confidence": "high"},
+    {"rule": "All food, garbage and scented items must be stored in park-approved animal-resistant food containers (bear canisters) for overnight stays anywhere in the wilderness; bear wires and self-built hangs are not appropriate; Ursack is not on the approved list. Canisters can be borrowed free at the Port Angeles WIC and Quinault station.", "applies_to": ["all camps"], "source": "https://www.nps.gov/olym/planyourvisit/wilderness-food-storage.htm", "confidence": "high"},
+    {"rule": "Campfires prohibited above 3,500 ft park-wide. On the Hoh: no campfires at or above Elk Lake (NPS 2026 conditions; trail page says none above Martin Creek); none at Hoh Lake or C.B. Flats. Where allowed, use dead and down wood in existing rings or on gravel bars and leave no trace.", "applies_to": ["elk_lake", "glacier_meadows", "c_b_flats_group_site", "caltech_rocks", "snow_dome", "little_divide"], "source": "https://www.nps.gov/olym/planyourvisit/wilderness-trail-conditions.htm", "confidence": "high"},
+    {"rule": "No camping between Glacier Meadows and the Blue Glacier; climbers camp at Caltech Rocks and Snow Dome.", "applies_to": ["blue_glacier_lateral_moraine_viewpoint", "caltech_rocks", "snow_dome"], "source": "https://www.nps.gov/olym/planyourvisit/climbing-mount-olympus.htm", "confidence": "high"},
+    {"rule": "WAG/blue bags are required on Mount Olympus; there is no blue-bag deposit on the lateral moraine - pack it out (bags at the Hoh VC or Port Angeles WIC).", "applies_to": ["blue_glacier", "caltech_rocks", "snow_dome", "mount_olympus_west_peak"], "source": "https://www.nps.gov/olym/planyourvisit/wilderness-trail-conditions.htm", "confidence": "high"},
+    {"rule": "Mount Olympus should only be attempted by experienced mountaineers with glacier travel and crevasse rescue skills and gear; NPS best season late June through mid-August.", "applies_to": ["blue_glacier", "mount_olympus_west_peak"], "source": "https://www.nps.gov/olym/planyourvisit/climbing-mount-olympus.htm", "confidence": "high"},
+    {"rule": "Stock may not camp above Martin Creek; in 2026 stock are closed beyond Martin Creek except llamas; Hoh Lake Trail is day-use only for stock and not currently stock passable; nature trails closed to stock.", "applies_to": ["martin_creek_camp", "hoh_lake_trail_junction"], "source": "https://www.nps.gov/olym/planyourvisit/wilderness-trail-conditions.htm", "confidence": "high"},
+    {"rule": "Pets, bicycles and other wheeled devices are prohibited on park trails; drones prohibited; use of firearms prohibited.", "applies_to": ["all"], "source": "https://www.nps.gov/olym/planyourvisit/wilderness-regulations.htm", "confidence": "high"},
+    {"rule": "Use toilets where provided (Hoh: Five Mile Island, Olympus Guard Station, Lewis Meadow, Elk Lake, Glacier Meadows; C.B. Flats/Hoh Lake). Elsewhere bury waste 6-8 inches deep at least 200 ft from water, camps and trails, and pack out toilet paper.", "applies_to": ["all camps"], "source": "https://www.nps.gov/olym/planyourvisit/hoh-river-trail.htm", "confidence": "high"},
+    {"rule": "Treat all water (boil, filter or chemical) to prevent Giardia.", "applies_to": ["all"], "source": "https://www.nps.gov/olym/planyourvisit/hoh-river-trail.htm", "confidence": "high"},
+    {"rule": "No fishing license is required inside the park; park fishing regulations apply.", "applies_to": ["all rivers"], "source": "https://www.nps.gov/olym/planyourvisit/wilderness-regulations.htm", "confidence": "high"},
+    {"rule": "Stay at least 50 yards from wildlife (2015 park release); the park's elk page asks for at least 100 feet from elk. Approaching or feeding wildlife is illegal.", "applies_to": ["all"], "source": "https://www.nps.gov/olym/learn/nature/roosevelt-elk.htm", "confidence": "medium"},
+    {"rule": "A park entrance pass is required at the Hoh entrance station (interagency annual passes accepted).", "applies_to": ["hoh_rain_forest_trailhead"], "source": "https://www.oregonhikers.org/field_guide/Hoh_River_to_Blue_Glacier_Hike", "confidence": "medium"},
+    {"rule": "A Washington Discover Pass is required at the South Fork Hoh trailhead (state DNR land).", "applies_to": ["south_fork_hoh_trailhead"], "source": "https://www.wta.org/go-hiking/hikes/south-fork-hoh-river", "confidence": "medium"},
+    {"rule": "Camp only in designated sites on durable bare ground; on the Hoh, river gravel bars are encouraged as low-impact sites.", "applies_to": ["olympus_guard_station", "one_mile_camp", "five_mile_island_camp"], "source": "https://www.nps.gov/olym/planyourvisit/hoh-river-trail.htm", "confidence": "high"}
+  ],
+  "conditions_2026": [
+    {"note": "NPS alerts: Hoh Rain Forest area, trails, parking and restrooms open; visitor center open daily 9 am-4:30 pm; summer entrance waits up to 2 hours (arrive before 8 am or after 5 pm). Hoh Campground open; reservations were required June 12-September 6, 2026. Queets roads and primitive campground open, subject to short-notice weather closures.", "source": "https://www.nps.gov/olym/planyourvisit/conditions.htm", "info_date": "2026-10-04", "confidence": "high"},
+    {"note": "Upper Hoh Road open, 18 mi paved from Hwy 101 (NPS road page, last road update 5/5/26). An earlier 2026 version of the page warned of one-way traffic and up to 20-minute delays late May-August for storm repairs at mileposts 0.3 and 0.8.", "source": "https://www.nps.gov/olym/planyourvisit/current-road-conditions.htm", "info_date": "2026-08-07", "confidence": "high"},
+    {"note": "The December 10, 2025 atmospheric-river storm flooded Upper Hoh Road near milepost 10, cutting off the Hoh Rain Forest for about a month; reopening was expected the first week of January 2026. (Separately, a December 2024 washout at MP 9.7 closed the road until May 8, 2025.) The road is chronically vulnerable to Hoh River floods.", "source": "https://www.yakimaherald.com/news/northwest/hoh-rain-forest-to-reopen-in-january-after-atmospheric-river-flooding/article_c6b17000-8984-5154-9701-d18d405ff4f2.html", "info_date": "2025-12", "confidence": "medium"},
+    {"note": "US 101 Hoh River Bridge (MP 176.5) emergency repair: one-lane alternating signals and 25 mph since July 14, 2026; nightly closures Sept 15-22; full closures 5 am Sept 24-5 pm Sept 29, 5 am Oct 1-noon Oct 6, and 5 am Oct 8-noon Oct 13, 2026; no detour across the Hoh (about 4 hours around Hood Canal). Single lane until a long-term repair; project runs to Sept 2028.", "source": "https://wsdot.wa.gov/about/news/2026/long-weekend-and-overnight-closures-horizon-us-101-hoh-river-bridge-south-forks", "info_date": "2026-09-02", "confidence": "high"},
+    {"note": "Hoh River Trail (trailhead to Glacier Meadows, 17.5 mi): two stream crossings before Olympus Guard Station must be forded (low 06/01/26; can become impassable in moderate/heavy rain); 37 downed trees between trailhead and Glacier Meadows; stock passable to OGS (05/29/26); stock hitching post at 5 Mile Island washed away; stock closed beyond Martin Creek except llamas; avalanche-chute ladder has 3 broken rungs and 1 missing; no campfires at or above Elk Lake; Martin Creek, Elk Lake and Glacier Meadows are quota areas.", "source": "https://www.nps.gov/olym/planyourvisit/wilderness-trail-conditions.htm", "info_date": "2026-06-14", "confidence": "high"},
+    {"note": "Trip report (June 14-17, 2026): the ladder is anchored to a dead tree with over 50% of its roots exposed; two rungs broken and at least five cracked; real rockfall risk, helmets recommended; writer would not be surprised if it collapsed this year. Another report (June 19-22, 2026) found a midday queue at the ladder.", "source": "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-06-17.212507219905", "info_date": "2026-06-17", "confidence": "medium"},
+    {"note": "Trip report (May 2026): two crossings between Happy Four and Olympus Guard Station mostly dry or very shallow; privies at Five Mile Island and OGS in good order; told bear bags no longer allowed in 2026.", "source": "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-05-11.091329167626", "info_date": "2026-05-11", "confidence": "medium"},
+    {"note": "Winter damage reported January 2026: large blowdown ~0.25 mi past Mount Tom Creek; two washouts before Mineral Creek (one needing a steep loose-rock detour); a 50-ft flooded section ~1 mi before Five Mile Island; a creek cutting the embankment ~1 mi past Happy Four. Likely addressed or changed since; treat as possibly stale.", "source": "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-01-18.120947989550", "info_date": "2026-01-18", "confidence": "low"},
+    {"note": "Hoh Lake Trail (Hoh River Trail to High Divide jct., 6.5 mi): cleared of downed trees and brushed; steep, exposed grade through the 1978 burn; no water until C.B. Flats; not stock passable.", "source": "https://www.nps.gov/olym/planyourvisit/wilderness-trail-conditions.htm", "info_date": "2026-08-17", "confidence": "high"},
+    {"note": "Mount Olympus: no recent NPS reports as of 06/14/26; WAG bags required, no blue-bag deposit on the lateral moraine. June 2026 climber reports: moraine descent still very poor; the direct Fourth of July route was in good shape in June 2026 (in 2025 its last bergschrund snow bridge collapsed, forcing Crystal Pass).", "source": "https://www.nps.gov/olym/planyourvisit/wilderness-trail-conditions.htm", "info_date": "2026-06-14", "confidence": "medium"},
+    {"note": "South Fork Hoh River Trail (trailhead to end of maintained trail, 4.2 mi): no recent report.", "source": "https://www.nps.gov/olym/planyourvisit/wilderness-trail-conditions.htm", "info_date": "2026-06-14", "confidence": "medium"},
+    {"note": "Bogachiel River Trail (boundary to Mink Lake & Little Divide jct., 21.6 mi): washed out just before Mosquito Creek (steep detour with a short exposed section); washed out between Flapjack and 15 Mile (difficult to navigate around); most established sites at Bogachiel Camp eroded into the river - camp on the river bar at low water; creek and river crossings can become hazardous at any time.", "source": "https://www.nps.gov/olym/planyourvisit/wilderness-trail-conditions.htm", "info_date": "2026-06-14", "confidence": "high"},
+    {"note": "North Snider-Jackson (boundary to Bogachiel jct., 6.3 mi): no trailhead signage; Calawah ford can become hazardous; not recommended for stock. South Snider-Jackson (South Bank Trail jct. to Hoh Road, 10.0 mi): Bogachiel must be forded and often runs deep; not stock passable; Tumwata Creek at the north end is the only water.", "source": "https://www.nps.gov/olym/planyourvisit/wilderness-trail-conditions.htm", "info_date": "2026-06-14", "confidence": "high"},
+    {"note": "Rugged Ridge (North Snider-Jackson) trailhead road closed near the FS 29 (Sitkum Sol Duc Road) junction due to road failure, expected through September 2026.", "source": "https://www.wta.org/go-hiking/hikes/rugged-ridge", "info_date": "2026-09-24", "confidence": "medium"},
+    {"note": "Queets River Trail (trailhead to Pelton Creek, 16.2 mi): 18 downed trees between the ford and Spruce Bottom and 11 between Spruce Bottom and Bob Creek; brushy, thorny fields make the trail hard to find; the ford is dangerous (more likely fordable below 800 cfs at Hwy 101; can still be waist deep or deeper; generally not fordable late fall to spring; can rise within hours); ~200-yard washout 0.3 mi west of Bob Creek with a riverside bypass; past Bob Creek hard to follow after the 2015 Paradise Fire and camping not recommended (standing dead trees). Lower Crossing Route, Sam's River Loop and Upper Crossing Route: no recent reports (6/15/26).", "source": "https://www.nps.gov/olym/planyourvisit/wilderness-trail-conditions.htm", "info_date": "2026-07-20", "confidence": "high"},
+    {"note": "Food storage: approved animal-resistant food containers required in all wilderness areas; approved list updated 6/25/2026; page updated 7/7/2026. Recreation.gov states bear wires and hangs are prohibited / not appropriate in 2026, even where older NPS camp data lists bear wires (Mount Tom Creek, Happy Four, OGS, Lewis Meadow, Elk Lake, Glacier Meadows, C.B. Flats, Hoh Lake).", "source": "https://www.nps.gov/olym/planyourvisit/wilderness-food-storage.htm", "info_date": "2026-07-07", "confidence": "high"},
+    {"note": "Glacier Meadows camp (2025 reports): creek low by September (6-8 inch pools); some tent sites under dead trees; group-site pads flooded in a downpour.", "source": "https://www.wta.org/go-hiking/trip-reports/trip_report-2025-09-13.120602405895", "info_date": "2025-09-13", "confidence": "medium"},
+    {"note": "Upper Bogachiel (2025 reports): Hyak-15 Mile stretch heavily overgrown and wet; 21 Mile shelter gone (pile of wood), campsite in good shape; trail crew working west of Flapjack.", "source": "https://www.wta.org/go-hiking/trip-reports/trip_report.2023-09-05.4326905155", "info_date": "2025-09", "confidence": "low"}
+  ],
+  "uncertain_claims": [
+    "Hoh River Trail mileages differ by source: Glacier Meadows 17.3 (NPS Hoh page), 17.4 (NPS trail page, used here), 17.5 (NPS conditions page), 17.1-17.8 elsewhere; Olympus Guard Station 9.1-9.5; Lewis Meadow 9.9-10.8; Elk Lake 14.8-15.5; Five Mile Island 5.0-5.3; Happy Four 5.7-5.8.",
+    "Positions of the 0.9/1.4/3.3/12.4/13.1/13.2/13.3-mile camps are taken from their Recreation.gov names; lat/lon for 12.4, 13.2, 13.3 come from OpenStreetMap, not NPS.",
+    "High Hoh Bridge mileage: Oregon Hikers says 13.1; GIS geometry and camp ordering put it between the 13.1 and 13.2 sites (13.15 used). Its elevation (~1,340 ft) is a DEM value at the gorge crossing, not a surveyed deck height.",
+    "Node elevations without a published figure were sampled from the USGS 3DEP 10 m DEM (EPQS/OpenTopoData) at NPS/OSM coordinates or along NPS trail geometry; segment gain/loss values are DEM-derived with a 15 ft noise filter and are approximate.",
+    "Glacier Meadows elevation 4,300 ft is the NPS figure; the DEM at the NPS camp coordinate reads ~4,175-4,190 ft.",
+    "Glacier Meadows ladder: exact position (~1/4 mile before camp per Recreation.gov/NPS) and height (~100 ft per guide descriptions) are approximate; condition changes yearly and the ladder may fail or be replaced.",
+    "Mount Olympus climb segments (moraine descent, glacier crossing, Caltech Rocks, Snow Dome, Crystal Pass, false summit, summit block) have no official mileages; the 0.2/0.9/0.5/0.8/0.6/0.3-mile values are estimates scaled to NPS's 4-6 mi Glacier Meadows-to-summit and a guide's ~1 mile of glacier.",
+    "Caltech Rocks and the false summit have no verified elevation or coordinates. Snow Dome elevation 6,786 ft is the DEM at the OSM-mapped point; reports give camp at 6,600-6,800 ft and guides say 7,000 ft. Crystal Pass 7,250 ft (NWAG) vs 7,200 ft (Madison Mountaineering).",
+    "Blue Glacier surface elevation at the climbers' descent (~4,700 ft) is derived from the 5,100-ft moraine crest minus a reported ~400 ft scree descent.",
+    "Terminal moraine viewpoint (elevation ~4,200 ft, 0.4 mi from the junction) comes only from the anecdotal Oregon Hikers guide; coordinates unknown.",
+    "Hoh Lake Trail: C.B. Flats at 4.5 mi from the junction derived from NPS (Hoh Lake 14.7 mi from trailhead; C.B. Flats 0.5 mi south of the lake). WTA lists 4.7 mi to Hoh Lake.",
+    "Bogachiel mileages mix sources: Recreation.gov (Bogachiel 6.0, Flapjack 10.3, Hyak 17.5 from the USFS trailhead), NPS (24.4 to Mink Lake jct from trailhead; 21.6 from the boundary), WTA (boundary at 1.7). 15 Mile and 21 Mile are assumed to sit at miles 15 and 21 from the trailhead based on their names; their elevations are DEM estimates.",
+    "Bogachiel lower-crossing junction (8.0 mi) and South Bank Trail distances (0.8 and 1.5 mi) are derived from NPS GIS geometry.",
+    "North Snider-Jackson split (2.8 mi to the Calawah per American Whitewater, 6.3 total) is approximate; WTA lists the full traverse to the Bogachiel trailhead as 12.5 mi.",
+    "South Fork Hoh trail length: NPS conditions page 4.2 mi (used) vs WTA 3.5 mi vs NPS GIS attribute '2.6 mile' from the boundary.",
+    "Queets: Bob Creek 11.0 mi (WTA) vs 11.34 (American Whitewater); NPS gives 15.8 mi to end of trail (trail page) and 16.2 mi to Pelton Creek (conditions page); Pelton Creek elevation unknown (Recreation.gov coordinates for it appear erroneous). Andrews Field, Coal Creek, Harlow Bottom mileages come from WTA only.",
+    "Queets trailhead elevation 291 ft is DEM; NPS lists the trail's range as 360-800 ft.",
+    "Queets Campground and Sams Rapids positions/elevations are approximate (from a paddling site); Sams River Loop leg split (1.0 + 1.8) is approximate.",
+    "Whether the Hoh Mainline (South Fork Hoh access) and the Upper Hoh Road turnoffs are north or south of the US 101 Hoh River Bridge (MP 176.5) was not verified; the Upper Hoh turnoff is believed to be north of it.",
+    "Drive times are OSRM routing estimates, not measured; Rugged Ridge drive times not computed.",
+    "Rugged Ridge road closure was 'expected through September 2026'; current status in October 2026 unknown.",
+    "Wildlife/plant site assignments for Olympic marmot, avalanche/glacier lilies, Olympic Mountain groundsel, Piper's bellflower and snow algae are general for the habitat; specific occurrence at these nodes is unverified. Ice worms on the Blue Glacier could not be verified and are omitted.",
+    "Elk Lake shelter and the number of shelters at Glacier Meadows are from older guide descriptions and may be outdated.",
+    "Exact location and naming of the 'two stream crossings' before Olympus Guard Station (NPS 2026) are not specified; modeled as one node near mile 8 per the NPS trail page's 'braid of the river near 8-mile'.",
+    "Game percentages in hazards are design suggestions, not real-world statistics."
+  ],
+  "sources": [
+    "https://www.nps.gov/olym/planyourvisit/hoh-river-trail.htm",
+    "https://www.nps.gov/olym/planyourvisit/climbing-mount-olympus.htm",
+    "https://www.nps.gov/olym/planyourvisit/hoh-lake-trail.htm",
+    "https://www.nps.gov/olym/planyourvisit/bogachiel-river-trail.htm",
+    "https://www.nps.gov/olym/planyourvisit/queets-river-trail.htm",
+    "https://www.nps.gov/olym/planyourvisit/wilderness-trail-conditions.htm",
+    "https://www.nps.gov/olym/planyourvisit/conditions.htm",
+    "https://www.nps.gov/olym/planyourvisit/current-road-conditions.htm",
+    "https://www.nps.gov/olym/planyourvisit/visiting-the-hoh.htm",
+    "https://www.nps.gov/olym/planyourvisit/wilderness-trip-planner.htm",
+    "https://www.nps.gov/olym/planyourvisit/wilderness-food-storage.htm",
+    "https://www.nps.gov/olym/planyourvisit/wilderness-regulations.htm",
+    "https://www.nps.gov/olym/planyourvisit/upload/OLYM_Camp_Areas.kml",
+    "https://www.nps.gov/olym/planyourvisit/upload/OLYM_Trailheads.gpx",
+    "https://nps.gov/olym/planyourvisit/upload/Trails_Public_2019-2.kmz",
+    "https://www.nps.gov/olym/learn/nature/roosevelt-elk.htm",
+    "https://www.nps.gov/olym/learn/news/hoh-campground-closed-temporarily-due-to-elk-rut.htm",
+    "https://home.nps.gov/olym/planyourvisit/queets-area-brochure.htm",
+    "https://www.recreation.gov/permits/4098362",
+    "https://www.recreation.gov/api/permitcontent/4098362",
+    "https://www.wta.org/go-hiking/hikes/hoh-river",
+    "https://www.wta.org/go-hiking/hikes/hoh-river-blue-glacier",
+    "https://www.wta.org/go-hiking/hikes/hoh-lake",
+    "https://www.wta.org/go-hiking/hikes/bogachiel-river",
+    "https://www.wta.org/go-hiking/hikes/queets-river",
+    "https://www.wta.org/go-hiking/hikes/south-fork-hoh-river",
+    "https://www.wta.org/go-hiking/hikes/rugged-ridge",
+    "https://www.wta.org/go-hiking/hikes/sams-river",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-06-17.212507219905",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-06-23.081200414632",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-05-11.091329167626",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-01-18.120947989550",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2025-09-13.120602405895",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2025-08-11.083241103076",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2021-07-06-0044373470",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report.2022-09-13.2263064540",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report.2023-09-05.4326905155",
+    "https://www.oregonhikers.org/field_guide/Hoh_River_to_Blue_Glacier_Hike",
+    "https://www.oregonhikers.org/field_guide/High_Hoh_Bridge",
+    "https://mountaineers.org/activities/routes-places/hoh-river",
+    "https://www.mountaineers.org/activities/trip-reports/mount-olympus-blue-glacier-11",
+    "https://www.mountaineers.org/activities/trip-reports/basic-glacier-climb-mount-olympus-blue-glacier-2",
+    "https://www.northwestalpineguides.com/northwest-climbs/mount-olympus/",
+    "https://mountainmadness.com/trips/mount-olympus-climb",
+    "https://madisonmountaineering.com/climb-on-mt-olympus/",
+    "https://theoutbound.com/washington/backpacking/climb-mount-olympus-olympic-np",
+    "https://www.summitpost.org/blue-glacier/155624",
+    "https://en.wikipedia.org/wiki/Mount_Olympus_(Washington)",
+    "https://en.wikipedia.org/wiki/Blue_Glacier",
+    "https://en.wikipedia.org/wiki/Olympus_Guard_Station",
+    "https://en.wikipedia.org/wiki/Queets_River",
+    "https://en.wikipedia.org/wiki/Sams_River",
+    "https://en.wikipedia.org/wiki/Hoh_Rainforest",
+    "https://wsdot.wa.gov/about/news/2026/long-weekend-and-overnight-closures-horizon-us-101-hoh-river-bridge-south-forks",
+    "https://wsdot.wa.gov/construction-planning/search-projects/us-101-hoh-river-bridge-emergency-repair",
+    "https://www.yakimaherald.com/news/northwest/hoh-rain-forest-to-reopen-in-january-after-atmospheric-river-flooding/article_c6b17000-8984-5154-9701-d18d405ff4f2.html",
+    "https://www.peninsuladailynews.com/news/upper-hoh-road-reopens-after-repairs-completed/",
+    "https://www.peninsuladailynews.com/?p=243758",
+    "https://www.americanwhitewater.org/content/River/detail/id/11715",
+    "https://www.americanwhitewater.org/content/River/view/river-detail/2072/main",
+    "https://howsyourriver.com/rapids/sams-rapid-2-queets-trailhead-to-hartzell-launch-wa",
+    "https://interpretivecenter.org/the-sams-river-loop-trail/",
+    "https://www.pnwflowers.com/flower/senecio-neowebsteri",
+    "https://irma.nps.gov/NPSpecies/Species/Profile/154558",
+    "https://epqs.nationalmap.gov/v1/docs",
+    "https://www.opentopodata.org/datasets/ned/",
+    "https://www.openstreetmap.org",
+    "https://router.project-osrm.org"
+  ]
+}
