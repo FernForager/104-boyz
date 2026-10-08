@@ -484,8 +484,8 @@ Every camp is a designated site in the Sol Duc/Seven Lakes quota area (Hoh Lake 
 | Round Lake | 7.6 | 4,260 | 1 |
 | Lunch Lake | 7.8 | 4,450 | 9 · privy; often full; ☆ early season |
 | Clear Lake | 8.1 | 4,230 | 1 |
-| Long Lake | 8.4 | 3,840 | WIC request only |
-| Sol Duc Lake | 8.9 | 3,680 | WIC request only |
+| Long Lake | 8.4 | 3,840 | Ask at the desk |
+| Sol Duc Lake | 8.9 | 3,680 | Ask at the desk |
 | Lake Morgenroth | 9.0 | 4,130 | Ask at the desk; not in the list (below) |
 | Lake #8 | — | — | Not plannable (location unverified) |
 
@@ -496,9 +496,9 @@ Every camp is a designated site in the Sol Duc/Seven Lakes quota area (Hoh Lake 
 | Bogachiel Peak (spur) | 7.8 | 5,474 | The big view; no camping; ☆ |
 | Heart Lake | 8.1 | 4,780 | 5 · privy; ☆ early season |
 | Heart Lake Junction camp | 8.5 | 5,080 | 1 · on the crest |
-| Bruce's Roost | 8.9 | 5,100 | WIC request only |
+| Bruce's Roost | 8.9 | 5,100 | Ask at the desk |
 | Hoh Lake | 9.0 | 4,520 | 4 · Hoh Lake quota; the link to the Hoh |
-| Cat Basin | 9.6 | 4,580 | WIC request only; primitive way trail |
+| Cat Basin | 9.6 | 4,580 | Ask at the desk; primitive way trail |
 | Sol Duc Park | 7.1 | 4,200 | 4 + group · privy |
 | Lower Bridge Creek | 6.5 | 3,830 | 2 |
 | Sol Duc River camps | 2.4-5.9 | 2,210-3,400 | Sol Duc River #1-4, Appleton Junction, Rocky Creek, Sol Duc Crossing: 1 each; Seven Mile group site; Horse Head stock camp |
@@ -2763,7 +2763,7 @@ The look-and-feel spike (M0.5) is the biggest risk, and it needs only the pictur
 - Repo layout, the Pages workflow (one combined deploy for main and preview, E.9), the PWA shell with the offline stamp, the hidden debug menu with Copy bug report (E.11), and the error sheet.
 - Engine core: rng, expressions, templates, content loader and index, effects, phases with stub screens, saves.
 - Picture VM with 3 test pictures and headless PNG rendering; linter skeleton; harness skeleton with one bot.
-- **Exit:** a two-page "hello trailhead" book installs to the Home Screen and works offline; 1,000 trivial simulated trips run.
+- **Exit:** a two-page "hello trailhead" book (the Sol Duc trailhead, naturally), served from `fernforager.github.io/104-boyz`, installs to the Home Screen and works offline; 1,000 trivial simulated trips run.
 - **Cut first:** the debug menu's extras (keep Copy bug report: it is how you report bugs without a Mac).
 
 **M0.5: Look-and-feel spike** (2-3 sessions)
@@ -3589,7 +3589,7 @@ dist/data/edition.<hash>.json + precache
 | `food_catalog.json` | 86 foods, daily needs, canister capacities | Store, canister fit, energy, morale |
 | `lore/` (still being written) | `history.json`: the park's history as facts, much of it after Robert L. Wood's books, in our own words with credits. `quotes_public_domain.json`: verbatim lines from U.S. texts before 1931 and government reports, each with source, page, URL, length, uses, tags and cautions. `LORE.md`: the rules. Working drafts: `press_expedition.json`, `oneil_expeditions.json`, `wood_bibliography.json` | History asides, the epitaph dice (9.5), the colophon and the Ranger's Bookshelf (12.20) |
 
-**New data the game needs** (to be written during M0-M1):
+**New data the game needs** (each written in the milestone that first needs it, from M0 on; Ranger Jon's file, for example, comes with M2):
 
 | File / field | Holds |
 |---|---|
