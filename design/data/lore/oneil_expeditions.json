@@ -1,7 +1,7 @@
 {
  "lore_id": "oneil_expeditions",
  "title": "Lt. Joseph P. O'Neil's Olympic expeditions, 1885 and 1890",
- "status": "complete first edition (2026-10-08). The 1890 report (Senate Doc. 59, 1896) and the 1907 participant accounts by Bretherton and Henderson were fetched and every quote from them was checked on page images. The 1885 report survives only in manuscript; its few quotes come from the NPS Historic Resource Study transcription. Wood's Men, Mules and Mountains was not read (in copyright); his facts reach us through his 1990 Columbia article and Evans's page citations.",
+ "status": "complete first edition (2026-10-08). The 1890 report (Senate Doc. 59, 1896) and the 1907 participant accounts by Bretherton and Henderson were fetched and every quote from them was checked on page images. The 1885 report survives only in manuscript; its few quotes come from the NPS Historic Resource Study transcription. Wood's Men, Mules and Mountains was not read (in copyright); his facts reach us through his 1990 Columbia article and Evans's page citations. Verified 2026-10-08 (see VERIFY.md): every quote re-fetched and found verbatim in its public-domain source.",
  "researched_on": "2026-10-08",
  "compiled_for": "Olympic Peninsula Hiker (design stage). Part of the Robert L. Wood knowledge base: Wood's Men, Mules and Mountains (1976) is the standard history of these expeditions.",
  "how_to_use": [
@@ -590,7 +590,7 @@
    "id": "t1890_04",
    "date": "1890-07-01/02",
    "expedition": "1890",
-   "event": "Overnight run down Hood Canal. No dock at the mouth of Lilliwaup Creek: supplies go ashore in small boats and the mules are pushed off the deck to swim. The trail to Lake Cushman, sold to them as good and six miles long, is steep, wet and choked with windfall. Henderson walks ahead alone, botanizing, and needs ten and a half hours. The main party camps in a swamp at 9 p.m. after about 2.5 miles; one mule wedges under a log and has to be cut out.",
+   "event": "Overnight run down Hood Canal. No dock at the mouth of Lilliwaup Creek: boats ferry the supplies to the beach and the mules are pushed off the deck to swim. The trail to Lake Cushman, sold to them as good and six miles long, is steep, wet and choked with windfall. Henderson walks ahead alone, botanizing, and needs ten and a half hours. The main party camps in a swamp at 9 p.m. after about 2.5 miles; one mule wedges under a log and has to be cut out.",
    "node_ids": [],
    "node_confidence": "none",
    "sources": [
@@ -937,7 +937,7 @@
     "oq099"
    ],
    "game_hooks": [
-    "Wood (COL1990) says the canyon was named after the old hound Jumbo jumped into it rather than be left behind; O'Neil's report does not explain the name."
+    "Wood (COL1990) explains the name: the old dog Jumbo went into the canyon sooner than stay behind. O'Neil's report does not explain the name."
    ]
   },
   {
@@ -2441,7 +2441,7 @@
   "dogs": [
    {
     "name": "Jumbo",
-    "what": "An old mastiff-hound (Henderson). Unwanted on a scouting trip until 'famine, toil and heroism' won the men over. The box canyon Jumbo's Leap carries his name; Wood says he leapt into it rather than be left behind.",
+    "what": "An old mastiff-hound (Henderson). Unwanted on a scouting trip until 'famine, toil and heroism' won the men over. The box canyon Jumbo's Leap carries his name; Wood's account is that the dog went into the canyon sooner than stay behind.",
     "sources": [
      {
       "source_id": "SP1907_HENDERSON",

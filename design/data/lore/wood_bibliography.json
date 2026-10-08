@@ -1,7 +1,7 @@
 {
  "file": "wood_bibliography.json",
  "schema_version": 1,
- "status": "complete first edition (2026-10-08). Bibliography verified from catalogs, copyright records and the UW finding aid; topical facts come from public sources that draw on Wood, plus Wood's 1990 Columbia article (read in full). Page-level checking inside Wood's books is the main open task; see 'uncertain'.",
+ "status": "complete first edition (2026-10-08). Bibliography verified from catalogs, copyright records and the UW finding aid; topical facts come from public sources that draw on Wood, plus Wood's 1990 Columbia article (read in full). Page-level checking inside Wood's books is the main open task; see 'uncertain'. Verified 2026-10-08 (see VERIFY.md): no sentence of Wood is stored here; three close paraphrases of his 1990 Columbia article and two epitaph seeds were reworded.",
  "compiled_on": "2026-10-08",
  "compiled_for": "Olympic Peninsula Hiker (design-stage). Knowledge-base backbone built on the work of Robert L. Wood.",
  "how_to_use": [
@@ -1164,7 +1164,7 @@
      "confidence": "medium-high"
     },
     {
-     "fact": "Going down the North Fork Quinault, a raft wreck cost them their guns and most specimens; Barnes saved the pack holding the journals, photographic negatives and the map. With help from a hunting party and a settler's canoe they reached Lake Quinault on 19 May and the ocean on 20 May 1890, and were photographed in Aberdeen on 21 May.",
+     "fact": "Going down the North Fork Quinault, a raft wreck cost them their guns and most specimens; Barnes got one pack out of the water, and it held the journals, the photographic negatives and the map. With help from a hunting party and a settler's canoe they reached Lake Quinault on 19 May and the ocean on 20 May 1890, and were photographed in Aberdeen on 21 May.",
      "wood": [
       {
        "work": "ATOM"
@@ -1607,7 +1607,7 @@
      "confidence": "medium-high (Wood names Fisher's Bluff; NPS audio tour ties the Staircase name to the expedition; that the two bluffs are the same is our inference)"
     },
     {
-     "fact": "Work days ran six a.m. to seven p.m.; in the twilight the tired men fished for plentiful trout.",
+     "fact": "Work days ran from six in the morning to seven at night, and the river was full of trout, so the men still went fishing after supper.",
      "wood": [
       {
        "work": "COL1990",
@@ -1618,7 +1618,7 @@
      "confidence": "high"
     },
     {
-     "fact": "Near Camp 5 a box canyon stopped the mules until the men bridged it; they called it Jumbo's Leap after an old hound named Jumbo jumped into it rather than be left behind. Through July they built about a dozen miles of trail while hemmed in the canyon.",
+     "fact": "Near Camp 5 a box canyon stopped the mules until the men bridged it; they called it Jumbo's Leap for the old dog Jumbo, who went into it sooner than stay behind. By the end of July the trail was only about twelve miles long, and the crew was still deep in the canyon.",
      "wood": [
       {
        "work": "COL1990",
@@ -3177,7 +3177,7 @@
    "topic": "oneil_1885"
   },
   {
-   "seed": "Jumbo the old hound, who leapt into a canyon rather than be left behind",
+   "seed": "Jumbo, the old dog who would not stay behind at the canyon",
    "credit": "After Robert L. Wood, 'The O'Neil Expeditions', Columbia (1990)",
    "topic": "oneil_1890"
   },
@@ -3202,7 +3202,7 @@
    "topic": "oneil_1885"
   },
   {
-   "seed": "trout caught in the twilight after a thirteen-hour day of trail-building",
+   "seed": "trout for supper after a thirteen-hour day of trail-building",
    "credit": "After Robert L. Wood, 'The O'Neil Expeditions', Columbia (1990)",
    "topic": "oneil_1890"
   }

@@ -1,7 +1,7 @@
 {
   "lore_id": "press_expedition",
   "title": "The Press Expedition, 1889-90",
-  "status": "complete_first_pass",
+  "status": "complete_first_pass; verified_2026_10_08 (VERIFY.md): every quote re-fetched and found verbatim; seven secondary lines from copyrighted modern articles or Wikipedia removed",
   "researched_on": "2026-10-08",
   "summary": "Six men (five finished), four dogs and two mules, sent by the Seattle Press, crossed the Olympic Mountains north to south in the hard winter and spring of 1889-90: up the Elwha from Port Angeles (Dec 1889 - Apr 1890), over Low Divide (early May 1890) and down the North Fork Quinault to Lake Quinault and the Pacific (May 20, 1890). It was the first documented crossing of the range. Their route is close to our classic trip elwha_to_north_fork_quinault.",
   "credit_line_for_game": "Facts about the Press Expedition draw in part on Robert L. Wood, Across the Olympic Mountains: The Press Expedition, 1889-90 (The Mountaineers and University of Washington Press, 1967). No text by Wood is reproduced. Quotations are from public-domain newspapers of 1889-90 and The Mountaineer (1907).",
@@ -574,7 +574,7 @@
     {
       "date": "1890-04 (late)",
       "date_precision": "approximate",
-      "event": "Climbing out of the Goldie with 75-lb packs through snow said to be up to 15 ft deep. From the high ground Christie and Barnes see over the divide ahead, and from then on it is 'one pack to a man', no more relaying.",
+      "event": "Climbing out of the Goldie with 75-lb packs through snow said to be up to 15 ft deep. From the high ground Christie and Barnes see over the divide ahead, and from then on each man carries a single pack; the relaying is over.",
       "node_ids": [
         "camp_wilder"
       ],
@@ -638,7 +638,7 @@
     {
       "date": "1890-05-05",
       "date_precision": "day",
-      "event": "They name Lake Mary and Lake Margaret and find the pass, which they call Elwha Pass (today's Low Divide, 3,602 ft in our data). A hole in the snow by a big rock shows water running south: they are over the top.",
+      "event": "They name Lake Mary and Lake Margaret and find the pass, which they call Elwha Pass (today's Low Divide, 3,602 ft in our data). Beside a big boulder, water seen through an opening in the snow is flowing south: they are over the top.",
       "node_ids": [
         "lake_margaret",
         "low_divide"
@@ -701,7 +701,7 @@
     {
       "date": "1890-05-18 (approx.)",
       "date_precision": "approximate",
-      "event": "Their raft is swept under a driftwood jam. They lose guns, ammunition, bear skins, fishing tackle and most rock samples. Barnes saves the pack with the journals, about 250 negatives and the map.",
+      "event": "Their raft is swept under a driftwood jam. They lose guns, ammunition, bear skins, fishing tackle and most rock samples. Barnes gets one pack out of the water, and it holds what matters most: the journals, about 250 negatives and the map.",
       "node_ids": [],
       "node_note": "Main Quinault between the forks and Lake Quinault (no node).",
       "sources": [
@@ -913,9 +913,7 @@
         "UW_WOOD_FA"
       ],
       "quotes": [
-        "q29",
-        "s01",
-        "s02"
+        "q29"
       ]
     },
     {
@@ -1051,7 +1049,7 @@
       "title": "The raft and the records",
       "date": "1890-05-18 (approx.)",
       "node_ids": [],
-      "summary": "On the main Quinault their raft went under a driftwood jam. Guns, ammunition, skins and specimens were lost; Barnes saved the pack holding the journals, the negatives and the map.",
+      "summary": "On the main Quinault their raft went under a driftwood jam. Guns, ammunition, skins and specimens were lost; Barnes got one pack out of the water, and it held the journals, the negatives and the map.",
       "sources": [
         "PDN2009c",
         "WS1890"
@@ -1073,10 +1071,7 @@
         "PDN2009c",
         "SDRU1890"
       ],
-      "quotes": [
-        "s03",
-        "s04"
-      ]
+      "quotes": []
     },
     {
       "id": "ev_aberdeen",
@@ -1091,8 +1086,7 @@
       "quotes": [
         "q01",
         "q15",
-        "q19",
-        "s05"
+        "q19"
       ]
     },
     {
@@ -3104,7 +3098,7 @@
       "date": "1890-01-31",
       "page": "p.5",
       "url": "https://www.loc.gov/resource/sn88085081/1890-01-31/ed-1/?sp=5",
-      "verification": "ocr_with_partial_image_check",
+      "verification": "page_image_checked",
       "public_domain_reason": "Published in the United States in 1890 (before 1931); U.S. works published before 1931 are in the public domain.",
       "context": "What the doubters said in January 1890.",
       "suggested_use": [
@@ -3125,7 +3119,7 @@
       "date": "1890-01-31",
       "page": "p.5",
       "url": "https://www.loc.gov/resource/sn88085081/1890-01-31/ed-1/?sp=5",
-      "verification": "ocr_with_partial_image_check",
+      "verification": "page_image_checked",
       "public_domain_reason": "Published in the United States in 1890 (before 1931); U.S. works published before 1931 are in the public domain.",
       "context": "Late January 1890.",
       "suggested_use": [
@@ -3138,143 +3132,6 @@
     }
   ],
   "secondary_quote_pool": [
-    {
-      "id": "s01",
-      "text": "a multitude of faces appear in succession near the water's edge",
-      "chars": 63,
-      "fits_epitaph_40": false,
-      "speaker": "Charles A. Barnes, journal (March 1890), as transcribed by PDN2001",
-      "source_id": "PDN2001",
-      "date": "1890-03 (Press 1890-07-16)",
-      "page": null,
-      "url": "https://peninsuladailynews.com/news/narrow-canyon-comes-alive-with-images-of-demons",
-      "verification": "secondary_transcription_primary_not_seen",
-      "public_domain_reason": "Published in the United States in 1890 (before 1931); U.S. works published before 1931 are in the public domain. (Barnes's words in the Seattle Press, July 16, 1890; the modern article that transcribes them is not reproduced.)",
-      "context": "Goblin Gates.",
-      "suggested_use": [
-        "camp_page_reading"
-      ],
-      "tags": [
-        "goblins_gate"
-      ],
-      "transcribed_by": "Peninsula Daily News, June 22, 2001",
-      "caution": "Check against the 1890 Press before shipping."
-    },
-    {
-      "id": "s02",
-      "text": "One could conceive in them tortured expressions",
-      "chars": 47,
-      "fits_epitaph_40": false,
-      "speaker": "Charles A. Barnes, journal (March 1890), as transcribed by PDN2001",
-      "source_id": "PDN2001",
-      "date": "1890-03 (Press 1890-07-16)",
-      "page": null,
-      "url": "https://peninsuladailynews.com/news/narrow-canyon-comes-alive-with-images-of-demons",
-      "verification": "secondary_transcription_primary_not_seen",
-      "public_domain_reason": "Published in the United States in 1890 (before 1931); U.S. works published before 1931 are in the public domain. (Barnes's words in the Seattle Press, July 16, 1890.)",
-      "context": "The sentence goes on to explain the name 'The Goblin Gates'.",
-      "suggested_use": [
-        "camp_page_reading",
-        "epitaph_long"
-      ],
-      "tags": [
-        "goblins_gate"
-      ],
-      "transcribed_by": "Peninsula Daily News, June 22, 2001",
-      "caution": "Check against the 1890 Press before shipping."
-    },
-    {
-      "id": "s03",
-      "text": "But murder was needless.",
-      "chars": 24,
-      "fits_epitaph_40": true,
-      "speaker": "Charles A. Barnes, on the food at Antrim's cabin (May 1890), as transcribed by PDN2009c",
-      "source_id": "PDN2009c",
-      "date": "1890-05 (Press 1890-07-16)",
-      "page": null,
-      "url": "https://peninsuladailynews.com/news/press-expedition-remembered-iii-arrival-on-the-other-side-of-the-olympic-mountains",
-      "verification": "secondary_transcription_primary_not_seen",
-      "public_domain_reason": "Published in the United States in 1890 (before 1931); U.S. works published before 1931 are in the public domain. (Barnes's words in the Seattle Press, July 16, 1890.)",
-      "context": "He would gladly have committed a homicide for any one of the dishes.",
-      "suggested_use": [
-        "epitaph",
-        "narrator_aside"
-      ],
-      "tags": [
-        "food",
-        "humor",
-        "quinault"
-      ],
-      "transcribed_by": "Peninsula Daily News, December 2009",
-      "caution": "Dark joke; use only for food-related endings and check against the 1890 Press."
-    },
-    {
-      "id": "s04",
-      "text": "it was a luxury to be appreciated.",
-      "chars": 34,
-      "fits_epitaph_40": true,
-      "speaker": "Charles A. Barnes, on the beds at Aberdeen (May 21, 1890), as transcribed by PDN2009c",
-      "source_id": "PDN2009c",
-      "date": "1890-05-21 (Press 1890-07-16)",
-      "page": null,
-      "url": "https://peninsuladailynews.com/news/press-expedition-remembered-iii-arrival-on-the-other-side-of-the-olympic-mountains",
-      "verification": "secondary_transcription_primary_not_seen",
-      "public_domain_reason": "Published in the United States in 1890 (before 1931); U.S. works published before 1931 are in the public domain. (Barnes's words in the Seattle Press, July 16, 1890.)",
-      "context": "First real beds in six months.",
-      "suggested_use": [
-        "epitaph",
-        "trip_end_page"
-      ],
-      "tags": [
-        "comfort",
-        "aberdeen"
-      ],
-      "transcribed_by": "Peninsula Daily News, December 2009"
-    },
-    {
-      "id": "s05",
-      "text": "Please remit this morning by telegraph.",
-      "chars": 39,
-      "fits_epitaph_40": true,
-      "speaker": "James H. Christie, telegram to the Press from Aberdeen (May 21, 1890), as transcribed by PDN2009c",
-      "source_id": "PDN2009c",
-      "date": "1890-05-21",
-      "page": null,
-      "url": "https://peninsuladailynews.com/news/press-expedition-remembered-iii-arrival-on-the-other-side-of-the-olympic-mountains",
-      "verification": "secondary_transcription_primary_not_seen",
-      "public_domain_reason": "Published in the United States in 1890 (before 1931); U.S. works published before 1931 are in the public domain. (Christie's telegram as printed by the Press in 1890.)",
-      "context": "Asking for about $125 to get the party home.",
-      "suggested_use": [
-        "epitaph"
-      ],
-      "tags": [
-        "money",
-        "humor"
-      ],
-      "transcribed_by": "Peninsula Daily News, December 2009"
-    },
-    {
-      "id": "s06",
-      "text": "under the shadow of the mountains we have undertaken to explore",
-      "chars": 63,
-      "fits_epitaph_40": false,
-      "speaker": "James H. Christie, on landing at Port Angeles (Dec. 1889), as transcribed by PDN2009a",
-      "source_id": "PDN2009a",
-      "date": "1889-12-08/09 (Press 1890-07-16)",
-      "page": null,
-      "url": "https://www.peninsuladailynews.com/?p=112434",
-      "verification": "secondary_transcription_primary_not_seen",
-      "public_domain_reason": "Published in the United States in 1890 (before 1931); U.S. works published before 1931 are in the public domain. (Christie's words in the Seattle Press, July 16, 1890.)",
-      "context": "Arriving at the Port Angeles wharf.",
-      "suggested_use": [
-        "trip_start_page"
-      ],
-      "tags": [
-        "port_angeles",
-        "start"
-      ],
-      "transcribed_by": "Peninsula Daily News, December 2009"
-    },
     {
       "id": "s07",
       "text": "abundance of grit and manly vim",
@@ -3295,38 +3152,17 @@
         "grit",
         "start"
       ],
-      "transcribed_by": "NPS Historic Resource Study (1983)"
-    },
-    {
-      "id": "s08",
-      "text": "Range after range of peaks, snow-clad from base to summit",
-      "chars": 57,
-      "fits_epitaph_40": false,
-      "speaker": "Charles A. Barnes, as transcribed on Wikipedia (Mount Barnes / Mount Wilder articles)",
-      "source_id": "WIKI",
-      "date": "1890 (date and place disputed)",
-      "page": null,
-      "url": "https://en.wikipedia.org/wiki/Bailey_Range",
-      "verification": "secondary_transcription_primary_not_seen",
-      "public_domain_reason": "Published in the United States in 1890 (before 1931); U.S. works published before 1931 are in the public domain. (Barnes's words in the Seattle Press, July 16, 1890.)",
-      "context": "His first long view into the interior.",
-      "suggested_use": [
-        "camp_page_reading"
-      ],
-      "tags": [
-        "view",
-        "snow"
-      ],
-      "transcribed_by": "Wikipedia",
-      "caution": "Weakest source in this file: Wikipedia dates the view to December 1889 near Mount Wilder, which does not fit the timeline. Verify before use."
+      "transcribed_by": "NPS Historic Resource Study (1983)",
+      "verify_2026_10_08": "Found verbatim in the fetched NPS Historic Resource Study (Evans 1983, ch. 1), a U.S. government publication quoting the Seattle Press of July 16, 1890. The 1890 page has not been seen; keep held back."
     }
   ],
   "quote_pool_notes": {
     "count_primary_verified": 54,
-    "count_secondary": 8,
+    "count_secondary": 1,
     "epitaph_fit": "The epitaph field is 40 characters (GAME_DESIGN 9.5). fits_epitaph_40 marks lines that fit as printed. Longer lines suit narrator asides and camp-page readings.",
     "epitaph_feature_suggestion": "For 'tap a random historical sentence': draw from quote_pool where fits_epitaph_40 is true and suggested_use includes 'epitaph', shown with a small credit line (e.g. 'C. A. Barnes, Jan. 14, 1890'). Skip lines with a caution unless the cause of death matches.",
-    "exactness": "Text is copied exactly as printed, including 1890 spellings (to-day, indorsement) and the 1907 misprint 'depts'. Each quote is a contiguous run of words; leading or trailing words were trimmed only at word boundaries."
+    "exactness": "Text is copied exactly as printed, including 1890 spellings (to-day, indorsement) and the 1907 misprint 'depts'. Each quote is a contiguous run of words; leading or trailing words were trimmed only at word boundaries.",
+    "removed_2026_10_08": "Seven secondary lines (s01-s06 from Peninsula Daily News articles of 2001 and 2009, s08 from Wikipedia) were removed: they had been copied from copyrighted modern articles or Wikipedia, not from a public-domain text. The facts they carried stay in the timeline and events. If the July 16, 1890 Seattle Press is ever read (UW Special Collections), lines can be taken from it directly."
   },
   "indigenous_notes": [
     {
@@ -3402,7 +3238,7 @@
     "Dr. Runnalls's first name (Harris vs Horace) and spelling (Runnalls/Runnals).",
     "Which two dogs went to Alaska is inferred (Tweed and Bud were the bear dogs); the 1890 source names none. Daisy's fate is unknown here.",
     "Name shifts (Barnes/Wilder/Childs, Ferry/Pulitzer, Lawson/Grady) come from Wikipedia and need checking in Wood or Parratt.",
-    "Wikipedia's date and place for Barnes's 'Range after range of peaks' view (December 1889 near Mount Wilder) do not fit the timeline.",
+    "Wikipedia's date and place for a Barnes line about his first long view of the interior (December 1889 near Mount Wilder) do not fit the timeline. The line itself was removed from the quote pool on 2026-10-08 because it was seen only on Wikipedia; recheck it against the 1890 Seattle Press.",
     "The Feb 28 bobcat/Wildcat Creek story comes only from Wikipedia (Cat Peak article).",
     "Exact location of Crumback's claim, the Rustler Creek confluence and Antrim's cabin relative to our nodes.",
     "Length of the Press report: 10 pages of seven columns (SDRU1890), 16 pages (P-I) or most of a 24-page edition (Fairhaven Herald).",
@@ -3449,7 +3285,7 @@
       "citation": "Washington Standard (Olympia), December 27, 1889, page 2, item credited to the Port Angeles Commonwealth.",
       "url": "https://www.loc.gov/resource/sn84022770/1889-12-27/ed-1/?sp=2",
       "public_domain": "Published in the United States in 1889 (before 1931); U.S. works published before 1931 are in the public domain.",
-      "verification": "Read against the page image (right edge of the column cropped; OCR fills the cut words)."
+      "verification": "Read against the page image on 2026-10-08; the quoted line is wholly visible."
     },
     {
       "id": "WS1890",
@@ -3465,7 +3301,7 @@
       "citation": "Mason County Journal (Shelton), January 31, 1890, page 5, dispatch credited to the Port Townsend Leader.",
       "url": "https://www.loc.gov/resource/sn88085081/1890-01-31/ed-1/?sp=5",
       "public_domain": "Published in the United States in 1890 (before 1931); U.S. works published before 1931 are in the public domain.",
-      "verification": "OCR checked against a partial page-image crop; the line ends were cut, so treat as OCR-plus-partial-check."
+      "verification": "Read against the full page image on 2026-10-08 (LOC IIIF): both quoted lines are wholly visible."
     },
     {
       "id": "MCJ1890b",

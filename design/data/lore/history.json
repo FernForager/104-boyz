@@ -2,7 +2,7 @@
  "file": "history.json",
  "schema_version": 1,
  "compiled_on": "2026-10-08",
- "status": "complete_first_pass: merged from wood_bibliography.json, press_expedition.json, oneil_expeditions.json and other_history.json, plus 129 fact cards written for this file.",
+ "status": "verified_2026_10_08 (see VERIFY.md): node ids checked against regions/*.json, card text checked against Wood's 1990 Columbia article and the fetched secondary and tribal sources; a few close paraphrases reworded. complete_first_pass: merged from wood_bibliography.json, press_expedition.json, oneil_expeditions.json and other_history.json, plus 129 fact cards written for this file.",
  "what_this_is": "The game's history knowledge base: people, expeditions, dated events, place-name origins and short fact cards keyed to park node ids. Much of it rests on the work of Robert L. Wood (1925-2003), the historian of how the Olympic Mountains were explored, whose facts are retold here in our own words and credited. No sentence of Wood's appears in this file. Verbatim lines from public-domain sources live in quotes_public_domain.json and are linked here by quote id.",
  "how_the_game_uses_it": {
   "look": "card.look: a Sierra second-person line for the Look pop-up on a scene (GAME_DESIGN 2.4). Under 30 words.",
@@ -32,7 +32,8 @@
    "title_only": "Only the title is known.",
    "contents_not_seen": "Unpublished; contents not seen.",
    "null": "Wood covers the topic; page not yet known."
-  }
+  },
+  "verified_2026_10_08": "Re-checked on 2026-10-08 (VERIFY.md): every string in this file was compared with Wood's 1990 Columbia article (the only Wood text online in full; his books on archive.org are lending copies whose text cannot be fetched) and with the fetched copyrighted secondary sources (HistoryLink, Peninsula Daily News, Seattle Times, American Alpine Journal, Wikipedia, tribal websites). No sentence is copied. Close paraphrases and a few 7-8 word runs were reworded; a verbatim phrase from a 1966 family history was paraphrased."
  },
  "credits": {
   "colophon_history_line": "The history in this game draws on the work of Robert L. Wood (1925-2003), historian of the exploration of the Olympic Mountains. No text from his books appears in this game; facts are retold in our own words.",
@@ -193,7 +194,8 @@
   "press_expedition.json": "Full Press Expedition research (route, 56 place names, sources).",
   "oneil_expeditions.json": "Full O'Neil research (52-entry timeline, members, mules).",
   "other_history.json": "Other parties, settlers, place names with full Meany entries, Indigenous notes.",
-  "LORE.md": "A short summary for the game's creator."
+  "LORE.md": "A short summary for the game's creator.",
+  "VERIFY.md": "What was checked, removed and changed on 2026-10-08."
  },
  "counts": {
   "fact_cards": 129,
@@ -208,7 +210,7 @@
   "cards_citing_wood": 68,
   "cards_with_look_line": 82,
   "cards_with_ranger_line": 14,
-  "cards_needing_tribal_consultation": 27
+  "cards_needing_tribal_consultation": 28
  },
  "fact_cards": [
   {
@@ -2369,8 +2371,8 @@
     "skyline_north_fork_trail_junction"
    ],
    "primary_node": "low_divide",
-   "text": "On May 5, 1890, the Press party came up between Mount Seattle and Mount Christie and named two small lakes, Mary and Margaret. At first they took the ground between the lakes for the divide. The true pass lay just beyond, a low saddle they called Elwha Pass. By a big rock, a hole in the snow showed water running south, away from the Elwha. They were over the top. Today the saddle is Low Divide.",
-   "words": 76,
+   "text": "On May 5, 1890, the Press party came up between Mount Seattle and Mount Christie and named two small lakes, Mary and Margaret. At first they took the ground between the lakes for the divide. The true pass lay just beyond, a low saddle they called Elwha Pass. Beside a big boulder they found an opening in the snow with water under it, flowing south, away from the Elwha. They were over the top. Today the saddle is Low Divide.",
+   "words": 80,
    "look": "You see a low saddle between two big mountains. Here, in May 1890, five tired men found water running the other way.",
    "ranger_line": "Low Divide. The Press party crossed it in May 1890 and named it Elwha Pass. Nobody calls it that now. The name didn't take; they did.",
    "uses": [
@@ -3393,8 +3395,8 @@
     "barnes_point_lodge"
    ],
    "primary_node": "barnes_point_lodge",
-   "text": "On the night of September 30, 1937, President Franklin Roosevelt stayed at a lodge on this lake. The next day he toured the loop road through Forks and past Lake Quinault, and he talked over where a new park's boundaries should run. Nine months later Congress created Olympic National Park. In 1946 the park was dedicated at another lakeside inn, the Rosemary.",
-   "words": 62,
+   "text": "On the night of September 30, 1937, President Franklin Roosevelt stayed at a lodge on this lake, and here he talked over where a new park's boundaries should run. The next day he toured the loop road through Forks and past Lake Quinault. Nine months later Congress created Olympic National Park. In 1946 the park was dedicated at another lakeside inn, the Rosemary.",
+   "words": 63,
    "uses": [
     "history_note",
     "camp_reading"
@@ -4697,8 +4699,8 @@
     "quillayute_needles"
    ],
    "primary_node": "la_push",
-   "text": "This coast is the homeland of the Quileute people, who say their land once reached from these beaches up the rain-forest rivers to the glaciers of Mount Olympus. Their language is not known to be related to any other. In 1889 a one-square-mile reservation was set aside at La Push. That same year a settler who claimed the land burned all twenty-six houses in the village. The Quileute Tribe lives at La Push today.",
-   "words": 74,
+   "text": "This coast is the homeland of the Quileute people, who say their country once ran from these beaches up the river valleys as far as the ice on Mount Olympus. No other language is known to be kin to theirs. In 1889 a one-square-mile reservation was set aside at La Push. That same year a settler who claimed the land burned all twenty-six houses in the village. The Quileute Tribe lives at La Push today.",
+   "words": 75,
    "uses": [
     "trailhead_kiosk",
     "history_note"
@@ -4853,7 +4855,10 @@
    "confidence": "high (the night is given as Jan. 2 or 3)",
    "flags": {
     "mentions_real_deaths": true,
-    "note": "A real grave. Quiet history only: never on a death page, never as a joke, and no game death should be placed here."
+    "note": "A real grave. Quiet history only: never on a death page, never as a joke, and no game death should be placed here. The card says local Native people helped the survivors; the source does not name them or their nation. The wreck lies in the Ozette country of the Makah; ask the Makah Tribe before the card ships, and do not invent or depict the helpers.",
+    "consult_before_use": [
+     "Makah Tribe"
+    ]
    },
    "basis": [
     "other:topic:shipwrecks",
@@ -5680,8 +5685,8 @@
     "honeymoon_meadows"
    ],
    "primary_node": "anderson_pass",
-   "text": "O'Neil named this mountain in 1890 for Colonel Thomas M. Anderson of his regiment, the 14th Infantry. He wrote that if it was not the highest mountain in the district, it was as important as any. A naturalist camped below it that September wrote that avalanches often woke him at night. The Mountaineers counted the climb of its east peak on August 5, 1920, by thirteen members led by Fairman B. Lee, as the first ascent.",
-   "words": 76,
+   "text": "O'Neil named this mountain in 1890 for Colonel Thomas M. Anderson of his regiment, the 14th Infantry. He wrote that if it was not the highest mountain in the district, it was as important as any. A naturalist who spent several nights that summer across the Quinault from its glacier wrote that avalanches often woke him. The Mountaineers counted the climb of its east peak on August 5, 1920, by thirteen members led by Fairman B. Lee, as the first ascent.",
+   "words": 81,
    "look": "You see Mount Anderson. An Army lieutenant named it for his colonel in 1890.",
    "uses": [
     "look",
@@ -6130,8 +6135,8 @@
     "six_ridge_trail_junction"
    ],
    "primary_node": "camp_pleasant",
-   "text": "Above the falls a box canyon about eighty feet wide stopped O'Neil's mules. The scouts crossed by swinging on a tree, but the pack train needed nearly a week of bridge-building. The men named the canyon Jumbo's Leap, for an old mastiff-hound who, Robert L. Wood wrote, jumped into it rather than be left behind. Jumbo had already won the men over on a hungry scouting trip.",
-   "words": 67,
+   "text": "Above the falls a box canyon about eighty feet wide stopped O'Neil's mules. The scouts crossed by swinging on a tree, but the pack train needed nearly a week of bridge-building. The men named the canyon Jumbo's Leap, after the expedition's old mastiff-hound; by Robert L. Wood's account, Jumbo went into it sooner than stay behind. The dog had already won the men over on a hungry scouting trip.",
+   "words": 69,
    "uses": [
     "camp_reading",
     "night_page"
@@ -6934,8 +6939,8 @@
     "north_fork_quinault_campground"
    ],
    "primary_node": "north_fork_quinault_trailhead",
-   "text": "On May 17, 1890, near where the North Fork meets the main Quinault, the Press party found an empty trapper's cabin. It was the first sign of other people they had seen in about eighty days. That night they ate the last of their flour. Soon after, their raft was swept under a driftwood jam. Barnes saved the pack with the journals, the negatives and the map.",
-   "words": 67,
+   "text": "On May 17, 1890, near where the North Fork meets the main Quinault, the Press party found an empty trapper's cabin. It was the first sign of other people they had seen in about eighty days. That night they ate the last of their flour. Soon after, their raft was swept under a driftwood jam. Barnes got one pack out of the water, and it held what mattered most: the journals, the negatives and the map.",
+   "words": 76,
    "look": "You see the North Fork running down to meet the main river. Five hungry men found an empty cabin near here in May 1890.",
    "uses": [
     "look",
@@ -12766,7 +12771,7 @@
    "date": "1890-04 (late)",
    "sort_key": "1890-04-00",
    "expedition_id": "press_1889_1890",
-   "event": "Climbing out of the Goldie with 75-lb packs through snow said to be up to 15 ft deep. From the high ground Christie and Barnes see over the divide ahead, and from then on it is 'one pack to a man', no more relaying.",
+   "event": "Climbing out of the Goldie with 75-lb packs through snow said to be up to 15 ft deep. From the high ground Christie and Barnes see over the divide ahead, and from then on each man carries a single pack; the relaying is over.",
    "node_ids": [
     "camp_wilder"
    ],
@@ -12957,7 +12962,7 @@
    "date": "1890-05-05",
    "sort_key": "1890-05-05",
    "expedition_id": "press_1889_1890",
-   "event": "They name Lake Mary and Lake Margaret and find the pass, which they call Elwha Pass (today's Low Divide, 3,602 ft in our data). A hole in the snow by a big rock shows water running south: they are over the top.",
+   "event": "They name Lake Mary and Lake Margaret and find the pass, which they call Elwha Pass (today's Low Divide, 3,602 ft in our data). Beside a big boulder, water seen through an opening in the snow is flowing south: they are over the top.",
    "node_ids": [
     "lake_margaret",
     "low_divide"
@@ -12999,7 +13004,7 @@
    "date": "1890-05-18 (approx.)",
    "sort_key": "1890-05-18",
    "expedition_id": "press_1889_1890",
-   "event": "Their raft is swept under a driftwood jam. They lose guns, ammunition, bear skins, fishing tackle and most rock samples. Barnes saves the pack with the journals, about 250 negatives and the map.",
+   "event": "Their raft is swept under a driftwood jam. They lose guns, ammunition, bear skins, fishing tackle and most rock samples. Barnes gets one pack out of the water, and it holds what matters most: the journals, about 250 negatives and the map.",
    "node_ids": [],
    "confidence": "medium",
    "sources": [
@@ -13273,7 +13278,7 @@
    "date": "1890-07-01/02",
    "sort_key": "1890-07-01",
    "expedition_id": "oneil_1890",
-   "event": "Overnight run down Hood Canal. No dock at the mouth of Lilliwaup Creek: supplies go ashore in small boats and the mules are pushed off the deck to swim. The trail to Lake Cushman, sold to them as good and six miles long, is steep, wet and choked with windfall. Henderson walks ahead alone, botanizing, and needs ten and a half hours. The main party camps in a swamp at 9 p.m. after about 2.5 miles; one mule wedges under a log and has to be cut out.",
+   "event": "Overnight run down Hood Canal. No dock at the mouth of Lilliwaup Creek: boats ferry the supplies to the beach and the mules are pushed off the deck to swim. The trail to Lake Cushman, sold to them as good and six miles long, is steep, wet and choked with windfall. Henderson walks ahead alone, botanizing, and needs ten and a half hours. The main party camps in a swamp at 9 p.m. after about 2.5 miles; one mule wedges under a log and has to be cut out.",
    "node_ids": [],
    "node_confidence": "none",
    "sources": [
@@ -19845,7 +19850,7 @@
    },
    {
     "topic": "Quileute (La Push, Rialto, Second and Third Beach)",
-    "note": "The Quileute Tribe says its homeland reached from the Pacific beaches up the rain-forest rivers to the glaciers of Mount Olympus, that the Quileute language is not known to be related to any other, and that its people signed the Treaty of Quinault River (1855) and the Treaty of Olympia (1856). A one-square-mile reservation at La Push was set aside on 22 February 1889; that year a settler burned all 26 houses in the village. The Tribe publishes 'Indian Country Etiquette' and a photography, video and sketching policy for tribal land.",
+    "note": "The Quileute Tribe says its homeland ran from the Pacific beaches up the river valleys as far as the ice on Mount Olympus, that no other language is known to be kin to Quileute, and that its people signed the Treaty of Quinault River (1855) and the Treaty of Olympia (1856). A one-square-mile reservation at La Push was set aside on 22 February 1889; that year a settler burned all 26 houses in the village. The Tribe publishes 'Indian Country Etiquette' and a photography, video and sketching policy for tribal land.",
     "sources": [
      "QUILEUTE_HOME",
      "QUILEUTE_HISTORY"
@@ -19918,7 +19923,7 @@
    },
    {
     "topic": "Skokomish / Twana (Hood Canal side)",
-    "note": "The Skokomish Indian Tribe's mission is to preserve 'the traditional values, and treaty rights of the Twana people'. Many east-side names (Quilcene, Duckabush, Dosewallips, Skokomish) are Twana words recorded by a missionary; their meanings in Meany should not be printed without the Tribe's review.",
+    "note": "The Skokomish Indian Tribe describes its purpose as keeping up Twana traditions and defending Twana treaty rights. Many east-side names (Quilcene, Duckabush, Dosewallips, Skokomish) are Twana words recorded by a missionary; their meanings in Meany should not be printed without the Tribe's review.",
     "sources": [
      "SKOKOMISH_HOME",
      "MEANY1923"
@@ -24869,7 +24874,323 @@
    "mount_storm_king",
    "storm_king_end_of_maintained_trail"
   ],
+  "why": {
+   "mount_storm_king": "real_incident area; history sits on the trailhead card",
+   "storm_king_end_of_maintained_trail": "real_incident area",
+   "aurora_divide": "only a trail-guide pointer in the research",
+   "lake_lillian": "name origin unknown"
+  },
   "note": "Notable = any node in the node indexes of oneil_expeditions.json, wood_bibliography.json or other_history.json, or on the Press route. Nodes listed here have place names, events or quotes in the node_index but no card yet."
+ },
+ "open_questions": {
+  "from_the_merge": [
+   {
+    "id": "q_t02_real_people",
+    "kind": "design_decision",
+    "question": "GAME_DESIGN's text lint (T02) allows real people only in the colophon, the Ranger's Bookshelf and epitaph credits. History cards name real historical figures (Christie, Barnes, O'Neil, the Humes brothers and others; flags.names_real_people). Allow named historical figures in text drawn from lore/history.json, or rewrite those cards with roles instead of names?",
+    "suggestion": "Add a lint exception for history cards: historical public figures named in cited history are not the 'real people' rule's concern (which is about living or private people and real incidents)."
+   },
+   {
+    "id": "q_epitaph_length",
+    "kind": "design_decision",
+    "question": "The brief suggested epitaphs of about 60 characters; GAME_DESIGN 9.5 fixes the field at 40. At 40, 47 lines are dealable; at 60, 99 would be (epitaph_ok).",
+    "suggestion": "Keep 40 for now; the epitaph_long lines are ready if the field ever grows."
+   },
+   {
+    "id": "q_wood_permission",
+    "kind": "design_decision",
+    "question": "A true 'random Robert Wood sentence' needs written permission from his rights holders (care of Mountaineers Books). Ask or not?",
+    "suggestion": "See LORE.md for how to ask. Licensed lines would go in lore/wood_licensed_lines.json."
+   },
+   {
+    "id": "q_geyser_valley",
+    "kind": "conflict",
+    "question": "Who named Geyser Valley? wood_bibliography.json credits 'Doc' Ludden (after 1906); the 1907 condensation of the 1890 Press report already explains the name by the 1890 noises, and a rival party wrote in Sept. 1890 that it heard no geysers. The 1890 name list printed in Sacramento does not include it.",
+    "suggestion": "Card follows the 1890 record; check Wood's Across the Olympic Mountains and his place-names memorandum."
+   },
+   {
+    "id": "q_staircase",
+    "kind": "conflict",
+    "question": "Staircase: from the 1890 expedition's 'staircase' over a bluff (an NPS audio tour, now offline, and wood_bibliography.json) or from the 1930s Staircase Resort (other_history.json)? Is Wood's 'Fisher's Bluff' the same bluff?",
+    "suggestion": "Card tells both stories. Check Men, Mules, and Mountains (Camp 2) and ask the park."
+   },
+   {
+    "id": "q_mount_wilder",
+    "kind": "uncertain",
+    "question": "Is today's Mount Wilder the Press party's 'Mount Barnes'? Only Wikipedia (after Parratt and Wood) says so; other_history.json calls 'Wilder' a Press name, but no Wilder is in the 1890 name list.",
+    "suggestion": "Check Across the Olympic Mountains."
+   },
+   {
+    "id": "q_field_guide",
+    "kind": "note",
+    "question": "The brief asked for 'field-guide history notes', but the field guide was retired on 2026-10-08.",
+    "suggestion": "Those cards are tagged history_note for Look and quiet pages."
+   },
+   {
+    "id": "q_memorials",
+    "kind": "design_decision",
+    "question": "The Norwegian and Chilean memorials are real graves of shipwrecked sailors. Should their nodes be tagged like real_incident sites, so no card there can end a book?",
+    "suggestion": "Yes: treat norwegian_memorial and chilean_memorial as no-death places."
+   },
+   {
+    "id": "q_tribes",
+    "kind": "consultation",
+    "question": "28 cards carry flags.consult_before_use naming a tribe (Makah, Quileute, Hoh, Quinault, Lower Elwha Klallam, Jamestown S'Klallam, Skokomish). They should not ship until the nation concerned has been asked.",
+    "suggestion": "Send each nation the cards that concern it, with the sources, and record the answer in history.json indigenous."
+   },
+   {
+    "id": "q_hoh_name_form",
+    "kind": "consultation",
+    "question": "The Hoh Tribe writes its name Chalá·at; the EGA bitmap font may not have the accent and raised dot, so the card uses 'Chala-at'.",
+    "suggestion": "Ask the Tribe which form it prefers, or add the glyphs to the font."
+   },
+   {
+    "id": "q_press_original",
+    "kind": "research",
+    "question": "The Seattle Press of July 16, 1890 has not been seen; Press quotes come from 1890 reprints and the 1907 condensation, and 8 diary lines are held back.",
+    "suggestion": "Ask UW Special Collections (speccoll@uw.edu) for a scan of the photostat in the Wood papers."
+   },
+   {
+    "id": "q_wood_pages",
+    "kind": "research",
+    "question": "Most Wood page numbers come from Evans's 1983 citations (locator_basis cited_by_evans_1983) or Google Books contents; only the 1990 Columbia article was read in full.",
+    "suggestion": "Borrow the Internet Archive copies (acrossolympicmou0000wood, menmulesmountain0000wood, trailcountryolym0000robe) and confirm before printing page numbers in the game."
+   },
+   {
+    "id": "q_current_conditions",
+    "kind": "research",
+    "question": "A few Look lines assume a structure still stands (Pyramid Peak lookout cabin, the CCC kitchens, Enchanted Valley Chalet after the 2020 study, historic shelters).",
+    "suggestion": "Confirm against the 2026 conditions overlay before those Look lines ship."
+   },
+   {
+    "id": "q_no_card_nodes",
+    "kind": "note",
+    "question": "Four notable nodes have no card on purpose: mount_storm_king and storm_king_end_of_maintained_trail (a real_incident area; history is on the trailhead card instead), aurora_divide (only a trail-guide pointer, no history), lake_lillian (name origin unknown).",
+    "suggestion": "Leave as is unless new facts turn up."
+   }
+  ],
+  "from_the_drafts": [
+   {
+    "from": "wood_bibliography.json",
+    "item": "Title and subject of Wood's article in The Mountaineer 1977 (pp. 49-57) not seen; probably on the O'Neil expeditions."
+   },
+   {
+    "from": "wood_bibliography.json",
+    "item": "Titles of Wood's Mountaineer 1980 piece on Preston P. Macy not seen."
+   },
+   {
+    "from": "wood_bibliography.json",
+    "item": "Publication details of 'The Goblin Gates Refound' (inventory OCR suggests a nature magazine, October 1954) unverified."
+   },
+   {
+    "from": "wood_bibliography.json",
+    "item": "Venue/date of 'Hiking the Skokomish' (Peninsula Daily News), 'Kloochman Rock', and the 1985 Frank O. Shaw memorial pieces unknown."
+   },
+   {
+    "from": "wood_bibliography.json",
+    "item": "Whether Wood wrote anything in the Olympic Mountain Rescue climbing guide: no evidence found; treat as not his."
+   },
+   {
+    "from": "wood_bibliography.json",
+    "item": "'Revised by Terry Wood' appears only in one library record for a 2004 printing of the 3rd-edition trail guide; unconfirmed."
+   },
+   {
+    "from": "wood_bibliography.json",
+    "item": "Trail Country page count: 298 p. (copyright entry, AAJ) vs xxi, 208 p. (Open Library)."
+   },
+   {
+    "from": "wood_bibliography.json",
+    "item": "Wood's move to Seattle: 1946 (UW finding aid) vs 1961 (Seattle Times death notice, seen only via search summary)."
+   },
+   {
+    "from": "wood_bibliography.json",
+    "item": "Identity of 'Bob Wood' in the 1961 Bailey Range first ascents (AAJ 1962) is inferred from the shared partner Doug Waali."
+   },
+   {
+    "from": "wood_bibliography.json",
+    "item": "Whether the Olympic Mountains Trail Guide covers the coastal beach routes is unverified."
+   },
+   {
+    "from": "wood_bibliography.json",
+    "item": "Whether Wood's Fisher's Bluff is the same bluff as the Staircase 'staircase' is our inference."
+   },
+   {
+    "from": "wood_bibliography.json",
+    "item": "Mountaineers Books permissions contact: no dedicated page found; mountaineers.org returned HTTP 403 to our fetcher; mbooks@mountaineersbooks.org seen only in search results."
+   },
+   {
+    "from": "wood_bibliography.json",
+    "item": "Whether UW Press retains any rights in the 1967 first edition of Across the Olympic Mountains."
+   },
+   {
+    "from": "wood_bibliography.json",
+    "item": "Page locators credited to Evans (1983) were not checked against Wood's books; Evans's 'Wood 1976' means Men, Mules and Mountains, but the Press-expedition pages he cites (201-220) should be confirmed."
+   },
+   {
+    "from": "wood_bibliography.json",
+    "item": "The two TODO research reads that would most improve this file: Wood's 'Memorandum on Certain Place Names in the Olympics' (UW accession 1991-002) and the tables of contents of ATOM, TC, MMM and OMTG (borrow via Internet Archive)."
+   },
+   {
+    "from": "press_expedition.json",
+    "item": "Departure date: Dec 7 (SDRU1890) vs Dec 8, 1889 (MTN1907, NPS HRS); arrival at Port Angeles Dec 8 or 9 (the Commonwealth's 'Monday' = Dec 9)."
+   },
+   {
+    "from": "press_expedition.json",
+    "item": "Boat dates: launched Dec 30 (Pat Neal) or Dec 31 (PDN 2009); abandoned about Jan 23 after 10-12 days; distance gained given as 4 or about 6 miles."
+   },
+   {
+    "from": "press_expedition.json",
+    "item": "Dr. Runnalls's first name (Harris vs Horace) and spelling (Runnalls/Runnals)."
+   },
+   {
+    "from": "press_expedition.json",
+    "item": "Which two dogs went to Alaska is inferred (Tweed and Bud were the bear dogs); the 1890 source names none. Daisy's fate is unknown here."
+   },
+   {
+    "from": "press_expedition.json",
+    "item": "Name shifts (Barnes/Wilder/Childs, Ferry/Pulitzer, Lawson/Grady) come from Wikipedia and need checking in Wood or Parratt."
+   },
+   {
+    "from": "press_expedition.json",
+    "item": "Wikipedia's date and place for a Barnes line about his first long view of the interior (December 1889 near Mount Wilder) do not fit the timeline. The line itself was removed from the quote pool on 2026-10-08 because it was seen only on Wikipedia; recheck it against the 1890 Seattle Press."
+   },
+   {
+    "from": "press_expedition.json",
+    "item": "The Feb 28 bobcat/Wildcat Creek story comes only from Wikipedia (Cat Peak article)."
+   },
+   {
+    "from": "press_expedition.json",
+    "item": "Exact location of Crumback's claim, the Rustler Creek confluence and Antrim's cabin relative to our nodes."
+   },
+   {
+    "from": "press_expedition.json",
+    "item": "Length of the Press report: 10 pages of seven columns (SDRU1890), 16 pages (P-I) or most of a 24-page edition (Fairhaven Herald)."
+   },
+   {
+    "from": "press_expedition.json",
+    "item": "Whether the party coined 'Goldie River' and 'Chicago Camp' (no source here says so; Chicago Camp is not attributed to them)."
+   },
+   {
+    "from": "press_expedition.json",
+    "item": "The bear episode's exact date and spot (Low Divide per The Seattle Times; 'past the divide' per PDN)."
+   },
+   {
+    "from": "oneil_expeditions.json",
+    "item": "Staircase place-name origin: commonly linked to the 1890 bridging of a river bluff near Camp 2 (and the wood_bibliography cites an NPS audio-tour page, now returning 404). Not confirmed against a current NPS or Board on Geographic Names source."
+   },
+   {
+    "from": "oneil_expeditions.json",
+    "item": "Whether 'Nine Stream' and the other numbered streams of the North Fork Skokomish relate to O'Neil's numbered camps: no source found."
+   },
+   {
+    "from": "oneil_expeditions.json",
+    "item": "Whether today's Fire Creek on the East Fork Quinault is the stream the Linsley party named in 1890: likely from Bretherton's description, unconfirmed."
+   },
+   {
+    "from": "oneil_expeditions.json",
+    "item": "Exact sites of Camps 5, 9, 14 and 15, Jumbo's Leap, Bruins Peak, Bretherton's Pass, Pluto's Gulch and the Garden of the Gods. Wood's maps in Men, Mules and Mountains would settle most of these; check before labeling nodes."
+   },
+   {
+    "from": "oneil_expeditions.json",
+    "item": "Which two upper-Duckabush lakes O'Neil named Francis and John."
+   },
+   {
+    "from": "oneil_expeditions.json",
+    "item": "Date conflicts: Camp 4 (O'Neil July 14, Henderson July 15); Linsley party departure (Bretherton Sept. 13, O'Neil Sept. 16); the 'thirteen days' search for the mule route; the pack train reaching the Quinault forks (O'Neil about Sept. 21-22, Wood Sept. 24)."
+   },
+   {
+    "from": "oneil_expeditions.json",
+    "item": "Party sizes: 1885 'eight men' (O'Neil) vs 'seven men' (Hanna) vs Evans's list; 1890 name spellings (Barnes/Bairens, Haffner's rank)."
+   },
+   {
+    "from": "oneil_expeditions.json",
+    "item": "The Olympus summit of Sept. 22, 1890: O'Neil gives 7,875 ft by aneroid, Bretherton 7,550 ft; Wood thought it a south-side crag, not the true summit."
+   },
+   {
+    "from": "oneil_expeditions.json",
+    "item": "O'Neil's 1885 report quotes depend on Evans's transcription (we did not see the manuscript)."
+   },
+   {
+    "from": "oneil_expeditions.json",
+    "item": "Victor Pass: same notch and same name origin as O'Neil's 'Victors Pass'? Likely, not confirmed."
+   },
+   {
+    "from": "other_history.json",
+    "item": "'The Banks party' in the brief: no Olympic party led by a Banks was found; treated as the 1889 Banta-Sharp party, with Mary Banks noted as 1907 historian."
+   },
+   {
+    "from": "other_history.json",
+    "item": "Mount Olympus Middle Peak first ascent: Evans (1983) gives 17 July 1907; Streator's 1920 list in The Mountaineer gives 'July 7, 1907'."
+   },
+   {
+    "from": "other_history.json",
+    "item": "Spruce Railroad completion: Evans gives 30 November 1918 for the last rail; other accounts differ. All agree it missed the war."
+   },
+   {
+    "from": "other_history.json",
+    "item": "Evans (1983) dates Roosevelt's Lake Crescent visit '31 September' 1937 (impossible); HistoryLink gives arrival 30 September and the loop tour 1 October 1937."
+   },
+   {
+    "from": "other_history.json",
+    "item": "W. J. Pirrie wreck (Chilean Memorial): number aboard (18-22), rig and flag differ between web sources; not checked against a primary record."
+   },
+   {
+    "from": "other_history.json",
+    "item": "Prince Arthur wreck: most sources say the night of 2 January 1903; a plaque text says 1 a.m. on 3 January."
+   },
+   {
+    "from": "other_history.json",
+    "item": "Dodger Point named for 'Dodger' Bender: one NPS inventory card; no second source."
+   },
+   {
+    "from": "other_history.json",
+    "item": "Morgenroth Lake named for Chris Morgenroth: probable, naming record not seen."
+   },
+   {
+    "from": "other_history.json",
+    "item": "Chicago Camp possibly named for the 1900 Field Columbian Museum (Chicago) party: hypothesis only."
+   },
+   {
+    "from": "other_history.json",
+    "item": "Lewis Meadow possibly named for ranger Charly Lewis (Huelsdonk's son-in-law): not confirmed."
+   },
+   {
+    "from": "other_history.json",
+    "item": "Staircase name: often said to come from an O'Neil 1890 'staircase' route; our sources only document Staircase Resort (1930s)."
+   },
+   {
+    "from": "other_history.json",
+    "item": "Hayden Pass, Marymere Falls (the falls themselves), Mount Storm King, Obstruction Point, Royal Basin, Deer Park, Rialto Beach, Ruby Beach and Kalaloch (meaning): origins not yet sourced in this file. Forks, Brinnon and Klahhane rest on search summaries of secondary sources."
+   },
+   {
+    "from": "other_history.json",
+    "item": "Cora Smith Eaton's East Peak climb: Banks's 1907 list says the second ascent was 15 August 1907; Streator's 1920 list says 13 August."
+   },
+   {
+    "from": "other_history.json",
+    "item": "Elwha and Glines Canyon dam heights (108 ft, 210 ft) and the 1980 tribal filing come from search summaries of HistoryLink and ASDSO, not read in full."
+   },
+   {
+    "from": "other_history.json",
+    "item": "Enchanted Valley Chalet: no signed final decision on removal found after the July 2020 EA; check the NPS planning page before stating its 2026 status beyond 'closed'."
+   },
+   {
+    "from": "other_history.json",
+    "item": "Meany's Native-language meanings (Elwha 'elk', Duckabush 'reddish face', Quilcene, Sequim, Skokomish, Sol Duc 'magic waters', Wynoochee 'shifting', Ediz Hook) are period non-Native reports; none is confirmed by a tribe."
+   },
+   {
+    "from": "other_history.json",
+    "item": "Meany gives Cushman's first name as 'Orvington'; other sources give 'Orrington' (not checked)."
+   },
+   {
+    "from": "other_history.json",
+    "item": "Grant Humes article pages: scan running heads say pp. 41-42; Evans's bibliography says pp. 11-12."
+   },
+   {
+    "from": "other_history.json",
+    "item": "Charly Lewis as first Forest Service ranger at Olympus Guard Station (1919): from a newspaper column via search summary."
+   }
+  ]
  },
  "sources": {
   "AAJ1962": {

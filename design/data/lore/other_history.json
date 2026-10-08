@@ -1,7 +1,7 @@
 {
  "lore_id": "other_history",
  "title": "Olympic Peninsula history beyond the Press and O'Neil expeditions: place names, explorers, settlers, the park, and the peninsula's nations",
- "status": "complete first pass (2026-10-08): 58 place-name entries (30 with verbatim Meany 1923 text), 27 history topics, 75 verified public-domain quotes; see uncertain_claims for open items",
+ "status": "complete first pass (2026-10-08): 58 place-name entries (30 with verbatim Meany 1923 text), 27 history topics, 75 verified public-domain quotes; see uncertain_claims for open items Verified 2026-10-08 (see VERIFY.md): every quote re-fetched and found verbatim in its public-domain source. Two tribal-website phrases and a 1966 family-history phrase were reworded.",
  "researched_on": "2026-10-08",
  "summary": "Facts and public-domain quotes for the whole park, keyed to node ids: verbatim place-name entries from Edmond S. Meany's Origin of Washington Geographic Names (1923); the Gilmans (1889-90, National Geographic 1896); Banta and Sharp and the Queets colony; Wickersham's Banner party and park map; the Higleys; 1890s prospectors and the 1894 record can on Dodwell-Rixon Pass; the Dodwell-Rixon USGS survey (Professional Paper 7, 1902); first ascents of Olympus (McGlone 1899, Parker-Browne 1907, The Mountaineers 1907) and The Mountaineers' 1907 and 1920 outings; the Humes brothers and upper Elwha settlers; John Huelsdonk; Ozette, Kestner and coast homesteaders; Forest Service rangers, shelters and fire lookouts; the CCC; Lake Crescent resorts and the Spruce Railroad; Sol Duc and Olympic hot springs; the Quinault chalets; the monument (1909), Franklin Roosevelt's 1937 visit and the park (1938); the Elwha dams and their removal; shipwreck memorials; and respectful notes on the eight treaty tribes.",
  "credit_line_for_game": "History notes draw on Edmond S. Meany (1923), The Mountaineer (1907-1920), S. C. Gilman (1896), USGS Professional Paper 7 (1902), Gail H. E. Evans's NPS Historic Resource Study (1983) and NPS National Register records, and on the work of Robert L. Wood (The Land That Slept Late, 1995; Trail Country, 1968; Men, Mules and Mountains, 1976). No text by Wood is reproduced.",
@@ -2328,7 +2328,7 @@
      "confidence": "high"
     },
     {
-     "fact": "Diet joke recorded by a family history: spuds and elk for breakfast, elk and spuds for lunch.",
+     "fact": "A 1966 family history (Fletcher, as cited by Evans) joked that meals on the Hoh were elk and potatoes, three times a day.",
      "sources": [
       "NPS_HRS1983_CH2"
      ],
@@ -2410,7 +2410,7 @@
      "confidence": "medium (Evans's dating)"
     },
     {
-     "fact": "On 22 February 1889 an executive order set aside a one-square-mile reservation at La Push; that same year a settler who had wrongly claimed the land burned all 26 Quileute houses there, destroying masks, baskets and regalia.",
+     "fact": "On 22 February 1889 an executive order set aside a one-square-mile reservation at La Push; that same year a settler with a false claim to the land burned all 26 Quileute houses there, destroying masks, baskets and regalia.",
      "sources": [
       "QUILEUTE_HISTORY"
      ],
@@ -3121,7 +3121,7 @@
   },
   {
    "topic": "Quileute (La Push, Rialto, Second and Third Beach)",
-   "note": "The Quileute Tribe says its homeland reached from the Pacific beaches up the rain-forest rivers to the glaciers of Mount Olympus, that the Quileute language is not known to be related to any other, and that its people signed the Treaty of Quinault River (1855) and the Treaty of Olympia (1856). A one-square-mile reservation at La Push was set aside on 22 February 1889; that year a settler burned all 26 houses in the village. The Tribe publishes 'Indian Country Etiquette' and a photography, video and sketching policy for tribal land.",
+   "note": "The Quileute Tribe says its homeland ran from the Pacific beaches up the river valleys as far as the ice on Mount Olympus, that no other language is known to be kin to Quileute, and that its people signed the Treaty of Quinault River (1855) and the Treaty of Olympia (1856). A one-square-mile reservation at La Push was set aside on 22 February 1889; that year a settler burned all 26 houses in the village. The Tribe publishes 'Indian Country Etiquette' and a photography, video and sketching policy for tribal land.",
    "sources": [
     "QUILEUTE_HOME",
     "QUILEUTE_HISTORY"
@@ -3191,7 +3191,7 @@
   },
   {
    "topic": "Skokomish / Twana (Hood Canal side)",
-   "note": "The Skokomish Indian Tribe's mission is to preserve 'the traditional values, and treaty rights of the Twana people'. Many east-side names (Quilcene, Duckabush, Dosewallips, Skokomish) are Twana words recorded by a missionary; their meanings in Meany should not be printed without the Tribe's review.",
+   "note": "The Skokomish Indian Tribe describes its purpose as keeping up Twana traditions and defending Twana treaty rights. Many east-side names (Quilcene, Duckabush, Dosewallips, Skokomish) are Twana words recorded by a missionary; their meanings in Meany should not be printed without the Tribe's review.",
    "sources": [
     "SKOKOMISH_HOME",
     "MEANY1923"

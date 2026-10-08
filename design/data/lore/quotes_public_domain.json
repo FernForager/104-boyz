@@ -2,13 +2,13 @@
  "file": "quotes_public_domain.json",
  "schema_version": 1,
  "compiled_on": "2026-10-08",
- "status": "complete_first_pass: merged from press_expedition.json, oneil_expeditions.json and other_history.json; every text copied byte-for-byte from those drafts.",
+ "status": "verified_2026_10_08: every quote re-fetched and found verbatim in its public-domain source (see VERIFY.md); seven held-back lines seen only in copyrighted modern articles or Wikipedia were removed. complete_first_pass: merged from press_expedition.json, oneil_expeditions.json and other_history.json; every text copied byte-for-byte from those drafts.",
  "what_this_is": "The game's pool of verbatim lines from public-domain sources: the 1889-90 Press Expedition (1890 newspapers and The Mountaineer of 1907), Lt. Joseph P. O'Neil's 1890 report (Senate Doc. 59, 1896) and his men's 1907 accounts, The Mountaineer of 1907-1920, S. C. Gilman (National Geographic, 1896), the USGS survey (1902), Meany's place names (1923) and Proclamation 869 (1909). It feeds the epitaph dice (GAME_DESIGN 9.5), narrator asides, camp readings and summit pages.",
  "rules": [
   "No line by Robert L. Wood is in this file, or ever may be: his books are in copyright (see wood_bibliography.json). Lines licensed from his rights holders, if any, would go in lore/wood_licensed_lines.json.",
   "Every line is printed exactly as fetched: 1890 spellings (to-day, indorsement), misprints ('depts'), [sic] spellings ('hurculean', 'Quinaiult') and lower-case starts are kept. Curly quotes were made straight; words split by end-of-line hyphens were joined. Two drop capitals were set in normal case (see 'normalization').",
   "public_domain_reason on each line says why: published in the United States before 1931, and/or a U.S. government work (17 U.S.C. 105).",
-  "Only lines with verification 'page_image_checked' may be dealt by the dice. Lines seen only in a modern transcription are in held_back and are never dealt.",
+  "Only lines with verification 'page_image_checked' may be dealt by the dice. A line seen only in a modern transcription stays in held_back and is never dealt; a held-back line must itself come from a fetched public-domain or U.S. government text (lines seen only in copyrighted modern articles were removed on 2026-10-08).",
   "A dealt line never mentions a death, an injury or a named person (GAME_DESIGN 9.5). The 'not_an_epitaph_because' field records why each short line was refused.",
   "Frame 'unknown land' and 'first to see' lines as 1890 attitudes, never as fact: the peninsula's tribes knew these mountains long before (see history.json indigenous)."
  ],
@@ -475,13 +475,21 @@
    "oneil_expeditions.json": 167,
    "other_history.json": 75
   },
-  "page_image_checked": 286,
+  "page_image_checked": 288,
   "fits_epitaph_40": 64,
   "drawable_now_40_chars": 47,
   "epitaph_ok_up_to_60_chars": 99,
   "with_a_cause_tag": 118,
-  "held_back_unverified": 8,
-  "duplicates_found": 0
+  "held_back_unverified": 1,
+  "duplicates_found": 0,
+  "verified_2026_10_08": {
+   "quotes_checked": 296,
+   "verbatim_in_fetched_text": 268,
+   "ocr_noise_only_checked_on_page_image": 28,
+   "quotes_removed": 0,
+   "held_back_removed": 7,
+   "held_back_kept": 1
+  }
  },
  "sources": {
   "COLLIERS1909": {
@@ -509,7 +517,7 @@
    "citation": "Mason County Journal (Shelton), January 31, 1890, page 5, dispatch credited to the Port Townsend Leader.",
    "url": "https://www.loc.gov/resource/sn88085081/1890-01-31/ed-1/?sp=5",
    "public_domain": "Published in the United States in 1890 (before 1931); U.S. works published before 1931 are in the public domain.",
-   "verification": "OCR checked against a partial page-image crop; the line ends were cut, so treat as OCR-plus-partial-check.",
+   "verification": "Read against the page image on 2026-10-08: both quoted lines are fully visible on the LOC IIIF image (an earlier partial crop had cut the line ends).",
    "type": "primary_newspaper_public_domain"
   },
   "MEANY1923": {
@@ -614,18 +622,6 @@
    "public_domain": "Two layers, both public domain: (1) O'Neil's 1885 report is an official report written by a U.S. Army officer in the course of his duties, a U.S. government work; (2) the transcription we copied is in Gail H. E. Evans, Historic Resource Study: Olympic National Park (National Park Service, 1983), also a U.S. government work (17 U.S.C. 105).",
    "how_verified": "Copied from the Evans web transcription only. We did not see the 1885 manuscript. The 1885 report was never printed in the 19th century (the 1896 Senate letter says it was not even on file at department headquarters); Wood's Men, Mules and Mountains used it. Treat the page numbers as Evans's."
   },
-  "PDN2001": {
-   "citation": "Keith Thorpe, \"Narrow canyon comes alive with images of 'demons',\" Peninsula Daily News, June 22, 2001 (Goblin Gates).",
-   "url": "https://peninsuladailynews.com/news/narrow-canyon-comes-alive-with-images-of-demons",
-   "public_domain": "Copyrighted article: facts only. Barnes's 1890 words it transcribes are listed as secondary transcriptions.",
-   "type": "copyrighted_secondary_facts_only"
-  },
-  "PDN2009c": {
-   "citation": "John Kendall, \"Press Expedition remembered III: Arrival on the other side of the Olympic Mountains,\" Peninsula Daily News, December 2009.",
-   "url": "https://peninsuladailynews.com/news/press-expedition-remembered-iii-arrival-on-the-other-side-of-the-olympic-mountains",
-   "public_domain": "Copyrighted article: facts only, paraphrased. Short 1890 quotations it transcribes are listed as secondary transcriptions.",
-   "type": "copyrighted_secondary_facts_only"
-  },
   "PROC869": {
    "citation": "Theodore Roosevelt, Proclamation 869, Mount Olympus National Monument, March 2, 1909, 35 Stat. 2247.",
    "url": "https://www.govinfo.gov/content/pkg/STATUTE-35/pdf/STATUTE-35-Pg2247.pdf",
@@ -685,7 +681,7 @@
    "citation": "Washington Standard (Olympia), December 27, 1889, page 2, item credited to the Port Angeles Commonwealth.",
    "url": "https://www.loc.gov/resource/sn84022770/1889-12-27/ed-1/?sp=2",
    "public_domain": "Published in the United States in 1889 (before 1931); U.S. works published before 1931 are in the public domain.",
-   "verification": "Read against the page image (right edge of the column cropped; OCR fills the cut words).",
+   "verification": "Read against the page image on 2026-10-08; the quoted line is fully visible.",
    "type": "primary_newspaper_public_domain"
   },
   "WS1890": {
@@ -734,6 +730,12 @@
    "origin": {
     "file": "other_history.json",
     "id": "oh_q01"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://archive.org/download/originofwashingt0000mean/originofwashingt0000mean_djvu.txt (scan text) and page images",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -772,6 +774,12 @@
    "origin": {
     "file": "other_history.json",
     "id": "oh_q02"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://archive.org/download/originofwashingt0000mean/originofwashingt0000mean_djvu.txt (scan text) and page images",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -812,6 +820,12 @@
    "origin": {
     "file": "other_history.json",
     "id": "oh_q03"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://archive.org/download/originofwashingt0000mean/originofwashingt0000mean_djvu.txt (scan text) and page images",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -851,6 +865,12 @@
    "origin": {
     "file": "other_history.json",
     "id": "oh_q04"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://archive.org/download/originofwashingt0000mean/originofwashingt0000mean_djvu.txt (scan text) and page images",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -890,6 +910,12 @@
    "origin": {
     "file": "other_history.json",
     "id": "oh_q05"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://archive.org/download/originofwashingt0000mean/originofwashingt0000mean_djvu.txt (scan text) and page images",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -929,6 +955,12 @@
    "origin": {
     "file": "other_history.json",
     "id": "oh_q06"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://archive.org/download/originofwashingt0000mean/originofwashingt0000mean_djvu.txt (scan text) and page images",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -967,6 +999,12 @@
    "origin": {
     "file": "other_history.json",
     "id": "oh_q07"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://archive.org/download/originofwashingt0000mean/originofwashingt0000mean_djvu.txt (scan text) and page images",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -1005,6 +1043,12 @@
    "origin": {
     "file": "other_history.json",
     "id": "oh_q08"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://archive.org/download/originofwashingt0000mean/originofwashingt0000mean_djvu.txt (scan text) and page images",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -1048,6 +1092,12 @@
    "origin": {
     "file": "other_history.json",
     "id": "oh_q09"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://archive.org/download/originofwashingt0000mean/originofwashingt0000mean_djvu.txt (scan text) and page images",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -1086,6 +1136,12 @@
    "origin": {
     "file": "other_history.json",
     "id": "oh_q10"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://archive.org/download/originofwashingt0000mean/originofwashingt0000mean_djvu.txt (scan text) and page images",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -1125,6 +1181,12 @@
    "origin": {
     "file": "other_history.json",
     "id": "oh_q11"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://archive.org/download/originofwashingt0000mean/originofwashingt0000mean_djvu.txt (scan text) and page images",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -1163,6 +1225,12 @@
    "origin": {
     "file": "other_history.json",
     "id": "oh_q12"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://archive.org/download/originofwashingt0000mean/originofwashingt0000mean_djvu.txt (scan text) and page images",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -1202,6 +1270,12 @@
    "origin": {
     "file": "other_history.json",
     "id": "oh_q13"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://archive.org/download/originofwashingt0000mean/originofwashingt0000mean_djvu.txt (scan text) and page images",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -1240,6 +1314,12 @@
    "origin": {
     "file": "other_history.json",
     "id": "oh_q14"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://archive.org/download/originofwashingt0000mean/originofwashingt0000mean_djvu.txt (scan text) and page images",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -1283,6 +1363,12 @@
    "origin": {
     "file": "other_history.json",
     "id": "oh_q15"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://archive.org/download/originofwashingt0000mean/originofwashingt0000mean_djvu.txt (scan text) and page images",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -1324,6 +1410,12 @@
    "origin": {
     "file": "other_history.json",
     "id": "oh_q16"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/m-v1n2-1907-3.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -1369,6 +1461,12 @@
    "origin": {
     "file": "other_history.json",
     "id": "oh_q17"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/m-v1n2-1907-3.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -1411,6 +1509,12 @@
    "origin": {
     "file": "other_history.json",
     "id": "oh_q18"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/m-v1n2-1907-3.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -1453,6 +1557,12 @@
    "origin": {
     "file": "other_history.json",
     "id": "oh_q19"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/m-v1n2-1907-3.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -1493,6 +1603,12 @@
    "origin": {
     "file": "other_history.json",
     "id": "oh_q20"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/m-v1n2-1907-3.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -1534,6 +1650,12 @@
    "origin": {
     "file": "other_history.json",
     "id": "oh_q21"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/m-v1n3-1907-2.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -1573,6 +1695,12 @@
    "origin": {
     "file": "other_history.json",
     "id": "oh_q22"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/m-v1n3-1907-2.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -1611,6 +1739,12 @@
    "origin": {
     "file": "other_history.json",
     "id": "oh_q23"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/m-v1n3-1907-2.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -1650,6 +1784,12 @@
    "origin": {
     "file": "other_history.json",
     "id": "oh_q24"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/m-v1n3-1907-2.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -1687,6 +1827,12 @@
    "origin": {
     "file": "other_history.json",
     "id": "oh_q25"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/m-v1n3-1907-2.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -1724,6 +1870,12 @@
    "origin": {
     "file": "other_history.json",
     "id": "oh_q26"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/m-v1n3-1907-2.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -1765,6 +1917,12 @@
    "origin": {
     "file": "other_history.json",
     "id": "oh_q27"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/m-v1n3-1907-2.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -1810,6 +1968,12 @@
    "origin": {
     "file": "other_history.json",
     "id": "oh_q28"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/m-v1n3-1907-2.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -1848,6 +2012,12 @@
    "origin": {
     "file": "other_history.json",
     "id": "oh_q29"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/m-v1n3-1907-3.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -1901,6 +2071,12 @@
    "origin": {
     "file": "other_history.json",
     "id": "oh_q30"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/m-v1n3-1907-3.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -1941,6 +2117,12 @@
    "origin": {
     "file": "other_history.json",
     "id": "oh_q31"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/m-v1n3-1907-3.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -1982,6 +2164,12 @@
    "origin": {
     "file": "other_history.json",
     "id": "oh_q32"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/m-v1n3-1907-3.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -2024,6 +2212,12 @@
    "origin": {
     "file": "other_history.json",
     "id": "oh_q33"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/m-v1n3-1907-3.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -2064,6 +2258,12 @@
    "origin": {
     "file": "other_history.json",
     "id": "oh_q34"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/m-v1n3-1907-3.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -2100,6 +2300,12 @@
    "origin": {
     "file": "other_history.json",
     "id": "oh_q35"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/m-v1n3-1907-3.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -2140,6 +2346,12 @@
    "origin": {
     "file": "other_history.json",
     "id": "oh_q36"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/m-v1n3-1907-4.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -2181,6 +2393,12 @@
    "origin": {
     "file": "other_history.json",
     "id": "oh_q37"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/m-v1n3-1907-4.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -2223,6 +2441,12 @@
    "origin": {
     "file": "other_history.json",
     "id": "oh_q38"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/m-v1n3-1907-4.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -2262,6 +2486,12 @@
    "origin": {
     "file": "other_history.json",
     "id": "oh_q39"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/m-v1n3-1907-4.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -2302,6 +2532,12 @@
    "origin": {
     "file": "other_history.json",
     "id": "oh_q40"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/m-v1n3-1907-4.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -2343,6 +2579,12 @@
    "origin": {
     "file": "other_history.json",
     "id": "oh_q41"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/m-v1n3-1907-4.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -2382,6 +2624,12 @@
    "origin": {
     "file": "other_history.json",
     "id": "oh_q42"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/m-v1n3-1907-4.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -2419,6 +2667,12 @@
    "origin": {
     "file": "other_history.json",
     "id": "oh_q43"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/m-v1n3-1907-4.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -2457,6 +2711,12 @@
    "origin": {
     "file": "other_history.json",
     "id": "oh_q44"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/m-v1n1-1907-1.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -2495,6 +2755,12 @@
    "origin": {
     "file": "other_history.json",
     "id": "oh_q45"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/m-v1n1-1907-1.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -2534,6 +2800,12 @@
    "origin": {
     "file": "other_history.json",
     "id": "oh_q46"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/m-v1n2-1907-5.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -2571,6 +2843,12 @@
    "origin": {
     "file": "other_history.json",
     "id": "oh_q47"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/m-v1n2-1907-5.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -2610,6 +2888,12 @@
    "origin": {
     "file": "other_history.json",
     "id": "oh_q48"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/m-v1n2-1907-2.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -2650,6 +2934,12 @@
    "origin": {
     "file": "other_history.json",
     "id": "oh_q49"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/m-v1n2-1907-2.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -2687,6 +2977,12 @@
    "origin": {
     "file": "other_history.json",
     "id": "oh_q50"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/m-v1n3-1907-5.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -2727,6 +3023,12 @@
    "origin": {
     "file": "other_history.json",
     "id": "oh_q51"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/m-v2-1909.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -2774,6 +3076,12 @@
    "origin": {
     "file": "other_history.json",
     "id": "oh_q52"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/c-v42-apr-1909.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -2813,6 +3121,12 @@
    "origin": {
     "file": "other_history.json",
     "id": "oh_q53"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/m-v13n1-1920.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -2853,6 +3167,12 @@
    "origin": {
     "file": "other_history.json",
     "id": "oh_q54"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/m-v13n1-1920.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -2892,6 +3212,12 @@
    "origin": {
     "file": "other_history.json",
     "id": "oh_q55"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/m-v13n1-1920.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -2930,6 +3256,12 @@
    "origin": {
     "file": "other_history.json",
     "id": "oh_q56"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/m-v13n1-1920.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -2971,6 +3303,12 @@
    "origin": {
     "file": "other_history.json",
     "id": "oh_q57"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/m-v13n1-1920.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -3009,6 +3347,12 @@
    "origin": {
     "file": "other_history.json",
     "id": "oh_q58"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/m-v13n1-1920.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -3049,6 +3393,12 @@
    "origin": {
     "file": "other_history.json",
     "id": "oh_q59"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/m-v13n1-1920.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -3088,6 +3438,12 @@
    "origin": {
     "file": "other_history.json",
     "id": "oh_q60"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://archive.org/download/sim_national-geographic_1896-04_7_4/sim_national-geographic_1896-04_7_4_djvu.txt (scan text)",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -3129,6 +3485,12 @@
    "origin": {
     "file": "other_history.json",
     "id": "oh_q61"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://archive.org/download/sim_national-geographic_1896-04_7_4/sim_national-geographic_1896-04_7_4_djvu.txt (scan text)",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -3170,6 +3532,12 @@
    "origin": {
     "file": "other_history.json",
     "id": "oh_q62"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://archive.org/download/sim_national-geographic_1896-04_7_4/sim_national-geographic_1896-04_7_4_djvu.txt (scan text)",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -3208,6 +3576,12 @@
    "origin": {
     "file": "other_history.json",
     "id": "oh_q63"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://archive.org/download/sim_national-geographic_1896-04_7_4/sim_national-geographic_1896-04_7_4_djvu.txt (scan text)",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -3247,6 +3621,12 @@
    "origin": {
     "file": "other_history.json",
     "id": "oh_q64"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://archive.org/download/sim_national-geographic_1896-04_7_4/sim_national-geographic_1896-04_7_4_djvu.txt (scan text)",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -3289,6 +3669,12 @@
    "origin": {
     "file": "other_history.json",
     "id": "oh_q65"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://archive.org/download/sim_national-geographic_1896-04_7_4/sim_national-geographic_1896-04_7_4_djvu.txt (scan text)",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -3327,6 +3713,12 @@
    "origin": {
     "file": "other_history.json",
     "id": "oh_q66"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://archive.org/download/sim_national-geographic_1896-04_7_4/sim_national-geographic_1896-04_7_4_djvu.txt (scan text)",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -3367,6 +3759,12 @@
    "origin": {
     "file": "other_history.json",
     "id": "oh_q67"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://archive.org/download/sim_national-geographic_1896-04_7_4/sim_national-geographic_1896-04_7_4_djvu.txt (scan text)",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -3407,6 +3805,12 @@
    "origin": {
     "file": "other_history.json",
     "id": "oh_q68"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://archive.org/download/sim_national-geographic_1896-04_7_4/sim_national-geographic_1896-04_7_4_djvu.txt (scan text)",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -3446,6 +3850,12 @@
    "origin": {
     "file": "other_history.json",
     "id": "oh_q69"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://pubs.usgs.gov/pp/0007/report.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -3488,6 +3898,12 @@
    "origin": {
     "file": "other_history.json",
     "id": "oh_q70"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://pubs.usgs.gov/pp/0007/report.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -3535,6 +3951,12 @@
    "origin": {
     "file": "other_history.json",
     "id": "oh_q71"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://pubs.usgs.gov/pp/0007/report.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -3576,6 +3998,12 @@
    "origin": {
     "file": "other_history.json",
     "id": "oh_q72"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://pubs.usgs.gov/pp/0007/report.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -3615,6 +4043,12 @@
    "origin": {
     "file": "other_history.json",
     "id": "oh_q73"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://pubs.usgs.gov/pp/0007/report.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -3656,6 +4090,12 @@
    "origin": {
     "file": "other_history.json",
     "id": "oh_q74"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/STATUTE-35/pdf/STATUTE-35-Pg2247.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ. Checked against the text layer of the Statutes at Large PDF from govinfo.gov.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -3696,6 +4136,12 @@
    "origin": {
     "file": "other_history.json",
     "id": "oh_q75"
+   },
+   "verify_2026_10_08": {
+    "result": "ocr_noise_only_checked_on_page_image",
+    "fetched": "https://www.govinfo.gov/content/pkg/STATUTE-35/pdf/STATUTE-35-Pg2247.pdf",
+    "notes": "The PDF text layer interrupts the line with the margin note 'Vol. 34, p. 3306.' between 'unusual' and 'scientific'; the printed sentence is unbroken (checked on the page image). Checked against the text layer of the Statutes at Large PDF from govinfo.gov.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -3741,6 +4187,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq001"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -3783,6 +4235,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq002"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -3822,6 +4280,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq003"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -3858,6 +4322,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq004"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -3897,6 +4367,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq005"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -3937,6 +4413,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq006"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -3977,6 +4459,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq007"
+   },
+   "verify_2026_10_08": {
+    "result": "ocr_noise_only_checked_on_page_image",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "OCR reads the opening quote mark as 'UB.'; the page image shows “B. C.,” (curly quotes made straight).",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -4018,6 +4506,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq008"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -4059,6 +4553,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq009"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -4099,6 +4599,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq010"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -4137,6 +4643,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq011"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -4176,6 +4688,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq012"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -4218,6 +4736,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq013"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -4258,6 +4782,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq014"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -4299,6 +4829,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq015"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -4340,6 +4876,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq016"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -4380,6 +4922,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq017"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -4417,6 +4965,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq018"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -4458,6 +5012,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq019"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -4501,6 +5061,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq020"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -4540,6 +5106,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq021"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -4578,6 +5150,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq022"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -4617,6 +5195,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq023"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -4654,6 +5238,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq024"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -4692,6 +5282,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq025"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -4733,6 +5329,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq026"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -4776,6 +5378,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq027"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -4814,6 +5422,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq028"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -4854,6 +5468,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq029"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -4894,6 +5514,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq030"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -4935,6 +5561,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq031"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -4971,6 +5603,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq032"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -5007,6 +5645,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq033"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -5045,6 +5689,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq034"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -5084,6 +5734,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq035"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -5122,6 +5778,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq036"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -5160,6 +5822,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq037"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -5199,6 +5867,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq038"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -5238,6 +5912,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq039"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -5277,6 +5957,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq040"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -5320,6 +6006,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq041"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -5368,6 +6060,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq042"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -5408,6 +6106,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq043"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -5449,6 +6153,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq044"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -5488,6 +6198,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq045"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -5523,6 +6239,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq046"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -5563,6 +6285,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq047"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -5600,6 +6328,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq048"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -5642,6 +6376,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq049"
+   },
+   "verify_2026_10_08": {
+    "result": "ocr_noise_only_checked_on_page_image",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "OCR reads 'I believe' as '1 believe'; the page image shows 'I believe'.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -5682,6 +6422,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq050"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -5726,6 +6472,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq051"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -5763,6 +6515,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq052"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -5805,6 +6563,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq053"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -5847,6 +6611,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq054"
+   },
+   "verify_2026_10_08": {
+    "result": "ocr_noise_only_checked_on_page_image",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "OCR reads 'Each' as 'Bach'; the page image shows 'Each'.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -5886,6 +6656,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq055"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -5926,6 +6702,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq056"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -5963,6 +6745,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq057"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -6003,6 +6791,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq058"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -6044,6 +6838,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq059"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -6083,6 +6883,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq060"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -6123,6 +6929,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq061"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -6164,6 +6976,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq062"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -6201,6 +7019,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq063"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -6242,6 +7066,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq064"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -6280,6 +7110,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq065"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -6321,6 +7157,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq066"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -6364,6 +7206,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq067"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -6400,6 +7248,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq068"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -6441,6 +7295,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq069"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -6482,6 +7342,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq070"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -6521,6 +7387,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq071"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -6557,6 +7429,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq072"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -6598,6 +7476,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq073"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -6638,6 +7522,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq074"
+   },
+   "verify_2026_10_08": {
+    "result": "ocr_noise_only_checked_on_page_image",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "OCR reads 'us' as 'as'; the page image shows 'us'.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -6678,6 +7568,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq075"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -6715,6 +7611,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq076"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -6755,6 +7657,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq077"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -6795,6 +7703,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq078"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -6833,6 +7747,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq079"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -6872,6 +7792,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq080"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -6911,6 +7837,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq081"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -6952,6 +7884,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq082"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ. The print has em dashes ('Game—elk and deer—were'); the text layer shows hyphens.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -6989,6 +7927,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq083"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -7024,6 +7968,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq084"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -7063,6 +8013,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq085"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -7105,6 +8061,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq086"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -7142,6 +8104,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq087"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -7186,6 +8154,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq088"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -7222,6 +8196,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq089"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -7259,6 +8239,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq090"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -7300,6 +8286,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq091"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -7339,6 +8331,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq092"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -7375,6 +8373,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq093"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -7411,6 +8415,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq094"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -7448,6 +8458,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq095"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -7492,6 +8508,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq096"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -7534,6 +8556,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq097"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -7570,6 +8598,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq098"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -7614,6 +8648,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq099"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -7658,6 +8698,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq100"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -7695,6 +8741,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq101"
+   },
+   "verify_2026_10_08": {
+    "result": "ocr_noise_only_checked_on_page_image",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "OCR reads 'was' as 'wTas'; the page image shows 'was'.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -7733,6 +8785,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq102"
+   },
+   "verify_2026_10_08": {
+    "result": "ocr_noise_only_checked_on_page_image",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "OCR reads 'protect' as 'iirotect'; the page image shows 'protect'.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -7770,6 +8828,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq103"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -7810,6 +8874,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq104"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -7850,6 +8920,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq105"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -7887,6 +8963,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq106"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -7924,6 +9006,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq107"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -7966,6 +9054,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq108"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/sp-v1n4-1907.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -8007,6 +9101,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq109"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/sp-v1n4-1907.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -8046,6 +9146,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq110"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/sp-v1n4-1907.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ. The text layer shows a period after 'yellowjackets'; the page image shows a comma, as quoted.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -8082,6 +9188,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq111"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/sp-v1n4-1907.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -8119,6 +9231,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq112"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/sp-v1n4-1907.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -8157,6 +9275,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq113"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/sp-v1n4-1907.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -8200,6 +9324,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq114"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/sp-v1n4-1907.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -8240,6 +9370,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq115"
+   },
+   "verify_2026_10_08": {
+    "result": "ocr_noise_only_checked_on_page_image",
+    "fetched": "https://npshistory.com/publications/olym/sp-v1n4-1907.pdf",
+    "notes": "OCR reads 'a scrap' as '8 scrap'; the page image shows 'a scrap'.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -8279,6 +9415,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq116"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/sp-v1n4-1907.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -8322,6 +9464,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq117"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/sp-v1n4-1907.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -8360,6 +9508,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq118"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/sp-v1n4-1907.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -8399,6 +9553,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq119"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/sp-v1n4-1907.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -8437,6 +9597,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq120"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/sp-v1n4-1907.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -8475,6 +9641,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq121"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/sp-v1n4-1907.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -8513,6 +9685,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq122"
+   },
+   "verify_2026_10_08": {
+    "result": "ocr_noise_only_checked_on_page_image",
+    "fetched": "https://npshistory.com/publications/olym/sp-v1n4-1907.pdf",
+    "notes": "OCR reads 'clinging ... and' as 'd i n g i n g ... ami'; the page image shows 'clinging ... and'.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -8554,6 +9732,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq123"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/sp-v1n4-1907.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -8593,6 +9777,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq124"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/sp-v1n4-1907.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ. OCR capitalizes 'In'; the page image shows 'in'.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -8635,6 +9825,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq125"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/sp-v1n4-1907.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -8680,6 +9876,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq126"
+   },
+   "verify_2026_10_08": {
+    "result": "ocr_noise_only_checked_on_page_image",
+    "fetched": "https://npshistory.com/publications/olym/sp-v1n4-1907.pdf",
+    "notes": "OCR reads 'ice.' as 'ie'; the page image shows 'ice.'",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -8719,6 +9921,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq127"
+   },
+   "verify_2026_10_08": {
+    "result": "ocr_noise_only_checked_on_page_image",
+    "fetched": "https://npshistory.com/publications/olym/sp-v1n4-1907.pdf",
+    "notes": "OCR reads 'cards' as 'curds'; the page image shows 'cards'.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -8758,6 +9966,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq128"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/sp-v1n4-1907.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ. OCR capitalizes 'Other'; the page image shows 'other'.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -8796,6 +10010,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq129"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/sp-v1n4-1907.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -8834,6 +10054,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq130"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/sp-v1n4-1907.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -8871,6 +10097,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq131"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/sp-v1n4-1907.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -8907,6 +10139,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq132"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/sp-v1n4-1907.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -8946,6 +10184,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq133"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/sp-v1n4-1907.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -8983,6 +10227,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq134"
+   },
+   "verify_2026_10_08": {
+    "result": "ocr_noise_only_checked_on_page_image",
+    "fetched": "https://npshistory.com/publications/olym/sp-v1n4-1907.pdf",
+    "notes": "OCR reads 'be cut ... out' as 'he cut ... o u t'; the page image shows 'be cut ... out!'",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -9020,6 +10270,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq135"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/sp-v1n4-1907.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -9060,6 +10316,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq136"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/sp-v1n4-1907.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -9099,6 +10361,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq137"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/sp-v1n4-1907.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -9136,6 +10404,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq138"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/sp-v1n4-1907.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -9173,6 +10447,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq139"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/sp-v1n4-1907.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -9210,6 +10490,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq140"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/sp-v1n4-1907.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -9247,6 +10533,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq141"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/sp-v1n4-1907.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -9285,6 +10577,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq142"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/sp-v1n4-1907.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -9323,6 +10621,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq143"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/sp-v1n4-1907.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -9362,6 +10666,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq144"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/sp-v1n4-1907.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -9398,6 +10708,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq145"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/sp-v1n4-1907.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -9438,6 +10754,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq146"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/sp-v1n4-1907.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -9476,6 +10798,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq147"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/sp-v1n4-1907.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -9513,6 +10841,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq148"
+   },
+   "verify_2026_10_08": {
+    "result": "ocr_noise_only_checked_on_page_image",
+    "fetched": "https://npshistory.com/publications/olym/sp-v1n4-1907.pdf",
+    "notes": "OCR reads 'mastiff-hound' as 'mastiff-bound'; the page image shows 'mastiff-hound'.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -9551,6 +10885,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq149"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/sp-v1n4-1907.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -9592,6 +10932,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq150"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/sp-v1n4-1907.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -9632,6 +10978,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq151"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/sp-v1n4-1907.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -9670,6 +11022,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq152"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/sp-v1n4-1907.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -9708,6 +11066,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq153"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/sp-v1n4-1907.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -9745,6 +11109,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq154"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/sp-v1n4-1907.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -9782,6 +11152,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq155"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/sp-v1n4-1907.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -9820,6 +11196,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq156"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/sp-v1n4-1907.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -9860,6 +11242,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq157"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/sp-v1n4-1907.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -9898,6 +11286,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq158"
+   },
+   "verify_2026_10_08": {
+    "result": "ocr_noise_only_checked_on_page_image",
+    "fetched": "https://npshistory.com/publications/olym/sp-v1n4-1907.pdf",
+    "notes": "OCR reads 'Frenchy' as 'Frencby'; the page image shows 'Frenchy'.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -9935,6 +11329,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq159"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/sp-v1n4-1907.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -9972,6 +11372,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq160"
+   },
+   "verify_2026_10_08": {
+    "result": "ocr_noise_only_checked_on_page_image",
+    "fetched": "https://npshistory.com/publications/olym/sp-v1n4-1907.pdf",
+    "notes": "OCR reads 'be a' as 'he a'; at 400 dpi the page image shows 'be' with a faint ascender.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -10008,6 +11414,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq161"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.npshistory.com/publications/olym/m-v1n2-1907-1.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -10045,6 +11457,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq162"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/hrs/chap1.htm",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ. Found verbatim inside quotation marks attributed to O'Neil (cited 'NPS OLYM 1885') in Evans's NPS study; O'Neil's manuscript itself was not seen, so the line stays undealt.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -10081,6 +11499,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq163"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/hrs/chap1.htm",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ. Found verbatim inside quotation marks attributed to O'Neil (cited 'NPS OLYM 1885') in Evans's NPS study; O'Neil's manuscript itself was not seen, so the line stays undealt.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -10121,6 +11545,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq164"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/hrs/chap1.htm",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ. Found verbatim inside quotation marks attributed to O'Neil (cited 'NPS OLYM 1885') in Evans's NPS study; O'Neil's manuscript itself was not seen, so the line stays undealt.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -10163,6 +11593,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq165"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/hrs/chap1.htm",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ. Found verbatim inside quotation marks attributed to O'Neil (cited 'NPS OLYM 1885') in Evans's NPS study; O'Neil's manuscript itself was not seen, so the line stays undealt.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -10198,6 +11634,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq166"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/hrs/chap1.htm",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ. Found verbatim inside quotation marks attributed to O'Neil (cited 'NPS OLYM 1885') in Evans's NPS study; O'Neil's manuscript itself was not seen, so the line stays undealt.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -10234,6 +11676,12 @@
    "origin": {
     "file": "oneil_expeditions.json",
     "id": "oq167"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://npshistory.com/publications/olym/hrs/chap1.htm",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ. Found verbatim inside quotation marks attributed to O'Neil (cited 'NPS OLYM 1885') in Evans's NPS study; O'Neil's manuscript itself was not seen, so the line stays undealt.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -10270,6 +11718,12 @@
    "origin": {
     "file": "press_expedition.json",
     "id": "q01"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "LOC ALTO OCR for the page (tile.loc.gov) and the page image (IIIF)",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -10306,6 +11760,12 @@
    "origin": {
     "file": "press_expedition.json",
     "id": "q02"
+   },
+   "verify_2026_10_08": {
+    "result": "ocr_noise_only_checked_on_page_image",
+    "fetched": "LOC ALTO OCR for the page (tile.loc.gov) and the page image (IIIF)",
+    "notes": "OCR reads 'of Seattle' as 'ot Seattle'; the page image shows 'of'.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -10343,6 +11803,12 @@
    "origin": {
     "file": "press_expedition.json",
     "id": "q03"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "LOC ALTO OCR for the page (tile.loc.gov) and the page image (IIIF)",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -10379,6 +11845,12 @@
    "origin": {
     "file": "press_expedition.json",
     "id": "q04"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "LOC ALTO OCR for the page (tile.loc.gov) and the page image (IIIF)",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -10417,6 +11889,12 @@
    "origin": {
     "file": "press_expedition.json",
     "id": "q05"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "LOC ALTO OCR for the page (tile.loc.gov) and the page image (IIIF)",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -10456,6 +11934,12 @@
    "origin": {
     "file": "press_expedition.json",
     "id": "q06"
+   },
+   "verify_2026_10_08": {
+    "result": "ocr_noise_only_checked_on_page_image",
+    "fetched": "LOC ALTO OCR for the page (tile.loc.gov) and the page image (IIIF)",
+    "notes": "OCR reads 'to-day' as 'to d«y'; the print breaks the word 'to-/day' at a line end, and the 1890 spelling 'to-day' is kept.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -10492,6 +11976,12 @@
    "origin": {
     "file": "press_expedition.json",
     "id": "q07"
+   },
+   "verify_2026_10_08": {
+    "result": "ocr_noise_only_checked_on_page_image",
+    "fetched": "LOC ALTO OCR for the page (tile.loc.gov) and the page image (IIIF)",
+    "notes": "OCR reads 'fo<>t ... workid ... honeetiy'; the page image shows 'foot ... worked ... honestly'.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -10528,6 +12018,12 @@
    "origin": {
     "file": "press_expedition.json",
     "id": "q08"
+   },
+   "verify_2026_10_08": {
+    "result": "ocr_noise_only_checked_on_page_image",
+    "fetched": "LOC ALTO OCR for the page (tile.loc.gov) and the page image (IIIF)",
+    "notes": "OCR reads the line-initial 'The' as 'lue'; the page image shows 'The snow is our greatest difficulty'.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -10573,6 +12069,12 @@
    "origin": {
     "file": "press_expedition.json",
     "id": "q09"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "LOC ALTO OCR for the page (tile.loc.gov) and the page image (IIIF)",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -10615,6 +12117,12 @@
    "origin": {
     "file": "press_expedition.json",
     "id": "q10"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "LOC ALTO OCR for the page (tile.loc.gov) and the page image (IIIF)",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -10652,6 +12160,12 @@
    "origin": {
     "file": "press_expedition.json",
     "id": "q11"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "LOC ALTO OCR for the page (tile.loc.gov) and the page image (IIIF)",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ. The print breaks 'ter-/ribly'; read on the page image.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -10692,6 +12206,12 @@
    "origin": {
     "file": "press_expedition.json",
     "id": "q12"
+   },
+   "verify_2026_10_08": {
+    "result": "ocr_noise_only_checked_on_page_image",
+    "fetched": "LOC ALTO OCR for the page (tile.loc.gov) and the page image (IIIF)",
+    "notes": "OCR reads 'in a' as 'm a'; the page image shows 'in a'.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -10729,6 +12249,12 @@
    "origin": {
     "file": "press_expedition.json",
     "id": "q13"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "LOC ALTO OCR for the page (tile.loc.gov) and the page image (IIIF)",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -10769,6 +12295,12 @@
    "origin": {
     "file": "press_expedition.json",
     "id": "q14"
+   },
+   "verify_2026_10_08": {
+    "result": "ocr_noise_only_checked_on_page_image",
+    "fetched": "LOC ALTO OCR for the page (tile.loc.gov) and the page image (IIIF)",
+    "notes": "OCR reads 'pin' as 'piu'; the page image shows 'pin'.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -10805,6 +12337,12 @@
    "origin": {
     "file": "press_expedition.json",
     "id": "q15"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "LOC ALTO OCR for the page (tile.loc.gov) and the page image (IIIF)",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -10842,6 +12380,12 @@
    "origin": {
     "file": "press_expedition.json",
     "id": "q16"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "LOC ALTO OCR for the page (tile.loc.gov) and the page image (IIIF)",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -10878,6 +12422,12 @@
    "origin": {
     "file": "press_expedition.json",
     "id": "q17"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "LOC ALTO OCR for the page (tile.loc.gov) and the page image (IIIF)",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ. A print smudge before 'otiosity' reads as a hyphen in the OCR; the page image shows 'dignified otiosity'.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -10916,6 +12466,12 @@
    "origin": {
     "file": "press_expedition.json",
     "id": "q18"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "LOC ALTO OCR for the page (tile.loc.gov) and the page image (IIIF)",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -10951,6 +12507,12 @@
    "origin": {
     "file": "press_expedition.json",
     "id": "q19"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "LOC ALTO OCR for the page (tile.loc.gov) and the page image (IIIF)",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -10987,6 +12549,12 @@
    "origin": {
     "file": "press_expedition.json",
     "id": "q20"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "LOC ALTO OCR for the page (tile.loc.gov) and the page image (IIIF)",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -11023,6 +12591,12 @@
    "origin": {
     "file": "press_expedition.json",
     "id": "q21"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "LOC ALTO OCR for the page (tile.loc.gov) and the page image (IIIF)",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -11059,6 +12633,12 @@
    "origin": {
     "file": "press_expedition.json",
     "id": "q22"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "LOC ALTO OCR for the page (tile.loc.gov) and the page image (IIIF)",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -11093,6 +12673,12 @@
    "origin": {
     "file": "press_expedition.json",
     "id": "q23"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "LOC ALTO OCR for the page (tile.loc.gov) and the page image (IIIF)",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -11127,6 +12713,12 @@
    "origin": {
     "file": "press_expedition.json",
     "id": "q24"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "LOC ALTO OCR for the page (tile.loc.gov) and the page image (IIIF)",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ. OCR capitalizes 'Other'; the page image shows 'Many other days'.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -11161,6 +12753,12 @@
    "origin": {
     "file": "press_expedition.json",
     "id": "q25"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.npshistory.com/publications/olym/m-v1n2-1907-1.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -11196,6 +12794,12 @@
    "origin": {
     "file": "press_expedition.json",
     "id": "q26"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.npshistory.com/publications/olym/m-v1n2-1907-1.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -11232,6 +12836,12 @@
    "origin": {
     "file": "press_expedition.json",
     "id": "q27"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.npshistory.com/publications/olym/m-v1n2-1907-1.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -11268,6 +12878,12 @@
    "origin": {
     "file": "press_expedition.json",
     "id": "q28"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.npshistory.com/publications/olym/m-v1n2-1907-1.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -11305,6 +12921,12 @@
    "origin": {
     "file": "press_expedition.json",
     "id": "q29"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.npshistory.com/publications/olym/m-v1n2-1907-1.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -11341,6 +12963,12 @@
    "origin": {
     "file": "press_expedition.json",
     "id": "q30"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.npshistory.com/publications/olym/m-v1n2-1907-1.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -11377,6 +13005,12 @@
    "origin": {
     "file": "press_expedition.json",
     "id": "q31"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.npshistory.com/publications/olym/m-v1n2-1907-1.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -11414,6 +13048,12 @@
    "origin": {
     "file": "press_expedition.json",
     "id": "q32"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.npshistory.com/publications/olym/m-v1n2-1907-1.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -11452,6 +13092,12 @@
    "origin": {
     "file": "press_expedition.json",
     "id": "q33"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.npshistory.com/publications/olym/m-v1n2-1907-1.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -11487,6 +13133,12 @@
    "origin": {
     "file": "press_expedition.json",
     "id": "q34"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.npshistory.com/publications/olym/m-v1n2-1907-1.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -11523,6 +13175,12 @@
    "origin": {
     "file": "press_expedition.json",
     "id": "q35"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.npshistory.com/publications/olym/m-v1n2-1907-1.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -11560,6 +13218,12 @@
    "origin": {
     "file": "press_expedition.json",
     "id": "q36"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.npshistory.com/publications/olym/m-v1n2-1907-1.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -11597,6 +13261,12 @@
    "origin": {
     "file": "press_expedition.json",
     "id": "q37"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.npshistory.com/publications/olym/m-v1n2-1907-1.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -11634,6 +13304,12 @@
    "origin": {
     "file": "press_expedition.json",
     "id": "q38"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.npshistory.com/publications/olym/m-v1n2-1907-1.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -11669,6 +13345,12 @@
    "origin": {
     "file": "press_expedition.json",
     "id": "q39"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.npshistory.com/publications/olym/m-v1n2-1907-1.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -11705,6 +13387,12 @@
    "origin": {
     "file": "press_expedition.json",
     "id": "q40"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.npshistory.com/publications/olym/m-v1n2-1907-1.pdf",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -11743,6 +13431,12 @@
    "origin": {
     "file": "press_expedition.json",
     "id": "q41"
+   },
+   "verify_2026_10_08": {
+    "result": "ocr_noise_only_checked_on_page_image",
+    "fetched": "LOC ALTO OCR for the page (tile.loc.gov) and the page image (IIIF)",
+    "notes": "OCR reads 'The story ... romance ... cold truth' as 'T'he <tory ... romanee ... eold trath'; the page image confirms the line.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -11779,6 +13473,12 @@
    "origin": {
     "file": "press_expedition.json",
     "id": "q42"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "LOC ALTO OCR for the page (tile.loc.gov) and the page image (IIIF)",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ. Read on the page image.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -11814,6 +13514,12 @@
    "origin": {
     "file": "press_expedition.json",
     "id": "q43"
+   },
+   "verify_2026_10_08": {
+    "result": "ocr_noise_only_checked_on_page_image",
+    "fetched": "LOC ALTO OCR for the page (tile.loc.gov) and the page image (IIIF)",
+    "notes": "OCR reads 'hats' as 'bats'; the page image shows 'hats'.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -11851,6 +13557,12 @@
    "origin": {
     "file": "press_expedition.json",
     "id": "q44"
+   },
+   "verify_2026_10_08": {
+    "result": "ocr_noise_only_checked_on_page_image",
+    "fetched": "LOC ALTO OCR for the page (tile.loc.gov) and the page image (IIIF)",
+    "notes": "OCR reads 'records' as 'rccords'; the page image shows 'records'.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -11886,6 +13598,12 @@
    "origin": {
     "file": "press_expedition.json",
     "id": "q45"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "LOC ALTO OCR for the page (tile.loc.gov) and the page image (IIIF)",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -11920,6 +13638,12 @@
    "origin": {
     "file": "press_expedition.json",
     "id": "q46"
+   },
+   "verify_2026_10_08": {
+    "result": "ocr_noise_only_checked_on_page_image",
+    "fetched": "LOC ALTO OCR for the page (tile.loc.gov) and the page image (IIIF)",
+    "notes": "OCR reads 'on' as 'cn' and breaks 'charac-/ter'; the page image confirms the line.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -11955,6 +13679,12 @@
    "origin": {
     "file": "press_expedition.json",
     "id": "q47"
+   },
+   "verify_2026_10_08": {
+    "result": "ocr_noise_only_checked_on_page_image",
+    "fetched": "LOC ALTO OCR for the page (tile.loc.gov) and the page image (IIIF)",
+    "notes": "OCR reads 'hear' as 'bear'; the page image shows 'hear'.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -11990,6 +13720,12 @@
    "origin": {
     "file": "press_expedition.json",
     "id": "q48"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "LOC ALTO OCR for the page (tile.loc.gov) and the page image (IIIF)",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -12028,6 +13764,12 @@
    "origin": {
     "file": "press_expedition.json",
     "id": "q49"
+   },
+   "verify_2026_10_08": {
+    "result": "ocr_noise_only_checked_on_page_image",
+    "fetched": "LOC ALTO OCR for the page (tile.loc.gov) and the page image (IIIF)",
+    "notes": "OCR reads 'that' as 'tbat'; the page image shows 'that'.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -12066,6 +13808,12 @@
    "origin": {
     "file": "press_expedition.json",
     "id": "q50"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "LOC ALTO OCR for the page (tile.loc.gov) and the page image (IIIF)",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -12102,6 +13850,12 @@
    "origin": {
     "file": "press_expedition.json",
     "id": "q51"
+   },
+   "verify_2026_10_08": {
+    "result": "ocr_noise_only_checked_on_page_image",
+    "fetched": "LOC ALTO OCR for the page (tile.loc.gov) and the page image (IIIF)",
+    "notes": "OCR reads 'famous ... Russian ... Scotch' as 'faiuoua ... l.iiasian ... rv-oti h'; the page image confirms the line.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -12137,6 +13891,12 @@
    "origin": {
     "file": "press_expedition.json",
     "id": "q52"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "LOC ALTO OCR for the page (tile.loc.gov) and the page image (IIIF)",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ. Read on the page image (the whole line is visible; the earlier note about a cropped column edge no longer applies).",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -12155,7 +13915,7 @@
    "date": "1890-01-31",
    "page": "p.5",
    "url": "https://www.loc.gov/resource/sn88085081/1890-01-31/ed-1/?sp=5",
-   "verification": "ocr_with_partial_image_check",
+   "verification": "page_image_checked",
    "public_domain_reason": "Published in the United States in 1890 (before 1931); U.S. works published before 1931 are in the public domain.",
    "context": "What the doubters said in January 1890.",
    "era": "press_expedition_1889_90",
@@ -12174,6 +13934,12 @@
    "origin": {
     "file": "press_expedition.json",
     "id": "q53"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "LOC ALTO OCR for the page (tile.loc.gov) and the page image (IIIF)",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ. Re-checked on the full page image on 2026-10-08: every word of the line is visible, so the line is now page_image_checked.",
+    "public_domain_reason_confirmed": true
    }
   },
   {
@@ -12192,7 +13958,7 @@
    "date": "1890-01-31",
    "page": "p.5",
    "url": "https://www.loc.gov/resource/sn88085081/1890-01-31/ed-1/?sp=5",
-   "verification": "ocr_with_partial_image_check",
+   "verification": "page_image_checked",
    "public_domain_reason": "Published in the United States in 1890 (before 1931); U.S. works published before 1931 are in the public domain.",
    "context": "Late January 1890.",
    "era": "press_expedition_1889_90",
@@ -12212,118 +13978,16 @@
    "origin": {
     "file": "press_expedition.json",
     "id": "q54"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "LOC ALTO OCR for the page (tile.loc.gov) and the page image (IIIF)",
+    "notes": "Every letter and digit of the line appears in order in the fetched text; only spacing, line-end hyphens and curly quotes differ. Re-checked on the full page image on 2026-10-08 (the print breaks 'be-/ing'): every word is visible, so the line is now page_image_checked.",
+    "public_domain_reason_confirmed": true
    }
   }
  ],
  "held_back": [
-  {
-   "id": "pe_s01",
-   "text": "a multitude of faces appear in succession near the water's edge",
-   "chars": 63,
-   "speaker_detail": "Charles A. Barnes, journal (March 1890), as transcribed by PDN2001",
-   "date": "1890-03 (Press 1890-07-16)",
-   "seen_in": "Peninsula Daily News, June 22, 2001",
-   "url": "https://peninsuladailynews.com/news/narrow-canyon-comes-alive-with-images-of-demons",
-   "verification": "secondary_transcription_primary_not_seen",
-   "public_domain_reason": "Published in the United States in 1890 (before 1931); U.S. works published before 1931 are in the public domain. (Barnes's words in the Seattle Press, July 16, 1890; the modern article that transcribes them is not reproduced.)",
-   "context": "Goblin Gates.",
-   "why_held_back": "Seen only as transcribed by a modern writer; the 1890 Seattle Press page has not been seen. Check against the Press (UW Special Collections photostat) before any use.",
-   "caution": "Check against the 1890 Press before shipping.",
-   "origin": {
-    "file": "press_expedition.json",
-    "id": "s01"
-   }
-  },
-  {
-   "id": "pe_s02",
-   "text": "One could conceive in them tortured expressions",
-   "chars": 47,
-   "speaker_detail": "Charles A. Barnes, journal (March 1890), as transcribed by PDN2001",
-   "date": "1890-03 (Press 1890-07-16)",
-   "seen_in": "Peninsula Daily News, June 22, 2001",
-   "url": "https://peninsuladailynews.com/news/narrow-canyon-comes-alive-with-images-of-demons",
-   "verification": "secondary_transcription_primary_not_seen",
-   "public_domain_reason": "Published in the United States in 1890 (before 1931); U.S. works published before 1931 are in the public domain. (Barnes's words in the Seattle Press, July 16, 1890.)",
-   "context": "The sentence goes on to explain the name 'The Goblin Gates'.",
-   "why_held_back": "Seen only as transcribed by a modern writer; the 1890 Seattle Press page has not been seen. Check against the Press (UW Special Collections photostat) before any use.",
-   "caution": "Check against the 1890 Press before shipping.",
-   "origin": {
-    "file": "press_expedition.json",
-    "id": "s02"
-   }
-  },
-  {
-   "id": "pe_s03",
-   "text": "But murder was needless.",
-   "chars": 24,
-   "speaker_detail": "Charles A. Barnes, on the food at Antrim's cabin (May 1890), as transcribed by PDN2009c",
-   "date": "1890-05 (Press 1890-07-16)",
-   "seen_in": "Peninsula Daily News, December 2009",
-   "url": "https://peninsuladailynews.com/news/press-expedition-remembered-iii-arrival-on-the-other-side-of-the-olympic-mountains",
-   "verification": "secondary_transcription_primary_not_seen",
-   "public_domain_reason": "Published in the United States in 1890 (before 1931); U.S. works published before 1931 are in the public domain. (Barnes's words in the Seattle Press, July 16, 1890.)",
-   "context": "He would gladly have committed a homicide for any one of the dishes.",
-   "why_held_back": "Seen only as transcribed by a modern writer; the 1890 Seattle Press page has not been seen. Check against the Press (UW Special Collections photostat) before any use.",
-   "caution": "Dark joke; use only for food-related endings and check against the 1890 Press.",
-   "origin": {
-    "file": "press_expedition.json",
-    "id": "s03"
-   }
-  },
-  {
-   "id": "pe_s04",
-   "text": "it was a luxury to be appreciated.",
-   "chars": 34,
-   "speaker_detail": "Charles A. Barnes, on the beds at Aberdeen (May 21, 1890), as transcribed by PDN2009c",
-   "date": "1890-05-21 (Press 1890-07-16)",
-   "seen_in": "Peninsula Daily News, December 2009",
-   "url": "https://peninsuladailynews.com/news/press-expedition-remembered-iii-arrival-on-the-other-side-of-the-olympic-mountains",
-   "verification": "secondary_transcription_primary_not_seen",
-   "public_domain_reason": "Published in the United States in 1890 (before 1931); U.S. works published before 1931 are in the public domain. (Barnes's words in the Seattle Press, July 16, 1890.)",
-   "context": "First real beds in six months.",
-   "why_held_back": "Seen only as transcribed by a modern writer; the 1890 Seattle Press page has not been seen. Check against the Press (UW Special Collections photostat) before any use.",
-   "caution": null,
-   "origin": {
-    "file": "press_expedition.json",
-    "id": "s04"
-   }
-  },
-  {
-   "id": "pe_s05",
-   "text": "Please remit this morning by telegraph.",
-   "chars": 39,
-   "speaker_detail": "James H. Christie, telegram to the Press from Aberdeen (May 21, 1890), as transcribed by PDN2009c",
-   "date": "1890-05-21",
-   "seen_in": "Peninsula Daily News, December 2009",
-   "url": "https://peninsuladailynews.com/news/press-expedition-remembered-iii-arrival-on-the-other-side-of-the-olympic-mountains",
-   "verification": "secondary_transcription_primary_not_seen",
-   "public_domain_reason": "Published in the United States in 1890 (before 1931); U.S. works published before 1931 are in the public domain. (Christie's telegram as printed by the Press in 1890.)",
-   "context": "Asking for about $125 to get the party home.",
-   "why_held_back": "Seen only as transcribed by a modern writer; the 1890 Seattle Press page has not been seen. Check against the Press (UW Special Collections photostat) before any use.",
-   "caution": null,
-   "origin": {
-    "file": "press_expedition.json",
-    "id": "s05"
-   }
-  },
-  {
-   "id": "pe_s06",
-   "text": "under the shadow of the mountains we have undertaken to explore",
-   "chars": 63,
-   "speaker_detail": "James H. Christie, on landing at Port Angeles (Dec. 1889), as transcribed by PDN2009a",
-   "date": "1889-12-08/09 (Press 1890-07-16)",
-   "seen_in": "Peninsula Daily News, December 2009",
-   "url": "https://www.peninsuladailynews.com/?p=112434",
-   "verification": "secondary_transcription_primary_not_seen",
-   "public_domain_reason": "Published in the United States in 1890 (before 1931); U.S. works published before 1931 are in the public domain. (Christie's words in the Seattle Press, July 16, 1890.)",
-   "context": "Arriving at the Port Angeles wharf.",
-   "why_held_back": "Seen only as transcribed by a modern writer; the 1890 Seattle Press page has not been seen. Check against the Press (UW Special Collections photostat) before any use.",
-   "caution": null,
-   "origin": {
-    "file": "press_expedition.json",
-    "id": "s06"
-   }
-  },
   {
    "id": "pe_s07",
    "text": "abundance of grit and manly vim",
@@ -12332,7 +13996,7 @@
    "date": "1890-07-16",
    "seen_in": "NPS Historic Resource Study (1983)",
    "url": "https://www.npshistory.com/publications/olym/hrs/chap1.htm",
-   "verification": "secondary_transcription_primary_not_seen",
+   "verification": "verbatim_in_fetched_government_transcription_primary_not_seen",
    "public_domain_reason": "Published in the United States in 1890 (before 1931); U.S. works published before 1931 are in the public domain. (Seattle Press, July 16, 1890.)",
    "context": "The Press's sendoff description. NPS prints it as 'have [an] abundance of grit and manly vim'.",
    "why_held_back": "Seen only as transcribed by a modern writer; the 1890 Seattle Press page has not been seen. Check against the Press (UW Special Collections photostat) before any use.",
@@ -12340,24 +14004,12 @@
    "origin": {
     "file": "press_expedition.json",
     "id": "s07"
-   }
-  },
-  {
-   "id": "pe_s08",
-   "text": "Range after range of peaks, snow-clad from base to summit",
-   "chars": 57,
-   "speaker_detail": "Charles A. Barnes, as transcribed on Wikipedia (Mount Barnes / Mount Wilder articles)",
-   "date": "1890 (date and place disputed)",
-   "seen_in": "Wikipedia",
-   "url": "https://en.wikipedia.org/wiki/Bailey_Range",
-   "verification": "secondary_transcription_primary_not_seen",
-   "public_domain_reason": "Published in the United States in 1890 (before 1931); U.S. works published before 1931 are in the public domain. (Barnes's words in the Seattle Press, July 16, 1890.)",
-   "context": "His first long view into the interior.",
-   "why_held_back": "Seen only as transcribed by a modern writer; the 1890 Seattle Press page has not been seen. Check against the Press (UW Special Collections photostat) before any use.",
-   "caution": "Weakest source in this file: Wikipedia dates the view to December 1889 near Mount Wilder, which does not fit the timeline. Verify before use.",
-   "origin": {
-    "file": "press_expedition.json",
-    "id": "s08"
+   },
+   "verify_2026_10_08": {
+    "result": "verbatim_in_fetched_text",
+    "fetched": "https://www.npshistory.com/publications/olym/hrs/chap1.htm",
+    "notes": "Found verbatim in Evans's NPS Historic Resource Study (1983, ch. 1), which prints it as 'have [an] abundance of grit and manly vim' and cites the Seattle Press of July 16, 1890. The 1890 page itself has not been seen, so the line stays held back and is never dealt.",
+    "public_domain_reason_confirmed": true
    }
   }
  ]
