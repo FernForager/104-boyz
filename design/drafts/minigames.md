@@ -785,7 +785,7 @@ A low snow year moves it about two weeks earlier, a high one two to three weeks 
 │ │                                  │ │
 │ │        (your thumb, below)       │ │
 │ └──────────────────────────────────┘ │
-│ Cup ▓▓▓▓▓▓░░░░ 0.6 qt · +21 min      │
+│ Cup ▓▓▓▓▓▓░░░░ 0.6 qt · +17 min      │
 │ ripe 92%                             │
 │                       [ That's it ]  │
 └──────────────────────────────────────┘
@@ -920,7 +920,7 @@ Going downhill fast on technical trail is a rhythm: roots, rocks, steps, a grave
 ### 5.2 Where and when
 
 - **Segments tagged technical** with a steep descent (the doc's steep-descent term, 7.4), in your direction of travel. On the first playable: Deer Lake down past Canyon Creek to Sol Duc Falls, the stone staircase out of the basin, and the Bogachiel Peak spur. Later: the Hoh Lake trail's long drop to the Hoh, Appleton Pass, Hurricane Hill.
-- **FKTs:** at Run and Race. **Open and the daily:** at Push pace, which is already "worse footing, x0.88 time" (7.4).
+- **FKTs:** at Run and Race. **Open and the daily:** at Push pace, which already means x0.88 time and worse footing (7.4).
 - **At most three a run,** the steepest. The rest resolve at Auto, so a long route doesn't become a rhythm marathon.
 - **Practice** is the FKT window itself: unlimited tries in fixed conditions (the modes draft's 4.7).
 
@@ -1030,13 +1030,24 @@ The slide starts in one of four positions, drawn from the roll's effect stream (
 | Start | What you do | The real move |
 |---|---|---|
 | Feet first, on your front | Hold: dig in | The push-up position; brake with the axe |
-| Feet first, on your back | Swipe toward the pick, then hold | Roll onto your stomach, toward the axe's head |
+| Feet first, on your back | Swipe toward the pick, then hold | Roll onto your stomach |
 | Head first, on your front | Tap the snow beside you, then hold | Plant the pick to the side; your feet swing downhill |
 | Head first, on your back | Tap beside you, swipe, hold | Elbows in, knees up, roll onto your stomach |
 
 - **Hold** presses the pick in and puts weight on it. The braking builds over a third of a second.
 - **With crampons,** a roll started above 5 m/s catches a point one time in two (design) and flips you head first. A clean, early roll keeps your knees bent for you.
 - **Without crampons,** your toes dig in on your front: a little more braking.
+
+**A slide, tenth by tenth** (hard snow, head first on your back, the hardest start):
+
+| Time | What happens |
+|---|---|
+| 0.0 s | The compass lands on *slide*. The picture tips into the slope; the hiss starts |
+| 0.4 s | Tap the snow to your left: the pick bites beside you and your feet swing downhill |
+| 0.8 s | Swipe left, toward the pick: you roll onto your stomach |
+| 1.2 s | Hold: the scrape deepens and the speed bar falls |
+| 2.9 s | Stopped, 7 m down. Wind, and nothing else |
+| 3.5 s | The result line: `Stopped in 7 m · snow up your sleeves` [draft] |
 
 ### 6.4 The physics
 
@@ -1144,7 +1155,7 @@ A knee-deep or deeper river, glacial gray or snowmelt clear, and cold. You pick 
 
 ### 7.2 Where and when
 
-- **The fords in the region data:** the Hoh's braids before Olympus Guard Station; the Queets at its trailhead (NPS: "commonly waist deep in summer," and it can be fordable on the way in and not on the way out); the Enchanted Valley washout and White Creek on the Quinault side; the Elwha just past Chicago Camp; Goodman Creek and Falls Creek on the coast, where high tide backs the sea up the channel; the Ozette River mouth; Lena Creek; the West Fork Dosewallips; the Upper Duckabush.
+- **The fords in the region data:** the Hoh's braids before Olympus Guard Station; the Queets at its trailhead (NPS: "commonly waist deep in summer," and it can be fordable on the way in and not on the way out); the Enchanted Valley washout and White Creek on the Quinault side; the Elwha just past Chicago Camp; Goodman Creek and Falls Creek on the coast (a high tide can back the sea up Falls Creek to thigh or waist depth); the Ozette River mouth; Lena Creek; the West Fork Dosewallips; the Upper Duckabush.
 - **Knee-deep or more.** Shallower fords stay narrated, as now (7.7).
 - **The High Divide loop has no fords** (its region data), so the ford arrives with the Hoh in M2.
 - **Modes:** Open, the daily (on the clock), FKTs. **No practice.** Fords aren't something to do for fun, and the first one a career meets is shallow.
@@ -1167,6 +1178,14 @@ One screen, three optional taps:
 - **Poles** make the lulls feel 30% longer: the three-point stance.
 - **The live line** under the picture shows the made-it % moving with every step.
 - **At the far bank,** the roll: the compass on a ♦, straight to the outcome otherwise.
+
+| Time | What happens |
+|---|---|
+| 0 s | Sandals on, the buckle clicked open, the braid chosen. The first step in: a gasp |
+| 1-8 s | Four steps, each in a lull. The made-it line climbs from 91% to 93% |
+| 9 s | A surge you misread: a wobble, back to 92% |
+| 10-16 s | Your feet go slate in the feet bar. The lulls feel shorter. Three more clean steps: 93% |
+| 17 s | The far bank, the roll: across. Wet to the knee, boots dry in the pack |
 
 ```
 ┌──────────────────────────────────────┐
@@ -1309,7 +1328,7 @@ Six steps, one gesture each, 25 to 40 seconds:
 
 Razor clamming on the Washington coast happens on low tides, often at night in winter, with a lantern, a clam gun or shovel, and a bucket. You walk the wet sand looking for **shows**, the marks a clam leaves when it pulls in its neck or starts to dig: a **dimple**, a **doughnut** with raised sides, or a **keyhole** in drier sand (Evergreen Coast's guide). Bigger holes often mean bigger clams. You work the tube down around it, put your thumb over the vent, and pull, quickly, because razor clams dig fast in soft wet sand. Pounding the sand near the surf can make them show.
 
-Jon's clamming is one of your own stories of 104: after a long day of hiking or razor clamming, home to the tub. This is the minigame that makes it playable.
+Razor clamming is in your own account of 104: after a long day of hiking or razor clamming or work, Jon went home to his hot tub. This is the minigame that makes that night playable.
 
 ### 9.2 The real rules
 
@@ -1320,7 +1339,7 @@ Jon's clamming is one of your own stories of 104: after a long day of hiking or 
 | The daily limit is 15. Diggers must keep the first 15 they dig, regardless of size or condition, each digger's in a separate container | WDFW |
 | All diggers 16 or older need a license | WDFW, 2025 |
 | A shovel, or a tube at least 4 in outside diameter (4 x 3 in if elliptical) | WAC 220-330-120; WDFW |
-| Kalaloch is in the park, from the South Beach campground north to Beach Trail 3; the park runs its fishery with WDFW; the Quinault Nation's treaty rights cover it, as do the Hoh's and Quileute's | WDFW, NPS |
+| Kalaloch is in the park, from the South Beach campground north to Beach Trail 3; the park runs its fishery with WDFW; the Quinault Nation, the Hoh Tribe and the Quileute Tribe have fishing rights there | WDFW, NPS |
 | Razor clam harvest on the rest of the park's coast is always closed | NPS, 2011 |
 | Kalaloch was fully or partially closed in 16 of the 17 years to 2022, with no 2022/23 season; it was not open in 2025-26 ("depressed populations") | NPS 2022; WDFW 2025 |
 | On October 6, 2026, WDFW postponed the season set to open October 9 (domoic acid) | WDFW |
@@ -1537,7 +1556,7 @@ Checked on 2026-10-08. Where a page refused a direct fetch, the line says so.
 - [BearVault BV450](https://www.bearvault.com/products/bv450): 440 cu in, 7.2 L; 8.7 x 8.3 in; "about 3-4 days."
 - [ADK's Garcia listing](https://adk.org/shop/bear-resistant-canister/) and other retailers (via search): 614 cu in, about 10 L; about 8.8 x 12 in. Weights disagree between sources.
 - Bearikade Weekender: 650 cu in, about 9 x 10 in, from reviews ([Backpacker](https://www.backpacker.com/survival/gear-review-wild-ideas-bearikade-weekender-bear-canister/?scope=anon), [Trailspace](https://www.trailspace.com/gear/wild-ideas/bearikade-weekender/)); not the maker's own page.
-- [Olympic's food storage page](https://www.nps.gov/olym/planyourvisit/wilderness-food-storage.htm): canisters required in all wilderness areas; the park's own approved list (Garcia 812, Bearikade Weekender and Expedition, BearVault models, and others); loaners at the Port Angeles and Quinault WICs, sometimes gone on busy weekends.
+- [Olympic's food storage page](https://www.nps.gov/olym/planyourvisit/wilderness-food-storage.htm): canisters required in all wilderness areas; the park's own approved list (Garcia 812, Bearikade Weekender and Expedition, BearVault models, and others); loaners from the WICs at Port Angeles and the Quinault Rain Forest Ranger Station, sometimes gone on busy weekends. (The region data lists Quinault's WIC as closed for 2026, so the game's loaner stays in Port Angeles, as the hub draft has it.)
 - [Circle radius distributions determine random close packing density (arXiv 2404.02316)](https://arxiv.org/pdf/2404.02316): 2D random close packing about 0.840 as a likely lower bound; equal discs measured 0.862; the hexagonal maximum about 0.907.
 - The cans' shapes in 2.6 come from these outside dimensions. The 85%, 75% and 92% figures, the 10% merge saving and the squish floors are design.
 
@@ -1559,7 +1578,7 @@ Checked on 2026-10-08. Where a page refused a direct fetch, the line says so.
 
 - [Ortovox Safety Academy, self-arrest techniques](https://www.ortovox.com/uk/safety-academy-lab-ice/chapter-2/self-arrest-techniques): falls on 30 to 35° terrain; speeds that "can approach free fall"; the position "as quickly as possible"; the grip; rolling onto the stomach; toes in without crampons; knees bent with crampons, or "a somersault and injury."
 - [Wikipedia, Self-arrest](https://en.wikipedia.org/wiki/Self-arrest): an "instinctive and instantaneous movement" before speed builds.
-- **Not read:** REI's guide (it refused the fetch) and *Freedom of the Hills*. The slide's speeds and braking in 6.4 are design numbers from simple physics (friction 0.10 on hard snow, 0.35 on soft), not measurements.
+- **Not read:** REI's guide (it refused the fetch) and *Freedom of the Hills*. Rolling toward the axe's head, which the minigame asks for, is the common teaching, but the pages I could read don't say which way to roll; worth a check against a course before the minigame ships. The slide's speeds and braking in 6.4 are design numbers from simple physics (friction 0.10 on hard snow, 0.35 on soft), not measurements.
 
 **Fords**
 
