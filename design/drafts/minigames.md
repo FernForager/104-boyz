@@ -273,3 +273,244 @@ Every minigame ships only when all of these are true on your phone:
 10. **Under 2 ms a frame** on an iPhone 12, and paused when hidden.
 11. **Five people who never saw it** get it on the first try, and want a second.
 
+---
+
+## 2. Packing the bear can
+
+*The signature. Suika's drop and merge, inside the thing every Olympic backpacker fights with the night before.*
+
+### 2.1 What it is
+
+Every overnight in the park needs a hard-sided bear canister for all food, trash and scented items (the park's food-storage page). The doc already makes the can a real limit (5.5): rigid walls leave gaps, so only about 85% of it is usable. **This minigame is where that 85% comes from.** Pack carelessly and you get about 75%. Pack well and you get about 92%. *Auto* gets 85%, the doc's number.
+
+You see the can side-on, cut away like a diagram. Your food waits on the deck. One item at a time hangs over the rim under your thumb. Let go and it drops, rolls, settles and squishes. Two of the same item that touch zip into one bag, which takes less room than two wrappers. Tortillas dropped against the wall line it. At the end you press the lid shut, or you pull out what won't fit.
+
+### 2.2 When and where
+
+- **The flat lay, before every overnight.** The hub draft lays the open can on the deck with the food around it (its 8.3). Tap the can and the deck tilts into the cutaway. Close the lid and you are back on the deck with the can shut and anything that didn't fit lying beside it, which is exactly what the share image shows.
+- **Repack freely until *Start walking*.** It is still the night before, and going back is free until then (the hub draft's 3.3). So the can is the one minigame you can try again and again, like Suika. Only the last pack counts.
+- **Open:** every overnight. **Hike of the Day:** overnight dailies, before the clock starts. **FKTs:** multi-day routes only.
+- **Not on day hikes** (no can needed, 3 in the doc).
+- **Practice:** the shed, any can and any menu, any time.
+- **Later (M1b): the can remembers.** The pile is saved through the trip. Each evening the food you ate leaves holes and the pile settles. The camp tile *Pack the can* (the hub draft's 6.15) appears when something is outside it: overflow you carried, berries you saved, a Boy's trade, a crushed empty can. You drop those in on top. M1a packs once.
+
+### 2.3 The screen
+
+```
+┌──────────────────────────────────────┐
+│ < Flat lay    THE CAN · WIC 10.1 L   │
+│ ┌──────────────────────────────────┐ │
+│ │ next ◉ chili mac 0.6 L    D3     │ │
+│ │ then ● oats  ● oats  ○ bars      │ │
+│ │               ◉                  │ │
+│ │               ┊                  │ │
+│ │      ╔════════┊═══════╗ rim      │ │
+│ │      ║        ┊       ║          │ │
+│ │      ║    ●   ┊  ◉    ║          │ │
+│ │      ║ ◉◉  ●●   ●  ●● ║          │ │
+│ │      ║▌◉ ●◉ ◉◉◉ ● ◉◉  ║          │ │
+│ │      ╚════════════════╝          │ │
+│ └──────────────────────────────────┘ │
+│ In 4.1 L · packed 86%                │
+│ To go 4.6 L · 13 items               │
+│ [ Auto the rest ]  [ Close the lid ] │
+└──────────────────────────────────────┘
+```
+
+*(The ▌ on the left wall is a tortilla liner. D3 is the item's day. The picture is the tall plate, 160x320.)*
+
+### 2.4 Controls
+
+- **Touch anywhere in the lower half and slide.** The hanging item follows your thumb's x, one to one, snapped to whole pixels and kept inside the walls. A dotted line drops from it to where it will first touch.
+- **Lift to drop.** The next item appears at once, so a quick player can drop while the pile is still moving, as in Suika.
+- **Close the lid** (button): the lid slides on. If something sticks up, **hold the lid** to press it down for up to a second and a half.
+- **Tap an item above the rim** to pull it out. It goes back to the deck.
+- **Auto the rest** (button): the remaining items drop where par would put them.
+
+That is the whole vocabulary: slide, lift, hold, tap.
+
+### 2.5 The loop, second by second
+
+The doc's own trip (B.2): three nights clockwise, the standard 11.5 L can, a typical menu of about 6.0 L plus 0.6 L of smellables, about 22 drops.
+
+| Time | What happens |
+|---|---|
+| 0.0 s | Tap the can on the deck. The deck tips away and the can turns side-on, cut away. The food lines up as the queue: the last day first |
+| 0.6 s | Thumb down. Day 3's chili mac hangs over the rim. The dotted line shows where it lands |
+| 1.2 s | Lift. It drops, lands with a soft thump and settles in a third of a second. The next item is already under your thumb |
+| 2-9 s | Day 3: two oatmeal packets that touch zip into one bag (x2), then bars and trail mix into the gaps |
+| 9-20 s | Day 2. The tortillas go against the left wall and unroll into a liner |
+| 20-30 s | Day 1 and the small bags. A bar bag x2 meets another x2: zip, x4 |
+| 30-34 s | The smellables bag, last, so it's on top for tonight's toothbrush. It sits three pixels over the rim |
+| 34-37 s | *Close the lid.* Hold: the pouches crinkle down, and the lid clicks three times |
+| 37 s | The result line, then back to the deck with the can shut |
+
+Result line: `Fits: all 6.6 L · packed 88% · room for 1.9 L` [draft].
+
+### 2.6 The can's rules
+
+**The cans.** Each in-game can has the shape of the real kind it stands for, from the makers' outside dimensions, at one scale: about 1,170 square world pixels a liter (design).
+
+| In-game can (catalog) | Liters | Height : width | Shaped like |
+|---|---|---|---|
+| Small | 7.2 | 0.95 | BearVault BV450: 8.7 x 8.3 in |
+| Classic, and the WIC loaner | 10.1 | 1.36 | Garcia: about 8.8 x 12 in |
+| Carbon (premium) | 10.6 | 1.11 | Bearikade Weekender: about 9 x 10 in |
+| Standard | 11.5 | 1.46 | BearVault BV500: 8.7 x 12.7 in |
+
+So the standard can is about 96 pixels wide and fills three quarters of the tall plate, and the small one is nearly square. Each packs differently: the narrow classic punishes a big pouch, the wide carbon forgives it. (The real makers' names never appear in the game; the catalog names are generic, 5.2.)
+
+**Items are round.** Real food goes in as soft bags, and a circle is honest about that. Each item's area is its catalog liters at the can's scale, so a 0.6 L repacked dinner has a radius of about 15 pixels and a 0.06 L granola bar pouch about 5.
+
+**The queue** is your food in the order the catalog's tip gives (`food_catalog.json`): the last day at the bottom, tonight's dinner on top. Within a day, the biggest goes first. Items of 0.05 L or less (coffee, cocoa, drink mixes, gels, peanut butter packets) arrive pre-bagged by kind in small bags of up to 0.25 L, because nobody drops thirty coffee sticks one by one. The smellables bag (0.3 L plus 0.1 a night, 5.5) is always last.
+
+**Physics** (design values, all integer):
+
+- Gravity, then position-based collision: six solver passes a tick, bodies pushed apart along their centers in proportion to their areas, then clamped inside the walls. The bottom corners are rounded.
+- Velocity is the change in position, damped by 248/256 a tick, with a cap of 4 pixels a tick, so nothing tunnels and everything settles in under half a second.
+- **Squish.** A soft body's radius shrinks under the weight on it, down to a floor:
+
+| Kind | Shrinks to | Crushed? |
+|---|---|---|
+| Rigid: cans, the IPA, fruit, the egg box | 100% | Never |
+| Zip bags and pouches | 85% of its area | Never |
+| Crushable as sold: chips, crackers, cookies, bagels | 60% | Below 80%: morale −1 |
+
+**Merges.** Two bodies of the **same item** (the same food id, or the same kind of small bag) that touch for a quarter second while both are slow become one zip bag:
+
+- **its area is 90% of the two together** (design): one bag instead of two wrappers, which is why real hikers repack;
+- it shows a count (x2, x4) on the item's icon;
+- it can merge again with another bag of the same item, up to **1.0 L**, a quart bag;
+- it keeps the lower id and sits where the two were, weighted by area.
+
+Merges chain, as in Suika: a bag that grows can touch the next one.
+
+**Special items:**
+
+- **Tortillas line the wall.** A tortilla pack that lands touching a side wall unrolls into a strip down that wall, with no gaps. It is the catalog's own tip ("tortillas curl around the inside wall") and the hardcore crowd's favorite.
+- **The IPA** (0.55 L) is rigid and clanks.
+- **Chips as sold** (3.5 L) are huge and squish a long way, and squishing past the line crushes them.
+- **The watermelon** (the catalog's 3.5 L personal melon, a trap) is rigid and as big as Suika's biggest fruit. It never fits the small can.
+
+**The lid.** The rim is the line. *Close the lid* closes it when every body is below the rim, with one world pixel of grace. If not, holding the lid presses on the bodies above the rim and lets soft things squish 1.5 times further (crushables crush). If it still won't close, you pull something out.
+
+**What stays behind.** Anything pulled out or never dropped goes back to the deck, and a sheet asks what to do with it, three sure choices for each item or for all:
+
+- **Leave it in the car.** Less food on the trail.
+- **Carry it outside the can.** Each night it is food that doesn't fit (6.3).
+- **Eat it now** [draft], at the trailhead.
+
+### 2.7 What skill is
+
+- **Reading the roll.** Suika's whole skill: where will a round thing come to rest?
+- **Big first, small into gaps.** Pouches against the walls and into the corners; bars and small bags into the holes.
+- **Setting up merges.** Drop the second oatmeal packet onto the first.
+- **The liner.** Get the tortillas against a wall before the pile does.
+- **Knowing what to crush.** Squashed chips still fit; they just make a sadder lunch.
+- **The press.** Pull out the right thing instead of crushing the wrong one.
+
+Order is not a skill in v1. The queue always comes in the right order, so tonight's dinner is always on top, which is how the game teaches the real tip without making it a chore. A *Set aside* button that breaks the order for a better fit is a later option (decision 5).
+
+### 2.8 What it feeds
+
+| Result | Goes into | Where it bites |
+|---|---|---|
+| Food in the can | Days of food (5.5) | Nowhere: that's the point |
+| Left in the car | Fewer calories on the trail | The energy ceiling; the running-short card (5.6) |
+| Carried outside | Food that doesn't fit, each night | The visitor roll (6.3), Leave No Trace −5 a night |
+| Eaten now | Today's calories | More than 800 kcal extra: heavy legs for the first hour, x1.03 (design) |
+| Crushed food | Morale −1 for that item | Dinner and snack joy (5.6) |
+| The packed can | The flat lay's share image | Bragging |
+
+**Worked example: four nights, the WIC loaner, a typical menu.** That is 8.0 L of food and 0.7 L of smellables, 8.7 L, in a 10.1 L can.
+
+| Hands | Packed | Fits | Stays behind |
+|---|---|---|---|
+| Careless | 75% | 7.6 L | 1.1 L, about half a day's food |
+| Auto | 85% | 8.6 L | 0.1 L, one granola bar pouch |
+| Careful | 92% | 9.3 L | Nothing, and room for 0.6 L: about the IPA |
+
+**Checked against the makers.** BearVault says its 11.5 L BV500 "fits up to 7 days of food for one person," and its 7.2 L BV450 "about 3-4 days." With the game's dense day (1.6 L) and near-best hands, the standard can holds about 6 days after a week's smellables, and the small can at par holds 3 to 3.5 dense days. Both sit just under the makers' claims, as a careful hiker's real pack does.
+
+**Why 85% is honest in two dimensions.** Random close packing of equal discs is about 0.84 to 0.86, and the densest possible (hexagonal) is about 0.907 (arXiv 2404.02316). Things dropped under gravity into a narrow can with walls land below random close packing. So 85% at par needs a little squish, and 92% needs the soft bags to give, which real zip bags do.
+
+### 2.9 Odds
+
+There are no dice in the can. It is pure input.
+
+- **The shopping gauge** (5.3) keeps showing the can at par (85%, the catalog's `usable_l`). Its (i) adds one line: *careful packers fit about 0.7 L more; careless ones 1.0 L less* [draft], computed for that can.
+- **Downstream rolls show their numbers as always.** Food carried outside the can brings the evening's honest visitor roll (coast raccoons 40%, mice at busy camps 30%, bears 5%, or 10% in August and September berry country, 6.3).
+
+### 2.10 Determinism
+
+The can has no randomness at all: no seed, no stream. A pack is a pure function of the can model, the queue and the input stream. The same drops give the same pack on every phone and in Node, which is what makes a shared flat lay reproducible.
+
+**Par is a bot, not a number.** *Auto* runs the par bot: for each item it tries x positions 8 pixels apart, simulates one second of each, and takes the lowest resting point (the leftmost on a tie). It is deterministic, so Auto's pack of a given menu is the same for everyone. The bot is tuned so its average over the reference menus is 85% (2.14).
+
+**In the action log,** only the last pack before *Start walking* is kept.
+
+### 2.11 Access
+
+- **Auto** packs the whole can at par. **Drop where it fits** [draft] does it for one item.
+- **VoiceOver:** the live region reads the next item, its liters and its day; three buttons drop it *left*, *middle* or *right* [draft]; *Close the lid* is a button. Auto is always there.
+- **Reduce Motion:** the deck-to-can tilt becomes a cut; merges flash for one frame instead of popping. The drops stay, because the drop is the game.
+- **Color:** day marks are colored dots *and* positions in the queue; the HUD names the day.
+
+### 2.12 Art
+
+- **Four can cutaways** (walls 2 to 3 pixels): the standard can as a smoky translucent wall (a `checker` of slate and night navy), the classic and the loaner in ink with a slate rim, the carbon can in ink with a `diag` weave, the small can squat. The back wall is night navy.
+- **The lid** with its tabs, as its own stamp, and a 1-pixel flash at each click.
+- **Food sprites:** reuse the flat lay's food stamps where they read as round. New round bags at nine sizes (radius 4 to 36): a snow-white zip outline holding the item's icon, and a count digit for merged bags.
+- **The tortilla liner** in four unroll frames.
+- **Day dots,** 1 pixel: Day 1 sage, Day 2 paper cream, Day 3 alpenglow pink, Day 4 glacier blue, Day 5 rust.
+- **The drop line** in dotted paper cream.
+- **No gold:** the cheese is paper cream with a rust rind.
+
+### 2.13 Sound
+
+| Moment | Sound (synthesized) |
+|---|---|
+| An item lands | A soft thump, pitched by size (about 90 Hz for a big pouch, 300 Hz for a bar); a clank for the IPA; a thud for an apple |
+| A merge | A zip: noise swept up from 0.4 to 1.6 kHz in 80 ms. In a chain, each link a step higher |
+| Squish | A crinkle: three short noise ticks |
+| Crush | A crunch: low noise, quick decay |
+| The liner | A soft paper slide |
+| The lid | A plastic slide, then three ratchet clicks |
+| Won't close | The doc's pack-full thunk (110 Hz, 13.2) |
+| Music | The cabin's, softly, ducking 3 dB during the press |
+
+### 2.14 Tuning targets
+
+| Target | Value | Measured by |
+|---|---|---|
+| Par (the Auto bot) | 85% ± 2 on the dense, typical and bulky days, in all four cans | The harness, 12 cases |
+| Careless bot (random x) | 75% ± 3 | The harness |
+| Careful bot (best of 13 x, one look ahead) | 92% ± 2 | The harness |
+| Ceiling | 97%, never more | A search bot with the press |
+| First-time players | 80-86% | Five playtests |
+| After ten packs | 88-92% | Your own packs |
+| Drops, 1 to 3 nights | 15 to 28 | Fill from the list's menus |
+| Time, 3 nights | Median 35 s; 90th percentile under 60 s | Playtests |
+| Merges a pack | 2 to 6; a chain of three in about one pack in three | The harness |
+| The press | Needed in about 70% of full cans; it closes about 85% of those | The harness |
+| The doc's B.2 plan | Fits at every skill | A golden test |
+| 4 nights, the loaner | Careless 1.1 L out; par 0.1 L; careful none | A golden test |
+| The makers' check | Standard can, dense food, best hands: about 6 days | A golden test |
+| The watermelon | Never fits the small can | A golden test |
+| Speed | Under 1 ms a tick with 40 bodies on an iPhone 12 | Device |
+
+### 2.15 The polish list
+
+1. The item tracks the thumb with no lag and never leaves the walls.
+2. The dotted line always shows the first contact point, recomputed every tick, like Suika's guide.
+3. Drop to rest in under half a second; nothing bounces more than a pixel.
+4. Nothing at rest ever shimmers.
+5. Merges overshoot by one pixel for three frames, with one zip; chains climb in pitch.
+6. The lid press feels heavy: a pixel per 6 ticks and a click per 2 pixels.
+7. What didn't fit flies back to the deck and lies beside the shut can in the flat lay, a small truthful joke in the share image.
+8. The HUD always names the next item, its liters and its day.
+9. Repack is one tap and instant.
+10. The three cans feel different in the hand.
+11. The result line is one line.
+12. The first pack ever shows the ghost thumb twice: once for the drop, once for the press.
+

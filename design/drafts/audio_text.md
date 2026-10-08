@@ -101,7 +101,7 @@ You named it: *"I like how lonely mountains downhill did music honestly."* Here 
 
 ## 2. Rules for our sound
 
-1. **No music on the trail.** That covers the trail, the drive, town and the minigames. Music plays only at the cabin and at the moments in section 9. Music you carried in is the one exception, if you allow it (26, S2).
+1. **No music on the trail.** That covers the trail, the drive, town and any minigame played out there. Music plays only at the cabin and at the moments in section 9. Music you carried in is the one exception, if you allow it (26, S2).
 2. **Let nature's sounds prevail.** That is Leave No Trace's seventh principle in the NPS's own words, and it is LMD's rule too.
 3. **Sound never carries information alone.** The thunder's distance, the creek you're near and the shiver that stops are all in the words or the picture as well. Players on silent miss the beauty, not the facts. No captions are needed, because no sound is required.
 4. **Honest, like the odds.** The marmot whistles only above 4,000 ft and only while marmots are awake. The elk bugle in September. Thunder arrives 5 seconds per mile after the flash. The hush comes with every ♦ and never without one.
@@ -431,7 +431,7 @@ The **share** is a camera shutter, and the image itself is silent.
 
 ## 8. The minigames
 
-The minigames draft owns their rules. These are the sounds, all short, tactile and dry, with no music (rule 1). Each is the kind of feedback that makes a one-thumb game feel good.
+The minigames draft owns their rules, and its 1.8 already agrees on the basics: every action has a sound within a frame, nothing depends on sound alone, and nothing is louder than the place. These are the sounds, all short, tactile and dry. On the trail there's no music under them (rule 1). At the cabin, the theme keeps playing, as under the bear can in the shed. The beds under a minigame (surf, rain, creek, wind) are this draft's synthesized ones (10.4).
 
 | Minigame | What you hear |
 |---|---|
@@ -589,7 +589,7 @@ Some park sounds have no free recording. Where a close relative is available, it
 | Roosevelt elk bugle | Elk bugling (Rocky Mountain National Park) | NPS, public domain |
 | Douglas squirrel chatter | Pine squirrel | NPS Rocky Mountain, public domain |
 
-Where there's no stand-in, we synthesize (10.4). The Pacific wren is the hardest: Freesound has no CC0 Pacific or winter wren by name, only Eurasian wrens and others. That's in 26, S7.
+Where there's no stand-in, we synthesize (10.4). The Pacific wren is the hardest. A CC0 search for *pacific wren* on Freesound returns nothing, and a search for *wren* turns up Eurasian, Carolina, canyon and marsh wrens instead. That's in 26, S7.
 
 ### 10.4 Synthesis recipes
 
@@ -666,7 +666,7 @@ Your test phone is an iPhone 17 on iOS 26.6.1. It has the Action button, which c
 |---|---|---|
 | **AAC-LC in `.m4a`** | Every iOS version we care about | **Everything we ship** |
 | MP3 | Universal | Fallback only, if a decode fails |
-| Opus or Vorbis in Ogg | Safari on iOS 18.4 and later (Can I Use) | Not yet: the Boyz' phones may be older |
+| Opus or Vorbis in Ogg | Safari on iOS 18.4 and later (Can I Use) | Not yet: players' phones may be older |
 | WAV | Universal, but huge | Masters only, never shipped |
 
 **Encodings (starting points, tuned by ear on your phone):** mono everywhere unless stereo matters. Footsteps, gear and birds at 32 kHz and 64 kbps. Grains for textures at 24 kHz and 48 kbps. A failed decode just means that sound is skipped.
@@ -1132,7 +1132,7 @@ Batches as in 21.2, at the end of each session. It needs nothing built, and it's
 │ ║ (DRAFT) the line's words, as     ║ │
 │ ║ they'd appear in the game        ║ │
 │ ╚══════════════════════════════════╝ │
-│ [ OK ] [ Edit ] [ Cut ] [ Later ]    │
+│ [Approve] [Edit] [Cut] [Later]       │
 │ Note: ______________________________ │
 ├──────────────────────────────────────┤
 │ ‹ back          4 / 32         next ›│
@@ -1140,7 +1140,7 @@ Batches as in 21.2, at the end of each session. It needs nothing built, and it's
 ```
 
 - **Edit** opens the words in a box with a live count. The page loads the game's font (Pixelify Sans is on Google Fonts), so *fits at 375 pt* is measured, not guessed.
-- **OK the rest of this screen** sits at the end of each screen's group, behind a confirm. It's for when you've read them all.
+- **Approve the rest of this screen** sits at the end of each screen's group, behind a confirm. It's for when you've read them all.
 - **Your taps are saved in the page's own small database.** At the start of the next session, Claude reads them, writes the answers file and runs `apply`. Nothing to copy, nothing to send.
 - **A fallback that always works:** *Copy my answers* gives a few lines of text (`B013` / `4 ok` / `5 edit: …`) to paste into chat, in case the page's database isn't available to a session.
 - **Nothing private goes on the page.** It shows the same words the public repo already holds, plus your answers.
