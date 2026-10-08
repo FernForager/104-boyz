@@ -4,6 +4,8 @@
 
 *Every piece of in-game English in this file is a placeholder for your words (decision 21). Short lines are marked (DRAFT), and every wireframe and sample batch is a draft as a whole. The Boyz appear only as `{BOY_n}`, and Jon only by his first name. The other drafts own the frame and home (`frame_home.md`) and the modes (`daily_fkt.md`). This one owns what you hear, and how every word reaches you for approval.*
 
+*A bare section number points inside this draft. "Doc 7.5" is `GAME_DESIGN.md`, "build plan 2.5" is `BUILD_PLAN.md`, and the "frame draft" and "daily draft" are `frame_home.md` and `daily_fkt.md`.*
+
 ## Contents
 
 **Part one: Sound**
@@ -64,7 +66,7 @@
 - **Not ours:** real place names, species names, verbatim public-domain quotes and Apple's own labels need no approval, but you can veto any of them.
 - **Sessions never wait on you.** They write drafts, send a batch and move on. Only a promotion to main needs the words on the promoted screens approved.
 - **Session 1's 13 live strings** move into the text system with no visible change. They stay live on main until you answer Batch 1, a sample of which is in 25.3.
-- **The honest cost:** M1a has roughly 2,000 lines to read, about 50 batches of ten minutes each across the build.
+- **The honest cost:** M1a has roughly 2,150 lines to read, about 55 batches of ten minutes each across the build.
 
 ---
 
@@ -108,7 +110,7 @@ You named it: *"I like how lonely mountains downhill did music honestly."* Here 
 7. **Quiet by default.** A phone at half volume should feel like standing there, not like a game shouting.
 8. **Audio is decoration in every minigame.** Judging happens against ticks, never against sound, because Bluetooth adds delay (daily draft 6.3).
 9. **Only public-domain, CC0 or synthesized sources,** each logged (decision 33). No human voices.
-10. **The audio dice are never the game's dice.** Sound picks its variations from its own random stream, so it can never change a daily, a replay or a seed (E.8).
+10. **The audio dice are never the game's dice.** Sound picks its variations from its own random stream, so it can never change a daily, a replay or a seed (doc E.8).
 
 ---
 
@@ -158,14 +160,14 @@ Every stop has a **listening map entry**, like a picture recipe but for the ear.
 
 | Field | From the data | Example |
 |---|---|---|
-| `zone` | The doc's six weather zones (7.5), plus town and cabin | `high` |
+| `zone` | The six weather zones (doc 7.5), plus town and cabin | `high` |
 | `canopy` | `scene_art_notes`; old growth, parkland or open | `parkland` |
 | `water` | Each source and its distance: creek, river, falls, lake, surf | `lake:near, outlet:40m` |
 | `exposure` | Hazards `exposure` and `lightning`; node types pass and summit | `crest` |
 | `echo` | Hand-tagged rock bowls | `basin` |
 | `life` | `wildlife_and_plants[].where` for the node | `marmot, sooty_grouse` |
 
-**Sol Duc Falls, as an example:** zone `north_mid`, canopy old growth, water falls:near plus river, no exposure, echo slot (the rock slot). Life is the dipper on the rocks and the thrushes in season (Section 5.2).
+**Sol Duc Falls, as an example:** zone `north_mid`, canopy old growth, water falls:near plus river, no exposure, echo slot (the rock slot). Life is the dipper on the rocks and the thrushes in season (5.2).
 
 ### 4.2 The zones
 
@@ -187,7 +189,7 @@ The NPS's own description of the park's soundscape covers the same span: *"the r
 Water is the park's main voice, and it tells you where you are.
 
 - **Distance shapes it.** Near water is loud and bright. Far water is quiet and low-passed, as air soaks up the highs. The walk-on (6.1) brings a creek up as you reach it and lets it fall away after.
-- **Flow shapes it.** Rivers follow the doc's monthly flows (7.7): fuller in June, thinner in September. A ford's roar follows the same flow the ford card rolls against, so a louder ford really is a harder one, and the card says so in words too.
+- **Flow shapes it.** Rivers follow the monthly flows (doc 7.7): fuller in June, thinner in September. A ford's roar follows the same flow the ford card rolls against, so a louder ford really is a harder one, and the card says so in words too.
 - **Kind shapes it.** A falls is a steady roar with a mist hiss. A creek babbles, which synthesis does well. A lake laps only when there's wind. A tarn in still air is silent, which is right.
 - **Dry stretches are dry.** Segments tagged `no_water`, like the High Divide crest, have no water layer. Only the wind remains. Players who listen learn where the last water was.
 
@@ -217,7 +219,7 @@ The echo is a synthesized impulse response (decaying noise), so it costs no file
 | The chalkboard | Chalk |
 | The map table and printer | Paper; an old printer's clatter for the permit |
 
-**The real weather plays on the roof** (frame draft 3.4): rain on the shingles, the gutter's trickle, the downspout. In snow the world goes quiet, and now and then a load of snow slides off a branch. Fresh, fluffy snow absorbs sound, a hush the NSIDC describes (via WFPL). Wind lives in the spruce behind the roof.
+**The real weather plays on the roof** (frame draft 3.4): rain on the roof, the gutter's trickle, the downspout. In snow the world goes quiet, and now and then a load of snow slides off a branch. Fresh, fluffy snow absorbs sound, a hush the NSIDC describes (via WFPL). Wind lives in the spruce behind the roof.
 
 **When the crew is around** (frame draft 3.10), there are no voices: the cooler lid, a dog, tent zippers on the lawn, and a fuller cabin theme (9.2). Recorded voices are out under rule 9, and real people's voices are out on principle.
 
@@ -235,10 +237,10 @@ The echo is a synthesized impulse response (decaying noise), so it costs no file
 |---|---|
 | **Dawn** | The chorus: the most birds of the day, rising as the light comes up |
 | **Midday** | A lull in the birds; wind and insects up in summer |
-| **Evening** | The thrushes: the one time of day you're likely to hear their songs |
+| **Evening** | The thrushes again, after the midday lull |
 | **Night** | Birds gone; the water seems louder; wind, an owl, the odd branch |
 
-The engine's sun times (7.2) drive this, so dawn at Deer Lake is when the game says it is.
+The engine's sun times (doc 7.2) drive this, so dawn at Deer Lake is when the game says it is.
 
 ### 5.2 The season
 
@@ -255,11 +257,11 @@ Each species in a listening map carries its months, hours and heights. The ones 
 | **Mosquitoes** | Heavy late June to July, mostly gone by late August | Region data |
 | **Pacific chorus frog** (cabin, nights) | Late winter into spring; sources disagree on the span | Wikipedia, with a recording archive's listing (*to check*) |
 
-**At the cabin the year turns too:** wrens in every season, varied thrushes in winter and early spring, Swainson's thrushes on summer evenings, frogs on spring nights, elk in September.
+**At the cabin the year turns too:** varied thrushes in winter, when they come down to the lowlands; Swainson's thrushes on summer evenings; frogs on spring nights (*to check*); elk bugling in the fall.
 
 ### 5.3 Weather
 
-Weather comes from the doc's zone states (7.5): clear, partly cloudy, fog, drizzle, showers, rain, storm, plus snow and the thunder overlay. On the Hike of the Day those states come from the real NWS forecast (decision 31), so everyone hears the same day.
+Weather comes from the zone states (doc 7.5): clear, partly cloudy, fog, drizzle, showers, rain, storm, plus snow and the thunder overlay. On the Hike of the Day those states come from the real NWS forecast (decision 31), so everyone hears the same day.
 
 **Rain depends on what's over your head.** The pack knows, so the rain does too:
 
@@ -279,7 +281,7 @@ The umbrella and the tarp are real catalog items, and the moss crowd will hear t
 
 **Fog** brings drip, a low bed and nearer, fewer birds.
 
-**Snow underfoot** changes with the clock. It's a firm crunch in the morning and slush and postholes in the afternoon. The snow model (7.6) knows which.
+**Snow underfoot** changes with the clock. It's a firm crunch in the morning and slush and postholes in the afternoon. The snow model (doc 7.6) knows which.
 
 **Hail** comes from a public-domain NPS thunderstorm-and-hail recording at Rocky Mountain (section 10).
 
@@ -306,7 +308,7 @@ The trail screen moves by stops (frame draft 10.2): you tap *Walk on* or swipe, 
 
 ```
 Walk on: Sol Duc Falls to Deer Lake
-(about 3 mi and 1,500 ft)
+(about 3 mi and 1,600 ft)
 
 0.0s  planks on the falls bridge,
       the roar right under you
@@ -315,7 +317,7 @@ Walk on: Sol Duc Falls to Deer Lake
       rising beside you, then falling
 2.4s  mud, two squelches
 2.9s  a blowdown: bark scrape, a thump
-3.6s  a snow patch crunch (June only)
+3.6s  a snow patch crunch (early)
 4.2s  quiet lake air, a mosquito whine
       (late June and July)
 ```
@@ -346,7 +348,7 @@ Each segment's surface comes from its `trail_class`, its hazards and its zone. T
 | **Sand and cobble** | Coast zone (M4) | A squeak, and cobbles that roll |
 | **Logs** | `blowdown`; coast driftwood | Bark scrape, a thump down |
 
-**Wet feet keep squelching.** After a ford or wet brush, your steps squelch until the body model says your feet are dry. Hoh Lake's wet brush, which the data warns *"can soak shoes"*, really does.
+**Wet feet keep squelching.** After a ford or wet brush, your steps squelch until the body model says your feet are dry. On the drop to Hoh Lake, where the data warns that wet brush *"can soak shoes"*, they squelch all the way down.
 
 ### 6.3 How a step is made
 
@@ -375,11 +377,11 @@ FKT runs and the technical descent are where we get closest to LMD.
 |---|---|---|
 | **Breath** | Climbs, by grade and tiredness; running; the ♦ hush | Recorded breaths, phrased in code |
 | **Heartbeat** | Self-arrest and the cold ford only | Synthesis, two low thumps |
-| **Shiver** | The Cold chain (7.9) | Chattering, from recordings |
+| **Shiver** | The Cold chain (doc 7.9) | Chattering, from recordings |
 | **Stomach** | Food short, now and then | A small growl (Look-level comedy) |
 | **Yawn and sleep** | *Go to sleep* | A breath out, the bag's rustle |
 
-**An idea to check before use:** in real hypothermia, shivering can stop as it gets worse, not better. Wilderness first-aid material says so, but we haven't checked it against a medical source yet. If it's confirmed, the chattering stops at the Cold chain's last warning step, and the words say it too.
+**An idea to check before use:** in real hypothermia, shivering stops as it gets worse, not better. Medical News Today: *"if exposure to cold continues, it will eventually overwhelm the body, and shivering will stop."* That's a secondary source, so it gets checked against a primary medical one first. If it holds, the chattering stops at the Cold chain's last warning step, and the words say it too.
 
 ### 7.2 The gear
 
@@ -456,9 +458,9 @@ All music is a small band of chunky synth voices, played from note lists by `dsp
 - **Brush:** filtered noise on the off-beats.
 - **Room:** a short synthesized reverb, like the porch.
 
-It grows out of the doc's PC-speaker voice (13.1), warmed up enough to live beside real recordings. It costs no files: a whole score is a few kilobytes of notes. Everything is original except the Chopin dirge (9.5), which is in the public domain.
+It grows out of the PC-speaker voice (doc 13.1), warmed up enough to live beside real recordings. It costs no files: a whole score is a few kilobytes of notes. Everything is original except the Chopin dirge (9.5), which is in the public domain.
 
-The other options are in 26, S1: real instrument samples (CC0), or the strict one-voice PC speaker of 13.1.
+The other options are in 26, S1: real instrument samples (CC0), or the strict one-voice PC speaker of doc 13.1.
 
 ### 9.2 The cabin theme
 
@@ -482,7 +484,7 @@ The other options are in 26, S1: real instrument samples (CC0), or the strict on
 
 ### 9.3 The soak
 
-**The hot tub plays only after a big hike** (frame draft 3.7). It is the theme's slow version: half-time, low-passed, the lead an octave down, with the jets bubbling and the night ambience under it. When the crew is there, their voices join the band, as in 9.2.
+**The hot tub plays only after a big hike** (frame draft 3.7). It is the theme's slow version: half-time, low-passed, the lead an octave down, with the jets bubbling and the night ambience under it. When the crew is there, each of their parts joins the band, as in 9.2.
 
 ### 9.4 The finish
 
@@ -497,7 +499,7 @@ The other options are in 26, S1: real instrument samples (CC0), or the strict on
 
 ### 9.5 YOU PERISHED, and the death cues
 
-These are your approved death sequence (decision 1, 12.17). The cues keep the doc's design (13.2) in the new voice:
+This is your approved death sequence (decision 1, doc 12.17). The cues keep the doc's design (doc 13.2) in the new voice:
 
 | Screen | Cue |
 |---|---|
@@ -507,7 +509,7 @@ These are your approved death sequence (decision 1, 12.17). The cues keep the do
 | **The epitaph** | Dice on wood; a pencil, one tick per word |
 | **GAME OVER** | The cabin theme's first bar, once, slowly, then silence |
 
-The death cues never play in hidden Storybook (F.3), and a daily DNF plays whichever of these screens the modes draft keeps.
+The death cues never play in hidden Storybook (doc F.3), and a daily DNF plays whichever of these screens the modes draft keeps.
 
 ### 9.6 The daily sting
 
@@ -519,7 +521,7 @@ The death cues never play in hidden Storybook (F.3), and a daily DNF plays which
 
 ### 9.7 The Bonfire Lily
 
-**The motif plays once,** on the glow plate (10.2, 13.2), and nowhere else, so no other cue hints at it. It's the one moment the band plays on the trail. It's the rarest sound in the game.
+**The motif plays once,** on the glow plate (doc 10.2, 13.2), and nowhere else, so no other cue hints at it. It's the one moment the band plays on the trail. It's the rarest sound in the game.
 
 ### 9.8 Music you carried in
 
@@ -529,7 +531,7 @@ That would be the only music on the trail, and you paid for it in ounces. The ul
 
 ### 9.9 The old cue list, reconciled
 
-| From 13.2 | Now |
+| From doc 13.2 | Now |
 |---|---|
 | Title theme, *The Trail Goes Up* | Becomes the cabin theme (9.2) |
 | Page turn | Retired (no book). The walk-on replaces it (6.1) |
@@ -544,7 +546,7 @@ That would be the only music on the trail, and you paid for it in ounces. The ul
 | The Bonfire Lily motif | Kept, once (9.7) |
 | Death sting, dirge, dust, dice, pencil, GAME OVER | Kept, revoiced (9.5) |
 | Locals' quiz | Moves to the lockbox: a combination lock's clicks; it opens either way |
-| Censor bar blip, a can opened | Kept, under T05 (13.2) |
+| Censor bar blip, a can opened | Kept, under T05 (doc 2.6) |
 | The WIC line's rings | Kept |
 
 ---
@@ -639,7 +641,7 @@ Your test phone is an iPhone 17 on iOS 26.6.1. It has the Action button, which c
 ### 11.1 Unlock on the first tap
 
 - **iOS needs a user gesture** before Web Audio can make a sound.
-- **Use `touchend` or `click`, not `touchstart`.** WebKit's Jer Noble: touchend is the proper event, because a touchstart can be the start of a scroll (WebKit bug 149367). The build plan already says so (2.5).
+- **Use `touchend` or `click`, not `touchstart`.** WebKit's Jer Noble: touchend is the proper event, because a touchstart can be the start of a scroll (WebKit bug 149367). The build plan already says so (build plan 2.5).
 - **In that handler,** synchronously: set the session type (11.2), create or resume the context, and play one silent frame.
 - **The first tap at the cabin is the natural door** (9.2). Until then the draw-in is silent, as a drawing is.
 
@@ -687,7 +689,7 @@ AAC adds silent "priming" samples at the start of a file (Apple's technote: comm
 
 ### 11.7 Offline and file sizes
 
-- **M1a's audio is about 2 MB** (the estimate below), and the service worker caches all of it with the app. Offline at the trailhead (E.7) includes sound.
+- **M1a's audio is about 2 MB** (the estimate below), and the service worker caches all of it with the app. Offline at the trailhead (doc E.7) includes sound.
 - **Storage is generous.** Since Safari 17, a browser app's origin may use up to 60% of the disk, and a Home Screen web app gets the same quotas. WebKit grants `persist()` partly on whether the site is a Home Screen web app (WebKit).
 - **Later regions** get their own audio packs, fetched when you plan a trip there, so the first install stays small.
 
@@ -754,7 +756,7 @@ The build's 5 MB budget holds. An audio budget of 2.5 MB gets its own lint (A05)
 
 ### 12.4 Settings
 
-- **Sound:** on or off, in the status line, exactly as the doc has it (13.1).
+- **Sound:** on or off, in the status line, as in doc 13.1.
 - **Music:** on or off, in ≡ Settings, for players who want their own playlist under the park.
 - Nothing else. Silent Mode does the rest.
 
@@ -807,7 +809,7 @@ Synthesized sounds get an entry too, with `"source": "synth"` and the recipe's n
 | **A04** | A source from a denied library (10.2) |
 | **A05** | Over budget: all audio over 2.5 MB, a file over 200 KB, or a scene set over 120 s decoded |
 | **A06** | A cue used in code or content that isn't in the bank; a bank sound nothing uses (a warning) |
-| **A07** | T05 for sound: the can, the lighter and the speaker never play at the cabin, the car, the drive or a trailhead |
+| **A07** | T05 for sound: the can opening and *Light it*'s lighter never play at the cabin, the car, the drive or a trailhead |
 | **A08** | A death cue reachable in Storybook; the Lily motif used anywhere but its plate |
 | **A09** | A score that isn't marked `original`, or `public domain` with the work, composer and year |
 
@@ -979,7 +981,7 @@ The hash is SHA-256 of the line's text after Unicode NFC normalization. Plural f
 | Where | What T10 flags |
 |---|---|
 | **JS: sinks** | Any literal with a letter in it that's written to `textContent`, `innerText`, `innerHTML`, `title`, `alt`, `placeholder`, `ariaLabel` or `document.title`; `setAttribute` with an aria, alt, title or placeholder attribute; `fillText`; `navigator.share`; `alert`, `confirm`, `prompt` |
-| **JS: shape** | Any other literal with two words, a capitalized word or sentence punctuation. Exempt: console calls, `new Error(...)` messages (developer text that never reaches the screen) and lines tagged `// t-ok: <reason>` |
+| **JS: shape** | Any other literal with two words, a capitalized word or sentence punctuation. Exempt: code-shaped strings (ids, selectors, URLs, MIME types), console calls, `new Error(...)` messages (developer text that never reaches the screen) and lines tagged `// t-ok: <reason>` |
 | **HTML** | Any text node with letters outside `script` and `style`; `alt`, `title`, `aria-*` and `placeholder` with letters; `<title>`; the description, `apple-mobile-web-app-title` and `application-name` metas, unless filled by `data-t` |
 | **CSS** | A `content:` value with a letter. Glyphs like `"> "` and `"~ "` pass |
 | **Manifest** | `name`, `short_name` or `description` not given as `@id` |
@@ -1012,7 +1014,7 @@ T03 (no real businesses or people), T04 (*Golden Glow*), T05 (never near a car) 
 - **A screen whose words aren't ready stays preview-only,** held back by a scope switch, rather than holding up everything else.
 - **Approved-words-only deploys can go to main any time** (26, T10). Your own words going live isn't a feature promotion.
 - **The bundle** is `text/en.json`: id to words, nothing else.
-- **v1.0 also fails** on any placeholder left in shipped text, as the doc's release rule already says (F.3).
+- **v1.0 also fails** on any placeholder left in shipped text, as the doc's release rule already says (doc F.3).
 
 ### 20.2 Preview
 
@@ -1084,7 +1086,7 @@ T03 (no real businesses or people), T04 (*Golden Glow*), T05 (never near a car) 
 >
 > **3** · `plan.fill.pick` · template, under each suggested plan · max 34
 > (DRAFT) {nights} nights · {camps}
-> e.g. *2 nights · Deer Lake, Lunch Lake*
+> For example: *2 nights · Deer Lake, Lunch Lake*
 >
 > Reply any way you like, for example: *all ok* · *ok but 2* · *2: your words* · *cut 3* · *later 1*
 
@@ -1154,7 +1156,7 @@ On preview, the long press in 20.3 lets you flag a line mid-play and paste it in
 **`tools/text.mjs count`** prints where things stand:
 
 ```
-words: 2,147 lines, 18,920 words
+words: 2,326 lines, 19,840 words
   ours     1,902
     approved   412
     draft    1,380
@@ -1168,7 +1170,7 @@ main needs 64: 64 approved
 
 *(Illustrative numbers.)*
 
-**An honest estimate for M1a,** from the build plan's word list (5.6) and the frame draft:
+**An honest estimate for M1a,** from the build plan's word list (build plan 5.6) and the frame draft:
 
 | Area | Lines, roughly |
 |---|---|
@@ -1233,7 +1235,7 @@ Seven of the 13 carry the book framing that decision 22 removes: 3, 6, 8, 9, 11,
 
 ### 25.2 The move
 
-1. **No visible change.** The session that builds the text system moves all 13 into `content/text/en/app.json` and `title.json` word for word. It makes the shell and manifest id-driven, and adds a golden test: the built page's words equal today's live words.
+1. **No visible change.** The session that builds the text system moves all 13 into `content/text/en/app.json`, `title.json` and `alt.json`, word for word. It makes the shell and manifest id-driven, and adds a golden test: the built page's words equal today's live words.
 2. **Grandfathered, frozen.** `content/text/legacy.json` lists the 13 ids with the hash of today's words. Main may ship a legacy line only while its words are unchanged, and the list can only shrink. No other unapproved line may join main (26, T2).
 3. **Batch 1 goes to you** when you say the frame is set (decision 22 put it on hold). A sample is below.
 4. **On your answers,** approved lines leave `legacy.json` for the ledger, and the next deploy carries them to main (26, T10).
@@ -1263,7 +1265,7 @@ Seven of the 13 carry the book framing that decision 22 removes: 3, 6, 8, 9, 11,
 >
 > **10** · `title.begin_note` · under the button, until the trail opens · Now: *The trail opens soon.* · Draft: keep.
 >
-> **11** · `app.install` · shown in Safari, hidden once installed · Now: *Before your first book... book keeps its own saves.* · (DRAFT) *Before your first trip, tap Share, then* ***Add to Home Screen****. The Home Screen app keeps its own saves.*
+> **11** · `app.install` · shown in Safari, hidden once installed · Now: *Before your first book... book keeps its own saves.* · (DRAFT) "Before your first trip, tap Share, then **Add to Home Screen**. The Home Screen app keeps its own saves."
 >
 > **12** · `title.build` · the stamp · Now: *Edition 20261008-4afb91b* · (DRAFT) the code alone, with no word.
 >
@@ -1279,7 +1281,7 @@ Each has a recommendation. None blocks the next session.
 
 **Sound**
 
-- **S1. The music's voice.** The chunky "cabin band" of synth voices, played from code (recommended, 9.1). Or real instrument samples (CC0), or the strict one-voice PC speaker of 13.1.
+- **S1. The music's voice.** The chunky "cabin band" of synth voices, played from code (recommended, 9.1). Or real instrument samples (CC0), or the strict one-voice PC speaker of doc 13.1.
 - **S2. Music you carried in.** Harmonica and ukulele at camp as the only music on the trail (recommended yes, 9.8).
 - **S3. The drive.** Road and rain only (recommended), or a car radio.
 - **S4. The hush at the ♦.** The world quiets with every red diamond and never otherwise (recommended yes, 5.4).
