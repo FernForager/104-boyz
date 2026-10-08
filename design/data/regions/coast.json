@@ -545,9 +545,9 @@
         "bear_can_required": true,
         "food_storage": "can",
         "fires_allowed": true,
-        "toilet": false,
+        "toilet": true,
         "water": "Cedar Creek is pond-like above the beach and may take on tide water; collect where it flows onto the sand. Another small creek ~0.25 mi south. A good source is reported around mile 6 from Rialto.",
-        "notes": "Fires only on open beach below the high-tide line, driftwood only, at least 10 ft from drift logs, max 3 ft across; never in forested sites. 2026: a park-wide Stage 2 campfire ban was in effect from Aug 7 (still listed Aug 26); status in October 2026 unconfirmed. Park-approved bear canister required for all food, garbage and scented items (hanging is not allowed; raccoons defeat hangs). NPS lists a pit toilet but 2026 hikers could not find it and the camp KML shows none; nearest privy at Norwegian Memorial (~0.75 mi)."
+        "notes": "Fires only on open beach below the high-tide line, driftwood only, at least 10 ft from drift logs, max 3 ft across; never in forested sites. 2026: a park-wide Stage 2 campfire ban was in effect from Aug 7 (still listed Aug 26); status in October 2026 unconfirmed. Park-approved bear canister required for all food, garbage and scented items (hanging is not allowed; raccoons defeat hangs). NPS lists a pit toilet but 2026 hikers could not find it and the camp KML shows none; nearest privy at Norwegian Memorial (~0.75 mi). Toilet (fact check 2026-10-08): NPS North Coast Route page (updated 2026-08-24) lists Cedar Creek among the camps with pit toilets."
       },
       "description": "Forest sites on either side of a creek that pools behind the beach like a little pond. Many hikers call it their favorite camp on the north coast.",
       "scene_art_notes": "Foreground: tent pads under spruce; midground: still creek pond with a thin outflow over sand; sky: grey-blue; landmark: Coastie Head to the south.",
@@ -954,9 +954,9 @@
         "bear_can_required": true,
         "food_storage": "can",
         "fires_allowed": true,
-        "toilet": true,
+        "toilet": false,
         "water": "Scott Creek; reach past the driftwood to avoid brackish water at high tide.",
-        "notes": "Fires only on open beach below the high-tide line, driftwood only, at least 10 ft from drift logs, max 3 ft across; never in forested sites. 2026: a park-wide Stage 2 campfire ban was in effect from Aug 7 (still listed Aug 26); status in October 2026 unconfirmed. Park-approved bear canister required for all food, garbage and scented items (hanging is not allowed; raccoons defeat hangs). NPS route page says three small sites and no privy, but the park camp map shows a privy; a covered privy was flagged closed in June 2026 and reported usable in Sept 2026. Camp on the beach only - headland sites are signed closed for wildlife (cougar notice at trailhead, June 2026). A burned trash pile was reported here in July 2026."
+        "notes": "Fires only on open beach below the high-tide line, driftwood only, at least 10 ft from drift logs, max 3 ft across; never in forested sites. 2026: a park-wide Stage 2 campfire ban was in effect from Aug 7 (still listed Aug 26); status in October 2026 unconfirmed. Park-approved bear canister required for all food, garbage and scented items (hanging is not allowed; raccoons defeat hangs). NPS route page says three small sites and no privy, but the park camp map shows a privy; a covered privy was flagged closed in June 2026 and reported usable in Sept 2026. Camp on the beach only - headland sites are signed closed for wildlife (cougar notice at trailhead, June 2026). A burned trash pile was reported here in July 2026. Toilet (fact check 2026-10-08): NPS South Coast Route page (updated 2026-08-19) says three small sites above the beach and 'No privy is currently available at Scott Creek'; digging a cathole here is difficult."
       },
       "description": "A small camp where Scott Creek meets the beach, with good sand above the tide line and the Giants Graveyard of sea stacks just down the shore.",
       "scene_art_notes": "Foreground: tent on sand by a creek; midground: shed-like privy at the forest edge; sky: dawn light; landmark: Giants Graveyard stacks to the south.",

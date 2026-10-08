@@ -263,8 +263,8 @@
    "name": "Anderson Pass",
    "type": "pass",
    "elevation_ft": 4464,
-   "lat": 47.6961,
-   "lon": -123.3265,
+   "lat": 47.69593,
+   "lon": -123.3263,
    "camp": null,
    "description": "A narrow forested notch at the head of the valley, where the trail tips over toward the Dosewallips. Glacier-carved peaks crowd close; a side trail climbs toward the moraine and what is left of the Anderson Glacier.",
    "scene_art_notes": "Foreground: trail summit marker and a pack resting against a subalpine fir; midground: heather and snow patches; sky: deep blue dithered to light blue; landmark: Mount Anderson's dark rock and a shrinking white glacier.",
@@ -759,8 +759,8 @@
    ]
   },
   {
-   "id": "slide_camp",
-   "name": "Slide Camp",
+   "id": "slide_camp_skokomish",
+   "name": "Slide Camp (North Fork Skokomish)",
    "type": "camp",
    "elevation_ft": 930,
    "lat": 47.52813,
@@ -1384,10 +1384,10 @@
     "reservation_or_quota": "Wilderness permit required (Recreation.gov permit 4098362), $8/adult/night + $6 reservation fee.",
     "bear_can_required": true,
     "food_storage": "can",
-    "fires_allowed": true,
+    "fires_allowed": false,
     "toilet": true,
     "water": "Meadow streams and lakes (treat).",
-    "notes": "Three sites within sight of the periodically staffed Low Divide Ranger Cabin plus two more about 1/4 mi beyond. Rec.gov allows fires in existing rings even though the NPS also bans fires above 3,500 ft generally (verify). No camping near Lake Margaret or Lake Mary. Way trail to Martin's Park leaves from the south end of Lake Margaret."
+    "notes": "Three sites within sight of the periodically staffed Low Divide Ranger Cabin plus two more about 1/4 mi beyond. Rec.gov allows fires in existing rings even though the NPS also bans fires above 3,500 ft generally (verify). No camping near Lake Margaret or Lake Mary. Way trail to Martin's Park leaves from the south end of Lake Margaret. Fires (fact check 2026-10-08): set to no campfires. NPS's North Fork Quinault page puts Low Divide at 3,600-3,602 ft and says campfires are prohibited above 3,500 ft; Recreation.gov's 'Low Divide' division text says campfires are permitted in existing rings. The park-wide 3,500-ft regulation is used here; confirm with the WIC. NPS: three sites within sight of the ranger cabin plus two more 1/4 mile beyond; no camping near Lake Margaret or Lake Mary."
    },
    "description": "Forested meadows, little lakes, and a ranger cabin sit on the low saddle between the Quinault and the Elwha, the same gap the Press Expedition struggled over in 1890. Mount Christie and Mount Seattle lean in close.",
    "scene_art_notes": "Foreground: meadow with avalanche lilies; midground: log ranger cabin; sky: light blue with dithered cloud; landmark: craggy Mount Christie with snowfields.",
@@ -2163,16 +2163,16 @@
   },
   {
    "from": "lacrosse_pass",
-   "to": "honeymoon_meadows",
+   "to": "lacrosse_pass_junction",
    "miles": 3.1,
    "gain_ft": 0,
-   "loss_ft": 1920,
+   "loss_ft": 1930,
    "trail_class": "maintained",
    "hazards": [
     "snowfield"
    ],
    "snow_free_typical": "Mid-July through October",
-   "notes": "Gentler descent to the West Fork Dosewallips trail just above Honeymoon Meadows (Dosewallips region; node id 'honeymoon_meadows' assumed for the neighbor region). Split of the NPS 6.4 mi figure estimated from GIS; the junction is a few tenths of a mile from the camp. Gain/loss measured to the trail junction.",
+   "notes": "West Fork Dosewallips side of the LaCrosse Pass Trail, from the pass down to the LaCrosse Pass Junction camp on the West Fork trail (northeast_dose node lacrosse_pass_junction, 0.5 mi above Honeymoon Meadows). Values mirror the identical northeast_dose segment lacrosse_pass_junction->lacrosse_pass (3.1 mi of the NPS 6.4 mi trail total); keep one copy when merging. Fact check 2026-10-08: this segment previously ended at honeymoon_meadows, which skipped the 0.5 mi between the junction and the camp.",
    "sources": [
     "https://www.nps.gov/olym/planyourvisit/lacrosse-pass-trail.htm",
     "https://www.nps.gov/olym/planyourvisit/wilderness-trail-conditions.htm",
@@ -2363,7 +2363,7 @@
   },
   {
    "from": "flapjack_lakes_trail_junction",
-   "to": "slide_camp",
+   "to": "slide_camp_skokomish",
    "miles": 2.0,
    "gain_ft": 0,
    "loss_ft": 520,
@@ -2382,7 +2382,7 @@
    ]
   },
   {
-   "from": "slide_camp",
+   "from": "slide_camp_skokomish",
    "to": "staircase_rapids_bridge_junction",
    "miles": 0.5,
    "gain_ft": 0,
@@ -2704,10 +2704,11 @@
    "trail_class": "primitive",
    "hazards": [
     "snowfield",
-    "exposure"
+    "exposure",
+    "trail_closed_2026"
    ],
    "snow_free_typical": "Mid-July through October",
-   "notes": "Mileage derived (NPS 7.3 mi trailhead to Lake Sundown minus WTA 6.2 mi to the Wynoochee junction, minus 0.3).",
+   "notes": "Mileage derived (NPS 7.3 mi trailhead to Lake Sundown minus WTA 6.2 mi to the Wynoochee junction, minus 0.3). STATUS (fact check 2026-10-08): treated as CLOSED. The NPS trail conditions row 'Six Ridge Primitive Route, Graves Creek Trailhead to Lake Sundown, 7.3 mi' (updated 9/29/26) says 'Trail closed as of 8/1/25 due to Bear Gulch Fire'. The row may be stale, because the same page reopened Lake Sundown-Belview on 9/30/26 and the fire page (9/18/26) does not list this section. The official listing wins until NPS changes it. The reopened Lake Sundown-Belview section stays reachable from the national-forest side over Sundown Pass.",
    "sources": [
     "https://www.nps.gov/olym/planyourvisit/wilderness-trail-conditions.htm",
     "https://www.wta.org/go-hiking/hikes/graves-creek"
@@ -2721,10 +2722,11 @@
    "loss_ft": 860,
    "trail_class": "primitive",
    "hazards": [
-    "blowdown"
+    "blowdown",
+    "trail_closed_2026"
    ],
    "snow_free_typical": "June-October (lower), July-October (upper)",
-   "notes": "Climbs 2.5 mi and ~800 ft from the Success Creek ford to the Wynoochee junction and the start of subalpine meadows (WTA). Very brushy and rocky between Success Creek and Lake Sundown (NPS).",
+   "notes": "Climbs 2.5 mi and ~800 ft from the Success Creek ford to the Wynoochee junction and the start of subalpine meadows (WTA). Very brushy and rocky between Success Creek and Lake Sundown (NPS). STATUS (fact check 2026-10-08): treated as CLOSED. The NPS trail conditions row 'Six Ridge Primitive Route, Graves Creek Trailhead to Lake Sundown, 7.3 mi' (updated 9/29/26) says 'Trail closed as of 8/1/25 due to Bear Gulch Fire'. The row may be stale, because the same page reopened Lake Sundown-Belview on 9/30/26 and the fire page (9/18/26) does not list this section. The official listing wins until NPS changes it. The reopened Lake Sundown-Belview section stays reachable from the national-forest side over Sundown Pass.",
    "sources": [
     "https://www.wta.org/go-hiking/hikes/graves-creek",
     "https://www.nps.gov/olym/planyourvisit/wilderness-trail-conditions.htm"
@@ -2738,10 +2740,11 @@
    "loss_ft": 1330,
    "trail_class": "primitive",
    "hazards": [
-    "river_ford"
+    "river_ford",
+    "trail_closed_2026"
    ],
    "snow_free_typical": "year-round (occasional winter snow)",
-   "notes": "Switchbacks up from the junction, traverses high above the Graves Creek gorge, then descends to cross Graves Creek ~3.7 mi from the trailhead just below the Success Creek confluence; Success Creek ford (unbridged) can be deep and swift in spring/early summer. NPS 9/29/26 row still says 'Trail closed as of 8/1/25 due to Bear Gulch Fire' for Graves Creek to Lake Sundown; the NPS fire page (9/18/26) only lists Six Ridge east of Belview as closed; verify.",
+   "notes": "Switchbacks up from the junction, traverses high above the Graves Creek gorge, then descends to cross Graves Creek ~3.7 mi from the trailhead just below the Success Creek confluence; Success Creek ford (unbridged) can be deep and swift in spring/early summer. NPS 9/29/26 row still says 'Trail closed as of 8/1/25 due to Bear Gulch Fire' for Graves Creek to Lake Sundown; the NPS fire page (9/18/26) only lists Six Ridge east of Belview as closed; verify. STATUS (fact check 2026-10-08): treated as CLOSED. The NPS trail conditions row 'Six Ridge Primitive Route, Graves Creek Trailhead to Lake Sundown, 7.3 mi' (updated 9/29/26) says 'Trail closed as of 8/1/25 due to Bear Gulch Fire'. The row may be stale, because the same page reopened Lake Sundown-Belview on 9/30/26 and the fire page (9/18/26) does not list this section. The official listing wins until NPS changes it. The reopened Lake Sundown-Belview section stays reachable from the national-forest side over Sundown Pass.",
    "sources": [
     "https://www.wta.org/go-hiking/hikes/graves-creek",
     "https://www.nps.gov/olym/planyourvisit/wilderness-trail-conditions.htm",
@@ -3701,7 +3704,7 @@
     {
      "day": 5,
      "to": "honeymoon_meadows",
-     "miles": 11.7,
+     "miles": 12.2,
      "gain_ft": 3040
     },
     {
@@ -3715,7 +3718,7 @@
     "Lakes loop from Marmot Lake",
     "Anderson Moraine trail from Anderson Pass (0.8 mi, 4,465-5,200 ft)"
    ],
-   "total_miles": 58.6,
+   "total_miles": 59.1,
    "difficulty": "hard",
    "best_months": "Late July to late September",
    "highlights": [
@@ -4119,7 +4122,7 @@
     "Six Ridge views"
    ],
    "what_goes_wrong_for_underprepared_hikers": [
-    "Not checking status: an NPS conditions row (9/29/26) still lists Graves Creek-Lake Sundown as closed since 8/1/25 (likely stale; verify)",
+    "CLOSED in fall 2026: the NPS conditions row for Graves Creek to Lake Sundown (9/29/26) still says closed since 8/1/25 for the Bear Gulch Fire. It may be stale, so check with the WIC; a ranger can turn back a party that is not on a valid route.",
     "Success Creek ford deep in early summer",
     "Brushy, rocky primitive tread between Success Creek and Lake Sundown",
     "Steep snow near Sundown Pass without an ice axe",
@@ -4844,8 +4847,8 @@
    "name": "Bear Gulch Fire closures and burn-scar hazards (Staircase)",
    "where": [
     "staircase_trailhead",
-    "slide_camp>staircase_rapids_bridge_junction",
-    "flapjack_lakes_trail_junction>slide_camp",
+    "slide_camp_skokomish>staircase_rapids_bridge_junction",
+    "flapjack_lakes_trail_junction>slide_camp_skokomish",
     "flapjack_lakes_trail_junction>smith_lake_trail_junction",
     "six_ridge_trail_junction>mount_olson_way_trail_junction",
     "staircase_trailhead>wagonwheel_lake"
@@ -5510,6 +5513,12 @@
    "source": "https://www.peninsuladailynews.com/2015/06/16/enchanted-valley-in-olympic-national-park-reopens-to-overnight-campers-after-closure-due-to-bear-activity/",
    "info_date": "2015-06-16",
    "confidence": "high"
+  },
+  {
+   "note": "Access from Forks/Port Angeles along the west side crosses the US 101 Hoh River Bridge. WSDOT has run it at one lane since 2026-07-14, with full closures Sept 24-29, Oct 1-6 and 5 am Oct 8 - noon Oct 13, 2026. During a full closure, Quinault trailheads can only be reached from the north by the 4+ hour Hood Canal detour. Approaches from Aberdeen/Hoquiam are unaffected. Added by fact check 2026-10-08.",
+   "source": "https://wsdot.wa.gov/about/news/2026/long-weekend-and-overnight-closures-horizon-us-101-hoh-river-bridge-south-forks",
+   "info_date": "2026-09",
+   "confidence": "high"
   }
  ],
  "uncertain_claims": [
@@ -5524,7 +5533,7 @@
   "North Fork Quinault: NPS segment values sum to 15.7 mi to Low Divide vs NPS headline 16 mi and 16.5 mi to Lake Margaret; another hiker reported 17.5 mi. Sixteen Mile camp ~12.2 mi from the trailhead. Twelve Mile camp (hidden Rec.gov division '12-mile') could not be located or confirmed as an active camp; only '12 mile flat' is described by NPS. Halfway House coordinates approximate (NPS GIS spur near Wild Rose Creek).",
   "Skyline: interior split points (Reflection Lake 1.5 mi from Three Lakes per NPS; Seattle Creek crossing 3.2 mi past the Lake Beauty junction from GIS proportion). Promise Creek Pass, Hee Haw Pass and Lake Beauty Pass are described by NPS but not located; included only in segment notes. Elip Creek/Skyline junction elevation: WTA 3,760 ft vs NPS 3,350 ft.",
   "Six Ridge: Rec.gov says Belview is 6.4 mi from the North Fork; NPS gives 10.6 mi total to the Sundown Lake trail; split between Belview, McGravey Lakes and Lake Sundown and the Mount Olson junction estimated from GIS. Six Ridge Pass not located. Graves Creek trail mileages (Success Creek 3.7, Wynoochee junction 6.2) from WTA; Lake Sundown 7.3 from NPS.",
-  "LaCrosse Pass Trail split (3.3 mi Duckabush side / 3.1 mi Dosewallips side of NPS 6.4 mi) estimated from GIS; the segment to 'honeymoon_meadows' assumes the Dosewallips region uses that node id and ends a few tenths of a mile from the actual trail junction.",
+  "LaCrosse Pass Trail split (3.3 mi Duckabush side / 3.1 mi Dosewallips side of NPS 6.4 mi) estimated from GIS; the West Fork half now ends at northeast_dose's lacrosse_pass_junction (fact check 2026-10-08); it previously assumed the Dosewallips region uses that node id and ends a few tenths of a mile from the actual trail junction.",
   "East Fork quota trial: whether the 2024 trial (208 users/30 permits) continues unchanged in 2026 or has been made permanent was not confirmed beyond the NPS reservations page (updated 2/12/26).",
   "Enchanted Valley Chalet 2026 status rests on secondary reporting (May 2026 GearJunkie article summarized by search; page not directly readable) plus 2014-2021 NPS/EA documents; treat 'no final decision' as medium confidence.",
   "Winter removal of the temporary North Shore Road bridge is documented for 2024 (NPS) and 2025 (trip report + WTA); a fall 2026 removal is inferred, not announced.",
@@ -5535,7 +5544,7 @@
   "Kimta Peak basin node uses the NPS GIS 'Kimta Peak' reference point on the trail (DEM ~5,260 ft); the actual basin campsites and seasonal creek may sit lower. Sundown Pass to the Sundown Lake trail junction distance (0.3 mi) is measured from NPS GIS geometry; the pass is on the South Fork Skokomish trail, not on the Graves Creek-Lake Sundown route itself.",
   "DEM-based trip gains run lower than guidebook totals (e.g., Enchanted Valley round trip: WTA 3,700 ft vs ~2,200 ft here) because small ups and downs under ~15 ft are filtered and the GIS line smooths switchbacks.",
   "Older-than-2025 items used for context (possibly stale): 2015 bear closure, 2014 chalet move, 2019-2021 erosion distances, 2023 Pony Bridge replacement and yellow-jacket report, 2017 Dosewallips road listing, O'Neil Pass NPS page (4/25/2025).",
-  "Node coordinates interpolated along NPS trail geometry by published mileage (approximate): big_creek_ford, big_hump, duckabush_park_boundary, east_fork_quinault_high_bridge, five_mile_camp, slide_camp."
+  "Node coordinates interpolated along NPS trail geometry by published mileage (approximate): big_creek_ford, big_hump, duckabush_park_boundary, east_fork_quinault_high_bridge, five_mile_camp, slide_camp_skokomish."
  ],
  "sources": [
   "https://www.nps.gov/olym/planyourvisit/east-fork-quinault-river-trail.htm",

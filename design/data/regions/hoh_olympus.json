@@ -1698,12 +1698,12 @@
       "from": "hoh_lake_trail_junction",
       "to": "c_b_flats_group_site",
       "miles": 4.5,
-      "gain_ft": 3484,
-      "loss_ft": 406,
+      "gain_ft": 3160,
+      "loss_ft": 90,
       "trail_class": "maintained",
       "hazards": ["heat_exposure", "no_water", "snowfield"],
       "snow_free_typical": "mid-July through September (NPS); lower half usually clear by June",
-      "notes": "Steep, exposed grade with 22 switchbacks through the 1978 Hoh Fire burn with little canopy; no water until C.B. Flats (NPS 8/17/26). Cleared and brushed in 2026. Not stock passable. NPS: Hoh Lake Trail is 6.4 mi from the Hoh River Trail to the Bogachiel Peak junction (6.5 on the conditions page); C.B. Flats is half a mile below Hoh Lake.",
+      "notes": "Steep, exposed grade with 22 switchbacks through the 1978 Hoh Fire burn with little canopy; no water until C.B. Flats (NPS 8/17/26). Cleared and brushed in 2026. Not stock passable. NPS: Hoh Lake Trail is 6.4 mi from the Hoh River Trail to the Bogachiel Peak junction (6.5 on the conditions page); C.B. Flats is half a mile below Hoh Lake. Fact check 2026-10-08: gain/loss changed from +3,484/-406 to +3,160/-90 so this copy matches the Sol Duc region copy of the same segment (smoother DEM profile; net climb about 3,070 ft either way).",
       "sources": ["https://www.nps.gov/olym/planyourvisit/hoh-lake-trail.htm", "https://www.nps.gov/olym/planyourvisit/wilderness-trail-conditions.htm", "https://www.recreation.gov/permits/4098362"]
     },
     {

@@ -376,7 +376,7 @@
       "name": "Obstruction Point Trailhead",
       "type": "trailhead",
       "elevation_ft": 6100,
-      "lat": 47.9183,
+      "lat": 47.9184,
       "lon": -123.3822,
       "camp": null,
       "description": "The end of an eight-mile ribbon of gravel, perched above timberline. Treeless ridges run off in three directions and the glaciers of Mount Olympus fill the western sky.",
@@ -507,8 +507,8 @@
       "name": "Grand Pass",
       "type": "pass",
       "elevation_ft": 6420,
-      "lat": 47.8656,
-      "lon": -123.3565,
+      "lat": 47.86565,
+      "lon": -123.35547,
       "camp": null,
       "description": "A high, rocky saddle at the head of Grand Valley. On one side the lakes you camped by shine like coins; on the other the trail plunges two thousand feet to Cameron Creek. A short scramble leads to Grand Pass Peak for an even bigger view.",
       "scene_art_notes": "Foreground: talus saddle with a cairn. Midground left: green valley with three tiny lakes; right: deep forested gorge. Background: glaciers of Mount Olympus and Mount Cameron. Sky: dark blue at top, white clouds below the peaks.",
@@ -538,8 +538,8 @@
       ]
     },
     {
-      "id": "elk_mountain_trail_junction",
-      "name": "Badger Valley Trail / Elk Mountain Trail junction",
+      "id": "badger_valley_elk_mountain_junction",
+      "name": "Badger Valley Trail / Elk Mountain Primitive Trail junction",
       "type": "junction",
       "elevation_ft": 5350,
       "lat": 47.9177,
@@ -1276,8 +1276,8 @@
       "name": "Hayden Pass",
       "type": "pass",
       "elevation_ft": 5847,
-      "lat": 47.7825,
-      "lon": -123.3504,
+      "lat": 47.7826,
+      "lon": -123.35019,
       "camp": null,
       "description": "A broad, open saddle above the scars of an old fire, with ghost trees standing silver below. On a clear day the whole range is laid out, and the trail drops away east to the meadows of the Dosewallips.",
       "scene_art_notes": "Foreground: gravel saddle and a weathered sign. Midground: slope of silver burned snags among green regrowth. Background: snowy Mount Anderson and many peaks. Sky: big clean blue.",
@@ -1301,9 +1301,9 @@
         "bear_can_required": true,
         "food_storage": "can",
         "fires_allowed": true,
-        "toilet": null,
+        "toilet": true,
         "water": "Elwha River; treat.",
-        "notes": "Park-approved bear canister required for all food, garbage and scented items (parkwide rule, Recreation.gov 2026). Hanging food is prohibited even where old bear wires remain. Shelter \"in good repair with two bunks\" plus scattered private sites (WTA Sept 2026). Toilet listing conflicts (NPS trail page: pit toilet; NPS camp map: none). Fires only in rings when no ban: Stage 2 fire restrictions (all campfires banned parkwide) were in effect from Aug 11, 2026; no lifting notice found by Oct 7, 2026."
+        "notes": "Park-approved bear canister required for all food, garbage and scented items (parkwide rule, Recreation.gov 2026). Hanging food is prohibited even where old bear wires remain. Shelter \"in good repair with two bunks\" plus scattered private sites (WTA Sept 2026). Toilet listing conflicts (NPS trail page: pit toilet; NPS camp map: none). Fires only in rings when no ban: Stage 2 fire restrictions (all campfires banned parkwide) were in effect from Aug 11, 2026; no lifting notice found by Oct 7, 2026. Toilet (fact check 2026-10-08): the NPS Elwha River Trail page lists pit toilets at Lillian, Mary's Falls, Elkhorn, Hayes River, Camp Wilder and Chicago Camp."
       },
       "description": "A friendly camp with an old three-sided shelter and private sites scattered among logs and stumps that make fine furniture. Upstream, fire-scarred slopes begin.",
       "scene_art_notes": "Foreground: three-sided log shelter with two bunks. Midground: campsites with stump stools. Background: river and slopes of silver snags. Sky: blue.",
@@ -1414,17 +1414,17 @@
       "name": "Low Divide",
       "type": "camp",
       "elevation_ft": 3602,
-      "lat": 47.7234,
-      "lon": -123.559,
+      "lat": 47.72343,
+      "lon": -123.55904,
       "camp": {
-        "sites": null,
+        "sites": 5,
         "reservation_or_quota": "Owned by the North Fork Quinault region. Recreation.gov / NPS Quinault district camp.",
         "bear_can_required": true,
         "food_storage": "can",
-        "fires_allowed": null,
+        "fires_allowed": false,
         "toilet": true,
         "water": "Streams; treat.",
-        "notes": "Shared node; see the North Fork Quinault region for full camp details. Park-approved bear canister required for all food, garbage and scented items (parkwide rule, Recreation.gov 2026). Hanging food is prohibited even where old bear wires remain."
+        "notes": "Shared node; see the North Fork Quinault region for full camp details. Park-approved bear canister required for all food, garbage and scented items (parkwide rule, Recreation.gov 2026). Hanging food is prohibited even where old bear wires remain. Fires (fact check 2026-10-08): set to no campfires. NPS's North Fork Quinault page puts Low Divide at 3,600-3,602 ft and says campfires are prohibited above 3,500 ft; Recreation.gov's 'Low Divide' division text says campfires are permitted in existing rings. The park-wide 3,500-ft regulation is used here; confirm with the WIC. NPS: three sites within sight of the ranger cabin plus two more 1/4 mile beyond; no camping near Lake Margaret or Lake Mary."
       },
       "description": "The gentle saddle between the Elwha and the Quinault, with Lakes Mary and Margaret and meadows under Mount Seattle and Mount Christie. North is the long Elwha; south, the rain forest.",
       "scene_art_notes": "Foreground: meadow with a trail sign ELWHA / QUINAULT. Midground: small lake. Background: Mount Seattle and Mount Christie. Sky: blue with clouds.",
@@ -1472,7 +1472,7 @@
         "bear_can_required": true,
         "food_storage": "can",
         "fires_allowed": false,
-        "toilet": null,
+        "toilet": false,
         "water": "Creek in the basin below the trail; treat.",
         "notes": "Shared with the Sol Duc region (same id and coordinates). Start of the Bailey Range Way Trail. Park-approved bear canister required for all food, garbage and scented items (parkwide rule, Recreation.gov 2026). Hanging food is prohibited even where old bear wires remain."
       },
@@ -2325,7 +2325,7 @@
     {
       "from": "grand_lake",
       "to": "moose_lake",
-      "miles": 0.8,
+      "miles": 0.5,
       "gain_ft": 310,
       "loss_ft": 0,
       "trail_class": "maintained",
@@ -2333,7 +2333,7 @@
         "creek_crossing"
       ],
       "snow_free_typical": "early/mid July through September",
-      "notes": "Camp to camp via the Grand Lake spur and Grand Valley Trail (NPS gives 1/2 mile lake to lake). A few small creek crossings; be prepared for wet feet (NPS). [Geometry 0.78 mi; Distance: NPS trail GIS geometry (Trails_Public_2019) measured with haversine; gain/loss: USGS 3DEP 10 m DEM via OpenTopoData sampled every 30 m.]",
+      "notes": "Camp to camp via the Grand Lake spur and Grand Valley Trail (NPS gives 1/2 mile lake to lake). A few small creek crossings; be prepared for wet feet (NPS). [Geometry 0.78 mi; Distance: NPS trail GIS geometry (Trails_Public_2019) measured with haversine; gain/loss: USGS 3DEP 10 m DEM via OpenTopoData sampled every 30 m.] Fact check 2026-10-08: changed 0.8 -> 0.5 mi. NPS's Grand Valley page gives 1/2 mile from Grand Lake to Moose Lake, and with 0.5 the Obstruction Point-Grand Pass-Cameron junction chain totals exactly the 7.7 mi NPS lists for the Grand Valley/Grand Pass Trail. The earlier 0.8 came from GIS geometry that probably included the spur to the Grand Lake camp.",
       "sources": [
         "https://www.nps.gov/olym/planyourvisit/grand-valley.htm",
         "https://www.wta.org/go-hiking/hikes/grand-valley",
@@ -2446,7 +2446,7 @@
     },
     {
       "from": "badger_valley",
-      "to": "elk_mountain_trail_junction",
+      "to": "badger_valley_elk_mountain_junction",
       "miles": 1.8,
       "gain_ft": 1270,
       "loss_ft": 0,
@@ -2466,7 +2466,7 @@
       ]
     },
     {
-      "from": "elk_mountain_trail_junction",
+      "from": "badger_valley_elk_mountain_junction",
       "to": "badger_valley_upper_junction",
       "miles": 0.9,
       "gain_ft": 710,
@@ -3814,6 +3814,22 @@
         "https://www.recreation.gov/api/permitcontent/4098362",
         "https://carto.nationalmap.gov/arcgis/rest/services/geonames/MapServer"
       ]
+    },
+    {
+      "from": "badger_valley_elk_mountain_junction",
+      "to": "elk_mountain_grand_ridge_junction",
+      "miles": 1.3,
+      "gain_ft": 1275,
+      "loss_ft": 0,
+      "trail_class": "primitive",
+      "hazards": [
+        "snowfield"
+      ],
+      "snow_free_typical": "Mid-July through early October",
+      "notes": "Elk Mountain Primitive Trail, climbing from the Badger Valley Trail to the Grand Ridge Trail high point on Elk Mountain. NPS trail conditions (6/5/26) list it as 1.3 mi, 5,600-6,650 ft; gain here is the difference between the two junction elevations used in this dataset (DEM 5,350 ft and WTA-signed 6,625 ft), so it is approximate. Added by fact check 2026-10-08: the two ends of this trail previously shared one node id (elk_mountain_trail_junction) across the Elwha and Northeast files, which silently teleported hikers 1,275 ft between Badger Valley and the ridge crest.",
+      "sources": [
+        "https://www.nps.gov/olym/planyourvisit/wilderness-trail-conditions.htm"
+      ]
     }
   ],
   "trailheads": [
@@ -4216,7 +4232,7 @@
         {
           "day": 1,
           "to": "moose_lake",
-          "miles": 4.5,
+          "miles": 4.2,
           "gain_ft": 810
         },
         {
@@ -4228,7 +4244,7 @@
         {
           "day": 3,
           "to": "obstruction_point_trailhead",
-          "miles": 5.4,
+          "miles": 5.1,
           "gain_ft": 2080
         }
       ],
@@ -4251,7 +4267,7 @@
         "Food left out: habituated deer and chipmunks",
         "Hurricane Ridge Road closures (e.g., a Sunday-morning bike race in Aug 2026) delaying the start"
       ],
-      "total_miles": 13.7
+      "total_miles": 13.1
     },
     {
       "id": "lillian_ridge_stroll",
@@ -5472,7 +5488,7 @@
         "humes_ranch"
       ],
       "season": "July-September",
-      "real_world": "Stage 2 restrictions banned all campfires parkwide from Aug 11, 2026. A 0.5-acre lightning fire burned ~1.5 mi SE of Mount Barnes in Aug 2026 (rappelers cut line; no closures). The 2023 lightning fires (Delabarre, 4,088 acres) closed the upper Elwha that year; fire-damaged areas between Hayes River and Chicago Camp still drop trees and rocks.",
+      "real_world": "Stage 2 restrictions banned all campfires parkwide from Aug 7, 2026. A 0.5-acre lightning fire burned ~1.5 mi SE of Mount Barnes in Aug 2026 (rappelers cut line; no closures). The 2023 lightning fires (Delabarre, 4,088 acres) closed the upper Elwha that year; fire-damaged areas between Hayes River and Chicago Camp still drop trees and rocks.",
       "game_event_idea": "Smoke smudges the sky: (A) Continue: 80% just hazy views, 20% a ranger reroutes you (closure) and the trip shortens. (B) Plan a campfire dinner: if a ban is on, the meal plan fails (must have a stove) and a ranger may cite you. Packing a stove makes bans irrelevant. (Percentages are suggested game-design odds, not real-world statistics.)",
       "mitigations": [
         "stove_and_fuel",
@@ -5880,7 +5896,7 @@
       "confidence": "high"
     },
     {
-      "rule": "Stage 2 fire restrictions from Aug 11, 2026: all campfires prohibited in Olympic National Park and Olympic National Forest; gas stoves allowed 3 ft from vegetation. No lifting notice found by Oct 7, 2026.",
+      "rule": "Stage 2 fire restrictions from Aug 7, 2026 (date per the Olympic NF order; NPS releases of Aug 11 and Aug 26 confirm it was in effect): all campfires prohibited in Olympic National Park and Olympic National Forest; gas stoves allowed 3 ft from vegetation. No lifting notice found by Oct 7, 2026.",
       "applies_to": [
         "all_camps"
       ],
@@ -6097,7 +6113,7 @@
       "confidence": "medium"
     },
     {
-      "note": "Stage 2 fire restrictions: all campfires prohibited parkwide from Aug 11, 2026 (reaffirmed Aug 26); no lifting notice found by Oct 7, 2026.",
+      "note": "Stage 2 fire restrictions: all campfires prohibited parkwide from Aug 7, 2026 (reaffirmed Aug 26); no lifting notice found by Oct 7, 2026.",
       "source": "https://www.nps.gov/olym/learn/news/crews-extinguish-two-small-lightning-fires-continue-to-work-mt-barnes-and-mount-tom-creek-fires.htm",
       "info_date": "2026-08-26",
       "confidence": "medium"
@@ -6157,7 +6173,7 @@
     "Lillian River Trail length: NPS page 2.3 mi, NPS GIS 2.54 (label \"mile 3.0\"), WTA 2.5.",
     "Toilet presence conflicts between the NPS camp KML, Recreation.gov text and NPS trail pages at Humes Ranch, Camp Wilder, Lake Angeles, Heather Park and Appleton Pass (set to null where conflicting).",
     "Food storage: the NPS camp KML still lists \"Bear Wire\" at many Elwha camps, but Recreation.gov 2026 rules require canisters everywhere and prohibit hanging; Recreation.gov text for Appleton Pass still says \"use available bear wire or bear canisters\". Game default: canister required.",
-    "Fires: whether the Aug 11, 2026 Stage 2 campfire ban had been lifted by Oct 7, 2026 could not be confirmed.",
+    "Fires: whether the Aug 7, 2026 Stage 2 campfire ban had been lifted by Oct 7, 2026 could not be confirmed.",
     "Dodger Point camp water: Recreation.gov says no water; trip reports describe a small stream crossing the path to the campground and tarns below the point, low by midsummer.",
     "The location of the Elwha ford relative to Chicago Camp is described inconsistently (\"at Chicago Camp\", \"south of Chicago Camp\", \"between Chicago and Wilder\"); modeled on the Chicago Camp-Lake Margaret segment (the Low Divide approach).",
     "Long Ridge Trail Elwha crossing (\"Dodger Point Bridge\") is placed ~0.1 mi from the Humes Ranch loop junction from the geometry; 2026 bridge condition not explicitly confirmed (trail reported in use and cleared).",

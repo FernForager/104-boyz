@@ -1006,7 +1006,7 @@
     "bear_can_required": true,
     "food_storage": "can",
     "fires_allowed": false,
-    "toilet": null,
+    "toilet": false,
     "water": "Oyster Lake just beyond the pass, or snowfields early in summer; treat water.",
     "notes": "CONFLICT: Recreation.gov division text says \"use available bear wire or bear canisters\" and \"use available toilet\", while the park-wide 2026 rules require bear canisters for all wilderness overnight stays and the NPS Appleton page says no toilets. Default the game to: bear canister required, no fires. Several tent sites near Oyster Lake; do not camp on vegetation."
    },
@@ -1286,7 +1286,7 @@
    "id": "c_b_flats_group_site",
    "name": "C.B. Flats Group Site",
    "type": "camp",
-   "elevation_ft": 4080,
+   "elevation_ft": 4091,
    "lat": 47.8947,
    "lon": -123.7898,
    "camp": {
@@ -1466,9 +1466,9 @@
    "id": "happy_lake_ridge_junction",
    "name": "Aurora Ridge Primitive Trail / Happy Lake Ridge Trail junction",
    "type": "junction",
-   "elevation_ft": 4960,
-   "lat": 47.99478,
-   "lon": -123.72343,
+   "elevation_ft": 4970,
+   "lat": 47.9948,
+   "lon": -123.7234,
    "camp": null,
    "description": "At the east end of Aurora Ridge, a faint path meets the Happy Lake Ridge trail coming over from the Elwha side.",
    "scene_art_notes": "Foreground: faint junction in meadow. Sky: blue.",
@@ -2272,7 +2272,7 @@
   {
    "from": "c_b_flats_group_site",
    "to": "hoh_lake_trail_junction",
-   "miles": 4.2,
+   "miles": 4.5,
    "gain_ft": 90,
    "loss_ft": 3160,
    "trail_class": "maintained",
@@ -2282,7 +2282,7 @@
     "steep"
    ],
    "snow_free_typical": "upper part mid-July to early October; lower forest most of the year",
-   "notes": "Very strenuous; 22 switchbacks between the Hoh River and the Hoh Lake basin; much of it through the 1978 Hoh Fire area with little shade, hot and dry in summer (NPS). WTA and OSM both give 4.7 mi from the junction to Hoh Lake (so about 4.2 here); NPS figures (Hoh Lake 14.7 mi from Hoh trailhead; junction to Bogachiel Peak junction 6.4 mi) imply roughly 5.0-5.2 mi. NPS gain from the Hoh River: 3,500 ft. hoh_lake_trail_junction is owned by the Hoh region.",
+   "notes": "Very strenuous; 22 switchbacks between the Hoh River and the Hoh Lake basin; much of it through the 1978 Hoh Fire area with little shade, hot and dry in summer (NPS). WTA and OSM both give 4.7 mi from the junction to Hoh Lake (so about 4.2 here); NPS figures (Hoh Lake 14.7 mi from Hoh trailhead; junction to Bogachiel Peak junction 6.4 mi) imply roughly 5.0-5.2 mi. NPS gain from the Hoh River: 3,500 ft. hoh_lake_trail_junction is owned by the Hoh region. Fact check 2026-10-08: changed 4.2 -> 4.5 mi to match the Hoh region's copy of this segment and NPS's Hoh Lake Trail page (Hoh Lake is 14.7 mi from the Hoh trailhead; the junction is at 9.7 mi, so 5.0 mi to the lake and 4.5 mi to C.B. Flats). WTA/OSM's 4.7 mi to the lake remains the main alternative.",
    "sources": [
     "https://www.nps.gov/olym/planyourvisit/hoh-lake-trail.htm",
     "https://www.wta.org/go-hiking/hikes/hoh-lake",
@@ -3811,7 +3811,7 @@
     {
      "day": 3,
      "to": "olympus_guard_station",
-     "miles": 5.3,
+     "miles": 5.6,
      "gain_ft": 100
     },
     {
@@ -3825,7 +3825,7 @@
     "Hoh Lake layover",
     "Glacier Meadows side trip in the Hoh region (see Hoh data)"
    ],
-   "total_miles": 25.2,
+   "total_miles": 25.5,
    "difficulty": "hard",
    "best_months": "late July to September",
    "highlights": [
@@ -4659,7 +4659,7 @@
     "deer_lake",
     "lunch_lake"
    ],
-   "season": "Fires never allowed above 3,500 ft; Stage 2 parkwide campfire ban from Aug 11, 2026 (still in effect in the Aug 26 release).",
+   "season": "Fires never allowed above 3,500 ft; Stage 2 parkwide campfire ban from Aug 7, 2026 (still in effect in the Aug 26 release).",
    "real_world": "Fires are prohibited above 3,500 ft and at all High Divide/basin camps; below that line only in existing rings with dead and down wood, and not at all during seasonal bans. Stoves allowed if 3 ft from vegetation.",
    "game_event_idea": "The player packed only a fire-starter plan for cooking. At a lake camp: no fire allowed - eat cold food (morale -1) unless a stove was packed. At a river camp below 3,500 ft in a non-ban month: small fire allowed (morale +1); in Aug 2026 ban: a ranger stops by. (Percentages are suggested design odds, not real-world statistics.)",
    "mitigations": [
@@ -5093,7 +5093,7 @@
    "confidence": "high"
   },
   {
-   "rule": "2026: Stage 2 fire restrictions from Aug 11, 2026 prohibit all campfires in Olympic National Park and Olympic National Forest; stoves allowed 3 ft from vegetation. Still in effect in the Aug 26, 2026 release; no lifting notice found by Oct 7.",
+   "rule": "2026: Stage 2 fire restrictions from Aug 7, 2026 (date per the Olympic NF order; NPS releases of Aug 11 and Aug 26 confirm it was in effect) prohibit all campfires in Olympic National Park and Olympic National Forest; stoves allowed 3 ft from vegetation. Still in effect in the Aug 26, 2026 release; no lifting notice found by Oct 7.",
    "applies_to": [
     "all_wilderness_camps"
    ],
@@ -5220,7 +5220,7 @@
    "confidence": "high"
   },
   {
-   "note": "Stage 2 fire restrictions: all campfires prohibited parkwide since Aug 11, 2026; reaffirmed Aug 26, 2026. No lifting notice found as of Oct 7, 2026 (in past years bans lifted mid-September).",
+   "note": "Stage 2 fire restrictions: all campfires prohibited parkwide since Aug 7, 2026; reaffirmed Aug 26, 2026. No lifting notice found as of Oct 7, 2026 (in past years bans lifted mid-September).",
    "source": "https://www.nps.gov/olym/learn/news/crews-extinguish-two-small-lightning-fires-continue-to-work-mt-barnes-and-mount-tom-creek-fires.htm",
    "info_date": "2026-08-26",
    "confidence": "medium"
@@ -5314,7 +5314,7 @@
   "Segment distances disagree among sources: NPS High Divide loop 18.2 mi, WTA 19 mi, 2026 hiker GPS 18-22.6 mi. This file uses WTA/NPS anchors (trailhead-Appleton junction 4.9, Sol Duc Park 7.0, Heart Lake 8.0, High Divide junction 8.4; falls-Deer Lake 2.9) and OSM-measured distances elsewhere, giving an 18.4 mi loop.",
   "Sol Duc Falls to Deer Lake: NPS 2013 brochure 3.0 mi (3.8 from trailhead), WTA 2.9, OSM 2.7, NPS 2019 GIS 2.4. Used 2.9.",
   "Lunch Lake spur: NPS High Divide page says 0.5 mi; NPS GIS (0.85) and OSM (0.84) both measure about 0.8 mi. Used 0.9 total (0.5 + 0.4) from the rim junction.",
-  "Hoh Lake Trail length: WTA and OSM give 4.7 mi junction-to-lake; NPS figures (Hoh Lake 14.7 mi from Hoh trailhead, 9.7 from Sol Duc trailhead, junction to Bogachiel Peak junction 6.4 mi) imply about 5.0-5.2. Used 4.7. NPS 9.7 mi from Sol Duc trailhead vs this graph 9.0 mi.",
+  "Hoh Lake Trail length: WTA and OSM give 4.7 mi junction-to-lake; NPS figures (Hoh Lake 14.7 mi from Hoh trailhead, 9.7 from Sol Duc trailhead, junction to Bogachiel Peak junction 6.4 mi) imply about 5.0-5.2. Used 4.7. NPS 9.7 mi from Sol Duc trailhead vs this graph 9.0 mi. [Fact check 2026-10-08: switched to the NPS-consistent 4.5 mi junction-to-C.B. Flats (5.0 mi to Hoh Lake), so Hoh Lake is 14.7 mi from the Hoh trailhead as NPS states.]",
   "Potholes camp: Recreation.gov says 3/4 mile above Deer Lake; OSM measures 1.0 mi. Used 1.0.",
   "Mink Lake to Little Divide junction: OSM 1.8 mi; NPS (Deer Lake 8 mi via Mink Lake) implies about 2.0 mi. NPS lists the loop as 11 mi while The Mountaineers list 13.6 mi; this graph gives 13.6 mi.",
   "Mount Storm King: NPS trail page says 1.7 mi to 2,700 ft (from the Marymere junction); NPS brochure 2.2 mi one way and 2,000 ft gain; WTA 4.0 mi round trip, high point 2,600 ft. True summit elevation given as 4,534, 4,537 or 4,538 ft; distance from the end of maintained trail to the rope viewpoints is unverified.",
@@ -5325,7 +5325,7 @@
   "Recreation.gov division coordinates for Sol Duc camps are wrong (projected values in the lat/lon fields); NPS KML and OSM coordinates used instead.",
   "Hidden camps (Long Lake, Morgenroth Lake, Lake #8, Sol Duc Lake, Swimming Bear Lake, Cat Basin, Cat Basin Stock Camp, Bruce's Roost, Haigs Lake, Silver Snag, Blackwood Lake, Hidden Lake, Little Divide, Deer Lake Llama Site, Eagle Lakes, Aurora Springs, Pyramid Peak, Barnes Creek Trail) exist in the permit system but are not bookable online; whether they are currently open, and their exact locations (Lake #8, Silver Snag, Aurora Springs), could not be verified.",
   "Off-trail segments (Clear Lake-Long Lake-Sol Duc Lake-Morgenroth-Y Lake-No Name Lake, Swimming Bear-Haigs Lake, Little Divide-Blackwood Lake, last ~0.5 mi to Hidden Lake) use straight-line map distance and net elevation only; real routes are longer and may be impractical.",
-  "Appleton Pass camp rules conflict: Recreation.gov division text says bear wire or canister and \"use available toilet\"; park-wide 2026 rules require canisters and the NPS Appleton page says no toilets. Hoh Lake: older NPS map data says bear wire, 2026 Recreation.gov says canisters only.",
+  "Appleton Pass camp rules conflict: Recreation.gov division text says bear wire or canister and \"use available toilet\"; park-wide 2026 rules require canisters and the NPS Appleton page says no toilets. Hoh Lake: older NPS map data says bear wire, 2026 Recreation.gov says canisters only. [Fact check 2026-10-08: the NPS Appleton Pass page says 'Toilet Facilities: None' and campfires are prohibited at Appleton Pass/Oyster Lake. Toilet set to false in both region files.]",
   "The NPS Appleton Pass and Hoh Lake pages say canisters are \"recommended\" in one section and required in another; 2026 permit text (required everywhere) used.",
   "Campfire ban status after Aug 26, 2026 not confirmed; bans have been lifted in mid-September in past years.",
   "Eagle Ranger Station location and 2026 staffing not verified (coordinates left null).",
@@ -5339,7 +5339,7 @@
   "Drive times are OSRM free-flow estimates and ignore entrance-station waits, construction and parking time.",
   "NPS Mink Lake page lists an elevation range of 1,100-4,130 ft, but the resort trailhead is about 1,650 ft (WTA/DEM).",
   "Hiking Project and some maps place the Sol Duc River Trail/High Divide junction next to Heart Lake rather than on the ridge.",
-  "Cross-region overlap: the Hoh region file also has a hoh_lake_trail_junction -> c_b_flats_group_site segment (4.5 mi, +3,484/-406 ft) while this file has c_b_flats_group_site -> hoh_lake_trail_junction 4.2 mi (WTA/OSM-based). Keep one at merge time; the hoh_lake_trail_junction stub here copies the Hoh region coordinates/elevation (1,013 ft)."
+  "Cross-region overlap: the Hoh region file also has a hoh_lake_trail_junction -> c_b_flats_group_site segment (4.5 mi, +3,484/-406 ft) while this file has c_b_flats_group_site -> hoh_lake_trail_junction 4.2 mi (WTA/OSM-based). Keep one at merge time; the hoh_lake_trail_junction stub here copies the Hoh region coordinates/elevation (1,013 ft). [RESOLVED by fact check 2026-10-08: both copies are now 4.5 mi, +90/-3,160 ft in this direction. That figure follows NPS: Hoh Lake 14.7 mi from the Hoh trailhead, and junction to Bogachiel Peak junction now totals NPS's 6.4 mi. C.B. Flats elevation is 4,091 ft in both files.]"
  ],
  "sources": [
   "https://www.nps.gov/places/000/sol-duc-falls-trail.htm",

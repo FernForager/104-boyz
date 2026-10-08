@@ -8,17 +8,18 @@
   "confidence_scale": "high = stated on an nps.gov/recreation.gov page fetched for this file; medium = secondary source or older official page; low = inferred or general knowledge, verify before shipping",
   "staleness_rule": "Any condition claim dated before 2025-01-01 is flagged stale:true.",
   "uncertain_summary": [
-   "Park-wide canister rule: NPS pages say 'all wilderness areas' (2026); PNTA says 'most'. Effective date of the change not published.",
+   "Park-wide canister rule: NPS pages say 'all wilderness areas' (2026); PNTA says 'most'. Effective date of the change not published. RESOLVED 2026-10-08: NPS food storage page and every public Recreation.gov camp area say all wilderness.",
    "Enchanted Valley/East Fork Quinault trial quota (208 users/30 permits per night, from 2024, up to 3 years): no final decision found; a 2024 WTA piece cited 12 permits/night.",
-   "2026 Stage 2 campfire ban (from Aug 7): no lifting notice found as of 2026-10-07.",
+   "2026 Stage 2 campfire ban (from Aug 7): no lifting notice found as of 2026-10-07. Fact check 2026-10-08: the USFS order ran Aug 7 to Oct 1 and is no longer listed on the Olympic NF alerts page (fire danger 'Moderate'); no NPS rescission found.",
    "Lake of the Gods camp closure (Mount Tom Creek Fire, June 2026): current status unknown.",
    "Mora Road reopening: NPS says Oct 15, 2026; a press report said Oct 5.",
    "Staircase wilderness trails: no reopening date announced.",
    "Hurricane Ridge winter 2026-27 schedule not yet published; 2025-26 was Fri-Sun + holiday Mondays with chains required.",
    "Mount Olympus/alpine temperatures are estimates (no station).",
    "Some canister volumes (Bare Boxer, Lighter1, REI, BV ONE) unverified.",
-   "Quinault WIC 'closed for 2026 season' (trail conditions page) vs. WIC page listing Memorial Day-September season."
-  ]
+   "Quinault WIC 'closed for 2026 season' (trail conditions page) vs. WIC page listing Memorial Day-September season. RESOLVED 2026-10-08: the WIC page (updated 2026-09-29) lists Quinault's current hours as 'Closed'. Memorial Day-September is only its normal season, and a canister return bin is available year-round."
+  ],
+  "fact_check": "Fact-checked 2026-10-08 against nps.gov area pages, NPS trail and road conditions, Recreation.gov division text, USFS alerts and WSDOT. See design/data/FACT_CHECK.md."
  },
  "permits": {
   "summary": "Every overnight stay in the ONP wilderness needs a wilderness camping permit, year-round. Reservations are first-come, first-served on Recreation.gov (permit 4098362); there is no early-access lottery. Summer-season quota inventory is bulk-released April 15 at 7:00 AM Pacific and is not topped up later.",
@@ -40,11 +41,12 @@
   },
   "lottery": {
    "value": "None. ONP has no early-access lottery (unlike Mount Rainier); all reservations first-come, first-served.",
-   "confidence": "medium",
+   "confidence": "high",
    "source_ids": [
-    "wnpf_permits_2024"
+    "wnpf_permits_2024",
+    "recgov_divisions_2026_09_30"
    ],
-   "note": "Source dated 2024; no contrary 2025-2026 evidence found."
+   "note": "Confirmed 2026-10-08: the Recreation.gov permitcontent API for permit 4098362 returns has_lottery=false and lotteries=null (record modified 2026-09-30). The NPS reservations page (2026-02-12) describes only first-come-first-served booking."
   },
   "seasons": {
    "summer": {
@@ -121,7 +123,7 @@
    "value": [
     {
      "area": "Ozette Coast (Yellow Banks to Point of the Arches)",
-     "notes": "Includes Cape Alava and Sand Point camps."
+     "notes": "Includes Cape Alava and Sand Point camps. Shi Shi Beach (north of Point of the Arches) is outside the quota zone but still needs a permit and a Makah Recreation Pass."
     },
     {
      "area": "Royal Basin / Royal Lake"
@@ -131,18 +133,19 @@
     },
     {
      "area": "Upper Lena Lake",
-     "notes": "No camping within 0.25 mi of Scout Lake; camp only at marked sites."
+     "notes": "No camping within 0.25 mi of Scout Lake; camp only at marked sites. Fact check 2026-10-08 additions: Quota area with designated sites only, max 6 per regular site plus a group site, no campfires, and two composting toilets. Recreation.gov: 7.3 mi and about 3,850 ft from the trailhead. No camping within 0.25 mi of Scout Lake. The Lena Creek ford about 0.5 mi below the lake can be hazardous. NOTE: no region file models this trail yet (fact check 2026-10-08)."
     },
     {
      "area": "East Fork Quinault River / Enchanted Valley",
-     "notes": "Trial quota since May 15, 2024, up to 3 years: max 208 users or 30 permits per night, whichever first. Final decision not found as of 2026-10."
+     "notes": "Trial quota since May 15, 2024, up to 3 years: max 208 users or 30 permits per night, whichever first. Final decision not found as of 2026-10. Fact check 2026-10-08: the NPS reservations page (updated 2026-02-12) still describes the trial: 208 users or 30 permits per night, with public comment accepted May 15-Oct 15 during the trial. 2026 is therefore the third and probably final trial season. The 2024 WTA figure of 12 permits/night is not supported by any NPS page."
     },
     {
      "area": "Flapjack Lakes (including Gladys Divide)",
      "notes": "CLOSED 2025-2026 by Bear Gulch Fire (see current_conditions)."
     },
     {
-     "area": "Grand Valley and Badger Valley"
+     "area": "Grand Valley and Badger Valley",
+     "notes": "NPS scope (reservations page 2026-02-12): Deer Park to Obstruction Point (Roaring Winds camp), Obstruction Point to Grand Pass, Badger Valley and Lake Lillian. Designated sites at Grand, Moose and Gladys lakes. No campfires in Grand Valley."
     },
     {
      "area": "Sol Duc / Seven Lakes Basin / Mink Lake area (including Cat Basin, High Divide, Little Divide)"
@@ -200,7 +203,7 @@
     "location": "Quinault Rain Forest Ranger Station, 913 North Shore Road, Amanda Park, WA 98526",
     "phone": "(360) 288-2444",
     "normal_season": "Memorial Day weekend through end of September",
-    "status_2026": "CLOSED for the 2026 season (trail conditions page, Sept 2026). Year-round bear canister return bin.",
+    "status_2026": "CLOSED for the 2026 season (trail conditions page, Sept 2026). Year-round bear canister return bin. Confirmed by the WIC page updated 2026-09-29 ('Current Hours: Closed').",
     "confidence": "high",
     "source_ids": [
      "nps_wic",
@@ -234,12 +237,13 @@
  "food_storage": {
   "summary": "As of 2026, approved hard-sided Animal Resistant Food Containers (ARFC, 'bear cans') are required in ALL wilderness areas of the park, including the entire wilderness coast. Hanging food and bear wires no longer count as compliant. All food, garbage and scented items stay in the can 24 hours a day except while being carried, prepared or eaten.",
   "rule": {
-   "value": "ARFCs required in all wilderness areas. Front-country alternatives: hard-sided vehicle or park food locker.",
+   "value": "ARFCs required in all wilderness areas. Front-country alternatives: hard-sided vehicle or park food locker. Fact check 2026-10-08: confirmed. The NPS food storage page (2026-07-07) says canisters are 'required in all wilderness areas of the park', and all 156 publicly listed Recreation.gov camp areas repeat the requirement, including coast, valley, lake and high camps. This settles the PNT Association's 'most' wording: the rule is park-wide.",
    "confidence": "high",
    "source_ids": [
     "nps_food_storage",
     "nps_wilderness_regs",
-    "nps_trail_conditions"
+    "nps_trail_conditions",
+    "recgov_divisions_2026_09_30"
    ],
    "page_dates": "food storage page updated 2026-07-07; regulations page updated 2026-03-30; trail conditions updated 2026-09-30"
   },
@@ -254,11 +258,12 @@
    ]
   },
   "hanging_and_wires": {
-   "value": "Not compliant in 2026. Older bear wires still physically exist at some camps (e.g. Elwha, Hoh, Quinault valleys) but do not satisfy the rule.",
-   "confidence": "medium",
+   "value": "PROHIBITED, not merely non-compliant. Every publicly listed Recreation.gov camp area for the park (156 of 156 non-hidden camp divisions; division text current to 2026-09-30) says: 'Hanging food, garbage or scented items, whether on a bear wire system or self-constructed bear hang, is prohibited.' Older bear wires still physically exist at some camps (e.g. Elwha, Hoh, Quinault valleys) but may not be used. (Fact check 2026-10-08.)",
+   "confidence": "high",
    "source_ids": [
     "pnt_bear_cans",
-    "nps_food_storage"
+    "nps_food_storage",
+    "recgov_divisions_2026_09_30"
    ]
   },
   "scented_items": [
@@ -468,18 +473,25 @@
    "value": [
     "Wilderness coast between the headland at Wedding Rocks and the headland north of Yellow Banks (Ozette area, includes Sand Point) - no fires or wood stoves",
     "Olympic Hot Springs and Boulder Creek Campground - year-round burn ban",
-    "Hoh River Trail at and above Elk Lake (incl. Glacier Meadows)",
+    "Hoh River Trail at and above Elk Lake, including Glacier Meadows and the Blue Glacier moraine. NPS trail conditions (2026-06-14) say 'at or above Elk Lake'. The NPS Hoh River Trail page and the 2024 restrictions notice say 'above Martin Creek' (from 1/4 mi north of Elk Lake). Recreation.gov still allows fires at Martin Creek camp itself.",
     "Lake Constance",
     "Lake Angeles and Heather Park camps (above 3,500 ft)",
     "Flapjack Lakes (above 3,500 ft)",
     "Wagonwheel Lake",
     "Mt. Storm King (day use only, no fires)",
-    "All high camps above 3,500 ft (Seven Lakes Basin, High Divide, Royal Basin, Grand Valley, etc.)"
+    "All high camps above 3,500 ft (Seven Lakes Basin, High Divide, Royal Basin, Grand Valley, etc.)",
+    "Royal Basin: all camps, including Royal Creek. The NPS Royal Basin page (2026-01-28) says 'No campfires in Royal Basin'; Recreation.gov's Royal Creek text conflicts.",
+    "Grand Valley: Grand, Moose and Gladys lakes (NPS Grand Valley page, 2026-01-21: 'No campfires in Grand Valley').",
+    "Appleton Pass / Oyster Lake and Hoh Lake (NPS trail pages).",
+    "Low Divide (3,600 ft): above the 3,500-ft limit per the NPS North Fork Quinault page, although Recreation.gov's Low Divide text says fires are permitted. Treat it as no-fire."
    ],
    "confidence": "high",
    "source_ids": [
     "nps_wilderness_regs",
-    "nps_trail_conditions"
+    "nps_trail_conditions",
+    "nps_royal_basin",
+    "nps_north_fork_quinault",
+    "recgov_divisions_2026_09_30"
    ]
   },
   "coast_rules": {
@@ -555,7 +567,7 @@
  "leave_no_trace_and_waste": {
   "status_of_lnt": "LNT principles are guidance, not regulation, except where codified (food storage, fires, designated sites in quota areas, waste rules).",
   "human_waste": {
-   "value": "Use backcountry toilets (privies/vault/composting toilets) where present. If more than 1/4 mile from a privy, dig a cathole 8 inches deep at least 200 ft (about 70 steps) from water, trails and camps; pack out toilet paper. Urinate on rocks or trail tread so deer and goats do not dig up plants for salt.",
+   "value": "Use backcountry toilets (privies/vault/composting toilets) where present. If more than 1/4 mile from a privy, dig a cathole 6-8 inches deep at least 200 ft (about 70 steps) from water, trails and camps; pack out toilet paper. Urinate on rocks or trail tread so deer and goats do not dig up plants for salt.",
    "confidence": "high",
    "source_ids": [
     "nps_trail_conditions",
@@ -572,19 +584,22 @@
    ]
   },
   "mount_olympus_and_glaciers": {
-   "value": "No blue-bag deposit on the lateral moraine; Mount Olympus climbers must pack out human waste (WAG bags).",
+   "value": "Blue bags (pack-out waste bags) are REQUIRED on Mount Olympus. They are available at the Hoh Rain Forest Visitor Center and the Port Angeles WIC (NPS Climbing Mount Olympus page, updated 2026-01-21). No waste may be left on the lateral moraine. Climbers' camps are only at Caltech Rocks and Snow Dome; camping between Glacier Meadows and the Blue Glacier is not allowed. Pit toilets on the approach: 5-Mile Island, Olympus Guard Station, Lewis Meadow, Elk Lake and Glacier Meadows.",
    "confidence": "high",
    "source_ids": [
+    "nps_climbing_olympus",
     "nps_trail_conditions"
    ]
   },
   "coast": {
-   "value": "Toilets at the main camp concentrations at Cape Alava and Sand Point and at other high-use beach camps; elsewhere dig a cathole 6-8 in deep, 200 ft from camps and water. Camp above the high-tide line. Fires only on open beach, below the high-tide line and at least 10 ft from drift logs, using beach driftwood only; no fires from north of Yellow Banks to the headland at Wedding Rocks. No camping between the Quillayute River and Ellen Creek (Rialto Beach day-use strip); on the Kalaloch strip south of the Hoh River camping only in frontcountry campgrounds. Treat water: iodine does not kill Cryptosporidium; some creeks are brackish near high tide. Beware rolling drift logs in surf and washed-up metal canisters (report, do not touch).",
+   "value": "Toilets at the main camp concentrations at Cape Alava and Sand Point and at other high-use beach camps; elsewhere dig a cathole 6-8 in deep, 200 ft from camps and water. Camp above the high-tide line. Fires only on open beach, below the high-tide line and at least 10 ft from drift logs, using beach driftwood only; no fires from north of Yellow Banks to the headland at Wedding Rocks. No camping between the Quillayute River and Ellen Creek (Rialto Beach day-use strip); on the Kalaloch strip south of the Hoh River camping only in frontcountry campgrounds. Treat water: iodine does not kill Cryptosporidium; some creeks are brackish near high tide. Beware rolling drift logs in surf and washed-up metal canisters (report, do not touch). Fact check 2026-10-08, privy list from the NPS route pages: North Coast (page updated 2026-08-24) has pit toilets at Ellen Creek, Cedar Creek, Norwegian Memorial, Chilean Memorial, South Sand Point, Sand Point, Cape Alava, both sides of the Ozette River and Shi Shi Beach. South Coast (2026-08-19) has privies at Third Beach, Toleak Point and Mosquito Creek; Scott Creek has none at present. Seafield Creek's maximum group size is 6. Wedding Rocks, Sand Point and South Sand Point water sources usually dry up late in summer.",
    "confidence": "high",
    "page_date": "2025-04-16",
    "source_ids": [
     "nps_coast_page",
-    "nps_trail_conditions"
+    "nps_trail_conditions",
+    "nps_south_coast_route",
+    "nps_north_coast_route"
    ]
   },
   "camping_placement": {
@@ -2208,13 +2223,25 @@
    "note": "Road status changes often. Every entry carries the date of the claim. Game can treat these as 'fall 2026' defaults and roll seasonal/random closures on top.",
    "road_weather_line": {
     "value": "(360) 565-3131 recorded road and weather line",
-    "confidence": "medium",
-    "date": "2024 (WTA); still cited by press in 2026",
+    "confidence": "high",
+    "date": "2026-08-07 (NPS Current Road Conditions page: \"Call (360) 565-3131 for recorded road and weather information updated daily\")",
     "source_ids": [
+     "nps_roads",
      "wta_winter_2024"
     ]
    },
    "items": [
+    {
+     "road": "US 101 Hoh River Bridge (south of Forks; WSDOT)",
+     "status": "Single-lane alternating traffic, signals and 25 mph since 2026-07-14 (cracked floor beams). FULL CLOSURES to all traffic: 5 am Sept 24 - 5 pm Sept 29, 5 am Oct 1 - noon Oct 6, and 5 am Oct 8 - noon Oct 13, 2026, after nightly closures Sept 14-22. The emergency repair project runs to Sept 2028, so more closures are possible.",
+     "impact": "No other crossing of the Hoh exists near the coast. During full closures the Forks / Rialto / La Push / Hoh Rain Forest side is cut off from Kalaloch, Ruby Beach, Queets and Quinault, and the detour around Hood Canal takes 4+ hours. Oil City Road and the Upper Hoh Road turn off north of the bridge, so they stay reachable from Forks.",
+     "date": "2026-07-14 to 2026-10-13 (schedule published by WSDOT, Sept 2026)",
+     "confidence": "high",
+     "source_ids": [
+      "wsdot_hoh_bridge_2026",
+      "nps_hoh_bridge_page"
+     ]
+    },
     {
      "road": "Hurricane Ridge Road (Port Angeles - Heart O' the Hills - Hurricane Ridge, 17 mi)",
      "status": "OPEN to the ridge; Hurricane Hill Road open",
@@ -2288,14 +2315,15 @@
     {
      "road": "Upper Hoh Road",
      "status": "OPEN",
-     "history": "Washout at MP 9.7 in Dec 2024 flood (Hoh River rose from ~2,600 to >27,000 cfs in under a day); reopened 2025-05-08 with state emergency funds. Brief Aug 2025 closure from culvert work flooding. 2026 repairs at MP 0.3 and 0.8 with one-way traffic and up to 20-min delays late May-Aug 2026.",
+     "history": "Washout at MP 9.7 in Dec 2024 flood (Hoh River rose from ~2,600 to >27,000 cfs in under a day); reopened 2025-05-08 with state emergency funds. Brief Aug 2025 closure from culvert work flooding. 2026 repairs at MP 0.3 and 0.8 with one-way traffic and up to 20-min delays late May-Aug 2026. A second atmospheric-river flood on 2025-12-10 damaged the road near MP 10 and closed it from the entrance station for about four weeks (NPS spokesperson via press; reopening planned for early January 2026). The road was open again in 2026 (NPS road page entry 5/5/26). Added by fact check 2026-10-08.",
      "visitor_center": "Hoh Rain Forest VC open daily 9 AM-4:30 PM (2026); entrance waits up to 2 hours in summer - arrive before 8 AM or after 5 PM.",
      "date": "2026-05-05 / 2026-10-04",
      "confidence": "high",
      "source_ids": [
       "nps_roads",
       "nps_conditions",
-      "pdn_hoh_2025"
+      "pdn_hoh_2025",
+      "press_hoh_dec2025"
      ]
     },
     {
@@ -2438,11 +2466,14 @@
     ]
    },
    "campfire_ban_2026": {
-    "value": "Stage 2 fire restrictions from 2026-08-07: ALL campfires prohibited in Olympic NP and Olympic NF (including charcoal); gas/propane stoves OK if 3+ ft from flammable vegetation. Still in effect 2026-08-26; no lifting notice found as of 2026-10-07 (autumn rains usually lift bans mid/late September).",
+    "value": "Stage 2 fire restrictions from 2026-08-07: ALL campfires prohibited in Olympic NP and Olympic NF (including charcoal); gas/propane stoves OK if 3+ ft from flammable vegetation. Still in effect 2026-08-26; no lifting notice found as of 2026-10-07 (autumn rains usually lift bans mid/late September). Fact check 2026-10-08: the Olympic National Forest Stage 2 order ran from Aug 7, 2026 12:01 am through Oct 1, 2026 (unless rescinded earlier). On 2026-10-08 the Olympic NF alerts page no longer listed any fire restriction and showed fire danger 'Moderate'. NPS had posted no rescission notice that this check could find; the NPS fire page (updated 2026-09-18) and alerts page (2026-10-04) list no ban. Treat the ban as probably expired on national forest land after Oct 1. Its status inside the park is unconfirmed, so default to the normal rules (fires below 3,500 ft in existing rings, none in listed no-fire areas) and have a ranger or WIC check confirm.",
     "confidence": "medium",
     "source_ids": [
      "nps_fire_2026_08_26",
-     "pdn_burn_ban_2026"
+     "pdn_burn_ban_2026",
+     "usfs_olympic_alerts_2026_10_08",
+     "nps_fire_conditions_page",
+     "nps_fire_2026_08_11"
     ]
    },
    "fires_2023": {
@@ -2876,7 +2907,7 @@
    "title": "South Coast Route - Olympic Wilderness",
    "url": "https://www.nps.gov/olym/planyourvisit/south-coast-route.htm",
    "publisher": "NPS",
-   "page_date": null,
+   "page_date": "2026-08-19",
    "accessed": "2026-10-07"
   },
   {
@@ -2884,7 +2915,7 @@
    "title": "North Coast Route - Olympic Wilderness",
    "url": "https://www.nps.gov/olym/planyourvisit/north-coast-route.htm",
    "publisher": "NPS",
-   "page_date": null,
+   "page_date": "2026-08-24",
    "accessed": "2026-10-07"
   },
   {
@@ -3054,6 +3085,86 @@
    "publisher": "NPS",
    "page_date": "2014-09",
    "accessed": "2026-10-07"
+  },
+  {
+   "id": "usfs_olympic_alerts_2026_10_08",
+   "title": "Olympic National Forest - Alerts & Notices",
+   "url": "https://www.fs.usda.gov/r06/olympic/alerts",
+   "publisher": "USDA Forest Service",
+   "page_date": "2026-10-08 (live page)",
+   "accessed": "2026-10-08"
+  },
+  {
+   "id": "nps_fire_conditions_page",
+   "title": "Olympic NP - Fire Conditions and Updates",
+   "url": "https://www.nps.gov/olym/planyourvisit/fire-conditions-and-updates.htm",
+   "publisher": "National Park Service",
+   "page_date": "2026-09-18",
+   "accessed": "2026-10-08"
+  },
+  {
+   "id": "nps_fire_2026_08_11",
+   "title": "Sourdough Mountain Fire Extinguished, Buckets Dropped on Mount Tom Creek Fire",
+   "url": "https://www.nps.gov/olym/learn/news/sourdough-mountain-fire-extinguished-buckets-dropped-on-mount-tom-creek-fire.htm",
+   "publisher": "National Park Service",
+   "page_date": "2026-08-11",
+   "accessed": "2026-10-08"
+  },
+  {
+   "id": "nps_royal_basin",
+   "title": "Royal Basin - Olympic Wilderness",
+   "url": "https://www.nps.gov/olym/planyourvisit/royal-basin.htm",
+   "publisher": "National Park Service",
+   "page_date": "2026-01-28",
+   "accessed": "2026-10-08"
+  },
+  {
+   "id": "nps_north_fork_quinault",
+   "title": "North Fork Quinault River Trail",
+   "url": "https://www.nps.gov/olym/planyourvisit/north-for-quinault.htm",
+   "publisher": "National Park Service",
+   "page_date": "undated (fetched 2026-10-08)",
+   "accessed": "2026-10-08"
+  },
+  {
+   "id": "recgov_divisions_2026_09_30",
+   "title": "Recreation.gov permit 4098362 division descriptions (permitcontent API)",
+   "url": "https://www.recreation.gov/api/permitcontent/4098362",
+   "publisher": "Recreation.gov / NPS",
+   "page_date": "2026-09-30 (modified_time)",
+   "accessed": "2026-10-07"
+  },
+  {
+   "id": "wsdot_hoh_bridge_2026",
+   "title": "US 101 Hoh River Bridge emergency repair / Long weekend and overnight closures",
+   "url": "https://wsdot.wa.gov/about/news/2026/long-weekend-and-overnight-closures-horizon-us-101-hoh-river-bridge-south-forks",
+   "publisher": "Washington State DOT",
+   "page_date": "2026-09",
+   "accessed": "2026-10-08"
+  },
+  {
+   "id": "nps_hoh_bridge_page",
+   "title": "Highway 101 Closure at Hoh River Bridge",
+   "url": "https://www.nps.gov/olym/planyourvisit/highway-101-closure-at-hoh-river-bridge.htm",
+   "publisher": "National Park Service",
+   "page_date": "2026-09 (mid-September)",
+   "accessed": "2026-10-08"
+  },
+  {
+   "id": "press_hoh_dec2025",
+   "title": "Hoh Rain Forest to reopen in January after atmospheric river flooding",
+   "url": "https://www.yakimaherald.com/news/northwest/hoh-rain-forest-to-reopen-in-january-after-atmospheric-river-flooding/article_c6b17000-8984-5154-9701-d18d405ff4f2.html",
+   "publisher": "Yakima Herald-Republic (AP)",
+   "page_date": "2025-12",
+   "accessed": "2026-10-08"
+  },
+  {
+   "id": "nps_climbing_olympus",
+   "title": "Climbing Mount Olympus",
+   "url": "https://www.nps.gov/olym/planyourvisit/climbing-mount-olympus.htm",
+   "publisher": "National Park Service",
+   "page_date": "2026-01-21",
+   "accessed": "2026-10-08"
   }
  ]
 }

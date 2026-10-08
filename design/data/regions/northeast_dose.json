@@ -224,8 +224,8 @@
    ]
   },
   {
-   "id": "elk_mountain_trail_junction",
-   "name": "Elk Mountain / Grand Valley junction (Grand Ridge high point)",
+   "id": "elk_mountain_grand_ridge_junction",
+   "name": "Grand Ridge / Elk Mountain Primitive Trail junction (Grand Ridge high point)",
    "type": "junction",
    "elevation_ft": 6625,
    "lat": 47.92344,
@@ -273,8 +273,8 @@
    ]
   },
   {
-   "id": "slide_camp",
-   "name": "Slide Camp (USFS, Upper Gray Wolf Trail)",
+   "id": "slide_camp_gray_wolf",
+   "name": "Slide Camp (Gray Wolf River, Olympic National Forest)",
    "type": "camp",
    "elevation_ft": 2200,
    "lat": null,
@@ -1337,10 +1337,10 @@
     "reservation_or_quota": "QUOTA area (Royal Basin/Royal Lake). Recreation.gov Oct 2026 data: 3 parties / 30 people per night; max group 12. Online reservations limited to a shorter summer season; outside it, call the WIC.",
     "bear_can_required": true,
     "food_storage": "can",
-    "fires_allowed": true,
+    "fires_allowed": false,
     "toilet": false,
     "water": "Royal Creek.",
-    "notes": "Forested sites near Royal Creek, about 4 mi from the trailhead; campfires permitted in established rings with dead-and-down wood (below 3,500 ft per Recreation.gov listing - verify, as this camp is near 3,700 ft); cathole. Trail closed to stock at the park boundary."
+    "notes": "Forested sites near Royal Creek, about 4 mi from the trailhead; cathole only (composting toilets are at Royal Lake only). Trail closed to stock at the park boundary. Fires (fact check 2026-10-08): NO campfires. NPS's Royal Basin page (updated 2026-01-28) says 'No campfires in Royal Basin' and lists Royal Creek as one of the basin's three camp areas; the camp also sits near 3,700 ft, above the park's 3,500-ft fire limit. Recreation.gov's 'Royal Creek' division text still says campfires are permitted in established rings; that conflicts with NPS, and the stricter NPS rule is used here."
    },
    "description": "Halfway up the valley, a few forest sites listen to Royal Creek racing down from the basin. It is a gentler first night for those who start late.",
    "scene_art_notes": "Foreground: a tent under firs beside a bouncing creek; midground: talus fans from the valley walls; sky: blue strip above; landmark: a white waterfall ribbon streaming down a far cliff. EGA: dark green, grey, white, cyan, blue.",
@@ -1494,7 +1494,7 @@
   },
   {
    "from": "roaring_winds",
-   "to": "elk_mountain_trail_junction",
+   "to": "elk_mountain_grand_ridge_junction",
    "miles": 0.75,
    "gain_ft": 730,
    "loss_ft": 105,
@@ -1514,7 +1514,7 @@
    ]
   },
   {
-   "from": "elk_mountain_trail_junction",
+   "from": "elk_mountain_grand_ridge_junction",
    "to": "obstruction_point_trailhead",
    "miles": 2.15,
    "gain_ft": 85,
@@ -1633,7 +1633,7 @@
   },
   {
    "from": "slab_camp_gray_wolf_bridge",
-   "to": "slide_camp",
+   "to": "slide_camp_gray_wolf",
    "miles": 2.3,
    "gain_ft": 600,
    "loss_ft": null,
@@ -1649,7 +1649,7 @@
    ]
   },
   {
-   "from": "slide_camp",
+   "from": "slide_camp_gray_wolf",
    "to": "gray_wolf_park_boundary",
    "miles": 0.7,
    "gain_ft": 360,
@@ -2168,7 +2168,7 @@
   {
    "from": "lake_constance_route_junction",
    "to": "half_acre_rock",
-   "miles": 0.8,
+   "miles": 0.7,
    "gain_ft": 1500,
    "loss_ft": 0,
    "trail_class": "way_trail",
@@ -2190,7 +2190,7 @@
   {
    "from": "half_acre_rock",
    "to": "lake_constance",
-   "miles": 1.2,
+   "miles": 1.1,
    "gain_ft": 1750,
    "loss_ft": 0,
    "trail_class": "way_trail",
@@ -2203,7 +2203,7 @@
     "slippery_when_wet"
    ],
    "snow_free_typical": "late June or early July through September",
-   "notes": "Class 2 to sometimes Class 3 scramble (WTA): at about 1.3 mi the route climbs a series of ledges and small cliffs above Constance Creek using roots for holds; the top ledge has none; do not attempt when wet; descending is harder than climbing. Metal tags mark much of the way above. NPS: extremely steep, climbing 3,200 ft in 1.8 mi; requires hands; closed to stock. Route length: NPS conditions 2.0 mi, NPS route page 1.8 mi (final climb), WTA 2.2 mi.",
+   "notes": "Class 2 to sometimes Class 3 scramble (WTA): at about 1.3 mi the route climbs a series of ledges and small cliffs above Constance Creek using roots for holds; the top ledge has none; do not attempt when wet; descending is harder than climbing. Metal tags mark much of the way above. NPS: extremely steep, climbing 3,200 ft in 1.8 mi; requires hands; closed to stock. Route length: NPS conditions 2.0 mi, NPS route page 1.8 mi (final climb), WTA 2.2 mi. Fact check 2026-10-08: the two route legs were scaled from 0.8 + 1.2 = 2.0 mi to 0.7 + 1.1 = 1.8 mi. Both NPS (Lake Constance Route page, updated 2026-01-29: '3,200 ft climb in 1.8 miles') and Recreation.gov ('the final 1.8 miles of trail to the lake gains approximately 3,200 feet'; the lake is 6.8 mi from the new trailhead) give 1.8 mi. The Half Acre Rock split point is still an estimate. The NPS trail conditions table (6/5/26) rounds this to '2 miles, 1500' to 4700''; its 4,700 ft supports the lake elevation used here.",
    "sources": [
     "https://www.wta.org/go-hiking/hikes/lake-constance",
     "https://www.nps.gov/olym/planyourvisit/lake-constance-route.htm",
@@ -3401,7 +3401,7 @@
      "gain_ft": 2420,
      "via": [
       "roaring_winds",
-      "elk_mountain_trail_junction"
+      "elk_mountain_grand_ridge_junction"
      ]
     }
    ],
@@ -3448,7 +3448,7 @@
      "miles": 6.0,
      "gain_ft": 1840,
      "via": [
-      "elk_mountain_trail_junction",
+      "elk_mountain_grand_ridge_junction",
       "roaring_winds"
      ]
     }
@@ -3626,7 +3626,7 @@
      "gain_ft": 1720,
      "via": [
       "slab_camp_gray_wolf_bridge",
-      "slide_camp",
+      "slide_camp_gray_wolf",
       "gray_wolf_park_boundary",
       "three_forks_junction"
      ]
@@ -3639,7 +3639,7 @@
      "via": [
       "three_forks_junction",
       "gray_wolf_park_boundary",
-      "slide_camp",
+      "slide_camp_gray_wolf",
       "slab_camp_gray_wolf_bridge"
      ]
     }
@@ -3678,7 +3678,7 @@
      "gain_ft": 1590,
      "via": [
       "slab_camp_gray_wolf_bridge",
-      "slide_camp",
+      "slide_camp_gray_wolf",
       "gray_wolf_park_boundary",
       "three_forks_junction"
      ]
@@ -3873,7 +3873,7 @@
     {
      "day": 1,
      "to": "lake_constance",
-     "miles": 7.0,
+     "miles": 6.8,
      "gain_ft": 4230,
      "via": [
       "dosewallips_road_washout",
@@ -3884,7 +3884,7 @@
     {
      "day": 2,
      "to": "dosewallips_trailhead",
-     "miles": 7.0,
+     "miles": 6.8,
      "gain_ft": 30,
      "via": [
       "half_acre_rock",
@@ -3896,7 +3896,7 @@
    "layover_ideas": [
     "Explore toward Avalanche Canyon above the lake (rugged)"
    ],
-   "total_miles": 14.0,
+   "total_miles": 13.6,
    "difficulty": "expert",
    "best_months": "July to September",
    "highlights": [
@@ -4430,7 +4430,7 @@
    "name": "Waterless, windy Grand Ridge",
    "where": [
     "roaring_winds",
-    "elk_mountain_trail_junction",
+    "elk_mountain_grand_ridge_junction",
     "deer_park_trailhead"
    ],
    "season": "July-October; afternoon thunderstorms possible; fog anytime",
@@ -4449,7 +4449,7 @@
    "name": "Steep snowfield near Obstruction Point",
    "where": [
     "obstruction_point_trailhead",
-    "elk_mountain_trail_junction"
+    "elk_mountain_grand_ridge_junction"
    ],
    "season": "June into August in many years",
    "real_world": "A high-angle snowfield lingers east of the Obstruction Point lot late into summer and is hazardous without equipment and skill.",
@@ -4616,7 +4616,7 @@
     "burdick_creek",
     "deception_creek",
     "gray_wolf_dose_junction",
-    "slide_camp",
+    "slide_camp_gray_wolf",
     "cedar_lake",
     "lower_cameron",
     "upper_cameron"
@@ -4740,7 +4740,7 @@
    "name": "Olympic marmot",
    "kind": "animal",
    "where": [
-    "elk_mountain_trail_junction",
+    "elk_mountain_grand_ridge_junction",
     "upper_cameron",
     "marmot_pass",
     "sunnybrook_meadows"
@@ -4833,7 +4833,7 @@
    "kind": "plant",
    "where": [
     "deer_park_trailhead",
-    "elk_mountain_trail_junction",
+    "elk_mountain_grand_ridge_junction",
     "marmot_pass"
    ],
    "notes": "Endemic violet of rocky outcrops and talus in the northeastern and eastern Olympics; blooms June-August; rare (about 36 known populations).",
@@ -4878,7 +4878,7 @@
    "kind": "plant",
    "where": [
     "roaring_winds",
-    "elk_mountain_trail_junction",
+    "elk_mountain_grand_ridge_junction",
     "royal_lake"
    ],
    "notes": "WTA: on Grand Ridge, firs clone themselves from skirt-like branches pressed down by snow, making 'islands' of trees.",
@@ -5106,7 +5106,7 @@
     "camp_mystery",
     "shelter_rock_camp",
     "buckhorn_lake",
-    "slide_camp"
+    "slide_camp_gray_wolf"
    ],
    "source": "https://www.fs.usda.gov/r06/olympic/recreation/buckhorn-wilderness",
    "confidence": "medium"
