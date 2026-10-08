@@ -943,7 +943,7 @@ The page sets up the dilemma, and the buttons finish the sentence. Labels are ve
 
 | Kind | Shown as | Example |
 |---|---|---|
-| **Sure** (no risk, maybe a cost) | `sure`, or cost icons: clock, food, battery, spirits | *Camp, cross at dawn* (costs a night) |
+| **Sure** (no roll; maybe a cost, even the trip, but it can never end the book) | `sure`, or cost icons: clock, food, battery, spirits | *Camp, cross at dawn* (costs a night) |
 | **Risky** (rolled; the worst case is Trouble or less) | the chance it goes all right, as a %; the (i) opens *Why these odds* | *Wade across now 83%* (knee-deep, but tired) |
 | **Critical ♦** (rolled; some branch can reach Serious, a rescue, the end of the trip, or in Old School the end of the book) | `♦ %`, the fail share in red, the fatal share in red if the book can end, a confirming tap, a three-band bar in the Why sheet, and the compass roll | *Climb the ladder ♦ 79% · 21% fall · 0.2% fatal* |
 | **Flavor** (no stakes) | no tag | *Count the banana slugs* |
@@ -1269,7 +1269,7 @@ Rescue is told gently and is never embarrassing, in both modes. No bills, no lec
 
 *The Hard Way* is honest about a trip that technically worked: the finish bonus is halved (9.6), and the Field Notes open by default instead of waiting behind a tap. "Happy" in the targets (F.1) means plain *The End*, never the Hard Way.
 
-**GAME OVER** is the one ending with no way back. The book still gets a title from what happened (*The Long Night at Glacier Meadows*), and its **memorial page** replaces the back cover: the route map dotted to where it ended, the dates, the score reached, the sketches made, the Ranger's Note, a line on what would have kept the book open (from the cause trace, 8.13), and an epitaph. The Field Notes are one tap away. The book goes on the shelf with a black ribbon and into the Trail Register (9.8).
+**GAME OVER** is the one ending with no way back. The book still gets a title from what happened (*The Long Night at Glacier Meadows*), and its **memorial page** replaces the back cover: the route map dotted to where it ended, the dates, the score reached, the sketches made, the Ranger's Note, a line on what would have kept the book open (from the cause trace, 8.13), and an epitaph. The Field Notes are one tap away. The book goes on the shelf with a black ribbon and into the Trail Register (9.8). *The End of the Blank Page* combines with GAME OVER too: a hiker who found the Snowlamp and did not come home still filled the page, and the memorial page shows the gold sketch.
 
 Each volume is titled from what happened: *The Hiker Who Forgot the Stove*, *Too Much Cheese on the High Divide*, *The Night of the Raccoons*, *A Soggy Story*.
 
@@ -2711,7 +2711,7 @@ From `simulation.md` 12.3 (its scratch calculator, day-hike gear, the Lewis Mead
 
 **How single items change this book:**
 - **Headlamp:** the ladder goes from ♦ 79% to ♦ 84% (headlamp -10 instead of phone -20), the phone keeps its battery for the clock and the map, and "back down to Elk Lake" becomes sure.
-- **Puffy and warm hat:** the cold night drops from Serious to Trouble, and its fatal share falls away: the margin climbs to about -25 °F (74 - 12.6 for the puffy - about 2 for the hat ≈ 59 °F comfortable, against a 34.6 °F low), the line where a night stops being able to end a book. Spirits recover by morning.
+- **Puffy and warm hat:** the cold night drops from Serious to Trouble, and its fatal share falls away: the margin climbs to just above -25 °F (74 - 12.6 for the puffy - about 2 for the hat ≈ 59 °F comfortable, against a 34.6 °F low), the line below which a night can end a book. Spirits recover by morning.
 - **Satellite messenger:** a rescue, if needed, is certain and fast, so the sure choice on the bagless night is a short wait instead of a long one.
 - **Water filter:** the "drink from the creek" choice disappears into a margin note.
 - **The old field guide (20 oz):** spirits +1 from naming the Hall of Mosses' club moss. At 11.7 lb the pack is still Light, so it costs nothing on the ladder: a small, honest trade-off in the guide's favor.
