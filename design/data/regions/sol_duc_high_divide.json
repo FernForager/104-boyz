@@ -69,7 +69,7 @@
     "fires_allowed": true,
     "toilet": true,
     "water": "Potable water in season; primitive with pit toilets and no water in the off-season.",
-    "notes": "Car camping, not wilderness: picnic tables, fire pits (subject to seasonal bans; Stage 2 ban began Aug 11, 2026), animal-proof food lockers, RV dump. Useful as the night-before-the-trip camp."
+    "notes": "Car camping, not wilderness: picnic tables, fire pits (subject to seasonal bans; Stage 2 ban began Aug 7, 2026), animal-proof food lockers, RV dump. Useful as the night-before-the-trip camp."
    },
    "description": "A big forest campground beside the river, with picnic tables, food lockers and the hush of water all night long.",
    "scene_art_notes": "Foreground: picnic table with a camp stove and a food locker box. Midground: tents and a small car under mossy maples. Sky: dusk purple dithered through trees. Landmark: river glint between trunks.",
@@ -156,7 +156,7 @@
     "fires_allowed": true,
     "toilet": false,
     "water": "Sol Duc River / Canyon Creek; treat all water.",
-    "notes": "Sites are on the south side of the river; do not camp near the trail shelter. Toilet at the trailhead under 1 mi away. Fires only in existing rings, dead and down wood, and only when no seasonal ban (2026 Stage 2 ban from Aug 11)."
+    "notes": "Sites are on the south side of the river; do not camp near the trail shelter. Toilet at the trailhead under 1 mi away. Fires only in existing rings, dead and down wood, and only when no seasonal ban (2026 Stage 2 ban from Aug 7)."
    },
    "description": "A few quiet tent spots just upstream of the falls, close enough to hear the river grumble all night.",
    "scene_art_notes": "Foreground: small tent on a needle-covered flat with a bear canister beside it. Midground: river with white riffles. Sky: dark canopy, one blue gap. Night variant: tent glowing yellow.",
@@ -221,7 +221,7 @@
     "fires_allowed": true,
     "toilet": false,
     "water": "Canyon Creek; treat water.",
-    "notes": "Single forested site beside the Deer Lake Trail. Fires allowed in an existing ring with dead and down wood unless a seasonal ban is on (2026 Stage 2 ban from Aug 11)."
+    "notes": "Single forested site beside the Deer Lake Trail. Fires allowed in an existing ring with dead and down wood unless a seasonal ban is on (2026 Stage 2 ban from Aug 7)."
    },
    "description": "A single tent site beside Canyon Creek, which hurries downhill in a chain of small waterfalls.",
    "scene_art_notes": "Foreground: one tent pad among ferns and a ring of stones. Midground: Canyon Creek dropping in white steps between boulders. Sky: none, deep canopy.",
@@ -246,7 +246,7 @@
     "fires_allowed": true,
     "toilet": false,
     "water": "Canyon Creek; treat water.",
-    "notes": "Single forested site beside the Deer Lake Trail. Fires allowed in an existing ring with dead and down wood unless a seasonal ban is on (2026 Stage 2 ban from Aug 11)."
+    "notes": "Single forested site beside the Deer Lake Trail. Fires allowed in an existing ring with dead and down wood unless a seasonal ban is on (2026 Stage 2 ban from Aug 7)."
    },
    "description": "A snug site halfway up the Canyon Creek climb, where the creek talks in a dozen little voices.",
    "scene_art_notes": "Foreground: one tent pad among ferns and a ring of stones. Midground: Canyon Creek dropping in white steps between boulders. Sky: none, deep canopy.",
@@ -271,7 +271,7 @@
     "fires_allowed": true,
     "toilet": false,
     "water": "Canyon Creek; treat water.",
-    "notes": "Single forested site beside the Deer Lake Trail. Fires allowed in an existing ring with dead and down wood unless a seasonal ban is on (2026 Stage 2 ban from Aug 11). Rec.gov notes the spur to this site is near the 3,500 ft \"No Campfires Beyond this Point\" sign."
+    "notes": "Single forested site beside the Deer Lake Trail. Fires allowed in an existing ring with dead and down wood unless a seasonal ban is on (2026 Stage 2 ban from Aug 7). Rec.gov notes the spur to this site is near the 3,500 ft \"No Campfires Beyond this Point\" sign."
    },
    "description": "The last forest camp before the lakes, up a short spur where the air starts to cool.",
    "scene_art_notes": "Foreground: one tent pad among ferns and a ring of stones. Midground: Canyon Creek dropping in white steps between boulders. Sky: none, deep canopy.",
@@ -1195,7 +1195,7 @@
     "fires_allowed": true,
     "toilet": false,
     "water": "Lake and nearby streams; treat water.",
-    "notes": "Below the 3,500 ft line, so fires are allowed in existing rings when no seasonal ban (2026 Stage 2 ban from Aug 11). Old trail shelter (now home to rodents) and a bear wire on a side trail, but bear canisters are still required. No toilet. Heavy mosquitoes in early summer."
+    "notes": "Below the 3,500 ft line, so fires are allowed in existing rings when no seasonal ban (2026 Stage 2 ban from Aug 7). Old trail shelter (now home to rodents) and a bear wire on a side trail, but bear canisters are still required. No toilet. Heavy mosquitoes in early summer."
    },
    "description": "A marshy lake ringed by deep forest, with an old trail shelter and, in early summer, plenty of mosquitoes.",
    "scene_art_notes": "Foreground: marsh grass and reeds in light/dark green. Midground: still lake with fallen logs. Background: dense forest. Sky: humid gray. Landmark: weathered lean-to shelter.",
@@ -4527,7 +4527,7 @@
     "sol_duc_falls"
    ],
    "season": "Year-round; worst in high water and ice.",
-   "real_world": "NPS asks visitors to view the falls only from designated viewing areas; leaving them can put you unexpectedly in the water. The 2013 park brochure asks parents to keep children under close supervision.",
+   "real_world": "NPS asks visitors to view the falls only from designated viewing areas; leaving them can put you unexpectedly in the water. The 2013 park brochure asks parents to keep children under close supervision. Real incidents (park_rules.json search_and_rescue, waterfall_and_riverbank_falls): in June 2025 an 18-year-old died after crossing the upper river and going over the falls; in Sept 2019 a 15-year-old went over the falls and survived a rope rescue. This hazard is a real_incident site (GAME_DESIGN 9.5, principle 3): no death outcome may be built from it; the falls get the stay-on-trail mechanic instead.",
    "game_event_idea": "A friend wants a photo from the mossy ledge. (A) Stay on the bridge and overlook: 100% fine. (B) Step onto the ledge: 80% great photo / 20% slip and soak (Sierra mode: swept away, game over). (Percentages are suggested design odds, not real-world statistics.)",
    "mitigations": [
     "common_sense",

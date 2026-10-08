@@ -4064,7 +4064,8 @@
     "usable_l": 9.8,
     "person_days_typical": 5,
     "approved_olympic_2026": true,
-    "lid": "tool-free screw lid"
+    "lid": "tool-free screw lid",
+    "rent_usd_per_day": 5
    },
    "tiers": [
     {
@@ -4077,7 +4078,8 @@
       "capacity_l": 10.6,
       "usable_l": 9.0,
       "person_days_typical": 4.5,
-      "lid": "coin-screw lid"
+      "lid": "coin-screw lid",
+      "rent_usd_per_day": 7
      },
      "tags_add": [
       "ultralight"
@@ -4107,7 +4109,8 @@
     "capacity_l": 7.2,
     "usable_l": 6.1,
     "person_days_typical": 3,
-    "approved_olympic_2026": true
+    "approved_olympic_2026": true,
+    "rent_usd_per_day": 5
    },
    "real_world_notes": "The BV450-class size. Fits a fastpack and holds about 3 person-days of food. Great for one or two nights solo; on longer trips the food simply won't fit.",
    "flavor": "A smaller barrel, just right for a short trip and a careful eater."
@@ -4133,7 +4136,8 @@
     "usable_l": 8.6,
     "person_days_typical": 4,
     "approved_olympic_2026": true,
-    "lid": "coin-twist latches"
+    "lid": "coin-twist latches",
+    "rent_usd_per_day": 5
    },
    "real_world_notes": "The heavy, black workhorse common in loaner fleets. The coin latches are fiddly with cold fingers; carry a coin or use a spoon handle.",
    "flavor": "A heavy black drum with two little locks that open with a coin and a bit of patience."
@@ -5314,7 +5318,7 @@
    "stats": {
     "joy": 0
    },
-   "real_world_notes": "Picking plants and flowers in a national park is prohibited. The Golden Glow lesson: sketch the flower, don't pick it.",
+   "real_world_notes": "Picking plants and flowers in a national park is prohibited. Leave the flower where it grows.",
    "flavor": "Two little wooden boards for pressing flowers, which the mountain would rather keep."
   },
   {
@@ -5951,7 +5955,7 @@
   "side_pocket": "Rides in a pack side pocket.",
   "signal": "Signals for help.",
   "sit_pad": "Sit pad.",
-  "sketchbook": "Counts as sketchbook (full Journal credit, the Golden Glow lesson).",
+  "sketchbook": "Counts as sketchbook. The journal system was retired on 2026-10-08: the tag maps to the luxury event tag (GAME_DESIGN E.4).",
   "sleep_accessory": "Improves sleep warmth or packing.",
   "sleep_aid": "Improves sleep quality.",
   "sleep_bag": "Sleeping bag.",
@@ -6051,7 +6055,7 @@
   "joy": "Spirits bonus per evening while carried and used.",
   "joy_layover": "Spirits bonus on a layover day.",
   "joy_rain_day": "Spirits bonus on a tent-bound rain day.",
-  "journal_points": "Journal credit for recording a discovery (the Golden Glow finale gives full credit to a sketch, partial to a photo).",
+  "journal_points": "Retired with the journal system on 2026-10-08; ingest drops it (GAME_DESIGN E.4). It was credit for recording a discovery: full for a sketch, partial for a photo.",
   "journal_points_bonus": "Added to journal_points when used with a sketchbook or journal.",
   "wildlife_sightings_mult": "Multiplier on wildlife card frequency.",
   "rent_usd_per_day": "Typical rental price per day; the item can be rented in town.",
