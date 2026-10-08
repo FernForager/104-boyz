@@ -1,7 +1,16 @@
 {
   "lore_id": "press_expedition",
   "title": "The Press Expedition, 1889-90",
-  "status": "IN PROGRESS - research underway (started 2026-10-08)",
+  "status": "IN PROGRESS - snapshot 2 (2026-10-08). Verified sources so far listed below; timeline and quote pool being assembled.",
   "researched_on": "2026-10-08",
-  "notes": "Skeleton written early so a restart can resume. Do not use until status is complete."
+  "verified_primary_sources_so_far": [
+    {"id": "SDRU_1890_08_14", "what": "Sacramento Daily Record-Union, Aug 14, 1890, p.3, 'The Olympic Wilderness' (summary of the Press report + Barnes journal entry for Jan 14 + full name list)", "url": "https://www.loc.gov/resource/sn82014381/1890-08-14/ed-1/?sp=3", "verified_against_page_image": true},
+    {"id": "MTN_1907", "what": "Ina M. Hanna, 'Expeditions Into the Olympic Mountains', The Mountaineer v1 n2 (1907) pp.29-34, condensed from Seattle Press July 16 1890", "url": "https://www.npshistory.com/publications/olym/m-v1n2-1907-1.pdf", "verified_against_page_image": true},
+    {"id": "SPI_1890_07_17", "what": "Seattle Post-Intelligencer Jul 17 1890 p.4 editorial 'An Important Publication'", "url": "https://www.loc.gov/resource/sn83045604/1890-07-17/ed-1/?sp=4"},
+    {"id": "WS_1890_06_06", "what": "Washington Standard (Olympia) Jun 6 1890 p.3", "url": "https://www.loc.gov/resource/sn84022770/1890-06-06/ed-1/?sp=3"},
+    {"id": "WS_1889_12_27", "what": "Washington Standard Dec 27 1889 p.2 (Port Angeles Commonwealth item on arrival)", "url": "https://www.loc.gov/resource/sn84022770/1889-12-27/ed-1/?sp=2"},
+    {"id": "MCJ_1890_01_31", "what": "Mason County Journal Jan 31 1890 p.5 (Port Townsend Leader dispatch)", "url": "https://www.loc.gov/resource/sn88085081/1890-01-31/ed-1/?sp=5"},
+    {"id": "ES_1890_06_24", "what": "Evening Star (Washington DC) Jun 24 1890 p.3 (Christie joins Russell's Alaska expedition with two dogs)", "url": "https://www.loc.gov/resource/sn83045462/1890-06-24/ed-1/?sp=3", "verified_against_page_image": true},
+    {"id": "SPI_1890_09_30", "what": "Seattle P-I Sep 30 1890 p.9 (later party follows the Press blazes; skeptical)", "url": "https://www.loc.gov/resource/sn83045604/1890-09-30/ed-1/?sp=9"}
+  ]
 }
