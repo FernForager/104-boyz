@@ -1,8 +1,8 @@
 # Olympic Peninsula Hiker
 
-*Master game design document. Working title. Status: design (no game code yet). Written 2026-10-08 for `fernforager/104-boyz`; final revision after a design review and the data fact-check, then updated the same day for your decision on how harsh: **old school, death is game over** (9.4-9.5), and checked again for fairness and loopholes (no scouting a death in an easier or parallel book, no undo through errors or imports).*
+*Master game design document. Working title. Status: design (no game code yet). Written 2026-10-08 for `fernforager/104-boyz`; final revision after a design review and the data fact-check, then updated the same day for your decision on how harsh: **old school, death is game over** (9.4-9.5), and checked again for fairness and loopholes (no scouting a death in an easier or parallel book, no undo through errors or imports). Updated once more that day for two more of your decisions: the plant is the **Bonfire Lily** (10.6), and a death plays as a five-page **death sequence**, from the death box through *YOU PERISHED* and *Leave No Trace* to an epitaph and GAME OVER (9.5, 12.17).*
 
-*This document merges the park research in `design/data/` with three proposals: `proposals/storybook.md` (feel, voice, art, screens), `proposals/simulation.md` (state, odds, consequences) and `proposals/engine.md` (data, engine, tools). Where they disagreed, this document makes one call (section 1.2). Where this document and a proposal differ, this document wins; the proposals stay as detailed reference.*
+*This document merges the park research in `design/data/` with three proposals: `proposals/storybook.md` (feel, voice, art, screens), `proposals/simulation.md` (state, odds, consequences) and `proposals/engine.md` (data, engine, tools). Where they disagreed, this document makes one call (section 1.2). Where this document and a proposal differ, this document wins; the proposals stay as detailed reference. Two of them (`storybook.md` and `engine.md`) still call the golden plant by its retired placeholder name, "Snowlamp"; it is the **Bonfire Lily** here, and this document's name wins.*
 
 > **Read this first (about 10 minutes on a phone):**
 > 1. [The one-page pitch](#1-one-page-pitch)
@@ -64,7 +64,7 @@
 
 A book can end only at a red-diamond choice that showed its fatal share, or after two warnings you walked past, and every such moment offers a sure way out that costs time, comfort or score, never the hiker. Try Mount Olympus in one night with day-hike gear and keep pushing, and you will have a problem: trouble or worse nearly every time (the target is at least 80%), and about 1 book in 15 ends on the mountain (A.6). Take the turnaround the game offers, and almost nobody dies.
 
-A dead hiker's book stays on the shelf with a black ribbon and an epitaph, the Trail Register remembers them, and the next hiker inherits their field guide. For younger readers, an optional, clearly labeled **Storybook** setting ends every story with the hiker safely home.
+When a hiker dies, the game says so the old way: **YOU PERISHED** in big blocky letters, a one-line Oregon Trail cause (*You have died of cotton.*), then the hiker's bones and pack crumbling to dust under the words *Leave No Trace*. The book goes on the shelf with a black ribbon, an epitaph goes into the Trail Register at the trailhead, and the next hiker inherits the field guide. For younger readers, an optional, clearly labeled **Storybook** setting ends every story with the hiker safely home.
 
 **The park.** Six researched regions join into one trail network: 449 places, about 450 trail segments and 150 classic trips. Version 1.0 plays the three must-haves: Mount Olympus with every camp on the Hoh, Seven Lakes Basin and the High Divide, and Royal Basin. The endpaper map always shows the whole park; valleys not yet built are pencil sketches, "pages still being drawn", until they arrive (milestones M4 and M5).
 
@@ -84,16 +84,16 @@ A **first book** reaches its first trail page within about 8 minutes of opening,
 
 Where the three proposals disagreed, these are the calls. The reasoning is in the proposals; you can overrule any of them.
 
-- **Default mode: Old School** (your decision, 2026-10-08). Death is possible and final: the death box, a Ranger's Note, then GAME OVER. **Storybook** (nobody dies) is an optional, clearly labeled easier setting, chosen per book on the New Book page. Code and data call the modes `oldschool` and `storybook`; the old internal key `sierra` is retired, so a real company's name never reaches a button.
+- **Default mode: Old School** (your decision, 2026-10-08). Death is possible and final, and it plays as one short **death sequence** (your design, the same day): the death box with its Ranger's Note, *YOU PERISHED* with an Oregon Trail cause of death, the remains turning to dust (*Leave No Trace*), an epitaph for the Trail Register, then GAME OVER (9.5, 12.17). **Storybook** (nobody dies) is an optional, clearly labeled easier setting, chosen per book on the New Book page. Code and data call the modes `oldschool` and `storybook`; the old internal key `sierra` is retired, so a real company's name never reaches a button.
 - **Fair deaths only:** a book can end only at a ♦ choice that showed its fatal share, or at the end of a crisis chain after two warnings the player walked past; never on a random draw. Every such moment offers a sure way out (9.5).
-- **What survives a death:** the book on the shelf with a black ribbon and an epitaph, a memorial entry in the Trail Register, and the old field guide with every entry the dead hiker filled, which the next hiker inherits. The next hiker's skills start over (9.8; the full-wipe alternative is Decision 1a).
+- **What survives a death:** the book on the shelf with a black ribbon, a memorial entry with the hiker's epitaph in the Trail Register (no tombstone in the park: Leave No Trace), and the old field guide with every entry the dead hiker filled, which the next hiker inherits. The next hiker's skills start over (9.8; the full-wipe alternative is Decision 1a).
 - **One life, one book at a time:** a hiker has at most one Old School book in progress. If the hiker dies, any other open book of theirs closes at once, so no hiker is ever alive in one book and dead in another (9.8).
 - **Score:** one KQ-style `Score: N of M`, with M computed for the itinerary. No spirits multiplier; low spirits instead switch off some joys ("too cold to sketch").
 - **Odds:** every rolled choice shows the chance it goes all right ("made it"). Choices that can reach Serious or worse get a ♦, the fail share in red, a confirming tap and the compass roll; a ♦ that can end the book adds its fatal share, which no setting hides. Safe choices show costs, never a %. Missing knowledge shows an honest range, and a fatal share shows the worst end of it, always rounded up (8.1, 8.6-8.8).
 - **Meters:** seven simulated, four shown as storybook conditions, plus a Wet or Thirsty glyph when it matters.
 - **Endings come from crisis cards the player saw**, never from a count of bad conditions. Two bad conditions only prompt a ranger-voice nudge.
 - **Narrator:** third person, past tense, read aloud. Long text splits into a "more ▸" page and never scrolls.
-- **The plant** is called **the Snowlamp** (placeholder), never "golden glow" in the game.
+- **The plant** is called **the Bonfire Lily** (your name for it, 2026-10-08), never "golden glow" in the game. The old field guide gives it an invented Latin name, *Ignilirion nivale*, and a nickname, *the climber's campfire* (10.2).
 - **No restore, in either mode.** No Turn Back a Page, no Back to Last Camp, no Restart Trip. Every page autosaves, an error never rolls back a choice, and an imported save can't be older than the shelf's record of that book. Rolls are keyed to content and to the mode, so the same choice in the same place repeats its result, and a Storybook book can never scout an Old School one (8.14, E.6).
 - **Physics lives in one place:** fords from the river model, headlands from the tide margin, freezing levels from measured soundings, tides from NOAA La Push predictions.
 - **Park conditions:** "As researched (Oct 2026)" by default, "Timeless" one tap away. A trip falls in the 12 months after the edition date, and dated closures apply only on their dates (4.7).
@@ -151,7 +151,12 @@ Where the three proposals disagreed, these are the calls. The reasoning is in th
 - **Every in-book page puts its narration in a Sierra message box:** white fill, a double dark-red border, black EGA-style text and a small inner margin. It is drawn in CSS around real HTML text, so VoiceOver still reads it. The choices are matching boxes below it (12.2). This box, more than anything, is what makes a page look like a Sierra game and not a web page with a picture on it.
 - **Tapping the picture is KQ's LOOK.** A smaller pop-up box of the same style describes what you tapped, costs no game time, and gives +1 score the first time you look at that thing in a book.
 - Pictures **draw themselves in** over about 0.8 seconds, outlines first and then fills flooding in, the way AGI games drew on a 1984 PC. A tap skips it.
-- **Death comes the Sierra way:** the scene turns gray, a message box gives a deadpan, kind line that never mocks the player, and a real Ranger's Note names what would have prevented it. Then GAME OVER, and the memorial page (12.17).
+- **Death comes the Sierra way, then the Oregon Trail way** (Old School only; Storybook never shows any of it). Five pages, in order (9.5, 12.17):
+  1. **The death box.** The scene turns gray, and a Sierra message box says what happened in a deadpan, kind line that never mocks the player, with a real Ranger's Note on what would have prevented it.
+  2. **YOU PERISHED.** A black page with big blocky EGA letters, and under them one line in the second person, Oregon Trail style: *You have died of a rising tide.* A public-domain funeral march plays on the PC speaker.
+  3. **Leave No Trace.** The picture of the spot where it happened, with a small skeleton lying beside the pack. Over about seven seconds the bones and the pack crumble pixel by pixel into dust, the dust blows away, and the place is left exactly as it was before the hiker came. A Sierra box says only *Leave No Trace.*
+  4. **The epitaph.** Pick one of three preset lines made from the cause of death, write your own, or skip. It goes into the Trail Register at the trailhead: there is no tombstone in the park.
+  5. **GAME OVER.** The memorial page. The book goes on the shelf with a black ribbon, and the next hiker inherits the field guide.
 
 ### 2.5 Hard, but fair
 
@@ -193,8 +198,10 @@ Where the three proposals disagreed, these are the calls. The reasoning is in th
  THE END ▸ back cover ▸ Field Notes ▸
  plan again, or try this trip again
     │
-    └ or GAME OVER ▸ memorial page ▸
-      Trail Register ▸ a new hiker
+    └ or the death box ▸ YOU PERISHED ▸
+      Leave No Trace ▸ an epitaph ▸
+      GAME OVER ▸ the shelf ▸ a new
+      hiker
 ```
 
 **When things happen.** Chapters One to Three happen the day before the trip: the permit and the WIC's loaner canister are picked up then, the food is bought that afternoon, and the pack is packed that evening. Chapter Four starts on departure morning, when you choose when to leave.
@@ -234,10 +241,10 @@ The route between camps follows the trails automatically (shortest by hiking tim
 - a storybook difficulty word: *an easy stroll, a good day, a long day, a very long day, the ranger raises an eyebrow*.
 
 Each night row has two buttons:
-- **Stay again** makes it a **layover**: no packing up, a free day for side trips with a light pack (the research's `layover_ideas` become suggestions), more joy, and at a high camp a second evening for the Snowlamp (10.6).
+- **Stay again** makes it a **layover**: no packing up, a free day for side trips with a light pack (the research's `layover_ideas` become suggestions), more joy, and at a high camp a second evening for the Bonfire Lily (10.6).
 - **Move on** picks a new camp: more scenery and more miles, with a heavier pack every day.
 
-Loops ask for a direction (the High Divide clockwise or counterclockwise). Traverses ask how you'll get back to your car: a fictional shuttle service, a bike stashed at the far end, hitching (slow), or two cars once you have a party (M6). Day hikes pick a turnaround point and a "back by" time instead of camps. In season, a tiny pencil star marks camps where the Snowlamp is possible that month (10.6).
+Loops ask for a direction (the High Divide clockwise or counterclockwise). Traverses ask how you'll get back to your car: a fictional shuttle service, a bike stashed at the far end, hitching (slow), or two cars once you have a party (M6). Day hikes pick a turnaround point and a "back by" time instead of camps. In season, a tiny pencil star marks camps where the Bonfire Lily is possible that month (10.6).
 
 **Step 4: The ranger's review and briefing.** The ranger reads the plan back in her own voice. Every check in 4.6 becomes a friendly line ("Day 2 is a climb. The ladder is no place to be at dusk."). Then comes a **one-page briefing** on the one to three things that matter most for this plan, chosen from the plan itself: snow on the Divide in early July, the Hoh in the afternoon, the tide gates on the coast, bears in berry season. The briefing grants all of that knowledge at once (8.6), so there is no list of topics to tap through, and a player who doesn't know what to ask still learns it. The ranger also tells the story of the wolf, once (10.4).
 
@@ -312,11 +319,11 @@ A **Page density** setting (Short / Usual / Long) changes how many quiet, decisi
 | Drive and trailhead | One page and the last look | 1 |
 | **Total** | | **about 8** |
 
-1. **Three trips from the ranger,** with the full map one tap away: an easy overnight, a high trip with a layover and a Snowlamp chance, and a day hike. In M1 those are Happy Four, the Blue Glacier classic (Glacier Meadows twice), and a day hike to Five Mile Island. From v1.0 the high trip is Royal Basin with a layover or Seven Lakes for three nights. The high trip comes with the ranger's hint: *"If you're looking for something that only shows at dusk, camp high, near snow, and stay up late."*
+1. **Three trips from the ranger,** with the full map one tap away: an easy overnight, a high trip with a layover and a chance of the Bonfire Lily, and a day hike. In M1 those are Happy Four, the Blue Glacier classic (Glacier Meadows twice), and a day hike to Five Mile Island. From v1.0 the high trip is Royal Basin with a layover or Seven Lakes for three nights. The high trip comes with the ranger's hint: *"If you're looking for something that only shows at dusk, camp high, near snow, and stay up late."*
 2. **Fill from the list.** The store's list fills itself with a varied menu sized to the itinerary that fits the canister, then highlights two or three swaps for the player to make (5.3).
 3. **The pack starts on the floor.** The ranger's checklist items lie around the open pack, not in it. Each tap puts one in, and the fox points at whatever is still out. A first pack is about 15 meaningful taps; the long tail and the traps wait in "More from the closet" (6.1).
 4. **The presets list is short:** filtered by region, nights and level, about 8 at a time.
-5. **The first clear evening at a Snowlamp place shows it** (10.6), so the first book can end the way the picture book does.
+5. **The first clear evening at a Bonfire Lily place shows it** (10.6), so the first book can end the way the picture book does.
 6. **The mode is chosen once, on the New Book page** (12.4). Old School is already selected, with one plain line, *"One life. If the hiker dies, the book ends."* Storybook sits under it, labeled as the easier setting for younger readers. The three trips the ranger offers are sensible plans, so a first book that takes the ranger's kit is about as safe as backpacking (F.1). The first time a button shows a fatal share, the fox points at the sure choice beside it (8.7, 10.7).
 
 ### 3.7 Changing plans on the trail
@@ -373,7 +380,7 @@ The Hoh River Trail climbs from rain forest at 578 ft to Glacier Meadows at 4,30
 | Martin Creek | 15.0 | 2,450 | Quota |
 | Elk Lake | 15.3 | 2,600 | Quota, 7 + 1 group, no fires |
 | (Glacier Meadows ladder) | 17.15 | 4,150 | The washout ladder (3 broken rungs, 1 missing, June 2026) |
-| Glacier Meadows | 17.4 | 4,300 | Quota, 11 + 1 group; base camp; ☆ Snowlamp |
+| Glacier Meadows | 17.4 | 4,300 | Quota, 11 + 1 group; base camp; ☆ Bonfire Lily |
 | (Lateral moraine viewpoint) | ~18.5 | 5,100 | First close view of the Blue Glacier; ☆ |
 | (Edge of the Blue Glacier) | ~18.7 | — | 0.2 mi off trail down the moraine wall: cliff, rockfall |
 | Caltech Rocks | ~19.6 | unsurveyed | Climbers' camp; blue bags required |
@@ -383,7 +390,7 @@ The Hoh River Trail climbs from rain forest at 578 ft to Glacier Meadows at 4,30
 Everything past Glacier Meadows is an estimate in the data. The park requires blue bags for human waste on Olympus (from the Hoh Visitor Center or the Port Angeles WIC), and there is no camping between Glacier Meadows and the glacier.
 
 **Who can go where past Glacier Meadows.**
-- **Anyone** can walk the 1.1 miles of primitive trail to the lateral moraine viewpoint: the first close look at the Blue Glacier and, in the evening, a Snowlamp place.
+- **Anyone** can walk the 1.1 miles of primitive trail to the lateral moraine viewpoint: the first close look at the Blue Glacier and, in the evening, a Bonfire Lily place.
 - **The summit needs a rope team on the glacier.** In v1.0 it opens with **the glacier kit** (crampons, ice axe, helmet, harness) **plus a booked guide** from Larkspur Glacier Guides, a fictional guide service at the outfitter counter (5.1). The guide is your rope partner, brings the rope and has glacier skill for that trip. From M6, it also opens with the glacier kit, a rope, and a rope team of two or more in which everyone has `glacier` skill 1 or better (you and a companion), with no guide.
 - **Glacier skill** is the eighth skill (7.3). You earn it on a guided **glacier school** day on the Blue Glacier (an optional extra layover on a guided trip: self-arrest, roped travel, crevasse-rescue practice), or start a book with level 1 by ticking *"has taken a glacier course"* on the New Book page.
 
@@ -395,7 +402,7 @@ Everything past Glacier Meadows is an estimate in the data. The park requires bl
 > `[ Step onto the ice    ♦ 55%   (i) ]`
 > `[       45% stopped · 0.7% fatal   ]`
 
-- **Turn back** is sure. You keep the glacier view (+5) and, if it's evening, a Snowlamp place for the night.
+- **Turn back** is sure. You keep the glacier view (+5) and, if it's evening, a Bonfire Lily place for the night.
 - **Step onto the ice** uses an honest % from the crevasse model (month and snow bridges, time of day, crampons, footwear, fatigue, glacier skill). The 55% shown is for late-September day gear: sneakers, no crampons, tired. A fail usually means a crevasse field stops you (70%: you turn back with a story) or a slide and a cold wait for a ranger (25%: a rescue). The worst 5% is a fall into a crevasse, and in Old School 30% of those falls end the book (9.5): 45% x 5% x 30% = 0.675%, shown on the button rounded up as 0.7%. In Storybook the same fall ends in a rescue. Even a lucky unroped hiker can't climb the fifth-class summit block without a belay, so the false summit is the highest they can reach.
 
 So every path offers a sure turnaround at the moraine, and the plan is never refused. Appendix A.7 plays this out, and F.1 tests it.
@@ -441,7 +448,7 @@ Every camp is a designated site in the Sol Duc/Seven Lakes quota area (Hoh Lake 
 | Lower Bridge Creek | 6.5 | 3,830 | 2 |
 | Sol Duc River camps | 2.4-5.9 | 2,210-3,400 | Sol Duc River #1-4, Appleton Junction, Rocky Creek, Sol Duc Crossing: 1 each; Seven Mile group site; Horse Head stock camp |
 
-(Mile figures run via whichever side is shorter, so Lunch Lake is measured via Deer Lake and Heart Lake via the river trail. ☆ marks Snowlamp places; see 10.6 for the months.)
+(Mile figures run via whichever side is shorter, so Lunch Lake is measured via Deer Lake and Heart Lake via the river trail. ☆ marks Bonfire Lily places; see 10.6 for the months.)
 
 **WIC-only camps.** Long Lake, Sol Duc Lake, Morgenroth Lake, Bruce's Roost, Cat Basin and Hidden Lake are listed in the permit system but hidden from online booking. In the game they are **special permit requests**, like Upper Royal Basin: tap one and the ranger considers it (in season, granted about 70% of the time midweek and 40% on weekends, seeded by date and camp), with a line about why they're kept quiet. Lake #8 can't be planned: its location is unverified and no trail reaches it in the data. It lives in a pencil footnote.
 
@@ -738,7 +745,7 @@ The back cover's **What the pack taught** lists what you used every day, what yo
 | Camp chair vs. dry camp clothes | Layover joy | Warmth reset at camp; feet recover |
 | Foam pad outside vs. inflatable inside | Never fails, but snags and gets wet | Warmer; punctures only if strapped outside |
 | Sketchbook vs. camera vs. binoculars | Full journal pages (the book's lesson) | Camera: photos are worth less; binoculars: more wildlife |
-| The old field guide (20 oz) | Identify what you sketch on the spot; Snowlamp odds +5 | Sketches stay "unidentified" until home |
+| The old field guide (20 oz) | Identify what you sketch on the spot; Bonfire Lily odds +5 | Sketches stay "unidentified" until home |
 
 ### 6.8 Sample kits computed from the catalog
 
@@ -853,7 +860,7 @@ Normal-year **melt-out line** (above it, expect snow on the trail), anchored to 
 
 Each trip draws a **snow year** that the ranger board shows: low (lines about two weeks early), normal, or high (two to three weeks late). The SNOTEL record ranges from May 1 to August 11 for melt-out near 5,000 ft; 2026 was a low year (melted out May 11). Regression tests check the model against SNOTEL years 2011 (late), 2015 and 2026 (early), within a week. From late September, fresh snow falls on wet days when the freezing level drops below the trail.
 
-Snow slows travel (up to x1.8), asks for footing checks on steep patches, and needs traction or an ice axe on avalanche paths. It is hard and icy before 10 am and soft and postholing after 1 pm. Snowlamp eligibility does **not** use this line: it uses each place's own snow feature (10.6).
+Snow slows travel (up to x1.8), asks for footing checks on steep patches, and needs traction or an ice axe on avalanche paths. It is hard and icy before 10 am and soft and postholing after 1 pm. Bonfire Lily eligibility does **not** use this line: it uses each place's own snow feature (10.6).
 
 ### 7.7 Rivers
 
@@ -988,7 +995,7 @@ Cards are JSON (full format: `engine.md` section 4). In short:
 - **An `if` expression** reads anything: meters, pack tags, weather, river level, tide, time to dark, flags, history. A small safe expression language (no `eval`, no randomness inside it).
 - **Choices** each either resolve to a fixed outcome or **roll**: a base plus labeled modifiers, then a pass outcome and a weighted fail table.
 - **Outcomes** carry text variants and typed **effects**: meters, time, food and water, gear wet or lost, injuries, flags at day/night/trip/region/meta scope, queued consequences with foreshadowing, route changes (turn back, take the overland trail, bivouac, end trip), journal entries, score, Leave No Trace, skill experience.
-- **Modes.** A death outcome (`book_ends`) may appear **only** in a ♦ choice's fail table or at the last step of a crisis chain with at least two warning steps before it, and every one must carry a `modes.storybook` override (a rescue instead). A card the Director draws may hold one only if it names the foreshadow flag its danger needs, which an earlier page must have set (9.5). The linter enforces both, so Storybook can never kill anyone by accident, and Old School can never kill anyone without a fatal share on a button first (F.3).
+- **Modes.** A death outcome (`book_ends`) may appear **only** in a ♦ choice's fail table or at the last step of a crisis chain with at least two warning steps before it, and every one must carry a `modes.storybook` override (a rescue instead) and name a `cause` key from the cause-of-death table, which picks its *YOU PERISHED* line and its epitaph presets (9.5). A card the Director draws may hold one only if it names the foreshadow flag its danger needs, which an earlier page must have set (9.5). The linter enforces both, so Storybook can never kill anyone by accident, and Old School can never kill anyone without a fatal share on a button first (F.3).
 - **Inheritance.** A generic archetype (any braided-river ford) plus a short place patch (the Hoh braids at mile 8) covers the park with personality.
 
 ```json
@@ -1176,7 +1183,7 @@ Some choices aren't one roll: *push on to Glacier Meadows in the dark*, *wait fo
 | Food that didn't fit the canister | That night | Visitor roll |
 | Ignored a hot spot | 2-4 miles later | Blister |
 | Gravel-bar camp with rain forecast | That night | *The river talks louder* |
-| Stayed up at a clear high camp with a sketchbook | Blue hour | Snowlamp eligible |
+| Stayed up at a clear high camp with a sketchbook | Blue hour | Bonfire Lily eligible |
 | A bear got your food | **Your next trip to that region** | *The bears here have learned* |
 
 **Chains** are linked cards. The **Soggy Day chain**: showers on the Hoh with no rain pants (keep walking, or wait under a cedar for 45 minutes) → a damp camp (dry camp clothes, a fire if legal, a big hot dinner, or bed early in damp clothes) → *the cold hours* at night (the margin breakdown shows "damp clothes in bag -4 °F") → a grey morning (dry layers in the sun, press on, or turn around). The same first card plays four different ways depending on `rain_bottom`, `camp_clothes_dry`, `stove`, the sleeping bag and the elevation (fire rules).
@@ -1224,7 +1231,7 @@ This is the Oregon Trail learning loop made explicit, and the main tool for chec
 ### 8.14 Seeds and save-scumming
 
 - Randomness comes from one seeded generator split into named streams (weather, environment, permits, director, rolls, effects, text, art, store, lookahead). **Weather never shifts because you dawdled**, and editing text never changes an outcome.
-- **There is no going back, in either mode.** No Restore, no Turn Back a Page, no Back to Last Camp, no Restart Trip. Every page autosaves. **The save written at the confirming tap already holds the outcome**, before the compass spins, so closing the app mid-spin changes nothing. If the outcome is a death, that same write files the book on the shelf, adds the Trail Register entry, merges the hiker's field guide entries and retires the hiker; the death box only displays it (E.6). An error never rolls back a choice either (E.11).
+- **There is no going back, in either mode.** No Restore, no Turn Back a Page, no Back to Last Camp, no Restart Trip. Every page autosaves. **The save written at the confirming tap already holds the outcome**, before the compass spins, so closing the app mid-spin changes nothing. If the outcome is a death, that same write files the book on the shelf, adds the Trail Register entry, merges the hiker's field guide entries and retires the hiker; the death sequence only displays it (E.6). The one thing still unwritten is the epitaph, which can add words to the register entry and change nothing else (9.5). An error never rolls back a choice either (E.11).
 - **Rolls are keyed to content and mode, not to page counts:** `hash(trip seed, mode, node, card, choice, trip day, attempts here)`. An optional page inserted before a check (a sketch, a rest, a different chore order) changes nothing. And the same choice at the same ladder on the same day, in the same weather and the same mode, always gives the same result: on a new book with the same weather (Try this trip again, 9.7), a fall is still a fall. It is a puzzle you solve on the next book by changing your approach (haul the pack up on a rope, wait for morning, take the overland trail), the King's Quest way, never by reloading. A different choice, a new day, or a genuine second attempt (trying the ford again after failing it) gets a fresh, equally honest roll.
 - **No scouting.** Because the mode is in the key, a Storybook book of the same trip rolls its own dice and can never show which Old School ♦ would have ended the book. A hiker has one Old School book in progress at a time, a seed already in progress on the shelf can't be opened twice, and a code opened in the other mode, or from a book that ended in GAME OVER, rolls new weather on your own shelf (9.7, 9.8). An imported save can never be older than the shelf's record of that book (E.6).
 - The compass shows only the band, never the exact roll (8.8).
@@ -1243,7 +1250,7 @@ This is the Oregon Trail learning loop made explicit, and the main tool for chec
 | 3 | Serious | Shivering or hypothermic, moderate sprain, bonked far from the car, no light on bad trail, stranded by the tide, lost in fog | A forced crisis card with at least one bail option and one help option |
 | 4a | Trip over | Walk out early | *The End, Sooner Than Planned* |
 | 4b | Rescue | Rangers walk you out, a carry-out, a helicopter (Olympus) or Coast Guard (coast) | *The End, With a Little Help* |
-| 5 | Death | **Old School only**: a ♦ that showed its fatal share, or a chain's end after two warnings (9.5) | None. The death box, then GAME OVER and the memorial page |
+| 5 | Death | **Old School only**: a ♦ that showed its fatal share, or a chain's end after two warnings (9.5) | None. The death sequence (9.5): the death box, YOU PERISHED, Leave No Trace, an epitaph, then GAME OVER and the memorial page |
 
 **Escalation rules:**
 1. A rung goes up only through a failed check, a crossed threshold, or a delayed payoff the player risked knowingly.
@@ -1279,12 +1286,12 @@ Rescue is told gently and is never embarrassing, in both modes. No bills, no lec
 | **The End, the Hard Way** | Finished as planned, but reached Serious on the way | The car in the rain, the hiker asleep in the driver's seat with the heater on |
 | **The End, Sooner Than Planned** | You turned back (any reason) | The trailhead sign: *"The mountain will keep."* |
 | **The End, With a Little Help** | A rung-4b rescue | The Olympus Guard Station porch, or a helicopter as a dot over the valley |
-| **The End of the Blank Page** | You found the Snowlamp (combines with any ending above) | Gold-bordered plate of your sketch |
-| **GAME OVER** | The hiker died (Old School) | The scene in grays under the death box; then the memorial page, a black ribbon down the closed book (12.17) |
+| **The End of the Blank Page** | You found the Bonfire Lily (combines with any ending above) | Gold-bordered plate of your sketch |
+| **GAME OVER** | The hiker died (Old School) | After the death sequence (9.5): the trailhead's register box, its lid closed, on the memorial page; then the book on the shelf with a black ribbon (12.17) |
 
 *The Hard Way* is honest about a trip that technically worked: the finish bonus is halved (9.6), and the Field Notes open by default instead of waiting behind a tap. "Happy" in the targets (F.1) means plain *The End*, never the Hard Way.
 
-**GAME OVER** is the one ending with no way back. The book still gets a title from what happened (*The Long Night at Glacier Meadows*), and its **memorial page** replaces the back cover: the route map dotted to where it ended, the dates, the score reached, the field guide entries filled (seen or sketched), the Ranger's Note, a line on what would have kept the book open (from the cause trace, 8.13), and an epitaph. The Field Notes are one tap away. The book goes on the shelf with a black ribbon and into the Trail Register (9.8). *The End of the Blank Page* combines with GAME OVER too: a hiker who found the Snowlamp and did not come home still filled the page, and the memorial page shows the gold sketch.
+**GAME OVER** is the one ending with no way back. The book still gets a title from what happened (*The Long Night at Glacier Meadows*), and its **memorial page** replaces the back cover: the volume title with the black ribbon beside it, the dates, the place, the score reached, the *YOU PERISHED* line, the epitaph chosen just before it (9.5), the field guide entries filled (seen or sketched) and a line on what would have kept the book open (from the cause trace, 8.13). The Ranger's Note, the route map dotted to where it ended, and the Field Notes are each one tap away (12.17). The book goes on the shelf with a black ribbon and into the Trail Register (9.8). *The End of the Blank Page* combines with GAME OVER too: a hiker who found the Bonfire Lily and did not come home still filled the page, and the memorial page shows the gold sketch.
 
 Each volume is titled from what happened: *The Hiker Who Forgot the Stove*, *Too Much Cheese on the High Divide*, *The Night of the Raccoons*, *A Soggy Story*.
 
@@ -1293,7 +1300,7 @@ Each volume is titled from what happened: *The Hiker Who Forgot the Stove*, *Too
 | | **Old School** (default) | **Storybook** (optional, easier) |
 |---|---|---|
 | Death | Possible and final, by the two fair paths in 9.5 only | Never |
-| Worst outcome | The death box with a real Ranger's Note, then GAME OVER and the memorial page | A gentle rescue |
+| Worst outcome | The death sequence (9.5): the death box with a real Ranger's Note, YOU PERISHED, Leave No Trace, an epitaph, GAME OVER | A gentle rescue; no page of the death sequence ever appears |
 | Odds | Every ♦ that can end the book shows its fatal share | The same ♦s; their worst branch is a rescue, so no fatal share |
 | Director | Gap bias x1.8: the gaps in your pack get asked about | Gap bias x1.3 |
 | Dice | Its own: the mode is part of every roll's key (8.14) | Its own |
@@ -1337,15 +1344,55 @@ Each roll has the same odds in both modes, and at any ♦ only the top rung diff
 3. **Never gory, never about real tragedies.** Real fatal incidents in the park are never turned into game deaths, by name or by place. At ingest, every research hazard and every *what goes wrong* line that cites a real death is tagged `real_incident`: the Klahhane Ridge mountain goat (2010), the hiker-placed ropes above Storm King (2017), the upper Sol Duc River above the falls (2025), cross-country shortcuts toward Boulder Lake near Mount Appleton (2026), and the Olympus climbing route (1993, 2013). Their card stubs drop every death outcome the research suggested, no card placed at a tagged site or built from a tagged hazard may hold a `book_ends` (F.3), and assertions built from tagged lines may test only non-fatal outcomes (F.2). Those places get the **stay-on-trail mechanic** instead, and it is never fatal: a ranger card (*"Most people stop at the viewpoint. It's the best seat anyway."*), a Leave No Trace cost for leaving the trail, and a Field Notes line. The one reviewed exception is the generic crevasse on the Blue Glacier, the ordinary hazard of every glacier: it keeps its ♦, and no text in the game carries any detail of a real incident there.
 4. **Deadpan and kind, never mocking.** In the Sierra manner, but any joke aims at the weather, the water, the dark or the gear, never at the player and never at the loss.
 5. **Always teach:** a real Ranger's Note names what would have prevented it.
-6. **Final:** no Restore, no Turn Back a Page, no Back to Last Camp, no Restart Trip. The box has one button, *Turn the page*, and the next page is GAME OVER (12.17).
+6. **Final:** no Restore, no Turn Back a Page, no Back to Last Camp, no Restart Trip. The box has one button, *Turn the page*, and the next page is *YOU PERISHED*, the second of the five pages below (12.17).
 
 > **The Sea Kept Its Own Time**
 > *The sea has kept its own time for ten thousand years, fifty minutes later every day, and it has never once been late. It came around the point the way it always does, patiently and all the way, until there was no room left between the water and the rock.*
 > **Ranger's Note:** Some coast headlands can only be rounded at low tide. Check the tide for each point on the right day, leave an hour to spare, and when the water is close, take the overland trail (look for the round red-and-black markers) or wait for the next low.
 
+`[ Turn the page ▸ ]` → ***YOU PERISHED.*** *You have died of a rising tide.*
+
+**The death sequence.** In Old School every death plays the same five pages, in this order, and nothing else (wireframes in 12.17; one complete sample in Appendix D, page 17). Storybook never shows any of them, because its would-be deaths are rescues (9.4).
+
+1. **The death box**, as above: the scene in grays, a title and a deadpan line, the Ranger's Note, one button.
+2. **YOU PERISHED.** A black page with the chrome hidden. *YOU PERISHED* stands in big blocky EGA letters, and under it is one line in the second person, Oregon Trail style: *You have died of the river.* The dirge plays once (13.2).
+3. **Leave No Trace.** The place where it happened, in its own daylight colors, with a small cartoon skeleton lying beside the pack. Over about seven seconds both crumble into dust, pixel by pixel, the dust blows away, and the picture is left exactly as it was before the hiker came. A Sierra box says *Leave No Trace.* A tap skips it, and Reduce Motion makes it a cross-fade (11.10).
+4. **The epitaph.** The register box at the trailhead where the trip began, lid open. The page offers three preset epitaphs made from the cause of death, *Write my own* (up to 40 characters) and *Leave it blank*. There is no stone on the mountain, so the epitaph goes where trailheads keep names: the Trail Register (9.8). The format is still your call (Decision 1d).
+5. **GAME OVER.** The memorial page (9.3), then the shelf, where the book takes its place with a black ribbon and *Begin a new book* starts the next hiker (9.8).
+
+Closing the app anywhere in the sequence changes nothing: the death was saved at the confirming tap (8.14), and the book reopens on the sequence page it was showing. The epitaph is saved when it is signed; until then the register entry simply has none. Rereading a GAME OVER book replays the sequence from the death box, with the epitaph as signed.
+
+**The cause of death** is a key on every `book_ends` outcome (8.3), so the content picks it, never the dice. Each fatal moment in the death-roll table above has one:
+
+| Fatal moment | Key | The line under YOU PERISHED |
+|---|---|---|
+| A fall from the Glacier Meadows ladder or an exposed washout | `fall` | *You have died of a wet rung.* (a washout with no ladder: *...of loose gravel.*) |
+| Swept at a waist-deep ford | `river` | *You have died of the river.* |
+| A headland attempt more than 1 ft over the limit | `tide` | *You have died of a rising tide.* |
+| A crevasse fall, unroped on the Blue Glacier | `crevasse` | *You have died of a crevasse.* |
+| A night with a margin below -25 °F and no shelter, toughed out; or the end of the Cold chain | `cold` | By a fixed order among what the cause trace (8.13) holds: wet cotton, *...of cotton.*; else rain, *...of a long, wet night.*; else a clear sky, *...of a cold, clear night.*; else *...of the cold.* |
+| Staying on an exposed crest in a thunderstorm | `lightning` | *You have died of a thunderstorm.* |
+| Off trail in fog near a cliff | `fog` | *You have died of the fog.* |
+
+Any fall or cliff after trail-dark without a headlamp reads *You have died of the dark.* instead. A variant is picked by **whether its condition is in the trace, in that fixed order**, never by which factor cost the most, so the line is easy to predict and to test: a night with wet cotton reads *cotton* even when the missing sleeping bag cost more warmth (Appendix D, page 17). The rules for every line: second person, starting *You have died of*, at most 40 characters; wry, never mocking; it names the weather, the water, the ground, the dark or the gear, never the player's choice. There is no wildlife key, because no animal can end a book (principle 2), and no line names a real incident or a place where one happened (principle 3). New regions bring their fatal moments' keys with them (M2, M4, M5), and a `book_ends` with no known key fails the lint (F.3).
+
+**Epitaph presets** come from the same key. Each cause has a small pool in three flavors (a lesson, a joke and a fond line), with slots for the place, the river, the camp or the item that mattered most, filled from the cause trace. The page offers one of each, picked by the book's text stream, so the same death always offers the same three. Every preset is in the hiker's own voice, is at most 40 characters with its slots filled, and aims its joke at the gear, the weather or the place, never at the player. Examples:
+
+| Key | A lesson | A joke | A fond line |
+|---|---|---|---|
+| `tide` | Should have checked the tide table. | The sea was right on time. | Wanted one more look at the sea stacks. |
+| `river` | Should have crossed at dawn. | The Hoh was in more of a hurry. | Loved the Hoh. It loved the sea more. |
+| `crevasse` | Should have brought a rope team. | The snow bridge looked fine. | Went to see the glacier up close. |
+| `fall` | Should have waited for morning. | The rungs were wetter than they looked. | Almost to Glacier Meadows. |
+| `cold` | Should have packed the sleeping bag. | Cotton kills. Ask me how I know. | Walked further than the light. |
+| `lightning` | Should have been off the crest by noon. | The forecast did say thunder. | Went up for the view. |
+| `fog` | Should have packed a map and compass. | The fog said it was this way. | Loved the high country, fog and all. |
+
+The lesson names the biggest gap in the cause trace (*Should have packed the {item}.*), and the cotton joke is offered only when wet cotton is in the trace. A typed epitaph is the player's own: up to 40 characters, kept on this phone's shelf and in its exports.
+
 ### 9.6 Scoring
 
-**The status line:** `Score: 22 of 131`. The maximum is computed for your itinerary when the permit is stamped: every landmark, likely sunset, field guide entry still to find, the Snowlamp if the plan visits a Snowlamp place, plus fixed budgets for wise choices and Leave No Trace acts. Bigger trips have bigger maxima, but finishing is worth more than overreaching. Like King's Quest, **the score only goes up**, and it can never pass the maximum.
+**The status line:** `Score: 22 of 131`. The maximum is computed for your itinerary when the permit is stamped: every landmark, likely sunset, field guide entry still to find, the Bonfire Lily if the plan visits a place where it can appear, plus fixed budgets for wise choices and Leave No Trace acts. Bigger trips have bigger maxima, but finishing is worth more than overreaching. Like King's Quest, **the score only goes up**, and it can never pass the maximum.
 
 | Points | For |
 |---|---|
@@ -1358,7 +1405,7 @@ Each roll has the same odds in both modes, and at any ♦ only the top rung diff
 | 5 | A landmark or viewpoint reached (2 on a repeat visit) |
 | 10 | Reaching each planned camp |
 | 20 | Finishing as planned (10 for the Hard Way or Sooner Than Planned) |
-| 25 | The Snowlamp, sketched or just looked at (picked: 10, and no gold page) |
+| 25 | The Bonfire Lily, sketched or just looked at (picked: 10, and no gold page) |
 
 Sketching the same marmot ten times earns its points once. **Replanning** (3.7) recomputes the maximum for the new route without ever lowering the score already earned. **A GAME OVER book keeps the score it reached**, with no finish points; the memorial page and the Trail Register show it as it stood (`Score 25 of 64`).
 
@@ -1370,7 +1417,7 @@ Sketching the same marmot ten times earns its points once. **Replanning** (3.7) 
  THE HIKER WHO FORGOT THE STOVE
  a trip of 2 nights on the High Divide
 
- [route map, dotted; tents; ★ Snowlamp]
+ [route map; tents; ★ Bonfire Lily]
 
  Miles 19.1      High point 5,474 ft
  Nights 2        Pages 52
@@ -1400,10 +1447,10 @@ Sketching the same marmot ten times earns its points once. **Replanning** (3.7) 
 - **The field guide** fills across books (section 10).
 - **Skills** grow (7.10), for as long as the hiker lives.
 - **Region memory:** if a bear got your food, the next trip into that region meets a bolder bear. It belongs to the park, so it outlives any hiker.
-- **After a death (Old School), an Oregon Trail tombstone, our way.** The book stays on the shelf with a black ribbon down its spine and its epitaph on the memorial page. The **Trail Register** gets a memorial entry. The next book starts a **new hiker**: a new name suggested on the New Book page, skills back to a beginner's, and the fitness and jacket chosen fresh. The new hiker **inherits the old field guide**, with every entry the dead hiker filled, seen or sketched, each signed in pencil with their initial, the way E.W. signed theirs (10.3). (The alternative, a full wipe that keeps only the register, is in [Decisions](#decisions-needed-from-you).)
+- **After a death (Old School), an Oregon Trail tombstone, our way.** There is no tombstone in the park, because Leave No Trace: the hiker's remains turn to dust on the page (9.5), and the epitaph goes where trailheads keep names, into the **Trail Register**, as a memorial entry. The book stays on the shelf with a black ribbon down its spine, its *YOU PERISHED* line and epitaph on the memorial page. The next book starts a **new hiker**: a new name suggested on the New Book page, skills back to a beginner's, and the fitness and jacket chosen fresh. The new hiker **inherits the old field guide**, with every entry the dead hiker filled, seen or sketched, each signed in pencil with their initial, the way E.W. signed theirs (10.3). (The alternative, a full wipe that keeps only the register, is in [Decisions](#decisions-needed-from-you).)
 - **One life, one book.** A hiker has at most one Old School book in progress. When a hiker dies, any other open book of theirs closes at once and goes on the shelf unfinished, with a black ribbon and one line, *"Robin never came back for this one,"* so no hiker is ever alive in one book and dead in another. A trip code or *Try this trip again* can't open a seed that is already in progress on this shelf.
-- **The Trail Register**, like the paper sign-in registers at real trailheads, opens from the bookshelf (12.3). It lists the best finished books (ranked by the share of their own maximum, so a good day hike can top a long trip) and, under *Remembered*, every hiker whose book ended in GAME OVER, with the place, the dates, the score reached and the epitaph. Each new book's trailhead page shows its last few lines on the kiosk (12.10).
-- **Trip codes:** `HOH4-K7QM-2Q9F` shares a template, a seed and the profile values the engine reads. *Same mountain, same weather, your own pack.* When friends compare the same code, novelty and the Snowlamp's first-book rule are switched off so the trips match. A code from a GAME OVER book still shares its mountain and weather with friends; on your own shelf it opens a new book with new weather, so a code is never a restore. A code remembers its book's mode: on your own shelf, a code opened in the other mode rolls new weather too, and a code whose seed is already in progress there won't open at all.
+- **The Trail Register**, like the paper sign-in registers at real trailheads, opens from the bookshelf (12.3). It lists the best finished books (ranked by the share of their own maximum, so a good day hike can top a long trip) and, under *Remembered*, every hiker whose book ended in GAME OVER, with the place, the dates, the score reached and the epitaph (blank if the player left it blank), like the tombstones earlier players left along the Oregon Trail. Each new book's trailhead page shows its last few lines on the kiosk, epitaphs included (12.10).
+- **Trip codes:** `HOH4-K7QM-2Q9F` shares a template, a seed and the profile values the engine reads. *Same mountain, same weather, your own pack.* When friends compare the same code, novelty and the Bonfire Lily's first-book rule are switched off so the trips match. A code from a GAME OVER book still shares its mountain and weather with friends; on your own shelf it opens a new book with new weather, so a code is never a restore. A code remembers its book's mode: on your own shelf, a code opened in the other mode rolls new weather too, and a code whose seed is already in progress there won't open at all.
 - **From M6:** badges (Every camp on the Hoh; Seven Lakes, all seven; Royal Basin; Tide Reader, for every South Coast headland rounded with at least 1 ft to spare) and an optional "trail of the day" that gives everyone the same weather.
 
 ---
@@ -1414,18 +1461,22 @@ Sketching the same marmot ten times earns its points once. **Replanning** (3.7) 
 
 **We borrow the shape** of Benjamin Flouw's *The Golden Glow* (Tundra, 2018): a collector, an old botany book with one picture missing, packing a backpack shown as a labeled spread, field-guide spreads of trees and flowers, a mountain climb with animal neighbors who help, a summit with no flowers, a sunset, a golden discovery in the snow, and the choice to draw it rather than take it.
 
-**We do not borrow** its text, illustrations, character designs, names or its plant's name. Our protagonist is the player's own hiker. Our plant is the **Snowlamp**. Every line of prose is original. The colophon acknowledges the book. A lint rule (T04) blocks the book's title, names and phrases anywhere outside the colophon.
+**We do not borrow** its text, illustrations, character designs, names or its plant's name. Our protagonist is the player's own hiker. Our plant is the **Bonfire Lily** (your name for it), with an invented Latin name, *Ignilirion nivale* (roughly "fire lily of the snow"; no real genus has that name). The old field guide also calls it *the climber's campfire*, and that is the one joke we allow it: real campfires are banned above 3,500 feet in Olympic National Park (4.6), so up in the snow it is the only fire permitted. It stays a joke, never a rule (10.6). Every line of prose is original. The colophon acknowledges the book. A lint rule (T04) blocks the book's title, names and phrases anywhere outside the colophon.
 
 ### 10.2 The old field guide and its blank page
 
 *A Pocket Flora & Fauna of the Olympic Mountains* is an invented, long-out-of-print field guide. The hiker found it at a library sale in Port Angeles. It has hand-colored plates, pencil notes from a previous owner who signed only **"E.W."**, and a small fox doodled in many margins. Near the back, under *Rare & Uncertain*:
 
 ```
-  No. 104   THE SNOWLAMP
-  (no Latin name given)
-  ┌──────────────────────────┐
-  │        [ no plate. ]     │
-  └──────────────────────────┘
+  No. 104.  BONFIRE LILY
+            (Ignilirion nivale)
+  Also called "the climber's
+  campfire": the only fire
+  permitted above 3,500 feet.
+  Range: high snowfields, Olympic
+  Mountains. Rare.
+  Illustration: ________
+
   A small golden flower, reported by
   a very few travelers, growing above
   the last trees where the snow stays
@@ -1439,7 +1490,7 @@ Sketching the same marmot ten times earns its points once. **Replanning** (3.7) 
 
 **The prologue** (first book only, about 6 pages): a rainy evening at the kitchen table; the old book falls open; trees, flowers, the marmot, each with a plate except one; the blank page; the margin fox seems to point toward the mountains (*"There are no foxes in the Olympic Mountains," the narrator admits. "This one has always lived on paper."*); the hiker decides to go and look. *"And that, more or less, is how every good trip begins: with a page that is missing something."*
 
-The guide also exists as a pack item, **the old field guide** (20 oz): heavy, but it identifies what you sketch on the spot and nudges the Snowlamp odds.
+The guide also exists as a pack item, **the old field guide** (20 oz): heavy, but it identifies what you sketch on the spot and nudges the Bonfire Lily odds.
 
 ### 10.3 The field guide is the lasting collection
 
@@ -1455,10 +1506,10 @@ Entries start as a printed plate, a "plate missing" box, or "seen but not drawn"
 | Water and shore | 12 | Coho salmon, Olympic torrent salamander, banana slug, ochre sea star |
 | Sky and weather | 6 | Alpenglow, a lenticular cap on Olympus, fogbow, the Milky Way |
 | Curiosities | 7 | Nurse log, krummholz, sea stack, glacial erratic, tarn, moraine, cairn |
-| Rare and uncertain | 1 | **No. 104, The Snowlamp** |
+| Rare and uncertain | 1 | **No. 104, Bonfire Lily** (*Ignilirion nivale*) |
 | **Total** | **104** | |
 
-**The guide outlives its hikers.** It was always a book passed from hand to hand: E.W.'s pencil notes came with it, and so will yours. When a hiker dies (Old School), the next hiker inherits it with every entry, sketch and note intact, each signed in pencil with that hiker's initial, and a short first page in the new hiker's first book shows them reading it (Appendix D, page 21). The count carries on. Only a full wipe, if you choose one, would empty it (Decisions).
+**The guide outlives its hikers.** It was always a book passed from hand to hand: E.W.'s pencil notes came with it, and so will yours. When a hiker dies (Old School), the next hiker inherits it with every entry, sketch and note intact, each signed in pencil with that hiker's initial, and a short first page in the new hiker's first book shows them reading it (Appendix D, page 20). The count carries on. Only a full wipe, if you choose one, would empty it (Decisions).
 
 The counter reads `Field Guide: 23 of 104`, a quiet nod to the repo name that assumes nothing about what "104" means (your call; see [Decisions needed from you](#decisions-needed-from-you)).
 
@@ -1493,9 +1544,11 @@ Animals help **by behavior**, and the narrator translates. Each gives a concrete
 - **It is nearly free to build:** every picture is vector commands, so a sketch is a second render mode with ±1 px jitter. Every place and animal in the game is sketchable with no extra art, and a sketch is stored as about 100 bytes (a recipe reference, not pixels).
 - **Camera and binoculars** are honest alternatives: photos fill entries at lower value, binoculars find more wildlife. Sketching is worth the most, which is the book's lesson made mechanical.
 
-### 10.6 The Snowlamp
+### 10.6 The Bonfire Lily
 
-**Where it can appear.** On an evening at a place with a **snow feature**: a glacier or snowfield within sight and a short walk, in the months that feature lasts. You must be there at sunset: at a camp, or at a viewpoint you stay at past sunset with a headlamp for the way back. Each node carries a `snow_feature` with month windows by snow year, and a `snowlamp_weight`. The melt-out line (7.6) is not used, because a drift-fed snowfield or a glacier outlasts the general melt.
+**The name.** *Bonfire Lily* is your name for it; *Ignilirion nivale* is the old field guide's invented Latin. Its nickname, *the climber's campfire*, is a quiet joke on a real rule: campfires are banned above 3,500 feet in the park (4.6), so where the lily grows it is the only fire permitted. The joke lives only in the field guide, the homage and the narrator's voice. The lily gives no warmth, can't be lit or carried as a light, and no rule, card, odds or Leave No Trace line treats it as a fire; the fire rules stay exactly as the park writes them.
+
+**Where it can appear.** On an evening at a place with a **snow feature**: a glacier or snowfield within sight and a short walk, in the months that feature lasts. You must be there at sunset: at a camp, or at a viewpoint you stay at past sunset with a headlamp for the way back. Each node carries a `snow_feature` with month windows by snow year, and a `bonfire_lily_weight`. The melt-out line (7.6) is not used, because a drift-fed snowfield or a glacier outlasts the general melt.
 
 | Place | Snow feature | Normal-year months |
 |---|---|---|
@@ -1529,9 +1582,9 @@ sky = 1.0 clear, 0.6 partly cloudy,
 
 Each eligible evening rolls on its own, and the trip's chance is `1 - (1 - P1)(1 - P2)...`. With August high-country skies (an average sky factor near 0.57), a fully engaged player gets about 31% from one evening and about 55% from a layover's two, which is where the targets sit: **25-40% of sensible trips with one eligible evening, 45-60% with a high layover** (F.1). These constants are a starting point; the harness tunes them until the targets hold in each zone and month.
 
-**The first book.** The first clear evening at a Snowlamp place in a player's first eligible book is **certain**, provided they stay out for the sunset (the fox points at *Watch the sunset*). After that, normal odds apply, and a later sighting adds *"Seen again"* to the entry. This replaces a pity counter: no cross-book counter changes outcomes, trip codes are unaffected (9.8), and nothing can re-trigger it, because the guarantee is spent the first time the glow is shown. If a hiker dies before ever seeing it, the unspent guarantee passes to the next hiker with the field guide.
+**The first book.** The first clear evening at a Bonfire Lily place in a player's first eligible book is **certain**, provided they stay out for the sunset (the fox points at *Watch the sunset*). After that, normal odds apply, and a later sighting adds *"Seen again"* to the entry. This replaces a pity counter: no cross-book counter changes outcomes, trip codes are unaffected (9.8), and nothing can re-trigger it, because the guarantee is spent the first time the glow is shown. If a hiker dies before ever seeing it, the unspent guarantee passes to the next hiker with the field guide.
 
-**When the trip can't have it.** On a trip with no Snowlamp place, or no clear evening, the thread still continues. A **dusk foreshadow page** appears at the best evening of the trip: a gold glint across the valley that turns out to be someone's headlamp, and E.W.'s pencil note in the margin, *"Higher."*
+**When the trip can't have it.** On a trip with no Bonfire Lily place, or no clear evening, the thread still continues. A **dusk foreshadow page** appears at the best evening of the trip: a gold glint across the valley that turns out to be someone's headlamp, and E.W.'s pencil note in the margin, *"Higher."*
 
 This ties the homage to planning: **a layover at a high camp is a beautiful reason to plan one**, a warm jacket lets you stay for sunset, and a headlamp is needed afterward, with turning it off a choice. The ranger's first-book suggestions always include one eligible trip, with the hint *"If you're looking for something that only shows at dusk, camp high, near snow, and stay up late."*
 
@@ -1540,7 +1593,7 @@ This ties the homage to planning: **a layover at a high camp is a beautiful reas
 2. **Camp:** *Make camp*, then the tile *Watch the sunset* (needs a warm layer, or you last 10 minutes).
 3. **Sunset:** the palette steps to dusk. The snow goes pink with alpenglow, and the peak burns at its top edge.
 4. **Blue hour:** the snow turns pale blue. A choice: *Turn off the headlamp / Keep it on / Go to bed.*
-5. **The glow plate** (full-bleed, chrome hidden): one pixel of gold in the blue snow begins to cycle and grows over three seconds into a small 5x5 star, the only warm color left in the picture (its colors are exempt from the night palette, 11.5). *"And there, where the snow was bluest, something small was shining. Not like a lamp. More like a lamp remembering."*
+5. **The glow plate** (full-bleed, chrome hidden): one pixel of gold in the blue snow begins to cycle and grows over three seconds into a small 5x5 star, the only warm color left in the picture (its colors are exempt from the night palette, 11.5). *"And there, where the snow was bluest, something small was shining. Not like a fire. More like a fire remembering."*
 6. **The choice** (no odds, no costs; this is not a test): **Sketch it / Pick it to take home / Just look.** If a camera is in use, *Take a photograph* comes out as a perfectly exposed photo of blue snow and nothing else. *"Some things don't photograph."*
 7. **Outcomes:**
    - **Sketch it:** the hold-to-sketch, but the lines are **gold**, the only colored lines the pencil ever makes. No. 104 fills in. Ending: **The End of the Blank Page**, gold-bordered.
@@ -1548,7 +1601,7 @@ This ties the homage to planning: **a layover at a high camp is a beautiful reas
    - **Just look:** the page stays blank but gets a single gold star and the word *"Seen."* A full, equal success, gold border, for players who understand.
 8. **Night page:** *"And far away, the glacier went on being very old."*
 
-**The afterword** on the back cover honors the real endemic flowers (the golden Olympic Mountain groundsel, Piper's bellflower, Flett's violet) and the glacier lily, without claiming the Snowlamp is one of them.
+**The afterword** on the back cover honors the real endemic flowers (the golden Olympic Mountain groundsel, Piper's bellflower, Flett's violet) and the glacier lily, without claiming the Bonfire Lily is one of them: it is invented, and so is its Latin.
 
 ### 10.7 The margin fox: hints without a tutorial
 
@@ -1586,7 +1639,7 @@ There are **16 colors on screen at any moment, drawn from the EGA's 64.** Daytim
 | 11 | Light cyan | `#55FFFF` | Horizon sky, glacier highlights |
 | 12 | Light red | `#FF5555` | Fire, salmon, alpenglow accents |
 | 13 | Light magenta | `#FF55FF` | Wildflowers, watermelon snow |
-| 14 | Yellow | `#FFFF55` | Sun, glacier lilies, banana slugs, headlamp, **the Snowlamp** |
+| 14 | Yellow | `#FFFF55` | Sun, glacier lilies, banana slugs, headlamp, **the Bonfire Lily** |
 | 15 | White | `#FFFFFF` | Snow, paper, surf, text boxes |
 
 ### 11.2 Resolution: AGI 160x168 with fat pixels
@@ -1605,7 +1658,7 @@ All three proposals agree: **160x168, the KQ1-3 resolution**, with each pixel wi
 
 **Short screens** (under about 700 pt tall, such as the SE) use 4x2, AGI's familiar 2:1 pixel, so the picture is 168 pt tall instead of 252 and the text gets the room (12.1).
 
-**Tall plates** (160x320) are for about 8 full-bleed moments: the cover, the first view of Olympus, the Snowlamp, The End. On short screens they also use 4x2 (320x320 pt), which leaves room for three choices below.
+**Tall plates** (160x320) are for about 8 full-bleed moments: the cover, the first view of Olympus, the Bonfire Lily, The End. On short screens they also use 4x2 (320x320 pt), which leaves room for three choices below.
 
 ### 11.3 Pictures are small programs
 
@@ -1680,13 +1733,14 @@ Pseudo-colors 16-23 resolve each frame to an EGA color from a cycle, phased by p
 | 16 | lake | 1, 9, 1, 3 | Lake shimmer |
 | 17 | falls | 15, 11, 7, 11 | Sol Duc Falls, Marymere, Enchanted Valley |
 | 18 | river | 3, 11, 3, 7 | The Hoh, the Elwha |
-| 19 | glow | warm fixed: `#FFFF55`, `#FFAA55`, `#FF5555` | **The Snowlamp**: rings radiating out |
+| 19 | glow | warm fixed: `#FFFF55`, `#FFAA55`, `#FF5555` | **The Bonfire Lily**: rings radiating out |
 | 20 | fire | warm fixed: `#FF5555`, `#FFAA55`, `#FFFF55` | Campfire, stove flame |
 | 21 | surf | 15, 7, 1, 9 | Breaking waves, sea stacks |
 | 22 | stars | 15, 7, 8, 7 | Twinkle |
 | 23 | rain glint | 9, 11 | Puddles in rain |
+| 24 | dust | by age, not by frame: 7, 6, 8, then gone | The Leave No Trace dissolve only (11.10); renderer-only, so no picture can use it |
 
-**Glow and fire are exempt from the time-of-day remap.** They are resolved after it, to fixed warm EGA colors, so at blue hour and night (when slot 15 becomes `#AAAAFF` and slot 6 sinks to blue) the Snowlamp stays the only warm thing in the picture and never flickers blue. The other cycles are remapped with the scene.
+**Glow and fire are exempt from the time-of-day remap.** They are resolved after it, to fixed warm EGA colors, so at blue hour and night (when slot 15 becomes `#AAAAFF` and slot 6 sinks to blue) the Bonfire Lily stays the only warm thing in the picture and never flickers blue. The other cycles are remapped with the scene.
 
 Cycling runs at **8 fps** only while a cycling page is visible, pauses when static or hidden, and freezes under iOS Reduce Motion (except the glow, which slows to 2 fps).
 
@@ -1699,6 +1753,7 @@ Small EGA figures placed at anchors each base scene defines (trail spot, far ban
 - **Tent** (pitched, sagging in rain, glowing with a headlamp inside at night).
 - **Animals:** black bear, Roosevelt elk (antlers Sept-Oct), black-tailed deer, Olympic marmot, Canada jay (sometimes with a tortilla), American dipper (a two-frame bob), raccoon, a one-pixel-tall yellow banana slug, bald eagle, salmon, harbor seal.
 - **People:** a ranger with a flat hat; the car in your chosen color.
+- **The remains** (Old School only, one page per death): a small cartoon skeleton (16x6) lying on its back with its hands folded, beside the pack sprite of the pack the hiker carried. Bone white (15) with light-gray (7) shading, tidy and KQ-comic, never gory: no injury, no blood, and never posed to show what happened. It exists only to turn to dust (11.10).
 - **The margin fox** lives in the UI layer only, drawn in pencil-line style.
 
 ### 11.7 The scene composer: hundreds of places, about 24 drawn by hand
@@ -1727,7 +1782,9 @@ The park has 449 places in the research and roughly 500 to 600 once overlay poin
 
 **Seasonal and weather overlays:** ground above the snowline switches to snow dithers; fall color swaps vine maple and huckleberry to reds; flowers by month and elevation; fog hides the far layer and lays bands across the middle; stars and the real moon phase for the trip date.
 
-**About 24 hand-drawn signature scenes** get an illustrator's full attention, still accepting palette, weather and sprite layers: the High Divide cover at dusk; the kitchen table and the blank page; the WIC counter; Fernwood Mercantile; the labeled backpack spread; US 101 along Lake Crescent; the Hall of Mosses; the Hoh braids with elk; the Glacier Meadows ladder; the Blue Glacier from the moraine; Snow Dome and the summit block at dawn; Sol Duc Falls; Seven Lakes Basin from the rim; Heart Lake; Royal Lake under Mount Deception; Upper Royal Basin; Hurricane Hill and the Bailey Range; Grand Valley and Moose Lake; the Enchanted Valley chalet; Rialto's Hole-in-the-Wall; Shi Shi and Point of the Arches; the Snowlamp in the blue snow; and The End, the closed book on a car dashboard with the fox asleep on it. (The GAME OVER picture reuses The End's book, remapped to grays on a dark shelf, with a black-ribbon stamp: no 25th scene.)
+**About 24 hand-drawn signature scenes** get an illustrator's full attention, still accepting palette, weather and sprite layers: the High Divide cover at dusk; the kitchen table and the blank page; the WIC counter; Fernwood Mercantile; the labeled backpack spread; US 101 along Lake Crescent; the Hall of Mosses; the Hoh braids with elk; the Glacier Meadows ladder; the Blue Glacier from the moraine; Snow Dome and the summit block at dawn; Sol Duc Falls; Seven Lakes Basin from the rim; Heart Lake; Royal Lake under Mount Deception; Upper Royal Basin; Hurricane Hill and the Bailey Range; Grand Valley and Moose Lake; the Enchanted Valley chalet; Rialto's Hole-in-the-Wall; Shi Shi and Point of the Arches; the Bonfire Lily in the blue snow; and The End, the closed book on a car dashboard with the fox asleep on it.
+
+**The death sequence adds no 25th scene** (9.5, 12.17). The death box is the place's own picture remapped to grays. *YOU PERISHED* is type on black (11.10). The Leave No Trace page is the place's own composed picture with the remains sprite over it (11.6). The epitaph page and the GAME OVER page share one new stamp on the trailhead base: the wooden **register box** on its post, a pencil on a string, drawn with its lid open (the epitaph is being written) and closed (GAME OVER). The same box heads the Trail Register page (12.3). The fox stays in the UI margin, curled and awake.
 
 **Respect:** the Ozette petroglyphs are shown at a distance with no Sketch option, and Tskawahyah Island stays off-limits, as the research notes.
 
@@ -1746,6 +1803,25 @@ Sizes are specified in **device pixels**, because on a 3x phone the crisp unit i
 - **Text is real HTML**, not canvas, so VoiceOver reads it and it scales. Every composed picture generates **alt text** from its layers (*"A meadow under a blue sky. Mount Olympus far away. A marmot on a rock."*).
 - Fonts are self-hosted (woff2) so the game works offline. Black on white is about 21:1 contrast; night pages use light gray on black (about 9:1).
 
+### 11.10 YOU PERISHED and the Leave No Trace dissolve (Old School)
+
+Two pages of the death sequence (9.5) need the renderer. Neither needs new scene art beyond the remains sprite (11.6) and the register-box stamp (11.7).
+
+**YOU PERISHED** is type, not a picture. The letters are drawn into the 160x168 picture buffer from an 8x14 EGA bitmap font at double size, so each letter is 16x28 picture pixels: *YOU* on one line and *PERISHED* (128 pixels wide) on the next, white on black, scaled like any picture (11.2), and as big and blocky as the screen allows. The canvas is labeled *"You perished"* for VoiceOver. The cause line under it is real HTML text in the chrome font, light gray on black.
+
+**The Leave No Trace picture** is the place where it happened, drawn from its usual recipe and seed in the Day palette with the weather layer off: exactly the picture that place has on a fine day. The sprite layer holds only the remains, at the scene's campsite or trail-spot anchor (11.6). Where the death happened in water or ice, the remains lie at the last place the hiker stood: the gravel bar at the ford, the foot of the headland, the edge of the moraine.
+
+**How the dissolve renders:**
+- **Cache the scene once.** Layers 1-6 compose into one 160x168 index buffer, cached for the page. The remains are a separate list of opaque pixels (about 120 to 180, skeleton plus pack).
+- **A seeded dissolve order.** Each remains pixel gets its turn in three dither passes, the `checker25` pixels first, then `checker`, then the rest (11.4), so the bones fade through the same dithers as the skies. Within a pass the order is `hash(book seed, "dust", x, y)` on its own display-only stream (E.8), biased so the upwind side goes first. A reread shows the same dissolve.
+- **A pixel turns to dust.** At its turn a pixel becomes pseudo-color 24, `dust` (11.5), which resolves by age: light gray (7) for 2 frames, brown (6) for 2, dark gray (8) for 2, then gone. All three are in the day 16, so the screen never shows a 17th color.
+- **A few frames of drift.** A loose mote moves 1 px downwind per frame for 3 to 6 frames (seeded), rising or falling 1 px on some of them, then vanishes, and the cached scene pixel shows through. Motes live only in the picture buffer and never cross into the text.
+- **Each frame:** copy the cached buffer, draw the bones still standing and the live motes into it, then remap and blit once (11.4, E.10). It runs at 10 frames a second, chunky on purpose, at well under a millisecond a frame.
+- **Timing:** about 0.8 s still on the bones, about 4.5 s of crumbling, about 2 s for the last motes to blow away: about 7 seconds in all. Then a Sierra box draws in with one line, *Leave No Trace.*, and *Turn the page*. Nothing advances on its own (12.1).
+- **A tap skips** straight to the empty scene and the box.
+- **Reduce Motion:** no dissolve and no drift. A plain cross-fade of about one second goes from the scene with the remains to the scene without them, then the box.
+- **Sound and words:** a faint hiss that thins as the dust goes (13.2), and alt text that tells it: *"Bones and a pack lay beside the trail at Glacier Meadows. They crumbled to dust and blew away, and the meadow was as it had been."*
+
 ---
 
 ## 12. iPhone screens
@@ -1759,7 +1835,7 @@ All wireframes use one example book where they can: Robin's four-night Hoh trip 
 - **Height:** `100dvh`, `overscroll-behavior: none` (no rubber band), `touch-action: manipulation` (no double-tap zoom). Only explicit panes scroll (store list, closet list, journal).
 - **Targets:** at least 44x44 pt everywhere. The status line is 22 pt tall, so ≡ and Sound get invisible 44x44-pt hit areas that extend below it. Choices are full width, 52 pt tall (64 pt when the odds tag takes a second line), 8 pt apart, in the bottom half (the thumb zone). The **(i) is its own 44x44-pt square** at a choice's right edge, so a slightly-off tap on the odds never commits the choice. Picture hotspots get a hit area of at least 44 pt.
 - **♦ choices need a confirming tap.** Tapping one turns it, in place, into `Climb the ladder?  [Yes]  [Not yet]`; when it carries a fatal share, the prompt reads `This could end the book. [Yes] [Not yet]`. Nothing critical happens on a single brush of the thumb.
-- **Touch only.** Swipe left on the text to turn the page (always duplicated by a button); swipe right to reread this chapter. **Swipes that start within 24 pt of a screen edge are ignored**, so they never fight Safari's edge-swipe Back. Long-press is an accelerator (the Why sheet, the slot picker), never the only way. Choices and the picture set `-webkit-touch-callout: none` and `user-select: none`, so a long-press never selects text or opens the iOS callout menu. The only typing is the optional hiker name and the optional epitaph on a memorial page, and each offers a suggest button.
+- **Touch only.** Swipe left on the text to turn the page (always duplicated by a button); swipe right to reread this chapter. **Swipes that start within 24 pt of a screen edge are ignored**, so they never fight Safari's edge-swipe Back. Long-press is an accelerator (the Why sheet, the slot picker), never the only way. Choices and the picture set `-webkit-touch-callout: none` and `user-select: none`, so a long-press never selects text or opens the iOS callout menu. The only typing is the optional hiker name, which has a suggest button, and the optional epitaph on the death sequence's epitaph page (up to 40 characters), which has three presets beside it (12.17).
 - **Browser history:** in-book pages use `history.replaceState`, so the browser's Back button can never rewind a trip. A `popstate` (Back pressed in a Safari tab) opens the ≡ menu instead.
 - **No timers, ever.**
 
@@ -1861,14 +1937,17 @@ Up to three books can be in progress, each with its own autosave (E.6), but a hi
 │ ▌ Robin · Sep 25-26, 2027            │
 │ ▌ Glacier Meadows, the first night   │
 │ ▌ Score 25 of 64                     │
-│ ▌ "Loved the river. Walked further   │
-│ ▌  than the light."                  │
+│ ▌ "Cotton kills. Ask me how I know." │
+│ ▌ Jo · Jul 30, 2027                  │
+│ ▌ the Hoh braids                     │
+│ ▌ Score 14 of 52                     │
+│ ▌ "Should have crossed at dawn."     │
 │ ♦ Old School   S Storybook           │
 │ [ Close ]                            │
 └──────────────────────────────────────┘
 ```
 
-Best books rank by the share of each book's own maximum, so a lovely day hike can sit above a long trip. *Remembered* lists every hiker whose book ended in GAME OVER, newest first, with the place, the dates, the score reached and the epitaph. Storybook books appear in the best books, marked `S`; they never appear under *Remembered*, because nobody in them dies.
+Best books rank by the share of each book's own maximum, so a lovely day hike can sit above a long trip. *Remembered* lists every hiker whose book ended in GAME OVER, newest first, with the place, the dates, the score reached and the epitaph in quotes: the preset or the line the player wrote, or nothing if they left it blank (9.5). It is the game's only graveyard, and there is no stone in it: Leave No Trace. (Jo, above, is an earlier hiker on the same shelf.) Storybook books appear in the best books, marked `S`; they never appear under *Remembered*, because nobody in them dies.
 
 ### 12.4 New book
 
@@ -2078,7 +2157,7 @@ The picker lists only the places this item can legally go on this pack, each wit
 └──────────────────────────────────────┘
 ```
 
-**The trailhead register.** From the second book on, tapping the kiosk shows the Trail Register's last few lines in pencil, as on a real trailhead register, including any memorial line (*"Robin. Sep 25. Glacier Meadows, 1 night."*). *Start walking* signs this book in.
+**The trailhead register.** From the second book on, tapping the kiosk shows the Trail Register's last few lines in pencil, as on a real trailhead register, including any memorial line with its epitaph (*"Robin. Sep 25. Glacier Meadows, 1 night. 'Cotton kills. Ask me how I know.'"*). This is the register a dead hiker's epitaph is written into (9.5): the one at the trailhead where that trip began. *Start walking* signs this book in.
 
 ### 12.11 The Why sheet (bottom sheet)
 
@@ -2163,7 +2242,7 @@ A compound choice shows one word and a three-color bar (OK, serious trouble, nee
 └──────────────────────────────────────┘
 ```
 
-State changes go in a **pencil strip** under the narration, never in a side column, so the text keeps its full width. The item that mattered is underlined (tap for its card). A small ornament signals severity: a green fern (good), a brown twig (mishap or setback), a red ♦ with a red border (serious or trip-ending), a gold star (the Snowlamp). The black ribbon appears only for a book that ended in GAME OVER (on the death box, the memorial page, its spine on the shelf and its Trail Register entry) and on any other book that hiker left unfinished; never on an outcome page.
+State changes go in a **pencil strip** under the narration, never in a side column, so the text keeps its full width. The item that mattered is underlined (tap for its card). A small ornament signals severity: a green fern (good), a brown twig (mishap or setback), a red ♦ with a red border (serious or trip-ending), a gold star (the Bonfire Lily). The black ribbon appears only for a book that ended in GAME OVER (on its memorial page, its spine on the shelf and its Trail Register entry) and on any other book that hiker left unfinished; never on an outcome page.
 
 ### 12.14 Camp: Make camp, then the evening
 
@@ -2229,7 +2308,7 @@ State changes go in a **pencil strip** under the narration, never in a side colu
 
 On ground already walked, the morning page also offers **Walk out** (3.4). Changing the plan from here follows 3.7.
 
-### 12.16 The Snowlamp plate
+### 12.16 The Bonfire Lily plate
 
 ```
 ┌──────────────────────────────────────┐
@@ -2258,11 +2337,13 @@ On ground already walked, the morning page also offers **Walk out** (3.4). Chang
 └──────────────────────────────────────┘
 ```
 
-The status line and toolbar are **hidden** on full-bleed plates. It's the only time the chrome goes away, which is what makes the moment feel singular. On short screens the tall plate is 320x320 pt (11.2), which leaves room for the three choices.
+The status line and toolbar are **hidden** on full-bleed plates. Apart from the four pages after an Old School death box (12.17), it's the only time the chrome goes away, which is what makes the moment feel singular. On short screens the tall plate is 320x320 pt (11.2), which leaves room for the three choices.
 
-### 12.17 The death box and the GAME OVER page
+### 12.17 The death sequence: from the death box to GAME OVER
 
-Two pages, in this order, and nothing else. From Appendix A's book, had no tent glowed through the trees at Glacier Meadows (A.3): Robin chose *Curl up, wait for dawn* (♦ 59% · 41% shivering · 6.1% fatal), and the roll landed in the black.
+Five pages, in this order, and nothing else (9.5). None of them exists in Storybook. From Appendix A's book, had no tent glowed through the trees at Glacier Meadows (A.3): Robin chose *Curl up, wait for dawn* (♦ 59% · 41% shivering · 6.1% fatal), and the roll landed in the black. The death box keeps the status line, with the score frozen; the four pages after it hide the chrome, like a full-bleed plate. Each page waits for a tap: nothing in the sequence advances on its own (12.1). Appendix D, page 17, has the same sequence as text.
+
+**1. The death box**
 
 ```
 ┌──────────────────────────────────────┐
@@ -2292,15 +2373,100 @@ Two pages, in this order, and nothing else. From Appendix A's book, had no tent 
 └──────────────────────────────────────┘
 ```
 
-**The death box** is the Sierra message box over the scene remapped to grays (all 16 slots to 0, 8, 7 and 15), with the dirge (13.2). Its title and line are deadpan and kind, aimed at the weather, the water, the dark or the gear, never at the player and never at the loss. The **Ranger's Note** is real and names what would have prevented this death. There is one button. No Restore, no Turn Back a Page, no Back to Last Camp, no Restart: the save written at the confirming tap already held the outcome, and that same write filed the book, the register entry and the field guide and retired the hiker. The box only displays it (8.14).
+**The death box** is the Sierra message box over the scene remapped to grays (all 16 slots to 0, 8, 7 and 15), with a short low sting (13.2). Its title and line are deadpan and kind, aimed at the weather, the water, the dark or the gear, never at the player and never at the loss. The **Ranger's Note** is real and names what would have prevented this death. There is one button. No Restore, no Turn Back a Page, no Back to Last Camp, no Restart: the save written at the confirming tap already held the outcome, and that same write filed the book, the register entry and the field guide and retired the hiker. The sequence only displays it (8.14).
+
+**2. YOU PERISHED**
+
+```
+┌──────────────────────────────────────┐
+│ (black page; no status line)         │
+│                                      │
+│             █ █ █▀█ █ █              │
+│             ▀█▀ █ █ █ █              │
+│              █  █▄█ █▄█              │
+│                                      │
+│   █▀█ █▀▀ █▀▄ ▀█▀ █▀▀ █ █ █▀▀ █▀▄    │
+│   █▀▀ █▀▀ █▀▄  █  ▀▀█ █▀█ █▀▀ █ █    │
+│   █   █▄▄ █ █ ▄█▄ ▄▄█ █ █ █▄▄ █▄▀    │
+│                                      │
+│       You have died of cotton.       │
+│                                      │
+│ (the dirge plays once: the opening   │
+│  bars of Chopin's funeral march)     │
+│                                      │
+│ [ Turn the page  >                 ] │
+└──────────────────────────────────────┘
+```
+
+White blocky letters on black, drawn into the picture buffer at double size (11.10), and one line of real text under them in light gray: the cause line for this death's key (9.5), here `cold` with wet cotton in the trace, which comes first in that key's fixed order. The dirge is a public-domain funeral march on the PC speaker (13.2). The button appears when the dirge ends, or at once with sound off; a tap anywhere also turns the page.
+
+**3. Leave No Trace**
 
 ```
 ┌──────────────────────────────────────┐
 │ ┌──────────────────────────────────┐ │
-│ │ The closed book on a dark shelf, │ │
-│ │ in grays; a black ribbon down    │ │
-│ │ its spine; the pencil fox curled │ │
-│ │ at its foot, awake               │ │
+│ │ GLACIER MEADOWS by day, in its   │ │
+│ │ own colors: firs, heather, snow  │ │
+│ │   ▲      ▲            ▲          │ │
+│ │      o─┼─<  ▓▓ ░·:·. ·  .  ~>    │ │
+│ │      bones  pack  dust    wind   │ │
+│ └──────────────────────────────────┘ │
+│ (no chrome, no text yet; tap skips)  │
+└──────────────────────────────────────┘
+  about seven seconds later:
+┌──────────────────────────────────────┐
+│ ┌──────────────────────────────────┐ │
+│ │ GLACIER MEADOWS by day, exactly  │ │
+│ │ as it was before anyone came     │ │
+│ │   ▲      ▲            ▲          │ │
+│ │                                  │ │
+│ │ ╔══════════════════════════════╗ │ │
+│ │ ║       Leave No Trace.        ║ │ │
+│ │ ╚══════════════════════════════╝ │ │
+│ └──────────────────────────────────┘ │
+│ [ Turn the page  >                 ] │
+└──────────────────────────────────────┘
+```
+
+The place where it happened, in its own daylight colors, with the remains sprite (11.6): a small cartoon skeleton beside the pack the hiker carried. After a still moment, the bones and the pack crumble pixel by pixel through the EGA dithers into dust-colored pixels, the dust drifts off downwind and is gone, and the picture is left exactly as it was before the hiker came (11.10 has the renderer). Then the Sierra box draws in with its one line. A tap skips to the end; with iOS Reduce Motion on, it is a one-second cross-fade instead.
+
+**4. The epitaph**
+
+```
+┌──────────────────────────────────────┐
+│ ┌──────────────────────────────────┐ │
+│ │ HOH RIVER TRAILHEAD at evening:  │ │
+│ │ the register box on its post,    │ │
+│ │ lid open, a pencil on a string   │ │
+│ └──────────────────────────────────┘ │
+│ ╔══════════════════════════════════╗ │
+│ ║ There are no stones on the       ║ │
+│ ║ mountain. But the register at    ║ │
+│ ║ the trailhead keeps one line for ║ │
+│ ║ everyone who goes in.            ║ │
+│ ╚══════════════════════════════════╝ │
+│ ROBIN'S LINE                         │
+│ ( ) Should have packed the sleeping  │
+│     bag.                             │
+│ (•) Cotton kills. Ask me how I know. │
+│ ( ) Walked further than the light.   │
+│ ( ) Write my own...         0 of 40  │
+│ ( ) Leave it blank                   │
+│ [ Sign the Trail Register  >       ] │
+└──────────────────────────────────────┘
+```
+
+**The epitaph picker** offers the three presets for this death's cause (9.5): a lesson, a joke and a fond line, filled from the cause trace and picked by the book's text stream, so the same death always offers the same three. The rows are a picker like the slot picker (12.9), two lines each where needed, so the 22-character choice-label cap doesn't apply; the lint checks each preset at 40 characters instead (F.3). *Write my own...* opens the iOS keyboard on a one-line field with a counter that stops at 40 characters. *Leave it blank* is a full answer. Nothing is picked until the player picks. *Sign the Trail Register* adds the line to the register entry the death already wrote (8.14), with the pencil's sketch ticks (13.2). The picture is the register box at the trailhead where this trip began, because there is no tombstone in the park: Leave No Trace. Whether the epitaph keeps this format is still your call (Decision 1d).
+
+**5. GAME OVER**
+
+```
+┌──────────────────────────────────────┐
+│ ▌THE LONG NIGHT AT GLACIER MEADOWS   │
+│ ┌──────────────────────────────────┐ │
+│ │ The same register box, its lid   │ │
+│ │ closed, the pencil hanging still │ │
+│ │ in the last light                │ │
 │ └──────────────────────────────────┘ │
 │            G A M E   O V E R         │
 │ ╔══════════════════════════════════╗ │
@@ -2309,20 +2475,24 @@ Two pages, in this order, and nothing else. From Appendix A's book, had no tent 
 │ ║ one long day.                    ║ │
 │ ║ Sep 25-26, 2027 · Glacier Mdws   ║ │
 │ ║ Score 25 of 64 · 41 pages        ║ │
+│ ║ You have died of cotton.         ║ │
+│ ║ "Cotton kills. Ask me how I      ║ │
+│ ║  know."                          ║ │
 │ ║ Seen: an elk at Five Mile Is.    ║ │
 │ ╚══════════════════════════════════╝ │
-│ Epitaph (optional)                   │
-│ [ Loved the river.       (suggest) ] │
 │ What would have kept this book open: │
 │ a sleeping bag, a pad, a rain shell; │
 │ turning back at Lewis Meadow; or,    │
 │ that night, waiting for help.        │
-│ [ Sign the Trail Register  >       ] │
-│ [ Field Notes ]  [ Reread ]          │
+│ [ To the shelf  >                  ] │
+│ [ Ranger's Note ]  [ Route map ]     │
+│ [ Field Notes ]    [ Reread ]  (fox) │
 └──────────────────────────────────────┘
 ```
 
-**The GAME OVER page** is the book's memorial page; it replaces the back cover (9.3). The picture is The End's closed book, remapped to grays, with a black-ribbon stamp. The *what would have kept this book open* lines come from the cause trace (8.13): the biggest missing items, the last sure turnaround the player passed in daylight (here Lewis Meadow), and the last sure choice of all (here the bedtime *Huddle and wait for help*). The memorial lists the field guide entries this hiker filled, seen or sketched. The **epitaph** is optional; its suggest button offers three lines built from the book (a place, a sighting, a habit). The register entry already exists (8.14); *Sign the Trail Register* adds the epitaph to it and returns to the shelf, where *Begin a new book* starts a new hiker who inherits the field guide (9.8, 12.4).
+**The GAME OVER page** is the book's memorial page; it replaces the back cover (9.3). It opens with the volume title, the black ribbon (▌) beside it as on the spine. The picture is the register box from page 4, now closed: the same stamp, no new scene (11.7). The pencil fox lies curled in the margin, awake. *Ranger's Note* opens the death box's note in full in a bottom sheet (12.11), and *Route map* opens the trip map with the route dotted to where it ended, so a reader coming back to this page from the shelf meets the lesson again without replaying the sequence. The *what would have kept this book open* lines come from the cause trace (8.13): the biggest missing items, the last sure turnaround the player passed in daylight (here Lewis Meadow), and the last sure choice of all (here the bedtime *Huddle and wait for help*). The memorial lists the field guide entries this hiker filled, seen or sketched. The title theme's first bar plays once, slowly (13.2).
+
+*To the shelf* closes the book. On the bookshelf it slides into its place with a black ribbon down its spine (with Reduce Motion it is simply there), and the Trail Register's *Remembered* list has Robin's name, place, dates, score and epitaph at the top (12.3). *Begin a new book* then starts a new hiker, who inherits the old field guide (9.8, 12.4).
 
 ### 12.18 Settings (the ≡ menu)
 
@@ -2400,10 +2570,15 @@ The 1984 PC speaker was one square-wave voice, and we imitate it honestly with W
 | Pacific wren | Rain-forest dawn | A trill far too big for its body |
 | Jay | A theft | Two quick notes and a flutter |
 | Campfire | Where fires are legal | Faint random crackle |
-| **The Snowlamp motif** | The glow plate | C5 E5 G5 C6 E6, then C6 held with tremolo. **Played once, nowhere else** |
+| **The Bonfire Lily motif** | The glow plate | C5 E5 G5 C6 E6, then C6 held with tremolo. **Played once, nowhere else** |
 | The End | The End plate | The theme's first four bars, slower |
-| Dirge | The death box (Old School) | A short minor descent, a nod to Sierra's without quoting any real melody |
+| Death sting | The death box (Old School) | Three low notes falling, then silence: a nod to Sierra's death sting without quoting any real melody |
+| **Dirge** | YOU PERISHED (Old School) | The opening bars of Chopin's funeral march (the *Marche funèbre* of his Piano Sonata No. 2, 1839, public domain) in B♭ minor: our own one-voice square-wave arrangement of the melody, slow, about 8 seconds, played once |
+| Dust | The Leave No Trace dissolve | A faint low-passed noise hiss that thins to nothing as the dust blows away |
+| Pencil | Signing the Trail Register | The sketch ticks, one per word of the epitaph |
 | GAME OVER | The memorial page | The title theme's first bar, once, slowly, then silence |
+
+None of the death cues (the sting, the dirge, the dust, the pencil and GAME OVER) exists in Storybook. The dirge is the game's one borrowed melody, and it is borrowed from the score, not from any recording.
 
 ---
 
@@ -2468,7 +2643,7 @@ The 1984 PC speaker was one square-wave voice, and we imitate it honestly with W
 6. **Render** new pictures to PNG and look at them.
 7. **Simulate** the region's matrix: targets, coverage, ablations, calibration.
 8. **Read** about 20 trip transcripts for voice, pacing and repetition.
-9. **Review book:** an HTML book for you, with each card as the player sees it, odds and fatal shares for four loadouts, Old School and Storybook outcomes side by side, every death box with its Ranger's Note, new pictures in every palette, and the facts used with their sources and confidence.
+9. **Review book:** an HTML book for you, with each card as the player sees it, odds and fatal shares for four loadouts, Old School and Storybook outcomes side by side, every death box with its Ranger's Note, its *YOU PERISHED* line and its three epitaph presets, new pictures in every palette, and the facts used with their sources and confidence.
 10. **Playtest** on the iPhone preview build; notes come back to step 3.
 
 **Fairness rules for every card:** every bad outcome has a mitigation that exists in the catalog or as a choice; every % comes from a check with labeled modifiers; numbers come from research data or shared constants, never invented per card; Storybook never kills; Old School kills only at a ♦ that shows its fatal share or at a chain's end after two warnings, and every such moment has a sure way out (9.5); each choice has a *different kind* of consequence (time vs. risk vs. comfort vs. Leave No Trace); at least one delayed consequence or echo per three cards.
@@ -2500,15 +2675,16 @@ The look-and-feel spike (M0.5) is the biggest risk, and it needs only the pictur
 ### M1a: One Hoh book (8-12 sessions)
 
 - **Scope:** the Hoh trailhead to Glacier Meadows and the moraine. Two or three fixed presets (Happy Four; Glacier Meadows in one night; the 3-night classic) on a short list of dates, pack presets plus free packing, the store with Fill from the list, a one-page drive, **Old School** (the main game) with fatal shares on the buttons.
-- About 40 cards (fords, rain, cold nights, the ladder, the High Hoh Bridge, elk, bear, people, sunsets), 6 scenes, the prologue, the endings including the Hard Way and GAME OVER, the back cover and Field Notes, the death box and the memorial page for the Hoh's fatal moments (the ladder, the bagless night), a first Trail Register and the new-hiker flow.
-- **Exit:** the day-gear assertions pass (F.1: trouble or worse at least 80%, rescue 15-35%, death 4-10% for a hiker who keeps pushing and at most 0.1% for one who takes the turnaround); every simulated death passes the fairness invariant (F.1); the harness finds no crashes, dead ends or stuck states; **you play all the presets on your phone, and lose one book on purpose.**
+- About 40 cards (fords, rain, cold nights, the ladder, the High Hoh Bridge, elk, bear, people, sunsets), 6 scenes, the prologue, the endings including the Hard Way and GAME OVER, the back cover and Field Notes, a first Trail Register and the new-hiker flow.
+- **The whole death sequence (12.17), since this is the first milestone where a hiker can die:** the death box and its Ranger's Note for the Hoh's fatal moments (the ladder, the waist-deep ford on the braids (8.11), the bagless night and the Cold chain); *YOU PERISHED* with the `fall` (and its *...of the dark.* variant), `river` and `cold` cause lines, their epitaph presets, and the dirge; the remains sprite and the Leave No Trace dissolve, with its tap-to-skip and Reduce Motion cross-fade (11.10); the register-box stamp; the epitaph picker with *Write my own*; the GAME OVER memorial page with its Ranger's Note and route map, and the black ribbon on the shelf.
+- **Exit:** the day-gear assertions pass (F.1: trouble or worse at least 80%, rescue 15-35%, death 4-10% for a hiker who keeps pushing and at most 0.1% for one who takes the turnaround); every simulated death passes the fairness invariant (F.1); the death lints pass (every `book_ends` has a cause line and three presets, F.3); the harness finds no crashes, dead ends or stuck states; **you play all the presets on your phone, and lose one book on purpose, all the way from the death box to a new hiker.**
 - **Cut first:** the 3-night preset (keep Happy Four and the one-night trip).
 
 ### M1b: The full Hoh, and Olympus by guide (10-15 sessions)
 
 - **Scope:** all 15 Hoh camps, day hikes, 1-5 nights with layovers, June to October; the full planner with the calendar rule and the camp list; one scripted quota denial (Glacier Meadows full on a July Saturday).
 - **Olympus via a guide:** the guide desk, the glacier kit, glacier school and the `glacier` skill, Snow Dome and the summit, and the forced moraine card for everyone unroped (4.2).
-- About 95 cards in total, about 12 scenes and 3 plates; the Snowlamp at Glacier Meadows and the moraine; the crevasse death box; the optional Storybook setting (each death outcome's rescue override); share codes; Walk out; the nightly calibration job; the audio cues (13.2).
+- About 95 cards in total, about 12 scenes and 3 plates; the Bonfire Lily at Glacier Meadows and the moraine; the crevasse death box with its cause line and epitaph presets (`crevasse`); the optional Storybook setting (each death outcome's rescue override); share codes; Walk out; the nightly calibration job; the audio cues (13.2).
 - **Why the Hoh first:** it is your own example ("Olympus with day-hike gear in one night") and becomes a CI assertion; it spans every band from rain forest at 578 ft to glacier; it is one trail with about 140,000 possible plans and no loop routing yet; its hazards are the canonical ones; its research is the most complete; and the Hoh Lake trail links it to M2. It doesn't exercise loops, traverses or WIC-only camps; M2 does.
 - **Exit:** the Hoh rows in F.1, including day gear (both policies), guided Olympus and the literal summit; the guided preset passes the validator and summits in 55-75% of equipped simulations; story uniqueness at least 90% on 3-4 night templates; return days average 3 to 6 pages; the device checklist passes; **you play three different Hoh trips and want a fourth.**
 - **Cut first:** the Snow Dome high camp (keep the guided summit day from Glacier Meadows), then share codes.
@@ -2546,7 +2722,7 @@ The look-and-feel spike (M0.5) is the biggest risk, and it needs only the pictur
 
 - Optional named companions (0 to 3, player-named, never assumed), traits, shared group gear, party UI and companion lines; rope teams without a guide.
 - The deferred extras: the Pictures, Money (Shoestring), Units, Paper and Notebook settings; the Tandy sound mode; "trail of the day"; badges.
-- Accessibility pass, a tone review of every death box written so far (each region brings its own with its fatal moments: the tide in M4, fog and cliffs in M2 and M5), all 104 field guide entries, Read to me (if you want it).
+- Accessibility pass, a tone review of every death box, *YOU PERISHED* line and epitaph preset written so far (each region brings its own with its fatal moments: the tide in M4, fog, cliffs and thunderstorms in M2 and M5), all 104 field guide entries, Read to me (if you want it).
 
 **In total:** about 40 to 60 sessions to v1.0, and roughly 80 to 125 to the full park.
 
@@ -2568,7 +2744,7 @@ The look-and-feel spike (M0.5) is the biggest risk, and it needs only the pictur
 | **iOS storage eviction** and the Safari/Home Screen split. | Install prompt before the first save; Export/Import codes; `storage.persist()` where available |
 | **Pixel-font readability** on small phones. | Device-pixel font sizes (11.9); the Book font; the short-screen layout; a 260-character page budget linted at 375 x 667 (12.1) |
 | **Performance and battery** (cycling, draw-in, audio, look-ahead). | 8 fps cycling only when visible; Reduce Motion; one blit per frame; look-ahead in a Web Worker with a 50 ms budget (8.9) |
-| **Tone.** Death is now the default, and a deadpan line about drowning or hypothermia can feel flip to people who know real park accidents; rescue must stay gentle without trivializing SAR. | Deadpan and kind: any joke aims at weather, water, dark or gear, never at the player or the loss; never about real incidents, by name or by place: research lines that cite a real death are tagged `real_incident` at ingest, and no card at those sites or built from them can end a book (9.5, F.3); no wildlife deaths; a real Ranger's Note on every death box; your review of each one |
+| **Tone.** Death is now the default, and a deadpan line about drowning or hypothermia can feel flip to people who know real park accidents; rescue must stay gentle without trivializing SAR. | Deadpan and kind: any joke aims at weather, water, dark or gear, never at the player or the loss; never about real incidents, by name or by place: research lines that cite a real death are tagged `real_incident` at ingest, and no card at those sites or built from them can end a book (9.5, F.3); no wildlife deaths; a real Ranger's Note on every death box; the *YOU PERISHED* lines and epitaph presets follow the same rules and are linted (F.3); the skeleton is a tidy cartoon that turns to dust, never a wound; your review of each one |
 | **Permadeath feels unfair**, or too harsh for younger players. | Only two fair paths to death, a fatal share on every deadly button (never hidden, worst case when blurred), a sure way out at every one (linted), sensible plans capped at 0.5% death and checked nightly (F.1), the inherited field guide, and Storybook as a labeled easier setting |
 | **Save-scumming** through Export / Import, trip codes, Storybook scouting, parallel books or errors. | No restore anywhere; rolls keyed to content and mode, so a Storybook book can't preview an Old School book's dice; one Old School book in progress per hiker, and a death closes the hiker's other open books; a seed already in progress can't be opened twice; a code opened in the other mode, or from a dead book, rolls new weather on your own shelf; import refuses any book save older than the profile's record of that book, and a profile import never removes a Remembered entry or un-retires a hiker; an error reopens the current autosave and never rolls back a choice (8.14, 9.8, E.6, E.11) |
 | **The homage drifts too close to the book.** | All prose original; lint T04; the Authoring Brief; the colophon acknowledgment; no fox in park scenes |
@@ -2672,7 +2848,7 @@ The forecast low at Glacier Meadows is 35 °F. With no bag, no pad and a soaked 
 | Walk laps all night | Warm while legs last; bonk around 2:30 am; the phone dies first. Then the Cold chain (8.10): shivering and stumbling, two warnings that each offer *stop and wait for help* (sure), and its ♦ before dawn, at a margin near -45 once the legs stop making heat (1.5 x 33 = 49.5% x 15% = 7.4%). About 9 runs in 10 get that far | A compound choice: *mostly worse* ▓█ **6.7% fatal** (0.9 x 7.4%) |
 | Eat both bars now | +25 legs; food gone | (no roll) |
 
-The sure choice trades the trip for the hiker. The game honors it as sure because that is the lesson: call it early. Had the lights roll missed, the page would have come back with the ♦, the sure wait and the laps, and a player who keeps pushing would have ended the book about 6 times in 100 (12.17 shows that death box).
+The sure choice trades the trip for the hiker. The game honors it as sure because that is the lesson: call it early. Had the lights roll missed, the page would have come back with the ♦, the sure wait and the laps, and a player who keeps pushing would have ended the book about 6 times in 100 (12.17 and Appendix D, page 17, show that death, from the death box to GAME OVER).
 
 The neighbors lend a spare puffy and a foam sit pad, make room under their tarp, and pour cocoa. Now Robin is comfortable down to about 52 °F (74, minus 12.6 for the puffy worn without a bag, 6 for the sit pad, 2 for the tarp, 1 for the cocoa). The actual low is 34.6 °F: **margin about -18**. Hypothermia roll 9% (1.5 x 6, 7.9; *91% you'll be okay*): roll 58, fine. Sleep quality 0.4.
 
@@ -2803,7 +2979,7 @@ From the research's `high_divide_loop_3n_layover` preset and `simulation.md` sec
 | D2 2:10 | **Thunder walks along the Divide.** In camp: wait it out in the tent with the sketchbook (the safe choice, no roll) | — | +3 for a wise choice |
 | D2 night | A 41 °F night: margin +11. Bear visit roll | 07 | **A visitor.** Big paw prints 30 ft from the closed canister. Nothing lost; a story |
 | D3 day | Layover: swim in Lunch Lake, sketch, read in the camp chair. Then: **Bogachiel Peak for sunset?** | — | Yes, with the puffy and headlamp |
-| D3 8:31 pm | **Sunset on Bogachiel Peak.** The north-face snowfield above the basin is still there in mid-August (10.6), so the evening is eligible. Not Robin's first eligible book, so normal odds: clear sky 1.0 x (0.30 + 0.15 full sunset + 0.10 headlamp off) = **55%** | 14 | **The Snowlamp.** *Sketch it.* Gold lines; No. 104 fills in |
+| D3 8:31 pm | **Sunset on Bogachiel Peak.** The north-face snowfield above the basin is still there in mid-August (10.6), so the evening is eligible. Not Robin's first eligible book, so normal odds: clear sky 1.0 x (0.30 + 0.15 full sunset + 0.10 headlamp off) = **55%** | 14 | **The Bonfire Lily.** *Sketch it.* Gold lines; No. 104 fills in |
 | D3 9:10 | Down in the dark: navigation 75 + 15 + 4 - 10 (headlamp) = 84 clean, shown **92%** | 55 | Clean |
 | D3 9:30 | Scree in the dark: 88 + 5 + 2 - 10 = 85 clean, shown **93%** | 88 | **Shaky** (85 to 92): *a boot skated and Robin sat down hard.* Heart -4 |
 | D4 8:30 | Showers. Rain gear on: protection 0.85 | — | Barely damp |
@@ -2812,7 +2988,7 @@ From the research's `high_divide_loop_3n_layover` preset and `simulation.md` sec
 
 ### B.3 The ending
 
-**The End** and **The End of the Blank Page**, gold-bordered. Volume title: *The Snowlamp of Bogachiel Peak*. Score: about 165 of 190 (illustrative). Leave No Trace 100. Five new field guide entries: the dipper, Olympus from the Divide, the marmot, the bear's prints, and No. 104. Field Notes are short: *"You were ready for everything the mountain asked."* No page in this book could have ended it. Its only possible fatal moment, staying on the crest in the thunderstorm (9.5), never came up, because the early start had Robin off the Divide by 11:10; the scree and way trails can only sprain an ankle, so they show plain percentages.
+**The End** and **The End of the Blank Page**, gold-bordered. Volume title: *The Bonfire Lily of Bogachiel Peak*. Score: about 165 of 190 (illustrative). Leave No Trace 100. Five new field guide entries: the dipper, Olympus from the Divide, the marmot, the bear's prints, and No. 104. Field Notes are short: *"You were ready for everything the mountain asked."* No page in this book could have ended it. Its only possible fatal moment, staying on the crest in the thunderstorm (9.5), never came up, because the early start had Robin off the Divide by 11:10; the scree and way trails can only sprain an ankle, so they show plain percentages.
 
 ### B.4 The same plan, 20,000 times (random August weather)
 
@@ -2902,8 +3078,8 @@ The player chose **Go now**. Roll 63: **Shaky** (49 to 74). *A wave slapped the 
 All original. The hiker is **Robin** (*they*). Picture notes are in brackets; the caption line follows; then the page text and its choices.
 
 **1. The blank page (prologue)**
-`[the open field guide: a marmot plate on the left; "No. 104 THE SNOWLAMP" and an empty box on the right; the pencil fox in the corner]` · *Prologue · Kitchen table · Raining*
-> Every page in the old book had a picture except one. Under the words THE SNOWLAMP there was only a pale square of paper, waiting, the way a window waits for morning.
+`[the open field guide: a marmot plate on the left; "No. 104. BONFIRE LILY (Ignilirion nivale)" on the right, its "Illustration:" line left blank; the pencil fox in the corner]` · *Prologue · Kitchen table · Raining*
+> Every page in the old book had a picture except one. On the page called BONFIRE LILY, after the word *Illustration*, there was only a pencil line with nothing on it, waiting, the way a window waits for morning.
 
 `[ Turn the page ▸ ]`
 
@@ -2991,7 +3167,7 @@ All original. The hiker is **Robin** (*they*). Picture notes are in brackets; th
 
 *(The worst end of the unknown range is more than a foot over the limit, so in Old School the ♦ shows its worst case for death: 5 clean at the clamp, made it 30%, and 70% x the 25% death roll = 17.5%, rounded up to 18% (C.4). The overland rope ladders are rolled (C.2: 89 clean, shown 95%), but their worst case is a sprain, so they show a plain % and no fatal share; the sure choice is waiting for the next low. Watching the sea for an hour narrows the range: on a falling tide the fatal share drops off; on a rising tide it stays or grows, and the sure way is still the next low.)*
 
-**13. The Snowlamp: arrival, blue hour, the glow**
+**13. The Bonfire Lily: arrival, blue hour, the glow**
 `[upper Royal Basin; a tarn; the moraine; a snowfield; Mount Deception; no flowers anywhere]` · *Day 2 · 4:40 pm · Upper Royal Basin · 5,700 ft*
 > Up here there were no flowers. There was stone, and snow, and a little round tarn the color of a cold eye, and a wind that had come a long way to say nothing in particular. Robin looked anyway.
 
@@ -3001,7 +3177,7 @@ All original. The hiker is **Robin** (*they*). Picture notes are in brackets; th
 `[ Turn off the headlamp ]` `[ Keep it on ]` `[ Go to bed ]`
 
 `[tall plate; one point of gold cycling outward in the blue snow; chrome hidden]`
-> *And there, where the snow was bluest, something small was shining. Not like a lamp. More like a lamp remembering.*
+> *And there, where the snow was bluest, something small was shining. Not like a fire. More like a fire remembering.*
 
 `[ Sketch it ]` `[ Pick it to take home ]` `[ Just look ]`
 
@@ -3009,7 +3185,7 @@ All original. The hiker is **Robin** (*they*). Picture notes are in brackets; th
 `[zoom 2x on the glow; lines drawing in gold on white paper, one by one]`
 > Robin drew it twice, to be sure. The pencil had never once made a golden line before, and it never would again. By the time the second drawing was finished, the flower had gone back to being a small, ordinary-looking thing in the snow, and that seemed right too.
 
-`[the field guide plate: the gold sketch inside the once-empty box]`
+`[the field guide page for No. 104: the gold sketch where the blank Illustration line used to be]`
 > *Seen at the top of Royal Basin, after sunset. Left where it grows.*
 
 `[The End plate, gold-bordered; the closed book on the dashboard; the fox asleep on it]`
@@ -3037,14 +3213,63 @@ All original. The hiker is **Robin** (*they*). Picture notes are in brackets; th
 
 *(Why: a margin of about -39 °F with no shelter is past the -25 °F line, so a failed night can end the book. The night curve (7.9) gives 40.5% dangerous shivering, and 40.5% x the 15% death roll = 6.08%, shown rounded up as 6.1%. Walking laps is a compound choice: it leads into the Cold chain, two warnings and then its own ♦ before dawn, so its bar carries a black tip too (A.3). The sure choice gives up the trip, and help comes in the morning, whatever the hour (9.2). The first time a fatal share appears, the fox points at "sure".)*
 
-**17. The death box: the night**
-`[the same picture remapped to grays; the Sierra box over it; the dirge]`
+**17. The death sequence, complete: the night (Old School)**
+
+*(Page 16's night, had Robin chosen* Curl up, wait for dawn *and the roll landed in the black. Five pages, in order, from the death box to GAME OVER. 9.5 has the rules, 12.17 the wireframes, 11.10 the renderer. None of it exists in Storybook.)*
+
+**17a. The death box**
+`[the same picture remapped to grays; the Sierra box over it; a short low sting]`
 > **The Glacier Went On Being Very Old**
 > *The rain kept on, and the cold kept on, and the cotton hoodie, which had tried its best, gave up first. Some time before dawn, under the biggest tree, Robin's story stopped. Far above, the glacier went on being very old.*
 >
 > **Ranger's Note:** Wet cotton keeps almost none of its warmth. Even for a day hike, carry a warm non-cotton layer, a rain shell and an emergency shelter. When shivering turns to stumbling, stop: get out of the wind and off the cold ground, put on everything dry, and call for help. Turning back early is never wrong.
 
-`[ Turn the page ▸ ]` → *GAME OVER*
+`[ Turn the page ▸ ]` → *YOU PERISHED*
+
+**17b. YOU PERISHED**
+`[a black page, no chrome; YOU PERISHED in big blocky white EGA letters; the dirge, the opening bars of Chopin's funeral march, plays once]`
+> *You have died of cotton.*
+
+`[ Turn the page ▸ ]`
+
+*(The key is `cold`, and wet cotton (the soaked hoodie) is in the cause trace. Wet cotton comes first in the key's fixed order, ahead of rain, so the line names cotton rather than a long, wet night, even though the missing sleeping bag cost more warmth (9.5).)*
+
+**17c. Leave No Trace**
+`[Glacier Meadows by day, in its own colors: heather, late snow, firs, the moraine above. Beside the trail, a small cartoon skeleton lies on its back next to a little gray daypack. Over about seven seconds both crumble pixel by pixel into dust, the dust drifts off down the valley, and the meadow is exactly as it was before anyone came. A tap skips.]`
+> **Leave No Trace.**
+
+`[ Turn the page ▸ ]`
+
+**17d. The epitaph**
+`[the Hoh River Trailhead at evening; the wooden register box on its post, lid open, a pencil on a string]`
+> There are no stones on the mountain. But the register at the trailhead keeps one line for everyone who goes in.
+
+`( ) Should have packed the sleeping bag.`
+`( ) Cotton kills. Ask me how I know.`
+`( ) Walked further than the light.`
+`( ) Write my own...       0 of 40`
+`( ) Leave it blank`
+`[ Sign the Trail Register ▸ ]`
+
+*(A lesson, a joke and a fond line, from the `cold` key and this book's cause trace: the biggest missing item was the sleeping bag, and wet cotton is in the trace, so the cotton joke is offered. The player picks the second line, and the pencil writes it in.)*
+
+**17e. GAME OVER: the memorial page**
+`[the volume title with a black ribbon beside it; the same register box, its lid closed, the pencil hanging still in the last light; the pencil fox curled in the margin, awake]` · *GAME OVER*
+> ***The Long Night at Glacier Meadows***
+>
+> **Here ends the book of Robin,** who went to see the Blue Glacier in one long day.
+>
+> *September 25 and 26, 2027 · Glacier Meadows, the first night · Score 25 of 64 · 41 pages · Seen: an elk at Five Mile Island*
+>
+> *You have died of cotton.* *Epitaph:* "Cotton kills. Ask me how I know."
+>
+> *What would have kept this book open:* a sleeping bag, a pad and a rain shell; turning back at Lewis Meadow; or, that night, waiting for help.
+
+`[ To the shelf ▸ ]` `[ Ranger's Note ]` `[ Route map ]` `[ Field Notes ]` `[ Reread ]`
+
+*(The Ranger's Note button opens 17a's note in full, and the route map shows the route dotted from the Hoh River Trailhead to the biggest tree at Glacier Meadows.)*
+
+*(On the shelf the book slides into its place with a black ribbon down its spine, and the Trail Register's* Remembered *list opens with Robin's name and line. Then* Begin a new book *starts the next hiker: page 20.)*
 
 **18. The death box: the ice**
 `[the Blue Glacier from the moraine, remapped to grays; one dark seam in the snow]`
@@ -3053,6 +3278,9 @@ All original. The hiker is **Robin** (*they*). Picture notes are in brackets; th
 >
 > **Ranger's Note:** Glaciers hide crevasses under snow bridges, even late in the season. Travel on a glacier only roped to a trained team, with crampons and an ice axe, or enjoy it from the moraine, which is where the best view is anyway.
 
+`[ Turn the page ▸ ]` → ***YOU PERISHED.*** *You have died of a crevasse.*
+Its epitaph presets: *Should have brought a rope team.* · *The snow bridge looked fine.* · *Went to see the glacier up close.*
+
 **19. The death box: the river**
 `[the Hoh at waist depth in the late afternoon, remapped to grays; the far bank very far]`
 > **The River Was in a Hurry**
@@ -3060,19 +3288,12 @@ All original. The hiker is **Robin** (*they*). Picture notes are in brackets; th
 >
 > **Ranger's Note:** Glacial and snowmelt rivers run highest in the late afternoon. Cross in the early morning, unbuckle your hip belt, face upstream and lean on poles, and if it looks too deep, it is: camp and wait.
 
-**20. GAME OVER: the memorial page**
-`[The End's closed book, remapped to grays, on a dark shelf; a black ribbon down its spine; the pencil fox curled at its foot, awake]` · *GAME OVER*
-> **Here ends the book of Robin,** who went to see the Blue Glacier in one long day.
->
-> *September 25 and 26, 2027 · Glacier Meadows, the first night · Score 25 of 64 · 41 pages · Seen: an elk at Five Mile Island*
->
-> *Epitaph:* "Loved the river. Walked further than the light."
->
-> *What would have kept this book open:* a sleeping bag, a pad and a rain shell; turning back at Lewis Meadow; or, that night, waiting for help.
+`[ Turn the page ▸ ]` → ***YOU PERISHED.*** *You have died of the river.*
+Its epitaph presets: *Should have crossed at dawn.* · *The Hoh was in more of a hurry.* · *Loved the Hoh. It loved the sea more.*
 
-`[ Sign the Trail Register ▸ ]` `[ Field Notes ]` `[ Reread ]`
+*(Both then go on exactly as 17c to 17e. The remains lie where the hiker last stood, never in the ice or the water (11.10): at the edge of the moraine above the glacier, and on the gravel bar at the ford.)*
 
-**21. The next hiker, and the old field guide**
+**20. The next hiker, and the old field guide**
 `[the kitchen table on a rainy evening; the old field guide open at the Roosevelt elk plate, a pencil tick and a short note in a new hand beside E.W.'s; the margin fox]` · *Prologue · Kitchen table · Raining*
 > The old field guide had a new note in it now, beside E.W.'s. On the page with the Roosevelt elk, someone had made a small, careful tick and written *Seen. Five Mile Island. R.* Sam turned the pages slowly. Whoever R. had been, they had liked rivers, and they had gone a long way to see one more.
 
@@ -3089,7 +3310,7 @@ All original. The hiker is **Robin** (*they*). Picture notes are in brackets; th
 ### E.1 Principles
 
 1. **Data first, engine small.** Every place, item, card, line and picture is data. The engine is an interpreter of roughly 6 to 8 thousand lines that knows nothing about the Hoh. Growing to the whole park is a content job, not an engine job (tides are the one genuinely new system).
-2. **Deterministic.** A trip is a pure function of `(edition, seed, plan, profile snapshot, actions)`. The profile snapshot holds exactly the profile fields the engine reads (skills, region memory, recently seen cards for novelty, the Snowlamp first-book flag, field guide state), and it travels with every save, bug report and trip code. That gives replays, share codes, exact bug reports, and a test harness that runs the real game.
+2. **Deterministic.** A trip is a pure function of `(edition, seed, plan, profile snapshot, actions)`. The profile snapshot holds exactly the profile fields the engine reads (skills, region memory, recently seen cards for novelty, the Bonfire Lily first-book flag, field guide state), and it travels with every save, bug report and trip code. That gives replays, share codes, exact bug reports, and a test harness that runs the real game.
 3. **The pack talks through tags; cards listen to tags** (6.5).
 4. **Honest odds come from the same code that rolls.**
 5. **Validate at the door.** With an AI writing most of the content, the linter and the simulation gates are the main quality tool.
@@ -3202,11 +3423,12 @@ dist/data/edition.<hash>.json + precache
 | `data/tides/la_push_YYYY.json` | NOAA high/low predictions, plus per-place offsets |
 | `rules/kits.json` | The ranger's sensible kit by zone x month (for the checklist, gap bias and the item-value audit) |
 | `rules/tuning.json`, `rules/mods.json`, `rules/macros.json` | Every tuning knob; shared modifier sets; effect bundles |
-| Overlay fields per place | `canopy`, `cold_pool`, `water`, `ranger` presence, `snow_feature` (with month windows by snow year), `snowlamp_weight`, `views`, `map_xy` |
+| Overlay fields per place | `canopy`, `cold_pool`, `water`, `ranger` presence, `snow_feature` (with month windows by snow year), `bonfire_lily_weight`, `views`, `map_xy` |
 | Overlay fields per crossing | River type, monthly base depth, speed, bridge |
 | Overlay fields per beach segment | `tide_max_ft`, overland alternative, impassable |
 | Catalog additions | `field_guide_old` (*A Pocket Flora & Fauna of the Olympic Mountains*, 20 oz) |
-| `journal/entries.json` | The 104 field guide entries |
+| `journal/entries.json` | The 104 field guide entries (No. 104 is the Bonfire Lily, *Ignilirion nivale*) |
+| `content/death/causes.json` | The cause-of-death table (9.5), Old School only: for each cause key, its *YOU PERISHED* line and its variants, each with an id and the trace condition that selects it, tried in a fixed order (for `cold`: wet cotton, then rain, then a clear sky; for a fall or a cliff: after dark without a headlamp), and its epitaph pool in three flavors (lesson, joke, fond) with `{place}`, `{river}`, `{camp}` and `{item}` slots. Cards only name the key; every word of the sequence lives here, so tone fixes never touch a card. A fix reaches future deaths only: a finished book keeps the line it showed (E.6) |
 | `stores/stores.json`, `drive/routes.json` | Fictional stores and inventories; drive routes from the researched drive times |
 | `stores/guides.json` | Larkspur Glacier Guides: departure dates, places per departure, the fee, the guide's lines |
 
@@ -3216,15 +3438,15 @@ dist/data/edition.<hash>.json + precache
 
 | Key | Holds | Size |
 |---|---|---|
-| `oph.<channel>.profile` (localStorage) | Settings, field guide entries and sketches (recipe references, each signed by its hiker), the current hiker and their skills, retired hikers, the Trail Register, region memory, the bookshelf index with each book's mode, seed and **latest page number**, recently seen cards, which odds forms you've seen, the Snowlamp first-book flag | 20-80 KB |
+| `oph.<channel>.profile` (localStorage) | Settings, field guide entries and sketches (recipe references, each signed by its hiker), the current hiker and their skills, retired hikers, the Trail Register, region memory, the bookshelf index with each book's mode, seed and **latest page number**, recently seen cards, which odds forms you've seen, the Bonfire Lily first-book flag | 20-80 KB |
 | `oph.<channel>.book.<id>` (localStorage) | One autosave per book in progress, at most 3 (at most one Old School book per hiker), rewritten after every page | 15-40 KB each |
 | IndexedDB `oph-<channel>-shelf` | Each finished book's rendered page text and scene recipe ids, for rereading, and each GAME OVER book's memorial page | 20-40 KB per book; if space runs short, the oldest page text is pruned first, and memorial pages never |
 
 - A save is a **snapshot plus the action log plus the profile snapshot** (E.1). Loads use the snapshot (migrated if the edition changed); the action log replays only for tests and bug reports.
 - **Books in progress:** up to three, each with its own autosave, and **at most one Old School book per hiker**. *Begin a new book* with three open asks which one to put on the shelf unfinished. A trip code or *Try this trip again* can't open a seed that is already in progress on this shelf (9.7, 9.8).
 - **Going back:** none, in either mode. There is no restore ring and no manual bookmark; every page overwrites the book's one autosave, so nothing can quietly undo a choice. Rereading any book is read-only.
-- **A death is saved at once.** The save written at the confirming tap already holds the outcome (8.14). If it is a death, that same write files the book on the shelf with its black ribbon, adds the memorial entry to the register, merges the hiker's field guide entries and sketches, retires the hiker, and closes any other open book of theirs (shelved unfinished with a black ribbon), so no hiker is ever alive in one book and dead in another. The death box only displays what is already saved, so closing the app on it, or anywhere after the tap, changes nothing.
-- **GAME OVER books are never pruned.** If storage runs short, a dead hiker's book keeps its memorial page (title, dates, score, epitaph, Ranger's Note, the entries filled) even if its page text has to go.
+- **A death is saved at once.** The save written at the confirming tap already holds the outcome (8.14). If it is a death, that same write files the book on the shelf with its black ribbon, adds the memorial entry to the register, merges the hiker's field guide entries and sketches, retires the hiker, and closes any other open book of theirs (shelved unfinished with a black ribbon), so no hiker is ever alive in one book and dead in another. The memorial entry stores the cause key, the variant id and the rendered *YOU PERISHED* line, so a later edition's `causes.json` can never reword a finished book. Only the three epitaph presets are rebuilt from data, and only until the epitaph is signed. The death sequence only displays what is already saved, so closing the app on any of its pages, or anywhere after the tap, changes nothing; the book reopens on the sequence page it was showing. **The epitaph is the one later write:** signing adds it to the register entry and the memorial page and changes nothing else, and once GAME OVER is shown it is fixed.
+- **GAME OVER books are never pruned.** If storage runs short, a dead hiker's book keeps its memorial page (title, dates, place, score, the *YOU PERISHED* line, the epitaph, the Ranger's Note, the dotted route, the entries filled) even if its page text has to go.
 - **Rereading survives updates.** An old action log can't replay after a new edition (the old engine and content are gone from the cache), so the shelf keeps each finished book's rendered text and recipe ids instead, and redraws the pictures from recipes (an unknown recipe falls back to its biome base).
 - **iOS:** Safari may clear site storage after about 7 days without a visit, and **Home Screen apps keep separate storage from Safari**. So the title page recommends installing *before* the first save, the game calls `navigator.storage.persist()` where available (never depending on it), and **Export / Import** turns a save or profile into a code you can share to yourself. It is for moving phones and surviving eviction, not for undoing. **The profile records each book's latest page number**, and Import refuses any book save older than that record (offering to open it read-only, to reread), so an export from before a sprain, a lost item or a rescue can't be replayed with a different choice. An imported book that the register shows as ended opens read-only. **A profile import merges** the Trail Register and the retired hikers with what is already on the phone: it never removes a *Remembered* entry and never un-retires a hiker. A player who carries old codes between phones on purpose can still cheat; the game doesn't fight that, any more than a 1984 floppy did.
 
@@ -3252,6 +3474,7 @@ A seeded `sfc32` generator, with every draw keyed by `hash(trip seed, stream, ke
 | effect | mode, node, card, outcome, op, trip day | Chances inside effects |
 | text | node, slot, trip day | Which wording |
 | art | scene id | Prop placement (same on every trip) |
+| dust | book, pixel | The Leave No Trace dissolve's order and drift (11.10); display only, it never touches an outcome |
 | lookahead | its own, per call | Look-ahead and Outlook runs, which resample hidden values (8.9) |
 
 ### E.9 Hosting and CI
@@ -3270,6 +3493,7 @@ A seeded `sfc32` generator, with every draw keyed by `hash(trip seed, stream, ke
 - Startup under 1.5 s from a cached load: one edition JSON (about 1 MB raw at full park), a prebuilt card index, lazy expression compiling, preloaded fonts.
 - `localStorage` is synchronous: write right after the page paints, under about 50 KB. Finished books go to IndexedDB (E.6).
 - The look-ahead and the Trip Outlook run in a Web Worker (8.9), so a page never waits for them.
+- The Leave No Trace dissolve (11.10) composes its scene once and then redraws only about 150 remains pixels and their motes into a copy of the cached buffer, at 10 fps for about 7 seconds: one blit per frame, well under a millisecond. It stops on `visibilitychange` and resumes at its last frame; under Reduce Motion it is a one-second CSS cross-fade between two canvases.
 - Standalone mode has no back button (every screen has its own) and may be killed in the background (hence autosave every page). No vibration API on iOS, so no haptics.
 
 ### E.11 The debugging loop with you
@@ -3316,7 +3540,7 @@ From `simulation.md` 15 and `engine.md` 9.5, merged and recalibrated to the show
 - Trips that show at least one % choice: at least 90%.
 - **Knowledge ranges:** the true p lies inside the shown range 100% of the time (a unit test).
 - **Odds calibration,** nightly only. The shown % on a single roll is exact by construction and unit-tested (E.9). What needs statistical calibration is what the game *estimates*: the middle of knowledge ranges, Words bands, forecast rain chances and look-ahead bars. The test is a two-sided binomial test per bucket at p < 0.001 after a Bonferroni correction across buckets; a plain |error| < 3 points applies only to buckets with at least 10,000 samples. Look-ahead is tested for mean bias across many states, not bar by bar.
-- **Snowlamp:** 25-40% of sensible trips with one eligible evening; 45-60% with a high layover; in each zone and month where it's possible.
+- **Bonfire Lily:** 25-40% of sensible trips with one eligible evening; 45-60% with a high layover; in each zone and month where it's possible.
 - **Where outcomes come from:** about 70% planning, 20% trail choices, 10% luck (±10 each), measured with Sobol indices (first-order and total) over plan, choice policy and seed, since the three interact.
 - **Variety:** the measures in 8.12.
 
@@ -3339,9 +3563,10 @@ Errors block the deploy.
 - **Park graph:** endpoints exist after the merge; every trailhead reaches a camp and every camp is reachable; elevation sanity; every place has a picture recipe; every preset routes and ends at a trailhead (or at its start, for a loop).
 - **Cards:** schema-valid; expressions type-check; every card can fire somewhere (reachability); no dead ends (a visible, enabled choice in every context); fuzzed odds stay in range; loops and chains terminate; route effects target reachable places; read flags are set somewhere.
 - **Fair deaths (Old School):** a `book_ends` outcome appears only in a ♦ choice's fail table or at the last step of a chain with at least two warning steps, tagged with the same danger, before it; every one carries a `modes.storybook` override; every context in which a choice shows a fatal share above 0 also offers a choice that is `sure` for life; no `book_ends` is reachable from a sure choice, a narrated routine check, a delayed payoff, an epilogue or any card tagged wildlife. **A Director draw can never end a book by itself:** a card the Director can draw may hold a fatal-capable ♦ only if it names the foreshadow flag its danger needs (set by the forecast, a ranger's line, or a night card such as *the river talks louder*), some page sets that flag, and the card offers a sure choice. No `book_ends` in any card placed at a site, or built from a hazard, tagged `real_incident` (9.5). Every death box has a Ranger's Note with a prevention and names no real incident.
+- **The death sequence (Old School):** every `book_ends` names a `cause` key that exists in `content/death/causes.json` (E.5), and no cause key is tagged wildlife. Every key has a *YOU PERISHED* line for every variant it can reach (second person, starting *You have died of*, at most 40 characters), and an epitaph pool that offers three distinct presets, one per flavor, in every context the key can reach, each at most 40 characters with its longest slot filled. No cause line or preset names a real incident, a real person, an animal or a place tagged `real_incident`. No page of the death sequence, and none of its audio cues (13.2), is reachable in Storybook. The review book prints every key's lines and presets for your review (14.4).
 - **Honest odds:** a choice without a roll can't show a %; every roll has labeled modifiers from shared sets where one exists; the ♦ and the fatal share are computed from fail tables and death rolls per context, never set by hand (8.1); no setting can hide a fatal share.
 - **Coverage:** every event tag in at least 3 cards; every catalog item maps to an event tag; every segment hazard tag in at least 1 card (14.2).
-- **Text (T02):** fits the page at 375 x 667 with three choices and at 393 x 852 with four, from measured font metrics; choice labels are 22 characters or fewer and fit at 375 pt; no real private businesses or real people; **no *Golden Glow* text, names or phrases** outside the colophon; no death words in Storybook text (except "dead tree"); third person past tense; readability grade 7 or below.
+- **Text (T02):** fits the page at 375 x 667 with three choices and at 393 x 852 with four, from measured font metrics; choice labels are 22 characters or fewer and fit at 375 pt; no real private businesses or real people; **no *Golden Glow* text, names or phrases** outside the colophon; no death words in Storybook text (except "dead tree"); third person past tense (except, by design, the second-person *YOU PERISHED* lines and the epitaph presets in the hiker's own voice); readability grade 7 or below.
 - **Economy:** every item is obtainable; every tag a card rewards is provided by some item; the sensible kit for every zone and month fits in some pack.
 - **Storage names:** every storage key and cache name carries a channel prefix (E.9).
 
@@ -3364,6 +3589,7 @@ Errors block the deploy.
 - An edition update mid-trip: the prompt appears only at the bookshelf; the save migrates.
 - Export the profile and a save, wipe site data, import both; then try to import an older export of the same book, and see it refused (E.6).
 - Rotate to landscape and back.
+- Lose one Old School book on purpose and play the whole death sequence: the dirge with the silent switch on and off, the Leave No Trace dissolve watched through and tapped to skip, then again with iOS Reduce Motion on (a cross-fade), a typed epitaph on the SE's keyboard, and the book arriving on the shelf with its black ribbon.
 
 ---
 
@@ -3379,17 +3605,18 @@ Errors block the deploy.
 
 Only you can make these. Each has a recommended default, so a one-word answer ("yes", or the number of a different option) is enough. Everything else in this document is a call you can overrule (1.2), but it doesn't need an answer to start building.
 
-1. **How harsh. Decided 2026-10-08.** Your words: *"For 1 I think it should actually be hard like if you die its game over old school."* So **Old School is the default**: death is possible and final (the death box with a Ranger's Note, then GAME OVER; no Restore, no Turn Back a Page, no Restart), but only at a ♦ that shows its fatal share or after two warnings, always with a sure way out, and sensible plans end in death at most 1 time in 200 (2.5, 9.4-9.5, F.1). Two calls follow from "one life" that you can overrule but needn't answer: a hiker has one Old School book open at a time, and a death closes any other book that hiker had open (9.8). This creates three small follow-ups:
+1. **How harsh. Decided 2026-10-08.** Your words: *"For 1 I think it should actually be hard like if you die its game over old school."* So **Old School is the default**: death is possible and final (the death sequence, ending in GAME OVER; no Restore, no Turn Back a Page, no Restart), but only at a ♦ that shows its fatal share or after two warnings, always with a sure way out, and sensible plans end in death at most 1 time in 200 (2.5, 9.4-9.5, F.1). Two calls follow from "one life" that you can overrule but needn't answer: a hiker has one Old School book open at a time, and a death closes any other book that hiker had open (9.8). **The death sequence was decided the same day.** Your words: *"the end screen should say you perished and then a little thing how like Oregon trail style and then it says leave no trace as your skeleton turns to dust."* You approved the five-page version (*"Sounds good"*): the death box with its Ranger's Note; *YOU PERISHED* with an Oregon Trail cause of death and a public-domain funeral march; the skeleton and pack turning to dust under *Leave No Trace*; an epitaph for the Trail Register; then GAME OVER. None of it appears in Storybook (2.4, 9.5, 11.10, 12.17). This leaves four small follow-ups:
    - **1a. What survives a death.** The next hiker inherits the old field guide with every entry the dead hiker filled (seen or sketched), starts with beginner skills, and the dead hiker's book stays on the shelf with a black ribbon and an entry in the Trail Register (9.8). The alternative is a full wipe: field guide, skills and shelf all reset, and only the Trail Register remembers. *Recommended: inherit the field guide.*
    - **1b. The optional easier setting.** Keep **Storybook** (nobody dies; the worst case is a gentle rescue) as a clearly labeled easier choice on the New Book page, for younger readers and anyone who wants the Golden Glow book without the old rules? Or drop it, so every book is Old School? *Recommended: keep it, never the default.*
    - **1c. How deadly your own example is.** In the model, pushing to Glacier Meadows in one night with day gear and refusing every way out ends about 1 book in 15 (about 6.3%; about 1 in 13 if you also step onto the ice and keep going), and taking the offered turnaround ends none (A.6, A.7). (It read 1 in 14 in the last draft; the night now uses `simulation.md`'s hypothermia curve exactly, 7.9.) The one knob is the death roll at each fatal moment: doubling the bagless night's from 15% to 30% would make it about 1 in 8. *Recommended: keep the model's figure; the harness holds it at 4-10%.*
-2. **The golden plant's name.** *The Snowlamp*? Or *Ember-in-the-Snow*, *Lanternwort*, *Snowlight*, or let the player name it after sketching it. *Recommended: the Snowlamp.*
+   - **1d. The epitaph format (still open).** How the death sequence's fourth page writes the epitaph into the Trail Register (9.5, 12.17). **(a)** Pick one of three funny preset lines made from the cause of death (a lesson, a joke, a fond line, such as *"Should have checked the tide table."*), type your own (up to 40 characters), or leave it blank. **(b)** Presets only, no typing. **(c)** The game writes it, with no choice. *Recommended: (a), presets or type your own.*
+2. **The golden plant's name. Decided: Bonfire Lily (user, 2026-10-08).** It replaces the old placeholder name everywhere in this document (two proposals still use the old one; see the note at the top). The field guide entry reads *No. 104. Bonfire Lily (Ignilirion nivale), also called "the climber's campfire": the only fire permitted above 3,500 feet* (10.2). The Latin is invented, roughly "fire lily of the snow", and checked: no real genus is called *Ignilirion*. The nickname rests on the park's real rule (no campfires above 3,500 ft) and stays a joke, never a rule the player can break (10.6).
 3. **Who is in the book.** Solo in v1, with optional player-named companions in M6. If "104-boyz" is a group of friends you'd like in the book, the companion list could come pre-filled with names you give; otherwise it starts blank. *Recommended: blank, you name them.*
 4. **The 104 wink.** A field guide of exactly 104 entries, with No. 104 as the blank page. It assumes nothing about what "104" means. *Recommended: keep.*
 5. **Mount Olympus in v1.0.** The summit by hiring a fictional guide at the outfitter counter (with glacier school and a "glacier course" box on the New Book page), so v1.0 players can stand on top; companions add guide-free rope teams in M6. The alternative is a v1.0 Olympus that ends at the moraine. *Recommended: the guide.*
 6. **First playable.** The Hoh to Glacier Meadows first (M1a, then M1b with Olympus), or Seven Lakes Basin and the High Divide first? *Recommended: the Hoh.*
 7. **Read to me.** On-device spoken narration (lovely for playing with kids, and cheap to build), or cut it? *Recommended: build it, in M6.*
-8. **Death-box tone.** Are the sample death boxes (Appendix D, pages 17-19: the night, the ice, the river; and 9.5: the tide) and the memorial page (D.20) the right temperature: deadpan and kind, never mocking? *Recommended: as written, with your review of each new one.*
+8. **Death-box tone.** Are the sample death boxes (Appendix D, pages 17-19: the night, the ice, the river; and 9.5: the tide), the *YOU PERISHED* lines and epitaph presets (9.5), and the whole sequence for the night, through the memorial page (Appendix D, page 17), the right temperature: wry and kind, never mocking? *Recommended: as written, with your review of each new one.*
 9. **Talking animals.** Animals never talk and the narrator translates (closer to the park), or an optional "fable mode" where they speak (closer to the book)? *Recommended: never talk.*
 10. **Session length.** About 8 minutes to the first trail page in a first book, 4 to 6 minutes per trail day, and 20 to 30 minutes for a two-night book. *Recommended: yes.*
 11. **Repo visibility.** Free GitHub Pages needs a public repo. Is `fernforager/104-boyz` public, or should it become public (or the site be published from a separate public repo)? *Recommended: make it public; nothing in it is secret.*
