@@ -1,16 +1,3600 @@
 {
   "lore_id": "press_expedition",
   "title": "The Press Expedition, 1889-90",
-  "status": "IN PROGRESS - snapshot 2 (2026-10-08). Verified sources so far listed below; timeline and quote pool being assembled.",
+  "status": "complete_first_pass",
   "researched_on": "2026-10-08",
-  "verified_primary_sources_so_far": [
-    {"id": "SDRU_1890_08_14", "what": "Sacramento Daily Record-Union, Aug 14, 1890, p.3, 'The Olympic Wilderness' (summary of the Press report + Barnes journal entry for Jan 14 + full name list)", "url": "https://www.loc.gov/resource/sn82014381/1890-08-14/ed-1/?sp=3", "verified_against_page_image": true},
-    {"id": "MTN_1907", "what": "Ina M. Hanna, 'Expeditions Into the Olympic Mountains', The Mountaineer v1 n2 (1907) pp.29-34, condensed from Seattle Press July 16 1890", "url": "https://www.npshistory.com/publications/olym/m-v1n2-1907-1.pdf", "verified_against_page_image": true},
-    {"id": "SPI_1890_07_17", "what": "Seattle Post-Intelligencer Jul 17 1890 p.4 editorial 'An Important Publication'", "url": "https://www.loc.gov/resource/sn83045604/1890-07-17/ed-1/?sp=4"},
-    {"id": "WS_1890_06_06", "what": "Washington Standard (Olympia) Jun 6 1890 p.3", "url": "https://www.loc.gov/resource/sn84022770/1890-06-06/ed-1/?sp=3"},
-    {"id": "WS_1889_12_27", "what": "Washington Standard Dec 27 1889 p.2 (Port Angeles Commonwealth item on arrival)", "url": "https://www.loc.gov/resource/sn84022770/1889-12-27/ed-1/?sp=2"},
-    {"id": "MCJ_1890_01_31", "what": "Mason County Journal Jan 31 1890 p.5 (Port Townsend Leader dispatch)", "url": "https://www.loc.gov/resource/sn88085081/1890-01-31/ed-1/?sp=5"},
-    {"id": "ES_1890_06_24", "what": "Evening Star (Washington DC) Jun 24 1890 p.3 (Christie joins Russell's Alaska expedition with two dogs)", "url": "https://www.loc.gov/resource/sn83045462/1890-06-24/ed-1/?sp=3", "verified_against_page_image": true},
-    {"id": "SPI_1890_09_30", "what": "Seattle P-I Sep 30 1890 p.9 (later party follows the Press blazes; skeptical)", "url": "https://www.loc.gov/resource/sn83045604/1890-09-30/ed-1/?sp=9"}
+  "summary": "Six men (five finished), four dogs and two mules, sent by the Seattle Press, crossed the Olympic Mountains north to south in the hard winter and spring of 1889-90: up the Elwha from Port Angeles (Dec 1889 - Apr 1890), over Low Divide (early May 1890) and down the North Fork Quinault to Lake Quinault and the Pacific (May 20, 1890). It was the first documented crossing of the range. Their route is close to our classic trip elwha_to_north_fork_quinault.",
+  "credit_line_for_game": "Facts about the Press Expedition draw in part on Robert L. Wood, Across the Olympic Mountains: The Press Expedition, 1889-90 (The Mountaineers and University of Washington Press, 1967). No text by Wood is reproduced. Quotations are from public-domain newspapers of 1889-90 and The Mountaineer (1907).",
+  "copyright_rules_applied": [
+    "No sentence from any Robert L. Wood book appears in this file. Facts that trace to Wood are restated in our own words and tagged WOOD1967.",
+    "quote_pool holds only text from U.S. publications of 1889-1907 (public domain: published in the U.S. before 1931), each read against a page image (or flagged where only partly checked).",
+    "secondary_quote_pool holds 1889-90 words (public domain) that we saw only as transcribed by modern writers; verify each against the 1890 Press before shipping.",
+    "Modern articles (Peninsula Daily News, Seattle Times, Wikipedia) are used for facts only, paraphrased."
+  ],
+  "primary_text_status": {
+    "seattle_press_1890_07_16": "Not found online. The Seattle Press (1886-1891) does not appear to be digitized in Chronicling America, and the Washington Digital Newspapers site refused automated access. Known copies: a photostat and clipped sections in the Robert L. Wood papers and the Meany file at UW Special Collections (UW_WOOD_FA); the Seattle Public Library listed the Seattle Press among its Central Library holdings in 2010 (unverified). Carsten Lien's Exploring the Olympic Mountains (Mountaineers Books, 2001) reprints the report, but as a modern edition it was not used.",
+    "public_domain_substitutes_used": [
+      "MTN1907 (condensed 'as far as possible ... just as published')",
+      "SDRU1890 (summary plus Barnes's Jan. 14 journal entry and the full name list)",
+      "Other 1889-90 newspapers on Chronicling America (WS1889, MCJ1890a, WS1890, ES1890, SPI1890a, FH1890, SPI1890b)"
+    ],
+    "next_step": "Ask UW Special Collections (speccoll@uw.edu) for a scan of the July 16, 1890 Press to verify the secondary quotes and add diary lines about the bears, the dogs and Low Divide."
+  },
+  "members": [
+    {
+      "name": "James Halbold Christie",
+      "spelling_note": "NPS HRS spells the middle name Helbold; Wikipedia uses Halbold.",
+      "role": "Leader",
+      "born": "1854, Scotland",
+      "age_at_start": 35,
+      "background": "Served with Canadian military forces and had spent about three years on an Arctic expedition. Wrote to the Press from North Yakima in November 1889 asking to lead the party.",
+      "after": "By mid-June 1890 he had signed on as foreman of Israel C. Russell's National Geographic Society expedition to Mount St. Elias, Alaska, taking two bear dogs from the Olympic trip (ES1890).",
+      "named_for_him": "Mount Christie",
+      "sources": [
+        "NPS_HRS1983",
+        "WOOD1967",
+        "PDN2009a",
+        "ES1890"
+      ]
+    },
+    {
+      "name": "Charles Adams Barnes",
+      "role": "Topographer, historian and photographer (\"Captain Barnes\")",
+      "born": "1859, Illinois",
+      "died": "1900 (per Wikipedia, unverified elsewhere)",
+      "age_at_start": 30,
+      "background": "Former military/Revenue Service officer who had been in business in California. Kept the main journal, drew the map (NPS calls it the first published map of Lake Crescent, and the first to show the major peaks and valleys of the eastern interior) and took the photographs.",
+      "after": "His brother Pierre Barnes took up a claim near Lake Crescent in 1890 (Seattle P-I, May 22, 1890, p.9).",
+      "named_for_him": "Mount Barnes (the name has since moved to a different peak; see place_names)",
+      "sources": [
+        "NPS_HRS1983",
+        "WOOD1967",
+        "SDRU1890",
+        "PDN2009a"
+      ]
+    },
+    {
+      "name": "John Henry Crumback",
+      "role": "Cook and hunter",
+      "born": "1856, Ontario",
+      "age_at_start": 33,
+      "background": "Prospector, cowboy and hunter in the Northwest Territories before Seattle. Nearly fainted in the icy Elwha on January 14, 1890 (Barnes's journal). Staked a squatter's claim by the Elwha on March 21, 1890.",
+      "named_for_him": "Crumback River (their name for the East Fork Quinault; not in use)",
+      "sources": [
+        "NPS_HRS1983",
+        "SDRU1890",
+        "MTN1907",
+        "PDN2009b"
+      ]
+    },
+    {
+      "name": "John William Sims",
+      "role": "Hunter and packer",
+      "born": "1861, England",
+      "age_at_start": 28,
+      "background": "Six years in the British army, then hunting, trapping, prospecting and trading.",
+      "named_for_him": "Sims River (not in use)",
+      "sources": [
+        "NPS_HRS1983",
+        "SDRU1890"
+      ]
+    },
+    {
+      "name": "Christopher O'Connell Hayes",
+      "role": "Packer (youngest member)",
+      "born": "1867",
+      "age_at_start": 22,
+      "background": "Cowboy from the Yakima Valley.",
+      "named_for_him": "Hayes River (still in use; node hayes_river)",
+      "sources": [
+        "NPS_HRS1983",
+        "SDRU1890",
+        "GNIS"
+      ]
+    },
+    {
+      "name": "Dr. Harris Boyle Runnalls",
+      "spelling_note": "NPS HRS: Harris Boyle Runnalls (sometimes Runnals); Peninsula Daily News 2009: Horace B. Runnals. Unresolved.",
+      "role": "Physician and naturalist (\"the doctor\" in Barnes's journal)",
+      "born": "1854, England",
+      "background": "Left the party on February 3, 1890 (PDN says for a family emergency), so only five crossed the range.",
+      "sources": [
+        "NPS_HRS1983",
+        "PDN2009a",
+        "SDRU1890"
+      ]
+    }
+  ],
+  "animals": {
+    "dogs": [
+      {
+        "name": "Daisy",
+        "fate": "Not recorded in the sources read for this file."
+      },
+      {
+        "name": "Tweed",
+        "fate": "One of the two bear dogs. Probably one of the 'two famous dogs' Christie took to Alaska in June 1890 (inference: the Evening Star does not name them)."
+      },
+      {
+        "name": "Bud",
+        "fate": "One of the two bear dogs. Probably the other dog that went to Alaska with Christie (same inference)."
+      },
+      {
+        "name": "Dike",
+        "fate": "Killed by a bull elk (kicked in the head) in Press Valley, spring 1890."
+      }
+    ],
+    "dogs_sources": [
+      "ST1997",
+      "PDN2023a",
+      "PDN2023b",
+      "ES1890"
+    ],
+    "dogs_notes": "Four dogs started. The survivors slept with the men in the snow, hunted, ate the last of the bacon, and ran down the bears near Low Divide that kept the men from starving. Christie's two bear dogs were described in 1890 as crosses of a Russian bear dog and a Scotch collie (ES1890).",
+    "mules": [
+      {
+        "name": "Jennie",
+        "fate": "Fell off the steep ridge the party called the Devil's Backbone, above today's old Elwha Ranger Station, and died. Her load of about 200 lb included the 50 lb of colored fire (fireworks) meant to be lit on a peak where Seattle could see it."
+      },
+      {
+        "name": "Dollie",
+        "fate": "Worn out (living on Oregon grape), she lay down on the wrong-way detour up the Goldie River in April 1890 and would not rise. The men took off her halter and turned her loose. In August 1890 a Sacramento paper joked that a mule was loose 'in the neighborhood of Mount Olympus' for anyone who could catch her."
+      }
+    ],
+    "mules_sources": [
+      "SDRU1890",
+      "ST1997",
+      "PDN2009b",
+      "PDN2023a",
+      "PDN2023b"
+    ]
+  },
+  "outfit": {
+    "weight": "About 1,500 lb of supplies when the party left Seattle (SDRU1890, NPS_EXPL); PDN2023a says about 2,000 lb were loaded into the boat on Dec 30, 1889.",
+    "items_1890_list": "Flour, bacon, beans, coffee, Winchester rifles, powder and shot, a tent, blankets, fishing tackle, axes, a whipsaw for logs, carpenter tools, mineral-prospecting tools, rope, snowshoes, cooking gear, surveying instruments, and a camera with film for 250 exposures (SDRU1890).",
+    "colored_fire": "Fifty pounds of colored fire (signal fireworks), meant to light up a peak that Seattle could see (SDRU1890). Lost with the mule Jennie (ST1997).",
+    "boat_gertie": "A flat-bottomed boat about 30 by 5 ft, built of green lumber and named Gertie. Launched Dec 30 or 31, 1889 and leaked at once. Hauled up the Elwha by towline, the men often waist-deep in icy water, and abandoned about Jan 23, 1890 after gaining only a few miles (sources say 4 to 6) in 10 to 12 days (NPS_EXPL, MTN1907, PDN2009b, PDN2023a, ST1997)."
+  },
+  "route_on_our_map": {
+    "classic_trip_ids": [
+      "elwha_to_north_fork_quinault",
+      "quinault_to_elwha_traverse",
+      "north_fork_halfway_house_day"
+    ],
+    "north_to_south_node_ids": [
+      "port_angeles_wic",
+      "madison_falls_trailhead",
+      "whiskey_bend_road_junction",
+      "glines_canyon_overlook",
+      "whiskey_bend_trailhead",
+      "rica_canyon_junction",
+      "goblins_gate",
+      "krause_bottom",
+      "humes_ranch",
+      "long_ridge_trail_junction",
+      "lillian_river_trail_junction",
+      "lillian_camp",
+      "mary_falls_camp",
+      "canyon_camp",
+      "elkhorn",
+      "remanns_cabin",
+      "hayes_river",
+      "camp_wilder",
+      "chicago_camp",
+      "lake_margaret",
+      "low_divide",
+      "skyline_north_fork_trail_junction",
+      "sixteen_mile_camp",
+      "trapper_shelter",
+      "elip_creek_camp",
+      "halfway_house_camp",
+      "wolf_bar_camp",
+      "north_fork_quinault_trailhead",
+      "kestner_homestead",
+      "quinault_rain_forest_ranger_station",
+      "lake_quinault_lodge_area"
+    ],
+    "where_the_1890_route_left_ours": "The party went up the Goldie River (no trail, no node) from near remanns_cabin and came back to the Elwha near camp_wilder. They travelled the lower Elwha by boat and on the valley floor long before today's road and trail; Indian Creek, McDonald's clearing, Griff Creek, the Devil's Backbone, the Quinault forks and Taholah have no nodes. The NPS notes the modern trail follows roughly the Press route except where the party went up the Goldie."
+  },
+  "timeline": [
+    {
+      "date": "1889-10-03",
+      "date_precision": "day",
+      "event": "The Seattle Press prints an interview with Gov. Elisha P. Ferry calling the interior an unknown land and daring 'hardy citizens' to explore it.",
+      "node_ids": [],
+      "sources": [
+        "PDN2009a",
+        "NPS_HRS1983"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "date": "1889-11-06",
+      "date_precision": "day",
+      "event": "The Press receives James Christie's letter from North Yakima offering to lead a party into the Olympics that winter.",
+      "node_ids": [],
+      "sources": [
+        "PDN2009a"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "date": "1889-12-06",
+      "date_precision": "day",
+      "event": "The six men are photographed in Seattle before leaving.",
+      "node_ids": [],
+      "sources": [
+        "NPS_EXPL"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "date": "1889-12-08",
+      "date_precision": "day_conflicting",
+      "event": "The party leaves Seattle by steamer (the Evangel) for Port Angeles. A Sacramento paper later said Dec 7; the Port Angeles Commonwealth said they arrived on a Monday (Dec 9).",
+      "node_ids": [
+        "port_angeles_wic"
+      ],
+      "node_note": "Port Angeles waterfront; the WIC node is the nearest town node.",
+      "sources": [
+        "MTN1907",
+        "NPS_HRS1983",
+        "WS1889",
+        "SDRU1890",
+        "PDN2009a"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "date": "1889-12-13",
+      "date_precision": "day",
+      "event": "They leave the end of the county road out of Port Angeles for the Elwha (Seattle Times date). Snow fell on their first night in camp and stopped at about four feet (SDRU1890).",
+      "node_ids": [
+        "port_angeles_wic",
+        "madison_falls_trailhead"
+      ],
+      "node_note": "Between town and the lower Elwha; no node at the 1889 road end.",
+      "sources": [
+        "ST1997",
+        "SDRU1890"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "date": "1889-12-25",
+      "date_precision": "day",
+      "event": "Christmas snow; supplies are moved by sled toward the river.",
+      "node_ids": [
+        "madison_falls_trailhead"
+      ],
+      "node_note": "Lower Elwha settlements, north of the Madison Falls gate.",
+      "sources": [
+        "PDN2009a"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "date": "1889-12-30/31",
+      "date_precision": "range",
+      "event": "The boat Gertie is launched loaded with supplies and leaks at once; the men spend days caulking her.",
+      "node_ids": [
+        "madison_falls_trailhead"
+      ],
+      "sources": [
+        "PDN2023a",
+        "PDN2009a"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "date": "1890-01-13",
+      "date_precision": "day",
+      "event": "Gertie is finally watertight and the haul up the Elwha begins.",
+      "node_ids": [
+        "madison_falls_trailhead"
+      ],
+      "sources": [
+        "MTN1907",
+        "PDN2009a"
+      ],
+      "confidence": "high"
+    },
+    {
+      "date": "1890-01-14",
+      "date_precision": "day",
+      "event": "Barnes's journal: barely a quarter mile gained, two sets of rapids, a log cut out, everyone in the icy river to the belt at 16 degrees F, Crumback close to fainting.",
+      "node_ids": [
+        "madison_falls_trailhead"
+      ],
+      "node_note": "Lower Elwha below today's Madison Falls gate (no node).",
+      "sources": [
+        "SDRU1890"
+      ],
+      "confidence": "high",
+      "game_use": "camp-page reading: quotes q06-q14"
+    },
+    {
+      "date": "1890-01-18",
+      "date_precision": "day",
+      "event": "A log jam at the mouth of Indian Creek stops the boat; local men help drag her over.",
+      "node_ids": [
+        "madison_falls_trailhead"
+      ],
+      "node_note": "Indian Creek enters the Elwha north of the Madison Falls gate, near today's US 101 bridge (no node).",
+      "sources": [
+        "PDN2009b",
+        "PDN2023a"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "date": "1890-01-23",
+      "date_precision": "day",
+      "event": "Head of navigation: stores are moved ashore and Gertie is abandoned, after 10-12 days and only a few miles. From here the men relay packs and use the mules.",
+      "node_ids": [
+        "madison_falls_trailhead"
+      ],
+      "node_note": "Around McDonald's clearing on the lower Elwha (no node).",
+      "sources": [
+        "MTN1907",
+        "PDN2009b",
+        "NPS_EXPL"
+      ],
+      "confidence": "high"
+    },
+    {
+      "date": "1890-01 (late)",
+      "date_precision": "approximate",
+      "event": "A Port Townsend paper reports the party back at Port Angeles 'last evening' with two feet of snow within ten miles of town (probably a supply trip; the report credits Barnes as the man in charge).",
+      "node_ids": [
+        "port_angeles_wic"
+      ],
+      "sources": [
+        "MCJ1890a"
+      ],
+      "confidence": "low"
+    },
+    {
+      "date": "1890-02",
+      "date_precision": "month",
+      "event": "Snowbound for about two weeks in an empty settler's cabin, then relaying about forty 50-lb packs by snowshoe and sled. Moving 800 lb a mile and a half could take a whole day.",
+      "node_ids": [
+        "madison_falls_trailhead",
+        "whiskey_bend_road_junction"
+      ],
+      "sources": [
+        "PDN2009b",
+        "ST1997"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "date": "1890-02-03",
+      "date_precision": "day",
+      "event": "Dr. Runnalls leaves the expedition. Five men go on.",
+      "node_ids": [],
+      "sources": [
+        "NPS_HRS1983"
+      ],
+      "confidence": "high"
+    },
+    {
+      "date": "1890-02 (approx.)",
+      "date_precision": "approximate",
+      "event": "On the Devil's Backbone, a steep ridge above today's old Elwha Ranger Station, the mule Jennie falls to her death with the fireworks.",
+      "node_ids": [
+        "whiskey_bend_road_junction"
+      ],
+      "node_note": "MTN1907 calls the Devil's Backbone the western spur of 'Mt. Eldridge'.",
+      "sources": [
+        "MTN1907",
+        "PDN2009b",
+        "PDN2023a",
+        "ST1997"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "date": "1890-02 (approx.)",
+      "date_precision": "approximate",
+      "event": "They spend a night in an abandoned Klallam house near the site of the later Glines Canyon dam, and meet a Klallam elk-hunting camp near today's park boundary.",
+      "node_ids": [
+        "glines_canyon_overlook"
+      ],
+      "node_note": "Secondary source only; see indigenous_notes before using.",
+      "sources": [
+        "PDN2023a"
+      ],
+      "confidence": "low"
+    },
+    {
+      "date": "1890-02-17",
+      "date_precision": "day",
+      "event": "The party reaches the area of Griff Creek on the Elwha.",
+      "node_ids": [
+        "whiskey_bend_road_junction"
+      ],
+      "node_note": "Griff Creek joins the Elwha near the old ranger station (no node).",
+      "sources": [
+        "NPS_HRS1983"
+      ],
+      "confidence": "high"
+    },
+    {
+      "date": "1890-02-27",
+      "date_precision": "day",
+      "event": "South end of what later became Lake Mills: beyond here nobody in the settlements could tell them anything. Half the supplies are already gone.",
+      "node_ids": [
+        "whiskey_bend_trailhead",
+        "glines_canyon_overlook"
+      ],
+      "node_note": "The old lakebed below Whiskey Bend; no node at the former south shore.",
+      "sources": [
+        "PDN2009b",
+        "PDN2023a"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "date": "1890-02-28",
+      "date_precision": "day",
+      "event": "A member kills a bobcat where a creek meets the Elwha; they call it Wildcat Creek (today's Cat Creek).",
+      "node_ids": [
+        "whiskey_bend_trailhead"
+      ],
+      "node_note": "GNIS places a Cat Creek mouth at 47.971 N, 123.594 W, on the west side just downstream of Whiskey Bend.",
+      "sources": [
+        "WIKI",
+        "GNIS"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "date": "1890-03",
+      "date_precision": "month",
+      "event": "Goblin Gates: the whole Elwha pours through a slot of rock about 12 ft wide. Barnes sees faces in the rock and names it. Christie catches fourteen trout in half an hour nearby; deer show no fear.",
+      "node_ids": [
+        "goblins_gate",
+        "rica_canyon_junction"
+      ],
+      "sources": [
+        "MTN1907",
+        "PDN2001",
+        "PDN2009b"
+      ],
+      "confidence": "high"
+    },
+    {
+      "date": "1890-03",
+      "date_precision": "month",
+      "event": "Geyser Valley: they hear booming bursts that speed up and stop, every few days, and decide they must be geysers. They build a smokehouse and live on elk, deer and steelhead. Everyone has dysentery.",
+      "node_ids": [
+        "krause_bottom",
+        "humes_ranch",
+        "michaels_cabin"
+      ],
+      "sources": [
+        "MTN1907",
+        "PDN2009b",
+        "PDN2023b"
+      ],
+      "confidence": "medium",
+      "game_use": "The noise was most likely ruffed grouse drumming (PDN2009b). A good mystery for a camp night in Geyser Valley."
+    },
+    {
+      "date": "1890-03-21",
+      "date_precision": "day",
+      "event": "Crumback stakes a squatter's claim by the river.",
+      "node_ids": [
+        "humes_ranch"
+      ],
+      "node_note": "Exact spot not stated in the sources read.",
+      "sources": [
+        "PDN2009b"
+      ],
+      "confidence": "low"
+    },
+    {
+      "date": "1890-03/04",
+      "date_precision": "approximate",
+      "event": "Barnes finds very old blazes healed into tree trunks (one with about 210 growth rings over the cut) and old 'wringing posts' used to dress hides, between Geyser Valley and the Lillian River.",
+      "node_ids": [
+        "long_ridge_trail_junction",
+        "lillian_river_trail_junction"
+      ],
+      "sources": [
+        "MTN1907"
+      ],
+      "confidence": "medium",
+      "game_use": "Evidence that people knew these valleys long before 1890. See indigenous_notes."
+    },
+    {
+      "date": "1890-04-01",
+      "date_precision": "day",
+      "event": "They reach the Lillian River, which they name.",
+      "node_ids": [
+        "lillian_river_trail_junction",
+        "lillian_camp"
+      ],
+      "sources": [
+        "NPS_HRS1983",
+        "PDN2009b"
+      ],
+      "confidence": "high"
+    },
+    {
+      "date": "1890-04 (early)",
+      "date_precision": "approximate",
+      "event": "Up the Elwha past a great landslide and the 'Semple Plateau', a flat bench on the west side that Barnes takes for an old village site, into the wide upper valley they call Press Valley. Waist-deep snow at camp. In April, gunshots near the main camp set off a scare about strangers.",
+      "node_ids": [
+        "mary_falls_camp",
+        "canyon_camp",
+        "elkhorn",
+        "remanns_cabin"
+      ],
+      "node_note": "GNIS puts Semple Plateau at 47.843 N, 123.474 W, on the west side between remanns_cabin and hayes_river.",
+      "sources": [
+        "MTN1907",
+        "PDN2009b",
+        "ST1997",
+        "GNIS"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "date": "1890-04 (Press Valley)",
+      "date_precision": "approximate",
+      "event": "The dog Dike is killed by a bull elk in Press Valley.",
+      "node_ids": [
+        "elkhorn",
+        "hayes_river"
+      ],
+      "sources": [
+        "ST1997",
+        "PDN2023b"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "date": "1890-04-19",
+      "date_precision": "day",
+      "event": "A scouting party sees a gap leading away from the Elwha. The party turns up the Goldie River: the wrong way, into steep, trackless side country. Around now the exhausted mule Dollie is turned loose.",
+      "node_ids": [
+        "remanns_cabin",
+        "hayes_river"
+      ],
+      "node_note": "Goldie River mouth at 47.840 N, 123.470 W (GNIS), next to remanns_cabin; the Goldie itself has no trail or node.",
+      "sources": [
+        "PDN2009b",
+        "PDN2023b",
+        "WOOD1967"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "date": "1890-04 (late)",
+      "date_precision": "approximate",
+      "event": "Climbing out of the Goldie with 75-lb packs through snow said to be up to 15 ft deep. From the high ground Christie and Barnes see over the divide ahead, and from then on it is 'one pack to a man', no more relaying.",
+      "node_ids": [
+        "camp_wilder"
+      ],
+      "node_note": "Upper Goldie and the ridges north of Mount Wilder (no trail or node).",
+      "sources": [
+        "PDN2009b"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "date": "1890-04-27",
+      "date_precision": "day",
+      "event": "They name the Bailey Range, after the Press's owner William E. Bailey.",
+      "node_ids": [],
+      "node_note": "Seen from the Goldie/Elwha divide; the range is visible from hurricane_ridge_visitor_center.",
+      "sources": [
+        "WIKI"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "date": "1890-04-29",
+      "date_precision": "day",
+      "event": "Christie and Barnes name Mount Seattle for the city.",
+      "node_ids": [
+        "low_divide"
+      ],
+      "node_note": "Mount Seattle rises west of Low Divide.",
+      "sources": [
+        "WIKI"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "date": "1890-05-01",
+      "date_precision": "day",
+      "event": "Camp in the upper Goldie drainage below Mount Wilder; then they drop back to the upper Elwha valley floor (about four hours down).",
+      "node_ids": [
+        "camp_wilder"
+      ],
+      "sources": [
+        "NPS_HRS1983",
+        "PDN2009b"
+      ],
+      "confidence": "high"
+    },
+    {
+      "date": "1890-05-04",
+      "date_precision": "day",
+      "event": "Up the last of the Elwha, past the place later called Chicago Camp, toward the gap between Mount Seattle and Mount Christie.",
+      "node_ids": [
+        "chicago_camp",
+        "happy_hollow"
+      ],
+      "node_note": "No evidence in these sources that the party entered elwha_basin itself; the basin is the view to the west.",
+      "sources": [
+        "PDN2009c"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "date": "1890-05-05",
+      "date_precision": "day",
+      "event": "They name Lake Mary and Lake Margaret and find the pass, which they call Elwha Pass (today's Low Divide, 3,602 ft in our data). A hole in the snow by a big rock shows water running south: they are over the top.",
+      "node_ids": [
+        "lake_margaret",
+        "low_divide"
+      ],
+      "sources": [
+        "PDN2009c",
+        "MTN1907",
+        "NPS_EXPL",
+        "GNIS"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "date": "1890-05 (first half)",
+      "date_precision": "approximate",
+      "event": "Just past the divide, with almost nothing left but flour soup, the dogs bring three bears to bay. The meat (and the men drinking bear grease straight from the pan) saves them from starving.",
+      "node_ids": [
+        "low_divide",
+        "skyline_north_fork_trail_junction",
+        "sixteen_mile_camp"
+      ],
+      "sources": [
+        "PDN2009c",
+        "ST1997",
+        "PDN2023b"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "date": "1890-05 (mid)",
+      "date_precision": "approximate",
+      "event": "Snow gives way to rain and dark rain forest on the North Fork Quinault. They pass the Rustler Creek confluence in mid-May.",
+      "node_ids": [
+        "sixteen_mile_camp",
+        "trapper_shelter",
+        "elip_creek_camp",
+        "halfway_house_camp",
+        "wolf_bar_camp"
+      ],
+      "node_note": "Rustler Creek's exact position relative to our nodes was not verified.",
+      "sources": [
+        "NPS_HRS1983",
+        "PDN2009c"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "date": "1890-05-17",
+      "date_precision": "day",
+      "event": "At the junction of the North Fork and the main Quinault they find an empty trapper's cabin, the first sign of other people in about 80 days. That night they eat the last of the flour.",
+      "node_ids": [
+        "north_fork_quinault_trailhead"
+      ],
+      "node_note": "The forks are below the North Fork trailhead (no node).",
+      "sources": [
+        "PDN2009c"
+      ],
+      "confidence": "high"
+    },
+    {
+      "date": "1890-05-18 (approx.)",
+      "date_precision": "approximate",
+      "event": "Their raft is swept under a driftwood jam. They lose guns, ammunition, bear skins, fishing tackle and most rock samples. Barnes saves the pack with the journals, about 250 negatives and the map.",
+      "node_ids": [],
+      "node_note": "Main Quinault between the forks and Lake Quinault (no node).",
+      "sources": [
+        "PDN2009c",
+        "WS1890"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "date": "1890-05-18/19",
+      "date_precision": "approximate",
+      "event": "Settler Frederick S. Antrim of Aberdeen and two Quinault men in a canoe find them; Antrim later canoes them to his cabin near Lake Quinault and feeds them.",
+      "node_ids": [
+        "kestner_homestead",
+        "quinault_rain_forest_ranger_station"
+      ],
+      "node_note": "Upper end of Lake Quinault, where homesteading began in 1889 (see kestner_homestead).",
+      "sources": [
+        "PDN2009c",
+        "SDRU1890"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "date": "1890-05-19",
+      "date_precision": "day",
+      "event": "They reach Lake Quinault.",
+      "node_ids": [
+        "lake_quinault_lodge_area",
+        "quinault_rain_forest_ranger_station"
+      ],
+      "sources": [
+        "NPS_HRS1983"
+      ],
+      "confidence": "high"
+    },
+    {
+      "date": "1890-05-20",
+      "date_precision": "day",
+      "event": "By canoe down the lake and river to the Quinault Indian Agency at the river mouth (Taholah), on the Pacific.",
+      "node_ids": [],
+      "node_note": "Taholah is outside the park and not in our region data.",
+      "sources": [
+        "NPS_HRS1983",
+        "NPS_EXPL",
+        "PDN2009c"
+      ],
+      "confidence": "high"
+    },
+    {
+      "date": "1890-05-21",
+      "date_precision": "day",
+      "event": "Five ragged men sail into Aberdeen at 2 a.m.; telegrams from the Press are waiting. Photographed in their rags.",
+      "node_ids": [],
+      "sources": [
+        "SDRU1890",
+        "NPS_HRS1983",
+        "PDN2009c"
+      ],
+      "confidence": "high"
+    },
+    {
+      "date": "1890-05-23",
+      "date_precision": "day",
+      "event": "Back in Seattle, 166 days after leaving.",
+      "node_ids": [],
+      "sources": [
+        "PDN2009c"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "date": "1890-06-24",
+      "date_precision": "day",
+      "event": "The Evening Star reports Christie hired as foreman of the National Geographic Society's Mount St. Elias expedition, taking two famous bear dogs.",
+      "node_ids": [],
+      "sources": [
+        "ES1890"
+      ],
+      "confidence": "high"
+    },
+    {
+      "date": "1890-07-16",
+      "date_precision": "day",
+      "event": "The Seattle Press publishes the report (Wednesday evening): a 24-page edition, with the story on 10 to 16 pages, many engravings from Barnes's photographs, and his map.",
+      "node_ids": [],
+      "sources": [
+        "FH1890",
+        "SPI1890a",
+        "SDRU1890",
+        "PDN2009c"
+      ],
+      "confidence": "high"
+    },
+    {
+      "date": "1890-09-30",
+      "date_precision": "day",
+      "event": "The rival Post-Intelligencer reprints a later party's complaint that the Press blazes give out and that no geysers could be heard.",
+      "node_ids": [
+        "goblins_gate",
+        "humes_ranch"
+      ],
+      "sources": [
+        "SPI1890b"
+      ],
+      "confidence": "high"
+    }
+  ],
+  "memorable_events": [
+    {
+      "id": "ev_challenge",
+      "title": "The governor's dare",
+      "date": "1889-10/11",
+      "node_ids": [
+        "port_angeles_wic"
+      ],
+      "summary": "Gov. Ferry called the Olympic interior Washington's great unknown and the Seattle Press dared its readers to explore it. Christie wrote in from North Yakima offering to lead a party, the Press paid for it, and six men left Seattle in December - in winter, so they could be deep in the range by spring.",
+      "sources": [
+        "PDN2009a",
+        "NPS_HRS1983",
+        "MTN1907",
+        "WOOD1967"
+      ]
+    },
+    {
+      "id": "ev_colored_fire",
+      "title": "Fifty pounds of fireworks",
+      "date": "1889-12",
+      "node_ids": [
+        "whiskey_bend_road_junction"
+      ],
+      "summary": "The outfit included 50 lb of colored fire to set off on a peak where Seattle could see it. It was on the mule Jennie when she fell off the Devil's Backbone.",
+      "sources": [
+        "SDRU1890",
+        "ST1997"
+      ]
+    },
+    {
+      "id": "ev_gertie",
+      "title": "The boat Gertie",
+      "date": "1889-12-30 to 1890-01-23",
+      "node_ids": [
+        "madison_falls_trailhead"
+      ],
+      "summary": "A leaky 30-ft flat-bottomed boat hauled up the winter Elwha by men standing in icy water. On Jan. 14 they gained a quarter mile. After about ten days and only a few miles she was left on the bank.",
+      "sources": [
+        "SDRU1890",
+        "MTN1907",
+        "NPS_EXPL",
+        "PDN2023a"
+      ],
+      "quotes": [
+        "q06",
+        "q07",
+        "q10",
+        "q11",
+        "q12",
+        "q13",
+        "q14"
+      ]
+    },
+    {
+      "id": "ev_relays",
+      "title": "Relays in the snow",
+      "date": "1890-01 to 1890-04",
+      "node_ids": [
+        "whiskey_bend_road_junction",
+        "whiskey_bend_trailhead"
+      ],
+      "summary": "Snowbound for two weeks, then moving camp in 50-lb packs, each man walking the same stretch eight times. Some days a mile and a half was all they could move.",
+      "sources": [
+        "PDN2009b",
+        "ST1997"
+      ],
+      "quotes": [
+        "q03",
+        "q04",
+        "q05",
+        "q08",
+        "q09"
+      ]
+    },
+    {
+      "id": "ev_jennie",
+      "title": "Jennie falls",
+      "date": "1890-02 (approx.)",
+      "node_ids": [
+        "whiskey_bend_road_junction"
+      ],
+      "summary": "On the steep Devil's Backbone ridge the mule Jennie slipped and fell to her death. Everything she carried went onto the men's backs.",
+      "sources": [
+        "PDN2009b",
+        "PDN2023a",
+        "ST1997",
+        "SDRU1890"
+      ]
+    },
+    {
+      "id": "ev_goblin_gates",
+      "title": "The Goblin Gates",
+      "date": "1890-03",
+      "node_ids": [
+        "goblins_gate"
+      ],
+      "summary": "Barnes saw faces in the rock where the Elwha squeezes through a 12-ft slot and named it. Robert L. Wood later wrote an article titled 'The Goblin Gates Refound'.",
+      "sources": [
+        "MTN1907",
+        "PDN2001",
+        "UW_WOOD_FA"
+      ],
+      "quotes": [
+        "q29",
+        "s01",
+        "s02"
+      ]
+    },
+    {
+      "id": "ev_geysers",
+      "title": "The geysers that weren't",
+      "date": "1890-03",
+      "node_ids": [
+        "krause_bottom",
+        "humes_ranch"
+      ],
+      "summary": "In the valley they named Geyser Valley the men heard bursts that started slow, sped up and stopped, and blamed hidden geysers. Nobody ever found one. The sound fits a drumming ruffed grouse.",
+      "sources": [
+        "MTN1907",
+        "PDN2009b",
+        "SPI1890b"
+      ],
+      "quotes": [
+        "q30",
+        "q31",
+        "q47",
+        "q48"
+      ]
+    },
+    {
+      "id": "ev_old_blazes",
+      "title": "Older blazes than theirs",
+      "date": "1890-03/04",
+      "node_ids": [
+        "long_ridge_trail_junction",
+        "lillian_river_trail_junction"
+      ],
+      "summary": "Cutting their own three-blaze trail, the party found far older cuts healed over in living trees, and posts for working hides: signs that people had travelled these valleys long before 1890.",
+      "sources": [
+        "MTN1907"
+      ],
+      "quotes": [
+        "q27"
+      ],
+      "caution": "See indigenous_notes; consult before dramatizing."
+    },
+    {
+      "id": "ev_dysentery",
+      "title": "Sick and half-fed",
+      "date": "1890-02/03",
+      "node_ids": [
+        "humes_ranch"
+      ],
+      "summary": "By the end of February half the food was gone and every man had dysentery. They smoked elk, deer and steelhead in Geyser Valley to stretch the flour.",
+      "sources": [
+        "PDN2023a",
+        "PDN2023b"
+      ],
+      "quotes": [
+        "q16",
+        "q38"
+      ]
+    },
+    {
+      "id": "ev_dike",
+      "title": "Dike and the elk",
+      "date": "1890-04",
+      "node_ids": [
+        "elkhorn",
+        "hayes_river"
+      ],
+      "summary": "In Press Valley a bull elk kicked the dog Dike in the head and killed him.",
+      "sources": [
+        "ST1997",
+        "PDN2023b"
+      ],
+      "quotes": [
+        "q36"
+      ]
+    },
+    {
+      "id": "ev_goldie",
+      "title": "The wrong way up the Goldie",
+      "date": "1890-04",
+      "node_ids": [
+        "remanns_cabin",
+        "camp_wilder"
+      ],
+      "summary": "Thinking a side valley was the way to the Quinault, they spent days in steep, trackless side country, climbing out through deep snow with heavy packs. Dollie the mule lay down there and was set free. Their own trail notes later told others to keep to Press Valley instead.",
+      "sources": [
+        "PDN2009b",
+        "PDN2023b",
+        "MTN1907",
+        "WOOD1967"
+      ],
+      "quotes": [
+        "q17",
+        "q18",
+        "q28"
+      ]
+    },
+    {
+      "id": "ev_naming",
+      "title": "Naming the range",
+      "date": "1890-04-27 to 1890-05-05",
+      "node_ids": [
+        "low_divide",
+        "lake_margaret"
+      ],
+      "summary": "From the high ground they named the Bailey Range, Mount Seattle, Mount Christie and dozens more, mostly after newspapermen. Lake Mary and Lake Margaret and 'Elwha Pass' came last.",
+      "sources": [
+        "SDRU1890",
+        "WIKI",
+        "PDN2009c"
+      ],
+      "quotes": [
+        "q45",
+        "q46"
+      ]
+    },
+    {
+      "id": "ev_bears",
+      "title": "Three bears at the divide",
+      "date": "1890-05",
+      "node_ids": [
+        "low_divide",
+        "sixteen_mile_camp"
+      ],
+      "summary": "Down to flour soup after the dogs got into the bacon, the men were saved when the dogs brought three bears to bay just past the divide. They drank the grease straight from the pan.",
+      "sources": [
+        "PDN2009c",
+        "ST1997",
+        "PDN2023b"
+      ],
+      "caution": "Modern parallel for the game: food storage and bear canisters (park rules), never hunting."
+    },
+    {
+      "id": "ev_raft",
+      "title": "The raft and the records",
+      "date": "1890-05-18 (approx.)",
+      "node_ids": [],
+      "summary": "On the main Quinault their raft went under a driftwood jam. Guns, ammunition, skins and specimens were lost; Barnes saved the pack holding the journals, the negatives and the map.",
+      "sources": [
+        "PDN2009c",
+        "WS1890"
+      ],
+      "quotes": [
+        "q43",
+        "q44"
+      ]
+    },
+    {
+      "id": "ev_rescue",
+      "title": "Antrim's cabin",
+      "date": "1890-05-18/19",
+      "node_ids": [
+        "kestner_homestead"
+      ],
+      "summary": "The settler Frederick S. Antrim, travelling with two Quinault men by canoe, found them and fed them at his cabin near Lake Quinault. The party later named an 'Antrim Range' for him.",
+      "sources": [
+        "PDN2009c",
+        "SDRU1890"
+      ],
+      "quotes": [
+        "s03",
+        "s04"
+      ]
+    },
+    {
+      "id": "ev_aberdeen",
+      "title": "Aberdeen, 2 a.m.",
+      "date": "1890-05-21",
+      "node_ids": [],
+      "summary": "Five ragged men reached Aberdeen in the small hours, found telegrams from the Press, and wired for money to get home.",
+      "sources": [
+        "SDRU1890",
+        "PDN2009c"
+      ],
+      "quotes": [
+        "q01",
+        "q15",
+        "q19",
+        "s05"
+      ]
+    },
+    {
+      "id": "ev_report",
+      "title": "The July 16 report",
+      "date": "1890-07-16",
+      "node_ids": [],
+      "summary": "The Press printed a 24-page edition with the story, engravings made from Barnes's photographs and his map. Other papers praised it; the rival P-I predicted the names would not last and later printed a critic who could not find the blazes or hear the geysers.",
+      "sources": [
+        "FH1890",
+        "SPI1890a",
+        "SPI1890b",
+        "SDRU1890"
+      ],
+      "quotes": [
+        "q41",
+        "q42",
+        "q45",
+        "q47"
+      ]
+    },
+    {
+      "id": "ev_epilogue_dogs",
+      "title": "Epilogue: to Alaska",
+      "date": "1890-06",
+      "node_ids": [],
+      "summary": "A month after the crossing Christie signed on for the National Geographic Society's Mount St. Elias expedition and took two of the bear dogs with him.",
+      "sources": [
+        "ES1890"
+      ],
+      "quotes": [
+        "q51"
+      ]
+    }
+  ],
+  "place_names_summary": {
+    "how_many": "MTN1907 says about fifty names were given. The SDRU1890 list prints 47 entries (including the Elwha, which it explains as 'an Indian name signifying elk' - an 1890 claim the game should not repeat as fact without the Lower Elwha Klallam Tribe). NPS (1983) counted at least eighteen still in use.",
+    "pattern": "Mostly the party's own members and the country's newspaper owners and editors, chosen to win the national press's attention. The rival Seattle P-I predicted on July 17, 1890 that the names would not last (see quote q45-q46); about half did not.",
+    "verify_before_use": "Name shifts (Barnes/Wilder/Childs, Ferry/Pulitzer, Lawson/Grady) come from Wikipedia, which traces them to Wood and to Parratt's Gods & Goblins (1984). Check them in Wood before printing them."
+  },
+  "place_names": [
+    {
+      "name_1890": "Mount Christie",
+      "honoree": "James H. Christie, chief of the Press expedition",
+      "attested_in": "SDRU1890 list",
+      "survives_today": "yes_official",
+      "modern_name": "Mount Christie",
+      "gnis": "Summit, Jefferson Co., 47.6979 N 123.5454 W",
+      "node_ids_nearby": [
+        "low_divide",
+        "lake_margaret"
+      ],
+      "notes": "MTN1907 gives the 1890 height as 7,450 ft. The Christie Glacier is in its north cirque.",
+      "sources": [
+        "SDRU1890",
+        "GNIS"
+      ]
+    },
+    {
+      "name_1890": "Mount Barnes",
+      "honoree": "Captain Charles A. Barnes of the Press expedition",
+      "attested_in": "SDRU1890 list",
+      "survives_today": "yes_but_moved",
+      "modern_name": "Mount Barnes (on a different peak)",
+      "gnis": "Summit, Jefferson Co., 47.7839 N 123.5761 W",
+      "node_ids_nearby": [
+        "elwha_basin"
+      ],
+      "notes": "Per Wikipedia (from Parratt/Wood), the party's Mount Barnes is today's Mount Wilder; today's Mount Barnes was their 'Mount Childs'.",
+      "sources": [
+        "SDRU1890",
+        "GNIS",
+        "WIKI"
+      ]
+    },
+    {
+      "name_1890": "Mount Childs",
+      "honoree": "George W. Childs, proprietor of the Philadelphia Ledger (the 1890 list misprints 'George Washington Childs')",
+      "attested_in": "SDRU1890 list",
+      "survives_today": "unofficial_and_moved",
+      "modern_name": "Mount Childs (unofficial, about 2 mi north of Mount Barnes)",
+      "node_ids_nearby": [],
+      "notes": "Not in GNIS.",
+      "sources": [
+        "SDRU1890",
+        "GNIS",
+        "WIKI"
+      ]
+    },
+    {
+      "name_1890": "Mount Meany",
+      "honoree": "Edmond S. Meany of the Seattle Press (later UW professor and Mountaineers president)",
+      "attested_in": "SDRU1890 list",
+      "survives_today": "yes_official",
+      "modern_name": "Mount Meany",
+      "gnis": "Summit, Jefferson Co., 47.7508 N 123.5977 W",
+      "node_ids_nearby": [
+        "elwha_basin",
+        "low_divide"
+      ],
+      "sources": [
+        "SDRU1890",
+        "GNIS"
+      ]
+    },
+    {
+      "name_1890": "Mount Seattle",
+      "honoree": "The city of Seattle (named April 29, 1890 per Wikipedia)",
+      "attested_in": "SDRU1890 list",
+      "survives_today": "yes_official",
+      "modern_name": "Mount Seattle",
+      "gnis": "Summit, Jefferson Co., 47.7310 N 123.5776 W",
+      "node_ids_nearby": [
+        "low_divide",
+        "seattle_creek_crossing"
+      ],
+      "notes": "1890 altitude given as 7,700 ft (SDRU1890, MTN1907).",
+      "sources": [
+        "SDRU1890",
+        "GNIS",
+        "WIKI"
+      ]
+    },
+    {
+      "name_1890": "Mount Ferry",
+      "honoree": "Elisha P. Ferry, Governor of Washington",
+      "attested_in": "SDRU1890 list",
+      "survives_today": "yes_but_moved",
+      "modern_name": "Mount Ferry (moved to the peak NE of the original)",
+      "gnis": "Summit, Jefferson Co., 47.8426 N 123.5681 W",
+      "node_ids_nearby": [
+        "hurricane_ridge_visitor_center"
+      ],
+      "notes": "The name first sat on today's Mount Pulitzer (Snagtooth). Visible from Hurricane Ridge in clear weather.",
+      "sources": [
+        "SDRU1890",
+        "GNIS",
+        "WIKI"
+      ]
+    },
+    {
+      "name_1890": "Mount Pulitzer",
+      "honoree": "Joseph Pulitzer, proprietor of the New York World",
+      "attested_in": "SDRU1890 list",
+      "survives_today": "unofficial_and_moved",
+      "modern_name": "Mount Pulitzer, also called Snagtooth (unofficial)",
+      "node_ids_nearby": [
+        "hurricane_ridge_visitor_center"
+      ],
+      "notes": "Not in GNIS. Now on the peak first called Mount Ferry.",
+      "sources": [
+        "SDRU1890",
+        "GNIS",
+        "WIKI"
+      ]
+    },
+    {
+      "name_1890": "Mount Noyes",
+      "honoree": "Crosby S. Noyes of the Washington (D.C.) Star",
+      "attested_in": "SDRU1890 list",
+      "survives_today": "yes_official",
+      "modern_name": "Mount Noyes",
+      "gnis": "Summit, Jefferson Co., 47.7397 N 123.5948 W",
+      "node_ids_nearby": [
+        "seattle_creek_crossing"
+      ],
+      "sources": [
+        "SDRU1890",
+        "GNIS"
+      ]
+    },
+    {
+      "name_1890": "Mount Scott",
+      "honoree": "James W. Scott of the Chicago Herald",
+      "attested_in": "SDRU1890 list",
+      "survives_today": "yes_official",
+      "modern_name": "Mount Scott",
+      "gnis": "Summit, Jefferson Co., 47.8410 N 123.5298 W",
+      "node_ids_nearby": [
+        "remanns_cabin"
+      ],
+      "notes": "Bailey Range, above the Goldie River.",
+      "sources": [
+        "SDRU1890",
+        "GNIS"
+      ]
+    },
+    {
+      "name_1890": "Mount Dana",
+      "honoree": "Charles A. Dana, editor and proprietor of the New York Sun",
+      "attested_in": "SDRU1890 list",
+      "survives_today": "yes_official",
+      "modern_name": "Mount Dana",
+      "gnis": "Summit, Jefferson Co., 47.7913 N 123.4856 W",
+      "node_ids_nearby": [
+        "camp_wilder",
+        "hayes_river"
+      ],
+      "sources": [
+        "SDRU1890",
+        "GNIS"
+      ]
+    },
+    {
+      "name_1890": "Mount Lawson",
+      "honoree": "Victor F. Lawson, editor of the Chicago News",
+      "attested_in": "SDRU1890 list",
+      "survives_today": "yes_but_moved",
+      "modern_name": "Mount Lawson",
+      "gnis": "Summit, Jefferson Co., 47.6563 N 123.5884 W",
+      "node_ids_nearby": [
+        "sixteen_mile_camp",
+        "elip_creek_camp"
+      ],
+      "notes": "Mapmakers shifted the name; the peak first given it (or 'Grady') is now officially unnamed per Wikipedia.",
+      "sources": [
+        "SDRU1890",
+        "GNIS",
+        "WIKI",
+        "MTN1907"
+      ]
+    },
+    {
+      "name_1890": "Mount Zundore / Mt. Zindorf",
+      "honoree": "Not given in 1890",
+      "attested_in": "SDRU1890 list ('Mount Zundore.'); MTN1907 ('Mt. Zindorf')",
+      "survives_today": "unofficial",
+      "modern_name": "Mount Zindorf (unofficial)",
+      "node_ids_nearby": [
+        "sixteen_mile_camp"
+      ],
+      "notes": "Not in GNIS; namesake unknown.",
+      "sources": [
+        "SDRU1890",
+        "MTN1907",
+        "GNIS",
+        "WIKI"
+      ]
+    },
+    {
+      "name_1890": "Mount Hearst",
+      "honoree": "W. R. Hearst, proprietor of the San Francisco Examiner",
+      "attested_in": "SDRU1890 list",
+      "survives_today": "no_renamed",
+      "modern_name": "Mount Queets",
+      "gnis": "Mount Queets: Summit, Jefferson Co., 47.7623 N 123.5950 W",
+      "node_ids_nearby": [],
+      "notes": "'Queets' comes from the Queets people's name (Wikipedia); consult the Quinault Indian Nation before telling that story.",
+      "sources": [
+        "SDRU1890",
+        "GNIS",
+        "WIKI"
+      ]
+    },
+    {
+      "name_1890": "Mount Grady",
+      "honoree": "The late Henry Grady, editor of the Atlanta Constitution",
+      "attested_in": "SDRU1890 list",
+      "survives_today": "no",
+      "modern_name": null,
+      "node_ids_nearby": [
+        "sixteen_mile_camp"
+      ],
+      "notes": "Its peak was later labeled 'Jingo Peak' and is now officially unnamed (Wikipedia).",
+      "sources": [
+        "SDRU1890",
+        "WIKI",
+        "GNIS"
+      ]
+    },
+    {
+      "name_1890": "Bailey Range",
+      "honoree": "William E. Bailey of Seattle, proprietor of the Seattle Press (named April 27, 1890 per Wikipedia)",
+      "attested_in": "SDRU1890 list",
+      "survives_today": "yes_official",
+      "modern_name": "Bailey Range (BGN 1961)",
+      "gnis": "Range, Jefferson Co., 47.8518 N 123.5977 W",
+      "node_ids_nearby": [
+        "hurricane_ridge_visitor_center",
+        "remanns_cabin"
+      ],
+      "notes": "MTN1907 calls it the backbone of the Olympics.",
+      "sources": [
+        "SDRU1890",
+        "GNIS",
+        "WIKI",
+        "MTN1907"
+      ]
+    },
+    {
+      "name_1890": "Burke Range",
+      "honoree": "Judge Thomas Burke of Seattle",
+      "attested_in": "SDRU1890 list",
+      "survives_today": "no",
+      "modern_name": null,
+      "node_ids_nearby": [],
+      "notes": "Their name for the range dividing the Elwha from the Skokomish.",
+      "sources": [
+        "SDRU1890",
+        "MTN1907",
+        "GNIS"
+      ]
+    },
+    {
+      "name_1890": "Goblin Gates",
+      "honoree": "Descriptive: the faces Barnes saw in the rock",
+      "attested_in": "MTN1907; PDN2001 (Barnes's journal)",
+      "survives_today": "yes_official",
+      "modern_name": "Goblin Gates (GNIS); 'Goblins Gate' on park signs and in our node id",
+      "gnis": "Gap, Clallam Co., 47.9562 N 123.5746 W",
+      "node_ids_nearby": [
+        "goblins_gate"
+      ],
+      "notes": "MTN1907 also calls the gorge below it 'Goblin Canyon'. Robert L. Wood wrote an article titled 'The Goblin Gates Refound' (UW_WOOD_FA).",
+      "sources": [
+        "MTN1907",
+        "GNIS",
+        "PDN2001"
+      ]
+    },
+    {
+      "name_1890": "Geyser Valley",
+      "honoree": "The mysterious booming they took for geysers",
+      "attested_in": "SDRU1890 list; MTN1907",
+      "survives_today": "yes_official",
+      "modern_name": "Geyser Valley",
+      "gnis": "Valley, Clallam Co., 47.9564 N 123.5754 W",
+      "node_ids_nearby": [
+        "krause_bottom",
+        "humes_ranch",
+        "goblins_gate"
+      ],
+      "sources": [
+        "SDRU1890",
+        "MTN1907",
+        "GNIS"
+      ]
+    },
+    {
+      "name_1890": "Press Valley",
+      "honoree": "The Seattle Press",
+      "attested_in": "MTN1907",
+      "survives_today": "informal",
+      "modern_name": "Press Valley (in use in guides and Wikipedia; not in GNIS)",
+      "node_ids_nearby": [
+        "elkhorn",
+        "hayes_river",
+        "camp_wilder"
+      ],
+      "notes": "MTN1907: 30 miles long, 1-3 miles wide, rising from 1,800 to 2,500 ft. The Hayes River joins the Elwha in it.",
+      "sources": [
+        "MTN1907",
+        "GNIS",
+        "WIKI"
+      ]
+    },
+    {
+      "name_1890": "Lillian River",
+      "honoree": "A first name only (namesake not identified in these sources)",
+      "attested_in": "NPS_HRS1983; PDN2009b; ST1997",
+      "survives_today": "yes_official",
+      "modern_name": "Lillian River",
+      "gnis": "Stream, Clallam Co., 47.9312 N 123.5269 W",
+      "node_ids_nearby": [
+        "lillian_river_trail_junction",
+        "lillian_camp"
+      ],
+      "sources": [
+        "GNIS",
+        "NPS_HRS1983",
+        "ST1997"
+      ]
+    },
+    {
+      "name_1890": "Lake Mary",
+      "honoree": "A first name only (namesake not identified)",
+      "attested_in": "MTN1907; PDN2009c",
+      "survives_today": "yes_official",
+      "modern_name": "Lake Mary",
+      "gnis": "Lake, Jefferson Co., 47.7254 N 123.5483 W",
+      "node_ids_nearby": [
+        "lake_margaret",
+        "low_divide"
+      ],
+      "sources": [
+        "MTN1907",
+        "GNIS",
+        "PDN2009c"
+      ]
+    },
+    {
+      "name_1890": "Lake Margaret",
+      "honoree": "A first name only (namesake not identified)",
+      "attested_in": "MTN1907; PDN2009c",
+      "survives_today": "yes_official",
+      "modern_name": "Lake Margaret",
+      "gnis": "Lake, Jefferson Co., 47.7242 N 123.5508 W",
+      "node_ids_nearby": [
+        "lake_margaret"
+      ],
+      "sources": [
+        "MTN1907",
+        "GNIS",
+        "PDN2009c"
+      ]
+    },
+    {
+      "name_1890": "Elwha Pass",
+      "honoree": "Descriptive",
+      "attested_in": "NPS_EXPL; PDN2009c",
+      "survives_today": "no_renamed",
+      "modern_name": "Low Divide",
+      "gnis": "Low Divide: Gap, Jefferson Co., 47.7248 N 123.5546 W",
+      "node_ids_nearby": [
+        "low_divide"
+      ],
+      "sources": [
+        "NPS_EXPL",
+        "PDN2009c",
+        "GNIS"
+      ]
+    },
+    {
+      "name_1890": "Goldie River",
+      "honoree": "Not identified in these sources",
+      "attested_in": "MTN1907",
+      "survives_today": "yes_official",
+      "modern_name": "Goldie River",
+      "gnis": "Stream, Jefferson Co., 47.8395 N 123.4696 W",
+      "node_ids_nearby": [
+        "remanns_cabin"
+      ],
+      "notes": "Treat as a Press-era name with caution: MTN1907 uses it, but no source here says the party coined it.",
+      "sources": [
+        "MTN1907",
+        "GNIS"
+      ]
+    },
+    {
+      "name_1890": "Semple Plateau",
+      "honoree": "Eugene Semple, former governor of Washington Territory",
+      "attested_in": "MTN1907; ST1997",
+      "survives_today": "yes_official",
+      "modern_name": "Semple Plateau",
+      "gnis": "Bench, Jefferson Co., 47.8434 N 123.4735 W",
+      "node_ids_nearby": [
+        "remanns_cabin",
+        "hayes_river"
+      ],
+      "sources": [
+        "MTN1907",
+        "GNIS",
+        "ST1997"
+      ]
+    },
+    {
+      "name_1890": "Hayes River",
+      "honoree": "C. O'C. Hayes of the Press expedition",
+      "attested_in": "SDRU1890 list",
+      "survives_today": "yes_official",
+      "modern_name": "Hayes River",
+      "gnis": "Stream, Jefferson Co., 47.8076 N 123.4532 W",
+      "node_ids_nearby": [
+        "hayes_river",
+        "hayden_pass_trail_junction"
+      ],
+      "sources": [
+        "SDRU1890",
+        "GNIS"
+      ]
+    },
+    {
+      "name_1890": "Godkin River",
+      "honoree": "E. L. Godkin, editor of the New York Post",
+      "attested_in": "SDRU1890 list",
+      "survives_today": "yes_as_creek",
+      "modern_name": "Godkin Creek",
+      "gnis": "Stream, Jefferson Co., 47.7595 N 123.4649 W",
+      "node_ids_nearby": [
+        "chicago_camp",
+        "camp_wilder"
+      ],
+      "sources": [
+        "SDRU1890",
+        "GNIS"
+      ]
+    },
+    {
+      "name_1890": "Crumback River",
+      "honoree": "John Crumback of the Press expedition",
+      "attested_in": "SDRU1890 list",
+      "survives_today": "no",
+      "modern_name": "East Fork Quinault River (per MTN1907: 'the east fork, or Crumback River')",
+      "node_ids_nearby": [],
+      "sources": [
+        "SDRU1890",
+        "MTN1907",
+        "GNIS"
+      ]
+    },
+    {
+      "name_1890": "Sims River",
+      "honoree": "John W. Sims of the Press expedition",
+      "attested_in": "SDRU1890 list",
+      "survives_today": "no",
+      "modern_name": null,
+      "node_ids_nearby": [],
+      "notes": "Which stream it was is not identified in these sources.",
+      "sources": [
+        "SDRU1890",
+        "GNIS"
+      ]
+    },
+    {
+      "name_1890": "Alexander River",
+      "honoree": "Alexander Christie of Edinburgh, Scotland",
+      "attested_in": "SDRU1890 list",
+      "survives_today": "no",
+      "modern_name": null,
+      "node_ids_nearby": [],
+      "notes": "A Quinault tributary in their geography; identification uncertain.",
+      "sources": [
+        "SDRU1890",
+        "MTN1907",
+        "GNIS"
+      ]
+    },
+    {
+      "name_1890": "Antrim Range",
+      "honoree": "Frederick S. Antrim of Aberdeen, the settler who rescued and fed them",
+      "attested_in": "SDRU1890 list",
+      "survives_today": "no",
+      "modern_name": null,
+      "node_ids_nearby": [],
+      "sources": [
+        "SDRU1890",
+        "PDN2009c",
+        "GNIS"
+      ]
+    },
+    {
+      "name_1890": "Kemp Range",
+      "honoree": "Alfred C. G. Kemp of Montesano",
+      "attested_in": "SDRU1890 list",
+      "survives_today": "no",
+      "modern_name": null,
+      "node_ids_nearby": [],
+      "sources": [
+        "SDRU1890",
+        "GNIS"
+      ]
+    },
+    {
+      "name_1890": "Chester Valley",
+      "honoree": "Not given in 1890",
+      "attested_in": "SDRU1890 list",
+      "survives_today": "no",
+      "modern_name": null,
+      "node_ids_nearby": [],
+      "sources": [
+        "SDRU1890",
+        "GNIS"
+      ]
+    },
+    {
+      "name_1890": "Wildcat Creek",
+      "honoree": "A bobcat killed at its mouth on Feb 28, 1890",
+      "attested_in": "WIKI (Cat Peak article)",
+      "survives_today": "yes_renamed",
+      "modern_name": "Cat Creek",
+      "gnis": "Cat Creek: Stream, Clallam Co., 47.9709 N 123.5935 W",
+      "node_ids_nearby": [
+        "whiskey_bend_trailhead"
+      ],
+      "sources": [
+        "WIKI",
+        "GNIS"
+      ]
+    },
+    {
+      "name_1890": "Devil's Backbone",
+      "honoree": "Descriptive (the ridge where Jennie fell)",
+      "attested_in": "MTN1907; SPI1890b",
+      "survives_today": "no",
+      "modern_name": null,
+      "node_ids_nearby": [
+        "whiskey_bend_road_junction"
+      ],
+      "notes": "A Sept 1890 critic said the Press picture of it was exaggerated (SPI1890b).",
+      "sources": [
+        "MTN1907",
+        "SPI1890b",
+        "PDN2023a"
+      ]
+    },
+    {
+      "name_1890": "Mount Eldridge",
+      "honoree": "William C. Eldridge of Washington, D.C.",
+      "attested_in": "SDRU1890 list",
+      "survives_today": "no",
+      "modern_name": null,
+      "node_ids_nearby": [
+        "whiskey_bend_road_junction"
+      ],
+      "sources": [
+        "SDRU1890",
+        "MTN1907",
+        "GNIS"
+      ]
+    },
+    {
+      "name_1890": "Mount Fitten",
+      "honoree": "Du Boise Fitten of Seattle",
+      "attested_in": "SDRU1890 list",
+      "survives_today": "no",
+      "modern_name": null,
+      "node_ids_nearby": [
+        "mary_falls_camp"
+      ],
+      "notes": "The trail went around it to a great landslide above the Lillian (MTN1907).",
+      "sources": [
+        "SDRU1890",
+        "MTN1907",
+        "GNIS"
+      ]
+    },
+    {
+      "name_1890": "Mount Angus [sic]",
+      "honoree": "General Felix Agnus of the Baltimore American (the 1890 list prints 'Angus')",
+      "attested_in": "SDRU1890 list",
+      "survives_today": "no",
+      "modern_name": null,
+      "node_ids_nearby": [],
+      "sources": [
+        "SDRU1890",
+        "GNIS"
+      ]
+    },
+    {
+      "name_1890": "Mount Bennett",
+      "honoree": "James Gordon Bennett of the New York Herald",
+      "attested_in": "SDRU1890 list",
+      "survives_today": "no",
+      "modern_name": null,
+      "node_ids_nearby": [],
+      "sources": [
+        "SDRU1890",
+        "GNIS"
+      ]
+    },
+    {
+      "name_1890": "Mount Brown",
+      "honoree": "Amos Brown of Seattle",
+      "attested_in": "SDRU1890 list",
+      "survives_today": "no",
+      "modern_name": null,
+      "node_ids_nearby": [],
+      "sources": [
+        "SDRU1890",
+        "GNIS"
+      ]
+    },
+    {
+      "name_1890": "Mount De Young",
+      "honoree": "M. H. De Young of the San Francisco Chronicle",
+      "attested_in": "SDRU1890 list",
+      "survives_today": "no",
+      "modern_name": null,
+      "node_ids_nearby": [],
+      "sources": [
+        "SDRU1890",
+        "GNIS"
+      ]
+    },
+    {
+      "name_1890": "Mount Egan",
+      "honoree": "John G. Egan, city editor of the Seattle Press",
+      "attested_in": "SDRU1890 list",
+      "survives_today": "no",
+      "modern_name": null,
+      "node_ids_nearby": [],
+      "sources": [
+        "SDRU1890",
+        "GNIS"
+      ]
+    },
+    {
+      "name_1890": "Mount Frazier",
+      "honoree": "S. R. Frazier, editor of the Seattle Press",
+      "attested_in": "SDRU1890 list",
+      "survives_today": "no",
+      "modern_name": null,
+      "node_ids_nearby": [],
+      "sources": [
+        "SDRU1890",
+        "GNIS"
+      ]
+    },
+    {
+      "name_1890": "Mount Goodwin",
+      "honoree": "Judge C. C. Goodwin of the Salt Lake Tribune",
+      "attested_in": "SDRU1890 list",
+      "survives_today": "no",
+      "modern_name": null,
+      "node_ids_nearby": [],
+      "sources": [
+        "SDRU1890",
+        "GNIS"
+      ]
+    },
+    {
+      "name_1890": "Mount Holmes",
+      "honoree": "John H. Holmes, editor of the Boston Herald",
+      "attested_in": "SDRU1890 list",
+      "survives_today": "no",
+      "modern_name": null,
+      "node_ids_nearby": [],
+      "sources": [
+        "SDRU1890",
+        "GNIS"
+      ]
+    },
+    {
+      "name_1890": "Mount Hunt",
+      "honoree": "Leigh S. J. Hunt, proprietor of the Seattle Post-Intelligencer (the rival paper)",
+      "attested_in": "SDRU1890 list",
+      "survives_today": "no",
+      "modern_name": null,
+      "node_ids_nearby": [],
+      "sources": [
+        "SDRU1890",
+        "GNIS"
+      ]
+    },
+    {
+      "name_1890": "Mount Jones",
+      "honoree": "George Jones, editor of the New York Times",
+      "attested_in": "SDRU1890 list",
+      "survives_today": "no",
+      "modern_name": null,
+      "node_ids_nearby": [],
+      "sources": [
+        "SDRU1890",
+        "GNIS"
+      ]
+    },
+    {
+      "name_1890": "Mount McClure",
+      "honoree": "Col. A. K. McClure of the Philadelphia Times",
+      "attested_in": "SDRU1890 list",
+      "survives_today": "no",
+      "modern_name": null,
+      "node_ids_nearby": [],
+      "sources": [
+        "SDRU1890",
+        "GNIS"
+      ]
+    },
+    {
+      "name_1890": "Mount McCullough",
+      "honoree": "J. B. McCullough of the St. Louis Globe-Democrat",
+      "attested_in": "SDRU1890 list",
+      "survives_today": "no",
+      "modern_name": null,
+      "node_ids_nearby": [],
+      "sources": [
+        "SDRU1890",
+        "GNIS"
+      ]
+    },
+    {
+      "name_1890": "Mount Medill",
+      "honoree": "Joseph Medill of the Chicago Tribune",
+      "attested_in": "SDRU1890 list",
+      "survives_today": "no",
+      "modern_name": null,
+      "node_ids_nearby": [],
+      "sources": [
+        "SDRU1890",
+        "GNIS"
+      ]
+    },
+    {
+      "name_1890": "Mount O'Niel [sic]",
+      "honoree": "Lieutenant Joseph P. O'Neil, U.S. Army",
+      "attested_in": "SDRU1890 list",
+      "survives_today": "uncertain",
+      "modern_name": null,
+      "node_ids_nearby": [],
+      "notes": "GNIS has a Mount O'Neil in Grays Harbor County (47.4904 N 123.7589 W) and O'Neil Peak/Pass/Creek in the upper East Fork Quinault; none is shown here to be the Press party's peak.",
+      "sources": [
+        "SDRU1890",
+        "GNIS"
+      ]
+    },
+    {
+      "name_1890": "Mount Reid",
+      "honoree": "Whitelaw Reid of the New York Tribune",
+      "attested_in": "SDRU1890 list",
+      "survives_today": "no",
+      "modern_name": null,
+      "node_ids_nearby": [],
+      "sources": [
+        "SDRU1890",
+        "GNIS"
+      ]
+    },
+    {
+      "name_1890": "Mount Struver [sic]",
+      "honoree": "Judge H. G. Struve of Seattle",
+      "attested_in": "SDRU1890 list",
+      "survives_today": "no",
+      "modern_name": null,
+      "node_ids_nearby": [],
+      "sources": [
+        "SDRU1890",
+        "GNIS"
+      ]
+    },
+    {
+      "name_1890": "Mount Squire",
+      "honoree": "Senator Watson C. Squire of Washington",
+      "attested_in": "SDRU1890 list",
+      "survives_today": "no",
+      "modern_name": null,
+      "node_ids_nearby": [],
+      "sources": [
+        "SDRU1890",
+        "GNIS"
+      ]
+    },
+    {
+      "name_1890": "Mount Taylor",
+      "honoree": "Col. Charles Taylor of the Boston Globe",
+      "attested_in": "SDRU1890 list",
+      "survives_today": "no",
+      "modern_name": null,
+      "node_ids_nearby": [],
+      "sources": [
+        "SDRU1890",
+        "GNIS"
+      ]
+    },
+    {
+      "name_1890": "Mount Watterson",
+      "honoree": "Henry Watterson of the Louisville Courier-Journal",
+      "attested_in": "SDRU1890 list",
+      "survives_today": "no",
+      "modern_name": null,
+      "node_ids_nearby": [],
+      "sources": [
+        "SDRU1890",
+        "GNIS"
+      ]
+    }
+  ],
+  "quote_pool": [
+    {
+      "id": "q01",
+      "text": "Five ragged, haggard, and generally used-up men",
+      "chars": 47,
+      "fits_epitaph_40": false,
+      "speaker": "Unsigned newspaper writer, Sacramento Daily Record-Union (summarizing the Seattle Press report)",
+      "source_id": "SDRU1890",
+      "date": "1890-08-14",
+      "page": "p.3 col.1",
+      "url": "https://www.loc.gov/resource/sn82014381/1890-08-14/ed-1/?sp=3",
+      "verification": "page_image_checked",
+      "public_domain_reason": "Published in the United States in 1890 (before 1931); U.S. works published before 1931 are in the public domain.",
+      "context": "Opening of the article: the five reach Aberdeen at 2 a.m. on May 21, 1890.",
+      "suggested_use": [
+        "narrator_aside",
+        "epitaph_long"
+      ],
+      "tags": [
+        "arrival",
+        "aberdeen",
+        "hardship"
+      ]
+    },
+    {
+      "id": "q02",
+      "text": "clearing up the mystery which is at the very door of Seattle",
+      "chars": 60,
+      "fits_epitaph_40": false,
+      "speaker": "James H. Christie, letter to the Press (Nov. 1889), as quoted in SDRU1890",
+      "source_id": "SDRU1890",
+      "date": "1890-08-14",
+      "page": "p.3 col.1",
+      "url": "https://www.loc.gov/resource/sn82014381/1890-08-14/ed-1/?sp=3",
+      "verification": "page_image_checked",
+      "public_domain_reason": "Published in the United States in 1890 (before 1931); U.S. works published before 1931 are in the public domain.",
+      "context": "Christie's pitch to the Press.",
+      "suggested_use": [
+        "narrator_aside",
+        "trip_start_page"
+      ],
+      "tags": [
+        "start",
+        "port_angeles"
+      ]
+    },
+    {
+      "id": "q03",
+      "text": "Snow came down upon the explorers the first night that they went into camp",
+      "chars": 74,
+      "fits_epitaph_40": false,
+      "speaker": "Unsigned newspaper writer, Sacramento Daily Record-Union (summarizing the Seattle Press report)",
+      "source_id": "SDRU1890",
+      "date": "1890-08-14",
+      "page": "p.3 col.1",
+      "url": "https://www.loc.gov/resource/sn82014381/1890-08-14/ed-1/?sp=3",
+      "verification": "page_image_checked",
+      "public_domain_reason": "Published in the United States in 1890 (before 1931); U.S. works published before 1931 are in the public domain.",
+      "context": "December 1889, lower Elwha.",
+      "suggested_use": [
+        "camp_page_reading"
+      ],
+      "tags": [
+        "snow",
+        "first_night"
+      ]
+    },
+    {
+      "id": "q04",
+      "text": "wherever the men went, they were in snow always.",
+      "chars": 48,
+      "fits_epitaph_40": false,
+      "speaker": "Unsigned newspaper writer, Sacramento Daily Record-Union (summarizing the Seattle Press report)",
+      "source_id": "SDRU1890",
+      "date": "1890-08-14",
+      "page": "p.3 col.1",
+      "url": "https://www.loc.gov/resource/sn82014381/1890-08-14/ed-1/?sp=3",
+      "verification": "page_image_checked",
+      "public_domain_reason": "Published in the United States in 1890 (before 1931); U.S. works published before 1931 are in the public domain.",
+      "context": "Summary of the whole winter.",
+      "suggested_use": [
+        "narrator_aside"
+      ],
+      "tags": [
+        "snow"
+      ]
+    },
+    {
+      "id": "q05",
+      "text": "Sometimes it was frozen snow, sometimes it was soft and slushy, but always snow.",
+      "chars": 80,
+      "fits_epitaph_40": false,
+      "speaker": "Unsigned newspaper writer, Sacramento Daily Record-Union (summarizing the Seattle Press report)",
+      "source_id": "SDRU1890",
+      "date": "1890-08-14",
+      "page": "p.3 col.1",
+      "url": "https://www.loc.gov/resource/sn82014381/1890-08-14/ed-1/?sp=3",
+      "verification": "page_image_checked",
+      "public_domain_reason": "Published in the United States in 1890 (before 1931); U.S. works published before 1931 are in the public domain.",
+      "context": "Same passage.",
+      "suggested_use": [
+        "camp_page_reading",
+        "narrator_aside"
+      ],
+      "tags": [
+        "snow",
+        "weather"
+      ]
+    },
+    {
+      "id": "q06",
+      "text": "We have made to-day not more than a quarter of a mile",
+      "chars": 53,
+      "fits_epitaph_40": false,
+      "speaker": "Charles A. Barnes, journal entry for Tuesday, Jan. 14 [1890], as printed in SDRU1890 (from the Seattle Press, July 16, 1890)",
+      "source_id": "SDRU1890",
+      "date": "1890-01-14 (printed 1890-08-14)",
+      "page": "p.3 col.1",
+      "url": "https://www.loc.gov/resource/sn82014381/1890-08-14/ed-1/?sp=3",
+      "verification": "page_image_checked",
+      "public_domain_reason": "Published in the United States in 1890 (before 1931); U.S. works published before 1931 are in the public domain.",
+      "context": "Hauling the boat Gertie up the lower Elwha.",
+      "suggested_use": [
+        "camp_page_reading",
+        "slow_day_aside"
+      ],
+      "tags": [
+        "boat",
+        "elwha",
+        "slow_progress"
+      ]
+    },
+    {
+      "id": "q07",
+      "text": "every foot was worked for and honestly won",
+      "chars": 42,
+      "fits_epitaph_40": false,
+      "speaker": "Charles A. Barnes, journal entry for Tuesday, Jan. 14 [1890], as printed in SDRU1890 (from the Seattle Press, July 16, 1890)",
+      "source_id": "SDRU1890",
+      "date": "1890-01-14 (printed 1890-08-14)",
+      "page": "p.3 col.1",
+      "url": "https://www.loc.gov/resource/sn82014381/1890-08-14/ed-1/?sp=3",
+      "verification": "page_image_checked",
+      "public_domain_reason": "Published in the United States in 1890 (before 1931); U.S. works published before 1931 are in the public domain.",
+      "context": "Same entry; the print has no period after 'won'.",
+      "suggested_use": [
+        "epitaph",
+        "narrator_aside"
+      ],
+      "tags": [
+        "perseverance",
+        "elwha"
+      ],
+      "caution": "42 characters: two over the 40-character epitaph field."
+    },
+    {
+      "id": "q08",
+      "text": "The snow is our greatest difficulty",
+      "chars": 35,
+      "fits_epitaph_40": true,
+      "speaker": "Charles A. Barnes, journal entry for Tuesday, Jan. 14 [1890], as printed in SDRU1890 (from the Seattle Press, July 16, 1890)",
+      "source_id": "SDRU1890",
+      "date": "1890-01-14 (printed 1890-08-14)",
+      "page": "p.3 col.1",
+      "url": "https://www.loc.gov/resource/sn82014381/1890-08-14/ed-1/?sp=3",
+      "verification": "page_image_checked",
+      "public_domain_reason": "Published in the United States in 1890 (before 1931); U.S. works published before 1931 are in the public domain.",
+      "context": "Same entry.",
+      "suggested_use": [
+        "epitaph",
+        "camp_page_reading"
+      ],
+      "tags": [
+        "snow"
+      ]
+    },
+    {
+      "id": "q09",
+      "text": "a man will frequently sink out of sight.",
+      "chars": 40,
+      "fits_epitaph_40": true,
+      "speaker": "Charles A. Barnes, journal entry for Tuesday, Jan. 14 [1890], as printed in SDRU1890 (from the Seattle Press, July 16, 1890)",
+      "source_id": "SDRU1890",
+      "date": "1890-01-14 (printed 1890-08-14)",
+      "page": "p.3 col.1",
+      "url": "https://www.loc.gov/resource/sn82014381/1890-08-14/ed-1/?sp=3",
+      "verification": "page_image_checked",
+      "public_domain_reason": "Published in the United States in 1890 (before 1931); U.S. works published before 1931 are in the public domain.",
+      "context": "Snow hiding the gaps between river boulders.",
+      "suggested_use": [
+        "epitaph",
+        "hazard_aside"
+      ],
+      "tags": [
+        "snow",
+        "boulders",
+        "fall"
+      ],
+      "caution": "Suits a fall or snow-hole death; keep the joke on the snow, never on the player."
+    },
+    {
+      "id": "q10",
+      "text": "foot by foot, we dragged her over.",
+      "chars": 34,
+      "fits_epitaph_40": true,
+      "speaker": "Charles A. Barnes, journal entry for Tuesday, Jan. 14 [1890], as printed in SDRU1890 (from the Seattle Press, July 16, 1890)",
+      "source_id": "SDRU1890",
+      "date": "1890-01-14 (printed 1890-08-14)",
+      "page": "p.3 col.1",
+      "url": "https://www.loc.gov/resource/sn82014381/1890-08-14/ed-1/?sp=3",
+      "verification": "page_image_checked",
+      "public_domain_reason": "Published in the United States in 1890 (before 1931); U.S. works published before 1931 are in the public domain.",
+      "context": "Dragging Gertie over a rapid, the men in the water to their belts.",
+      "suggested_use": [
+        "epitaph",
+        "camp_page_reading"
+      ],
+      "tags": [
+        "boat",
+        "river",
+        "perseverance"
+      ]
+    },
+    {
+      "id": "q11",
+      "text": "It was terribly cold.",
+      "chars": 21,
+      "fits_epitaph_40": true,
+      "speaker": "Charles A. Barnes, journal entry for Tuesday, Jan. 14 [1890], as printed in SDRU1890 (from the Seattle Press, July 16, 1890)",
+      "source_id": "SDRU1890",
+      "date": "1890-01-14 (printed 1890-08-14)",
+      "page": "p.3 col.1",
+      "url": "https://www.loc.gov/resource/sn82014381/1890-08-14/ed-1/?sp=3",
+      "verification": "page_image_checked",
+      "public_domain_reason": "Published in the United States in 1890 (before 1931); U.S. works published before 1931 are in the public domain.",
+      "context": "Air at 16 degrees F after the river work.",
+      "suggested_use": [
+        "epitaph"
+      ],
+      "tags": [
+        "cold",
+        "hypothermia"
+      ]
+    },
+    {
+      "id": "q12",
+      "text": "the air changed our garments to ice in a moment.",
+      "chars": 48,
+      "fits_epitaph_40": false,
+      "speaker": "Charles A. Barnes, journal entry for Tuesday, Jan. 14 [1890], as printed in SDRU1890 (from the Seattle Press, July 16, 1890)",
+      "source_id": "SDRU1890",
+      "date": "1890-01-14 (printed 1890-08-14)",
+      "page": "p.3 col.1",
+      "url": "https://www.loc.gov/resource/sn82014381/1890-08-14/ed-1/?sp=3",
+      "verification": "page_image_checked",
+      "public_domain_reason": "Published in the United States in 1890 (before 1931); U.S. works published before 1931 are in the public domain.",
+      "context": "Climbing out of the freezing Elwha.",
+      "suggested_use": [
+        "camp_page_reading",
+        "cold_aside"
+      ],
+      "tags": [
+        "cold",
+        "wet_clothes",
+        "river_ford"
+      ]
+    },
+    {
+      "id": "q13",
+      "text": "At one time we thought Crumback was going to faint",
+      "chars": 50,
+      "fits_epitaph_40": false,
+      "speaker": "Charles A. Barnes, journal entry for Tuesday, Jan. 14 [1890], as printed in SDRU1890 (from the Seattle Press, July 16, 1890)",
+      "source_id": "SDRU1890",
+      "date": "1890-01-14 (printed 1890-08-14)",
+      "page": "p.3 col.1",
+      "url": "https://www.loc.gov/resource/sn82014381/1890-08-14/ed-1/?sp=3",
+      "verification": "page_image_checked",
+      "public_domain_reason": "Published in the United States in 1890 (before 1931); U.S. works published before 1931 are in the public domain.",
+      "context": "Same entry.",
+      "suggested_use": [
+        "camp_page_reading"
+      ],
+      "tags": [
+        "cold",
+        "crumback"
+      ]
+    },
+    {
+      "id": "q14",
+      "text": "We might have stuck a pin an inch into our legs without feeling it.",
+      "chars": 67,
+      "fits_epitaph_40": false,
+      "speaker": "Charles A. Barnes, journal entry for Tuesday, Jan. 14 [1890], as printed in SDRU1890 (from the Seattle Press, July 16, 1890)",
+      "source_id": "SDRU1890",
+      "date": "1890-01-14 (printed 1890-08-14)",
+      "page": "p.3 col.1",
+      "url": "https://www.loc.gov/resource/sn82014381/1890-08-14/ed-1/?sp=3",
+      "verification": "page_image_checked",
+      "public_domain_reason": "Published in the United States in 1890 (before 1931); U.S. works published before 1931 are in the public domain.",
+      "context": "Numb legs after the ford: a real warning sign of cold injury.",
+      "suggested_use": [
+        "cold_aside",
+        "camp_page_reading"
+      ],
+      "tags": [
+        "cold",
+        "numb",
+        "river_ford"
+      ]
+    },
+    {
+      "id": "q15",
+      "text": "We look like tramps",
+      "chars": 19,
+      "fits_epitaph_40": true,
+      "speaker": "Charles A. Barnes, diary, as quoted in SDRU1890",
+      "source_id": "SDRU1890",
+      "date": "1890 (spring; printed 1890-08-14)",
+      "page": "p.3 col.1",
+      "url": "https://www.loc.gov/resource/sn82014381/1890-08-14/ed-1/?sp=3",
+      "verification": "page_image_checked",
+      "public_domain_reason": "Published in the United States in 1890 (before 1931); U.S. works published before 1931 are in the public domain.",
+      "context": "Their clothes in rags. The print has a comma after 'tramps'.",
+      "suggested_use": [
+        "epitaph",
+        "narrator_aside"
+      ],
+      "tags": [
+        "clothes",
+        "hardship",
+        "humor"
+      ]
+    },
+    {
+      "id": "q16",
+      "text": "nothing left to eat but flour and salt.",
+      "chars": 39,
+      "fits_epitaph_40": true,
+      "speaker": "Unsigned newspaper writer, Sacramento Daily Record-Union (summarizing the Seattle Press report)",
+      "source_id": "SDRU1890",
+      "date": "1890-08-14",
+      "page": "p.3 col.1",
+      "url": "https://www.loc.gov/resource/sn82014381/1890-08-14/ed-1/?sp=3",
+      "verification": "page_image_checked",
+      "public_domain_reason": "Published in the United States in 1890 (before 1931); U.S. works published before 1931 are in the public domain.",
+      "context": "Provisions giving out one by one.",
+      "suggested_use": [
+        "epitaph",
+        "hunger_aside"
+      ],
+      "tags": [
+        "hunger",
+        "food"
+      ]
+    },
+    {
+      "id": "q17",
+      "text": "to live a life of dignified otiosity for the remainder of her days",
+      "chars": 66,
+      "fits_epitaph_40": false,
+      "speaker": "Unsigned newspaper writer, Sacramento Daily Record-Union (summarizing the Seattle Press report)",
+      "source_id": "SDRU1890",
+      "date": "1890-08-14",
+      "page": "p.3 col.1",
+      "url": "https://www.loc.gov/resource/sn82014381/1890-08-14/ed-1/?sp=3",
+      "verification": "page_image_checked",
+      "public_domain_reason": "Published in the United States in 1890 (before 1931); U.S. works published before 1931 are in the public domain.",
+      "context": "The exhausted mule Dollie, left behind. ('Otiosity' = idleness.) A small mark between 'dignified' and 'otiosity' in the print looks like a smudge, not a hyphen.",
+      "suggested_use": [
+        "narrator_aside"
+      ],
+      "tags": [
+        "mule",
+        "dollie",
+        "humor"
+      ]
+    },
+    {
+      "id": "q18",
+      "text": "there is a mule wandering about somewhere in the neighborhood of Mount Olympus",
+      "chars": 78,
+      "fits_epitaph_40": false,
+      "speaker": "Unsigned newspaper writer, Sacramento Daily Record-Union (summarizing the Seattle Press report)",
+      "source_id": "SDRU1890",
+      "date": "1890-08-14",
+      "page": "p.3 col.2",
+      "url": "https://www.loc.gov/resource/sn82014381/1890-08-14/ed-1/?sp=3",
+      "verification": "page_image_checked",
+      "public_domain_reason": "Published in the United States in 1890 (before 1931); U.S. works published before 1931 are in the public domain.",
+      "context": "The sentence ends: 'which anybody may have who can catch her.'",
+      "suggested_use": [
+        "narrator_aside"
+      ],
+      "tags": [
+        "mule",
+        "dollie",
+        "humor",
+        "olympus"
+      ],
+      "caution": "Dollie was actually turned loose on the Goldie River, well east of Olympus."
+    },
+    {
+      "id": "q19",
+      "text": "an emphatic indorsement of their tales of woe.",
+      "chars": 46,
+      "fits_epitaph_40": false,
+      "speaker": "Unsigned newspaper writer, Sacramento Daily Record-Union (summarizing the Seattle Press report)",
+      "source_id": "SDRU1890",
+      "date": "1890-08-14",
+      "page": "p.3 col.2",
+      "url": "https://www.loc.gov/resource/sn82014381/1890-08-14/ed-1/?sp=3",
+      "verification": "page_image_checked",
+      "public_domain_reason": "Published in the United States in 1890 (before 1931); U.S. works published before 1931 are in the public domain.",
+      "context": "Comparing the before-and-after photographs. 'Indorsement' is the 1890 spelling.",
+      "suggested_use": [
+        "narrator_aside"
+      ],
+      "tags": [
+        "photographs",
+        "humor"
+      ]
+    },
+    {
+      "id": "q20",
+      "text": "It has found the path for future explorers and has blazed their trail",
+      "chars": 69,
+      "fits_epitaph_40": false,
+      "speaker": "Unsigned newspaper writer, Sacramento Daily Record-Union (summarizing the Seattle Press report)",
+      "source_id": "SDRU1890",
+      "date": "1890-08-14",
+      "page": "p.3 col.2",
+      "url": "https://www.loc.gov/resource/sn82014381/1890-08-14/ed-1/?sp=3",
+      "verification": "page_image_checked",
+      "public_domain_reason": "Published in the United States in 1890 (before 1931); U.S. works published before 1931 are in the public domain.",
+      "context": "The writer's verdict on the expedition.",
+      "suggested_use": [
+        "trip_end_page",
+        "narrator_aside"
+      ],
+      "tags": [
+        "blazes",
+        "legacy"
+      ]
+    },
+    {
+      "id": "q21",
+      "text": "may see, without undergoing what it underwent, all that it saw.",
+      "chars": 63,
+      "fits_epitaph_40": false,
+      "speaker": "Unsigned newspaper writer, Sacramento Daily Record-Union (summarizing the Seattle Press report)",
+      "source_id": "SDRU1890",
+      "date": "1890-08-14",
+      "page": "p.3 col.2",
+      "url": "https://www.loc.gov/resource/sn82014381/1890-08-14/ed-1/?sp=3",
+      "verification": "page_image_checked",
+      "public_domain_reason": "Published in the United States in 1890 (before 1931); U.S. works published before 1931 are in the public domain.",
+      "context": "Whoever follows the Press trail. A good line for the first page of the Press-route trip.",
+      "suggested_use": [
+        "trip_start_page",
+        "narrator_aside"
+      ],
+      "tags": [
+        "legacy",
+        "modern_hiker"
+      ]
+    },
+    {
+      "id": "q22",
+      "text": "uniformly and wildly mountainous",
+      "chars": 32,
+      "fits_epitaph_40": true,
+      "speaker": "Unsigned newspaper writer, Sacramento Daily Record-Union (summarizing the Seattle Press report)",
+      "source_id": "SDRU1890",
+      "date": "1890-08-14",
+      "page": "p.3 col.2",
+      "url": "https://www.loc.gov/resource/sn82014381/1890-08-14/ed-1/?sp=3",
+      "verification": "page_image_checked",
+      "public_domain_reason": "Published in the United States in 1890 (before 1931); U.S. works published before 1931 are in the public domain.",
+      "context": "What the report says of the whole region.",
+      "suggested_use": [
+        "narrator_aside",
+        "epitaph"
+      ],
+      "tags": [
+        "terrain"
+      ]
+    },
+    {
+      "id": "q23",
+      "text": "their life was one of constant privation, hardship and danger.",
+      "chars": 62,
+      "fits_epitaph_40": false,
+      "speaker": "Unsigned newspaper writer, Sacramento Daily Record-Union (summarizing the Seattle Press report)",
+      "source_id": "SDRU1890",
+      "date": "1890-08-14",
+      "page": "p.3 col.1",
+      "url": "https://www.loc.gov/resource/sn82014381/1890-08-14/ed-1/?sp=3",
+      "verification": "page_image_checked",
+      "public_domain_reason": "Published in the United States in 1890 (before 1931); U.S. works published before 1931 are in the public domain.",
+      "context": "From the steamer at Port Angeles to the beds at Aberdeen.",
+      "suggested_use": [
+        "epitaph_long",
+        "narrator_aside"
+      ],
+      "tags": [
+        "hardship"
+      ]
+    },
+    {
+      "id": "q24",
+      "text": "Many other days were full of trials",
+      "chars": 35,
+      "fits_epitaph_40": true,
+      "speaker": "Unsigned newspaper writer, Sacramento Daily Record-Union (summarizing the Seattle Press report)",
+      "source_id": "SDRU1890",
+      "date": "1890-08-14",
+      "page": "p.3 col.1",
+      "url": "https://www.loc.gov/resource/sn82014381/1890-08-14/ed-1/?sp=3",
+      "verification": "page_image_checked",
+      "public_domain_reason": "Published in the United States in 1890 (before 1931); U.S. works published before 1931 are in the public domain.",
+      "context": "Follows Barnes's Jan. 14 entry.",
+      "suggested_use": [
+        "epitaph",
+        "narrator_aside"
+      ],
+      "tags": [
+        "hardship"
+      ]
+    },
+    {
+      "id": "q25",
+      "text": "perfectly fitted for such a trip.",
+      "chars": 33,
+      "fits_epitaph_40": true,
+      "speaker": "The Mountaineer (1907), condensing the Seattle Press report of July 16, 1890 (Christie and Barnes)",
+      "source_id": "MTN1907",
+      "date": "1907 (from the Press of 1890-07-16)",
+      "page": "p.30",
+      "url": "https://www.npshistory.com/publications/olym/m-v1n2-1907-1.pdf",
+      "verification": "page_image_checked",
+      "public_domain_reason": "Published in the United States in 1907 (before 1931); U.S. works published before 1931 are in the public domain.",
+      "context": "Said of the six men at the start.",
+      "suggested_use": [
+        "epitaph"
+      ],
+      "tags": [
+        "irony",
+        "preparedness"
+      ],
+      "caution": "Ironic as an epitaph; best for a death where the hiker was in fact well equipped."
+    },
+    {
+      "id": "q26",
+      "text": "the central valley region, reputed to be found toward the headwaters",
+      "chars": 68,
+      "fits_epitaph_40": false,
+      "speaker": "The Mountaineer (1907), condensing the Seattle Press report of July 16, 1890 (Christie and Barnes)",
+      "source_id": "MTN1907",
+      "date": "1907 (from the Press of 1890-07-16)",
+      "page": "p.30",
+      "url": "https://www.npshistory.com/publications/olym/m-v1n2-1907-1.pdf",
+      "verification": "page_image_checked",
+      "public_domain_reason": "Published in the United States in 1907 (before 1931); U.S. works published before 1931 are in the public domain.",
+      "context": "Why they went in winter: to reach a fabled central valley by spring. There was no such valley.",
+      "suggested_use": [
+        "narrator_aside"
+      ],
+      "tags": [
+        "myth",
+        "central_valley"
+      ]
+    },
+    {
+      "id": "q27",
+      "text": "The trail was carefully blazed all the way with three blazes, one above the other.",
+      "chars": 82,
+      "fits_epitaph_40": false,
+      "speaker": "The Mountaineer (1907), condensing the Seattle Press report of July 16, 1890 (Christie and Barnes)",
+      "source_id": "MTN1907",
+      "date": "1907 (from the Press of 1890-07-16)",
+      "page": "p.30",
+      "url": "https://www.npshistory.com/publications/olym/m-v1n2-1907-1.pdf",
+      "verification": "page_image_checked",
+      "public_domain_reason": "Published in the United States in 1907 (before 1931); U.S. works published before 1931 are in the public domain.",
+      "context": "The lowest blaze was cut at the snow surface. Press blazes can still be found along the Elwha trail (NPS).",
+      "suggested_use": [
+        "camp_page_reading",
+        "field_guide_lore"
+      ],
+      "tags": [
+        "blazes",
+        "trail"
+      ]
+    },
+    {
+      "id": "q28",
+      "text": "The trail leads up the Goldie River, but Press Valley should be taken instead.",
+      "chars": 78,
+      "fits_epitaph_40": false,
+      "speaker": "The Mountaineer (1907), condensing the Seattle Press report of July 16, 1890 (Christie and Barnes)",
+      "source_id": "MTN1907",
+      "date": "1907 (from the Press of 1890-07-16)",
+      "page": "p.30",
+      "url": "https://www.npshistory.com/publications/olym/m-v1n2-1907-1.pdf",
+      "verification": "page_image_checked",
+      "public_domain_reason": "Published in the United States in 1907 (before 1931); U.S. works published before 1931 are in the public domain.",
+      "context": "Their own advice after the Goldie detour.",
+      "suggested_use": [
+        "narrator_aside",
+        "route_hint"
+      ],
+      "tags": [
+        "goldie",
+        "wrong_turn",
+        "press_valley"
+      ]
+    },
+    {
+      "id": "q29",
+      "text": "which seems to swallow the river down its gloomy depts.",
+      "chars": 55,
+      "fits_epitaph_40": false,
+      "speaker": "The Mountaineer (1907), condensing the Seattle Press report of July 16, 1890 (Christie and Barnes)",
+      "source_id": "MTN1907",
+      "date": "1907 (from the Press of 1890-07-16)",
+      "page": "p.31",
+      "url": "https://www.npshistory.com/publications/olym/m-v1n2-1907-1.pdf",
+      "verification": "page_image_checked",
+      "public_domain_reason": "Published in the United States in 1907 (before 1931); U.S. works published before 1931 are in the public domain.",
+      "context": "Describing Goblin Gates. 'depts' [sic] is the 1907 misprint for 'depths'; keep it or mark it [sic].",
+      "suggested_use": [
+        "camp_page_reading"
+      ],
+      "tags": [
+        "goblins_gate",
+        "river"
+      ]
+    },
+    {
+      "id": "q30",
+      "text": "like the clicking of a ratchet on a cog-wheel",
+      "chars": 45,
+      "fits_epitaph_40": false,
+      "speaker": "Charles A. Barnes, as reported in The Mountaineer (1907)",
+      "source_id": "MTN1907",
+      "date": "1907 (from the Press of 1890-07-16)",
+      "page": "p.31",
+      "url": "https://www.npshistory.com/publications/olym/m-v1n2-1907-1.pdf",
+      "verification": "page_image_checked",
+      "public_domain_reason": "Published in the United States in 1907 (before 1931); U.S. works published before 1931 are in the public domain.",
+      "context": "The 'geyser' sound speeding up and stopping after eight seconds - almost certainly a drumming ruffed grouse.",
+      "suggested_use": [
+        "camp_page_reading",
+        "mystery"
+      ],
+      "tags": [
+        "geyser_valley",
+        "sound",
+        "grouse"
+      ]
+    },
+    {
+      "id": "q31",
+      "text": "if geysers caused the noise",
+      "chars": 27,
+      "fits_epitaph_40": true,
+      "speaker": "The Mountaineer (1907), condensing the Seattle Press report of July 16, 1890 (Christie and Barnes)",
+      "source_id": "MTN1907",
+      "date": "1907 (from the Press of 1890-07-16)",
+      "page": "p.31",
+      "url": "https://www.npshistory.com/publications/olym/m-v1n2-1907-1.pdf",
+      "verification": "page_image_checked",
+      "public_domain_reason": "Published in the United States in 1907 (before 1931); U.S. works published before 1931 are in the public domain.",
+      "context": "Their own doubt about a second 'geyser' heard on the Quinault.",
+      "suggested_use": [
+        "epitaph",
+        "narrator_aside"
+      ],
+      "tags": [
+        "geyser_valley",
+        "mystery",
+        "humor"
+      ]
+    },
+    {
+      "id": "q32",
+      "text": "no glaciers were found, even upon Mt. Olympus",
+      "chars": 45,
+      "fits_epitaph_40": false,
+      "speaker": "The Mountaineer (1907), condensing the Seattle Press report of July 16, 1890 (Christie and Barnes)",
+      "source_id": "MTN1907",
+      "date": "1907 (from the Press of 1890-07-16)",
+      "page": "p.33",
+      "url": "https://www.npshistory.com/publications/olym/m-v1n2-1907-1.pdf",
+      "verification": "page_image_checked",
+      "public_domain_reason": "Published in the United States in 1907 (before 1931); U.S. works published before 1931 are in the public domain.",
+      "context": "A famous mistake: Olympus carries large glaciers (the O'Neil party counted dozens that same year).",
+      "suggested_use": [
+        "narrator_aside"
+      ],
+      "tags": [
+        "glaciers",
+        "error",
+        "olympus"
+      ],
+      "caution": "Use as a gentle joke about the explorers, not as fact."
+    },
+    {
+      "id": "q33",
+      "text": "the rugged character of the sides is beyond description.",
+      "chars": 56,
+      "fits_epitaph_40": false,
+      "speaker": "The Mountaineer (1907), condensing the Seattle Press report of July 16, 1890 (Christie and Barnes)",
+      "source_id": "MTN1907",
+      "date": "1907 (from Barnes's geology notes, Press 1890-07-16)",
+      "page": "p.34",
+      "url": "https://www.npshistory.com/publications/olym/m-v1n2-1907-1.pdf",
+      "verification": "page_image_checked",
+      "public_domain_reason": "Published in the United States in 1907 (before 1931); U.S. works published before 1931 are in the public domain.",
+      "context": "Barnes on the cliffs.",
+      "suggested_use": [
+        "narrator_aside",
+        "camp_page_reading"
+      ],
+      "tags": [
+        "terrain",
+        "geology"
+      ]
+    },
+    {
+      "id": "q34",
+      "text": "everything about the mountains, indicates their youth.",
+      "chars": 54,
+      "fits_epitaph_40": false,
+      "speaker": "The Mountaineer (1907), condensing the Seattle Press report of July 16, 1890 (Christie and Barnes)",
+      "source_id": "MTN1907",
+      "date": "1907 (from Barnes's geology notes, Press 1890-07-16)",
+      "page": "p.34",
+      "url": "https://www.npshistory.com/publications/olym/m-v1n2-1907-1.pdf",
+      "verification": "page_image_checked",
+      "public_domain_reason": "Published in the United States in 1907 (before 1931); U.S. works published before 1931 are in the public domain.",
+      "context": "Barnes's reading of the sharp ridges and unworn streams. The comma is in the original.",
+      "suggested_use": [
+        "camp_page_reading",
+        "field_guide_lore"
+      ],
+      "tags": [
+        "geology"
+      ]
+    },
+    {
+      "id": "q35",
+      "text": "The \"bunch-grass country\" within the Olympics is a myth.",
+      "chars": 56,
+      "fits_epitaph_40": false,
+      "speaker": "The Mountaineer (1907), condensing the Seattle Press report of July 16, 1890 (Christie and Barnes)",
+      "source_id": "MTN1907",
+      "date": "1907 (from the Press of 1890-07-16)",
+      "page": "p.34",
+      "url": "https://www.npshistory.com/publications/olym/m-v1n2-1907-1.pdf",
+      "verification": "page_image_checked",
+      "public_domain_reason": "Published in the United States in 1907 (before 1931); U.S. works published before 1931 are in the public domain.",
+      "context": "Locals had promised open grass in the interior.",
+      "suggested_use": [
+        "narrator_aside"
+      ],
+      "tags": [
+        "myth",
+        "pack_animals",
+        "humor"
+      ]
+    },
+    {
+      "id": "q36",
+      "text": "the mountains are full of elk, which are usually quite tame.",
+      "chars": 60,
+      "fits_epitaph_40": false,
+      "speaker": "The Mountaineer (1907), condensing the Seattle Press report of July 16, 1890 (Christie and Barnes)",
+      "source_id": "MTN1907",
+      "date": "1907 (from the Press of 1890-07-16)",
+      "page": "p.34",
+      "url": "https://www.npshistory.com/publications/olym/m-v1n2-1907-1.pdf",
+      "verification": "page_image_checked",
+      "public_domain_reason": "Published in the United States in 1907 (before 1931); U.S. works published before 1931 are in the public domain.",
+      "context": "1890 game notes.",
+      "suggested_use": [
+        "camp_page_reading",
+        "wildlife_aside"
+      ],
+      "tags": [
+        "elk",
+        "wildlife"
+      ],
+      "caution": "Modern elk are wild and dangerous in rut; Dike the dog was killed by one. Pair with the park's distance rule, never as advice."
+    },
+    {
+      "id": "q37",
+      "text": "One goat was seen by the party.",
+      "chars": 31,
+      "fits_epitaph_40": true,
+      "speaker": "The Mountaineer (1907), condensing the Seattle Press report of July 16, 1890 (Christie and Barnes)",
+      "source_id": "MTN1907",
+      "date": "1907 (from the Press of 1890-07-16)",
+      "page": "p.34",
+      "url": "https://www.npshistory.com/publications/olym/m-v1n2-1907-1.pdf",
+      "verification": "page_image_checked",
+      "public_domain_reason": "Published in the United States in 1907 (before 1931); U.S. works published before 1931 are in the public domain.",
+      "context": "Whether native goats lived in the Olympics before the 1920s introduction is debated; this line is part of that historical record.",
+      "suggested_use": [
+        "field_guide_lore",
+        "narrator_aside"
+      ],
+      "tags": [
+        "mountain_goat",
+        "wildlife"
+      ],
+      "caution": "Do not present as proof either way."
+    },
+    {
+      "id": "q38",
+      "text": "occasionally there would be several days when nothing was in sight.",
+      "chars": 67,
+      "fits_epitaph_40": false,
+      "speaker": "The Mountaineer (1907), condensing the Seattle Press report of July 16, 1890 (Christie and Barnes)",
+      "source_id": "MTN1907",
+      "date": "1907 (from the Press of 1890-07-16)",
+      "page": "p.34",
+      "url": "https://www.npshistory.com/publications/olym/m-v1n2-1907-1.pdf",
+      "verification": "page_image_checked",
+      "public_domain_reason": "Published in the United States in 1907 (before 1931); U.S. works published before 1931 are in the public domain.",
+      "context": "Living off game.",
+      "suggested_use": [
+        "hunger_aside"
+      ],
+      "tags": [
+        "hunger",
+        "game"
+      ]
+    },
+    {
+      "id": "q39",
+      "text": "No gold was found in the Elwha",
+      "chars": 30,
+      "fits_epitaph_40": true,
+      "speaker": "The Mountaineer (1907), condensing the Seattle Press report of July 16, 1890 (Christie and Barnes)",
+      "source_id": "MTN1907",
+      "date": "1907 (from the Press of 1890-07-16)",
+      "page": "p.34",
+      "url": "https://www.npshistory.com/publications/olym/m-v1n2-1907-1.pdf",
+      "verification": "page_image_checked",
+      "public_domain_reason": "Published in the United States in 1907 (before 1931); U.S. works published before 1931 are in the public domain.",
+      "context": "The sentence goes on: although upwards of a dozen gravel bars were washed.",
+      "suggested_use": [
+        "epitaph",
+        "narrator_aside"
+      ],
+      "tags": [
+        "gold",
+        "humor"
+      ]
+    },
+    {
+      "id": "q40",
+      "text": "Undoubtedly they are abundant.",
+      "chars": 30,
+      "fits_epitaph_40": true,
+      "speaker": "The Mountaineer (1907), condensing the Seattle Press report of July 16, 1890 (Christie and Barnes)",
+      "source_id": "MTN1907",
+      "date": "1907 (from the Press of 1890-07-16)",
+      "page": "p.34",
+      "url": "https://www.npshistory.com/publications/olym/m-v1n2-1907-1.pdf",
+      "verification": "page_image_checked",
+      "public_domain_reason": "Published in the United States in 1907 (before 1931); U.S. works published before 1931 are in the public domain.",
+      "context": "Said of grouse and pheasants they hardly saw.",
+      "suggested_use": [
+        "epitaph",
+        "narrator_aside"
+      ],
+      "tags": [
+        "grouse",
+        "humor",
+        "optimism"
+      ]
+    },
+    {
+      "id": "q41",
+      "text": "The story told sounds like romance, but it is all cold truth",
+      "chars": 60,
+      "fits_epitaph_40": false,
+      "speaker": "Unsigned editorial, Fairhaven Herald",
+      "source_id": "FH1890",
+      "date": "1890-07-20",
+      "page": "p.2",
+      "url": "https://www.loc.gov/resource/sn88085722/1890-07-20/ed-1/?sp=2",
+      "verification": "page_image_checked",
+      "public_domain_reason": "Published in the United States in 1890 (before 1931); U.S. works published before 1931 are in the public domain.",
+      "context": "On the Press report printed 'last Wednesday' (July 16).",
+      "suggested_use": [
+        "trip_end_page",
+        "narrator_aside"
+      ],
+      "tags": [
+        "legacy",
+        "cold"
+      ]
+    },
+    {
+      "id": "q42",
+      "text": "some of it very cold",
+      "chars": 20,
+      "fits_epitaph_40": true,
+      "speaker": "Unsigned editorial, Fairhaven Herald",
+      "source_id": "FH1890",
+      "date": "1890-07-20",
+      "page": "p.2",
+      "url": "https://www.loc.gov/resource/sn88085722/1890-07-20/ed-1/?sp=2",
+      "verification": "page_image_checked",
+      "public_domain_reason": "Published in the United States in 1890 (before 1931); U.S. works published before 1931 are in the public domain.",
+      "context": "The sentence continues: 'especially where the snow was deep and everlasting'.",
+      "suggested_use": [
+        "epitaph"
+      ],
+      "tags": [
+        "cold",
+        "humor"
+      ]
+    },
+    {
+      "id": "q43",
+      "text": "They were ragged and without hats",
+      "chars": 33,
+      "fits_epitaph_40": true,
+      "speaker": "Unsigned item, Washington Standard (Olympia)",
+      "source_id": "WS1890",
+      "date": "1890-06-06",
+      "page": "p.3",
+      "url": "https://www.loc.gov/resource/sn84022770/1890-06-06/ed-1/?sp=3",
+      "verification": "page_image_checked",
+      "public_domain_reason": "Published in the United States in 1890 (before 1931); U.S. works published before 1931 are in the public domain.",
+      "context": "News of their arrival at Aberdeen.",
+      "suggested_use": [
+        "epitaph",
+        "narrator_aside"
+      ],
+      "tags": [
+        "arrival",
+        "hardship"
+      ]
+    },
+    {
+      "id": "q44",
+      "text": "having lost everything but the records of the trip",
+      "chars": 50,
+      "fits_epitaph_40": false,
+      "speaker": "Unsigned item, Washington Standard (Olympia)",
+      "source_id": "WS1890",
+      "date": "1890-06-06",
+      "page": "p.3",
+      "url": "https://www.loc.gov/resource/sn84022770/1890-06-06/ed-1/?sp=3",
+      "verification": "page_image_checked",
+      "public_domain_reason": "Published in the United States in 1890 (before 1931); U.S. works published before 1931 are in the public domain.",
+      "context": "After the Quinault raft wreck.",
+      "suggested_use": [
+        "narrator_aside",
+        "epitaph_long"
+      ],
+      "tags": [
+        "raft",
+        "journals"
+      ]
+    },
+    {
+      "id": "q45",
+      "text": "it is not likely that this nomenclature will be permanent",
+      "chars": 57,
+      "fits_epitaph_40": false,
+      "speaker": "Editorial, Seattle Post-Intelligencer",
+      "source_id": "SPI1890a",
+      "date": "1890-07-17",
+      "page": "p.4",
+      "url": "https://www.loc.gov/resource/sn83045604/1890-07-17/ed-1/?sp=4",
+      "verification": "page_image_checked",
+      "public_domain_reason": "Published in the United States in 1890 (before 1931); U.S. works published before 1931 are in the public domain.",
+      "context": "The rival paper on the names given to journalists. About half the names did vanish.",
+      "suggested_use": [
+        "narrator_aside",
+        "field_guide_lore"
+      ],
+      "tags": [
+        "names"
+      ]
+    },
+    {
+      "id": "q46",
+      "text": "the mountains and rivers will no doubt take on names of local character and color.",
+      "chars": 82,
+      "fits_epitaph_40": false,
+      "speaker": "Editorial, Seattle Post-Intelligencer",
+      "source_id": "SPI1890a",
+      "date": "1890-07-17",
+      "page": "p.4",
+      "url": "https://www.loc.gov/resource/sn83045604/1890-07-17/ed-1/?sp=4",
+      "verification": "page_image_checked",
+      "public_domain_reason": "Published in the United States in 1890 (before 1931); U.S. works published before 1931 are in the public domain.",
+      "context": "Same editorial.",
+      "suggested_use": [
+        "narrator_aside"
+      ],
+      "tags": [
+        "names"
+      ]
+    },
+    {
+      "id": "q47",
+      "text": "We did not hear any geysers",
+      "chars": 27,
+      "fits_epitaph_40": true,
+      "speaker": "R. Jones (Jones party), Whatcom Reveille, reprinted in SPI1890b",
+      "source_id": "SPI1890b",
+      "date": "1890-09-30",
+      "page": "p.9",
+      "url": "https://www.loc.gov/resource/sn83045604/1890-09-30/ed-1/?sp=9",
+      "verification": "page_image_checked",
+      "public_domain_reason": "Published in the United States in 1890 (before 1931); U.S. works published before 1931 are in the public domain.",
+      "context": "A later 1890 party passing through Geyser Valley.",
+      "suggested_use": [
+        "epitaph",
+        "narrator_aside"
+      ],
+      "tags": [
+        "geyser_valley",
+        "humor"
+      ]
+    },
+    {
+      "id": "q48",
+      "text": "nor could we discover that any one else had, except the Press party",
+      "chars": 67,
+      "fits_epitaph_40": false,
+      "speaker": "R. Jones (Jones party), Whatcom Reveille, reprinted in SPI1890b",
+      "source_id": "SPI1890b",
+      "date": "1890-09-30",
+      "page": "p.9",
+      "url": "https://www.loc.gov/resource/sn83045604/1890-09-30/ed-1/?sp=9",
+      "verification": "page_image_checked",
+      "public_domain_reason": "Published in the United States in 1890 (before 1931); U.S. works published before 1931 are in the public domain.",
+      "context": "Same sentence.",
+      "suggested_use": [
+        "narrator_aside"
+      ],
+      "tags": [
+        "geyser_valley",
+        "rivalry"
+      ]
+    },
+    {
+      "id": "q49",
+      "text": "a smell at the eagle (that was enough)",
+      "chars": 38,
+      "fits_epitaph_40": true,
+      "speaker": "R. Jones (Jones party), Whatcom Reveille, reprinted in SPI1890b",
+      "source_id": "SPI1890b",
+      "date": "1890-09-30",
+      "page": "p.9",
+      "url": "https://www.loc.gov/resource/sn83045604/1890-09-30/ed-1/?sp=9",
+      "verification": "page_image_checked",
+      "public_domain_reason": "Published in the United States in 1890 (before 1931); U.S. works published before 1931 are in the public domain.",
+      "context": "Their breakfast after shooting an eagle: an ounce of bread each and a smell at the stew.",
+      "suggested_use": [
+        "epitaph",
+        "hunger_aside"
+      ],
+      "tags": [
+        "hunger",
+        "humor"
+      ],
+      "caution": "Shooting eagles is a federal crime today; keep it clearly historical."
+    },
+    {
+      "id": "q50",
+      "text": "Gracious, how good those potatoes were",
+      "chars": 38,
+      "fits_epitaph_40": true,
+      "speaker": "R. Jones (Jones party), Whatcom Reveille, reprinted in SPI1890b",
+      "source_id": "SPI1890b",
+      "date": "1890-09-30",
+      "page": "p.9",
+      "url": "https://www.loc.gov/resource/sn83045604/1890-09-30/ed-1/?sp=9",
+      "verification": "page_image_checked",
+      "public_domain_reason": "Published in the United States in 1890 (before 1931); U.S. works published before 1931 are in the public domain.",
+      "context": "Raiding a settler's potato patch on the lower Elwha (they paid him later).",
+      "suggested_use": [
+        "epitaph",
+        "food_aside"
+      ],
+      "tags": [
+        "food",
+        "humor",
+        "lower_elwha"
+      ]
+    },
+    {
+      "id": "q51",
+      "text": "two famous dogs, crosses of the Russian bear dog and Scotch collie",
+      "chars": 66,
+      "fits_epitaph_40": false,
+      "speaker": "Unsigned report, Evening Star (Washington, D.C.)",
+      "source_id": "ES1890",
+      "date": "1890-06-24",
+      "page": "p.3",
+      "url": "https://www.loc.gov/resource/sn83045462/1890-06-24/ed-1/?sp=3",
+      "verification": "page_image_checked",
+      "public_domain_reason": "Published in the United States in 1890 (before 1931); U.S. works published before 1931 are in the public domain.",
+      "context": "Christie takes two of the Press dogs to Alaska.",
+      "suggested_use": [
+        "field_guide_lore",
+        "epilogue"
+      ],
+      "tags": [
+        "dogs",
+        "alaska"
+      ]
+    },
+    {
+      "id": "q52",
+      "text": "from Angeles to the coast, which they expect will take about eight months",
+      "chars": 73,
+      "fits_epitaph_40": false,
+      "speaker": "Port Angeles Commonwealth, as reprinted in the Washington Standard",
+      "source_id": "WS1889",
+      "date": "1889-12-27",
+      "page": "p.2",
+      "url": "https://www.loc.gov/resource/sn84022770/1889-12-27/ed-1/?sp=2",
+      "verification": "page_image_checked",
+      "public_domain_reason": "Published in the United States in 1889 (before 1931); U.S. works published before 1931 are in the public domain.",
+      "context": "The plan on arrival in Port Angeles. It took a little under six months.",
+      "suggested_use": [
+        "trip_start_page"
+      ],
+      "tags": [
+        "plans",
+        "start"
+      ]
+    },
+    {
+      "id": "q53",
+      "text": "the trip cannot be a complete success at this season of the year.",
+      "chars": 65,
+      "fits_epitaph_40": false,
+      "speaker": "Port Townsend Leader, as reprinted in the Mason County Journal",
+      "source_id": "MCJ1890a",
+      "date": "1890-01-31",
+      "page": "p.5",
+      "url": "https://www.loc.gov/resource/sn88085081/1890-01-31/ed-1/?sp=5",
+      "verification": "ocr_with_partial_image_check",
+      "public_domain_reason": "Published in the United States in 1890 (before 1931); U.S. works published before 1931 are in the public domain.",
+      "context": "What the doubters said in January 1890.",
+      "suggested_use": [
+        "narrator_aside"
+      ],
+      "tags": [
+        "winter",
+        "doubters"
+      ]
+    },
+    {
+      "id": "q54",
+      "text": "the snow being two feet deep within ten miles of Port Angeles",
+      "chars": 61,
+      "fits_epitaph_40": false,
+      "speaker": "Port Townsend Leader, as reprinted in the Mason County Journal",
+      "source_id": "MCJ1890a",
+      "date": "1890-01-31",
+      "page": "p.5",
+      "url": "https://www.loc.gov/resource/sn88085081/1890-01-31/ed-1/?sp=5",
+      "verification": "ocr_with_partial_image_check",
+      "public_domain_reason": "Published in the United States in 1890 (before 1931); U.S. works published before 1931 are in the public domain.",
+      "context": "Late January 1890.",
+      "suggested_use": [
+        "camp_page_reading"
+      ],
+      "tags": [
+        "snow",
+        "winter"
+      ]
+    }
+  ],
+  "secondary_quote_pool": [
+    {
+      "id": "s01",
+      "text": "a multitude of faces appear in succession near the water's edge",
+      "chars": 63,
+      "fits_epitaph_40": false,
+      "speaker": "Charles A. Barnes, journal (March 1890), as transcribed by PDN2001",
+      "source_id": "PDN2001",
+      "date": "1890-03 (Press 1890-07-16)",
+      "page": null,
+      "url": "https://peninsuladailynews.com/news/narrow-canyon-comes-alive-with-images-of-demons",
+      "verification": "secondary_transcription_primary_not_seen",
+      "public_domain_reason": "Published in the United States in 1890 (before 1931); U.S. works published before 1931 are in the public domain. (Barnes's words in the Seattle Press, July 16, 1890; the modern article that transcribes them is not reproduced.)",
+      "context": "Goblin Gates.",
+      "suggested_use": [
+        "camp_page_reading"
+      ],
+      "tags": [
+        "goblins_gate"
+      ],
+      "transcribed_by": "Peninsula Daily News, June 22, 2001",
+      "caution": "Check against the 1890 Press before shipping."
+    },
+    {
+      "id": "s02",
+      "text": "One could conceive in them tortured expressions",
+      "chars": 47,
+      "fits_epitaph_40": false,
+      "speaker": "Charles A. Barnes, journal (March 1890), as transcribed by PDN2001",
+      "source_id": "PDN2001",
+      "date": "1890-03 (Press 1890-07-16)",
+      "page": null,
+      "url": "https://peninsuladailynews.com/news/narrow-canyon-comes-alive-with-images-of-demons",
+      "verification": "secondary_transcription_primary_not_seen",
+      "public_domain_reason": "Published in the United States in 1890 (before 1931); U.S. works published before 1931 are in the public domain. (Barnes's words in the Seattle Press, July 16, 1890.)",
+      "context": "The sentence goes on to explain the name 'The Goblin Gates'.",
+      "suggested_use": [
+        "camp_page_reading",
+        "epitaph_long"
+      ],
+      "tags": [
+        "goblins_gate"
+      ],
+      "transcribed_by": "Peninsula Daily News, June 22, 2001",
+      "caution": "Check against the 1890 Press before shipping."
+    },
+    {
+      "id": "s03",
+      "text": "But murder was needless.",
+      "chars": 24,
+      "fits_epitaph_40": true,
+      "speaker": "Charles A. Barnes, on the food at Antrim's cabin (May 1890), as transcribed by PDN2009c",
+      "source_id": "PDN2009c",
+      "date": "1890-05 (Press 1890-07-16)",
+      "page": null,
+      "url": "https://peninsuladailynews.com/news/press-expedition-remembered-iii-arrival-on-the-other-side-of-the-olympic-mountains",
+      "verification": "secondary_transcription_primary_not_seen",
+      "public_domain_reason": "Published in the United States in 1890 (before 1931); U.S. works published before 1931 are in the public domain. (Barnes's words in the Seattle Press, July 16, 1890.)",
+      "context": "He would gladly have committed a homicide for any one of the dishes.",
+      "suggested_use": [
+        "epitaph",
+        "narrator_aside"
+      ],
+      "tags": [
+        "food",
+        "humor",
+        "quinault"
+      ],
+      "transcribed_by": "Peninsula Daily News, December 2009",
+      "caution": "Dark joke; use only for food-related endings and check against the 1890 Press."
+    },
+    {
+      "id": "s04",
+      "text": "it was a luxury to be appreciated.",
+      "chars": 34,
+      "fits_epitaph_40": true,
+      "speaker": "Charles A. Barnes, on the beds at Aberdeen (May 21, 1890), as transcribed by PDN2009c",
+      "source_id": "PDN2009c",
+      "date": "1890-05-21 (Press 1890-07-16)",
+      "page": null,
+      "url": "https://peninsuladailynews.com/news/press-expedition-remembered-iii-arrival-on-the-other-side-of-the-olympic-mountains",
+      "verification": "secondary_transcription_primary_not_seen",
+      "public_domain_reason": "Published in the United States in 1890 (before 1931); U.S. works published before 1931 are in the public domain. (Barnes's words in the Seattle Press, July 16, 1890.)",
+      "context": "First real beds in six months.",
+      "suggested_use": [
+        "epitaph",
+        "trip_end_page"
+      ],
+      "tags": [
+        "comfort",
+        "aberdeen"
+      ],
+      "transcribed_by": "Peninsula Daily News, December 2009"
+    },
+    {
+      "id": "s05",
+      "text": "Please remit this morning by telegraph.",
+      "chars": 39,
+      "fits_epitaph_40": true,
+      "speaker": "James H. Christie, telegram to the Press from Aberdeen (May 21, 1890), as transcribed by PDN2009c",
+      "source_id": "PDN2009c",
+      "date": "1890-05-21",
+      "page": null,
+      "url": "https://peninsuladailynews.com/news/press-expedition-remembered-iii-arrival-on-the-other-side-of-the-olympic-mountains",
+      "verification": "secondary_transcription_primary_not_seen",
+      "public_domain_reason": "Published in the United States in 1890 (before 1931); U.S. works published before 1931 are in the public domain. (Christie's telegram as printed by the Press in 1890.)",
+      "context": "Asking for about $125 to get the party home.",
+      "suggested_use": [
+        "epitaph"
+      ],
+      "tags": [
+        "money",
+        "humor"
+      ],
+      "transcribed_by": "Peninsula Daily News, December 2009"
+    },
+    {
+      "id": "s06",
+      "text": "under the shadow of the mountains we have undertaken to explore",
+      "chars": 63,
+      "fits_epitaph_40": false,
+      "speaker": "James H. Christie, on landing at Port Angeles (Dec. 1889), as transcribed by PDN2009a",
+      "source_id": "PDN2009a",
+      "date": "1889-12-08/09 (Press 1890-07-16)",
+      "page": null,
+      "url": "https://www.peninsuladailynews.com/?p=112434",
+      "verification": "secondary_transcription_primary_not_seen",
+      "public_domain_reason": "Published in the United States in 1890 (before 1931); U.S. works published before 1931 are in the public domain. (Christie's words in the Seattle Press, July 16, 1890.)",
+      "context": "Arriving at the Port Angeles wharf.",
+      "suggested_use": [
+        "trip_start_page"
+      ],
+      "tags": [
+        "port_angeles",
+        "start"
+      ],
+      "transcribed_by": "Peninsula Daily News, December 2009"
+    },
+    {
+      "id": "s07",
+      "text": "abundance of grit and manly vim",
+      "chars": 31,
+      "fits_epitaph_40": true,
+      "speaker": "Seattle Press (1890) describing the six men, as transcribed by NPS_HRS1983",
+      "source_id": "NPS_HRS1983",
+      "date": "1890-07-16",
+      "page": null,
+      "url": "https://www.npshistory.com/publications/olym/hrs/chap1.htm",
+      "verification": "secondary_transcription_primary_not_seen",
+      "public_domain_reason": "Published in the United States in 1890 (before 1931); U.S. works published before 1931 are in the public domain. (Seattle Press, July 16, 1890.)",
+      "context": "The Press's sendoff description. NPS prints it as 'have [an] abundance of grit and manly vim'.",
+      "suggested_use": [
+        "epitaph"
+      ],
+      "tags": [
+        "grit",
+        "start"
+      ],
+      "transcribed_by": "NPS Historic Resource Study (1983)"
+    },
+    {
+      "id": "s08",
+      "text": "Range after range of peaks, snow-clad from base to summit",
+      "chars": 57,
+      "fits_epitaph_40": false,
+      "speaker": "Charles A. Barnes, as transcribed on Wikipedia (Mount Barnes / Mount Wilder articles)",
+      "source_id": "WIKI",
+      "date": "1890 (date and place disputed)",
+      "page": null,
+      "url": "https://en.wikipedia.org/wiki/Bailey_Range",
+      "verification": "secondary_transcription_primary_not_seen",
+      "public_domain_reason": "Published in the United States in 1890 (before 1931); U.S. works published before 1931 are in the public domain. (Barnes's words in the Seattle Press, July 16, 1890.)",
+      "context": "His first long view into the interior.",
+      "suggested_use": [
+        "camp_page_reading"
+      ],
+      "tags": [
+        "view",
+        "snow"
+      ],
+      "transcribed_by": "Wikipedia",
+      "caution": "Weakest source in this file: Wikipedia dates the view to December 1889 near Mount Wilder, which does not fit the timeline. Verify before use."
+    }
+  ],
+  "quote_pool_notes": {
+    "count_primary_verified": 54,
+    "count_secondary": 8,
+    "epitaph_fit": "The epitaph field is 40 characters (GAME_DESIGN 9.5). fits_epitaph_40 marks lines that fit as printed. Longer lines suit narrator asides and camp-page readings.",
+    "epitaph_feature_suggestion": "For 'tap a random historical sentence': draw from quote_pool where fits_epitaph_40 is true and suggested_use includes 'epitaph', shown with a small credit line (e.g. 'C. A. Barnes, Jan. 14, 1890'). Skip lines with a caution unless the cause of death matches.",
+    "exactness": "Text is copied exactly as printed, including 1890 spellings (to-day, indorsement) and the 1907 misprint 'depts'. Each quote is a contiguous run of words; leading or trailing words were trimmed only at word boundaries."
+  },
+  "indigenous_notes": [
+    {
+      "topic": "Whose land the route crosses",
+      "note": "The Press route starts in the homeland of the Klallam (S'Klallam) people on the lower Elwha, today the Lower Elwha Klallam Tribe, a sovereign, federally recognized nation that has lived there since time immemorial and signed the 1855 Treaty of Point No Point. It ends in Quinault country: Lake Quinault, the lower Quinault River and the Quinault Indian Agency at Taholah, today the Quinault Indian Nation.",
+      "sources": [
+        "ELWHA_ORG",
+        "QIN",
+        "NPS_EXPL"
+      ]
+    },
+    {
+      "topic": "The 'unknown land' myth",
+      "note": "The 1889-90 Press framed the interior as never trodden by anyone, 'white or Indian'. NPS says Native Americans had long known the interior. The party's own report contradicts the myth: very old blazes healed into trees (one with about 210 rings over the cut), old hide-working posts, old trails, and a bench Barnes took for a long-abandoned village site (MTN1907). The game should not repeat 'first to see' or 'unexplored' claims except as quoted 1890 attitudes, clearly framed.",
+      "sources": [
+        "NPS_EXPL",
+        "MTN1907",
+        "PDN2009a"
+      ]
+    },
+    {
+      "topic": "People the party met",
+      "note": "A modern columnist reports a Klallam elk-hunting camp near today's park boundary (Christie dismissed the hunters as knowing nothing of the country) and a night in an abandoned Klallam house near the later Glines Canyon dam site. At the end, two Quinault men in a canoe were with the settler Antrim when he found the starving party, and Quinault country carried them by canoe to the coast. Do not invent names, speech or scenes for these people.",
+      "sources": [
+        "PDN2023a",
+        "PDN2009c"
+      ]
+    },
+    {
+      "topic": "Place names",
+      "note": "The 1890 list explains 'Elwha' as an Indian name meaning elk. Do not present that, or the origin of 'Queets' or 'Quinault', as settled fact in game text without checking with the tribes. The Klallam and Quinault have their own names for these places; the game should ask before using any of them.",
+      "sources": [
+        "SDRU1890",
+        "WIKI"
+      ]
+    },
+    {
+      "topic": "The Elwha dams and the river today",
+      "note": "The Elwha and Glines Canyon dams (built in the early 1900s) blocked salmon and flooded Klallam homelands and cultural sites; their removal began September 17, 2011 and finished in 2014. Our glines_canyon_overlook node stands on the old dam. Any story beat there should credit the tribe's long campaign and avoid describing cultural sites.",
+      "sources": [
+        "ELWHA_ORG"
+      ]
+    },
+    {
+      "topic": "Consult before use",
+      "note": "Before using any Indigenous content tied to this route (the Semple Plateau 'village site', the old blazes, the hunting camp, the abandoned house, the canoe rescue, place-name meanings), contact the Lower Elwha Klallam Tribe (elwha.org, info@elwha.org, 360-452-8471) and the Quinault Indian Nation (Taholah, 360-276-8211). Do not retell sacred stories. Recorded here as facts only, with no cultural interpretation.",
+      "sources": [
+        "ELWHA_ORG",
+        "QIN"
+      ]
+    }
+  ],
+  "wood_bibliography_seen": {
+    "note": "Titles by Robert L. Wood seen in sources read for this file (UW finding aid for his papers and the NPS HRS bibliography). The other lore files may hold the master list.",
+    "titles": [
+      "Across the Olympic Mountains: The Press Expedition, 1889-90 (The Mountaineers / University of Washington Press, 1967; NPS cites a 1968 printing; later Mountaineers Books paperback)",
+      "Trail Country: Olympic National Park (The Mountaineers, 1968; NPS cites a 1970 printing)",
+      "Wilderness Trails of Olympic National Park (The Mountaineers, 1976 per the NPS HRS bibliography) - not on the list we were given; verify",
+      "Men, Mules and Mountains: Lieutenant O'Neil's Olympic Expeditions (The Mountaineers, 1976; NPS cites 1978)",
+      "Olympic Mountains Trail Guide (The Mountaineers, 1984 and later editions)",
+      "The Land That Slept Late: The Olympic Mountains in Legend and History (The Mountaineers, 1995) - subtitle from memory, verify",
+      "'The Goblin Gates Refound' (magazine article, date unclear in the finding aid)",
+      "'A National Trail in the Olympics?' (article) and a 'Memorandum on Certain Place Names in the Olympics' (in his papers)"
+    ],
+    "sources": [
+      "UW_WOOD_FA",
+      "NPS_HRS1983"
+    ]
+  },
+  "uncertain_claims": [
+    "Departure date: Dec 7 (SDRU1890) vs Dec 8, 1889 (MTN1907, NPS HRS); arrival at Port Angeles Dec 8 or 9 (the Commonwealth's 'Monday' = Dec 9).",
+    "Boat dates: launched Dec 30 (Pat Neal) or Dec 31 (PDN 2009); abandoned about Jan 23 after 10-12 days; distance gained given as 4 or about 6 miles.",
+    "Dr. Runnalls's first name (Harris vs Horace) and spelling (Runnalls/Runnals).",
+    "Which two dogs went to Alaska is inferred (Tweed and Bud were the bear dogs); the 1890 source names none. Daisy's fate is unknown here.",
+    "Name shifts (Barnes/Wilder/Childs, Ferry/Pulitzer, Lawson/Grady) come from Wikipedia and need checking in Wood or Parratt.",
+    "Wikipedia's date and place for Barnes's 'Range after range of peaks' view (December 1889 near Mount Wilder) do not fit the timeline.",
+    "The Feb 28 bobcat/Wildcat Creek story comes only from Wikipedia (Cat Peak article).",
+    "Exact location of Crumback's claim, the Rustler Creek confluence and Antrim's cabin relative to our nodes.",
+    "Length of the Press report: 10 pages of seven columns (SDRU1890), 16 pages (P-I) or most of a 24-page edition (Fairhaven Herald).",
+    "Whether the party coined 'Goldie River' and 'Chicago Camp' (no source here says so; Chicago Camp is not attributed to them).",
+    "The bear episode's exact date and spot (Low Divide per The Seattle Times; 'past the divide' per PDN)."
+  ],
+  "sources": [
+    {
+      "id": "SDRU1890",
+      "type": "primary_newspaper_public_domain",
+      "citation": "\"The Olympic Wilderness. Six Months Spent in a Trackless Country. A Newspaper Expedition into the Wilds of Washington - Terrible Sufferings Endured.\" Sacramento Daily Record-Union, Thursday, August 14, 1890, page 3, columns 1-2. Summarizes the Seattle Press report of July 16, 1890, quotes Charles A. Barnes's journal for Tuesday, January 14 [1890], and prints the party's full list of names and honorees.",
+      "url": "https://www.loc.gov/resource/sn82014381/1890-08-14/ed-1/?sp=3",
+      "image_service": "https://tile.loc.gov/image-services/iiif/service:ndnp:curiv:batch_curiv_oakland_ver01:data:sn82014381:00175036635:1890081401:0070",
+      "public_domain": "Published in the United States in 1890 (before 1931); U.S. works published before 1931 are in the public domain.",
+      "verification": "Every quote taken from this article was read against the page image (IIIF crops), not only the OCR."
+    },
+    {
+      "id": "MTN1907",
+      "type": "public_domain_reprint_of_primary",
+      "citation": "Ina M. Hanna, \"Expeditions Into the Olympic Mountains,\" The Mountaineer, vol. 1, no. 2 (Seattle: The Mountaineers, 1907), pp. 29-34. The Press section is 'condensed from the very interesting accounts' of Christie and Barnes and, 'as far as possible', given 'just as published' in the Seattle Press of July 16, 1890 (copy lent by Prof. Edmond S. Meany).",
+      "url": "https://www.npshistory.com/publications/olym/m-v1n2-1907-1.pdf",
+      "public_domain": "Published in the United States in 1907 (before 1931); U.S. works published before 1931 are in the public domain.",
+      "verification": "Quotes read against the rendered page images of the PDF. Wording is the 1907 condensation, so it may differ slightly from the 1890 Press text."
+    },
+    {
+      "id": "SPI1890a",
+      "type": "primary_newspaper_public_domain",
+      "citation": "\"An Important Publication\" (editorial), Seattle Post-Intelligencer, July 17, 1890, page 4.",
+      "url": "https://www.loc.gov/resource/sn83045604/1890-07-17/ed-1/?sp=4",
+      "public_domain": "Published in the United States in 1890 (before 1931); U.S. works published before 1931 are in the public domain.",
+      "verification": "Quoted sentences read against the page image."
+    },
+    {
+      "id": "SPI1890b",
+      "type": "primary_newspaper_public_domain",
+      "citation": "\"A Trail That Is No Trail. Bogus Olympic Explorers Exposed - A Sea of Rocky Mountains.\" R. Jones in the Whatcom Reveille, reprinted in the Seattle Post-Intelligencer, September 30, 1890, page 9. A later 1890 party (the Jones party) follows the Press blazes down the Elwha. The P-I was the Press's rival, so the piece is hostile.",
+      "url": "https://www.loc.gov/resource/sn83045604/1890-09-30/ed-1/?sp=9",
+      "public_domain": "Published in the United States in 1890 (before 1931); U.S. works published before 1931 are in the public domain.",
+      "verification": "Quoted lines read against the page image."
+    },
+    {
+      "id": "WS1889",
+      "type": "primary_newspaper_public_domain",
+      "citation": "Washington Standard (Olympia), December 27, 1889, page 2, item credited to the Port Angeles Commonwealth.",
+      "url": "https://www.loc.gov/resource/sn84022770/1889-12-27/ed-1/?sp=2",
+      "public_domain": "Published in the United States in 1889 (before 1931); U.S. works published before 1931 are in the public domain.",
+      "verification": "Read against the page image (right edge of the column cropped; OCR fills the cut words)."
+    },
+    {
+      "id": "WS1890",
+      "type": "primary_newspaper_public_domain",
+      "citation": "Washington Standard (Olympia), June 6, 1890, page 3.",
+      "url": "https://www.loc.gov/resource/sn84022770/1890-06-06/ed-1/?sp=3",
+      "public_domain": "Published in the United States in 1890 (before 1931); U.S. works published before 1931 are in the public domain.",
+      "verification": "Read against the page image."
+    },
+    {
+      "id": "MCJ1890a",
+      "type": "primary_newspaper_public_domain",
+      "citation": "Mason County Journal (Shelton), January 31, 1890, page 5, dispatch credited to the Port Townsend Leader.",
+      "url": "https://www.loc.gov/resource/sn88085081/1890-01-31/ed-1/?sp=5",
+      "public_domain": "Published in the United States in 1890 (before 1931); U.S. works published before 1931 are in the public domain.",
+      "verification": "OCR checked against a partial page-image crop; the line ends were cut, so treat as OCR-plus-partial-check."
+    },
+    {
+      "id": "MCJ1890b",
+      "type": "primary_newspaper_public_domain",
+      "citation": "Mason County Journal (Shelton), May 23, 1890, page 4, item credited '-Press.' (reprinted Seattle Press editorial on the Press party's expected return).",
+      "url": "https://www.loc.gov/resource/sn88085081/1890-05-23/ed-1/?sp=4",
+      "public_domain": "Published in the United States in 1890 (before 1931); U.S. works published before 1931 are in the public domain.",
+      "verification": "Facts only; no quotes used."
+    },
+    {
+      "id": "FH1890",
+      "type": "primary_newspaper_public_domain",
+      "citation": "Fairhaven Herald (Fairhaven, Wash.), Sunday, July 20, 1890, page 2.",
+      "url": "https://www.loc.gov/resource/sn88085722/1890-07-20/ed-1/?sp=2",
+      "public_domain": "Published in the United States in 1890 (before 1931); U.S. works published before 1931 are in the public domain.",
+      "verification": "Read against the page image."
+    },
+    {
+      "id": "ES1890",
+      "type": "primary_newspaper_public_domain",
+      "citation": "\"The Alaskan Expedition. First Report From the Geographic Society's Exploring Party.\" Evening Star (Washington, D.C.), June 24, 1890, page 3.",
+      "url": "https://www.loc.gov/resource/sn83045462/1890-06-24/ed-1/?sp=3",
+      "public_domain": "Published in the United States in 1890 (before 1931); U.S. works published before 1931 are in the public domain.",
+      "verification": "Read against the page image."
+    },
+    {
+      "id": "NPS_EXPL",
+      "type": "us_government_web_page",
+      "citation": "National Park Service, Olympic National Park, \"Exploration of the Olympic Peninsula\" (web page, read 2026-10-08).",
+      "url": "https://www.nps.gov/olym/learn/historyculture/exploration-of-the-olympic-peninsula.htm",
+      "public_domain": "U.S. government work. Used for facts only."
+    },
+    {
+      "id": "NPS_HRS1983",
+      "type": "us_government_report",
+      "citation": "Gail H. E. Evans, Historic Resource Study, Olympic National Park, Washington (Seattle: National Park Service, Pacific Northwest Region, 1983), chapter 1 (Press Expedition section). Cites the Seattle Press of July 16, 1890 and Wood 1967 pp. 19-22 for the members.",
+      "url": "https://www.npshistory.com/publications/olym/hrs/chap1.htm",
+      "public_domain": "NPS publication. Used for facts; two short 1889-90 Press phrases it quotes are listed as secondary transcriptions."
+    },
+    {
+      "id": "WOOD1967",
+      "type": "copyrighted_secondary_facts_only",
+      "citation": "Robert L. Wood, Across the Olympic Mountains: The Press Expedition, 1889-90 (Seattle: The Mountaineers and University of Washington Press, 1967; later printings, including a 1968 printing cited by NPS and a Mountaineers Books paperback). Built from the members' diaries and other original records.",
+      "url": "https://www.mountaineers.org/books/books/across-the-olympic-mountains-the-press-expedition-1889-90",
+      "public_domain": "NOT public domain. No Wood text appears anywhere in this file. Facts credited to Wood were reached through the NPS HRS (which cites Wood 1967 pp. 19-22) and through modern newspaper articles that cite him; the book itself was not read for this file, so check page numbers in the book before printing a page citation in-game."
+    },
+    {
+      "id": "PDN2009a",
+      "type": "copyrighted_secondary_facts_only",
+      "citation": "John Kendall, \"Press Expedition remembered I: Five explorers set out to open Olympic Mountains to the world,\" Peninsula Daily News, December 2009.",
+      "url": "https://www.peninsuladailynews.com/?p=112434",
+      "public_domain": "Copyrighted article: facts only, paraphrased. Short 1889 quotations it transcribes are listed as secondary transcriptions."
+    },
+    {
+      "id": "PDN2009b",
+      "type": "copyrighted_secondary_facts_only",
+      "citation": "John Kendall, \"Press Expedition remembered II: Entering 'terra incognita',\" Peninsula Daily News, December 2009 (cites Robert L. Wood).",
+      "url": "https://www.peninsuladailynews.com/?p=112437",
+      "public_domain": "Copyrighted article: facts only, paraphrased."
+    },
+    {
+      "id": "PDN2009c",
+      "type": "copyrighted_secondary_facts_only",
+      "citation": "John Kendall, \"Press Expedition remembered III: Arrival on the other side of the Olympic Mountains,\" Peninsula Daily News, December 2009.",
+      "url": "https://peninsuladailynews.com/news/press-expedition-remembered-iii-arrival-on-the-other-side-of-the-olympic-mountains",
+      "public_domain": "Copyrighted article: facts only, paraphrased. Short 1890 quotations it transcribes are listed as secondary transcriptions."
+    },
+    {
+      "id": "PDN2001",
+      "type": "copyrighted_secondary_facts_only",
+      "citation": "Keith Thorpe, \"Narrow canyon comes alive with images of 'demons',\" Peninsula Daily News, June 22, 2001 (Goblin Gates).",
+      "url": "https://peninsuladailynews.com/news/narrow-canyon-comes-alive-with-images-of-demons",
+      "public_domain": "Copyrighted article: facts only. Barnes's 1890 words it transcribes are listed as secondary transcriptions."
+    },
+    {
+      "id": "PDN2023a",
+      "type": "copyrighted_secondary_facts_only",
+      "citation": "Pat Neal, \"A historic hard winter,\" Peninsula Daily News, January 4, 2023.",
+      "url": "https://peninsuladailynews.com/opinion/pat-neal-a-historic-hard-winter",
+      "public_domain": "Copyrighted column: facts only, paraphrased."
+    },
+    {
+      "id": "PDN2023b",
+      "type": "copyrighted_secondary_facts_only",
+      "citation": "Pat Neal, \"What happened to Dollie?\", Peninsula Daily News, January 11, 2023.",
+      "url": "https://www.peninsuladailynews.com/?p=214569",
+      "public_domain": "Copyrighted column: facts only, paraphrased."
+    },
+    {
+      "id": "ST1997",
+      "type": "copyrighted_secondary_facts_only",
+      "citation": "Tina Kelley, \"Olympian Effort - Six-Day Trek Visits Six-Month Epic Of Courage,\" The Seattle Times, September 11, 1997.",
+      "url": "https://archive.seattletimes.com/archive/19970911/2559731/olympian-effort----six-day-trek-visits-six-month-epic-of-courage",
+      "public_domain": "Copyrighted article: facts only, paraphrased."
+    },
+    {
+      "id": "GNIS",
+      "type": "us_government_dataset",
+      "citation": "U.S. Geological Survey, Geographic Names Information System, Domestic Names, Washington state file (DomesticNames_WA.txt), downloaded 2026-10-08; searched Clallam, Jefferson, Grays Harbor and Mason counties.",
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/GeographicNames/DomesticNames/DomesticNames_WA_Text.zip",
+      "public_domain": "U.S. government data."
+    },
+    {
+      "id": "WIKI",
+      "type": "secondary_reference",
+      "citation": "Wikipedia articles on Mount Barnes, Mount Wilder, Mount Ferry, Mount Pulitzer, Mount Childs, Mount Lawson, Mount Queets, Mount Zindorf, Mount Seattle, Bailey Range, Cat Peak, Goblins Gate and Elwha River (read 2026-10-08). Used only for name-shift details and naming dates, which mostly trace to Wood and to Smitty Parratt's Gods & Goblins (1984).",
+      "url": "https://en.wikipedia.org/wiki/Bailey_Range",
+      "public_domain": "CC BY-SA text; facts only, paraphrased."
+    },
+    {
+      "id": "UW_WOOD_FA",
+      "type": "archival_finding_aid",
+      "citation": "University of Washington Libraries Special Collections, Robert L. Wood papers, Accession 1991-003, inventory. Lists sections and a photostat of the July 16, 1890 Seattle Press (with Barnes's map) that Wood used, his manuscripts for Across the Olympic Mountains, Trail Country, Men, Mules and Mountains, Olympic Mountains Trail Guide and The Land That Slept Late, and his article 'The Goblin Gates Refound'.",
+      "url": "https://static.lib.uw.edu/static/public/specialcollections/findingaids/1991-003.pdf",
+      "public_domain": "Finding aid; facts only."
+    },
+    {
+      "id": "ELWHA_ORG",
+      "type": "tribal_website",
+      "citation": "Lower Elwha Klallam Tribe, Culture and History page (elwha.org), read 2026-10-08.",
+      "url": "https://www.elwha.org/?p=359775",
+      "public_domain": "Tribal website; facts only, paraphrased."
+    },
+    {
+      "id": "QIN",
+      "type": "tribal_website",
+      "citation": "Quinault Indian Nation official website (Taholah, Wash.), read 2026-10-08 (contact details only; history pages not reached).",
+      "url": "https://www.quinaultindiannation.com/",
+      "public_domain": "Tribal website; facts only."
+    }
   ]
 }

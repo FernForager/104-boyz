@@ -1,20 +1,3269 @@
 {
-  "file": "wood_bibliography.json",
-  "status": "IN PROGRESS - skeleton written early; research continuing",
-  "compiled_on": "2026-10-08",
-  "author": {
-    "name": "Robert L. Wood",
-    "born": "1925-01-04, Springfield, Missouri",
-    "died": "2003-12-21",
-    "moved_to_seattle": 1946,
-    "source": "https://archiveswest.orbiscascade.org/ark:80444/xv89962"
+ "file": "wood_bibliography.json",
+ "schema_version": 1,
+ "status": "complete first edition (2026-10-08). Bibliography verified from catalogs, copyright records and the UW finding aid; topical facts come from public sources that draw on Wood, plus Wood's 1990 Columbia article (read in full). Page-level checking inside Wood's books is the main open task; see 'uncertain'.",
+ "compiled_on": "2026-10-08",
+ "compiled_for": "Olympic Peninsula Hiker (design-stage). Knowledge-base backbone built on the work of Robert L. Wood.",
+ "how_to_use": [
+  "Every fact here is restated in our own words. Facts are not copyrightable; Wood's sentences are. Nothing in this file is a quotation from Wood.",
+  "In the topical index each fact has a 'wood' list naming the Wood work that is the go-to account for it (with page or chapter where a locator exists) so the game can credit him, and a 'corroboration' list of URLs we actually read. Unless a citation's locator_basis is 'read_by_us', we did NOT read the fact in Wood's own text (his books are not openly online); we read it in the corroborating sources, several of which draw on Wood. Check the book before printing a page number in the game.",
+  "Locators marked locator_basis='cited_by_evans_1983' come from page citations in Gail H. E. Evans, Historic Resource Study: Olympic National Park (NPS, 1983), a U.S. government work that cites Wood by page. They were not checked against the book itself.",
+  "Locators marked locator_basis='google_books_toc' come from the table-of-contents snippet Google Books shows for that edition.",
+  "Use 'node_index' at the bottom to go from a map node id to the Wood topics that touch it.",
+  "Before shipping any line of text that paraphrases a Wood fact, keep the credit line; before shipping any verbatim Wood text, get written permission (see 'permissions')."
+ ],
+ "copyright_policy": {
+  "rule": "Never copy Robert L. Wood's sentences into game files. Use his books for facts only, restated in our own words, and credit the title.",
+  "why": "All of Wood's Olympic books and articles are still in copyright (see each work's 'copyright' block). Pre-1978 titles carried notices and were automatically renewed under the 1992 Copyright Renewal Act, so they run 95 years from publication (first edition of Across the Olympic Mountains: through 2062). Post-1978 titles run at least to the end of 2073 (Wood died in 2003; life + 70).",
+  "verbatim_quotes_allowed_only_from": [
+   "U.S. government works (e.g., Lt. Joseph P. O'Neil's report printed as Senate Doc. 59, 54th Congress, 1st Session, 1896; Evans's 1983 NPS Historic Resource Study).",
+   "Texts published in the U.S. before 1931 (e.g., the Seattle Press of July 16, 1890; The Mountaineer annuals of 1907).",
+   "Wood's own text only with written permission from the current rights holders (see 'permissions')."
+  ],
+  "note_on_quotes_inside_wood": "Wood's books quote explorers' diaries and newspapers. Those inner quotes may be public domain at their source, but copy them only from the original source text (with URL), never from Wood's page, because Wood's transcription, selection and editing are his. Some diaries (e.g., Harry Fisher's 1890 journal) survive only as manuscripts whose literary rights were not transferred to the University of Washington; treat them as needing permission until checked."
+ },
+ "epitaph_feature": {
+  "user_request": "After a death: write our own epitaph or tap a random Robert Wood sentence.",
+  "decision_for_now": "Ship ORIGINAL epitaphs only. A 'random Robert Wood sentence' cannot ship unless the rights holders grant written permission; until then the Wood option should draw from 'epitaph_fact_seeds' below (a fact Wood documented, retold in our words, with a credit line such as 'After Robert L. Wood, Across the Olympic Mountains (1967)').",
+  "if_permission_is_obtained": "Store each licensed Wood sentence in a separate file (e.g., lore/wood_licensed_lines.json) with title, edition, page, the permission letter's date and scope (media, territory, term, credit wording). Do not mix licensed text into this file.",
+  "public_domain_alternative": "Short lines from the explorers themselves (Seattle Press 1890 report, O'Neil's 1896 Senate report, The Mountaineer 1907) may be used verbatim once copied from a fetched primary text with URL; that collection belongs in a separate quotes file, not here."
+ },
+ "author_biography": {
+  "name": "Robert L. Wood",
+  "also_known_as": [
+   "Bob Wood"
+  ],
+  "born": {
+   "date": "1925-01-04",
+   "place": "Springfield, Missouri",
+   "sources": [
+    "https://archiveswest.orbiscascade.org/ark:80444/xv89962"
+   ]
   },
-  "works_verified_so_far": [
-    "Across the Olympic Mountains: The Press Expedition, 1889-90 (Seattle: The Mountaineers and University of Washington Press, 1967; 2d ed. The Mountaineers 1976, ISBN 0916890112; paperback reprint Mountaineers Books 1989, ISBN 0898862191)",
-    "Trail Country: Olympic National Park (Seattle: The Mountaineers, 1968; xxi, 208 p.; foreword by John Osseward)",
-    "Wilderness Trails of Olympic National Park (Seattle: The Mountaineers, 1970; xx, 219 p.; trail and beach log sections of Trail Country)",
-    "Men, Mules, and Mountains: Lieutenant O'Neil's Olympic Expeditions (Seattle: The Mountaineers, 1976; xx, 483 p.; ISBN 0916890430)",
-    "Olympic Mountains Trail Guide: National Park & National Forest (The Mountaineers, 1984, ISBN 0898860873; 2nd ed. 1991, ISBN 0898863201; 3rd ed. 2000, ISBN 0898866189)",
-    "The Land That Slept Late: The Olympic Mountains in Legend and History (The Mountaineers, 1995; 175 p.; ISBN 0898864402)"
+  "died": {
+   "date": "2003-12-21",
+   "age": 78,
+   "sources": [
+    "https://archiveswest.orbiscascade.org/ark:80444/xv89962",
+    "U.S. Copyright Office record TX0009128040 (author dates 1925-2003) via https://api.publicrecords.copyright.gov/",
+    "Seattle Times death notice, 2003-12-23 (seen only as a search-engine summary; legacy.com page returned HTTP 403 to us)"
+   ],
+   "conflict": "A 2016 Sequim Gazette article gives 2004; the UW finding aid, the Copyright Office and the publisher's bio give 2003. Use 2003."
+  },
+  "summary_own_words": [
+   "Seattle-area writer who spent about half a century walking, climbing and researching the Olympic Mountains, and who became their main historian of exploration and the author of the standard backcountry trail guide.",
+   "He first saw the Olympics in 1946 (publisher bio). The UW finding aid says he moved to Seattle in 1946; the Seattle Times death notice (seen only via a search summary) says he moved to Seattle in 1961. Both can be true if he lived elsewhere in the region (he studied at Olympic College in Bremerton in the 1950s) before settling in Seattle; treat the 1961 date as unconfirmed.",
+   "During the war he trained at Fort Knox (1943), studied in the Army Specialized Training Program at the University of Dayton (about Sept. 1943 - June 1944), was then reclassified to limited service for medical reasons and worked at the military prison at Fort Hood, Texas, as secretary to the prison psychiatrist (per his own notes in the UW inventory).",
+   "He took classes at the University of Washington (a spring-1948 English term paper on the Olympic rain forest was, in his words in the inventory, the seed of his later books) and later creative-writing and mountaineering classes at Olympic College in Bremerton (1956-57).",
+   "He earned his living as a shorthand (Stenotype) reporter; the Seattle Times death notice (via search summary) says he worked as a stenographer for the King County courts until retiring in 1980. His papers hold a Superior Court notice to court staff about his books. He wrote for the trade magazines The National Shorthand Reporter and The Blank Space.",
+   "He climbed Mount Olympus many times (the death notice, via search summary, says eighteen ascents).",
+   "In August 1961 a 'Bob Wood' with Doug Waali and Kent Heathershaw made what were reported as first ascents in the Bailey Range: Mount Childs (Aug. 6), Mount Pulitzer, and Stephen Peak (Aug. 8). Waali also appears in Wood's papers, so this is very probably the same man (AAJ 1962).",
+   "He gave his papers to the University of Washington Libraries in 1972, 1985 and 2000; literary rights in those PAPERS were transferred to UW.",
+   "After his death the copyrights in his published works passed, by inheritance and written agreement, to Tom and Jessica Tonne of Snohomish (Copyright Office record for the 2020 trail guide; Sequim Gazette 2016), who appointed Bill Hoke to edit the fourth edition of the trail guide."
+  ],
+  "sources": [
+   "https://archiveswest.orbiscascade.org/ark:80444/xv89962",
+   "https://static.lib.uw.edu/static/public/specialcollections/findingaids/1991-003.pdf",
+   "https://books.google.com/books?id=ltL9DwAAQBAJ (publisher's 2020 author bio)",
+   "https://www.sequimgazette.com/?p=28043",
+   "https://publications.americanalpineclub.org/articles/12196221000/North-America-United-States-Washington-Olympic-Mountains-New-Climbs-in-the-Bailey-Range",
+   "https://www.lastwilderness.net/?p=1027"
   ]
+ },
+ "bibliography_summary": {
+  "books_about_the_olympics": [
+   "Across the Olympic Mountains: The Press Expedition, 1889-90 (1967, 1976, 1989)",
+   "Trail Country: Olympic National Park (1968)",
+   "Wilderness Trails of Olympic National Park (1970)",
+   "Men, Mules, and Mountains: Lieutenant O'Neil's Olympic Expeditions (1976)",
+   "Olympic Mountains Trail Guide: National Park & National Forest (1984, 1991, 2000, 2020)",
+   "The Land That Slept Late: The Olympic Mountains in Legend and History (1995)"
+  ],
+  "articles": [
+   "The O'Neil Expeditions - Columbia: The Magazine of Northwest History (Washington State Historical Society), vol. 4, no. 2, Summer 1990, pp. 40-45",
+   "(history article; title not yet seen) - The Mountaineer (annual of The Mountaineers, Seattle), 1977 issue (published July 1978), pp. 49-57",
+   "(biographical article on Preston P. Macy; title not yet seen) - The Mountaineer, 1980 issue, pp. 23-25 (portrait p. 22)",
+   "A National Trail in the Olympics? - Puget Soundings, June 1978",
+   "Have a Heart - Signpost Magazine, July 1988",
+   "The Goblin Gates Refound - probably Nature Magazine, October 195? (the inventory scan is partly illegible; year and page uncertain)",
+   "Hiking the Skokomish - Peninsula Daily News (Port Angeles), date not given",
+   "Kloochman Rock - not stated (filed with Wood's articles)",
+   "In Memoriam: Frank O. Shaw; Trips with Frank O. Shaw - 1985; venue not stated",
+   "(Mount Si article, Signpost Magazine, May 1993) - Signpost Magazine, May 1993"
+  ],
+  "unpublished_in_uw_papers": [
+   "Memorandum on Certain Place Names in the Olympics",
+   "Remarks concerning certain entries about the Olympic Mountains in 'Place Names of Washington' by Robert Hitchman",
+   "The Military Career of Colonel John Murphy, 14th Infantry, U.S.A.",
+   "Beyond Olympus: The West End of Jefferson County",
+   "Draft manuscripts of the books",
+   "Manuscript and notes on the 1878 Watkinson Expedition",
+   "Field notes checking landmarks named in the explorers' writings; trail-guide trip notes by year",
+   "Unpublished essays, true accounts and poems (Olympic College creative-writing course and later)"
+  ],
+  "count": {
+   "books": 6,
+   "articles_listed": 10,
+   "unpublished_items": 8
+  }
+ },
+ "books": [
+  {
+   "work_id": "ATOM",
+   "title": "Across the Olympic Mountains: The Press Expedition, 1889-90",
+   "type": "book (narrative history)",
+   "editions": [
+    {
+     "edition": "1st",
+     "year": 1967,
+     "publisher": "Seattle: The Mountaineers and the University of Washington Press",
+     "pages": "xvi, 220 p.; bibliography pp. 213-214",
+     "illustrations": "24 photographs, 9 maps (AAJ review)",
+     "price_at_issue": "$5.95",
+     "lccn": "67013110",
+     "oclc": "639740",
+     "copyright_registration": "A925172, registered as published 1967-04-25; claimant University of Washington Press (Catalog of Copyright Entries 1967, Books, Jul-Dec)"
+    },
+    {
+     "edition": "2d ed. (paperback, 'additions & revisions'; includes an 'Author's note on reprint' per Wood's papers)",
+     "year": 1976,
+     "publisher": "Seattle: The Mountaineers",
+     "pages": "xvi, 220 p., [1] leaf of plates",
+     "isbn": "0916890112",
+     "lccn": "76019257",
+     "oclc": "3206219",
+     "archive_org": "acrossolympicmou0000wood (controlled lending)",
+     "copyright_registration": "TX0000324570, first published 1976-07-01, registered 1979-04-24; claimant The Mountaineers"
+    },
+    {
+     "edition": "reissue (paperback)",
+     "year": 1989,
+     "publisher": "Seattle: Mountaineers Books",
+     "isbn": "0898862191 / 9780898862195",
+     "oclc": "19946210",
+     "note": "Google Books labels this ISBN '2, illustrated', 220 pages; likely a reprint of the 1976 text in the expedition's centennial year."
+    }
+   ],
+   "co_authors_or_contributors": [],
+   "what_it_covers_own_words": "The full story of the Seattle Press's 1889-90 winter crossing of the Olympics: why the newspaper sent the party (Governor-elect Elisha P. Ferry's call to explore the range), who the six men were, their months in the Elwha valley (the failed boat Gertie, sledges, snowshoe relays, caches), the climb out by way of the Goldie River and their mistaken reading of the Elwha's bend, the passage over Low Divide, the rain-forest descent of the North Fork Quinault, the raft wreck on the Quinault, and their arrival at Lake Quinault, the coast and Aberdeen in May 1890. Wood reconstructs the route day by day from the members' diaries and the Seattle Press report of 16 July 1890, ties their camps and blazes to today's trail, and explains the dozens of place names the party gave.",
+   "known_contents": {
+    "basis": "google_books_toc (1976/1989 ed., partial: 13 further sections not shown)",
+    "sections": [
+     {
+      "title": "Introduction",
+      "page": 3
+     },
+     {
+      "title": "Terra Incognita",
+      "page": 6
+     },
+     {
+      "title": "The Press Exploring Expedition",
+      "page": 17
+     }
+    ],
+    "index_terms_seen": [
+     "Bailey Range",
+     "Belle River",
+     "Christie",
+     "Barnes",
+     "Crumback",
+     "Hayes",
+     "Sims",
+     "Sims River",
+     "Runnalls",
+     "Gertie",
+     "Geyser Valley",
+     "Goblin",
+     "Goldie River",
+     "Lillian",
+     "Lake Quinault",
+     "Macdonald's",
+     "Meany",
+     "Mount Barnes",
+     "Mount Bennett",
+     "Mount Childs",
+     "Mount Christie",
+     "Mount Olympus",
+     "Mount Pulitzer",
+     "Mount Seattle",
+     "pemmican",
+     "Port Angeles",
+     "Press Valley",
+     "Quinault River",
+     "Semple",
+     "snowshoes",
+     "blazes",
+     "cache"
+    ]
+   },
+   "people": [
+    "James Halbold Christie (leader)",
+    "Charles Adams Barnes (topographer, photographer)",
+    "John Henry Crumback (cook)",
+    "Christopher O'Connell Hayes",
+    "John William Sims",
+    "Dr. Harries Boyle Runnalls (left 3 Feb 1890)",
+    "William E. Bailey (Press publisher)",
+    "Edmond S. Meany (Press staff)",
+    "Elisha P. Ferry (governor)",
+    "Eugene Semple (territorial governor)"
+   ],
+   "regions": [
+    "Elwha valley",
+    "Goldie River",
+    "Low Divide",
+    "North Fork Quinault",
+    "Lake Quinault",
+    "Bailey Range"
+   ],
+   "wood_research_materials": "UW papers Carton I: clippings of the 16 July 1890 Seattle Press used in writing the book; drafts titled 'The First Across' and 'Footprints in the Snow'; copies of Press-expedition items from the Edmond Meany files; notes on James H. Christie's later life by Grace Worth of Vernon, B.C. Carton BB: photostat of the 16 July 1890 Press story with Barnes's map.",
+   "reception": "Reviewed by George R. Sainsbury, American Alpine Journal 1968: a careful revival of the party's story that settles most open questions and can be used to check old camp sites and the party's distinctive blazes. The Seattle Times (1997) called it the definitive account.",
+   "copyright": {
+    "status": "in copyright",
+    "claimants_of_record": [
+     "University of Washington Press (1967 ed.)",
+     "The Mountaineers (1976 ed.)"
+    ],
+    "estimated_term_end": "end of 2062 for the 1967 text; end of 2071 for 1976 additions (95 years from publication)",
+    "current_rights_holder_note": "Wood's book rights reportedly passed to Tom and Jessica Tonne (see permissions). Confirm with Mountaineers Books whether UW Press still controls any 1967 rights."
+   },
+   "where_to_read": [
+    "Internet Archive controlled lending: https://archive.org/details/acrossolympicmou0000wood",
+    "UW Libraries; Seattle Public Library; North Olympic Library System (catalog.nols.org lists it)",
+    "Manuscripts and research files: University of Washington Libraries Special Collections, Robert L. Wood papers (Archives West ark:80444/xv89962; inventory PDF 1991-003)"
+   ],
+   "sources": [
+    "https://openlibrary.org/works/OL2949411W",
+    "https://archive.org/metadata/acrossolympicmou0000wood",
+    "https://books.google.com/books?id=ab4RAQAAIAAJ",
+    "https://publications.americanalpineclub.org/articles/12196825202/Across-the-Olympic-Mountains-The-Press-Expedition",
+    "https://archive.org/details/catalogofco1967321112libr",
+    "https://archive.seattletimes.com/archive/19970911/2559731/olympian-effort----six-day-trek-visits-six-month-epic-of-courage",
+    "https://catalog.nols.org/GroupedWork/1315faf0-dcf3-55ea-111b-65a3e171bf0e-eng/Home"
+   ]
+  },
+  {
+   "work_id": "TC",
+   "title": "Trail Country: Olympic National Park",
+   "type": "book (natural and human history + trail and beach logs)",
+   "editions": [
+    {
+     "edition": "1st",
+     "year": 1968,
+     "publisher": "Seattle: The Mountaineers",
+     "pages": "298 p. per copyright entry and AAJ review (Open Library shows xxi, 208 p.; Internet Archive scan has 362 images)",
+     "illustrations": "24 photographs, 24 maps",
+     "price_at_issue": "$6.95",
+     "foreword": "John Osseward",
+     "lccn": "68016316",
+     "archive_org": "trailcountryolym0000robe (controlled lending)",
+     "copyright_registration": "A992503, published 1968-05-08; claimant The Mountaineers (Catalog of Copyright Entries 1968, Books, Jul-Dec)"
+    }
+   ],
+   "co_authors_or_contributors": [
+    "John Osseward (foreword)"
+   ],
+   "what_it_covers_own_words": "Two books in one. Part one is a portrait of the peninsula: weather, rocks and landforms, plant zones from rain forest to alpine, wildlife, the human story from the coastal explorers onward, and the long political fight that produced Olympic National Park. Part two is a region-by-region trail guide, each chapter with its own map and an introduction to the terrain, plus logs of the beach routes along the coast, written with Wood's personal commentary rather than bare mileages. Library catalog blurbs stress that it doubles as an alarm about threats to the park's irreplaceable resources (North Olympic Library System record).",
+   "known_contents": {
+    "basis": "AAJ 1969 review (George R. Sainsbury); Evans 1983 page citations",
+    "sections": [
+     {
+      "title": "Part 1: the peninsula (climate, geology, terrain, plant communities and life zones, wildlife, early history, conservation and park creation)"
+     },
+     {
+      "title": "Part 2: trail guide by region, each chapter with a map; beach logs for the coast"
+     }
+    ],
+    "page_locators_from_evans": {
+     "66-67": "early coastal exploration and the naming of features (Aguilar, Barkley and the 'Destruction River', Spanish Port of Our Lady of the Angels, Elisa's 1791 post at Discovery Bay, naming of the Olympic Mountains)",
+     "78": "1908: four Bremerton climbers reached West, Middle and East peaks of Mount Olympus in one day",
+     "111": "the Elwha valley as the natural entry route used by O'Neil (1885) and the Press party (1889-90)"
+    }
+   },
+   "origins": "Grew from a May 1948 University of Washington English term paper on the Olympic rain forest. Earlier manuscript titles: 'Outpost of the Wilderness (The Story of Olympic National Park)', completed 1950 and rejected by about six publishers; 'Pathways in the Wilderness'; a version titled 'Wilderness ...: Olympic National Park'. Revised with suggestions from Murrell Boyd and an evaluation by Ward Irwin (UW papers, Cartons H-I).",
+   "people": [
+    "John Osseward (foreword)",
+    "explorers and park advocates generally"
+   ],
+   "regions": [
+    "whole park, including the coastal strip (beach logs)"
+   ],
+   "reception": "Sainsbury (AAJ 1969) predicted it would be the standard reference to the Olympic backcountry for years.",
+   "copyright": {
+    "status": "in copyright",
+    "claimants_of_record": [
+     "The Mountaineers"
+    ],
+    "estimated_term_end": "end of 2063 (95 years from 1968 publication)"
+   },
+   "where_to_read": [
+    "Internet Archive controlled lending: https://archive.org/details/trailcountryolym0000robe",
+    "Seattle-area and peninsula public libraries; UW Libraries",
+    "Manuscripts: University of Washington Libraries Special Collections, Robert L. Wood papers (Archives West ark:80444/xv89962; inventory PDF 1991-003)"
+   ],
+   "sources": [
+    "https://openlibrary.org/works/OL2949408W",
+    "https://publications.americanalpineclub.org/articles/12196948902/Trail-Country-Olympic-National-Park",
+    "https://archive.org/details/catalogofco1968322112lib",
+    "https://npshistory.com/publications/olym/hrs/chap1.htm",
+    "https://catalog.nols.org/GroupedWork/a4bc8e4b-821f-d92c-4162-1bdac4413c5e-eng/Home"
+   ]
+  },
+  {
+   "work_id": "WT",
+   "title": "Wilderness Trails of Olympic National Park",
+   "type": "book (trail and beach guide; spin-off of Trail Country)",
+   "editions": [
+    {
+     "edition": "1st",
+     "year": 1970,
+     "publisher": "Seattle: The Mountaineers",
+     "pages": "xx, 219 p.",
+     "lccn": "79125995",
+     "archive_org": "wildernesstrails0000robe (controlled lending)",
+     "copyright_registration": "A181857, published 1970-08-01; claimant The Mountaineers; new matter: preface and introduction (Catalog of Copyright Entries 1970, Books, Jul-Dec)"
+    }
+   ],
+   "what_it_covers_own_words": "A pocket-friendlier reissue of the complete trail logs and beach logs from Trail Country (1968), with a new preface and introduction; it drops the natural-history and park-history half.",
+   "copyright": {
+    "status": "in copyright",
+    "claimants_of_record": [
+     "The Mountaineers"
+    ],
+    "estimated_term_end": "end of 2065"
+   },
+   "where_to_read": [
+    "Internet Archive controlled lending: https://archive.org/details/wildernesstrails0000robe"
+   ],
+   "sources": [
+    "https://openlibrary.org/works/OL2949409W",
+    "https://archive.org/details/catalogofco1970324112libr"
+   ]
+  },
+  {
+   "work_id": "MMM",
+   "title": "Men, Mules, and Mountains: Lieutenant O'Neil's Olympic Expeditions",
+   "type": "book (narrative history)",
+   "editions": [
+    {
+     "edition": "1st",
+     "year": 1976,
+     "publisher": "Seattle: The Mountaineers",
+     "pages": "xx, 483 p., [11] leaves of plates; bibliography pp. 463-483; about 21 maps (bookseller description)",
+     "isbn": "0916890430",
+     "lccn": "76015458",
+     "oclc": "3206317",
+     "price_at_issue": "$17.50",
+     "archive_org": "menmulesmountain0000wood (controlled lending)",
+     "copyright_registration": "A862868, published 1976-11-05; claimant The Mountaineers (Catalog of Copyright Entries 1977, Books, Jan-Jun)",
+     "note": "Some listings give June 1977, probably a later printing or distribution date."
+    }
+   ],
+   "what_it_covers_own_words": "The definitive study of Lt. Joseph P. O'Neil's two Army explorations: the 1885 reconnaissance south from Port Angeles over the first ranges toward the Dungeness and Mount Anderson country, cut short by transfer orders; and the 1890 Olympic Exploring Expedition, run jointly with the Oregon Alpine Club, which built a mule trail from Lake Cushman up the North Fork Skokomish, over the divides and down the East Fork Quinault, while foot parties fanned out across the southern half of the range and a side party claimed the first ascent of Mount Olympus. Wood follows the parties nearly day by day, using O'Neil's reports and the diaries of expedition members (above all Pvt. Harry Fisher), and includes material on the 1889-90 Press Expedition for context. He also traces O'Neil's recommendation that the interior become a national park. The catalog summary frames it the same way: 1885 was a partial reconnaissance of the northeastern Olympics; 1890 explored the southern half of the peninsula in depth (North Olympic Library System record).",
+   "known_contents": {
+    "basis": "Evans 1983 page citations (no table of contents seen)",
+    "page_locators_from_evans": {
+     "17": "1885: a gold find reported on Capt. John W. White's ranch near the mouth of Ennis Creek",
+     "22": "1885: O'Neil's compass deflected on a 'mountain of magnetic iron' in the upper Ennis Creek country",
+     "41": "O'Neil's early belief in mineral wealth",
+     "49": "O'Neil on how his mineral hopes faded but his zeal as an explorer grew",
+     "54": "1890 roster, including the three Oregon Alpine Club scientists; Fisher's diary remark about the scientists' sacrifices",
+     "55": "26 June 1890: ten enlisted men and supplies for about three months assembled at Port Townsend",
+     "71": "Windhoffer's farm and house on the west side of Lake Cushman",
+     "74": "settlers near Lake Cushman (Davis, McCabe, Muller, Stebbins, Church); copper mining camp above the lake",
+     "84-85, 404": "Linsley's inspection of the Lake Cushman copper mines",
+     "104-105": "Henderson's account of the view from a peak west of Lake Cushman (probably Mount Lincoln)",
+     "114": "a deserted hunter's lean-to near Five Stream",
+     "201, 204-205, 215-220": "the Press Expedition's crossing and the place names it gave",
+     "398": "O'Neil's later verdict that the range held no precious metals",
+     "maps": "route maps of all 1890 parties"
+    }
+   },
+   "people": [
+    "Lt. Joseph Patrick O'Neil (1862-1938), 14th Infantry",
+    "Gen. Nelson A. Miles (authorized 1885)",
+    "Gen. John Gibbon (approved 1890)",
+    "William G. Steel (Oregon Alpine Club)",
+    "Nelson E. Linsley (geologist)",
+    "Louis F. Henderson (botanist)",
+    "Bernard J. Bretherton (naturalist)",
+    "Pvt. Harry Fisher (diarist)",
+    "Pvt. John Danton",
+    "Cpl. Frederick Haffner",
+    "Pvt. John Bairens",
+    "Frederic J. Church",
+    "James Robb Church",
+    "Pvt. John Johnson (1885)",
+    "Harry Hawgood (engineer, 1885)",
+    "Col. Thomas M. Anderson",
+    "Col. John Murphy (O'Neil's stepfather)",
+    "James Wickersham (met the 1890 party)",
+    "Alfred and Orte Higley (met the 1890 party)"
+   ],
+   "regions": [
+    "Port Angeles foothills",
+    "Mount Angeles / Klahhane Ridge",
+    "Hurricane Ridge",
+    "Elwha",
+    "Lillian River",
+    "Cameron/Dosewallips headwaters",
+    "Mount Anderson",
+    "Lake Cushman",
+    "North Fork Skokomish",
+    "First Divide",
+    "Duckabush",
+    "O'Neil Pass",
+    "East Fork Quinault (Enchanted Valley)",
+    "Queets",
+    "Humptulips, Wynoochee, Satsop, Wishkah",
+    "Mount Olympus (south side)"
+   ],
+   "wood_research_materials": "UW papers Cartons J-P (correspondence 1967-1978; National Archives microfilm of enlistment registers, post returns, regimental returns, Adjutant General and Quartermaster records for 1885 and 1890; O'Neil's service record; pension files of expedition members; family tree; Fisher transcriptions; Bretherton and Church material; Wood's interview notes with explorers' relatives and his field notes checking landmarks). Draft titles: 'Trailblazing in the Olympics', 'Campfires in the Wild Olympics'. Wood's typescript of Harry Fisher's 1890 journal is UW Special Collections accession 0790-002.",
+   "copyright": {
+    "status": "in copyright",
+    "claimants_of_record": [
+     "The Mountaineers"
+    ],
+    "estimated_term_end": "end of 2071"
+   },
+   "where_to_read": [
+    "Internet Archive controlled lending: https://archive.org/details/menmulesmountain0000wood",
+    "North Olympic Library System; UW Libraries; Whyte Museum archives library (Banff) also holds a copy",
+    "Manuscripts: University of Washington Libraries Special Collections, Robert L. Wood papers (Archives West ark:80444/xv89962; inventory PDF 1991-003)",
+    "Fisher journal microfilm (restricted) and Wood's transcript (open): Harry Fisher papers, UW Special Collections, https://archiveswest.orbiscascade.org/ark:/80444/xv26913"
+   ],
+   "sources": [
+    "https://openlibrary.org/works/OL2949410W",
+    "https://archive.org/metadata/menmulesmountain0000wood",
+    "https://archive.org/details/1977booksandpamp33112library",
+    "https://npshistory.com/publications/olym/hrs/chap1.htm",
+    "https://npshistory.com/publications/olym/hrs/chap2.htm",
+    "https://npshistory.com/publications/olym/hrs/chap3.htm",
+    "https://historylink.org/File/7473",
+    "https://catalog.nols.org/GroupedWork/9408b195-1e6d-aaff-4beb-4e4264bcae1e-eng/Home"
+   ]
+  },
+  {
+   "work_id": "OMTG",
+   "title": "Olympic Mountains Trail Guide: National Park & National Forest",
+   "type": "book (hiking guide)",
+   "editions": [
+    {
+     "edition": "1st",
+     "year": 1984,
+     "publisher": "Seattle: The Mountaineers",
+     "pages": "xiv, 303 p.; bibliography p. 300",
+     "isbn": "0898860873",
+     "lccn": "84004819",
+     "oclc": "10533668",
+     "copyright_registration": "TX0001415597, first published 1984-05-15, registered 1984-08-23; claimant The Mountaineers; 'entire text: Robert L. Wood'",
+     "note": "Open Library also lists a March 1988 printing under the same ISBN."
+    },
+    {
+     "edition": "2nd",
+     "year": 1991,
+     "publisher": "Seattle: Mountaineers",
+     "pages": "xiv, 306 p.",
+     "isbn": "0898863201",
+     "lccn": "91018909",
+     "oclc": "23765963",
+     "archive_org": "olympicmountains00wood (controlled lending)",
+     "price_at_issue": "$14.95",
+     "copyright_registration": "TX0003384704, first published 1991-07-25, registered 1992-07-31; claimant Mountaineers; new matter: additions"
+    },
+    {
+     "edition": "3rd",
+     "year": 2000,
+     "publisher": "Seattle: Mountaineers",
+     "pages": "350 p.; bibliography pp. 346-347",
+     "subtitle": "national park and national forest: detailed descriptions of all constructed and way trails in the Olympic Mountains, maintained and not maintained",
+     "isbn": "0898866189 / 9780898866186",
+     "lccn": "00008289",
+     "oclc": "43411459",
+     "copyright_registration": "TX0005489638, published 2000-05-31, registered 2002-02-22 (series record CSN0137162); claimant Robert L. Wood",
+     "publisher_blurb_examples": "The 3rd-edition catalog blurb singles out the Cat Creek Way Trail (a high route with a view down to Oyster Lake) and the Appleton Pass Trail (marmots on the boulders) and says it serves both day hikers and backpackers.",
+     "later_printings": "Reprinted with minor updates in about nine printings after Wood's death (Sequim Gazette 2016). One library record (OCLC 57123524, 2004 printing; archive.org olympicmountains0000wood) adds 'revised by Terry Wood' - not confirmed anywhere else."
+    },
+    {
+     "edition": "4th (posthumous update)",
+     "year": 2020,
+     "publisher": "Seattle: Mountaineers Books",
+     "pages": "352 p.",
+     "isbn": "978-1-68051-250-2 (paperback); ebook 9781680512519",
+     "date": "2020-09 (Copyright Office: first published 2020-09-01; retail listings 2020-09-04)",
+     "price_at_issue": "$24.95",
+     "updated_by": [
+      "William E. (Bill) Hoke (editor; friend of Wood, checked trails for the 3rd ed.)",
+      "Doug Savage (led trail checking)",
+      "Peninsula Wilderness Club volunteers"
+     ],
+     "changes": "every trail re-hiked and fact-checked; 30 new trails added for 206 hikes in Olympic National Park and Olympic National Forest; overview maps for 16 regions showing approach roads, trailheads and trails; Wood's voice and his original overview maps kept; sales benefit Olympic Mountain Rescue",
+     "copyright_registration": "TX0009128040, registered 2021-09-22; authors Robert L. Wood (1925-2003), William E. Hoke, Peninsula Wilderness Club; claimants Jessica Tonne and Tom Tonne ('by inheritance and by written agreement'), c/o Mountaineers Books, 1001 SW Klickitat Way #201, Seattle, WA 98134"
+    }
+   ],
+   "what_it_covers_own_words": "Trail-by-trail descriptions of the constructed trails and the 'way trails' (unmaintained or boot-beaten routes) of the Olympic Mountains, in both the national park and the surrounding national forest, grouped into parts by area. Entries describe the route, distances and elevations, junctions and camps, often with a note on history or natural features (general description from reviews and the publisher; not checked entry by entry). It became the standard guide to the Olympic backcountry (UW finding aid calls it the standard hiking guide to the park). Wood researched it on field trips from the 1950s into the mid-1980s; his trip notes are filed by year in his papers.",
+   "known_contents": {
+    "basis": "google_books_toc (2nd ed. 1991, partial: 20 further sections not shown)",
+    "sections": [
+     {
+      "title": "Introduction",
+      "page": 1
+     },
+     {
+      "title": "Part I",
+      "page": 23
+     },
+     {
+      "title": "Barnes Creek Trail",
+      "page": 31
+     }
+    ],
+    "index_terms_seen": [
+     "Bailey Range",
+     "Big Quilcene",
+     "Bogachiel",
+     "Dosewallips",
+     "Duckabush",
+     "Dungeness",
+     "Elwha River",
+     "Fork Quinault",
+     "Graywolf",
+     "Hamma Hamma",
+     "Hurricane Ridge",
+     "Mount Anderson",
+     "Mount Constance",
+     "Mount Olympus",
+     "North Fork Skokomish",
+     "O'Neil",
+     "Queets",
+     "Skokomish",
+     "Soleduck",
+     "South Fork",
+     "Wynoochee",
+     "way trail",
+     "shelter",
+     "ranger station"
+    ]
+   },
+   "coverage_caveat": "We have not seen whether the coastal beach routes are included; the title and index terms suggest the mountains and forest only. For beach logs use Trail Country / Wilderness Trails.",
+   "game_use": "The go-to Wood source for any node that is a trail junction, camp, pass or way-trail point. Use its facts (route shape, history notes) in our words; current conditions must come from NPS/USFS 2026 data, not from any edition of the guide.",
+   "copyright": {
+    "status": "in copyright",
+    "claimants_of_record": [
+     "The Mountaineers (1984, 1991)",
+     "Robert L. Wood (2000)",
+     "Tom and Jessica Tonne (2020 4th ed.)"
+    ],
+    "estimated_term_end": "at least end of 2073 for Wood's text"
+   },
+   "where_to_read": [
+    "In print: 4th ed. (2020) from Mountaineers Books and bookstores",
+    "Internet Archive controlled lending: https://archive.org/details/olympicmountains00wood (2nd ed.), https://archive.org/details/olympicmountains0000wood (3rd ed., 2004 printing)",
+    "Seattle Public Library holds the 4th ed. (several copies)",
+    "Manuscripts, field notes 1954-1984, 3rd-edition binders: University of Washington Libraries Special Collections, Robert L. Wood papers (Archives West ark:80444/xv89962; inventory PDF 1991-003), Cartons Q-U, FF-GG"
+   ],
+   "sources": [
+    "https://openlibrary.org/works/OL2949412W",
+    "https://archive.org/download/olympicmountains00wood/olympicmountains00wood_marc.xml",
+    "https://archive.org/download/olympicmountains0000wood/olympicmountains0000wood_marc.xml",
+    "https://books.google.com/books?id=iT8wK6Paz-0C",
+    "https://books.google.com/books?id=ltL9DwAAQBAJ",
+    "https://www.sequimgazette.com/?p=28043",
+    "https://api.publicrecords.copyright.gov/ (records TX0001415597, TX0003384704, CSN0137162, TX0009128040)",
+    "https://catalog.nols.org/GroupedWork/3b48b47c-b009-ba1d-d303-ca1dd9409856-eng/Home",
+    "https://catalog.nols.org/GroupedWork/6625059c-982a-2ab7-3aba-091834c3311b-eng/Home"
+   ]
+  },
+  {
+   "work_id": "LTSL",
+   "title": "The Land That Slept Late: The Olympic Mountains in Legend and History",
+   "type": "book (popular history)",
+   "editions": [
+    {
+     "edition": "1st",
+     "year": 1995,
+     "publisher": "Seattle: The Mountaineers",
+     "pages": "175 p.; references pp. 168-173; index",
+     "isbn": "0898864402 / 9780898864403",
+     "lccn": "95033199",
+     "oclc": "32855144",
+     "copyright_registration": "TX0004259721, first published 1995-09-14, registered 1996-01-11; claimant Robert L. Wood (author and employer-for-hire of the mapmaker)"
+    }
+   ],
+   "what_it_covers_own_words": "A shorter, general-reader history of how the Olympic Mountains went from 'unknown' to national park: Native and settler-era legends about the interior, the maritime explorers, the burst of expeditions in 1889-90 (Press party, O'Neil, the Gilmans, Banta and Sharp, Wickersham's Banner party), the summer outings of climbing clubs to Mount Olympus in the early 1900s (The Mountaineers, the Explorers Club), and the campaign that led from Mount Olympus National Monument to Olympic National Park. Condensed by Wood from a 250-page manuscript to about 150 pages over ten years (1985-1995). The publisher's blurb promises previously unpublished historical photographs and detailed maps of the explorers' routes (North Olympic Library System record).",
+   "known_contents": {
+    "basis": "google_books_toc",
+    "chapters": [
+     {
+      "title": "The Land That Slept Late",
+      "page": 9
+     },
+     {
+      "title": "The First Expeditions",
+      "page": 24
+     },
+     {
+      "title": "Wickersham's Wanderings",
+      "page": 77
+     },
+     {
+      "title": "The Olympic Summer Outings",
+      "page": 131
+     },
+     {
+      "title": "Epilogue: Terra Incognita to National Park",
+      "page": 154
+     }
+    ],
+    "index_terms_seen": [
+     "Banner Party",
+     "Banta",
+     "Barnes",
+     "Bretherton",
+     "Christie",
+     "Dosewallips River",
+     "Duckabush",
+     "East Fork",
+     "Elwha Basin",
+     "Explorers Club",
+     "Gilmans",
+     "Grays Harbor",
+     "Hoh River",
+     "Hood Canal",
+     "Hoodsport",
+     "Lake Cushman",
+     "Lilliwaup",
+     "Mount Olympus",
+     "O'Neil",
+     "Oyhut",
+     "Queets Basin",
+     "Queets River",
+     "Quinault Lake",
+     "Soleduck River",
+     "Vancouver Barracks",
+     "Wickersham",
+     "Photo by Frank [O. Shaw]"
+    ],
+    "notes_pages": {
+     "161": "endnote on the Heceta landing (Spanish, 1775) as the first European landing on the Northwest Coast",
+     "167": "endnote on an early-1900s proposal for a national game preserve as a step toward a national park"
+    }
+   },
+   "indigenous_content_caution": "The 'legend' material retells Native stories as recorded by settler-era writers. The game must NOT reuse or adapt those stories. Any Native content needs direct consultation with the Hoh Tribe, Quileute Nation, Makah Tribe, Quinault Indian Nation, Lower Elwha Klallam Tribe, Jamestown S'Klallam Tribe, Port Gamble S'Klallam Tribe, Skokomish Indian Tribe and other peninsula nations.",
+   "copyright": {
+    "status": "in copyright",
+    "claimants_of_record": [
+     "Robert L. Wood (now his successors)"
+    ],
+    "estimated_term_end": "end of 2073"
+   },
+   "where_to_read": [
+    "Public libraries (listed on NPS Olympic suggested-reading page; North Olympic Library System)",
+    "Manuscripts and 10 years of correspondence: University of Washington Libraries Special Collections, Robert L. Wood papers (Archives West ark:80444/xv89962; inventory PDF 1991-003), Cartons V and AA"
+   ],
+   "sources": [
+    "https://openlibrary.org/works/OL2949406W",
+    "https://books.google.com/books?id=h02trQHd788C",
+    "https://www.nps.gov/olym/learn/education/development/reading.htm",
+    "https://static.lib.uw.edu/static/public/specialcollections/findingaids/1991-003.pdf",
+    "https://historylink.org/File/7473",
+    "https://catalog.nols.org/GroupedWork/dc1d2796-421c-9b4a-4409-476ed029b16b-eng/Home"
+   ]
+  }
+ ],
+ "articles": [
+  {
+   "work_id": "COL1990",
+   "title": "The O'Neil Expeditions",
+   "title_note": "a centennial article; its first page carries a one-line subtitle",
+   "publication": "Columbia: The Magazine of Northwest History (Washington State Historical Society), vol. 4, no. 2, Summer 1990, pp. 40-45",
+   "verified": true,
+   "read_by_us": true,
+   "covers_own_words": "Centennial summary of Army exploration of the Olympics: the 1882 and 1884 Army trail attempts toward the Dungeness, O'Neil's 1885 reconnaissance from Port Angeles, the 1890 Olympic Exploring Expedition from Lilliwaup and Lake Cushman up the North Fork Skokomish (Fisher's Bluff, Jumbo's Leap, the divides, O'Neil Pass, the Quinault), the Linsley party's Olympus climb and Queets descent, the expedition's end at Hoquiam, O'Neil's report and his call for a national park. A sidebar summarizes the Press Expedition.",
+   "copyright": "Masthead: entire contents (c) 1990 Washington State Historical Society, all rights reserved, no reprinting without written permission. Treat Wood's article text as in copyright.",
+   "where_to_read": "https://npshistory.com/publications/olym/c-v4n2-1990-3.pdf (scan hosted by NPS History Collection)",
+   "sources": [
+    "https://npshistory.com/publications/olym/c-v4n2-1990-3.pdf",
+    "https://historylink.org/File/7473"
+   ]
+  },
+  {
+   "work_id": "MTN1977",
+   "title": "(history article; title not yet seen)",
+   "publication": "The Mountaineer (annual of The Mountaineers, Seattle), 1977 issue (published July 1978), pp. 49-57",
+   "verified": "authorship and pages verified from the official index; title and subject not seen",
+   "covers_own_words": "Indexed under HISTORY. Plates just before it (pp. 48-A to 48-H) show Lt. Joseph P. O'Neil, Bernard J. Bretherton and Frank O. Shaw, so it is probably about the O'Neil expeditions (unconfirmed). The same annual reviews Men, Mules and Mountains on p. 119.",
+   "sources": [
+    "https://www.mountaineers.org/about/history/the-mountaineer-annuals/indexes-annuals-maps/the-mountaineer-index-to-annual-issues-1967-to-1980/@@download/file/_Index 1967-1980.pdf"
+   ]
+  },
+  {
+   "work_id": "MTN1980",
+   "title": "(biographical article on Preston P. Macy; title not yet seen)",
+   "publication": "The Mountaineer, 1980 issue, pp. 23-25 (portrait p. 22)",
+   "verified": "authorship and pages verified from the official index",
+   "covers_own_words": "Life of Preston Plumb Macy (1891-1979), custodian of Mount Olympus National Monument from 1934 and first superintendent of Olympic National Park (1938 to Sept. 1951), who ran the new park from his Port Angeles home at first and fought to keep its wilderness roadless (Macy facts from his Archives West finding aid, not from Wood).",
+   "sources": [
+    "https://www.mountaineers.org/about/history/the-mountaineer-annuals/indexes-annuals-maps/the-mountaineer-index-to-annual-issues-1967-to-1980/@@download/file/_Index 1967-1980.pdf",
+    "https://archiveswest.orbiscascade.org/ark:/80444/xv57464"
+   ]
+  },
+  {
+   "work_id": "NTRAIL1978",
+   "title": "A National Trail in the Olympics?",
+   "publication": "Puget Soundings, June 1978",
+   "verified": "listed in Wood's papers inventory (Carton W item 20); not seen",
+   "covers_own_words": "Unknown beyond the title; Wood's papers also hold a file on Ron Strickland's proposed Pacific Northwest Trail, which crosses the Olympics, so it likely concerns that idea (unconfirmed).",
+   "sources": [
+    "https://static.lib.uw.edu/static/public/specialcollections/findingaids/1991-003.pdf"
+   ]
+  },
+  {
+   "work_id": "HEART1988",
+   "title": "Have a Heart",
+   "publication": "Signpost Magazine, July 1988",
+   "verified": "listed in papers inventory; not seen",
+   "covers_own_words": "Unknown. An earlier manuscript, 'Let's Have a Heart', is filed with a 1953 letter from Frank S. Hart to Olympic National Park superintendent Fred Overly; subject not stated.",
+   "sources": [
+    "https://static.lib.uw.edu/static/public/specialcollections/findingaids/1991-003.pdf"
+   ]
+  },
+  {
+   "work_id": "GOBLIN",
+   "title": "The Goblin Gates Refound",
+   "publication": "probably Nature Magazine, October 195? (the inventory scan is partly illegible; year and page uncertain)",
+   "verified": "listed in papers inventory; publication details uncertain",
+   "covers_own_words": "By its title, about relocating Goblins Gate, the Elwha gorge the Press party named in 1890.",
+   "nodes": [
+    "goblins_gate"
+   ],
+   "sources": [
+    "https://static.lib.uw.edu/static/public/specialcollections/findingaids/1991-003.pdf"
+   ]
+  },
+  {
+   "work_id": "SKOK",
+   "title": "Hiking the Skokomish",
+   "publication": "Peninsula Daily News (Port Angeles), date not given",
+   "verified": "listed in papers inventory; not seen",
+   "nodes": [
+    "staircase_trailhead"
+   ],
+   "sources": [
+    "https://static.lib.uw.edu/static/public/specialcollections/findingaids/1991-003.pdf"
+   ]
+  },
+  {
+   "work_id": "KLOOCH",
+   "title": "Kloochman Rock",
+   "publication": "not stated (filed with Wood's articles)",
+   "verified": "listed in papers inventory; not seen",
+   "covers_own_words": "Kloochman Rock is a rocky summit on the national park boundary on the ridge above the Queets valley; it can be seen upriver from the Queets Campground area (willhiteweb lookout history; WTA). The article itself not seen.",
+   "nodes": [
+    "queets_campground"
+   ],
+   "sources": [
+    "https://static.lib.uw.edu/static/public/specialcollections/findingaids/1991-003.pdf",
+    "https://willhiteweb.com/washington_fire_lookouts/kloochman_rock/olympic_national_park_211.htm",
+    "https://www.wta.org/go-hiking/hikes/queets-river"
+   ]
+  },
+  {
+   "work_id": "SHAW1985",
+   "title": "In Memoriam: Frank O. Shaw; Trips with Frank O. Shaw",
+   "publication": "1985; venue not stated",
+   "verified": "listed in papers inventory; not seen",
+   "covers_own_words": "Memorial pieces on Frank O. Shaw, a hiking companion whose photographs appear in The Land That Slept Late and in The Mountaineer 1975 and 1977.",
+   "sources": [
+    "https://static.lib.uw.edu/static/public/specialcollections/findingaids/1991-003.pdf"
+   ]
+  },
+  {
+   "work_id": "SI1993",
+   "title": "(Mount Si article, Signpost Magazine, May 1993)",
+   "publication": "Signpost Magazine, May 1993",
+   "verified": "listed; not about the Olympics (Mount Si is in the Cascades)",
+   "sources": [
+    "https://static.lib.uw.edu/static/public/specialcollections/findingaids/1991-003.pdf"
+   ]
+  }
+ ],
+ "unpublished_works": [
+  {
+   "work_id": "PLACENAMES_MEMO",
+   "title": "Memorandum on Certain Place Names in the Olympics",
+   "date": "December 1984 - January 1985",
+   "extent": "117 pages (1 volume)",
+   "where": "UW Special Collections, Robert L. Wood papers, accession 1991-002 (open to all users)",
+   "why_it_matters": "Wood's own notes on the origins of Olympic place names; the best Wood source for 'why is this place called that' questions for our nodes. Not yet consulted. Literary rights transferred to UW Libraries, so quotations need UW permission."
+  },
+  {
+   "work_id": "HITCHMAN_REMARKS",
+   "title": "Remarks concerning certain entries about the Olympic Mountains in 'Place Names of Washington' by Robert Hitchman",
+   "date": "1986-04-30",
+   "where": "UW papers, Carton V and miscellaneous papers",
+   "why_it_matters": "Wood's corrections to the standard state place-name dictionary (published posthumously, 1985)."
+  },
+  {
+   "work_id": "MURPHY_1972",
+   "title": "The Military Career of Colonel John Murphy, 14th Infantry, U.S.A.",
+   "date": "1972",
+   "where": "UW papers (five copies)",
+   "why_it_matters": "Biography of O'Neil's stepfather; background for MMM."
+  },
+  {
+   "work_id": "BEYOND_OLYMPUS",
+   "title": "Beyond Olympus: The West End of Jefferson County",
+   "date": "typescript dated 1981-10-05",
+   "where": "UW papers, Cartons CC-EE",
+   "why_it_matters": "Unpublished history Wood wrote from materials supplied by Bob Brown; Jefferson County's west end takes in the Hoh and Queets country. Wood noted that Brown's heirs would share any rights.",
+   "node_hint": [
+    "hoh_rain_forest_trailhead",
+    "queets_trailhead"
+   ]
+  },
+  {
+   "work_id": "DRAFTS",
+   "title": "Draft manuscripts of the books",
+   "items": [
+    "'The Olympic Rain Forest' (UW English 2 term paper, spring 1948)",
+    "'Something for Tomorrow' (UW Geography 170 term paper)",
+    "'Outpost of the Wilderness', 'Pathways in the Wilderness' (Trail Country drafts, 1950s)",
+    "'The First Across', 'Footprints in the Snow' (Across the Olympic Mountains drafts)",
+    "'Trailblazing in the Olympics', 'Campfires in the Wild Olympics' (Men, Mules and Mountains drafts)",
+    "'The Land That Slept Late' 250-page original and 150-page condensed versions"
+   ],
+   "where": "UW papers"
+  },
+  {
+   "work_id": "WATKINSON_NOTES",
+   "title": "Manuscript and notes on the 1878 Watkinson Expedition",
+   "where": "UW papers, Carton I",
+   "why_it_matters": "Wood's research on the 1878 party that went from Hood Canal (Lilliwaup) to Lake Cushman and the edge of the range; in his view it was a private trip that barely got into the mountains, not an exploring expedition (COL1990 sidebar)."
+  },
+  {
+   "work_id": "FIELD_NOTES",
+   "title": "Field notes checking landmarks named in the explorers' writings; trail-guide trip notes by year",
+   "where": "UW papers, Cartons L, Q, U"
+  },
+  {
+   "work_id": "CREATIVE",
+   "title": "Unpublished essays, true accounts and poems (Olympic College creative-writing course and later)",
+   "olympic_items": [
+    "Mount Olympus, Least of the Six Majors",
+    "Narrative on Mt. Olympus trip with Glen Kelsey",
+    "A Trip up the Bailey (true account)",
+    "Avalanche (true account)",
+    "Skokomish Forest Fire",
+    "Rain Forest (poem)"
+   ],
+   "where": "UW papers, Carton V",
+   "note": "Literary rights in the papers were transferred to UW; ask UW Special Collections for permission to quote."
+  }
+ ],
+ "collaborations_not_about_the_olympics": [
+  {
+   "title": "Monte Cristo",
+   "credit": "by Philip R. Woodhouse with Robert L. Wood",
+   "year": 1979,
+   "publisher": "The Mountaineers",
+   "pages": "307 p.",
+   "isbn": "091689066X",
+   "copyright": "TX0000310877, claimant Philip R. Woodhouse",
+   "note": "Cascade mining-town history; Wood edited and rewrote the manuscript. Not Olympic."
+  },
+  {
+   "title": "Snoqualmie Pass history (Yvonne Prater)",
+   "note": "Wood ghost-wrote and rewrote drafts in fiction and non-fiction form (UW papers Cartons Y-Z). Not Olympic."
+  },
+  {
+   "title": "Edited manuscripts by others",
+   "items": [
+    "Andy Holland, 'Switchbacks'",
+    "John Stout, 'From Salt to Salt' (published in The Mountaineer as 'Twenty Million Footsteps')",
+    "Frank Keller Jr., 'Beyond the Picket Line' (unpublished)",
+    "Ray Alta Northup, 'Northwest Pacific Trails: New Pioneers' (typed by Wood)"
+   ]
+  }
+ ],
+ "not_by_wood": [
+  "Olympic Mountains: A Climbing Guide (Olympic Mountain Rescue; 1972, 1979, 1988, 2006). Goodreads lists Wood as co-author; no evidence he wrote it. It cites his work.",
+  "Other people named Robert L. Wood (a U.S. Olympic Committee board member; a C-programming author; a Sisters, Oregon chemist). Not our author."
+ ],
+ "permissions": {
+  "summary": "To quote Wood verbatim anywhere in the game, get written permission. Start with Mountaineers Books, which is the address of record for the current owners of Wood's book rights.",
+  "rights_holders": [
+   {
+    "who": "Tom Tonne and Jessica Tonne (Snohomish, WA)",
+    "basis": "Copyright Office record TX0009128040 (2021) names them claimants of the 4th-edition trail guide 'by inheritance and by written agreement'; Sequim Gazette (2016-08-24) says they own the rights to Wood's published works.",
+    "contact": "c/o Mountaineers Books, 1001 SW Klickitat Way, Suite 201, Seattle, WA 98134 (address of record)"
+   },
+   {
+    "who": "Mountaineers Books (publishing division of The Mountaineers, a 501(c)(3) nonprofit)",
+    "basis": "publisher and copyright claimant of record for Trail Country (1968), Wilderness Trails (1970), Men, Mules and Mountains (1976), Across 2d ed. (1976), Trail Guide 1st-2nd eds. (1984, 1991)",
+    "contact": {
+     "address": "1001 SW Klickitat Way, Suite 201, Seattle, WA 98134",
+     "email_general": "mbooks@mountaineersbooks.org (seen in search results for mountaineers.org; not confirmed on a page we could load)",
+     "phone": "(206) 223-6303 (from a library MARC record; may be dated)",
+     "web": "https://www.mountaineers.org/books (contact and press-inquiry pages exist but returned HTTP 403 to our fetcher; no dedicated permissions page found)"
+    }
+   },
+   {
+    "who": "University of Washington Press",
+    "basis": "claimant of the 1967 first edition of Across the Olympic Mountains (Catalog of Copyright Entries)",
+    "contact": "UW Press rights and permissions (confirm whether rights reverted to Wood or the Mountaineers)"
+   },
+   {
+    "who": "Washington State Historical Society (Tacoma)",
+    "basis": "copyright notice on Columbia, Summer 1990, for 'The O'Neil Expeditions'",
+    "contact": "WSHS, Tacoma, WA (publisher of Columbia magazine)"
+   },
+   {
+    "who": "University of Washington Libraries Special Collections",
+    "basis": "literary rights in Wood's unpublished papers (accessions 1991-001, -002, -003) were transferred to UW",
+    "contact": {
+     "address": "Box 352900, Seattle, WA 98195-2900",
+     "phone": "206-543-1929",
+     "email": "speccoll@uw.edu"
+    }
+   }
+  ],
+  "what_to_send": "Title, edition and page of each passage; exact wording and word count; how it appears (in-game text in a free/paid browser game, iPhone web); territory (worldwide web); term; proposed credit line. Ask which party controls each title, since claimants differ by edition.",
+  "fair_use_note": "Brief quotation inside commentary or criticism can be fair use, but using Wood's sentences as game content (epitaphs) is not commentary. Do not rely on fair use for that feature."
+ },
+ "where_to_read": [
+  {
+   "place": "University of Washington Libraries Special Collections - Robert L. Wood papers, 1946-1999 (31+ cubic feet)",
+   "url": "https://archiveswest.orbiscascade.org/ark:80444/xv89962",
+   "inventory": "https://static.lib.uw.edu/static/public/specialcollections/findingaids/1991-003.pdf",
+   "access": "open to all users; much is stored off site, so request in advance (UW Aeon)",
+   "contact": "speccoll@uw.edu, 206-543-1929"
+  },
+  {
+   "place": "UW Special Collections - Harry Fisher papers (1890 O'Neil expedition journal; Wood's typescript)",
+   "url": "https://archiveswest.orbiscascade.org/ark:/80444/xv26913",
+   "access": "journal microfilm restricted; Wood's transcript open"
+  },
+  {
+   "place": "Internet Archive (controlled digital lending, free account)",
+   "items": [
+    "acrossolympicmou0000wood",
+    "trailcountryolym0000robe",
+    "wildernesstrails0000robe",
+    "menmulesmountain0000wood",
+    "olympicmountains00wood",
+    "olympicmountains0000wood"
+   ]
+  },
+  {
+   "place": "Public libraries",
+   "items": [
+    "Seattle Public Library (4th-ed. trail guide)",
+    "North Olympic Library System (catalog.nols.org: Men, Mules and Mountains; The Land That Slept Late)",
+    "King County, Kitsap, Timberland and Jefferson County systems (expected; not checked)"
+   ]
+  },
+  {
+   "place": "NPS History Collection (npshistory.com)",
+   "items": [
+    "Wood's 1990 Columbia article (PDF)",
+    "Evans 1983 Historic Resource Study, which cites Wood by page: https://npshistory.com/publications/olym/hrs/contents.htm",
+    "The Mountaineer 1907 vol. 1 nos. 1-2 (public domain; no. 2 has Ina M. Hanna's 'Expeditions into the Olympic Mountains' with an abstract of the Press report): https://www.npshistory.com/publications/olym/m-v1n2-1907-1.pdf"
+   ]
+  },
+  {
+   "place": "Primary sources Wood used (for a separate public-domain quotes file)",
+   "items": [
+    "Seattle Press, 16 July 1890 (Press Expedition report and Barnes map). Seattle Public Library lists Seattle Press archives 1886-1891; no online full text found yet.",
+    "Lt. Joseph P. O'Neil, report on the 1890 exploration, Senate Doc. No. 59, 54th Cong., 1st Sess. (1896), 20 pp., serial 3349 (U.S. government work; online scan not yet located).",
+    "O'Neil's 1885 report (cited by Evans as NPS OLYM 1885)."
+   ]
+  }
+ ],
+ "indigenous_history_guidance": {
+  "principle": "The Olympic Peninsula is the homeland of the Hoh, Quileute, Makah, Quinault, Klallam (Lower Elwha Klallam, Jamestown S'Klallam, Port Gamble S'Klallam), Skokomish and other peoples. Wood's books are settler-era exploration histories; they mention Native guides, packers, villages and legends from the explorers' point of view.",
+  "rules_for_this_file": [
+   "Nothing here retells a Native story, and the game must not adapt the 'legend' material in The Land That Slept Late.",
+   "When a Wood fact involves Native people (the 1885 guide who left O'Neil's party; Native people who aided the lost Linsley-party man on the Queets; 'Indian packers' in 1890; the Imperial Eagle killings behind the name 'Destruction'), state it plainly, do not dramatize it, and flag it for review with the relevant nation before it appears in game text.",
+   "Many 'first' claims in Wood's narratives mean first recorded by settlers; the game should say 'first recorded' or 'first documented', not 'first ever'."
+  ],
+  "consult": [
+   "Hoh Tribe",
+   "Quileute Nation",
+   "Makah Tribe",
+   "Quinault Indian Nation",
+   "Lower Elwha Klallam Tribe",
+   "Jamestown S'Klallam Tribe",
+   "Port Gamble S'Klallam Tribe",
+   "Skokomish Indian Tribe"
+  ]
+ },
+ "default_wood_source_by_region": {
+  "how_to_read": "For any node not listed in node_index, start with these Wood works. They are the go-to Wood source for the trail itself (route, junctions, camps, way trails); history topics are in topical_index.",
+  "elwha_hurricane.json": {
+   "go_to": [
+    "OMTG",
+    "TC"
+   ],
+   "history": [
+    "ATOM",
+    "MMM (1885 route over Hurricane Ridge)"
+   ],
+   "note": "Elwha valley = Press Expedition corridor; Bailey Range way routes in OMTG."
+  },
+  "hoh_olympus.json": {
+   "go_to": [
+    "OMTG",
+    "TC"
+   ],
+   "history": [
+    "LTSL (Olympus climbs, West End)",
+    "BEYOND_OLYMPUS (unpublished)"
+   ],
+   "note": "Queets nodes: Linsley party 1890 (COL1990, MMM)."
+  },
+  "northeast_dose.json": {
+   "go_to": [
+    "OMTG",
+    "TC"
+   ],
+   "history": [
+    "MMM (1885 Cameron/Dosewallips headwaters; 1890 Dosewallips foot party)",
+    "LTSL (Wickersham's descent of the Dosewallips)"
+   ]
+  },
+  "sol_duc_high_divide.json": {
+   "go_to": [
+    "OMTG",
+    "TC"
+   ],
+   "history": [
+    "TC"
+   ],
+   "note": "Wood's papers record a Pacific Search backpack trip he made to the High Divide in the 1970s."
+  },
+  "south_quinault_skok.json": {
+   "go_to": [
+    "OMTG",
+    "TC"
+   ],
+   "history": [
+    "MMM (1890 mule-trail route Staircase - First Divide - O'Neil Pass - East Fork Quinault)",
+    "ATOM (North Fork Quinault descent)"
+   ]
+  },
+  "coast.json": {
+   "go_to": [
+    "TC",
+    "WT"
+   ],
+   "history": [
+    "TC pp. 66-67 (maritime explorers)"
+   ],
+   "note": "TC and WT contain beach logs; OMTG coastal coverage unverified."
+  }
+ },
+ "topical_index": [
+  {
+   "topic_id": "press_expedition",
+   "title": "The Seattle Press Exploring Expedition, Dec. 1889 - May 1890",
+   "go_to_wood_source": [
+    "ATOM"
+   ],
+   "also_in": [
+    "MMM",
+    "LTSL",
+    "COL1990"
+   ],
+   "facts": [
+    {
+     "fact": "The Seattle Press sponsored the party after Elisha P. Ferry, who was about to become the first governor of the State of Washington, publicly urged that someone explore the unknown interior of the Olympics; James H. Christie wrote offering to lead it.",
+     "wood": [
+      {
+       "work": "ATOM"
+      },
+      {
+       "work": "COL1990",
+       "locator": "p. 42 sidebar",
+       "locator_basis": "read_by_us"
+      }
+     ],
+     "corroboration": [
+      "https://npshistory.com/publications/olym/hrs/chap1.htm"
+     ],
+     "confidence": "high"
+    },
+    {
+     "fact": "Six men set out: James H. Christie (leader, a Scot with Canadian military and Arctic experience), Charles A. Barnes (topographer and photographer), John H. Crumback (cook), Christopher O. Hayes, John W. Sims, and Dr. Harries (or Harris) B. Runnalls, who quit on 3 Feb. 1890. Five finished.",
+     "wood": [
+      {
+       "work": "ATOM",
+       "locator": "pp. 19-22",
+       "locator_basis": "cited_by_evans_1983"
+      }
+     ],
+     "corroboration": [
+      "https://npshistory.com/publications/olym/hrs/chap1.htm",
+      "https://www.nps.gov/olym/learn/historyculture/exploration-of-the-olympic-peninsula.htm"
+     ],
+     "confidence": "high"
+    },
+    {
+     "fact": "They took four dogs, two mules and about 1,500 lb of supplies, left Seattle by steamer on 8 Dec. 1889, and set off from the end of the county road south of Port Angeles on 13 Dec.",
+     "wood": [
+      {
+       "work": "ATOM"
+      }
+     ],
+     "corroboration": [
+      "https://npshistory.com/publications/olym/hrs/chap1.htm",
+      "https://archive.seattletimes.com/archive/19970911/2559731/olympian-effort----six-day-trek-visits-six-month-epic-of-courage"
+     ],
+     "confidence": "high"
+    },
+    {
+     "fact": "Their flat-bottomed boat Gertie, built to haul gear up the Elwha, leaked and was given up after only a few miles of hard work; a sledge scheme also failed. They did not make real progress until mid-February, then moved up the valley on snowshoes, relaying loads between caches.",
+     "wood": [
+      {
+       "work": "ATOM"
+      }
+     ],
+     "corroboration": [
+      "https://archive.seattletimes.com/archive/19970911/2559731/olympian-effort----six-day-trek-visits-six-month-epic-of-courage",
+      "https://www.nps.gov/olym/learn/historyculture/exploration-of-the-olympic-peninsula.htm",
+      "https://npshistory.com/publications/olym/hrs/chap1.htm"
+     ],
+     "confidence": "high"
+    },
+    {
+     "fact": "They reached the Lillian River area by 1 April. In April, after climbing up the Goldie River and nearby ridges, they realized they had mistaken a bend of the Elwha for the Quinault; they cached most of their gear and pushed on.",
+     "wood": [
+      {
+       "work": "ATOM"
+      }
+     ],
+     "corroboration": [
+      "https://npshistory.com/publications/olym/hrs/chap1.htm",
+      "https://archive.seattletimes.com/archive/19970911/2559731/olympian-effort----six-day-trek-visits-six-month-epic-of-courage"
+     ],
+     "confidence": "medium-high"
+    },
+    {
+     "fact": "In early May they crossed the low saddle between the Elwha and the Quinault, which they called Elwha Pass (now Low Divide, about 3,650 ft). Coming up between Mount Seattle and Mount Christie they named Lake Mary and then Lake Margaret, at first thinking the ground between the lakes was the divide; the true divide lay just beyond. Barnes climbed Mount Seattle, and the party killed three bears, a welcome change from weeks of flour soup.",
+     "wood": [
+      {
+       "work": "ATOM"
+      }
+     ],
+     "corroboration": [
+      "https://archive.seattletimes.com/archive/19970911/2559731/olympian-effort----six-day-trek-visits-six-month-epic-of-courage",
+      "https://www.nps.gov/olym/learn/historyculture/exploration-of-the-olympic-peninsula.htm",
+      "https://peninsuladailynews.com/news/press-expedition-remembered-iii-arrival-on-the-other-side-of-the-olympic-mountains"
+     ],
+     "confidence": "medium-high"
+    },
+    {
+     "fact": "Going down the North Fork Quinault, a raft wreck cost them their guns and most specimens; Barnes saved the pack holding the journals, photographic negatives and the map. With help from a hunting party and a settler's canoe they reached Lake Quinault on 19 May and the ocean on 20 May 1890, and were photographed in Aberdeen on 21 May.",
+     "wood": [
+      {
+       "work": "ATOM"
+      }
+     ],
+     "corroboration": [
+      "https://npshistory.com/publications/olym/hrs/chap1.htm",
+      "https://archive.seattletimes.com/archive/19970911/2559731/olympian-effort----six-day-trek-visits-six-month-epic-of-courage",
+      "https://www.nps.gov/olym/learn/historyculture/exploration-of-the-olympic-peninsula.htm"
+     ],
+     "confidence": "high"
+    },
+    {
+     "fact": "Animals: the dogs were Daisy, Bud, Tweed and Dike (Dike was killed by an elk); the mule Jennie died in a fall and Dollie was turned loose. No man died; the animals were the only losses.",
+     "wood": [
+      {
+       "work": "ATOM"
+      },
+      {
+       "work": "COL1990",
+       "locator": "p. 42 sidebar",
+       "locator_basis": "read_by_us"
+      }
+     ],
+     "corroboration": [
+      "https://archive.seattletimes.com/archive/19970911/2559731/olympian-effort----six-day-trek-visits-six-month-epic-of-courage"
+     ],
+     "confidence": "medium-high"
+    },
+    {
+     "fact": "The full report filled the Seattle Press of 16 July 1890 and gave the first broadly accurate picture of the range's layout; many of the party's names are still on the map, and their blazes can still be found along the Elwha trail.",
+     "wood": [
+      {
+       "work": "ATOM"
+      }
+     ],
+     "corroboration": [
+      "https://publications.americanalpineclub.org/articles/12196825202/Across-the-Olympic-Mountains-The-Press-Expedition",
+      "https://www.nps.gov/olym/learn/historyculture/exploration-of-the-olympic-peninsula.htm"
+     ],
+     "confidence": "high"
+    },
+    {
+     "fact": "Wood judged the Press crossing the first organized crossing of the range but credited O'Neil's 1890 expedition with the more thorough examination of the country.",
+     "wood": [
+      {
+       "work": "COL1990",
+       "locator": "p. 42 sidebar",
+       "locator_basis": "read_by_us"
+      }
+     ],
+     "confidence": "high"
+    }
+   ],
+   "people": [
+    "James H. Christie",
+    "Charles A. Barnes",
+    "John H. Crumback",
+    "Christopher O. Hayes",
+    "John W. Sims",
+    "Harries B. Runnalls",
+    "William E. Bailey",
+    "Elisha P. Ferry"
+   ],
+   "node_ids": [
+    "whiskey_bend_trailhead",
+    "goblins_gate",
+    "humes_ranch",
+    "krause_bottom",
+    "lillian_river_trail_junction",
+    "lillian_camp",
+    "elkhorn",
+    "hayes_river",
+    "camp_wilder",
+    "chicago_camp",
+    "elwha_basin",
+    "lake_margaret",
+    "low_divide",
+    "sixteen_mile_camp",
+    "trapper_shelter",
+    "elip_creek_camp",
+    "halfway_house_camp",
+    "wolf_bar_camp",
+    "north_fork_quinault_trailhead",
+    "lake_quinault_lodge_area"
+   ],
+   "trip_ids": [
+    "elwha_to_north_fork_quinault",
+    "quinault_to_elwha_traverse",
+    "north_fork_quinault_low_divide",
+    "humes_ranch_geyser_valley",
+    "elwha_valley_to_hayes_river"
+   ],
+   "node_mapping_notes": "Exact camp sites are in ATOM; the node list is the modern trail corridor the party roughly followed (the party detoured up the Goldie River, which has no node). Seattle Times 1997 places their start near today's Whiskey Bend trailhead."
+  },
+  {
+   "topic_id": "press_place_names",
+   "title": "Names the Press party put on the map",
+   "go_to_wood_source": [
+    "ATOM"
+   ],
+   "also_in": [
+    "MMM"
+   ],
+   "facts": [
+    {
+     "fact": "At least eighteen Press names are still in use. Many peaks honor newspapermen and patrons: the Bailey Range (William E. Bailey, Press publisher), Mount Meany (Edmond S. Meany of the Press), Mount Dana (Charles Dana, New York Sun), Mount Noyes (Crosby Noyes, Washington Evening Star), Mount Scott (James W. Scott, Chicago Herald), Mount Ferry (the governor), Mount Seattle, plus Mount Christie and Mount Barnes for the explorers.",
+     "wood": [
+      {
+       "work": "MMM",
+       "locator": "pp. 215-220",
+       "locator_basis": "cited_by_evans_1983"
+      },
+      {
+       "work": "ATOM"
+      }
+     ],
+     "corroboration": [
+      "https://npshistory.com/publications/olym/hrs/chap1.htm"
+     ],
+     "confidence": "high"
+    },
+    {
+     "fact": "Some Press names did not stick or were never made official: Mount Pulitzer (for Joseph Pulitzer; also called Snagtooth), Mount Childs (for George W. Childs of the Philadelphia Ledger), and Mount Hearst (now Mount Queets).",
+     "wood": [
+      {
+       "work": "ATOM"
+      }
+     ],
+     "corroboration": [
+      "https://publications.americanalpineclub.org/articles/12196221000/North-America-United-States-Washington-Olympic-Mountains-New-Climbs-in-the-Bailey-Range",
+      "https://archive.seattletimes.com/archive/19970911/2559731/olympian-effort----six-day-trek-visits-six-month-epic-of-courage"
+     ],
+     "confidence": "medium-high"
+    },
+    {
+     "fact": "Lakes and rivers were often named for women: Lake Mary and Lake Margaret at Low Divide, and the Lillian River. Semple Plateau honors territorial governor Eugene Semple; Press Valley (the upper Elwha) honors the paper itself; the Hayes River is named for party member Christopher Hayes.",
+     "wood": [
+      {
+       "work": "ATOM"
+      }
+     ],
+     "corroboration": [
+      "https://archive.seattletimes.com/archive/19970911/2559731/olympian-effort----six-day-trek-visits-six-month-epic-of-courage",
+      "https://www.peninsuladailynews.com/?p=112437"
+     ],
+     "confidence": "medium-high"
+    },
+    {
+     "fact": "Goblins Gate (Goblin Gates), the narrow Elwha gorge, got its name from Barnes, who in March 1890 saw a crowd of grim faces in the rock walls.",
+     "wood": [
+      {
+       "work": "ATOM"
+      },
+      {
+       "work": "GOBLIN"
+      }
+     ],
+     "corroboration": [
+      "https://en.wikipedia.org/wiki/Goblins_Gate"
+     ],
+     "confidence": "medium-high"
+    },
+    {
+     "fact": "Geyser Valley was NOT a Press name: it is credited to an early-1900s resident nicknamed 'Doc' Ludden, who likened wind-whipped cloud columns to geysers. (Wood's ATOM index includes 'Geyser Valley', but only as a place the party passed.)",
+     "wood": [],
+     "corroboration": [
+      "https://www.wta.org/go-hiking/hikes/geyser-valley"
+     ],
+     "confidence": "medium"
+    }
+   ],
+   "node_ids": [
+    "low_divide",
+    "lake_margaret",
+    "lillian_river_trail_junction",
+    "lillian_river_trail_end",
+    "lillian_camp",
+    "lake_lillian",
+    "hayes_river",
+    "hayden_pass_trail_junction",
+    "goblins_gate",
+    "ferry_basin",
+    "lone_tree_pass",
+    "scott_ludden_saddle",
+    "bear_pass",
+    "the_catwalk",
+    "mount_carrie",
+    "cat_basin",
+    "stephen_lake",
+    "cream_lake",
+    "eleven_bull_basin",
+    "queets_basin",
+    "chicago_camp"
+   ],
+   "node_mapping_notes": "ferry_basin lies under Mount Ferry; lone_tree_pass is also called Pulitzer Pass; scott_ludden_saddle touches Mount Scott; bear_pass is near Mount Childs; queets_basin is under Mount Queets (Press 'Mount Hearst'). Lake Lillian (Grand Valley) is a different feature from the Lillian River; check the name origin before crediting the Press."
+  },
+  {
+   "topic_id": "oneil_1885",
+   "title": "Lt. Joseph P. O'Neil's first expedition, July-August 1885",
+   "go_to_wood_source": [
+    "MMM"
+   ],
+   "also_in": [
+    "COL1990",
+    "LTSL"
+   ],
+   "facts": [
+    {
+     "fact": "The Army had already tried the Olympics: in 1882 Lts. Willis Wittich and Thomas H. Bradley cut a trail from Fort Townsend across both forks of the Dungeness, and in 1884 Lts. Charles M. Truitt and Willson Y. Stamper spent ten days trying to reopen it.",
+     "wood": [
+      {
+       "work": "COL1990",
+       "locator": "p. 40",
+       "locator_basis": "read_by_us"
+      },
+      {
+       "work": "MMM"
+      }
+     ],
+     "confidence": "high"
+    },
+    {
+     "fact": "O'Neil, 14th Infantry, served at Fort Townsend July 1884 - April 1885, heard little reliable about the interior, and after moving to Vancouver Barracks talked Gen. Nelson A. Miles into an exploration, authorized 6 July 1885.",
+     "wood": [
+      {
+       "work": "COL1990",
+       "locator": "p. 40",
+       "locator_basis": "read_by_us"
+      },
+      {
+       "work": "MMM"
+      }
+     ],
+     "confidence": "high"
+    },
+    {
+     "fact": "The party left Port Angeles on 17 July 1885 heading south; their Native guide slipped away the first night at the foot of the mountains. Blocked by forest and cliffs on the Elwha line, O'Neil turned toward Mount Angeles, meaning to follow the high divide southeast to the Dungeness headwaters and then the range's center.",
+     "wood": [
+      {
+       "work": "COL1990",
+       "locator": "pp. 40-41",
+       "locator_basis": "read_by_us"
+      },
+      {
+       "work": "MMM"
+      }
+     ],
+     "corroboration": [
+      "https://npshistory.com/publications/olym/hrs/chap1.htm",
+      "https://www.nps.gov/olym/learn/historyculture/exploration-of-the-olympic-peninsula.htm"
+     ],
+     "confidence": "high"
+    },
+    {
+     "fact": "Work days ran from about six in the morning to six at night on thin rations (bacon and salt pork, beans, flour, coffee) because hunting went badly; the mules kept slipping and tumbling down the steep sidehills. By 24 July they were at the foot of the first snowy range, and in under a month they had crossed it and made their base camp on the next ridge inland, where an abandoned hunters' cabin showed others had been there before.",
+     "wood": [
+      {
+       "work": "COL1990",
+       "locator": "p. 41",
+       "locator_basis": "read_by_us"
+      },
+      {
+       "work": "MMM"
+      }
+     ],
+     "confidence": "high"
+    },
+    {
+     "fact": "From the Mount Angeles - Klahhane Ridge heights ('The Sisters') O'Neil took a cluster of peaks to the south for Mount Olympus. The party moved on to Hurricane Ridge and split: engineer Harry Hawgood's group headed for the Elwha but lost its supplies in a river crossing and turned back; O'Neil's group went southeast along the divide.",
+     "wood": [
+      {
+       "work": "COL1990",
+       "locator": "p. 41",
+       "locator_basis": "read_by_us"
+      },
+      {
+       "work": "MMM"
+      }
+     ],
+     "corroboration": [
+      "https://npshistory.com/publications/olym/hrs/chap1.htm"
+     ],
+     "confidence": "high"
+    },
+    {
+     "fact": "O'Neil left the mules at a camp he called 'Noplace' (probably Cameron Basin) and went on foot with Pvt. John Johnson toward the Mount Anderson country; the two became separated, and Johnson walked out alone. A courier then ordered O'Neil to Fort Leavenworth, ending the trip; he sailed from Port Angeles on 26 Aug.",
+     "wood": [
+      {
+       "work": "COL1990",
+       "locator": "p. 41",
+       "locator_basis": "read_by_us"
+      },
+      {
+       "work": "MMM"
+      }
+     ],
+     "corroboration": [
+      "https://npshistory.com/publications/olym/hrs/chap1.htm",
+      "https://www.nps.gov/olym/learn/historyculture/exploration-of-the-olympic-peninsula.htm"
+     ],
+     "confidence": "high"
+    },
+    {
+     "fact": "Mount Claywood carries the name of Asst. Adjutant General H. Clay Wood, who signed the 1885 orders.",
+     "wood": [
+      {
+       "work": "MMM",
+       "locator_basis": "expected_not_verified"
+      }
+     ],
+     "corroboration": [
+      "https://npshistory.com/publications/olym/hrs/chap1.htm"
+     ],
+     "confidence": "medium"
+    }
+   ],
+   "people": [
+    "Lt. Joseph P. O'Neil",
+    "Gen. Nelson A. Miles",
+    "Pvt. John Johnson",
+    "Harry Hawgood",
+    "R. E. Habersham",
+    "Norman Smith"
+   ],
+   "node_ids": [
+    "port_angeles_wic",
+    "heart_o_the_hills_trailhead",
+    "mount_angeles",
+    "klahhane_ridge",
+    "lake_angeles",
+    "hurricane_ridge_visitor_center",
+    "obstruction_point_trailhead",
+    "lillian_ridge_junction",
+    "grand_pass",
+    "lower_cameron",
+    "upper_cameron",
+    "cameron_pass",
+    "lost_pass",
+    "dose_meadows",
+    "anderson_pass",
+    "upper_dungeness_trailhead"
+   ],
+   "trip_ids": [
+    "hurricane_ridge_to_klahhane_ridge_day",
+    "klahhane_ridge_switchback_day",
+    "obstruction_to_deer_park_via_cameron",
+    "gray_wolf_dose_cameron_loop"
+   ],
+   "node_mapping_notes": "The 1885 route is reconstructed, not exact. 'Noplace' = probably Cameron Basin (Evans). Mount Claywood rises near the Cameron/Dosewallips headwaters."
+  },
+  {
+   "topic_id": "oneil_1890",
+   "title": "The Olympic Exploring Expedition (O'Neil and the Oregon Alpine Club), July-Oct. 1890",
+   "go_to_wood_source": [
+    "MMM"
+   ],
+   "also_in": [
+    "COL1990",
+    "LTSL"
+   ],
+   "facts": [
+    {
+     "fact": "O'Neil, back in the Northwest from Aug. 1887 and secretary of the Oregon Alpine Club (founded 23 Sept. 1887), got a joint expedition approved: the club supplied three scientists and most of the money; the Army (Gen. John Gibbon) supplied O'Neil, ten enlisted men, a civilian packer, about a dozen mules and several dogs.",
+     "wood": [
+      {
+       "work": "COL1990",
+       "locator": "pp. 41-42",
+       "locator_basis": "read_by_us"
+      },
+      {
+       "work": "MMM",
+       "locator": "p. 54",
+       "locator_basis": "cited_by_evans_1983"
+      }
+     ],
+     "corroboration": [
+      "https://npshistory.com/publications/olym/hrs/chap1.htm",
+      "https://historylink.org/File/7473"
+     ],
+     "confidence": "high"
+    },
+    {
+     "fact": "The scientists were Louis F. Henderson (botanist), Nelson E. Linsley (mining engineer and geologist) and Bernard J. Bretherton (naturalist). Enlisted and civilian members included Cpl. Frederick Haffner and Pvts. John Danton, John Bairens, Harry Fisher (the diarist Wood relied on), Higgins, Hughes, Kranichfeld and Krause, with civilians Frederic Church and M. Price.",
+     "wood": [
+      {
+       "work": "MMM",
+       "locator": "p. 54",
+       "locator_basis": "cited_by_evans_1983"
+      }
+     ],
+     "corroboration": [
+      "https://npshistory.com/publications/olym/hrs/chap1.htm"
+     ],
+     "confidence": "medium-high (spellings vary between sources)"
+    },
+    {
+     "fact": "The goal was to cross the range east to west in about three months, explore some 1,600 square miles, build a mule trail, and leave a copper box with a register on the summit of Mount Olympus. Supplies for about 100 days weighed roughly four tons, so the pack train had to relay.",
+     "wood": [
+      {
+       "work": "COL1990",
+       "locator": "p. 42",
+       "locator_basis": "read_by_us"
+      }
+     ],
+     "confidence": "high"
+    },
+    {
+     "fact": "The men gathered at Fort/Port Townsend on 26 June; on 1 July a steamer landed them at Lilliwaup on Hood Canal (not Hoodsport as planned). They bogged down in a swamp on the trail to Lake Cushman, rafted across the lake, and made Camp 1 on the west shore near settlers' farms.",
+     "wood": [
+      {
+       "work": "COL1990",
+       "locator": "p. 42",
+       "locator_basis": "read_by_us"
+      },
+      {
+       "work": "MMM",
+       "locator": "pp. 55, 71, 74",
+       "locator_basis": "cited_by_evans_1983"
+      }
+     ],
+     "corroboration": [
+      "https://historylink.org/File/7473",
+      "https://npshistory.com/publications/olym/hrs/chap2.htm"
+     ],
+     "confidence": "high"
+    },
+    {
+     "fact": "A miners' trail ran about five miles up the North Fork Skokomish to a copper camp, the last outpost; just beyond, a cliff at the river's edge (named Fisher's Bluff after one of the men) forced them to cut a way up and over it; Camp 2 was nearby. The cedar 'staircase' the expedition built over a bluff here is the source of the name Staircase.",
+     "wood": [
+      {
+       "work": "COL1990",
+       "locator": "p. 42",
+       "locator_basis": "read_by_us"
+      }
+     ],
+     "corroboration": [
+      "https://olym.oncell.com/en/9-staircase-84750.html"
+     ],
+     "confidence": "medium-high (Wood names Fisher's Bluff; NPS audio tour ties the Staircase name to the expedition; that the two bluffs are the same is our inference)"
+    },
+    {
+     "fact": "Work days ran six a.m. to seven p.m.; in the twilight the tired men fished for plentiful trout.",
+     "wood": [
+      {
+       "work": "COL1990",
+       "locator": "p. 42",
+       "locator_basis": "read_by_us"
+      }
+     ],
+     "confidence": "high"
+    },
+    {
+     "fact": "Near Camp 5 a box canyon stopped the mules until the men bridged it; they called it Jumbo's Leap after an old hound named Jumbo jumped into it rather than be left behind. Through July they built about a dozen miles of trail while hemmed in the canyon.",
+     "wood": [
+      {
+       "work": "COL1990",
+       "locator": "p. 43",
+       "locator_basis": "read_by_us"
+      }
+     ],
+     "confidence": "high"
+    },
+    {
+     "fact": "On 17 Aug. three foot parties went out: one explored the Duckabush and Dosewallips to Hood Canal, one went south over the southern rivers, and O'Neil's own party looked over the Quinault and Humptulips country on the way to Grays Harbor, while the rest pushed the mule trail to a base camp on the main divide.",
+     "wood": [
+      {
+       "work": "COL1990",
+       "locator": "pp. 43-44",
+       "locator_basis": "read_by_us"
+      },
+      {
+       "work": "MMM",
+       "locator": "maps",
+       "locator_basis": "cited_by_evans_1983"
+      }
+     ],
+     "corroboration": [
+      "https://npshistory.com/publications/olym/hrs/chap1.htm"
+     ],
+     "confidence": "high"
+    },
+    {
+     "fact": "A scouting party found a pass the mules could use, later named O'Neil Pass; the men set up Camp 15 on the Quinault side and finished the trail from the pass down to the Quinault. For the last foot trips each man carried about 60 lb.",
+     "wood": [
+      {
+       "work": "COL1990",
+       "locator": "p. 44",
+       "locator_basis": "read_by_us"
+      }
+     ],
+     "confidence": "high"
+    },
+    {
+     "fact": "The Linsley party left Camp 15 on 13 Sept., worked northwest to the base of Mount Olympus, and on 22 Sept. Linsley, Bretherton and Danton reached a summit on the south side; Wood thought their summit was most likely one of the rocky points of the South Peak, not the true top. The copper box has never been found. One man got separated and walked down the Queets alone to the ocean, where Native people helped him.",
+     "wood": [
+      {
+       "work": "COL1990",
+       "locator": "p. 45",
+       "locator_basis": "read_by_us"
+      },
+      {
+       "work": "MMM"
+      }
+     ],
+     "corroboration": [
+      "https://historylink.org/File/7473",
+      "https://npshistory.com/publications/olym/hrs/chap1.htm"
+     ],
+     "confidence": "high"
+    },
+    {
+     "fact": "Short of shoes and food, the Linsley party skipped its assigned Hoh and Quillayute exploration and followed the Queets to the coast. The mules got to the Quinault forks on 24 Sept.; the explorers were feted at Hoquiam on 4 Oct. and disbanded on 6 Oct.; the Oregon Alpine Club gave them a banquet in Portland on 22 Oct.",
+     "wood": [
+      {
+       "work": "COL1990",
+       "locator": "p. 45",
+       "locator_basis": "read_by_us"
+      }
+     ],
+     "corroboration": [
+      "https://historylink.org/File/7473"
+     ],
+     "confidence": "high"
+    },
+    {
+     "fact": "Places named for the expedition include Mount Anderson (Col. Thomas M. Anderson), Mounts Bretherton, Church, Henderson, O'Neil and Steel (William G. Steel), O'Neil Pass, O'Neil Peak and O'Neil Creek.",
+     "wood": [
+      {
+       "work": "MMM"
+      }
+     ],
+     "corroboration": [
+      "https://npshistory.com/publications/olym/hrs/chap1.htm"
+     ],
+     "confidence": "high"
+    },
+    {
+     "fact": "Other parties met the expedition in the mountains: Wickersham's Banner party at the camp on Five Stream, and the Higley family at Hart Lake near O'Neil Pass.",
+     "wood": [
+      {
+       "work": "MMM"
+      },
+      {
+       "work": "LTSL",
+       "locator": "ch. 'Wickersham's Wanderings', p. 77",
+       "locator_basis": "google_books_toc"
+      }
+     ],
+     "corroboration": [
+      "https://npshistory.com/publications/olym/hrs/chap1.htm"
+     ],
+     "confidence": "medium-high"
+    }
+   ],
+   "people": [
+    "Lt. Joseph P. O'Neil",
+    "William G. Steel",
+    "Gen. John Gibbon",
+    "Nelson E. Linsley",
+    "Louis F. Henderson",
+    "Bernard J. Bretherton",
+    "Harry Fisher",
+    "John Danton",
+    "Frederick Haffner",
+    "Col. Thomas M. Anderson"
+   ],
+   "node_ids": [
+    "staircase_trailhead",
+    "staircase_campground",
+    "staircase_rapids_bridge_junction",
+    "slide_camp_skokomish",
+    "big_log_camp",
+    "camp_pleasant",
+    "nine_stream_camp",
+    "two_bear_camp",
+    "first_divide",
+    "home_sweet_home",
+    "upper_duckabush",
+    "marmot_lake",
+    "hart_lake",
+    "lake_ben",
+    "o_neil_pass",
+    "o_neil_pass_trail_junction",
+    "o_neil_creek_camp",
+    "anderson_pass",
+    "anderson_glacier_overlook",
+    "enchanted_valley",
+    "enchanted_valley_chalet",
+    "east_fork_quinault_high_bridge",
+    "pyrites_creek_camp",
+    "fire_creek_camp",
+    "pony_bridge",
+    "graves_creek_trailhead",
+    "queets_basin",
+    "queets_trailhead",
+    "queets_campground",
+    "dose_forks",
+    "duckabush_trailhead"
+   ],
+   "trip_ids": [
+    "graves_creek_to_staircase_traverse",
+    "staircase_first_divide_home_sweet_home",
+    "staircase_rapids_loop",
+    "enchanted_valley_lacrosse_basin",
+    "duckabush_to_lacrosse_basin",
+    "enchanted_valley_classic",
+    "quinault_to_dosewallips_traverse",
+    "dose_to_quinault_traverse"
+   ],
+   "node_mapping_notes": "The expedition's mule trail is the ancestor of today's North Fork Skokomish - First Divide - Duckabush - O'Neil Pass - East Fork Quinault route (Evans: sections of O'Neil trail are in today's system). Lake Cushman, Lilliwaup, Five Stream, Jumbo's Leap and Camp Nellie Bly have no nodes. queets_basin and the Queets nodes are Linsley-party ground."
+  },
+  {
+   "topic_id": "national_park_idea",
+   "title": "From 'terra incognita' to Olympic National Park",
+   "go_to_wood_source": [
+    "LTSL",
+    "TC"
+   ],
+   "also_in": [
+    "COL1990",
+    "MMM",
+    "MTN1980"
+   ],
+   "facts": [
+    {
+     "fact": "In his report submitted 16 Nov. 1890 O'Neil judged the interior of little practical value and recommended making it a national park, partly to protect the elk; he repeated the idea in a Portland lecture on 6 Dec. 1890.",
+     "wood": [
+      {
+       "work": "COL1990",
+       "locator": "p. 45",
+       "locator_basis": "read_by_us"
+      },
+      {
+       "work": "MMM"
+      }
+     ],
+     "corroboration": [
+      "https://npshistory.com/publications/olym/hrs/chap1.htm"
+     ],
+     "confidence": "high"
+    },
+    {
+     "fact": "James Wickersham, after his 1890 trip, drew what is thought to be the first map outlining a national park in the Olympics.",
+     "wood": [
+      {
+       "work": "LTSL",
+       "locator": "ch. 'Wickersham's Wanderings'",
+       "locator_basis": "google_books_toc"
+      }
+     ],
+     "corroboration": [
+      "https://npshistory.com/publications/olym/hrs/chap1.htm"
+     ],
+     "confidence": "medium-high"
+    },
+    {
+     "fact": "President Theodore Roosevelt proclaimed Mount Olympus National Monument on 2 March 1909; the Park Service took it over in 1933; Congress created Olympic National Park on 29 June 1938, about four weeks before the death of O'Neil, who had risen to brigadier general.",
+     "wood": [
+      {
+       "work": "LTSL",
+       "locator": "Epilogue, p. 154",
+       "locator_basis": "google_books_toc"
+      },
+      {
+       "work": "COL1990",
+       "locator": "p. 45",
+       "locator_basis": "read_by_us"
+      },
+      {
+       "work": "TC"
+      }
+     ],
+     "corroboration": [
+      "https://historylink.org/File/7473"
+     ],
+     "confidence": "high"
+    },
+    {
+     "fact": "Preston P. Macy, custodian of the monument from 1934, became the park's first superintendent (1938-1951) and ran it at first from the attic of his Port Angeles home; Wood wrote a short biography of him.",
+     "wood": [
+      {
+       "work": "MTN1980",
+       "locator": "pp. 23-25",
+       "locator_basis": "index_verified"
+      }
+     ],
+     "corroboration": [
+      "https://archiveswest.orbiscascade.org/ark:/80444/xv57464"
+     ],
+     "confidence": "high (Macy facts from Macy finding aid)"
+    }
+   ],
+   "node_ids": [
+    "port_angeles_wic",
+    "elk_lake",
+    "olympus_guard_station"
+   ],
+   "node_mapping_notes": "Park-wide topic; port_angeles_wic is the natural place for it (park HQ town). The elk link is thematic."
+  },
+  {
+   "topic_id": "other_1889_1890_parties",
+   "title": "The crowded years: Gilman, Banta and Sharp, Wickersham, Higley, prospectors",
+   "go_to_wood_source": [
+    "LTSL"
+   ],
+   "also_in": [
+    "MMM"
+   ],
+   "facts": [
+    {
+     "fact": "Charles A. Gilman (former lieutenant governor of Minnesota) and his son Samuel traced the Quinault from the ocean toward its headwaters in late 1889 and reported widely on the country's resources (National Geographic, 1896).",
+     "wood": [
+      {
+       "work": "LTSL",
+       "locator": "ch. 'The First Expeditions', p. 24",
+       "locator_basis": "google_books_toc; index term 'Gilmans'"
+      }
+     ],
+     "corroboration": [
+      "https://npshistory.com/publications/olym/hrs/chap1.htm"
+     ],
+     "confidence": "medium"
+    },
+    {
+     "fact": "J. J. Banta and S. P. Sharp traveled from Tacoma around the Strait of Juan de Fuca to Pysht Bay and then south through the country to Grays Harbor, 3 Dec. 1889 - Jan. 1890; Wood studied Banta's diary.",
+     "wood": [
+      {
+       "work": "LTSL",
+       "locator_basis": "index term 'Banta'"
+      }
+     ],
+     "corroboration": [
+      "https://static.lib.uw.edu/static/public/specialcollections/findingaids/1991-003.pdf"
+     ],
+     "confidence": "medium"
+    },
+    {
+     "fact": "In 1890 Judge James Wickersham led the Buckley Banner party (men and women, several family members) up the North Fork Skokomish, met O'Neil's men at Five Stream, meant to come out by the Elwha but instead descended the Dosewallips to Hood Canal, about 125 miles on foot, back in Tacoma 10 Aug. He had also gone some 20 miles up the Skokomish in 1889.",
+     "wood": [
+      {
+       "work": "LTSL",
+       "locator": "ch. 'Wickersham's Wanderings', p. 77",
+       "locator_basis": "google_books_toc"
+      }
+     ],
+     "corroboration": [
+      "https://npshistory.com/publications/olym/hrs/chap1.htm"
+     ],
+     "confidence": "medium-high"
+    },
+    {
+     "fact": "Alfred Higley and his son Orte crossed from Hoodsport over the Duckabush divide to Hart Lake, met the O'Neil party, camped at Little O'Neil Creek, and came down the East Fork Quinault to settle at Lake Quinault in Oct. 1890.",
+     "wood": [
+      {
+       "work": "MMM",
+       "locator_basis": "expected_not_verified"
+      }
+     ],
+     "corroboration": [
+      "https://npshistory.com/publications/olym/hrs/chap1.htm"
+     ],
+     "confidence": "medium"
+    },
+    {
+     "fact": "In Aug. 1890 prospectors Pratt and Thompson, crossing south to north, found several Press camps on the North Fork Quinault and Elwha and climbed (probably) Mount Christie, calling it Kelley's Peak.",
+     "wood": [],
+     "corroboration": [
+      "https://npshistory.com/publications/olym/hrs/chap1.htm"
+     ],
+     "confidence": "medium (Evans; Wood coverage not verified)"
+    }
+   ],
+   "node_ids": [
+    "lake_quinault_lodge_area",
+    "quinault_rain_forest_ranger_station",
+    "staircase_trailhead",
+    "dosewallips_trailhead",
+    "dosewallips_ranger_station",
+    "dose_forks",
+    "hart_lake",
+    "o_neil_pass",
+    "enchanted_valley",
+    "low_divide"
+   ],
+   "node_mapping_notes": "Wickersham's exact pass between the Skokomish and the Dosewallips is not given in our sources; do not draw it on the map yet."
+  },
+  {
+   "topic_id": "watkinson_1878",
+   "title": "The 1878 Watkinson party",
+   "go_to_wood_source": [
+    "LTSL"
+   ],
+   "also_in": [
+    "COL1990"
+   ],
+   "facts": [
+    {
+     "fact": "Melbourne Watkinson's five-man party left Lilliwaup on Hood Canal on 2 Sept. 1878 and went west to Lake Cushman; in Wood's view it was a private trip that barely got into the mountains, not a true crossing.",
+     "wood": [
+      {
+       "work": "COL1990",
+       "locator": "p. 42 sidebar",
+       "locator_basis": "read_by_us"
+      },
+      {
+       "work": "WATKINSON_NOTES"
+      }
+     ],
+     "corroboration": [
+      "https://npshistory.com/publications/olym/hrs/chap1.htm"
+     ],
+     "confidence": "high"
+    }
+   ],
+   "node_ids": [
+    "staircase_trailhead"
+   ]
+  },
+  {
+   "topic_id": "early_coastal_exploration",
+   "title": "Sailors' names on the peninsula",
+   "go_to_wood_source": [
+    "TC"
+   ],
+   "also_in": [
+    "LTSL"
+   ],
+   "facts": [
+    {
+     "fact": "Wood's park history in Trail Country covers the maritime explorers: the Spanish 1603 claim of Martin Aguilar, Barkley's 1787 naming of the Hoh as 'Destruction River' after crewmen of the Imperial Eagle were killed ashore, the Spanish naming of Port of Our Lady of the Angels (Port Angeles), Francisco de Eliza's 1791 post at Discovery Bay, and how Meares's 1788 'Mount Olympus' came to name the whole range and peninsula.",
+     "wood": [
+      {
+       "work": "TC",
+       "locator": "pp. 66-67",
+       "locator_basis": "cited_by_evans_1983"
+      },
+      {
+       "work": "LTSL",
+       "locator": "ch. 1 'The Land That Slept Late', p. 9; note p. 161 on Heceta",
+       "locator_basis": "google_books_toc"
+      }
+     ],
+     "corroboration": [
+      "https://npshistory.com/publications/olym/hrs/chap1.htm",
+      "https://www.nps.gov/olym/learn/historyculture/exploration-of-the-olympic-peninsula.htm"
+     ],
+     "confidence": "high"
+    }
+   ],
+   "indigenous_caution": "The 'Destruction' story is told from the ships' side. Any in-game use touching the Hoh River mouth must be reviewed with the Hoh Tribe and Quileute Nation.",
+   "node_ids": [
+    "hoh_river_mouth",
+    "destruction_island",
+    "port_angeles_wic",
+    "mount_olympus_west_peak",
+    "neah_bay"
+   ]
+  },
+  {
+   "topic_id": "olympus_climbing_history",
+   "title": "Who climbed Mount Olympus first, and how",
+   "go_to_wood_source": [
+    "LTSL",
+    "TC"
+   ],
+   "also_in": [
+    "MMM",
+    "COL1990"
+   ],
+   "facts": [
+    {
+     "fact": "1890: the O'Neil expedition's Linsley party reached a south-side summit (probably a crag of the South Peak, per Wood).",
+     "wood": [
+      {
+       "work": "COL1990",
+       "locator": "p. 45",
+       "locator_basis": "read_by_us"
+      },
+      {
+       "work": "MMM"
+      }
+     ],
+     "confidence": "high"
+    },
+    {
+     "fact": "1899: Jack McGlone of the USGS survey climbed the East Peak. 1907: an Explorers Club of New York party climbed the Middle Peak, and The Mountaineers of Seattle made the first ascent of the West (true) summit on their first summer outing.",
+     "wood": [
+      {
+       "work": "LTSL",
+       "locator": "ch. 'The Olympic Summer Outings', p. 131",
+       "locator_basis": "chapter title and index terms via google_books_toc; specific facts from HistoryLink 7473, which lists LTSL among its sources"
+      }
+     ],
+     "corroboration": [
+      "https://historylink.org/File/7473"
+     ],
+     "confidence": "high"
+    },
+    {
+     "fact": "1908: four climbers from Bremerton reached the West, Middle and East peaks in a single day.",
+     "wood": [
+      {
+       "work": "TC",
+       "locator": "p. 78",
+       "locator_basis": "cited_by_evans_1983"
+      }
+     ],
+     "corroboration": [
+      "https://npshistory.com/publications/olym/hrs/chap4.htm",
+      "https://historylink.org/File/7473"
+     ],
+     "confidence": "high"
+    },
+    {
+     "fact": "In his papers Wood noted that Humes Glacier was named by climbers of the New York Explorers Club, not by The Mountaineers as a 1970s placard at Humes Ranch said.",
+     "wood": [
+      {
+       "work": "UW_PAPERS",
+       "locator": "Carton V/misc. item (e): note on Humes Ranch placard",
+       "locator_basis": "uw_inventory"
+      }
+     ],
+     "corroboration": [
+      "https://static.lib.uw.edu/static/public/specialcollections/findingaids/1991-003.pdf"
+     ],
+     "confidence": "high"
+    },
+    {
+     "fact": "Wood himself climbed Olympus many times (eighteen ascents per his death notice, seen via search summary) and left an unpublished essay titled 'Mount Olympus, Least of the Six Majors' (contents not seen).",
+     "wood": [
+      {
+       "work": "CREATIVE"
+      }
+     ],
+     "corroboration": [
+      "https://static.lib.uw.edu/static/public/specialcollections/findingaids/1991-003.pdf"
+     ],
+     "confidence": "medium"
+    }
+   ],
+   "node_ids": [
+    "mount_olympus_west_peak",
+    "mount_olympus_false_summit",
+    "snow_dome",
+    "crystal_pass",
+    "caltech_rocks",
+    "blue_glacier",
+    "glacier_meadows",
+    "elk_lake",
+    "olympus_guard_station",
+    "hoh_rain_forest_trailhead",
+    "queets_basin",
+    "humes_ranch",
+    "elwha_basin"
+   ],
+   "trip_ids": [
+    "mount_olympus_snow_dome_high_camp",
+    "mount_olympus_guided_style_5_days",
+    "hoh_blue_glacier_classic_4_nights"
+   ],
+   "node_mapping_notes": "The modern Hoh route is not the 1907 approach; the early club parties came by other valleys (LTSL index lists Elwha Basin, Queets Basin, Soleduck River, Hoh River). Do not claim a specific 1907 route for a node until LTSL is checked."
+  },
+  {
+   "topic_id": "humes_ranch_geyser_valley",
+   "title": "Humes Ranch and the middle Elwha",
+   "go_to_wood_source": [
+    "ATOM"
+   ],
+   "also_in": [
+    "LTSL"
+   ],
+   "facts": [
+    {
+     "fact": "The Press party worked up this stretch of the Elwha in Feb.-March 1890 and named Goblins Gate.",
+     "wood": [
+      {
+       "work": "ATOM"
+      }
+     ],
+     "corroboration": [
+      "https://en.wikipedia.org/wiki/Goblins_Gate"
+     ],
+     "confidence": "high"
+    },
+    {
+     "fact": "Wood kept a history of Humes Ranch in his O'Neil research files and corrected the ranch placard's claim about who named Humes Glacier. (That Will Humes guided the 1907 Explorers Club party is general knowledge, not yet checked against Wood.)",
+     "wood": [
+      {
+       "work": "UW_PAPERS",
+       "locator": "Carton L item 19; misc. item (e)",
+       "locator_basis": "uw_inventory"
+      }
+     ],
+     "corroboration": [
+      "https://static.lib.uw.edu/static/public/specialcollections/findingaids/1991-003.pdf"
+     ],
+     "confidence": "medium"
+    }
+   ],
+   "node_ids": [
+    "humes_ranch",
+    "michaels_cabin",
+    "krause_bottom",
+    "goblins_gate",
+    "long_ridge_trail_junction",
+    "whiskey_bend_trailhead"
+   ],
+   "trip_ids": [
+    "humes_ranch_geyser_valley",
+    "wolf_creek_descent"
+   ]
+  },
+  {
+   "topic_id": "bailey_range",
+   "title": "The Bailey Range",
+   "go_to_wood_source": [
+    "OMTG",
+    "ATOM"
+   ],
+   "also_in": [
+    "CREATIVE"
+   ],
+   "facts": [
+    {
+     "fact": "The Press party named the range for William E. Bailey, publisher of the Seattle Press.",
+     "wood": [
+      {
+       "work": "MMM",
+       "locator": "pp. 215-220",
+       "locator_basis": "cited_by_evans_1983"
+      },
+      {
+       "work": "ATOM"
+      }
+     ],
+     "corroboration": [
+      "https://npshistory.com/publications/olym/hrs/chap1.htm"
+     ],
+     "confidence": "high"
+    },
+    {
+     "fact": "In August 1961 Bob Wood, Doug Waali and Kent Heathershaw made reported first ascents of Mount Childs (6,205 ft; Aug. 6, an easy scramble up east-side talus), Mount Pulitzer (6,283 ft; by a splintered east ridge) and Stephen Peak (6,430 ft; Aug. 8, from upper Cream Lake basin).",
+     "wood": [],
+     "corroboration": [
+      "https://publications.americanalpineclub.org/articles/12196221000/North-America-United-States-Washington-Olympic-Mountains-New-Climbs-in-the-Bailey-Range"
+     ],
+     "confidence": "medium-high (identity of 'Bob Wood' very probable, not proven)"
+    },
+    {
+     "fact": "Wood wrote an unpublished true account titled 'A Trip up the Bailey'; his trail guide covers the range's way trails (index term 'Bailey Range').",
+     "wood": [
+      {
+       "work": "CREATIVE"
+      },
+      {
+       "work": "OMTG",
+       "locator_basis": "google_books_toc index term"
+      }
+     ],
+     "confidence": "medium"
+    }
+   ],
+   "node_ids": [
+    "cat_basin",
+    "the_catwalk",
+    "boston_charlies_camp",
+    "mount_carrie_camps",
+    "mount_carrie",
+    "carrie_glacier",
+    "eleven_bull_basin",
+    "stephen_lake",
+    "cream_lake",
+    "ferry_basin",
+    "lone_tree_pass",
+    "scott_ludden_saddle",
+    "bear_pass",
+    "dodwell_rixon_pass",
+    "elwha_snowfinger",
+    "queets_basin",
+    "dodger_point"
+   ],
+   "trip_ids": [
+    "bailey_range_traverse",
+    "northern_bailey_range_dodger_exit"
+   ]
+  },
+  {
+   "topic_id": "trail_guide_backbone",
+   "title": "Trails, camps and way trails (the trail-guide layer)",
+   "go_to_wood_source": [
+    "OMTG"
+   ],
+   "also_in": [
+    "TC",
+    "WT"
+   ],
+   "facts": [
+    {
+     "fact": "For any trail, junction, shelter site or way trail in the park or Olympic National Forest, Wood's Olympic Mountains Trail Guide (1984-2000; updated 2020 by Hoke, Savage and the Peninsula Wilderness Club) is the standard description; Trail Country (1968) and Wilderness Trails (1970) record the trail system and beach routes as they were around 1968-70, useful for 'how it used to be' notes (old shelters, abandoned trails).",
+     "wood": [
+      {
+       "work": "OMTG"
+      },
+      {
+       "work": "TC"
+      },
+      {
+       "work": "WT"
+      }
+     ],
+     "confidence": "high"
+    },
+    {
+     "fact": "Example locator: the 2nd edition (1991) begins Part I on p. 23, with the Barnes Creek Trail on p. 31.",
+     "wood": [
+      {
+       "work": "OMTG",
+       "locator": "2nd ed. pp. 23, 31",
+       "locator_basis": "google_books_toc"
+      }
+     ],
+     "confidence": "high"
+    },
+    {
+     "fact": "The 3rd edition's catalog blurb highlights the Cat Creek Way Trail, a high route with a view of Oyster Lake, and the Appleton Pass Trail with its boulder-sitting marmots.",
+     "wood": [
+      {
+       "work": "OMTG",
+       "locator": "3rd ed. (2000), publisher blurb",
+       "locator_basis": "catalog_description"
+      }
+     ],
+     "corroboration": [
+      "https://catalog.nols.org/GroupedWork/3b48b47c-b009-ba1d-d303-ca1dd9409856-eng/Home"
+     ],
+     "confidence": "high"
+    }
+   ],
+   "node_ids": [
+    "barnes_creek_junction",
+    "upper_barnes_creek_junction",
+    "aurora_divide",
+    "marymere_falls_trailhead",
+    "appleton_pass",
+    "oyster_lake"
+   ],
+   "node_mapping_notes": "This topic applies to every trail node; only the nodes with a verified page are listed. Coast nodes: use TC/WT beach logs, not OMTG (coverage unverified)."
+  },
+  {
+   "topic_id": "coast_beach_logs",
+   "title": "The wilderness coast in Wood's early guides",
+   "go_to_wood_source": [
+    "TC",
+    "WT"
+   ],
+   "facts": [
+    {
+     "fact": "Trail Country (1968) and its spin-off Wilderness Trails of Olympic National Park (1970) include beach logs for the park's coastal strip alongside the mountain trail logs.",
+     "wood": [
+      {
+       "work": "TC"
+      },
+      {
+       "work": "WT"
+      }
+     ],
+     "corroboration": [
+      "https://archive.org/details/catalogofco1970324112libr"
+     ],
+     "confidence": "high"
+    }
+   ],
+   "node_ids": [
+    "shi_shi_beach",
+    "point_of_the_arches",
+    "cape_alava",
+    "sand_point",
+    "rialto_beach_trailhead",
+    "hole_in_the_wall",
+    "third_beach",
+    "toleak_point",
+    "hoh_river_mouth",
+    "ruby_beach"
+   ],
+   "node_mapping_notes": "Which beaches the logs cover is not yet checked; nodes listed are the main beach-route anchors."
+  },
+  {
+   "topic_id": "rain_forest",
+   "title": "The rain forest (Wood's starting point)",
+   "go_to_wood_source": [
+    "TC"
+   ],
+   "facts": [
+    {
+     "fact": "Wood's first serious writing on the Olympics was a 1948 University of Washington term paper on the Olympic rain forest, which he later called the seed of his books; Trail Country's natural-history half covers the rain-forest plant community.",
+     "wood": [
+      {
+       "work": "TC"
+      },
+      {
+       "work": "DRAFTS"
+      }
+     ],
+     "corroboration": [
+      "https://static.lib.uw.edu/static/public/specialcollections/findingaids/1991-003.pdf",
+      "https://publications.americanalpineclub.org/articles/12196948902/Trail-Country-Olympic-National-Park"
+     ],
+     "confidence": "high"
+    }
+   ],
+   "node_ids": [
+    "hoh_rain_forest_trailhead",
+    "hall_of_mosses",
+    "quinault_rain_forest_nature_trail_trailhead",
+    "queets_trailhead",
+    "bogachiel_trailhead"
+   ]
+  },
+  {
+   "topic_id": "place_name_origins",
+   "title": "Place-name origins (Wood's memorandum)",
+   "go_to_wood_source": [
+    "PLACENAMES_MEMO"
+   ],
+   "also_in": [
+    "HITCHMAN_REMARKS",
+    "ATOM",
+    "MMM"
+   ],
+   "facts": [
+    {
+     "fact": "Wood wrote a 117-page memorandum on Olympic place names (Dec. 1984 - Jan. 1985) and written remarks correcting Olympic entries in Robert Hitchman's 'Place Names of Washington' (1986). Both are at UW Special Collections and are the place to check before writing any 'named for...' line for a node.",
+     "wood": [
+      {
+       "work": "PLACENAMES_MEMO"
+      },
+      {
+       "work": "HITCHMAN_REMARKS"
+      }
+     ],
+     "corroboration": [
+      "https://archiveswest.orbiscascade.org/ark:80444/xv89962"
+     ],
+     "confidence": "high"
+    }
+   ],
+   "node_ids": []
+  },
+  {
+   "topic_id": "staircase_skokomish",
+   "title": "Staircase and the North Fork Skokomish",
+   "go_to_wood_source": [
+    "MMM"
+   ],
+   "also_in": [
+    "COL1990",
+    "SKOK",
+    "CREATIVE"
+   ],
+   "facts": [
+    {
+     "fact": "In 1890 Lake Cushman's west shore had settlers' farms (Windhoffer's clover-and-timothy field and a solid, well-furnished house; neighbors named Davis, McCabe, Muller, Stebbins and Church), copper claims were being worked above the lake, and a deserted hunter's lean-to stood near Five Stream.",
+     "wood": [
+      {
+       "work": "MMM",
+       "locator": "pp. 71, 74, 84-85, 114, 404",
+       "locator_basis": "cited_by_evans_1983"
+      }
+     ],
+     "corroboration": [
+      "https://npshistory.com/publications/olym/hrs/chap2.htm",
+      "https://npshistory.com/publications/olym/hrs/chap3.htm"
+     ],
+     "confidence": "high"
+    },
+    {
+     "fact": "Wood wrote 'Hiking the Skokomish' for the Peninsula Daily News and an unpublished piece on a Skokomish forest fire.",
+     "wood": [
+      {
+       "work": "SKOK"
+      },
+      {
+       "work": "CREATIVE"
+      }
+     ],
+     "corroboration": [
+      "https://static.lib.uw.edu/static/public/specialcollections/findingaids/1991-003.pdf"
+     ],
+     "confidence": "medium"
+    }
+   ],
+   "node_ids": [
+    "staircase_trailhead",
+    "staircase_campground",
+    "staircase_rapids_bridge_junction",
+    "slide_camp_skokomish",
+    "big_log_camp",
+    "flapjack_lakes_trail_junction"
+   ],
+   "trip_ids": [
+    "staircase_rapids_loop",
+    "staircase_first_divide_home_sweet_home"
+   ]
+  },
+  {
+   "topic_id": "hoh_queets_west_end",
+   "title": "The West End (Hoh and Queets country)",
+   "go_to_wood_source": [
+    "BEYOND_OLYMPUS"
+   ],
+   "also_in": [
+    "LTSL",
+    "KLOOCH"
+   ],
+   "facts": [
+    {
+     "fact": "Wood's unpublished 1981 manuscript 'Beyond Olympus: The West End of Jefferson County', written from Bob Brown's materials, is the Wood-family source for settler history of the Hoh and Queets valleys; he also wrote a piece on Kloochman Rock in the Queets valley.",
+     "wood": [
+      {
+       "work": "BEYOND_OLYMPUS"
+      },
+      {
+       "work": "KLOOCH"
+      }
+     ],
+     "corroboration": [
+      "https://static.lib.uw.edu/static/public/specialcollections/findingaids/1991-003.pdf"
+     ],
+     "confidence": "medium (contents not seen)"
+    },
+    {
+     "fact": "The Linsley party of 1890 came down the Queets after the Olympus climb.",
+     "wood": [
+      {
+       "work": "COL1990",
+       "locator": "p. 45",
+       "locator_basis": "read_by_us"
+      }
+     ],
+     "confidence": "high"
+    }
+   ],
+   "node_ids": [
+    "queets_trailhead",
+    "queets_campground",
+    "sams_rapids",
+    "sams_river_loop_meadow",
+    "hoh_rain_forest_trailhead",
+    "olympus_guard_station"
+   ],
+   "trip_ids": [
+    "queets_sams_river_loop"
+   ]
+  }
+ ],
+ "work_index": {
+  "ATOM": {
+   "go_to_for": [
+    "press_expedition",
+    "press_place_names",
+    "humes_ranch_geyser_valley",
+    "bailey_range"
+   ],
+   "also_covers": [
+    "place_name_origins"
+   ]
+  },
+  "BEYOND_OLYMPUS": {
+   "go_to_for": [
+    "hoh_queets_west_end"
+   ],
+   "also_covers": []
+  },
+  "COL1990": {
+   "go_to_for": [],
+   "also_covers": [
+    "press_expedition",
+    "oneil_1885",
+    "oneil_1890",
+    "national_park_idea",
+    "watkinson_1878",
+    "olympus_climbing_history",
+    "staircase_skokomish"
+   ]
+  },
+  "CREATIVE": {
+   "go_to_for": [],
+   "also_covers": [
+    "bailey_range",
+    "staircase_skokomish"
+   ]
+  },
+  "HITCHMAN_REMARKS": {
+   "go_to_for": [],
+   "also_covers": [
+    "place_name_origins"
+   ]
+  },
+  "KLOOCH": {
+   "go_to_for": [],
+   "also_covers": [
+    "hoh_queets_west_end"
+   ]
+  },
+  "LTSL": {
+   "go_to_for": [
+    "national_park_idea",
+    "other_1889_1890_parties",
+    "watkinson_1878",
+    "olympus_climbing_history"
+   ],
+   "also_covers": [
+    "press_expedition",
+    "oneil_1885",
+    "oneil_1890",
+    "early_coastal_exploration",
+    "humes_ranch_geyser_valley",
+    "hoh_queets_west_end"
+   ]
+  },
+  "MMM": {
+   "go_to_for": [
+    "oneil_1885",
+    "oneil_1890",
+    "staircase_skokomish"
+   ],
+   "also_covers": [
+    "press_expedition",
+    "press_place_names",
+    "national_park_idea",
+    "other_1889_1890_parties",
+    "olympus_climbing_history",
+    "place_name_origins"
+   ]
+  },
+  "MTN1980": {
+   "go_to_for": [],
+   "also_covers": [
+    "national_park_idea"
+   ]
+  },
+  "OMTG": {
+   "go_to_for": [
+    "bailey_range",
+    "trail_guide_backbone"
+   ],
+   "also_covers": []
+  },
+  "PLACENAMES_MEMO": {
+   "go_to_for": [
+    "place_name_origins"
+   ],
+   "also_covers": []
+  },
+  "SKOK": {
+   "go_to_for": [],
+   "also_covers": [
+    "staircase_skokomish"
+   ]
+  },
+  "TC": {
+   "go_to_for": [
+    "national_park_idea",
+    "early_coastal_exploration",
+    "olympus_climbing_history",
+    "coast_beach_logs",
+    "rain_forest"
+   ],
+   "also_covers": [
+    "trail_guide_backbone"
+   ]
+  },
+  "WT": {
+   "go_to_for": [
+    "coast_beach_logs"
+   ],
+   "also_covers": [
+    "trail_guide_backbone"
+   ]
+  }
+ },
+ "node_index": {
+  "anderson_glacier_overlook": [
+   "oneil_1890"
+  ],
+  "anderson_pass": [
+   "oneil_1885",
+   "oneil_1890"
+  ],
+  "appleton_pass": [
+   "trail_guide_backbone"
+  ],
+  "aurora_divide": [
+   "trail_guide_backbone"
+  ],
+  "barnes_creek_junction": [
+   "trail_guide_backbone"
+  ],
+  "bear_pass": [
+   "press_place_names",
+   "bailey_range"
+  ],
+  "big_log_camp": [
+   "oneil_1890",
+   "staircase_skokomish"
+  ],
+  "blue_glacier": [
+   "olympus_climbing_history"
+  ],
+  "bogachiel_trailhead": [
+   "rain_forest"
+  ],
+  "boston_charlies_camp": [
+   "bailey_range"
+  ],
+  "caltech_rocks": [
+   "olympus_climbing_history"
+  ],
+  "cameron_pass": [
+   "oneil_1885"
+  ],
+  "camp_pleasant": [
+   "oneil_1890"
+  ],
+  "camp_wilder": [
+   "press_expedition"
+  ],
+  "cape_alava": [
+   "coast_beach_logs"
+  ],
+  "carrie_glacier": [
+   "bailey_range"
+  ],
+  "cat_basin": [
+   "press_place_names",
+   "bailey_range"
+  ],
+  "chicago_camp": [
+   "press_expedition",
+   "press_place_names"
+  ],
+  "cream_lake": [
+   "press_place_names",
+   "bailey_range"
+  ],
+  "crystal_pass": [
+   "olympus_climbing_history"
+  ],
+  "destruction_island": [
+   "early_coastal_exploration"
+  ],
+  "dodger_point": [
+   "bailey_range"
+  ],
+  "dodwell_rixon_pass": [
+   "bailey_range"
+  ],
+  "dose_forks": [
+   "oneil_1890",
+   "other_1889_1890_parties"
+  ],
+  "dose_meadows": [
+   "oneil_1885"
+  ],
+  "dosewallips_ranger_station": [
+   "other_1889_1890_parties"
+  ],
+  "dosewallips_trailhead": [
+   "other_1889_1890_parties"
+  ],
+  "duckabush_trailhead": [
+   "oneil_1890"
+  ],
+  "east_fork_quinault_high_bridge": [
+   "oneil_1890"
+  ],
+  "eleven_bull_basin": [
+   "press_place_names",
+   "bailey_range"
+  ],
+  "elip_creek_camp": [
+   "press_expedition"
+  ],
+  "elk_lake": [
+   "national_park_idea",
+   "olympus_climbing_history"
+  ],
+  "elkhorn": [
+   "press_expedition"
+  ],
+  "elwha_basin": [
+   "press_expedition",
+   "olympus_climbing_history"
+  ],
+  "elwha_snowfinger": [
+   "bailey_range"
+  ],
+  "enchanted_valley": [
+   "oneil_1890",
+   "other_1889_1890_parties"
+  ],
+  "enchanted_valley_chalet": [
+   "oneil_1890"
+  ],
+  "ferry_basin": [
+   "press_place_names",
+   "bailey_range"
+  ],
+  "fire_creek_camp": [
+   "oneil_1890"
+  ],
+  "first_divide": [
+   "oneil_1890"
+  ],
+  "flapjack_lakes_trail_junction": [
+   "staircase_skokomish"
+  ],
+  "glacier_meadows": [
+   "olympus_climbing_history"
+  ],
+  "goblins_gate": [
+   "press_expedition",
+   "press_place_names",
+   "humes_ranch_geyser_valley"
+  ],
+  "grand_pass": [
+   "oneil_1885"
+  ],
+  "graves_creek_trailhead": [
+   "oneil_1890"
+  ],
+  "halfway_house_camp": [
+   "press_expedition"
+  ],
+  "hall_of_mosses": [
+   "rain_forest"
+  ],
+  "hart_lake": [
+   "oneil_1890",
+   "other_1889_1890_parties"
+  ],
+  "hayden_pass_trail_junction": [
+   "press_place_names"
+  ],
+  "hayes_river": [
+   "press_expedition",
+   "press_place_names"
+  ],
+  "heart_o_the_hills_trailhead": [
+   "oneil_1885"
+  ],
+  "hoh_rain_forest_trailhead": [
+   "olympus_climbing_history",
+   "rain_forest",
+   "hoh_queets_west_end"
+  ],
+  "hoh_river_mouth": [
+   "early_coastal_exploration",
+   "coast_beach_logs"
+  ],
+  "hole_in_the_wall": [
+   "coast_beach_logs"
+  ],
+  "home_sweet_home": [
+   "oneil_1890"
+  ],
+  "humes_ranch": [
+   "press_expedition",
+   "olympus_climbing_history",
+   "humes_ranch_geyser_valley"
+  ],
+  "hurricane_ridge_visitor_center": [
+   "oneil_1885"
+  ],
+  "klahhane_ridge": [
+   "oneil_1885"
+  ],
+  "krause_bottom": [
+   "press_expedition",
+   "humes_ranch_geyser_valley"
+  ],
+  "lake_angeles": [
+   "oneil_1885"
+  ],
+  "lake_ben": [
+   "oneil_1890"
+  ],
+  "lake_lillian": [
+   "press_place_names"
+  ],
+  "lake_margaret": [
+   "press_expedition",
+   "press_place_names"
+  ],
+  "lake_quinault_lodge_area": [
+   "press_expedition",
+   "other_1889_1890_parties"
+  ],
+  "lillian_camp": [
+   "press_expedition",
+   "press_place_names"
+  ],
+  "lillian_ridge_junction": [
+   "oneil_1885"
+  ],
+  "lillian_river_trail_end": [
+   "press_place_names"
+  ],
+  "lillian_river_trail_junction": [
+   "press_expedition",
+   "press_place_names"
+  ],
+  "lone_tree_pass": [
+   "press_place_names",
+   "bailey_range"
+  ],
+  "long_ridge_trail_junction": [
+   "humes_ranch_geyser_valley"
+  ],
+  "lost_pass": [
+   "oneil_1885"
+  ],
+  "low_divide": [
+   "press_expedition",
+   "press_place_names",
+   "other_1889_1890_parties"
+  ],
+  "lower_cameron": [
+   "oneil_1885"
+  ],
+  "marmot_lake": [
+   "oneil_1890"
+  ],
+  "marymere_falls_trailhead": [
+   "trail_guide_backbone"
+  ],
+  "michaels_cabin": [
+   "humes_ranch_geyser_valley"
+  ],
+  "mount_angeles": [
+   "oneil_1885"
+  ],
+  "mount_carrie": [
+   "press_place_names",
+   "bailey_range"
+  ],
+  "mount_carrie_camps": [
+   "bailey_range"
+  ],
+  "mount_olympus_false_summit": [
+   "olympus_climbing_history"
+  ],
+  "mount_olympus_west_peak": [
+   "early_coastal_exploration",
+   "olympus_climbing_history"
+  ],
+  "neah_bay": [
+   "early_coastal_exploration"
+  ],
+  "nine_stream_camp": [
+   "oneil_1890"
+  ],
+  "north_fork_quinault_trailhead": [
+   "press_expedition"
+  ],
+  "o_neil_creek_camp": [
+   "oneil_1890"
+  ],
+  "o_neil_pass": [
+   "oneil_1890",
+   "other_1889_1890_parties"
+  ],
+  "o_neil_pass_trail_junction": [
+   "oneil_1890"
+  ],
+  "obstruction_point_trailhead": [
+   "oneil_1885"
+  ],
+  "olympus_guard_station": [
+   "national_park_idea",
+   "olympus_climbing_history",
+   "hoh_queets_west_end"
+  ],
+  "oyster_lake": [
+   "trail_guide_backbone"
+  ],
+  "point_of_the_arches": [
+   "coast_beach_logs"
+  ],
+  "pony_bridge": [
+   "oneil_1890"
+  ],
+  "port_angeles_wic": [
+   "oneil_1885",
+   "national_park_idea",
+   "early_coastal_exploration"
+  ],
+  "pyrites_creek_camp": [
+   "oneil_1890"
+  ],
+  "queets_basin": [
+   "press_place_names",
+   "oneil_1890",
+   "olympus_climbing_history",
+   "bailey_range"
+  ],
+  "queets_campground": [
+   "oneil_1890",
+   "hoh_queets_west_end"
+  ],
+  "queets_trailhead": [
+   "oneil_1890",
+   "rain_forest",
+   "hoh_queets_west_end"
+  ],
+  "quinault_rain_forest_nature_trail_trailhead": [
+   "rain_forest"
+  ],
+  "quinault_rain_forest_ranger_station": [
+   "other_1889_1890_parties"
+  ],
+  "rialto_beach_trailhead": [
+   "coast_beach_logs"
+  ],
+  "ruby_beach": [
+   "coast_beach_logs"
+  ],
+  "sams_rapids": [
+   "hoh_queets_west_end"
+  ],
+  "sams_river_loop_meadow": [
+   "hoh_queets_west_end"
+  ],
+  "sand_point": [
+   "coast_beach_logs"
+  ],
+  "scott_ludden_saddle": [
+   "press_place_names",
+   "bailey_range"
+  ],
+  "shi_shi_beach": [
+   "coast_beach_logs"
+  ],
+  "sixteen_mile_camp": [
+   "press_expedition"
+  ],
+  "slide_camp_skokomish": [
+   "oneil_1890",
+   "staircase_skokomish"
+  ],
+  "snow_dome": [
+   "olympus_climbing_history"
+  ],
+  "staircase_campground": [
+   "oneil_1890",
+   "staircase_skokomish"
+  ],
+  "staircase_rapids_bridge_junction": [
+   "oneil_1890",
+   "staircase_skokomish"
+  ],
+  "staircase_trailhead": [
+   "oneil_1890",
+   "other_1889_1890_parties",
+   "watkinson_1878",
+   "staircase_skokomish"
+  ],
+  "stephen_lake": [
+   "press_place_names",
+   "bailey_range"
+  ],
+  "the_catwalk": [
+   "press_place_names",
+   "bailey_range"
+  ],
+  "third_beach": [
+   "coast_beach_logs"
+  ],
+  "toleak_point": [
+   "coast_beach_logs"
+  ],
+  "trapper_shelter": [
+   "press_expedition"
+  ],
+  "two_bear_camp": [
+   "oneil_1890"
+  ],
+  "upper_barnes_creek_junction": [
+   "trail_guide_backbone"
+  ],
+  "upper_cameron": [
+   "oneil_1885"
+  ],
+  "upper_duckabush": [
+   "oneil_1890"
+  ],
+  "upper_dungeness_trailhead": [
+   "oneil_1885"
+  ],
+  "whiskey_bend_trailhead": [
+   "press_expedition",
+   "humes_ranch_geyser_valley"
+  ],
+  "wolf_bar_camp": [
+   "press_expedition"
+  ]
+ },
+ "people_index": {
+  "Bernard J. Bretherton": [
+   "oneil_1890"
+  ],
+  "Charles A. Barnes": [
+   "press_expedition"
+  ],
+  "Christopher O. Hayes": [
+   "press_expedition"
+  ],
+  "Col. Thomas M. Anderson": [
+   "oneil_1890"
+  ],
+  "Elisha P. Ferry": [
+   "press_expedition"
+  ],
+  "Frederick Haffner": [
+   "oneil_1890"
+  ],
+  "Gen. John Gibbon": [
+   "oneil_1890"
+  ],
+  "Gen. Nelson A. Miles": [
+   "oneil_1885"
+  ],
+  "Harries B. Runnalls": [
+   "press_expedition"
+  ],
+  "Harry Fisher": [
+   "oneil_1890"
+  ],
+  "Harry Hawgood": [
+   "oneil_1885"
+  ],
+  "James H. Christie": [
+   "press_expedition"
+  ],
+  "John Danton": [
+   "oneil_1890"
+  ],
+  "John H. Crumback": [
+   "press_expedition"
+  ],
+  "John W. Sims": [
+   "press_expedition"
+  ],
+  "Louis F. Henderson": [
+   "oneil_1890"
+  ],
+  "Lt. Joseph P. O'Neil": [
+   "oneil_1885",
+   "oneil_1890"
+  ],
+  "Nelson E. Linsley": [
+   "oneil_1890"
+  ],
+  "Norman Smith": [
+   "oneil_1885"
+  ],
+  "Pvt. John Johnson": [
+   "oneil_1885"
+  ],
+  "R. E. Habersham": [
+   "oneil_1885"
+  ],
+  "William E. Bailey": [
+   "press_expedition"
+  ],
+  "William G. Steel": [
+   "oneil_1890"
+  ]
+ },
+ "epitaph_fact_seeds": [
+  {
+   "seed": "the mule Jennie, lost to a fall on the Press party's long winter climb",
+   "credit": "After Robert L. Wood, Across the Olympic Mountains (1967)",
+   "topic": "press_expedition"
+  },
+  {
+   "seed": "Dike, the Press party's dog, killed by an elk",
+   "credit": "After Robert L. Wood, Across the Olympic Mountains (1967)",
+   "topic": "press_expedition"
+  },
+  {
+   "seed": "the boat Gertie, abandoned on the Elwha after it leaked and dragged",
+   "credit": "After Robert L. Wood, Across the Olympic Mountains (1967)",
+   "topic": "press_expedition"
+  },
+  {
+   "seed": "a bend of the river mistaken for the way home (the Press party's Elwha/Quinault error)",
+   "credit": "After Robert L. Wood, Across the Olympic Mountains (1967)",
+   "topic": "press_expedition"
+  },
+  {
+   "seed": "guns and specimens lost in a raft wreck; only the pack of journals saved",
+   "credit": "After Robert L. Wood, Across the Olympic Mountains (1967)",
+   "topic": "press_expedition"
+  },
+  {
+   "seed": "Private Johnson, separated from his lieutenant in 1885, walking out of the mountains alone",
+   "credit": "After Robert L. Wood, 'The O'Neil Expeditions', Columbia (1990), and Men, Mules, and Mountains (1976)",
+   "topic": "oneil_1885"
+  },
+  {
+   "seed": "Jumbo the old hound, who leapt into a canyon rather than be left behind",
+   "credit": "After Robert L. Wood, 'The O'Neil Expeditions', Columbia (1990)",
+   "topic": "oneil_1890"
+  },
+  {
+   "seed": "a copper box carried to the top of Olympus in 1890 and never seen again",
+   "credit": "After Robert L. Wood, Men, Mules, and Mountains (1976)",
+   "topic": "oneil_1890"
+  },
+  {
+   "seed": "a sixty-pound pack and two weeks of summer left",
+   "credit": "After Robert L. Wood, 'The O'Neil Expeditions', Columbia (1990)",
+   "topic": "oneil_1890"
+  },
+  {
+   "seed": "a man who lost his party in the Queets and followed the river to the sea",
+   "credit": "After Robert L. Wood, 'The O'Neil Expeditions', Columbia (1990)",
+   "topic": "oneil_1890"
+  },
+  {
+   "seed": "a mule that rolled down the slope and had to be coaxed back to the trail (1885)",
+   "credit": "After Robert L. Wood, 'The O'Neil Expeditions', Columbia (1990)",
+   "topic": "oneil_1885"
+  },
+  {
+   "seed": "trout caught in the twilight after a thirteen-hour day of trail-building",
+   "credit": "After Robert L. Wood, 'The O'Neil Expeditions', Columbia (1990)",
+   "topic": "oneil_1890"
+  }
+ ],
+ "uncertain": [
+  "Title and subject of Wood's article in The Mountaineer 1977 (pp. 49-57) not seen; probably on the O'Neil expeditions.",
+  "Titles of Wood's Mountaineer 1980 piece on Preston P. Macy not seen.",
+  "Publication details of 'The Goblin Gates Refound' (inventory OCR suggests a nature magazine, October 1954) unverified.",
+  "Venue/date of 'Hiking the Skokomish' (Peninsula Daily News), 'Kloochman Rock', and the 1985 Frank O. Shaw memorial pieces unknown.",
+  "Whether Wood wrote anything in the Olympic Mountain Rescue climbing guide: no evidence found; treat as not his.",
+  "'Revised by Terry Wood' appears only in one library record for a 2004 printing of the 3rd-edition trail guide; unconfirmed.",
+  "Trail Country page count: 298 p. (copyright entry, AAJ) vs xxi, 208 p. (Open Library).",
+  "Wood's move to Seattle: 1946 (UW finding aid) vs 1961 (Seattle Times death notice, seen only via search summary).",
+  "Identity of 'Bob Wood' in the 1961 Bailey Range first ascents (AAJ 1962) is inferred from the shared partner Doug Waali.",
+  "Whether the Olympic Mountains Trail Guide covers the coastal beach routes is unverified.",
+  "Whether Wood's Fisher's Bluff is the same bluff as the Staircase 'staircase' is our inference.",
+  "Mountaineers Books permissions contact: no dedicated page found; mountaineers.org returned HTTP 403 to our fetcher; mbooks@mountaineersbooks.org seen only in search results.",
+  "Whether UW Press retains any rights in the 1967 first edition of Across the Olympic Mountains.",
+  "Page locators credited to Evans (1983) were not checked against Wood's books; Evans's 'Wood 1976' means Men, Mules and Mountains, but the Press-expedition pages he cites (201-220) should be confirmed.",
+  "The two TODO research reads that would most improve this file: Wood's 'Memorandum on Certain Place Names in the Olympics' (UW accession 1991-002) and the tables of contents of ATOM, TC, MMM and OMTG (borrow via Internet Archive)."
+ ],
+ "sources": [
+  "https://api.publicrecords.copyright.gov/search_service_external/simple_search_dsl (records TX0001415597, TX0003384704, CSN0137162/TX0005489638, TX0009128040, TX0004259721, TX0000324570, TX0000310877)",
+  "https://archive.org/details/1977booksandpamp33112library",
+  "https://archive.org/details/catalogofco1967321112libr",
+  "https://archive.org/details/catalogofco1968322112lib",
+  "https://archive.org/details/catalogofco1970324112libr",
+  "https://archive.org/metadata/acrossolympicmou0000wood",
+  "https://archive.org/metadata/menmulesmountain0000wood",
+  "https://archive.org/metadata/olympicmountains0000wood",
+  "https://archive.org/metadata/olympicmountains00wood",
+  "https://archive.org/metadata/trailcountryolym0000robe",
+  "https://archive.org/metadata/wildernesstrails0000robe",
+  "https://archive.seattletimes.com/archive/19970911/2559731/olympian-effort----six-day-trek-visits-six-month-epic-of-courage",
+  "https://archiveswest.orbiscascade.org/ark:/80444/xv26913",
+  "https://archiveswest.orbiscascade.org/ark:/80444/xv57464",
+  "https://archiveswest.orbiscascade.org/ark:80444/xv89962",
+  "https://books.google.com/books?id=ab4RAQAAIAAJ",
+  "https://books.google.com/books?id=h02trQHd788C",
+  "https://books.google.com/books?id=iT8wK6Paz-0C",
+  "https://books.google.com/books?id=ltL9DwAAQBAJ",
+  "https://en.wikipedia.org/wiki/Goblins_Gate",
+  "https://historylink.org/File/7473",
+  "https://npshistory.com/publications/olym/c-v4n2-1990-3.pdf",
+  "https://npshistory.com/publications/olym/hrs/chap1.htm",
+  "https://npshistory.com/publications/olym/hrs/chap2.htm",
+  "https://npshistory.com/publications/olym/hrs/chap3.htm",
+  "https://npshistory.com/publications/olym/hrs/chap4.htm",
+  "https://npshistory.com/publications/olym/hrs/contents.htm",
+  "https://olym.oncell.com/en/9-staircase-84750.html",
+  "https://openlibrary.org/search.json?author=Robert+L.+Wood&q=olympic",
+  "https://publications.americanalpineclub.org/articles/12196221000/North-America-United-States-Washington-Olympic-Mountains-New-Climbs-in-the-Bailey-Range",
+  "https://publications.americanalpineclub.org/articles/12196825202/Across-the-Olympic-Mountains-The-Press-Expedition",
+  "https://publications.americanalpineclub.org/articles/12196948902/Trail-Country-Olympic-National-Park",
+  "https://static.lib.uw.edu/static/public/specialcollections/findingaids/1991-003.pdf",
+  "https://www.goodreads.com/author/list/106145.Robert_L_Wood",
+  "https://www.lastwilderness.net/?p=1027",
+  "https://www.mountaineers.org/about/history/the-mountaineer-annuals/indexes-annuals-maps/the-mountaineer-index-to-annual-issues-1967-to-1980/@@download/file/_Index 1967-1980.pdf",
+  "https://www.nps.gov/olym/learn/historyculture/exploration-of-the-olympic-peninsula.htm",
+  "https://www.npshistory.com/publications/olym/m-v1n2-1907-1.pdf",
+  "https://www.sequimgazette.com/?p=28043",
+  "https://www.wta.org/go-hiking/hikes/geyser-valley"
+ ]
 }

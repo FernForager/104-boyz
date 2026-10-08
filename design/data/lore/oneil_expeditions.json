@@ -1,0 +1,173 @@
+{
+ "lore_id": "oneil_expeditions",
+ "title": "Lt. Joseph P. O'Neil's Olympic expeditions, 1885 and 1890",
+ "status": "IN PROGRESS - snapshot 3 (2026-10-08). SDOC59 quotes below verified against page images (govinfo PDF). Steel Points 1907 quotes being verified next; timeline/members/node mapping to follow.",
+ "researched_on": "2026-10-08",
+ "copyright_policy": "No Robert L. Wood text anywhere in this file. Wood's Men, Mules and Mountains (1976) is cited for facts only, restated in our own words. Verbatim quotes only from public-domain primary texts we actually fetched (URL given).",
+ "primary_sources_found": [
+  {
+   "id": "SDOC59",
+   "what": "Report of Lieut. Joseph P. O'Neil, Fourteenth Infantry, of his exploration of the Olympic Mountains, Washington, from June to October, 1890 (report dated Vancouver Barracks, Nov. 16, 1890), printed as Senate Doc. No. 59, 54th Cong., 1st Sess., Jan. 8, 1896, 20 pp., Serial Set 3349",
+   "url": "https://www.govinfo.gov/content/pkg/SERIALSET-03349_00_00-028-0059-0000/pdf/SERIALSET-03349_00_00-028-0059-0000.pdf",
+   "public_domain": "U.S. government work (17 U.S.C. 105) and published 1896"
+  },
+  {
+   "id": "SP1907",
+   "what": "Steel Points vol. 1 no. 4 (Portland, July 1907): B. J. Bretherton, 'Ascent of Mount Olympus' and L. F. Henderson, 'Flora of the Olympics' (first-hand accounts by 1890 expedition members)",
+   "url": "https://npshistory.com/publications/olym/sp-v1n4-1907.pdf",
+   "public_domain": "published in the U.S. in 1907 (before 1931); copyright long expired"
+  }
+ ],
+ "quote_pool_draft": [
+  {
+   "text": "It was a mistake to send out such an expedition at such a season",
+   "source_id": "SDOC59",
+   "page": 2
+  },
+  {
+   "text": "This trail is about 93 miles in length, and was in itself an hurculean undertaking.",
+   "source_id": "SDOC59",
+   "page": 2
+  },
+  {
+   "text": "Too much credit can not be given to the men who accompanied the expedition.",
+   "source_id": "SDOC59",
+   "page": 2
+  },
+  {
+   "text": "There was one mule branded, “B. C.,” which we thought recorded his date of birth",
+   "source_id": "SDOC59",
+   "page": 3
+  },
+  {
+   "text": "Another mule, Sorais, fell from the trail and rolled into the gorge of the Quinaiult River",
+   "source_id": "SDOC59",
+   "page": 3
+  },
+  {
+   "text": "Following the custom of explorers, I gave names to such places as I thought proper.",
+   "source_id": "SDOC59",
+   "page": 3
+  },
+  {
+   "text": "heavy rain began in the morning and conscientiously followed us the entire day.",
+   "source_id": "SDOC59",
+   "page": 4
+  },
+  {
+   "text": "About 9 o’clock that night camp was pitched in a swamp",
+   "source_id": "SDOC59",
+   "page": 4
+  },
+  {
+   "text": "to jump the mules from the deck and swim them to the shore.",
+   "source_id": "SDOC59",
+   "page": 4
+  },
+  {
+   "text": "a catch of a hundred trout, fine, large, beauties, in a few hours.",
+   "source_id": "SDOC59",
+   "page": 5
+  },
+  {
+   "text": "this piece of road, which some miners were afraid to cross, did not even delay the pack train.",
+   "source_id": "SDOC59",
+   "page": 5
+  },
+  {
+   "text": "they made no more requests to accompany any of our scouting expeditions.",
+   "source_id": "SDOC59",
+   "page": 6
+  },
+  {
+   "text": "This part of the country is very peculiar and deceptive.",
+   "source_id": "SDOC59",
+   "page": 6
+  },
+  {
+   "text": "The doctor had his first taste of shoe leather as a food.",
+   "source_id": "SDOC59",
+   "page": 8
+  },
+  {
+   "text": "At 5.30 a. m. we started, loaded with 50 pounds a man.",
+   "source_id": "SDOC59",
+   "page": 9
+  },
+  {
+   "text": "How many elk had been fooled as we were?",
+   "source_id": "SDOC59",
+   "page": 9
+  },
+  {
+   "text": "Private Danton nearly lost his life.",
+   "source_id": "SDOC59",
+   "page": 9
+  },
+  {
+   "text": "This city has two houses and a name.",
+   "source_id": "SDOC59",
+   "page": 10
+  },
+  {
+   "text": "it seemed as if nothing without wings could pass from that divide.",
+   "source_id": "SDOC59",
+   "page": 12
+  },
+  {
+   "text": "Looking at them from below they seemed like flies coming down a wall.",
+   "source_id": "SDOC59",
+   "page": 13
+  },
+  {
+   "text": "Her neck was broken.",
+   "source_id": "SDOC59",
+   "page": 14
+  },
+  {
+   "text": "Down grade is always more dangerous than uphill work.",
+   "source_id": "SDOC59",
+   "page": 15
+  },
+  {
+   "text": "He proved himself a thorough mountain man.",
+   "source_id": "SDOC59",
+   "page": 15
+  },
+  {
+   "text": "where, I believe, human foot had never trod.",
+   "source_id": "SDOC59",
+   "page": 16
+  },
+  {
+   "text": "The Ho is the only river of the West that we must pass with no remark.",
+   "source_id": "SDOC59",
+   "page": 17
+  },
+  {
+   "text": "I would unhesitatingly pronounce this bosh.",
+   "source_id": "SDOC59",
+   "page": 18
+  },
+  {
+   "text": "This is sweet music in the wilds.",
+   "source_id": "SDOC59",
+   "page": 19
+  },
+  {
+   "text": "Fisher concluded to let the bear have the elk.",
+   "source_id": "SDOC59",
+   "page": 19
+  },
+  {
+   "text": "This trail I hope will be a monument to the expedition.",
+   "source_id": "SDOC59",
+   "page": 19
+  },
+  {
+   "text": "It would, however, serve admirably for a national park.",
+   "source_id": "SDOC59",
+   "page": 20
+  }
+ ]
+}
