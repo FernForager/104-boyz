@@ -7,7 +7,7 @@
 - **23. Ways to play.** An open mode to plan any hike, and a **Hike of the Day**: the same route for everyone each day, with a time leaderboard. Each big route can also have an **FKT** ("I love trail running and FKT culture. Each big route in the game could also have a fkt").
 - **24. Hike of the Day is one shot.** "One shot I love it." One attempt per day; the score is the time, alive (a death is a DNF).
 - **25. A daily death never touches the open-mode hiker.** The creator chose "A": each Hike of the Day uses a fresh hiker with standard skills (fair for everyone); a death is a DNF on today's board and resets the daily streak; the open-mode hiker and career are untouched.
+- **26. The frame is backpacking's own stuff, for both crowds.** "I think a but for hardcore and the moss crowd you know both. Swains hikers and browns hikers. So like, you know how people will take a picture of all their stuff laid out before a trip to post on instagram? That's the best. I want that ethos." The permit, the map, the pack, splits on the trail, a trip report at the end. The signature screen is the pre-trip gear flat lay (top-down, everything laid out), and it is shareable. Real stores inspire the vibe, but in-game businesses keep fictional names.
 
 ## Still open in this round
-- What frames the game instead of the book (backpacking's own artifacts, or no frame).
 - Real NWS weather for the daily; FKT styles; running and fuel; splits and ghosts; crew boards; music; teaching new players; the game's real name.
