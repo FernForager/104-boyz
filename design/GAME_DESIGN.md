@@ -80,14 +80,16 @@ A **first book** reaches its first trail page within about 8 minutes of opening,
 
 Where the three proposals disagreed, these are the calls. The reasoning is in the proposals; you can overrule any of them.
 
-- **Default mode:** Storybook (every story ends with you safely home). **Perilous** is opt-in per book; code and data call it `sierra`, which keeps a real company's name off a button.
+- **Default mode: Old School** (your decision, 2026-10-08). Death is possible and final: the death box, a Ranger's Note, then GAME OVER. **Storybook** (nobody dies) is an optional, clearly labeled easier setting, chosen per book on the New Book page. Code and data call the modes `oldschool` and `storybook`; the old internal key `sierra` is retired, so a real company's name never reaches a button.
+- **Fair deaths only:** a book can end only at a ♦ choice that showed its fatal share, or at the end of a crisis chain after two warnings the player walked past; never on a random draw. Every such moment offers a sure way out (9.5).
+- **What survives a death:** the book on the shelf with a black ribbon and an epitaph, a memorial entry in the Trail Register, and the old field guide with the dead hiker's sketches, which the next hiker inherits. The next hiker's skills start over (9.8).
 - **Score:** one KQ-style `Score: N of M`, with M computed for the itinerary. No spirits multiplier; low spirits instead switch off some joys ("too cold to sketch").
-- **Odds:** every rolled choice shows the chance it goes all right ("made it"). Choices that can reach Serious or worse get a ♦, the fail share in red, a confirming tap and the compass roll. Safe choices show costs, never a %. Missing knowledge shows an honest range (8.6-8.8).
+- **Odds:** every rolled choice shows the chance it goes all right ("made it"). Choices that can reach Serious or worse get a ♦, the fail share in red, a confirming tap and the compass roll; a ♦ that can end the book adds its fatal share, which no setting hides. Safe choices show costs, never a %. Missing knowledge shows an honest range, and a fatal share shows the worst end of it (8.6-8.8).
 - **Meters:** seven simulated, four shown as storybook conditions, plus a Wet or Thirsty glyph when it matters.
 - **Endings come from crisis cards the player saw**, never from a count of bad conditions. Two bad conditions only prompt a ranger-voice nudge.
 - **Narrator:** third person, past tense, read aloud. Long text splits into a "more ▸" page and never scrolls.
 - **The plant** is called **the Snowlamp** (placeholder), never "golden glow" in the game.
-- **Restore** exists only in Perilous: Turn Back a Page, Back to Last Camp, Restart Trip. Rolls are keyed to content, so the same choice repeats its result.
+- **No restore, in either mode.** No Turn Back a Page, no Back to Last Camp, no Restart Trip. Every page autosaves, and rolls are keyed to content, so the same choice in the same place repeats its result (8.14).
 - **Physics lives in one place:** fords from the river model, headlands from the tide margin, freezing levels from measured soundings, tides from NOAA La Push predictions.
 - **Park conditions:** "As researched (Oct 2026)" by default, "Timeless" one tap away. A trip falls in the 12 months after the edition date, and dated closures apply only on their dates (4.7).
 - **Rules can be broken**, with gentle ranger cards, Leave No Trace costs and wildlife consequences. **Only three hard blocks:** a pack that won't close, a load you can't lift (over about 60% of body weight), and routing through a closed trail.
@@ -108,14 +110,14 @@ Where the three proposals disagreed, these are the calls. The reasoning is in th
 
 1. **Reading a picture book.** Every screen is a page with a picture on top and a few sentences underneath. You turn pages. Nothing is timed. The book waits for you.
 2. **Planning a real trip.** The first chapters are what backpackers actually do: talk to a ranger, check the forecast and the quotas, build an itinerary, buy food, fight the bear canister for space, and decide whether the camp chair is worth a pound.
-3. **A gentle dungeon crawl.** Out on the trail, the mountain asks questions your pack has to answer. A river with no bridge. A ladder at dusk. A headland and a rising tide. A cold, clear night at 4,300 feet. Each answer comes from what you packed, what you know and what you choose.
+3. **A dungeon crawl, old-school rules.** Out on the trail, the mountain asks questions your pack has to answer. A river with no bridge. A ladder at dusk. A headland and a rising tide. A cold, clear night at 4,300 feet. Each answer comes from what you packed, what you know and what you choose, and a bad enough answer, chosen with the odds in plain view, can end the book.
 
 ### 2.2 The book
 
 - **One trip is one volume** on a bookshelf (the title screen). Chapters: *Prologue: The Blank Page* (first book only), *Chapter One: In Which a Trip Is Planned*, *Two: In Which We Go to the Store*, *Three: In Which Everything Must Fit*, *Four: In Which We Drive to the Trailhead*, then one chapter per day.
 - **Chapters are retitled after they happen.** *Day Two: In Which the Trail Goes Up* becomes *Day Two: In Which a Jay Steals Lunch*. The volume gets a title at The End: *The Hiker Who Forgot the Stove*.
 - **Page numbers** sit at the foot of the narration box (`- 37 -`), and a red ribbon bookmark marks the autosave.
-- **The back cover** sums up the trip: the route map, miles, the score, what the pack taught, and the moral.
+- **The back cover** sums up the trip: the route map, miles, the score, what the pack taught, and the moral. A book that ends in death gets a **memorial page** instead, and a black ribbon down its spine (9.3).
 
 ### 2.3 The voice
 
@@ -144,14 +146,17 @@ Where the three proposals disagreed, these are the calls. The reasoning is in th
 - **Every in-book page puts its narration in a Sierra message box:** white fill, a double dark-red border, black EGA-style text and a small inner margin. It is drawn in CSS around real HTML text, so VoiceOver still reads it. The choices are matching boxes below it (12.2). This box, more than anything, is what makes a page look like a Sierra game and not a web page with a picture on it.
 - **Tapping the picture is KQ's LOOK.** A smaller pop-up box of the same style describes what you tapped, costs no game time, and gives +1 score the first time you look at that thing in a book.
 - Pictures **draw themselves in** over about 0.8 seconds, outlines first and then fills flooding in, the way AGI games drew on a 1984 PC. A tap skips it.
-- In Perilous mode, death comes in a Sierra text box with a deadpan joke and a real Ranger's Note.
+- **Death comes the Sierra way:** the scene turns gray, a message box gives a deadpan, kind line that never mocks the player, and a real Ranger's Note names what would have prevented it. Then GAME OVER, and the memorial page (12.17).
 
-### 2.5 Gentle but real
+### 2.5 Hard, but fair
 
-- **Plan well and it's easy.** A well-packed hiker on a sensible itinerary sees mostly joy cards, and their risky choices mostly show 90% or better.
-- **No ambushes.** Anything that can end a trip is foreshadowed at least one page earlier (the forecast, a ranger's remark, "the light is going amber", the river "talking louder") and passes through a choice the player made.
+- **Plan well and it's easy.** A well-packed hiker on a sensible itinerary sees mostly joy cards, and their risky choices mostly show 90% or better. A sensible plan ends in death at most 1 time in 200, and in the model far less (F.1).
+- **Death is real, and final.** In Old School, the default, the hiker can die and the book ends there, with no restore. That is what makes the planning matter.
+- **No ambushes.** Anything that can end a trip is foreshadowed at least one page earlier (the forecast, a ranger's remark, "the light is going amber", the river "talking louder") and passes through a choice the player made. A book can end only at a ♦ that showed its fatal share, or at the end of a crisis chain after at least two warnings the player walked past (9.5). Never on a random draw.
+- **There is always a way out.** Every moment that could end the book offers at least one sure choice: turn back, wait for the tide, make camp, bail out or call for help. It costs time, comfort or score, never the hiker.
 - **Turning back is honored.** *The End, Sooner Than Planned* is a real ending with its own plate: *"The mountain will keep."*
-- **Bad news is told kindly and specifically.** The narration names the cause gently so the lesson lands. State changes go in a pencil strip under the narration, not in the prose. Serious news is always followed by a choice.
+- **Bad news is told kindly and specifically.** The narration names the cause gently so the lesson lands. State changes go in a pencil strip under the narration, not in the prose. Serious news is always followed by a choice. A death is told the same way: deadpan, kind, never mocking, never gory.
+- **An easier book for younger readers.** The optional Storybook setting keeps every rule above except the last rung: its worst case is a kind ranger with a thermos (9.4).
 
 ---
 
@@ -182,13 +187,16 @@ Where the three proposals disagreed, these are the calls. The reasoning is in th
     ▼
  THE END ▸ back cover ▸ Field Notes ▸
  plan again, or try this trip again
+    │
+    └ or GAME OVER ▸ memorial page ▸
+      Trail Register ▸ a new hiker
 ```
 
 **When things happen.** Chapters One to Three happen the day before the trip: the permit and the WIC's loaner canister are picked up then, the food is bought that afternoon, and the pack is packed that evening. Chapter Four starts on departure morning, when you choose when to leave.
 
 **Day hikes** need no wilderness permit and no canister, so they skip both. Chapter Two shrinks to a quick *grab lunch* stop on the way, and the pack chapter uses a day pack.
 
-Back navigation is free during planning, shopping and packing (it is planning, after all). It closes at **Start walking**. After that, only Perilous mode's restore goes back.
+Back navigation is free during planning, shopping and packing (it is planning, after all). It closes at **Start walking**. After that nothing goes back, in either mode: every page autosaves, and what happened, happened (9.4).
 
 ### 3.1 Chapter One: the ranger desk (planning)
 
@@ -246,7 +254,7 @@ Tap **Stamp it** (a rubber-stamp *thunk*). The score line appears: `Score: 0 of 
 
 Covered in sections 5 and 6. The store's shopping list is driven by the itinerary (2 breakfasts, 3 lunches, 2 dinners...) and shows a canister gauge as you shop.
 
-**Close the pack** runs the Trip Outlook a second time, now **with this pack**, and names the two or three biggest gaps: *"With this pack: this trip very likely ends in serious trouble. Biggest gaps: no sleeping bag, no headlamp, no rain jacket."* It is a warning, never a block. The pack chapter then ends with the **packing page**: the narrator reads the pack's contents aloud as prose.
+**Close the pack** runs the Trip Outlook a second time, now **with this pack**, and names the two or three biggest gaps: *"With this pack: this trip very likely ends in serious trouble, and if you keep pushing, about one time in fourteen the book ends. Biggest gaps: no sleeping bag, no headlamp, no rain jacket."* In Old School the Outlook always says how often the plan, followed to the end, ends the book, whenever that is not zero. It is a warning, never a block. The pack chapter then ends with the **packing page**: the narrator reads the pack's contents aloud as prose.
 
 ### 3.3 Chapter Four: the drive
 
@@ -304,6 +312,7 @@ A **Page density** setting (Short / Storybook / Long) changes how many quiet, de
 3. **The pack starts on the floor.** The ranger's checklist items lie around the open pack, not in it. Each tap puts one in, and the fox points at whatever is still out. A first pack is about 15 meaningful taps; the long tail and the traps wait in "More from the closet" (6.1).
 4. **The presets list is short:** filtered by region, nights and level, about 8 at a time.
 5. **The first clear evening at a Snowlamp place shows it** (10.6), so the first book can end the way the picture book does.
+6. **The mode is chosen once, on the New Book page** (12.4). Old School is already selected, with one plain line, *"One life. If the hiker dies, the book ends."* Storybook sits under it, labeled as the easier setting for younger readers. The three trips the ranger offers are sensible plans, so a first book that takes the ranger's kit is about as safe as backpacking (F.1). The first time a button shows a fatal share, the fox points at the sure choice beside it (8.7, 10.7).
 
 ### 3.7 Changing plans on the trail
 
@@ -311,6 +320,7 @@ A **Page density** setting (Short / Storybook / Long) changes how many quiet, de
 - **Where's the car?** The game tracks where the car is. Coming out at a different trailhead (the High Divide down to the Hoh via Hoh Lake; out the Elwha) opens an exit menu, each with its time cost and a page: phone the shuttle (needs signal; a 2 to 4 hour wait), hitch (1 to 6 hours, better on busy roads), or a ride with a ranger if one is at the station.
 - **The overdue clock.** If you left a trip plan with a friend, they report you overdue at your planned exit plus 12 hours, and the chance of a search finding you rises from then on (9.2). With no trip plan, nobody knows to look until someone notices the car, after 2 to 3 days. Staying out longer (a night under the stars, waiting out a tide or a river) moves your exit, and a margin note says when your friend will start to worry.
 - **Day hikes** get a turnaround card 30 minutes before the "back by" time.
+- **Bailing out is always on the table.** The morning page, every Fork card and every crisis card carry a sure way home or a way to call for help. At any moment that could end the book, that sure choice is guaranteed and linted (9.5). Turning back never ends a book.
 
 ---
 
@@ -378,10 +388,10 @@ Everything past Glacier Meadows is an estimate in the data. The park requires bl
 >
 > `[ Turn back from the ice       sure ]`
 > `[ Step onto the ice    ♦ 55%   (i) ]`
-> `[                  45% stopped     ]`
+> `[       45% stopped · 0.7% fatal   ]`
 
 - **Turn back** is sure. You keep the glacier view (+5) and, if it's evening, a Snowlamp place for the night.
-- **Step onto the ice** uses an honest % from the crevasse model (month and snow bridges, time of day, crampons, footwear, fatigue, glacier skill). The 55% shown is for late-September day gear: sneakers, no crampons, tired. In Storybook a fail means a crevasse field stops you: you turn back with a story, or wait for a ranger after a slide. Perilous adds the 30% death roll on the worst band (9.5). Even a lucky unroped hiker can't climb the fifth-class summit block without a belay, so the false summit is the highest they can reach.
+- **Step onto the ice** uses an honest % from the crevasse model (month and snow bridges, time of day, crampons, footwear, fatigue, glacier skill). The 55% shown is for late-September day gear: sneakers, no crampons, tired. A fail usually means a crevasse field stops you (70%: you turn back with a story) or a slide and a cold wait for a ranger (25%: a rescue). The worst 5% is a fall into a crevasse, and in Old School 30% of those falls end the book (9.5): 45% x 5% x 30% = 0.7%, shown on the button. In Storybook the same fall ends in a rescue. Even a lucky unroped hiker can't climb the fifth-class summit block without a belay, so the false summit is the highest they can reach.
 
 So every path offers a sure turnaround at the moraine, and the plan is never refused. Appendix A.7 plays this out, and F.1 tests it.
 
@@ -767,7 +777,7 @@ Computed for 47.9°N with Pacific time (full table in `data/daylight.json`):
 
 **Trail-dark** is when headlamp rules start: civil dusk minus 25 minutes under dense rain-forest canopy, minus 10 in mixed forest, at civil dusk on open meadow, crest, beach or snow, and 15 minutes earlier under heavy overcast.
 
-After trail-dark, travel time is multiplied: **headlamp x1.35** (x1.5 on primitive trail), **phone light x1.6** (and about 12% battery an hour), **no light x2.5** and only on maintained trail or beach. Elsewhere, no light means you stop: in Storybook mode that becomes a "night under the stars" chapter.
+After trail-dark, travel time is multiplied: **headlamp x1.35** (x1.5 on primitive trail), **phone light x1.6** (and about 12% battery an hour), **no light x2.5** and only on maintained trail or beach. Elsewhere, no light means you stop where you are, and that becomes a "night under the stars" chapter, told by the night model (7.9). If that night is cold enough to end the book, its bedtime page is a ♦ with a sure choice beside it (9.5).
 
 ### 7.3 The hiker
 
@@ -783,7 +793,7 @@ After trail-dark, travel time is multiplied: **headlamp x1.35** (x1.5 on primiti
 
 Plus injuries and illness, body weight (`body_lb`, 165 in v1), **fitness** (chosen per book: Easygoing, Casual, Regular, Strong, Mountain goat) and **eight skills** earned across trips: footing, navigation, river, snow, coast, campcraft, first aid and **glacier** (4.2).
 
-The caption line shows four storybook conditions (Warm, Legs, Feet, Heart) and adds a Wet or Thirsty glyph only when it matters. **Two bad conditions at once** trigger a ranger-voice nudge page, *"It might be time to think about the way home,"* with Turn back as a sure choice.
+The caption line shows four storybook conditions (Warm, Legs, Feet, Heart) and adds a Wet or Thirsty glyph only when it matters. **Two bad conditions at once** trigger a ranger-voice nudge page, *"It might be time to think about the way home,"* with Turn back as a sure choice. The nudge counts as one of the warnings a crisis chain needs before it can end a book (9.5).
 
 ### 7.4 Movement
 
@@ -896,7 +906,7 @@ wet: cotton keeps 20% of its warmth, wool or
 synthetic 70%, down 25%; a damp bag keeps 60%
 ```
 
-  A 30 °F bag (`comfort_f` 40) on an R 2-4 pad is comfortable at about 40 °F; with a tent and a hot dinner, about 34; with a down puffy on inside the bag, about 27. So a sensible kit sleeps well in August and can still have a cold night at Glacier Meadows in late September (lows of 25 to 35 °F). The **margin** is the night's low minus the rating. It sets sleep quality, tomorrow's energy and dawn warmth. Below -12 °F there's a hypothermia roll, shown on the bedtime page as its complement (*"Chance you get through the night without dangerous shivering: 88%"*). Bedtime choices change it: eat everything, a hot drink, walk around, ask the neighbors. Reference nights (EN comfort ratings; Glacier Meadows in late September) are unit tests.
+  A 30 °F bag (`comfort_f` 40) on an R 2-4 pad is comfortable at about 40 °F; with a tent and a hot dinner, about 34; with a down puffy on inside the bag, about 27. So a sensible kit sleeps well in August and can still have a cold night at Glacier Meadows in late September (lows of 25 to 35 °F). The **margin** is the night's low minus the rating. It sets sleep quality, tomorrow's energy and dawn warmth. Below -12 °F there's a hypothermia roll, shown on the bedtime page as its complement (*"Chance you get through the night without dangerous shivering: 88%"*). Bedtime choices change it: eat everything, a hot drink, walk around, ask the neighbors. **Below -25 °F with no shelter, a failed roll can end the book** in Old School (a 15% death roll, 9.5), so toughing the night out becomes a ♦ with its fatal share, and the page always offers a sure choice: ask for help, or huddle and wait for rescue, which ends the trip but not the hiker (A.3). Reference nights (EN comfort ratings; Glacier Meadows in late September) are unit tests.
 - **Feet.** Wear per mile doubles with wet feet and rises with new boots, heavy loads, pushing and beach cobbles. A hot spot always gets a card: tape it now, or keep going.
 - **Injuries.** Scrape, mild sprain (pace x1.15), moderate sprain (pace x1.6, Serious), knee strain, cut, sunburn, sting, heat exhaustion, hypothermia. A first aid kit gives a 30% (basic) or 50% (complete) chance to step an injury down one level.
 - **Batteries.** One model for every item tagged `needs_battery` (phone, headlamp, GPS, messenger, camera, UV purifier): a charge that drains by use and cold, with a small battery glyph in the margin when it gets low. A phone used as a light drains about 12% an hour; a headlamp lasts about 4 hours on high and 40 on low; a messenger about 10 days. When the phone dies, everything it provided goes with it: the light, the time source (so the tide odds blur again), GPS and the camera.
@@ -905,7 +915,7 @@ synthetic 70%, down 25%; a damp bag keeps 60%
 
 ### 7.10 Experience: better information, not better dice
 
-Each trip earns experience in the skills you used. Each level adds +2 on matching checks **and unlocks better foreshadowing**: at `coast` 2 the HUD computes *"You'll reach Strawberry Point about 4:10 pm, tide 3.2 ft and falling"*; at `navigation` 2 way-trail forks are flagged; at `campcraft` 2 the evening page says whether you'll sleep warm; at `glacier` 1 you can be part of a rope team, and at `glacier` 2 the crevasse odds on the ice sharpen from a range to a number. Veterans read the world better.
+Each trip earns experience in the skills you used (a new hiker, after a death, starts over: 9.8). Each level adds +2 on matching checks **and unlocks better foreshadowing**: at `coast` 2 the HUD computes *"You'll reach Strawberry Point about 4:10 pm, tide 3.2 ft and falling"*; at `navigation` 2 way-trail forks are flagged; at `campcraft` 2 the evening page says whether you'll sleep warm; at `glacier` 1 you can be part of a rope team, and at `glacier` 2 the crevasse odds on the ice sharpen from a range to a number. Veterans read the world better.
 
 ### 7.11 Other people and living things
 
@@ -931,13 +941,14 @@ The page sets up the dilemma, and the buttons finish the sentence. Labels are ve
 |---|---|---|
 | **Sure** (no risk, maybe a cost) | `sure`, or cost icons: clock, food, battery, spirits | *Camp, cross at dawn* (costs a night) |
 | **Risky** (rolled; the worst case is Trouble or less) | the chance it goes all right, as a %; the (i) opens *Why these odds* | *Wade across now 83%* (knee-deep, but tired) |
-| **Critical ♦** (rolled; some branch can reach Serious, a rescue, the end of the trip, or a Perilous death) | `♦ %`, the fail share in red, a confirming tap, a three-band bar in the Why sheet, and the compass roll | *Climb the ladder ♦ 79% · 21% fall* |
+| **Critical ♦** (rolled; some branch can reach Serious, a rescue, the end of the trip, or in Old School the end of the book) | `♦ %`, the fail share in red, the fatal share in red if the book can end, a confirming tap, a three-band bar in the Why sheet, and the compass roll | *Climb the ladder ♦ 79% · 21% fall · 0.2% fatal* |
 | **Flavor** (no stakes) | no tag | *Count the banana slugs* |
 
 **The rules:**
 - Every rolled choice shows its odds, and nothing that can end a trip is ever unmarked.
-- **The ♦ is computed, not authored.** The linter walks each card's fail table in each context and marks a choice ♦ only if a branch can reach rung 3 or higher (9.1) or a Perilous death. A soak, lost gear or a mild sprain stays a plain %. So the same ford is plain at knee depth in the morning and ♦ at thigh depth in the afternoon, when "swept" enters its fail table.
-- **The diamond must stay rare.** Target: on sensible plans, at most about one ♦ choice per moving day (F.1).
+- **The ♦ is computed, not authored.** The linter walks each card's fail table in each context and marks a choice ♦ only if a branch can reach rung 3 or higher (9.1). A soak, lost gear or a mild sprain stays a plain %. So the same ford is plain at knee depth in the morning and ♦ at thigh depth in the afternoon, when "swept" enters its fail table.
+- **The fatal share is computed the same way:** the fail share x the share of fails in the fatal band x that moment's death roll (9.5). It is never hidden, never rounded to zero (a share under 0.1% shows as `<0.1% fatal`), and only a ♦ can carry one. Most ♦s can't end the book at all: at thigh depth "swept" means a rescue, not a death.
+- **The diamond must stay rare.** Target: on sensible plans, at most about one ♦ choice per moving day (F.1), and a fatal share rarer still.
 
 ### 8.2 Kinds of event cards
 
@@ -964,7 +975,7 @@ Cards are JSON (full format: `engine.md` section 4). In short:
 - **An `if` expression** reads anything: meters, pack tags, weather, river level, tide, time to dark, flags, history. A small safe expression language (no `eval`, no randomness inside it).
 - **Choices** each either resolve to a fixed outcome or **roll**: a base plus labeled modifiers, then a pass outcome and a weighted fail table.
 - **Outcomes** carry text variants and typed **effects**: meters, time, food and water, gear wet or lost, injuries, flags at day/night/trip/region/meta scope, queued consequences with foreshadowing, route changes (turn back, take the overland trail, bivouac, end trip), journal entries, score, Leave No Trace, skill experience.
-- **Modes.** An outcome may carry a `modes.sierra` override. Death can exist **only** there, and the linter enforces it, so Storybook mode can never kill anyone by accident.
+- **Modes.** A death outcome (`book_ends`) may appear **only** in a ♦ choice's fail table or at the last step of a crisis chain with at least two warning steps before it, and every one must carry a `modes.storybook` override (a rescue instead). The linter enforces both, so Storybook can never kill anyone by accident, and Old School can never kill anyone without a fatal share on a button first (F.3).
 - **Inheritance.** A generic archetype (any braided-river ford) plus a short place patch (the Hoh braids at mile 8) covers the park with personality.
 
 ```json
@@ -997,7 +1008,7 @@ At each beat slot:
 2. **Otherwise the Trail Director draws** from the eligible cards, weighted by the card's weight, how well the weather fits, **gap bias**, novelty (x0.3 if seen in either of the last two trips) and pace (Easy pace favors discoveries).
 3. **Otherwise a quiet page** composed from text pools, or the slot is skipped.
 
-**Gap bias is the dungeon-crawler heart.** A *gap* is a tag the ranger's sensible kit for this zone and month expects but your pack lacks: rain pants on the west side in September, traction on the High Divide in early July, a tide table on the coast. Hazard cards that test a real gap are weighted x1.3 in Storybook (x1.8 in Perilous). **The mountain asks the questions your pack can't answer**, but the Director keeps it from asking all of them at once.
+**Gap bias is the dungeon-crawler heart.** A *gap* is a tag the ranger's sensible kit for this zone and month expects but your pack lacks: rain pants on the west side in September, traction on the High Divide in early July, a tide table on the coast. Hazard cards that test a real gap are weighted x1.8 in Old School (x1.3 in Storybook). **The mountain asks the questions your pack can't answer**, but the Director keeps it from asking all of them at once.
 
 **The Director also paces tension.** After a bad outcome, tension rises and quiet joy pages become more likely, then it decays. Budgets cap the decisions:
 
@@ -1008,7 +1019,7 @@ At each beat slot:
 | Day hike | 3-4 | 3-5 | 4-5 min |
 | Evening and night | 1-2 | 1-2 | 1-2 min |
 
-At most 2 hazard cards per day in Storybook (3 in Perilous), not counting forced ones.
+At most 2 hazard cards per day in either mode, not counting forced ones. Old School asks harder questions of the gaps in your pack, not more questions of a good one, which is what keeps sensible plans inside their targets (F.1).
 
 ### 8.5 How the % is computed
 
@@ -1043,7 +1054,7 @@ p = clamp(base + Σ labeled modifiers, 5, 97)
 
 (Coast, snow and dexterity columns are in `simulation.md` 9.3.)
 
-**Routine checks.** When p ≥ 95 and there's no meaningful alternative, the check is still rolled but narrated, not asked (*"Robin hopped the braided channels"*), and a failure can only be the mildest band. Honest, and it keeps taps down.
+**Routine checks.** When p ≥ 95 and there's no meaningful alternative, the check is still rolled but narrated, not asked (*"Robin hopped the braided channels"*), and a failure can only be the mildest band, so a narrated check can never end a book. Honest, and it keeps taps down.
 
 ### 8.6 Knowledge blurs or sharpens the number
 
@@ -1054,6 +1065,7 @@ This is what makes **knowing** as important as **carrying**.
 - **The roll always uses the true value, and the true value always lies inside the range.** Because the range comes from the modifier's real spread, not from a blur around the answer, the middle of the range is not a giveaway.
 - If the range is 50 points or wider, the tag reads `??`, which is itself a strong hint.
 - The Why sheet shows the gated row honestly: `? Tide (no tide table): -40 to +10`.
+- **A blurred ♦ shows its worst case for death.** When a ♦ choice's odds are a range, its fatal share is computed at the worst end of that range and reads `up to 18% fatal`. Not knowing never hides how bad it could be; finding out can only lower the number, or take it off the button (C.4).
 - **Ways to sharpen it:** carry the item (tide table, map), get the ranger's briefing at planning, spend time on the page (*Wait and watch the water* for an hour; *Study the map* for 10 minutes), watch an animal helper, have walked this way before, raise the skill.
 
 On the coast this makes a 1-oz tide table an item of real power. On the High Divide in fog, a map and compass turn `??` into `92%`.
@@ -1062,6 +1074,7 @@ On the coast this makes a 1-oz tide table an item of real power. On the High Div
 
 | Decision kind | Shows |
 |---|---|
+| Rolled, can end the book (Old School) | everything in the next row, plus the fatal share in red (`0.2% fatal`; a blurred range shows its worst end); the confirm reads *This could end the book* |
 | Rolled, can reach Serious or worse | ♦ + "made it" % + the fail share in red; the Why sheet adds a three-band bar and an "if it goes badly" line |
 | Rolled, smaller stakes (a soak, a lost sandal, a mild sprain) | "made it" % |
 | Rolled, tiny stakes (spot the marmot, sketch before the fog) | a small grey % |
@@ -1082,11 +1095,14 @@ On the coast this makes a 1-oz tide table an item of real power. On the High Div
 
 A range wider than 30 points reads *hard to say*. The prose carries the hunch naturally in every mode: *"It looked likely enough."*
 
+**The fatal share is the one number no setting hides.** In Words it reads as a plain count, *about 1 in 500 ends the book* (rounded to a friendly 1 in 2, 3, 4, 5, 10, 20, 50, 100, 200, 500 or 1,000, always toward the more dangerous side). In Hidden it still shows. A player may choose not to see the odds; they may not be surprised by the end of the book.
+
 **Each odds form is introduced the first time it appears,** with one line from the narrator or the margin fox. The profile remembers which ones you've seen, so none repeats:
 - the first %: *"The little number is how likely it is to go all right. Tap the (i) to see why."*
 - the first range: *"A range means you don't know something yet. Find out, and it narrows."*
 - the first `??`: *"Two question marks: you really don't know. Look, wait, or ask."*
 - the first ♦: *"A red diamond: this one could go badly wrong. The red number says how often."*
+- the first fatal share, while the fox points at the sure choice beside it: *"'Fatal' means the book would end here, for good. There is always another way: look for 'sure'."*
 - the first compound bar: *"For a long push, the bar shows how evenings like this tend to end."*
 - the first `sure` or cost icon, and the first Words phrase, the same way.
 
