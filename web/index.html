@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en" data-build="dev">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="format-detection" content="telephone=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Hiker">
+<meta name="theme-color" content="#1b1f2a">
+<meta name="color-scheme" content="dark">
+<meta name="description" content="A picture-book hiking trip on the Olympic Peninsula.">
+<title>Olympic Peninsula Hiker</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+<link rel="preload" href="fonts/PixelifySans.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="modulepreload" href="js/gfx/picvm.js">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/game.css">
+<script type="module" src="js/main.js"></script>
+</head>
+<body>
+<main class="title-page" id="app">
+  <figure class="plate drawing" id="plate">
+    <canvas class="picture" id="cover" width="160" height="320" role="img"
+      aria-label="The High Divide at dusk. Across the Hoh valley, Mount Olympus glows pink in the last light, under the first stars. A hiker in a rust jacket walks the crest trail among subalpine firs and pink heather."></canvas>
+    <figcaption class="cover-title">
+      <h1 class="title"><span class="title-small">Olympic Peninsula</span> <span class="title-big">Hiker</span></h1>
+      <p class="tagline">a picture-book trip</p>
+    </figcaption>
+  </figure>
+  <section class="shelf" id="shelf" aria-label="Bookshelf">
+    <button class="box choice" type="button" disabled aria-labelledby="begin-label" aria-describedby="trail-soon">
+      <span class="choice-label" id="begin-label">Begin a new book</span>
+      <span class="choice-note" id="trail-soon">The trail opens soon.</span>
+    </button>
+    <p class="install" id="install">Before your first book, tap Share, then <b>Add to Home Screen</b>. The Home Screen book keeps its own saves.</p>
+    <p class="edition">Edition <span id="build-id">dev</span></p>
+  </section>
+</main>
+<div class="upright" role="note">
+  <p>This book reads best held upright.</p>
+</div>
+</body>
+</html>

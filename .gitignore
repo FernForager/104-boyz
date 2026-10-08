@@ -1,0 +1,14 @@
+# Build output (never committed)
+dist/
+site/
+out/
+node_modules/
+
+# GPS tracks never enter the public repo (GAME_DESIGN E.5)
+*.gpx
+*.fit
+*.tcx
+*.kml
+*.kmz
+
+.DS_Store

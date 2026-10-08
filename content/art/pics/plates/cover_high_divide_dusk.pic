@@ -1,0 +1,316 @@
+# cover_high_divide_dusk: the cover plate, the High Divide at dusk.
+# Mount Olympus takes the last light across the Hoh valley; the first stars
+# are out; a hiker in a rust jacket walks the crest trail among subalpine
+# firs and pink heather. A tall plate (160x320, doc 11.2), drawn in its own
+# dusk colors, so it shows with the day (identity) table. The top 95 rows
+# are quiet navy sky for the title. No gold anywhere (BUILD_PLAN 4.1).
+#
+# We look south from the Divide. The sun has just set behind our right
+# shoulder (west, northwest), so every face that turns right or toward us
+# is lit and every face that turns left (east) is in shadow: on the
+# mountains and on each fir. Only the summits still stand above the
+# earth's shadow, so they glow pink; the snow below them is white, and
+# lower still the massif has gone glacier blue. The lower ranges, already
+# in shadow, stand dark against the last pink of the sky.
+#
+# How the shapes are drawn: each shape's outline in its own color, then a
+# fill from a seed inside (AGI style, so the draw-in shows lines, then the
+# fills flooding in). A shape cut out of a bigger one gets its boundary
+# line, then the fill. A dithered seam sits between a line of the color
+# above and a line of the color below; where the upper line has to be a
+# wall first, it is drawn in ink and then redrawn in its own color.
+@ sky
+# Night navy, through slate, to the pink glow low in the west. Each band
+# is cut by an ink row; the band's fill then takes that row too. The sky
+# stops at row 172, below the lowest point of the skyline, so the draw-in
+# never floods pink over the ground before the ground is drawn.
+C 0  L 0,96 159,96  L 0,104 159,104  L 0,112 159,112  L 0,120 159,120
+     L 0,126 159,126  L 0,132 159,132  L 0,138 159,138  L 0,144 159,144
+     L 0,172 159,172
+C 1  F 80,40
+D 1 2 checker25  F 80,100 80,96
+D 1 2 checker    F 80,108 80,104
+D 2 1 checker25  F 80,116 80,112
+C 2              F 80,123 80,120
+D 2 6 checker25  F 80,129 80,126
+D 2 6 checker    F 80,135 80,132
+D 6 2 checker25  F 80,141 80,138
+C 6              F 80,160 80,144 80,172
+# Stars: steady ones in paper cream and snow, thinning toward the glow;
+# twinkling ones in the star cycle (22).
+C 5  L 19,24  L 143,33  L 5,49  L 155,58  L 31,79  L 126,72  L 88,3
+     L 64,8  L 104,11  L 46,95  L 121,90  L 9,88  L 56,82  L 112,84
+     L 70,62  L 99,44  L 52,37  L 138,14  L 78,27
+C 4  L 150,19  L 12,10  L 133,52  L 23,61  L 84,90
+C 22  L 7,71  L 151,6  L 37,4  L 118,2  L 27,92  L 140,81  L 76,88
+      L 129,17  L 60,101  L 147,99  L 16,103  L 42,58  L 108,66
+# The evening star, low in the west.
+C 4   L 150,117
+C 22  L 149,117  L 151,117  L 150,116  L 150,118
+@ far
+# The skyline: the Bailey Range on the left (east), the Olympus massif,
+# Mount Tom on the right (west). All of it slate first, already in shadow.
+C 2  L 0,152 5,147 9,150 16,140 21,145 26,142 31,147 34,148
+       42,138 48,130 52,124 56,126 60,128 64,122 70,114 74,116
+       78,118 84,110 88,103 90,101 92,104 94,103 96,106 100,108
+       106,110 110,112 116,115 122,119 128,124 131,128 134,131 138,138
+       141,145 147,138 151,142 155,140 159,145 159,200 0,200 0,152
+C 2  F 80,170
+# Mount Olympus: East Peak, Middle Peak and West Peak, the highest, with
+# its summit spire; then the long shoulder of the Snow Dome falling away
+# to the west, the Blue Glacier's snowfield, all of it in the last light.
+C 4  L 34,148 42,138 48,130 52,124 56,126 60,128 64,122 70,114
+       74,116 78,118 84,110 88,103 90,101 92,104 94,103 96,106
+       100,108 106,110 110,112 116,115 122,119 128,124 131,128 134,131
+       138,138 141,145 143,152 145,157 146,161 146,190 27,190 29,161
+       31,155 34,148
+C 4  F 100,140
+# Alpenglow: the summits above the earth's shadow.
+C 6  L 64,122 72,124 80,123 88,125 96,123 104,125 112,123 120,125
+       128,124
+C 6  F 90,110
+# The pink fading into the snow.
+C 0  L 60,128 68,128 76,127 84,129 92,127 100,129 108,127 116,129
+       124,128 131,128
+D 6 4 checker  F 90,126
+C 4  L 60,128 68,128 76,127 84,129 92,127 100,129 108,127 116,129
+       124,128 131,128
+# Lower down the snow is already in the shadow, glacier blue above the
+# far wall.
+C 3  L 29,161 40,156 52,157 64,155 76,157 88,155 100,157 112,155
+       124,157 134,155 145,157
+C 3  F 100,170
+C 0  L 31,155 40,152 52,153 64,151 76,153 88,151 100,153 112,151
+       124,153 134,151 143,152
+D 4 3 checker  F 100,154
+C 4  L 31,155 40,152 52,153 64,151 76,153 88,151 100,153 112,151
+       124,153 134,151 143,152
+# The Blue Glacier: crevasses across the ice.
+C 3  L 101,138 104,138  L 113,143 117,143  L 119,133 122,133  L 89,140 92,140
+     L 104,147 107,147  L 128,141 131,141  L 95,133 97,133  L 108,135 110,135
+     L 123,147 126,147  L 63,143 65,143
+@ mid
+# Shadow faces: every face turned east (left), glacier blue on Olympus and
+# night navy on the lower ranges. Each runs down to a low point of the far
+# wall's ridge line below, so the wall hides its foot.
+# East Peak and the massif's east flank
+C 3  L 34,148 42,138 48,130 52,124 46,164 38,163 29,161 31,155
+       34,148
+C 3  F 40,152
+# Middle Peak
+C 3  L 60,128 64,122 70,114 64,163 60,128
+C 3  F 64,135
+# West Peak
+C 3  L 78,118 84,110 88,103 90,101 86,164 78,118
+C 3  F 84,125
+# Mount Tom and its west summit
+C 1  L 141,145 147,138 146,161 145,157 143,152 141,145
+C 1  F 145,148
+C 1  L 151,142 155,140 152,163 151,142
+C 1  F 153,150
+# the Bailey Range, with old snow in its gullies
+C 3  L 17,142 18,146 19,150  L 6,149 7,153  L 27,144 28,148
+C 1  L 0,152 5,147 6,162 0,165 0,152
+C 1  F 3,157
+C 1  L 9,150 16,140 12,164 9,150
+C 1  F 12,154
+C 1  L 21,145 26,142 24,163 21,145
+C 1  F 24,152
+# The Hoh valley in bands: the far wall, already in shadow (it hides the
+# feet of the mountains, as the ridge does in panel B), and a long spur
+# falling east from Mount Tom, a step darker; the evening haze over the
+# river, the brightest thing down there; then a teal ridge, the near
+# wall's forest and its tree line, each a step darker toward us.
+C 2  L 0,165 6,162 12,164 18,160 24,163 29,161 38,163 46,164
+       52,161 58,160 64,163 72,161 86,164 98,161 110,160 122,161
+       132,159 141,164 146,161 152,163 159,160
+C 1  L 0,180 8,178 18,179 30,177 44,178 56,176 68,177 80,175
+       92,176 104,174 116,173 128,170 140,171 150,169 159,168
+C 1  L 0,186 20,185 40,183 60,185 80,184 100,185 120,182 140,184
+       159,183
+C 15  L 0,197 14,193 30,196 46,191 62,195 76,192 92,197 106,193
+        120,196 136,191 150,194 159,192
+C 12  L 0,206 18,203 34,207 52,202 70,206 88,203 104,207 122,202
+        140,206 159,203
+C 11  L 0,213 2,210 4,213 6,210 8,212 10,209 12,212 14,209
+        16,211 18,208 20,211 22,208 24,212 26,209 28,211 30,208
+        32,213 34,210 36,212 38,209 40,213 42,210 44,214 46,211
+        48,214 50,211 52,216 54,213 56,215 58,212 60,215 62,212
+        64,216 66,213 68,215 70,212 72,215 74,212 76,214 78,211
+        80,213 82,210 84,214 86,211 88,212 90,209 92,213 94,210
+        96,211 98,208 100,211 102,208 104,212 106,209 108,211 110,208
+        112,213 114,210 116,212 118,209 120,213 122,210 124,214 126,211
+        128,214 130,211 132,215 134,212 136,215 138,212 140,215 142,212
+        144,216 146,213 148,215 150,212 152,216 154,213 156,214 158,211
+        159,212
+C 11  L 0,240 159,240
+C 2  F 80,168
+C 1  F 80,180
+D 15 3 checker  F 80,190
+C 15  F 80,199
+C 12  F 54,208 134,208
+C 11  F 80,225
+@ near
+# The crest of the High Divide: a knoll on the left, a saddle, and the
+# ridge running on west. The last light catches its top.
+# the last light on the crest
+C 0  L 0,214 8,211 18,209 30,210 42,213 54,217 66,220 78,222
+       90,223 100,222 112,220 124,218 136,217 148,218 159,219 159,221
+       148,220 136,219 124,220 112,222 100,224 90,225 78,224 66,222
+       54,219 42,215 30,212 18,211 8,213 0,216 0,214
+C 14  F 19,210 13,211 27,211 8,212 33,212 5,213 37,213 3,214
+        41,214 1,215 45,215 48,216 51,217 54,218 136,218 57,219
+        126,219 147,219 61,220 118,220 156,220 66,221 112,221 71,222
+        106,222 79,223 99,223 89,224
+C 14  L 0,214 8,211 18,209 30,210 42,213 54,217 66,220 78,222
+        90,223 100,222 112,220 124,218 136,217 148,218 159,219 159,221
+        148,220 136,219 124,220 112,222 100,224 90,225 78,224 66,222
+        54,219 42,215 30,212 18,211 8,213 0,216 0,214
+C 0  L 0,216 8,213 18,211 30,212 42,215 54,219 66,222 78,224
+       90,225 100,224 112,222 124,220 136,219 148,220 159,221 159,223
+       148,222 136,221 124,222 112,224 100,226 90,227 78,226 66,224
+       54,221 42,217 30,214 18,213 8,215 0,218 0,216
+D 14 13 checker  F 19,212 13,213 27,213 8,214 33,214 5,215 37,215 3,216
+                   41,216 1,217 45,217 48,218 51,219 54,220 136,220 57,221
+                   126,221 147,221 61,222 118,222 156,222 66,223 112,223 71,224
+                   106,224 79,225 99,225 89,226
+C 14  L 0,216 8,213 18,211 30,212 42,215 54,219 66,222 78,224
+        90,225 100,224 112,222 124,220 136,219 148,220 159,221
+C 13  L 159,223 148,222 136,221 124,222 112,224 100,226 90,227 78,226
+        66,224 54,221 42,217 30,214 18,213 8,215 0,218
+D 14 13 checker  F 0,217 159,222
+# the heather meadow
+C 0  L 0,218 8,215 18,213 30,214 42,217 54,221 66,224 78,226
+       90,227 100,226 112,224 124,222 136,221 148,222 159,223 159,288
+       130,292 100,296 70,295 44,292 20,290 0,286 0,218
+C 13  F 78,257
+C 13  L 0,218 8,215 18,213 30,214 42,217 54,221 66,224 78,226
+        90,227 100,226 112,224 124,222 136,221 148,222 159,223 159,288
+        130,292 100,296 70,295 44,292 20,290 0,286 0,218
+# the meadow falling away below us
+C 0  L 0,286 20,290 44,292 70,295 100,296 130,292 159,288 159,303
+       130,306 100,309 60,308 30,306 0,302 0,286
+D 13 12 checker  F 78,299
+C 13  L 0,286 20,290 44,292 70,295 100,296 130,292 159,288
+C 12  L 159,303 130,306 100,309 60,308 30,306 0,302
+D 13 12 checker  F 0,294 159,295
+C 0  L 0,302 30,306 60,308 100,309 130,306 159,303 159,319 0,319
+       0,302
+C 12  F 78,313
+C 12  L 0,302 30,306 60,308 100,309 130,306 159,303 159,319 0,319
+        0,302
+# Heather in bloom: pink drifts lying along the slope, bigger toward us.
+# Each is a 25% speckle of pink on the moss around a 50% heart: the heart
+# first, then the rim around it, each inside an ink wall that then turns
+# back to moss, so no drift has a hard edge.
+# a drift under the ridge firs
+C 0  L  110,239 118,238 126,238 134,240 126,242 116,242 110,239
+D 13 6 checker  F 120,240
+C 0  L  98,240 104,236 112,235 120,236 128,235 136,237 144,236 150,239
+       146,243 138,245 128,244 118,246 108,245 100,243 98,240
+D 13 6 checker25  F 104,240
+C 13  L  110,239 118,238 126,238 134,240 126,242 116,242 110,239
+C 13  L  98,240 104,236 112,235 120,236 128,235 136,237 144,236 150,239
+        146,243 138,245 128,244 118,246 108,245 100,243 98,240
+# a drift below the knoll
+C 0  L  14,234 24,233 34,235 26,236 16,236 14,234
+D 13 6 checker  F 22,235
+C 0  L  4,234 10,231 20,231 30,232 40,233 48,235 46,238 36,239 24,239 14,238
+       6,237 4,234
+D 13 6 checker25  F 8,235
+C 13  L  14,234 24,233 34,235 26,236 16,236 14,234
+C 13  L  4,234 10,231 20,231 30,232 40,233 48,235 46,238 36,239 24,239
+        14,238 6,237 4,234
+# a drift on the left
+C 0  L  12,253 22,251 34,252 44,255 36,257 24,258 14,257 12,253
+D 13 6 checker  F 26,255
+C 0  L  2,252 8,248 18,247 28,249 38,248 48,251 54,255 50,259 40,260 30,263
+       18,262 8,260 2,256 2,252
+D 13 6 checker25  F 6,254
+C 13  L  12,253 22,251 34,252 44,255 36,257 24,258 14,257 12,253
+C 13  L  2,252 8,248 18,247 28,249 38,248 48,251 54,255 50,259 40,260 30,263
+        18,262 8,260 2,256 2,252
+# a long drift on the right
+C 0  L  96,258 108,256 120,257 132,256 144,259 136,262 122,263 106,263
+       96,258
+D 13 6 checker  F 120,260
+C 0  L  84,258 92,253 104,251 116,253 128,251 140,254 152,256 156,261
+       150,265 138,266 126,268 112,267 100,268 90,265 84,258
+D 13 6 checker25  F 89,259
+C 13  L  96,258 108,256 120,257 132,256 144,259 136,262 122,263 106,263
+        96,258
+C 13  L  84,258 92,253 104,251 116,253 128,251 140,254 152,256 156,261
+        150,265 138,266 126,268 112,267 100,268 90,265 84,258
+# the near drift on the left
+C 0  L  12,275 24,273 36,274 46,277 40,281 28,282 16,280 12,275
+D 13 6 checker  F 28,278
+C 0  L  2,274 10,270 22,269 34,271 46,270 54,274 52,280 44,284 32,286 20,286
+       8,285 2,281 2,274
+D 13 6 checker25  F 6,277
+C 13  L  12,275 24,273 36,274 46,277 40,281 28,282 16,280 12,275
+C 13  L  2,274 10,270 22,269 34,271 46,270 54,274 52,280 44,284 32,286
+        20,286 8,285 2,281 2,274
+# the near drift on the right
+C 0  L  94,280 106,277 120,278 134,277 146,280 138,284 124,285 108,285
+       96,284 94,280
+D 13 6 checker  F 120,281
+C 0  L  82,280 90,275 102,272 116,274 130,272 144,275 156,277 156,284
+       146,287 132,288 118,290 104,289 92,288 84,285 82,280
+D 13 6 checker25  F 87,281
+C 13  L  94,280 106,277 120,278 134,277 146,280 138,284 124,285 108,285
+        96,284 94,280
+C 13  L  82,280 90,275 102,272 116,274 130,272 144,275 156,277 156,284
+        146,287 132,288 118,290 104,289 92,288 84,285 82,280
+# A few loose sprigs between the drifts.
+C 6  L 60,232  L 82,238  L 56,244  L 150,248
+     L 78,262  L 58,270  L 152,270  L 76,288
+# Sage tufts where the meadow is dry.
+C 14  L 82,246 85,246  L 94,252 96,252  L 30,268 33,268  L 146,276 149,276
+      L 90,298 93,298  L 10,276 12,276
+# White heather and the last avalanche lilies (snow, never gold).
+C 4  L 20,268  L 90,262  L 142,264  L 58,238
+     L 108,232  L 34,284  L 128,276  L 74,256
+# Rocks on the crest.
+# a boulder
+C 0  L 64,226 68,222 74,222 77,226 64,226
+C 2  F 71,223 70,225 75,224
+C 2  L 64,226 68,222 74,222 77,226 64,226
+C 3  L 68,222 74,222  L 74,223 76,225
+# a boulder
+C 0  L 140,226 143,223 148,224 150,227 140,226
+C 2  F 145,225
+C 2  L 140,226 143,223 148,224 150,227 140,226
+C 3  L 143,223 148,224
+# The trail: up the meadow from our feet, wide where we stand and
+# narrowing as it climbs to the saddle, where it meets the crest trail.
+C 5  B circle 4  S 59,319 60,318 62,316 63,313 65,310 66,308 67,306 68,304
+     B circle 3  S 69,303 70,301 71,299 72,297 72,295 72,293 72,291 72,289
+                   71,288
+     B circle 2  S 71,287 70,285 70,283 69,281 67,280 66,278 65,276 64,274
+                   64,272 63,271 63,269 63,268
+     B circle 1  S 63,267 63,265 64,263 65,261 66,259 67,257 68,256 70,254
+                   71,252 73,251 75,249 77,247 78,246
+     L 79,245 84,240 88,236 92,231 95,226
+     L 80,245 85,240 89,236 93,231
+# The crest trail, east up over the knoll and west along the Divide.
+     L 26,212 36,215 48,219 60,222 72,224 84,225 95,226 100,224 110,222
+       124,220 140,219 159,219
+# Subalpine firs: a clump on the knoll, a few down the ridge, and two
+# big ones framing the view.
+T subalpine_fir_s 26,212  T subalpine_fir_xs 33,213  T subalpine_fir_m 20,214
+T subalpine_fir_xs 128,219  T subalpine_fir_s 134,219
+T subalpine_fir_xs 141,219 fx
+T subalpine_fir_m 124,240  T subalpine_fir_s 116,238 fx
+T subalpine_fir_l 150,318 fx  T subalpine_fir_xl 9,319
+# The hiker, walking west along the crest in a rust jacket.
+C 8  L 96,215 97,215
+C 5  L 96,216 97,216
+C 9  L 94,217 94,220  L 95,217 95,220  L 95,216
+C 8  L 96,217 97,217  L 96,218 98,218  L 96,219 97,219  L 96,220 97,220
+C 2  L 96,221 96,222  L 98,221 98,222
+C 0  L 95,223  L 99,223
+# Look hotspots.
+Z olympus 30,100,116,64
+Z hoh_valley 0,166,160,46
+Z hiker 92,212,10,14
+Z heather 0,226,160,70

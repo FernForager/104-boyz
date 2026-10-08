@@ -1,0 +1,18 @@
+{
+  "name": "olympic-peninsula-hiker",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A picture-book hiking game of the Olympic Peninsula, in the style of the old Sierra adventures.",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "node tools/build.mjs",
+    "lint": "node tools/lint.mjs",
+    "test": "node --test \"test/unit/*.test.mjs\"",
+    "render": "node tools/render-pics.mjs",
+    "serve": "node tools/serve.mjs",
+    "ci": "npm run build && npm run lint && npm run test"
+  }
+}

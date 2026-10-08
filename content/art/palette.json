@@ -1,0 +1,38 @@
+{
+  "$comment": "The sixteen colors (BUILD_PLAN 4.1, doc 11.1), the time-of-day remaps (doc 11.4) and the cycles (doc 11.5). web/js/gfx/palette.js holds the same tables, and test/unit/palette.test.mjs keeps the two identical. A remap sends each slot to a slot. A cycle lists its slots in order; a light resolves after the remap, so it stays bright at night; hold is frames per step at 8 fps; phase is how a pixel's position offsets its step. Blue hour, night, the weather tints and the drained death-box table arrive in S5.",
+  "colors": [
+    { "slot": 0, "name": "ink", "hex": "#1b1f2a", "use": "Outlines, text, night" },
+    { "slot": 1, "name": "night navy", "hex": "#24324a", "use": "Dusk sky, deep water" },
+    { "slot": 2, "name": "slate", "hex": "#3f5a7a", "use": "Day sky top, far ridges" },
+    { "slot": 3, "name": "glacier blue", "hex": "#8fb3c9", "use": "Sky, lakes, snow shadow" },
+    { "slot": 4, "name": "snow", "hex": "#f2efe6", "use": "Snow, message box" },
+    { "slot": 5, "name": "paper cream", "hex": "#e8d9b5", "use": "Paper, trails, stars" },
+    { "slot": 6, "name": "alpenglow pink", "hex": "#e09a8a", "use": "Dusk sky, heather" },
+    { "slot": 7, "name": "bonfire gold", "hex": "#e8b33a", "use": "The Bonfire Lily only" },
+    { "slot": 8, "name": "rust", "hex": "#c4602d", "use": "The hiker's jacket, fall color" },
+    { "slot": 9, "name": "brick", "hex": "#8a3b2a", "use": "Box border, pack, the diamond" },
+    { "slot": 10, "name": "bark", "hex": "#5a3d2b", "use": "Trunks, logs, bear" },
+    { "slot": 11, "name": "spruce", "hex": "#1f3b33", "use": "Conifer shadow sides" },
+    { "slot": 12, "name": "forest", "hex": "#2f5b45", "use": "Conifers" },
+    { "slot": 13, "name": "moss", "hex": "#6b8a4a", "use": "Meadow, moss" },
+    { "slot": 14, "name": "sage", "hex": "#a7b88a", "use": "Sunlit meadow, gravel" },
+    { "slot": 15, "name": "teal", "hex": "#3f7f7a", "use": "Rivers, hazy mid ridges" }
+  ],
+  "remaps": {
+    "day": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+    "dusk": [0, 1, 1, 2, 6, 6, 9, 7, 9, 10, 10, 11, 11, 12, 13, 2]
+  },
+  "cycles": {
+    "16": { "name": "lake", "slots": [3, 2, 3, 4], "light": false, "hold": 2, "phase": "wave" },
+    "17": { "name": "falls", "slots": [4, 3, 2, 3], "light": false, "hold": 1, "phase": "fall" },
+    "18": { "name": "river", "slots": [15, 3, 15, 14], "light": false, "hold": 2, "phase": "wave" },
+    "19": { "name": "glow", "slots": [7, 6, 8], "light": true, "hold": 2, "phase": "ring" },
+    "20": { "name": "fire", "slots": [8, 6, 5], "light": true, "hold": 1, "phase": "scatter" },
+    "21": { "name": "surf", "slots": [4, 3, 2, 15], "light": false, "hold": 2, "phase": "wave" },
+    "22": { "name": "stars", "slots": [5, 4, 5, 3], "light": true, "hold": 3, "phase": "scatter" },
+    "23": { "name": "rain glint", "slots": [2, 3], "light": false, "hold": 2, "phase": "scatter" },
+    "24": { "name": "lamp", "slots": [5], "light": true, "hold": 1, "phase": "none" },
+    "25": { "name": "dust", "slots": [5, 10, 2], "light": true, "hold": 2, "phase": "none" }
+  },
+  "cycle_fps": 8
+}

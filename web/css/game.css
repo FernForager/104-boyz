@@ -1,0 +1,243 @@
+/* The page frame. iPhone Safari rules (BUILD_PLAN 2.8, GAME_DESIGN 12.1):
+   safe-area padding, 100dvh, no rubber band, no double-tap zoom, no text
+   inflation on rotation, no callout or selection on what you tap. */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  height: 100%;
+  background: var(--page);
+  color: var(--c4);
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  touch-action: manipulation;
+  overscroll-behavior: none;
+}
+
+body {
+  margin: 0;
+  height: 100%;
+  min-height: 100dvh;
+  overflow: hidden;
+  overscroll-behavior: none;
+  touch-action: manipulation;
+  background: var(--page);
+  font-family: var(--font-pixel);
+  font-kerning: none;
+  font-variant-ligatures: none;
+  font-feature-settings: "liga" 0, "clig" 0;
+  letter-spacing: 0;
+  hyphens: none;
+  -webkit-hyphens: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button { font: inherit; font-variant-ligatures: none; }
+
+[hidden] { display: none !important; }
+
+/* ---- The title page ------------------------------------------------- */
+
+.title-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100dvh;
+  padding: var(--safe-top) var(--safe-right) var(--safe-bottom) var(--safe-left);
+  overflow: hidden;
+}
+
+.plate {
+  --plate-w: 320px;      /* the picture's width, set by shelf.js */
+  --title-room: 88px;    /* the cover's quiet sky (its top 88 rows), set by shelf.js */
+  position: relative;
+  margin: 0;
+  flex: none;
+  line-height: 0;
+  -webkit-touch-callout: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* The picture: sized in device pixels by display.js, never smoothed. */
+.picture {
+  display: block;
+  width: 320px;
+  height: 320px;
+  background: var(--c0);
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  image-rendering: pixelated;
+  -webkit-touch-callout: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* The title sits centered in the cover's quiet sky. Its type scales with the
+   plate's width, but never past what the sky can hold: the block is about
+   0.26 of the unit tall, so a unit of 3.3 x the room leaves a margin above
+   and below (on the SE's 4x2 pixel the room is only 88 pt). */
+.cover-title {
+  --u: min(var(--plate-w), calc(var(--title-room) * 3.3));
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: var(--title-room);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  line-height: 1;
+  pointer-events: none;
+}
+
+/* The title waits for the picture to finish drawing, then steps in, like a
+   1984 screen. If the script never runs, it shows anyway after 3 s. */
+@media (prefers-reduced-motion: no-preference) {
+  .plate.drawing .cover-title {
+    opacity: 0;
+    animation: title-safety 0s 3s forwards;
+  }
+  .plate:not(.drawing) .cover-title {
+    transition: opacity 480ms steps(4, end);
+  }
+}
+
+@keyframes title-safety { to { opacity: 1; } }
+
+.title {
+  margin: 0;
+  font-weight: 700;
+  color: var(--c4);
+  text-shadow: 0 2px 0 var(--c0);
+}
+
+.title-small {
+  display: block;
+  font-size: calc(var(--u) * 0.062);
+  color: var(--c5);
+}
+
+.title-big {
+  display: block;
+  margin-top: calc(var(--u) * 0.006);
+  font-size: calc(var(--u) * 0.145);
+  line-height: 0.95;
+}
+
+.tagline {
+  margin: calc(var(--u) * 0.012) 0 0;
+  font-size: calc(var(--u) * 0.04);
+  font-weight: 400;
+  color: var(--c6);
+  text-shadow: 0 1px 0 var(--c0);
+}
+
+/* Decorations VoiceOver shouldn't read: the second declaration gives them
+   empty alt text where supported; older engines keep the first. */
+.tagline::before { content: "~ "; content: "~ " / ""; }
+.tagline::after { content: " ~"; content: " ~" / ""; }
+
+/* ---- The shelf under the cover --------------------------------------- */
+
+.shelf {
+  flex: none;
+  width: 100%;
+  max-width: 440px;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 10px;
+  padding: 14px 12px 8px;
+}
+
+/* The Sierra box: snow, a double brick border, ink text (doc 12.2). */
+.box {
+  background: var(--box-fill);
+  color: var(--ink);
+  border: 4px double var(--box-border);
+  border-radius: 0;
+}
+
+.choice {
+  -webkit-appearance: none;
+  appearance: none;
+  opacity: 1; /* iOS dims disabled buttons on its own; the colors below say it */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 2px;
+  width: 100%;
+  min-height: var(--choice-h);
+  padding: 8px 14px;
+  text-align: left;
+  font-size: 20px;
+  line-height: 1.1;
+  -webkit-touch-callout: none;
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: pointer;
+}
+
+.choice-label::before { content: "> "; content: "> " / ""; }
+
+.choice-note {
+  font-size: 15px;
+  color: var(--c9);
+}
+
+.choice:disabled {
+  cursor: default;
+  background: var(--c5);
+}
+
+.choice:disabled .choice-label { color: var(--c2); }
+.choice:disabled .choice-label::before { content: "- "; content: "- " / ""; }
+
+.install {
+  margin: 2px 2px 0;
+  font-size: 15px;
+  line-height: 1.3;
+  color: var(--c5);
+}
+
+.install b { font-weight: 700; color: var(--c4); }
+
+.edition {
+  margin: 4px 2px 0;
+  font-size: 13px;
+  line-height: 1.2;
+  color: var(--c3);
+  -webkit-touch-callout: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* ---- Held sideways --------------------------------------------------- */
+
+.upright {
+  display: none;
+  position: fixed;
+  inset: 0;
+  align-items: center;
+  justify-content: center;
+  padding: var(--safe-top) var(--safe-right) var(--safe-bottom) var(--safe-left);
+  background: var(--c0);
+  text-align: center;
+}
+
+.upright p {
+  margin: 0;
+  padding: 18px 22px;
+  font-size: 20px;
+  color: var(--ink);
+  background: var(--box-fill);
+  border: 4px double var(--box-border);
+}
+
+@media (orientation: landscape) and (max-height: 540px) {
+  .title-page { display: none; }
+  .upright { display: flex; }
+}

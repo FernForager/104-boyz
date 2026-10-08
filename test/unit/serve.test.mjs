@@ -1,0 +1,40 @@
+import { test } from 'node:test';
+import assert from 'node:assert/strict';
+import { mkdtempSync, mkdirSync, rmSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+import { makeServer, PREFIX } from '../../tools/serve.mjs';
+
+test('serve: the site lives under /104-boyz/, as on GitHub Pages', async (t) => {
+  const dir = mkdtempSync(join(tmpdir(), 'oph-serve-'));
+  mkdirSync(join(dir, 'css'));
+  writeFileSync(join(dir, 'index.html'), '<!doctype html><title>t</title>');
+  writeFileSync(join(dir, 'css', 'a.css'), 'body{}');
+  writeFileSync(join(dir, 'manifest.webmanifest'), '{}');
+  const server = makeServer(dir);
+  await new Promise((r) => server.listen(0, '127.0.0.1', r));
+  t.after(() => {
+    server.close();
+    rmSync(dir, { recursive: true, force: true });
+  });
+  const base = `http://127.0.0.1:${server.address().port}`;
+  const get = (p) => fetch(base + p, { redirect: 'manual' });
+  assert.equal(PREFIX, '/104-boyz/');
+  let r = await get('/');
+  assert.equal(r.status, 302);
+  assert.equal(r.headers.get('location'), '/104-boyz/');
+  r = await get('/104-boyz');
+  assert.equal(r.status, 302);
+  r = await get('/104-boyz/');
+  assert.equal(r.status, 200);
+  assert.match(r.headers.get('content-type'), /text\/html/);
+  r = await get('/104-boyz/css/a.css');
+  assert.equal(r.status, 200);
+  assert.match(r.headers.get('content-type'), /text\/css/);
+  r = await get('/104-boyz/manifest.webmanifest');
+  assert.match(r.headers.get('content-type'), /application\/manifest\+json/);
+  assert.equal((await get('/css/a.css')).status, 404, 'a root-relative URL would 404 on Pages too');
+  assert.equal((await get('/104-boyz/nope.js')).status, 404);
+  assert.notEqual((await get('/104-boyz/%2e%2e/%2e%2e/etc/passwd')).status, 200, 'no way out of the folder');
+  assert.notEqual((await get('/104-boyz/..%2f..%2fetc%2fpasswd')).status, 200, 'no way out of the folder');
+});
