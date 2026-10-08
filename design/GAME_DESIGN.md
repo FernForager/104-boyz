@@ -1,17 +1,26 @@
 # Olympic Peninsula Hiker
 
-*Master game design document. Working title. Status: design (no game code yet). Written 2026-10-08 for `FernForager/104-boyz`, after a design review and the data fact-check, then revised the same day for every decision you made, one at a time. Your decisions override anything older in this document or the proposals. They are listed, in your words, in [Decisions made](#decisions-made) near the end. The engineering calls the lead designer made to close the pre-build audit follow them in [Lead calls](#lead-calls), each yours to overrule, and the few things still to come from you are in the last section.*
+*Master game design document for `FernForager/104-boyz`. The game's name is **Olympic Peninsula Hiker**, and **OP Hiker** where space is tight, such as the Home Screen label (decision 35). Status: design, with Session 1 of the build shipped: a title page with a chunky-pixel High Divide cover at `fernforager.github.io/104-boyz`.*
 
-*The short version of the last round: the first playable is **the High Divide and Seven Lakes Basin loop** from the Sol Duc trailhead, either way round, as a day or one to three nights or more, and every choice on it is the player's: the direction, each night's camp, **drop into the basin or stay high** at a proper fork card, the side trips, and changing the plan on the trail (4.3, 15, Appendix B). **Lake Morgenroth**, your favorite spot, is off the menu: it is in no list, and the only way to camp there is to call the WIC (4.3). By your calls, the game is **PG-13, with beer and weed in**, with a dash of *Leisure Suit Larry*: a skinny dip in Heart Lake, a hazy IPA at Morgenroth and a doobie at St. Peter's Gate (2.6, decision 18). And the 104 Boyz are in the Trail Register before you, with fictional misadventure deaths and funny epitaphs (7.11, decision 19). The Hoh, Glacier Meadows and Mount Olympus with Ranger Jon come next. Session length and park conditions are confirmed, and the game will live at `fernforager.github.io/104-boyz` (E.9).*
+*Written 2026-10-08 and revised the same day for every decision you made, one at a time. Then revised again, the same day, for the new direction (decisions 21 to 35). Your decisions override anything older in this document or the proposals. They are listed, in your words, in [Decisions made](#decisions-made). The engineering calls the lead designer made follow them in [Lead calls](#lead-calls), each yours to overrule. What is still to come from you is in the last section.*
 
-*This document merges the park research in `design/data/` with three proposals: `proposals/storybook.md` (feel, voice, art, screens), `proposals/simulation.md` (state, odds, consequences) and `proposals/engine.md` (data, engine, tools). Where they disagreed, this document makes one call (section 1.2). Where this document and a proposal differ, this document wins; the proposals stay as detailed reference. Two of them (`storybook.md` and `engine.md`) still call the golden plant by its retired placeholder name, "Snowlamp"; it is the **Bonfire Lily** here, and this document's name wins. The proposals also still describe things your trim of 2026-10-08 retired: the old field guide and its blank page, sketching for points, the prologue, the margin fox, animal helpers, a narrator pitched at children, Read to me and the stock EGA palette. None of them is in the game (10.1, 11.1). They also predate your later answers, so they still offer things the game no longer has: an inherited field guide, Storybook as a visible choice, preset epitaphs, character options (pronouns, fitness, jacket color, a glacier-course box), named companions, a fictional guide company and a roadmap that starts on the Hoh. This document wins on all of them.*
+*The new direction, in one breath. No book framing and no crutches: a game that the people who hike, backpack and run in Olympic National Park can't put down, great on its own merits (decision 22). The frame is backpacking's own stuff: the map, the permit, the town run, the gear flat lay, splits on the trail and a trip report at the end (decision 26). Home is **Ranger Jon's old ranger cabin at Lake Quinault**, and the places in that scene are the menus (2.2, decision 34). The hot tub is a reward after a big hike. The 104 Boyz and the number 104 are easter eggs for insiders, never needed to enjoy the game.*
+
+*What stays: the chunky Sierra pixels and palette, the engine, the park data, honest odds with the red diamond, permadeath and the death sequence, the Larry moments, the Bonfire Lily, the High Divide loop as the first playable, Lake Morgenroth off the menu, Ranger Jon with badge #104, and permit numbers that start with 104.*
+
+*Still being written in: the three ways to play (Open, the Hike of the Day and FKT attempts, decisions 23 to 25 and 31), the eight minigames (29, 30), the sound (32, 33) and the text system (21). Until they land here, their drafts in `design/drafts/` (`daily_fkt.md`, `minigames.md`, `audio_text.md`) hold the detail. This document already gives them their places: the chalkboard, the peak and the camp tiles (2.2, 12.14).*
+
+*Every line of in-game English in this document is a draft for you to rewrite or approve (decision 21). Lines written for this revision are marked (DRAFT). Real place names, real terms and verbatim public-domain quotes are not ours to write, but stay yours to veto.*
+
+*This document merges the park research in `design/data/` with three proposals: `proposals/storybook.md` (feel, voice, art, screens), `proposals/simulation.md` (state, odds, consequences) and `proposals/engine.md` (data, engine, tools). This document wins wherever they differ. `storybook.md` is now a historical file: its book frame, narrator and title page are retired (decision 22), and nothing new cites it. The proposals also still describe other things you retired: the golden plant's old placeholder name "Snowlamp" (it is the **Bonfire Lily**), the old field guide, sketching for points, the prologue, the margin fox, animal helpers, a narrator pitched at children, Read to me, the stock EGA palette, preset epitaphs, character options, named companions, a fictional guide company and a roadmap that starts on the Hoh. None of them is in the game.*
 
 > **Read this first (about 10 minutes on a phone):**
 > 1. [The one-page pitch](#1-one-page-pitch)
-> 2. [Decisions made](#decisions-made), [the lead calls](#lead-calls) and [still to come from you](#still-to-come-from-you): the last three sections, all short
-> 3. [The first book](#36-the-first-book): what a new player meets, on the High Divide loop
-> 4. The first playable, worked through: [Appendix B](#appendix-b-seven-lakes-and-the-high-divide-planned-well): the loop both ways round, the basin or the crest, and [the fork where you choose](#b6-the-other-way-round-the-fork-at-the-rim) (B.6)
-> 5. [Larry moments](#26-larry-moments-pg-13): the PG-13 part, with beer and weed in (your call)
+> 2. [Home: the old ranger cabin at Lake Quinault](#22-home-the-old-ranger-cabin-at-lake-quinault): where every trip starts and ends
+> 3. [Decisions made](#decisions-made), [the lead calls](#lead-calls) and [still to come from you](#still-to-come-from-you): the last three sections, all short
+> 4. [The first trip](#36-the-first-trip): what a new player meets, on the High Divide loop
+> 5. The first playable, worked through: [Appendix B](#appendix-b-seven-lakes-and-the-high-divide-planned-well): the loop both ways round, the basin or the crest, and [the fork where you choose](#b6-the-other-way-round-the-fork-at-the-rim) (B.6)
+> 6. [Larry moments](#26-larry-moments-pg-13): the PG-13 part, with beer and weed in (your call)
 >
 > **With 20 more minutes:** [player experience](#2-player-experience-and-tone), [the core loop](#3-core-loop), [the build roadmap](#15-build-roadmap), and your Olympus example from day one, how it ends and how often it ends for good: [A.5 to A.7](#a5-the-ending). Everything else is reference; the engineering detail lives in Appendices E and F.
 
@@ -20,11 +29,11 @@
 ## Contents
 
 1. [One-page pitch](#1-one-page-pitch)
-2. [Player experience and tone](#2-player-experience-and-tone)
+2. [Player experience and tone](#2-player-experience-and-tone), with [home: the cabin](#22-home-the-old-ranger-cabin-at-lake-quinault)
 3. [Core loop](#3-core-loop)
 4. [The park in the game](#4-the-park-in-the-game)
-5. [Store and food](#5-store-and-food)
-6. [Packing](#6-packing)
+5. [The three stores and food](#5-the-three-stores-and-food)
+6. [Packing: the flat lay](#6-packing-the-flat-lay)
 7. [Simulation](#7-simulation)
 8. [Decisions and odds](#8-decisions-and-odds)
 9. [Consequences, modes and scoring](#9-consequences-modes-and-scoring)
@@ -38,7 +47,7 @@
 - [Appendix A: Olympus in one night with day gear](#appendix-a-olympus-in-one-night-with-day-gear) (M2)
 - [Appendix B: Seven Lakes and the High Divide, planned well](#appendix-b-seven-lakes-and-the-high-divide-planned-well) (the first playable: start here)
 - [Appendix C: The coast tide mistake](#appendix-c-the-coast-tide-mistake) (M4)
-- [Appendix D: Sample storybook pages](#appendix-d-sample-storybook-pages)
+- [Appendix D: Sample screens](#appendix-d-sample-screens)
 - [Appendix E: Tech architecture and data files](#appendix-e-tech-architecture-and-data-files)
 - [Appendix F: Balancing and testing](#appendix-f-balancing-and-testing)
 - [Sources for this document](#sources-for-this-document)
@@ -50,90 +59,106 @@
 
 ## 1. One-page pitch
 
-**Olympic Peninsula Hiker plays like *Oregon Trail* meets *King's Quest*, with a dash of *Leisure Suit Larry*, in the real Olympics.**
+**Olympic Peninsula Hiker is a backpacking game set in the real Olympic National Park, for the people who hike, backpack and run there.** It began as *Oregon Trail* meets *King's Quest*, with a dash of *Leisure Suit Larry* (decisions 1 and 18). Your touchstones since then add more, and the blend is its own (decision 22: *"it's also entirely its own blend"*):
 
-- **Oregon Trail** for the outfitting and the odds. You plan a real backpacking trip, buy the food, pack the pack and drive to the trailhead, and what you packed decides how the trip goes. Hazards come with honest numbers, and a hiker can die of very ordinary things.
-- **King's Quest** for the look and the manners. Every screen is a page: a chunky Sierra picture on top, the narration in a Sierra message box below. Tap the picture to Look. You never walk a character around.
-- **Leisure Suit Larry**, a dash, for the cheek: Sierra's own 1987 comedy. A few PG-13 moments with a pixel censor bar (a snowmelt skinny dip, a beer at a lake, a joint where federal law says no), each with real stakes in the simulation (2.6). Your call, 2026-10-08 (1.2).
+- **Oregon Trail** for the outfitting and the odds. You plan a real trip, buy the food, lay out your gear and drive to the trailhead, and what you packed decides how the trip goes. Hazards come with honest numbers, and a hiker can die of very ordinary things.
+- **King's Quest** for the look and the manners. Every stop on the trail is a chunky Sierra picture on top and a few words in a Sierra message box below. Tap the picture to Look. You never walk a character around.
+- **Leisure Suit Larry**, a dash, for the cheek: Sierra's own 1987 comedy. A few PG-13 moments with a pixel censor bar (a snowmelt skinny dip, a beer at a lake, a joint where federal law says no), each with real stakes in the simulation (2.6).
+- **1000 Heroz** for the daily one-shot. The **Hike of the Day** is the same route and the same real forecast for everyone, one attempt, timed (decisions 23, 24, 31).
+- **Suika Game** for the signature minigame: packing the bear can, round things that squish and merge (decision 30).
+- **Lonely Mountains: Downhill** for the sound and the speed. No music on the trail, only the place and your footsteps (decision 32). FKT attempts run the big routes against the clock, with splits (decision 23).
+- **Sword & Sworcery** for the real clock. The cabin at home shows Lake Quinault's real season, light, weather and moon (2.2).
 - **The real Olympics** for everything else. Real trails, camps, rivers, quotas, tides and closures in Olympic National Park, from researched park data.
 
-**How it looks.** Sierra technique, our own colors. Chunky 160x168 pictures drawn the AGI way, as vector lines, flood fills and checkerboard dithers, in a custom 16-color palette inspired by the flat, layered shapes of Benjamin Flouw's picture book *The Golden Glow*: layered ridges, stacked-tier conifers, flat fills (11.1). The narration sits in a snow-white Sierra message box with a double brick-red border, under a `Score: 0 of 131` status line.
+**The frame is backpacking's own stuff, for the hardcore crowd and the moss crowd alike** (decision 26). The map on the cabin table, the permit you print, the run to the three stores in Port Angeles, and the **gear flat lay**: everything laid out top-down on the deck boards, the pre-trip photo backpackers post. It is the packing screen, and you can share it (6.1). On the trail you get splits; at the end, a trip report (9.7).
 
-**How it reads.** A deadpan Sierra narrator, dry but kind, written for adults (2.3): *"Robin looked at the river for a long time. The river did not look back."* Animals never talk and never help. They are wildlife: lovely to watch, sometimes in the way, and very interested in your lunch. Somewhere high in the park, on snow, after dark, there is a rare golden flower that most players will never see. The game never advertises it; at most a stranger repeats a rumor (10.2).
+**How it looks.** Sierra technique, our own colors. Chunky 160x168 pictures drawn the AGI way, as vector lines, flood fills and checkerboard dithers, in a custom 16-color palette inspired by the flat, layered shapes of Benjamin Flouw's picture book *The Golden Glow*: layered ridges, stacked-tier conifers, flat fills (11.1). The words sit in a snow-white Sierra message box with a double brick-red border, under a `Score: 0 of 131` status line.
 
-**How you play.**
-- **Name** your hiker. That's the whole character sheet: every hiker starts the same (12.4).
-- **Plan** at the ranger desk: where to go, which way round a loop, day hike or how many nights, a layover day or a new camp each night, the basin or the crest. Get the permit stamped.
-- **Shop** for food with a shopping list that checks itself off and a gauge that shows what will fit in the bear canister.
-- **Pack**: choose what goes inside, what straps outside and what stays home. Everything must fit: liters, pounds, a few outside straps, and the bear canister the park requires, which limits your food days.
-- **Drive** to the trailhead and take a last look at what to leave in the car.
-- **Hike** by turning pages. About 3 to 5 real decisions a day. Camp, cook, watch the light change, sleep, wake up.
+**How it reads.** Deadpan, dry but kind, written for adults (decision 5). There is no narrator character any more (decision 22). The recommended voice is terse second person, present tense, in the Sierra box, and the hiker's own first-person log is the record that becomes the trip report (2.3). Animals never talk and never help. They are wildlife: lovely to watch, sometimes in the way, and very interested in your lunch. Somewhere high in the park, on snow, after dark, there is a rare golden flower that most players will never see. The game never advertises it (10.2).
 
-**Decisions with honest odds.** Every risky choice shows the chance it goes all right: `Wade across now  83%`. Tap the small (i) beside it to see why: the river's depth at this hour, the poles you packed (+10), the tent strapped outside (-3). Choices that could turn serious get a red diamond, the chance it goes badly in red (`Climb the ladder ♦ 79% · 21% fall`), a confirming tap and a short compass roll. When a choice could end the book, its **fatal share** shows in red too (`21% fall · 0.3% fatal`, always rounded up), and no setting hides it. If you lack knowledge (no tide table, no forecast), the number blurs into a range, and a fatal share shows the worst end of it, so knowing things matters as much as carrying things.
+**How you play an Open trip.**
+- **Sign** the guest book at the cabin with your hiker's name. That's the whole character sheet: every hiker starts the same (12.4).
+- **Plan** at the cabin's map table: where to go, which way round a loop, day hike or how many nights, a layover day or a new camp each night, the basin or the crest. **Print** your own permit, as real Olympic hikers do (3.1).
+- **Go to town** the day before: Port Angeles, with the Wilderness Information Center (optional: a briefing, the free loaner can, the camps you can only ask for at the desk) and **three stores**, in the spirit of Swain's, Brown's Outdoor and MOSS (decision 27, 5.2).
+- **Lay it out**: the flat lay at the shed. Everything must fit: liters, pounds, a few outside straps, and the bear canister the park requires, which limits your food days (6).
+- **Drive** from the cabin to the trailhead, and take a last look at the tailgate at what to leave in the car.
+- **Hike**, stop by stop. About 3 to 5 real decisions a day. Camp, cook, watch the light change, sleep, wake up.
+- **Come home** to the cabin: the trip report, and after a big hike, the hot tub (2.2).
 
-**Consequences: hard, final and fair.** This is an old-school game. The hiker can die, and death ends the book for good: no Restore, no turning back a page. But planning is what keeps you alive. Plan well and it is as easy and lovely as backpacking: sensible trips in season finish happily at least 95% of the time (at least 85% in the shoulder season), and end in death at most 1 time in 200 (the model says far less).
+**Three ways to play** (decisions 23 to 25). **Open** is the career: plan any hike, with one hiker who carries on from trip to trip until they die, Old School. **The Hike of the Day** gives everyone the same route and today's real forecast, one shot, scored on time; it uses a fresh standard hiker, and a death there is a DNF that breaks your streak but never touches your Open hiker. **FKT attempts** race the big routes. Their full rules are being written in (see the note at the top).
 
-A book can end only at a red-diamond choice that showed its fatal share, or after two warnings you walked past, and every such moment offers a sure way out that costs time, comfort or score, never the hiker. Try Mount Olympus in one night with day-hike gear and keep pushing, and you will have a problem: trouble or worse nearly every time (the target is at least 80%), and about 1 book in 15 ends on the mountain (A.6). Take the turnaround the game offers, and almost nobody dies.
+**Decisions with honest odds.** Every risky choice shows the chance it goes all right: `Wade across now  83%`. Tap the small (i) beside it to see why: the river's depth at this hour, the poles you packed (+10), the tent strapped outside (-3). Choices that could turn serious get a red diamond, the chance it goes badly in red (`Climb the ladder ♦ 79% · 21% fall`), a confirming tap and a short compass roll. When a choice could kill the hiker, its **fatal share** shows in red too (`21% fall · 0.3% fatal`, always rounded up), and no setting hides it. If you lack knowledge (no tide table, no forecast), the number blurs into a range, and a fatal share shows the worst end of it, so knowing things matters as much as carrying things.
 
-When a hiker dies, the game says so the old way: **YOU PERISHED** in big blocky letters, a one-line Oregon Trail cause (*You have died of cotton.*), then the hiker's bones and pack crumbling to dust under the words *Leave No Trace*. You type an epitaph, or tap the dice for a line from the early accounts of the park's first explorers, and it goes into the Trail Register at the trailhead, our version of Oregon Trail's tombstones and Top Ten. That line is all that survives: the hiker, their skills and their shelf of finished trips are gone, and the next hiker starts from nothing. Version 1 has this one way to play. (A no-death Storybook mode waits in the engine, hidden, in case you ever want it, 9.4.)
+**Consequences: hard, final and fair.** This is an old-school game. The hiker can die, and death is final: no Restore, no going back. But planning is what keeps you alive. Plan well and it is as easy and lovely as backpacking: sensible trips in season finish happily at least 95% of the time (at least 85% in the shoulder season), and end in death at most 1 time in 200 (the model says far less).
 
-**The park.** Six researched regions join into one trail network: 449 places, about 450 trail segments and 150 classic trips (a seventh, the Hamma Hamma, has just arrived, 4.1). Version 1.0 plays the three must-haves: Seven Lakes Basin and the High Divide (the first playable), Mount Olympus with every camp on the Hoh, and Royal Basin. The endpaper map always shows the whole park; valleys not yet built are pencil sketches, "pages still being drawn", until they arrive (milestones M4 and M5).
+A hiker can die only at a red-diamond choice that showed its fatal share, or after two warnings you walked past, and every such moment offers a sure way out that costs time, comfort or score, never the hiker. Try Mount Olympus in one night with day-hike gear and keep pushing, and you will have a problem: trouble or worse nearly every time (the target is at least 80%), and about 1 trip in 15 ends in death on the mountain (A.6). Take the turnaround the game offers, and almost nobody dies.
 
-**Mount Olympus itself.** The summit means crossing the Blue Glacier. Hire **Ranger Jon**, badge #104, the only guide in the game (a ranger who guides on his days off: a playful liberty, since real rangers don't guide climbs), and he ropes you up. Or go alone, at your own risk: every crevasse crossing is a ♦ with its honest fatal share, and turning back is always on the page (4.2).
+When a hiker dies, the game says so the old way: **YOU PERISHED** in big blocky letters, a one-line Oregon Trail cause (*You have died of cotton.*), then the hiker's bones and pack crumbling to dust under the words *Leave No Trace*. You type an epitaph, or tap the dice for a line from the early accounts of the park's first explorers, and it goes into the Trail Register, our version of Oregon Trail's tombstones and Top Ten. Then you are back at the cabin, at dusk, where the hiker's trip reports go to dust too. That register line is all that survives: the hiker, their skills and their stories are gone, and the next hiker starts from nothing. (A gentle no-death mode waits in the engine, hidden, in case you ever want it, 9.4.)
 
-**Solo, with company on the trail.** You hike alone. Other hikers pass by, and now and then one of them is one of **the 104 Boyz**: a tip, a trade or a warning, and then they're gone. They are also in the Trail Register before you, each with a fictional, good-natured death and a funny epitaph (your call), and the narrator never explains how you keep meeting them (7.11).
+**The park.** Six researched regions join into one trail network: 449 places, about 450 trail segments and 150 classic trips (a seventh, the Hamma Hamma, has just arrived, 4.1). Version 1.0 plays the three must-haves: Seven Lakes Basin and the High Divide (the first playable), Mount Olympus with every camp on the Hoh, and Royal Basin. The park map on the cabin's table always shows the whole park; valleys not yet built are pencil sketches until they arrive (milestones M4 and M5).
+
+**Mount Olympus itself.** The summit means crossing the Blue Glacier. Hire **Ranger Jon**, badge #104, the only guide in the game (a ranger who guides on his days off: a playful liberty, since real rangers don't guide climbs), and he ropes you up. Or go alone, at your own risk: every crevasse crossing is a ♦ with its honest fatal share, and turning back is always offered (4.2).
+
+**Solo, with company on the trail.** You hike alone. Other hikers pass by, and now and then one of them is one of **the 104 Boyz**: a tip, a trade or a warning, and then they're gone. To a stranger they are just other hikers with names. They are also in the Trail Register before you, each with a fictional, good-natured death and a funny epitaph (your call), and the game never explains how you keep meeting them (7.11). They are easter eggs, like everything else about the Boyz and 104 (2.2).
 
 **Lots of outcomes.** About 217 gear items and 88 foods become about 40 event tags. Every card reads those tags, the place, the weather, the hour and what already happened. Version 1.0 has about 260 hand-written cards with about 730 choices, and their combinations make nearly every multi-night trip tell its own story (8.12). A test harness proves each item matters somewhere.
 
-**Built simply.** Plain HTML, CSS and JavaScript modules with a canvas picture: no framework, no bundler, only a small data build step. Hosted free on GitHub Pages at `fernforager.github.io/104-boyz`, installable to the Home Screen, playable offline at the trailhead, portrait and touch only.
+**Built simply.** Plain HTML, CSS and JavaScript modules with a canvas picture: no framework, no bundler, only a small data build step. Hosted free on GitHub Pages at `fernforager.github.io/104-boyz`, installable to the Home Screen as OP Hiker, playable offline at the trailhead, portrait and touch only.
 
-**First playable: the High Divide and Seven Lakes Basin loop** (your calls: *"Gotta be B only because I know that hike"*, then *"The first one should just be High Divide and the 7 Lakes Basin loop either direction and option if drop into basin or stay high I mean every choice needs to be made"*). The vertical slice (M1a) is the whole loop from the Sol Duc trailhead, clockwise or counterclockwise, as a day hike or one to three nights or more, with layovers, at any permitted camp on or just off it. Every route choice is yours, at the desk and on the trail: the direction, each night, the basin or the crest at a fork card with honest numbers, the side trips, and changing your mind with real permit consequences (4.3). Then the whole Sol Duc side (M1b), with your favorite spot, **Lake Morgenroth**, kept off the menu: no list, preset or ranger offers it, and the only way in is to call the WIC (4.3). The Hoh, Glacier Meadows and Mount Olympus with Ranger Jon come next (M2), and Royal Basin completes version 1.0 (M3).
+**First playable: the High Divide and Seven Lakes Basin loop** (your calls: *"Gotta be B only because I know that hike"*, then *"The first one should just be High Divide and the 7 Lakes Basin loop either direction and option if drop into basin or stay high I mean every choice needs to be made"*). The vertical slice (M1a) is the whole loop from the Sol Duc trailhead, clockwise or counterclockwise, as a day hike or one to three nights or more, with layovers, at any permitted camp on or just off it. Every route choice is yours, at the map table and on the trail: the direction, each night, the basin or the crest at a fork card with honest numbers, the side trips, and changing your mind with real permit consequences (4.3). Then the whole Sol Duc side (M1b), with your favorite spot, **Lake Morgenroth**, kept off the menu: no list or preset offers it, and the only way in is to call the WIC (4.3). The Hoh, Glacier Meadows and Mount Olympus with Ranger Jon come next (M2), and Royal Basin completes version 1.0 (M3).
 
 ### 1.1 What a play session looks like
 
-A **first book** reaches its first trail page within about 7 minutes of opening (3.6). A returning player spends 4 to 8 minutes planning, shopping and packing ("Fill from the list" and "Like last time" keep it quick), then 5 to 7 minutes per hiking day, evening included (8.4). A two-night trip has three hiking days, so it is a 20 to 30 minute book (your call, confirmed 2026-10-08). Every page autosaves, so a phone call never loses a page, and nothing ever goes back: what happened, happened.
+A **first trip** reaches the trail within about 7 minutes of opening the game (3.6). A returning player spends 4 to 8 minutes planning, in town and at the flat lay ("Fill from the list" and "Like last time" keep it quick), then 5 to 7 minutes per hiking day, evening included (8.4). A two-night trip has three hiking days, so it is a 20 to 30 minute trip (your call, confirmed 2026-10-08). The Hike of the Day is shorter: most days it is a day hike with no town run.
+
+Every stop autosaves, so a phone call never loses anything, and nothing ever goes back: what happened, happened.
 
 ### 1.2 Calls this document makes
 
 Where the three proposals disagreed, these are the calls. The reasoning is in the proposals; you can overrule any of them. The ones marked as yours are your decisions, listed in your words in [Decisions made](#decisions-made).
 
-- **The pitch: *Oregon Trail* meets *King's Quest*, with a dash of *Leisure Suit Larry*, in the real Olympics** (yours, 2026-10-08: *"your line about plays like nails it"*, then *"I want it to have some leisure suit Larry in it too"*). Every other call serves one of the four: the outfitting and odds, the Sierra page, the cheek, the real park.
-- **PG-13, with beer and weed** (yours, 2026-10-08: *"Pg 13 but beer and weed."*). Cheeky innuendo and a pixel censor bar, never anything explicit, delivered by the same deadpan narrator. Beer and cannabis are in, with honest consequences in the simulation, and never anywhere near a car (2.6). Every Larry moment carries the `larry` tag, and `flags.larry` is on in every v1 build, main and preview.
-- **Default mode: Old School** (your decision, 2026-10-08). Death is possible and final, and it plays as one short **death sequence** (your design, the same day): the death box with its Ranger's Note, *YOU PERISHED* with an Oregon Trail cause of death, the remains turning to dust (*Leave No Trace*), an epitaph for the Trail Register, then GAME OVER (9.5, 12.17). It is the only mode in v1.
-- **Storybook: kept, but hidden** (yours, 2026-10-08: *"C but don't release that shelf yet hide it"*). The no-death mode stays in the engine, with its own separate shelf that never reaches the Trail Register or the best books. No v1 screen, setting or line mentions it; it sits behind an internal flag, off in every build you can install, until you decide to release it (9.4). Code and data call the modes `oldschool` and `storybook`; the old internal key `sierra` is retired, so a real company's name never reaches a button.
-- **Fair deaths only:** a book can end only at a ♦ choice that showed its fatal share, or at the end of a crisis chain after two warnings the player walked past; never on a random draw. Every such moment offers a sure way out (9.5).
-- **What survives a death:** only the hiker's line in the Trail Register: name, epitaph, cause, dates and score (no tombstone in the park: Leave No Trace). The hiker, their skills, their shelf of finished books and anything they collected are gone, and the next hiker inherits nothing (yours, 2026-10-08: *"Full wipe"*; 9.8). While a hiker lives, they carry on from trip to trip: skills grow and finished books fill their shelf.
-- **One hiker, one book at a time:** a phone has one living hiker, and that hiker has one book in progress at most, so no hiker is ever alive in one book and dead in another (9.8).
-- **The hiker: a name, nothing else** (yours: *"less is more"*). You type a name, and every hiker starts the same: no backgrounds, occupations, pronouns, fitness level, jacket color or glacier-course box (12.4).
-- **The epitaph: type your own or roll the dice** (yours: *"Write your own or tap random"*). Up to 40 characters of your own, or a dice button that draws a short line from the public-domain accounts of the park's first explorers and the 1890 newspapers that printed their story (the 1889-90 Press Expedition, Lt. Joseph O'Neil, other pre-1931 texts), preferring lines that suit the cause of death, or skip. You asked for a random Robert Wood sentence: Wood's books are the backbone of the game's history, but they are still in copyright, so his sentences are not quoted; he is credited in the colophon and on a *Ranger's Bookshelf* page of his books (9.5, 12.20).
+- **The pitch: its own blend** (yours: decision 1, *"your line about plays like nails it"*; decision 18, the dash of *Larry*; then decision 22, *"It's 1000 heroz it's suica game it's kings quest it's Oregon trail but it's also entirely its own blend"*). *Oregon Trail* meets *King's Quest*, with a dash of *Leisure Suit Larry*, in the real Olympics, plus a daily one-shot, a Suika-style can, a soundscape with no trail music and a home on the real clock.
+- **No book framing** (yours, decision 22). No bookshelf, books, chapters, pages, volumes, back cover, "picture-book" or storybook narrator. A trip is a trip, and its record is a trip report (2.2, 9.7).
+- **The frame is backpacking's own stuff** (yours, decision 26): the map, the permit, the town run, the flat lay, splits on the trail and a trip report at the end. The flat lay is the signature screen, and it is shareable (6.1, 6.10).
+- **Home: Ranger Jon's old ranger cabin at Lake Quinault** (yours, decision 34, which revises 28). The places in the scene are the menus, on Lake Quinault's real clock. The hot tub is lit only after a big hike (2.2).
+- **Near-universal** (yours, decision 34: *"I am making this game for the 104 boyz but I want it to also be near universal"*). The Boyz, 104 and the inside jokes are easter eggs that reward insiders, and a stranger never needs them (2.2).
+- **The name: Olympic Peninsula Hiker, OP Hiker for short** (yours, decision 35).
+- **PG-13, with beer and weed** (yours, 2026-10-08: *"Pg 13 but beer and weed."*). Cheeky innuendo and a pixel censor bar, never anything explicit, in the same deadpan voice. Beer and cannabis are in, with honest consequences in the simulation, and never anywhere near a car (2.6). Every Larry moment carries the `larry` tag, and `flags.larry` is on in every v1 build, main and preview.
+- **Old School** (your decision, 2026-10-08). Death is possible and final, and it plays as one short **death sequence** (your design, the same day): the death box with its Ranger's Note, *YOU PERISHED* with an Oregon Trail cause of death, the remains turning to dust (*Leave No Trace*), an epitaph for the Trail Register, then GAME OVER (9.5, 12.17). It is the rule of Open play, the career. In the Hike of the Day a death is a DNF on a fresh standard hiker, and the Open hiker is untouched (yours, decisions 24 and 25).
+- **The gentle mode: kept, but hidden** (yours, 2026-10-08: *"C but don't release that shelf yet hide it"*). The no-death mode stays in the engine, with its own hikers, never in the Trail Register or Best trips. No v1 screen, setting or line mentions it; it sits behind an internal flag, off in every build you can install, until you decide to release it (9.4). Code and data call the modes `oldschool` and `gentle` (its old name, Storybook, is retired with the book, decision 22; the older key `sierra` stays retired, so a real company's name never reaches a button).
+- **Fair deaths only:** a hiker can die only at a ♦ choice that showed its fatal share, or at the end of a crisis chain after two warnings the player walked past; never on a random draw. Every such moment offers a sure way out (9.5).
+- **What survives a death:** only the hiker's line in the Trail Register: name, epitaph, cause, dates and score (no tombstone in the park: Leave No Trace). The hiker, their skills, their trip reports, the career marks at the cabin and anything they collected are gone, and the next hiker inherits nothing (yours, 2026-10-08: *"Full wipe"*; 9.8). While a hiker lives, they carry on from trip to trip: skills grow, and their trip reports pile up by the fire bowl.
+- **One hiker, one trip at a time:** a phone has one living Open hiker, and that hiker has one trip in progress at most, so no hiker is ever alive on one trip and dead on another (9.8). The Hike of the Day's fresh hiker never touches them.
+- **The hiker: a name, nothing else** (yours: *"less is more"*). You sign a name in the guest book, and every hiker starts the same: no backgrounds, occupations, pronouns, fitness level, jacket color or glacier-course box (12.4).
+- **The epitaph: type your own or roll the dice** (yours: *"Write your own or tap random"*). Up to 40 characters of your own, or a dice button that draws a short line from the public-domain accounts of the park's first explorers and the 1890 newspapers that printed their story (the 1889-90 Press Expedition, Lt. Joseph O'Neil, other pre-1931 texts), preferring lines that suit the cause of death, or skip. You asked for a random Robert Wood sentence: Wood's books are the backbone of the game's history, but they are still in copyright, so his sentences are not quoted; he is credited in Credits and on the **Ranger's Bookshelf**, a real shelf of his books inside the cabin door (9.5, 12.20).
 - **Score:** one KQ-style `Score: N of M`, with M computed for the itinerary. No spirits multiplier; low spirits instead switch off some joys ("too cold to stay up for the sunset").
-- **Odds:** every rolled choice shows the chance it goes all right ("made it"). Choices that can reach Serious or worse get a ♦, the fail share in red, a confirming tap and the compass roll; a ♦ that can end the book adds its fatal share, which no setting hides (yours: *"A for sure"*). Safe choices show costs, never a %. Missing knowledge shows an honest range, and a fatal share shows the worst end of it, always rounded up (8.1, 8.6-8.8).
-- **Meters:** seven simulated, four shown as storybook conditions, plus a Wet or Thirsty glyph when it matters.
+- **Odds:** every rolled choice shows the chance it goes all right ("made it"). Choices that can reach Serious or worse get a ♦, the fail share in red, a confirming tap and the compass roll; a ♦ that can kill adds its fatal share, which no setting hides (yours: *"A for sure"*). Safe choices show costs, never a %. Missing knowledge shows an honest range, and a fatal share shows the worst end of it, always rounded up (8.1, 8.6-8.8).
+- **Meters:** seven simulated, four shown as plain conditions, plus a Wet or Thirsty glyph when it matters.
 - **Endings come from crisis cards the player saw**, never from a count of bad conditions. Two bad conditions only prompt a ranger-voice nudge.
-- **Narrator: deadpan Sierra** (yours, 2026-10-08): dry but kind, written for adults, in the third person and past tense; Look boxes answer in Sierra's second person (2.3). Deaths get the same voice, by your call (9.5). Long text splits into a "more ▸" page and never scrolls. There is no spoken narration: Read to me is cut (yours), and VoiceOver reads the real HTML text (11.9).
-- **Animals never talk, and they never help** (yours). They are wildlife: beautiful moments, hazards and food thieves. The narrator may say what an animal seems to be doing, sparingly (2.3, 7.11).
+- **Voice: deadpan Sierra, with no narrator character** (yours: decision 5, dry but kind, written for adults; decision 22, no storybook narrator). Three ways to carry it are laid out in 2.3, and the recommendation is terse second person, present tense, in the Sierra box, with the hiker's first-person log as the record. Look boxes keep Sierra's second person. Deaths get the same voice (9.5). A long line continues in a second box (▾) and never scrolls. There is no spoken narration: Read to me is cut (yours), and VoiceOver reads the real HTML text (11.9). The words themselves are yours (decision 21).
+- **Animals never talk, and they never help** (yours). They are wildlife: beautiful moments, hazards and food thieves. The voice may say what an animal seems to be doing, sparingly (2.3, 7.11).
 - **The homage, trimmed** (yours: *"Yes do all of that"*). *The Golden Glow* survives as three things only: the art-style inspiration, the Bonfire Lily and a credit line (10). There is no field guide to fill, no sketching for points, no prologue, no fox and no animal helpers.
-- **Art: Sierra pixels in our own 16 colors** (yours: *"I love B I love chunky pixels"*). Low-res vector lines, flood fills and checkerboard dithers, in a custom palette inspired by the book's flat, layered shapes instead of the stock EGA colors. Gold is kept for the Bonfire Lily (11.1).
+- **Art: Sierra pixels in our own 16 colors** (yours: *"I love B I love chunky pixels"*). Low-res vector lines, flood fills and checkerboard dithers, in a custom palette inspired by *The Golden Glow*'s flat, layered shapes instead of the stock EGA colors. Gold is kept for the Bonfire Lily (11.1).
 - **The plant** is called **the Bonfire Lily** (your name for it, 2026-10-08), never "golden glow" in the game. It is a rare hidden find and a bragging right, not the point of the game: nothing advertises it, it is worth no points, and the only ledger it touches is Leave No Trace, when you choose to sketch it or pick it (10.2).
-- **No restore, in either mode.** No Turn Back a Page, no Back to Last Camp, no Restart Trip. Every page autosaves, an error never rolls back a choice, and an imported save can't be older than the game's record of that book or bring back a dead hiker. Rolls are keyed to content and to the mode, so the same choice in the same place repeats its result, and a Storybook book can never scout an Old School one (8.14, E.6).
+- **No restore, in any mode.** No going back, no Back to Last Camp, no Restart Trip. Every stop autosaves, an error never rolls back a choice, and an imported save can't be older than the game's record of that trip or bring back a dead hiker. Rolls are keyed to content and to the mode, so the same choice in the same place repeats its result, and a gentle-mode trip can never scout an Old School one (8.14, E.6).
 - **Physics lives in one place:** fords from the river model, headlands from the tide margin, freezing levels from measured soundings, tides from NOAA La Push predictions.
-- **Park conditions** (yours, confirmed 2026-10-08): the real 2026 conditions by default ("As researched (Oct 2026)"), and "Timeless" one tap away. A trip falls in the 12 months after the edition date, and dated closures apply only on their dates (4.7).
-- **Session length** (yours, confirmed): about 20 to 30 minutes for a two-night book, about 7 minutes to the first trail page in a first book, and 5 to 7 minutes per hiking day (1.1, 3.5).
+- **Park conditions** (yours, confirmed 2026-10-08): the real 2026 conditions by default ("As researched (Oct 2026)"), and "Timeless" one tap away. A trip falls in the 12 months after the conditions date, and dated closures apply only on their dates (4.7).
+- **Session length** (yours, confirmed): about 20 to 30 minutes for a two-night trip, about 7 minutes to the trail on a first trip, and 5 to 7 minutes per hiking day (1.1, 3.5).
 - **Rules can be broken**, with gentle ranger cards, Leave No Trace costs and wildlife consequences. **Only three hard blocks:** a pack that won't close, a load you can't lift (over about 60% of body weight), and routing through a closed trail.
-- **Money:** prices and a receipt are shown, with no budget. The Shoestring wallet comes later (M6).
-- **Gear comes from** your closet at home, the WIC's loaner canister, the store and the outfitter counter (rent or buy). For Olympus you can also hire Ranger Jon.
-- **Store name:** Fernwood Mercantile in Port Angeles.
-- **Party: solo** (yours). The **104 Boyz** are cameos only: other hikers you meet on the trail (a tip, a trade, a warning) and pre-filled entries in the Trail Register. Their names and quirks are still to come from you (7.11). There are no companions in v1. The engine keeps party support, but no milestone promises companions.
-- **The Boyz in the register** (yours, 2026-10-08: *"A"*, decision 19): pre-filled *Remembered* entries with **fictional misadventure deaths and funny epitaphs**, good-natured and never mean. You still meet the same Boyz alive on the trail, and the narrator never explains it (7.11). The repo is public, so the game uses first names or nicknames unless you confirm the friends are fine with full names ([still to come](#still-to-come-from-you)).
+- **Money:** prices and a receipt are shown, with no budget. Because there is no budget, the three stores differ in kind, not only in price (5.2). The Shoestring wallet comes later (M6).
+- **Gear comes from** the shed at the cabin, the WIC's loaner canister and the three stores in Port Angeles (rent or buy at the gear shop). For Olympus you can also hire Ranger Jon.
+- **Three stores in Port Angeles** (yours, decision 27): a general store in the spirit of Swain's (cheap, heavy, bombproof), a gear shop in the spirit of Brown's Outdoor (light, technical, pricey, sometimes fragile) and a boutique in the spirit of MOSS (Pacific Northwest style and morale). Their in-game names are fictional and yours to write: `{STORE_GENERAL}`, `{STORE_GEAR}` and `{STORE_BOUTIQUE}` until then (5.2).
+- **Party: solo** (yours). The **104 Boyz** are cameos only: other hikers you meet on the trail (a tip, a trade, a warning) and pre-filled entries in the Trail Register, plus, at the cabin, friends around on summer weekends (2.2). Their names and quirks are still to come from you (7.11). There are no companions in v1. The engine keeps party support, but no milestone promises companions.
+- **The Boyz in the register** (yours, 2026-10-08: *"A"*, decision 19): pre-filled *Remembered* entries with **fictional misadventure deaths and funny epitaphs**, good-natured and never mean. You still meet the same Boyz alive on the trail, and the game never explains it (7.11). The repo is public, so the game uses first names or nicknames unless you confirm the friends are fine with full names ([still to come](#still-to-come-from-you)).
 - **Mount Olympus: Ranger Jon, or alone** (yours). The only guide you can hire is **Ranger Jon**, a ranger moonlighting as a guide (a playful liberty: real rangers don't guide climbs), who wears badge #104; his quirk is still to come from you. Or go alone at your own risk: each crevasse crossing is a ♦ with its honest fatal share, and turning back is always offered (4.2).
 - **The 104 wink** (yours): every wilderness permit number starts with 104 (`Permit No. 104-0037`), and Ranger Jon wears badge #104 (12.6).
 - **Bug reports** (yours: *"A, no Mac"*): a **Copy bug report** button in a hidden debug menu. You have no Mac, so the testing plan never needs Safari's Web Inspector (E.11, F.5).
 - **Hosting** (yours, set up 2026-10-08): the repo `FernForager/104-boyz` is public, and GitHub Pages deploys it from GitHub Actions, so the game lives at `fernforager.github.io/104-boyz` (E.9).
-- **Trip date:** you pick it; the ranger suggests the destination's best month; October is allowed with warnings.
-- **Sound:** on after the first tap, in an "ambient" audio session so the silent switch mutes it.
+- **Trip date:** you pick it; the planner suggests the destination's best month; October is allowed with warnings.
+- **Sound:** on after the first tap, in an "ambient" audio session so the silent switch mutes it. No music on the trail (yours, decision 32).
 - **Data:** `gear_catalog.json` names and stats are authoritative (for example `daypack_28`).
 - **First playable: the High Divide and Seven Lakes Basin loop** (yours: *"Gotta be B only because I know that hike"*, then, 2026-10-08, *"The first one should just be High Divide and the 7 Lakes Basin loop either direction"*). The vertical slice ships the whole loop, both directions, as a day or one to three nights or more, with the basin-or-crest fork and every other route choice left to the player (4.3, 15). The Hoh, Glacier Meadows and Mount Olympus with Ranger Jon come after. Appendix B is the primary worked example.
-- **Lake Morgenroth is off the menu** (yours: *"Morgenroth shouldn't be the trip it's an off menu gotta call"*). It is never in the camp list, a preset, a ranger's fill or a first book. The only way to camp there is the hidden phone call to the WIC from the planning chapter. It stays a hand-drawn signature scene, reached by a primitive but findable way trail, and it arrives in M1b, after the slice (4.3, 12.5).
+- **Lake Morgenroth is off the menu** (yours: *"Morgenroth shouldn't be the trip it's an off menu gotta call"*). It is never in the camp list, a preset, a fill or a first trip. The only way to camp there is the hidden phone call to the WIC, from the cabin's phone while you plan. It stays a hand-drawn signature scene, reached by a primitive but findable way trail, and it arrives in M1b, after the slice (4.3, 12.5).
 
 ---
 
@@ -141,103 +166,300 @@ Where the three proposals disagreed, these are the calls. The reasoning is in th
 
 ### 2.1 Three feelings, in order
 
-1. **Reading a Sierra picture book.** Every screen is a page with a picture on top and a few sentences in a message box underneath, the King's Quest way. You turn pages. Nothing is timed. The book waits for you.
-2. **Outfitting for a real trip, Oregon Trail style.** The first chapters are what backpackers actually do: talk to a ranger, check the forecast and the quotas, build an itinerary, buy food, fight the bear canister for space, and decide whether the camp chair is worth a pound.
-3. **A dungeon crawl, old-school rules.** Out on the trail, the mountain asks questions your pack has to answer. A river with no bridge. A ladder at dusk. A headland and a rising tide. A cold, clear night at 4,300 feet. Each answer comes from what you packed, what you know and what you choose, and a bad enough answer, chosen with the odds in plain view, can end the book.
+1. **Home, on the real clock.** An old ranger cabin at Lake Quinault, in today's light and weather. Every trip starts there and ends there. Nothing is timed; the trail waits for you.
+2. **The night before, Oregon Trail style.** What backpackers actually do: spread the map on the table, print the permit, make the town run, fight the bear canister for space, and lay everything out on the deck to decide whether the camp chair is worth a pound.
+3. **A dungeon crawl, old-school rules.** Out on the trail, the mountain asks questions your pack has to answer. A river with no bridge. A ladder at dusk. A headland and a rising tide. A cold, clear night at 4,300 feet. Each answer comes from what you packed, what you know and what you choose, and a bad enough answer, chosen with the odds in plain view, can kill the hiker.
 
-### 2.2 The book
+### 2.2 Home: the old ranger cabin at Lake Quinault
 
-- **One trip is one volume** on a bookshelf (the title screen). Chapters: *Chapter One: In Which a Trip Is Planned*, *Two: In Which We Go to the Store*, *Three: In Which Everything Must Fit*, *Four: In Which We Drive to the Trailhead*, then one chapter per day.
-- **Chapters are retitled after they happen.** *Day Two: In Which the Trail Goes Up* becomes *Day Two: In Which a Jay Steals Lunch*. The volume gets a title at The End: *The Hiker Who Forgot the Stove*.
-- **Page numbers** sit at the foot of the narration box (`- 37 -`), and a red ribbon bookmark marks the autosave.
-- **The back cover** sums up the trip: the route map, miles, the score, what the pack taught, and the moral. A book that ends in death gets a **memorial page** instead, with a black ribbon beside its title: the last look anyone gets at it before the full wipe (9.3, 9.8).
+*Decisions 22, 26, 34 and 35. The full draft behind this section, with every screen, is `design/drafts/frame_home.md`. The art brief is 11.11.*
 
-### 2.3 The voice: deadpan Sierra
+#### What it is
 
-Your call (2026-10-08): the narrator is **deadpan Sierra, dry but kind, written for adults.** Think of the patient, unimpressed voice that answered your typing in a 1980s Sierra game, now narrating a picture book.
+Home is **Ranger Jon's old ranger cabin at Lake Quinault**, on the wet southwest side of the park (decision 34). You have the keys. Every trip starts and ends there: you plan at its table, keep your gear in its shed, drive out from its lawn and come home to its porch.
 
-- **The narrator** speaks in the **third person, past tense**, states the facts and lets the reader do the laughing: *"Robin looked at the river for a long time. The river did not look back."* It never explains a joke and never raises its voice. About once a book it turns to the reader: *"You may be wondering about the watermelon. So was Robin."*
-- **Look boxes speak Sierra's second person.** Tapping the picture is KQ's LOOK (2.4), and the pop-up answers the way KQ did: *"You see a marmot. It sees you. Neither of you is impressed."*
-- **The trip log** is a second voice: one terse line a day, first person, kept in the Journal tab. It is flavor only and scores nothing: *"Day 2. Elk Lake. Feet: damp. Spirits: high. Slugs counted: 9."*
-- **Animals never talk.** They are wildlife: beautiful moments, hazards and food thieves (7.11). The narrator may say what an animal seems to be doing, sparingly, and never gives it lines: *The marmot appeared to be supervising.* Rangers, shopkeepers and other hikers do talk, and all have fictional names, Ranger Jon (4.2) among them, except the 104 Boyz, who appear by their own first names or nicknames (7.11).
-- **Death gets the same voice** (your call, 2026-10-08: deadpan Sierra, dry but kind; 9.5): aimed at the weather, the water, the dark or the gear, never at the player and never at the loss. It is written for adults, and it never mocks, never gloats and never gets gory.
-- **A refrain ends each night page:** *And far away, the river went on talking to itself.* (On the coast, the sea goes on folding and unfolding. On Olympus, the glacier goes on being very old.)
+**The game never tells a backstory.** The place does it instead: a flat ranger's hat on a peg, badge #104 on a nail, a guest book with older handwriting than yours. Everyone understands a cabin, so a stranger is at home in the first second. A player who has met Ranger Jon on Olympus (4.2) can put it together. An insider sees whose cabin it was at once.
 
-**Ten voice rules** (these replace `storybook.md` 10.1, which was written for a younger reader):
-1. Write for adults. Read a page aloud once: it should sound like a dry, patient Sierra narrator, not a bedtime story.
-2. Short sentences, concrete nouns: cedar, gravel, wool, steam.
-3. Deadpan. Understate, state the fact and stop. No exclamation marks in narration.
-4. Kind, not cute. Humor aims at weather, rivers, jays, gear and plans, never at the player. (A Larry moment may tease the hiker's dignity, gently, 2.6.)
-5. Real public places and real nature; fictional names for private businesses.
-6. Safety is told as story. Only the Ranger's Note speaks plainly.
-7. Animals never talk and never help. At most one "seemed to" per chapter.
-8. Items are characters. The narrator notices what you brought and what you didn't.
-9. Turning back is never a failure.
-10. At least one quiet page per chapter where nothing happens but the place.
+**The cabin stays generic.** It reads as any old ranger cabin: no sign, no address, no road name and no shoreline that would place it. Its sun and weather are computed for the center of the lake, never for a real building's position. It is drawn from a written description of your photos, never from the photos, and no photo enters the repo (11.11).
 
-**Words to love:** scree, tarn, krummholz, alpenglow, cairn, moraine, nurse log, blue hour, huckleberry. **Words to avoid:** epic, crush, insane, loot, grind, real brand names, gamer jargon (HP, XP) in the prose, anything cute (critters, tummy, oopsie), and anything explicit: the Larry moments get their laughs from timing and the censor bar, never from a described body (2.6).
+**The geography is honest.** Port Angeles, with the WIC and the three stores, is about three hours from Quinault by road, and Forks about one hour ([NPS, Visiting Quinault](https://www.nps.gov/olym/planyourvisit/visiting-quinault.htm)). The Sol Duc trailhead is 69 minutes past Forks in the region data, so the first playable's drive is about 2 hours 10 minutes from the cabin.
+
+- **The town run is the whole day before.** It costs no trip time (3.1).
+- **The departure-morning drive sets Day 1's start** (3.3). Leave at 6:15 and you are at the Sol Duc trailhead at about 8:25.
+- **The Quinault WIC is closed for 2026** (`south_quinault_skok.json`), so the game's WIC is the one in Port Angeles.
+
+#### The places are the menus
+
+| Place | A tap opens | What changes it |
+|---|---|---|
+| **The screen door** | Plan an Open trip: the map table and the permit (3.1) | The printed permit pinned to the door |
+| **The chalkboard** by the steps | The Hike of the Day | Today's route in chalk, the weather in chalk marks, your time, the streak in tally marks |
+| **The peak** above the trees | FKT attempts on the big routes | The snow line follows the season; alpenglow at dusk |
+| **The shed** | Your gear, then the flat lay (6.1) | The door open after a town run; a plank sign on its wall for each route you finish |
+| **The car** | Drive: to town, or to the trailhead once packed | Grocery bags on the seat after town; the pack in the back |
+| **The fire bowl** | Stories: your trip reports and photos, and the hiker's card | Lit on homecoming evenings; ashes otherwise; a cap of snow in winter |
+| **The register post** at the lawn's edge | The Trail Register (9.8) | A fresh pencil mark when a line is added |
+| **The mailbox** | Settings, Credits, the Ranger's Bookshelf, Export and Import | The flag goes up when an update arrives |
+| **The hot tub** | The soak, only after a big hike | Covered and cold otherwise, and then only a Look |
+| **The guest book** on the porch table | Sign in a new hiker | Open on the first launch and after a death |
+
+The chalkboard and the peak belong to the Hike of the Day and FKT attempts (decisions 23 to 25), whose rules are being written in. Here they only get their places.
+
+**How the places behave:**
+
+- **One tap goes there.** A long-press shows the place's name.
+- **Labels fade as you learn.** Each place shows its name until you have used it once, then a small dot.
+- **Everything is also a button.** A big **next-step button** and a **porch rail** of buttons under the picture repeat every place, so nobody has to hunt, and VoiceOver reads them. The picture has alt text, as every picture does (11.9).
+- **Hit areas are at least 44 pt** (12.1), wider than the art where they need to be. When two overlap, the nearest center wins.
+- **Things that do nothing only answer a Look:** the badge, the hat, the mole hills, the chairs, the maples, the dog. No function ever hides in a Look.
+
+**The next-step button** always names what the current trip needs next (all wording DRAFT):
+
+| Where you are | The button |
+|---|---|
+| A hiker with no plan | Plan a trip |
+| A plan drafted | Print the permit |
+| Permit printed, overnight | Drive to town |
+| Back from town, or a day hike planned | Lay out your gear |
+| Packed | Leave in the morning (time chips show the arrival) |
+| A trip in progress | No home: the app opens on the trail |
+| Just home | Read the trip report, then the tub if it glows |
+
+When the button is idle and today's hike is unplayed, a second line offers the Hike of the Day. Going back is free until *Start walking* (3). After that, nothing goes back.
+
+#### A live scene, on Lake Quinault's clock
+
+The cabin runs on Lake Quinault's own clock, the way *Sword & Sworcery* syncs its moon to the real one ([Wikipedia](https://en.wikipedia.org/wiki/Superbrothers:_Sword_%26_Sworcery_EP)). Open the game at six in the morning and it is dawn at the cabin. On a rainy Quinault night, it rains on the roof.
+
+- **Pacific time, always.** A player in New York at 10 pm sees the cabin at 7 pm. Sunrise and sunset come from a small sun function for the lake's center.
+- **The time of day uses the existing remaps** (11.4): Day, Dusk, Blue hour and Night. Dawn borrows the Dusk table, so the peak goes pink in the morning too.
+- **The season follows the art brief's table** (11.11): bare mossy maples in spring, full leaf in summer, sage and cream leaves in autumn, snow in winter when the forecast says snow.
+- **The weather comes from the same scheduled build that bakes the Hike of the Day's forecast** (decision 31). It also bakes one for the lake, from api.weather.gov, which asks every app for a User-Agent ([NWS API docs](https://www.weather.gov/documentation/services-web-api)). The forecast's words pick an overlay: clear, cloudy, rain, fog or snow. Offline, or with a forecast more than two days old, the cabin falls back on the month's climatology.
+- **The moon is the real phase,** worked out from the date.
+- **One exception: coming home.** The homecoming shows the trip's own return time and season, then fades back to now.
+
+Opening the game becomes a small ritual, and it keeps the daily honest: today at the cabin is today's Hike of the Day. The cost is one sun function, one table and one small file the daily build already writes.
+
+#### What you've done shows
+
+| Kind | What you see | When |
+|---|---|---|
+| This trip | The permit pinned to the screen door | Printed |
+| This trip | Grocery bags on the porch steps | Back from town |
+| This trip | A tiny flat lay on the deck boards | Laid out |
+| This trip | The pack leaning on the car | Packed |
+| The hiker | Plank route signs on the shed wall, up to six | Each new route finished |
+| The hiker | Tally marks on the chalkboard | The daily streak |
+| The hiker | A race bib on a porch post | An FKT record |
+| The hiker | A gold sketch in the arched gable window | The Bonfire Lily, found and left |
+
+**The lily's sketch is allowed to be gold.** It is the lily's own mark, the one place outside the lily itself where gold may appear (11.1). Nobody who hasn't found the lily ever sees it, so the cabin never advertises the flower. **The full wipe takes every career mark** (9.8).
+
+#### Coming home
+
+1. **The car at the trailhead.** A stamp names the ending, with the last split and the trail hours (9.3, 12.22).
+2. **The drive home.** One screen, with an optional stop for pie (3.3).
+3. **The cabin at the trip's own arrival time and season.** The car pulls in. The fire bowl is lit if it's evening.
+4. **The trip report opens** (9.7). Share it or don't.
+5. **The porch.** After a big hike, the tub's cover is off and steam rises, and the next-step button says so. Tap the tub for the soak (12.24). It waits for you until your next trip leaves.
+6. **Then the cabin catches up to the real now,** with a slow cross-fade.
+
+Nothing on the way home asks you to type. The trip report's title is picked from three, not written.
+
+#### The hot tub: a reward after a big hike
+
+The tub is **a reward, not the home and not the frame** (decision 34, revising 28): a green inflatable tub on a small low deck at the porch's right corner. It is covered and cold until you come home from a big hike.
+
+**What "big" means (proposed).** A trip is big when the hiker comes home alive having done one of these:
+
+- walked at least **8 trail hours**,
+- summited Mount Olympus, or
+- finished an FKT attempt.
+
+**Trail hours = miles / 2.4 + feet climbed / 1,300.** That is the base of the movement formula (7.4) at Regular pace, without its load, pace or weather terms, summed over what was actually walked. Side trips count, and so does a walk that turned back. So the number measures the hike, not the hiker, and it is the same for everyone. The trip report shows it.
+
+| Trip (region data) | Miles · climb | Trail hours | Big? |
+|---|---|---|---|
+| Sol Duc Falls | 1.6 · 260 ft | 0.9 | No |
+| Deer Lake overnight | 7.4 · 1,950 ft | 4.6 | No |
+| Mink Lake and the Little Divide | 13.6 · 2,920 ft | 7.9 | Just no |
+| Lunch Lake, out and back | 15.6 · 4,130 ft | 9.7 | Yes |
+| The High Divide loop, either way | 18.4 · 4,400 ft | 11.1 | Yes |
+| Olympus Guard Station and back | 18.2 · 813 ft | 8.2 | Yes |
+| The Blue Glacier classic | 37.8 · 5,906 ft | 20.3 | Yes |
+
+- **Every finished High Divide loop gets the tub,** so the first playable's reward is there for anyone who finishes it.
+- **A rescue or a turnaround counts what you actually walked.** A death gets no tub.
+- **The Hike of the Day uses the same rule.**
+- **Why 8 hours:** it splits the Sol Duc side's classic trips cleanly into walks and real days out. The number lives in `rules/tuning.json`.
+
+**The soak** (12.24) is a full scene with no chrome: night, stars, the real moon, steam off the tub, and a floating thermometer at 104°F, the usual safe maximum for hot tub water ([CPSC](https://www.cpsc.gov/content/cpsc-warns-of-hot-tub-temperatures)). The cabin's music plays, since music belongs at home and at key moments (decision 32). The trip's best three to five moments come back from the log, one at a time, picked by the same weights that pick the day headlines (9.7). When the crew is around, they are in the tub too, and each gets one line (`{BOY_n_TUB}`, yours to write). You can get out any time, and the share card is offered once, at the end.
+
+**No drink in the tub by default.** No drink ever shows in the cabin scene, because the car is in it (lint T05). The soak has no car in frame, so a can on the tub's edge would pass the lint; that is your call ([still to come](#still-to-come-from-you)).
+
+#### After a death
+
+- **The five death screens stay exactly as approved** (9.5, 12.17): the death box, YOU PERISHED, Leave No Trace, the epitaph and GAME OVER.
+- **Then back to the cabin, at dusk** (12.25). The porch light is on and one Adirondack chair is empty. The tub is covered and the fire bowl is cold.
+- **The full wipe plays here.** The trip reports by the fire bowl and the route signs on the shed wall crumble to dust, with the same renderer as the bones (11.10). The shed door swings shut on its starting shelves. With Reduce Motion it is a cross-fade.
+- **The register post gets a fresh mark,** and two buttons follow (DRAFT): *Read the register* and *Sign the guest book*.
+
+**Only the Open hiker dies this way.** A death on the Hike of the Day is a DNF: the chalkboard says so, the streak resets, and the Open hiker is untouched (decision 25). How much of the death sequence a daily death plays is settled with the modes.
+
+#### The Trail Register lives at the cabin
+
+- **The register box stands on a post at the edge of the lawn,** where an old trail leaves into the maples. Old ranger stations often sit at a trailhead.
+- **Its contents are unchanged:** Best trips, and *Remembered*, with every GAME OVER and the Boyz' pre-filled lines (9.8), and the 104 permit counter (12.6).
+- **The epitaph is still signed at the trailhead** where the trip began, as approved (decision 1, 9.5). It is the same register you read at the cabin's post. Signing it at the cabin's post instead, so the name goes home, is your call ([still to come](#still-to-come-from-you)).
+- **Daily DNFs stay on the chalkboard,** not in *Remembered* (proposed).
+
+#### Near-universal: the Boyz and 104 are easter eggs
+
+*"I am making this game for the 104 boyz but I want it to also be near universal"* (decision 34). So everything about the Boyz and 104 is an egg: it rewards an insider and costs a stranger nothing.
+
+| The egg | A stranger sees | An insider gets |
+|---|---|---|
+| The tub's thermometer at 104°F | A hot tub at the usual maximum | The crew's name |
+| Badge #104 on a nail by the door | An old ranger's badge (a Look) | Jon's badge |
+| Permit numbers 104-0001 and up | A permit number | The wink (decision 14) |
+| A flat hat on a peg; "J." in the guest book | Whoever had the cabin before | Jon |
+| The crew on summer weekends: tents on the lawn, camp chairs, a cooler, a dog | Friends visiting | The Boyz, by their quirks (`{BOY_n_QUIRK}`) |
+| The crew's lines in the tub | Friends joking | Inside jokes (`{BOY_n_TUB}`) |
+| Old signatures in the guest book | Old signatures | The Boyz' entries (`{BOY_n_GUESTBOOK}`) |
+| The Boyz in *Remembered* | Old register lines | Their fictional deaths (decision 19) |
+| A clam gun leaning on the shed | A tool | Jon's razor clamming, and the door to that minigame if the minigames use it |
+
+**Rules for every egg:**
+
+- **It is a Look or a cosmetic,** never a function. Nothing is required, nothing is explained, and nothing is private.
+- **You write every word** (decision 21).
+- **The consent gate stays.** `{BOYZ_CONSENT}` in Credits still blocks a release build (12.20).
+- **The crew is around (proposed):** on real summer weekends, from 5 pm Pacific on Fridays and Saturdays, June to September; the evening of any big homecoming; and any dates you pick (`{BOYZ_DATES}`).
+
+**What a stranger never meets** is the word Boyz, an explanation of 104 or a name they are supposed to know.
+
+#### First launch
+
+| Step | What happens | About |
+|---|---|---|
+| 1 | The cabin draws itself in, at the real time of day | 10 s |
+| 2 | **The key lockbox** on the porch post asks three locals' questions (the opener from 2.6, moved). Wrong answers open it too | 30 s |
+| 3 | **The guest book:** type a name, or tap suggest (12.4) | 20 s |
+| 4 | The porch, with labels on. The next-step button says to plan your first trip | — |
+| 5 | The first trip (3.6) | about 7 min |
+
+The Hike of the Day is on the chalkboard from the first minute, and nothing gates it. Teaching new players beyond this minimum is still open.
+
+### 2.3 Who speaks: the voice
+
+Your calls: the voice is **deadpan Sierra, dry but kind, written for adults** (decision 5), and there is **no storybook narrator** (decision 22). Something still has to say what is happening. There are three ways to do it, shown here on the same moment, the fork at the rim of the Seven Lakes Basin (12.12). Every line below is DRAFT, there only to show the shape. **The words are yours** (decision 21).
+
+**A. You, now.** Terse second person, present tense, in the Sierra box. It is King's Quest's own voice: its message boxes spoke to "you."
+
+> (DRAFT) The basin lies below. Clouds are stacking up over Olympus. You have half a liter of water.
+
+- **For:** it talks to the player, not about a character. It already matches the Look boxes and the YOU PERISHED lines (*You have died of...*). It needs no name, which suits the Hike of the Day's fresh hiker. The deadpan survives intact.
+- **Against:** it can sound like an old text adventure if the writing slips.
+
+**B. The log.** The hiker's own trail log, in the first person, terse, past tense.
+
+> (DRAFT) 1:50 pm. The rim. Clouds over Olympus. Half a liter left.
+
+- **For:** it is entirely backpacking's own stuff, and it becomes the trip report word for word.
+- **Against:** a log can't hand you a decision in the moment without sounding odd, and it clashes with the second-person death lines.
+
+**C. No narrator.** The world speaks for itself: a caption, signs, the map, the permit, rangers and other hikers in quotes. The picture and the sound do the rest, as in *Lonely Mountains: Downhill*.
+
+> (DRAFT) `The rim · 1:50 pm · 4,900 ft` · `Thunder after 3 (40%)` · `Water 0.5 L`
+
+- **For:** the fewest words for you to approve, and it travels well.
+- **Against:** it loses the dry humor that the Larry moments and the death boxes are built on.
+
+**Recommended: A for the moment, B for the record.** The live screens speak in short second-person lines, and only when they add something the picture and the sound can't: C's discipline, as a rule. Every day also writes the hiker's first-person log, which becomes the trip report's body (9.7). The Boyz' voices are heard on the trail in their cameos and, at home, only in the tub. Until you choose, the examples in this document follow the recommendation where they were rewritten for it; older examples still in the third person are drafts of the same moments.
+
+**Look boxes keep Sierra's second person** in every option. Tapping the picture is KQ's LOOK (2.4), and the pop-up answers the way KQ did: *"You see a marmot. It sees you. Neither of you is impressed."*
+
+**Animals never talk.** They are wildlife: beautiful moments, hazards and food thieves (7.11). The voice may say what an animal seems to be doing, sparingly, and never gives it lines: *The marmot appears to be supervising.* Rangers, shopkeepers and other hikers do talk. All have fictional names, Ranger Jon (4.2) among them, except the 104 Boyz, who appear by their own first names or nicknames (7.11).
+
+**Death gets the same voice** (decision 5; 9.5): aimed at the weather, the water, the dark or the gear, never at the player and never at the loss. It is written for adults, and it never mocks, never gloats and never gets gory.
+
+**The end of each night** used to close on a refrain (*And far away, the river went on talking to itself.*). Under the recommended voice it can keep one closing line, or let the river itself be heard instead (decision 32). Your call.
+
+**Ten voice rules** (these replace `storybook.md` 10.1 and the old narrator rules):
+1. Write for adults. Read a line aloud once: it should sound like a dry, patient Sierra game, not a bedtime story.
+2. Second person, present tense, on the live screens (under recommendation A). The hiker's name never appears in the moment; it is on the permit, the log, the register and the report.
+3. At most two short sentences at a stop: about 140 characters. Many stops have none, and the picture and the sound carry them.
+4. Deadpan. Understate, state the fact and stop. No exclamation marks.
+5. Kind, not cute. Humor aims at weather, rivers, jays, gear and plans, never at the player. (A Larry moment may tease the hiker's dignity, gently, 2.6.)
+6. Real public places and real nature; fictional names for private businesses.
+7. Safety is told as story. Only the Ranger's Note speaks plainly.
+8. Animals never talk and never help. At most one "seems to" a day.
+9. Items are characters. The voice notices what you brought and what you didn't. Turning back is never a failure.
+10. At least one quiet stop a day where nothing happens but the place.
+
+**Words to love:** scree, tarn, krummholz, alpenglow, cairn, moraine, nurse log, blue hour, huckleberry, splits, base weight. **Words to avoid:** epic, crush, insane, loot, grind, real brand names, gamer jargon (HP, XP) in the prose, anything cute (critters, tummy, oopsie), the retired book words (book, chapter, page, volume, shelf), and anything explicit: the Larry moments get their laughs from timing and the censor bar, never from a described body (2.6).
 
 ### 2.4 The King's Quest look and manners
 
-- The status line reads `Score: 22 of 131     Sound: on`.
-- **Every in-book page puts its narration in a Sierra message box:** a snow-white fill, a double brick-red border and ink-black text in an EGA-style bitmap font, with a small inner margin (the colors are the palette's, 11.1). It is drawn in CSS around real HTML text, so VoiceOver still reads it. The choices are matching boxes below it (12.2). This box, more than anything, is what makes a page look like a Sierra game and not a web page with a picture on it.
-- **Tapping the picture is KQ's LOOK.** A smaller pop-up box of the same style describes what you tapped in Sierra's second person (2.3), costs no game time, and gives +1 score the first time you look at that thing in a book.
+- The status line reads `Score: 22 of 131` with the mile, the clock and ≡ (12.2).
+- **Every trail stop puts its words in a Sierra message box:** a snow-white fill, a double brick-red border and ink-black text in an EGA-style bitmap font, with a small inner margin (the colors are the palette's, 11.1). It is drawn in CSS around real HTML text, so VoiceOver still reads it. The choices are matching boxes below it (12.2). This box, more than anything, is what makes a stop look like a Sierra game and not a web page with a picture on it.
+- **Tapping the picture is KQ's LOOK.** A smaller pop-up box of the same style describes what you tapped in Sierra's second person (2.3), costs no game time, and gives +1 score the first time you look at that thing on a trip.
 - Pictures **draw themselves in** over about 0.8 seconds, outlines first and then fills flooding in, the way AGI games drew on a 1984 PC. A tap skips it.
-- **Death comes the Sierra way, then the Oregon Trail way.** Five pages, in order (9.5, 12.17):
+- **Death comes the Sierra way, then the Oregon Trail way.** Five screens, in order (9.5, 12.17):
   1. **The death box.** The scene drains to cold blue-grays, and a Sierra message box says what happened in a deadpan, kind line that never mocks the player, with a real Ranger's Note on what would have prevented it.
-  2. **YOU PERISHED.** A black page with big blocky EGA letters, and under them one line in the second person, Oregon Trail style: *You have died of a rising tide.* A public-domain funeral march plays on the PC speaker.
+  2. **YOU PERISHED.** A black screen with big blocky EGA letters, and under them one line in the second person, Oregon Trail style: *You have died of a rising tide.* A public-domain funeral march plays.
   3. **Leave No Trace.** The picture of the spot where it happened, with a small skeleton lying beside the pack. Over about seven seconds the bones and the pack crumble pixel by pixel into dust, the dust blows away, and the place is left exactly as it was before the hiker came. A Sierra box says only *Leave No Trace.*
-  4. **The epitaph.** Type your own line, tap the dice for a short line from the early accounts of the park's first explorers (preferring one that suits the cause), or skip. It goes into the Trail Register at the trailhead: there is no tombstone in the park.
-  5. **GAME OVER.** The memorial page. Then the hiker is gone, with their skills and their shelf, and only the Trail Register remembers them (9.8).
+  4. **The epitaph.** Type your own line, tap the dice for a short line from the early accounts of the park's first explorers (preferring one that suits the cause), or skip. It goes into the Trail Register: there is no tombstone in the park.
+  5. **GAME OVER.** The GAME OVER card. Then the cabin at dusk, where the wipe takes the hiker's trip reports, and only the Trail Register remembers them (2.2, 9.8).
 
 ### 2.5 Hard, but fair
 
-- **Plan well and it's easy.** A well-packed hiker on a sensible itinerary sees mostly joy cards, and their risky choices mostly show 90% or better. Sensible trips in season finish happily at least 95% of the time (at least 85% in the shoulder season, when the ranger suggests a better month), and a sensible plan ends in death at most 1 time in 200, in the model far less (F.1).
-- **Death is real, and final.** In Old School, the only mode v1 shows, the hiker can die and the book ends there, with no restore, and the hiker's whole shelf goes with them. That is what makes the planning matter.
-- **No ambushes.** Anything that can end a trip is foreshadowed at least one page earlier (the forecast, a ranger's remark, "the light is going amber", the river "talking louder") and passes through a choice the player made. A book can end only at a ♦ that showed its fatal share, or at the end of a crisis chain after at least two warnings the player walked past (9.5). Never on a random draw.
-- **There is always a way out.** Every moment that could end the book offers at least one sure choice: turn back, wait for the tide, make camp, bail out or call for help. It costs time, comfort or score, never the hiker.
-- **Turning back is honored.** *The End, Sooner Than Planned* is a real ending with its own plate: *"The mountain will keep."*
-- **Bad news is told kindly and specifically.** The narration names the cause gently so the lesson lands. State changes go in a pencil strip under the narration, not in the prose. Serious news is always followed by a choice. A death is told the same way: deadpan, kind, never mocking, never gory.
-- **A gentler mode, kept in a drawer.** The engine keeps a Storybook mode with every rule above except the last rung (its worst case is a kind ranger with a thermos), on its own shelf, but v1 never shows it (9.4).
+- **Plan well and it's easy.** A well-packed hiker on a sensible itinerary sees mostly joy cards, and their risky choices mostly show 90% or better. Sensible trips in season finish happily at least 95% of the time (at least 85% in the shoulder season, when the planner suggests a better month), and a sensible plan ends in death at most 1 time in 200, in the model far less (F.1).
+- **Death is real, and final.** In Old School, the rule of Open play, the hiker can die, with no restore, and the hiker's whole career goes with them. That is what makes the planning matter.
+- **No ambushes.** Anything that can end a trip is foreshadowed at least one stop earlier (the forecast, a ranger's remark, "the light is going amber", the river "talking louder") and passes through a choice the player made. A hiker can die only at a ♦ that showed its fatal share, or at the end of a crisis chain after at least two warnings the player walked past (9.5). Never on a random draw.
+- **There is always a way out.** Every moment that could kill offers at least one sure choice: turn back, wait for the tide, make camp, bail out or call for help. It costs time, comfort or score, never the hiker.
+- **Turning back is honored.** *Sooner Than Planned* is a real ending with its own stamp at the car and a line of its own (DRAFT: *"The mountain will keep."*).
+- **Bad news is told kindly and specifically.** The words name the cause gently so the lesson lands. State changes go in a pencil strip under the box, not in the prose. Serious news is always followed by a choice. A death is told the same way: deadpan, kind, never mocking, never gory.
+- **A gentler mode, kept in a drawer.** The engine keeps a gentle mode with every rule above except the last rung (its worst case is a kind ranger with a thermos), with its own hikers, but v1 never shows it (9.4).
 
 ### 2.6 Larry moments (PG-13)
 
-Your call (2026-10-08): *"I want it to have some leisure suit Larry in it too. like swimming naked in heart lake. Drinking a hazy ipa at morgrnroth. Smoking a doobie at st peters gate."* Asked how spicy: *"Pg 13 but beer and weed."* So: a dash of *Leisure Suit Larry*, rated PG-13, with beer and weed in (decision 18). Al Lowe's *Leisure Suit Larry in the Land of the Lounge Lizards* (1987) was Sierra's own comedy, so a dash of it belongs in a Sierra homage. Ours is cheeky innuendo, bad timing and a pixel censor bar, told by the same deadpan narrator (2.3). Nothing explicit, ever. The game itself never names Larry: inside the content, a Larry moment is any card tagged `larry`.
+Your call (2026-10-08): *"I want it to have some leisure suit Larry in it too. like swimming naked in heart lake. Drinking a hazy ipa at morgrnroth. Smoking a doobie at st peters gate."* Asked how spicy: *"Pg 13 but beer and weed."* So: a dash of *Leisure Suit Larry*, rated PG-13, with beer and weed in (decision 18). Al Lowe's *Leisure Suit Larry in the Land of the Lounge Lizards* (1987) was Sierra's own comedy, so a dash of it belongs in a Sierra homage. Ours is cheeky innuendo, bad timing and a pixel censor bar, in the same deadpan voice (2.3). Nothing explicit, ever. The game itself never names Larry: inside the content, a Larry moment is any card tagged `larry`.
 
 **The rules for every Larry moment:**
 - **Cheek, not crude.** Innuendo and timing; never a described body, a slur or a joke at the player. The joke may tease the hiker's dignity, gently, the way Larry's games did.
 - **Real stakes.** Each one moves meters, time, food, score or Leave No Trace, and any rolled choice in it shows its odds like every other (8.1).
-- **Fair like everything else.** None ends a book except by the two fair paths (9.5), and each offers a sure choice.
-- **Never near a car.** No drink and no joint on a drive page, at a trailhead, at the car, on an ending plate, or in any line that ties them to driving (lint T05, F.3). Both counters that sell them show 21+ (5.2).
+- **Fair like everything else.** None kills except by the two fair paths (9.5), and each offers a sure choice.
+- **Never near a car.** No drink and no joint on a drive screen, at a trailhead, at the car or the tailgate, on an ending stamp, anywhere in the cabin scene (the car is in it), or in any line that ties them to driving (lint T05, F.3). Both counters that sell them show 21+ (5.2).
 - **Overnight only, and never on the way out.** A day hike's grab-lunch stop has no cooler and no door to Second Growth (5.3). *Crack the IPA* and *Light it* are offered only on an overnight trip: at a camp where the hiker sleeps that night, or on a layover day's side trip from that camp. Never on a day that ends at the car, and never on the walk-out day. The trail's other Larry moments keep the same rule, the broadest reading of decision 18: the swim and the bold marmot come only on an overnight trip, never on a day hike or the walk-out day (a lead call). The opener and The Steaming Fern Lodge are off the trail, and serve no drink and no joint (T05).
-- **Out of sight at the car.** Beer and the pre-roll can be taken out of the pack only in the pack chapter. The last look never lists them, and the back cover leaves them out of its lists, *What the pack taught* included (3.3, 9.7).
-- **Rare, where the game deals them.** The Director deals at most one Larry card a day and two a book (8.4): the bold marmot, the permit check on a legal night, the thin tent wall. An off-permit night is different: its ranger is a forced roll every such night, outside the cap, and when a ranger comes, the permit-check card plays (3.7). A tile the player starts (the swim, *Crack the IPA*, *Light it*) is not dealt, so it is not capped: it costs what it costs, and the canister limits how many cans come along. The opener and The Steaming Fern Lodge (a drive chip) don't count either.
+- **Out of sight at the car.** Beer and the pre-roll can be taken out of the pack only in the flat lay at the cabin. The tailgate never lists them, its flat lay draws the bear can closed, and the trip report leaves them out of its lists, *What the pack taught* included (3.3, 9.7).
+- **Rare, where the game deals them.** The Director deals at most one Larry card a day and two a trip (8.4): the bold marmot, the permit check on a legal night, the thin tent wall. An off-permit night is different: its ranger is a forced roll every such night, outside the cap, and when a ranger comes, the permit-check card plays (3.7). A tile the player starts (the swim, *Crack the IPA*, *Light it*) is not dealt, so it is not capped: it costs what it costs, and the canister limits how many cans come along. The opener and The Steaming Fern Lodge (a drive chip) don't count either.
 - **The censor bar.** A black bar, absurdly big for a 7x18 hiker, with CENSORED in small snow-white pixel letters, slammed on with a low blip (11.6, 13.2).
-- **One switch.** Every Larry card carries the `larry` tag, and `flags.larry` is on in every v1 build, main and preview. If the hidden Storybook mode is ever released for a younger player (9.4), the switch can go with it.
+- **One switch.** Every Larry card carries the `larry` tag, and `flags.larry` is on in every v1 build, main and preview. If the hidden gentle mode is ever released for a younger player (9.4), the switch can go with it.
 
-**The opener: a quiz for locals** (first launch only). The original *Larry* opened with an "adults only" trivia quiz. Ours asks three questions only a Pacific Northwest local would know, dealt from a pool of about twelve, each with a source: how to say *Sequim*, what a *sunbreak* is, what *Hoh* rhymes with, what locals call a Canada jay. A right answer gets *"Welcome home."* A wrong one gets *"Nice try, tourist."* Everyone gets in anyway. It takes about 30 seconds, comes before the bookshelf (so a first book's 7 minutes start after it), and never comes back, not even after a death (wireframe in 12.3).
+**The opener: a quiz for locals** (first launch only). The original *Larry* opened with an "adults only" trivia quiz. Ours asks three questions only a Pacific Northwest local would know, dealt from a pool of about twelve, each with a source: how to say *Sequim*, what a *sunbreak* is, what *Hoh* rhymes with, what locals call a Canada jay. A right answer gets *"Welcome home."* A wrong one gets *"Nice try, tourist."* Everyone gets in anyway. It is now the cabin's **key lockbox** on the porch post: the key is inside, and the box wants three answers, right or wrong (2.2). It takes about 30 seconds, comes before the guest book (so a first trip's 7 minutes start after it), and never comes back, not even after a death (wireframe in 12.3).
 
-**Skinny dipping in Heart Lake** (M1a). Heart Lake sits at 4,780 ft just below the crest, a small lake shaped like a heart and fed by snow. At camp there, or on a stop at the lake during an overnight trip (the Heart Lake landmark page, passing by day or walking up from a camp nearby; never on a day hike or the walk-out day, and it costs 30 to 60 minutes), the *Swim (brr)* tile (12.14) offers three ways in: feet only (sure, a little joy), in your shorts (sure: spirits up, soaked, a warmth cost), or **skinny dipping**, the biggest spirits lift a swim can give and the biggest warmth cost. Then, on the page:
-- **The censor bar**, every time (wireframe in 12.21; Appendix D, page 25).
+**Skinny dipping in Heart Lake** (M1a). Heart Lake sits at 4,780 ft just below the crest, a small lake shaped like a heart and fed by snow. At camp there, or on a stop at the lake during an overnight trip (the Heart Lake landmark stop, passing by day or walking up from a camp nearby; never on a day hike or the walk-out day, and it costs 30 to 60 minutes), the *Swim (brr)* tile (12.14) offers three ways in: feet only (sure, a little joy), in your shorts (sure: spirits up, soaked, a warmth cost), or **skinny dipping**, the biggest spirits lift a swim can give and the biggest warmth cost. Then, on screen:
+- **The censor bar**, every time (wireframe in 12.21; Appendix D, screen 25).
 - **A Canada jay**, the trail's *camp robber*, goes for the granola bar in your shorts pocket, about one time in four when there is food in it, and the shorts go into the outlet stream. They come back wet, or not at all. It costs dignity and a pair of shorts, never warmth that matters: the rest of your clothes are in the tent, so the jay is never a link in a cold chain (9.5, principle 2).
-- **Company.** If a Boy is due this book (7.11), he comes down the trail with a party of hikers at the worst possible moment, and they all admire the view very hard.
+- **Company.** If a Boy is due this trip (7.11), he comes down the trail with a party of hikers at the worst possible moment, and they all admire the view very hard.
 - **The towel decides the evening.** With a towel (`towel`), you are dry in a minute. Without one you air-dry, which on a sunny afternoon is a sunny afternoon. **At dusk, wet and with no towel,** the breeze starts the Cold chain (8.10): *shivering* (warning one), then *fumbling with the zipper* (warning two), each with *get dressed and into the bag* beside it, sure. In Old School a player who walks past both, to stay out wet for the stars, meets the chain's ♦ with its fatal share (about ♦ 70% · 30% shivering · 4.5% fatal on an August dusk, illustrative), with the sure choice still beside it. That death reads ***You have died of skinny dipping.*** (9.5):
 
 > **The Lake Was Fed by Snow**
-> *Heart Lake looked like a postcard and felt like a snowbank, which is what most of it had been in June. The swim took two minutes. The evening took the rest.*
+> *(DRAFT) Heart Lake looks like a postcard and feels like a snowbank, which is what most of it was in June. The swim took two minutes. The evening took the rest.*
 > **Ranger's Note:** Snowmelt lakes chill you faster than the air does, and the danger comes after you get out, in the wind at dusk. Swim early in the day, bring a towel, and be dry and dressed before the sun goes. Shivering that turns to fumbling means stop: dry clothes, the sleeping bag, a hot drink.
 
-**A hazy IPA at Lake Morgenroth** (beer from M1a; Morgenroth in M1b). Fernwood Mercantile sells *Blue Hour Hazy IPA* from the fictional Slugwater Brewing Co. in 16-oz cans, and the shopkeeper asks for ID (5.3). Beer is legal in the park for adults 21 and over (no backcountry ban was found; `hamma_hamma.json` has the rule). A can is a real packing decision: about 17 oz full, a pound and change, and it is scented, so it rides in the bear canister, where it takes about 0.5 L, a lunch's worth of room (5.5, 6.7). At camp a packed can adds a tile, *Crack the IPA*:
+**A hazy IPA at Lake Morgenroth** (beer from M1a; Morgenroth in M1b). The general store (`{STORE_GENERAL}`) sells *Blue Hour Hazy IPA* from the fictional Slugwater Brewing Co. (both draft names) in 16-oz cans, and the shopkeeper asks for ID (5.3). Beer is legal in the park for adults 21 and over (no backcountry ban was found; `hamma_hamma.json` has the rule). A can is a real packing decision: about 17 oz full, a pound and change, and it is scented, so it rides in the bear canister, where it takes about 0.5 L, a lunch's worth of room (5.5, 6.7). At camp a packed can adds a tile, *Crack the IPA*:
 - **Spirits**, by the place and the sky: a big lift at a beautiful spot on a clear evening, a small one in the rain. The biggest in the game is at Morgenroth, your lake, with a bear grazing the far shore (B.7).
-- **Buzzed** until bedtime: -5 on footing and navigation, and on anything else the evening asks, such as a sunset scramble or a swim (8.5). A second can doubles it, and the narrator stops counting at two.
+- **Buzzed** until bedtime: -5 on footing and navigation, and on anything else the evening asks, such as a sunset scramble or a swim (8.5). A second can doubles it, and the voice stops counting at two.
 - **A little dehydration**, about 0.3 L, and a drink makes a cold night feel warmer than it is: -2 °F on the night margin (7.9), with a Ranger's Note line if it mattered.
 - **The empty** is trash. Crushed, it goes in the canister for the night (outside it, it counts as food left out, 6.3). Packed out, it is a Leave No Trace act (+2 score); left behind, -5 on the Leave No Trace ledger (9.6).
 
-**A joint at St. Peter's Gate** (M5, with the Hamma Hamma region; a pre-roll on the Seven Lakes loop from M1b). Cannabis is legal in Washington for adults 21 and over, and **illegal on federal land**: in the national park (36 CFR 2.35) and in the national forest below it, where rangers can and do write citations (`hamma_hamma.json`, `permit_and_rules`). St. Peter's Gate (5,934 ft) is a narrow notch between black cliffs on the shoulder of Mount Stone, inside the park: 0.9 mi and nearly 1,000 ft of steep, loose off-trail scrambling above Lake of the Angels (4,950 ft), which is itself 3.6 mi and 3,420 ft up the Putvin Trail, headwall and all. Through the Gate lie the Stone Ponds, as you remembered (*"St. Peter's gate connects the ridge above lake of the angles with whatever is on the other side stone ponds I think"*), and, beyond, Scout Lake (4.1). The pre-roll comes from **Second Growth**, a fictional licensed shop next door to Fernwood (5.2), whose clerk says the true thing out loud: *"Legal here. Not where you're going."* It is smellable, so it rides in the canister. At the Gate, *Light it* is offered only to a hiker who camps that night at Lake of the Angels or the Stone Ponds, so the walk down ends at a tent, not a car. It is a plain rolled choice:
+**A joint at St. Peter's Gate** (M5, with the Hamma Hamma region; a pre-roll on the Seven Lakes loop from M1b). Cannabis is legal in Washington for adults 21 and over, and **illegal on federal land**: in the national park (36 CFR 2.35) and in the national forest below it, where rangers can and do write citations (`hamma_hamma.json`, `permit_and_rules`). St. Peter's Gate (5,934 ft) is a narrow notch between black cliffs on the shoulder of Mount Stone, inside the park: 0.9 mi and nearly 1,000 ft of steep, loose off-trail scrambling above Lake of the Angels (4,950 ft), which is itself 3.6 mi and 3,420 ft up the Putvin Trail, headwall and all. Through the Gate lie the Stone Ponds, as you remembered (*"St. Peter's gate connects the ridge above lake of the angles with whatever is on the other side stone ponds I think"*), and, beyond, Scout Lake (4.1). The pre-roll comes from **Second Growth**, a fictional licensed shop next door to the general store (5.2), whose clerk says the true thing out loud: *"Legal here. Not where you're going."* It is smellable, so it rides in the canister. At the Gate, *Light it* is offered only to a hiker who camps that night at Lake of the Angels or the Stone Ponds, so the walk down ends at a tent, not a car. It is a plain rolled choice:
 - **The % is the chance no ranger strolls by,** from the trail's popularity, the day of the week and the hour: about 88% on a summer Saturday afternoon and 96% on a weekday evening (illustrative). Sometimes the ranger is Ranger Jon, on duty for once and a long way from his glacier.
-- **If it goes badly: a citation,** never more. A pink carbon copy clipped to the permit; the fine on the receipt (shown, not paid, like the permit fees; the research records the federal maximum, six months or $5,000, and the receipt shows a typical ticket, its amount still to confirm); the finish award halved, as for the Hard Way (9.6); a small *cited* stamp on the book's Trail Register line; and a likelier permit check the next time this hiker comes to that region (9.8). It never ends a trip or a book.
+- **If it goes badly: a citation,** never more. A pink carbon copy clipped to the permit; the fine on the receipt (shown, not paid, like the permit fees; the research records the federal maximum, six months or $5,000, and the receipt shows a typical ticket, its amount still to confirm); the finish award halved, as for the Hard Way (9.6); a small *cited* stamp on the trip's Trail Register line; and a likelier permit check the next time this hiker comes to that region (9.8). It never ends a trip, and never the hiker.
 - **The munchies:** the hiker eats 400 to 800 kcal past the day's allowance, out of the canister, which can bring the *running short* card (5.6) a day early.
-- **Time slips:** the clock jumps 30 to 60 minutes (seeded, and told after the fact: *It was later than it had been.*), so dusk comes sooner than the plan said, and a Fork card (8.2) may come with it. Footing and navigation are -5 for two hours (8.5), and the way down from the Gate is loose scree where a helmet is the research's advice, so that -5 shows up where it matters, in the Why sheet of the next footing check.
+- **Time slips:** the clock jumps 30 to 60 minutes (seeded, and told after the fact, DRAFT: *It is later than it was.*), so dusk comes sooner than the plan said, and a Fork card (8.2) may come with it. Footing and navigation are -5 for two hours (8.5), and the way down from the Gate is loose scree where a helmet is the research's advice, so that -5 shows up where it matters, in the Why sheet of the next footing check.
 - On the Seven Lakes loop the same pre-roll gets the same card, at camp in the evening or on a layover day's side trip from camp, never on the walk-out day (the rules above). In August the High Divide is busy, so the odds are worse. Whether a fire ban's smoking rules apply as well is for the research to confirm.
 
 **More Larry moments on the loop**, each a card with real stakes:
@@ -247,7 +469,7 @@ Your call (2026-10-08): *"I want it to have some leisure suit Larry in it too. l
 | **The bold marmot** | The basin or the crest, when nature calls | Walk 200 ft from water and dig 6-8 in with a trowel (a Leave No Trace act, +2 score), or don't (-5 on the Leave No Trace ledger, 9.6). Leave the pack on the ground and a marmot may chew the salty hip belt, and the pack carries worse for the rest of the trip. A trail-running group rounds the switchback on cue |
 | **The permit check** | Any camp, while you're changing behind a boulder | The censor bar, and a ranger who waits politely. A night that's on the permit is a nod and a story. One that isn't (you dropped into the basin and stayed) has already cost its Leave No Trace (3.7); there the ranger's visit is a forced roll every night, outside the Director's cap, and this card adds the off-permit lines: a talking-to, and maybe a walk to a legal camp at dusk |
 | **The thin tent wall** | Lunch Lake, where sites sit close and some lie on paths to others | The neighbors are very happy to be in the mountains. Earplugs (`sleep_aid`) mean a good night. Without them, sleep quality drops and tomorrow's legs with it; a pointed cough works about half the time (a plain %) |
-| **The Steaming Fern Lodge** | The hot springs near the end of the Sol Duc road, under its fictional name | Before the hike, a soak costs about 90 minutes of Day 1's daylight. After it, the pools take only a hiker who is out before the last session, so the last day races the clock (and Push pace has its costs). No swimsuit means the gift shop's, in a size best called optimistic. Spirits, and a back-cover line: *Smell: improved*. No drinks at the lodge (T05) |
+| **The Steaming Fern Lodge** | The hot springs near the end of the Sol Duc road, under its fictional name | Before the hike, a soak costs about 90 minutes of Day 1's daylight. After it, the pools take only a hiker who is out before the last session, so the last day races the clock (and Push pace has its costs). No swimsuit means the gift shop's, in a size best called optimistic. Spirits, and a trip-report line (DRAFT): *Smell: improved*. No drinks at the lodge (T05) |
 
 (Marmots' taste for salty gear is to be confirmed for the Olympic marmot in the research before M1b. The permit check and the basin-or-crest fork are meant to meet: it is where a mid-trip change of plan comes due, 3.7.)
 
