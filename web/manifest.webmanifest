@@ -1,7 +1,7 @@
 {
   "id": "./",
   "name": "Olympic Peninsula Hiker",
-  "short_name": "Hiker",
+  "short_name": "OP Hiker",
   "description": "A picture-book hiking trip on the Olympic Peninsula.",
   "lang": "en",
   "start_url": "./",
