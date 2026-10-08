@@ -1,16 +1,3582 @@
 {
-  "region_id": "hamma_hamma",
-  "region_name": "Hamma Hamma & Lena: Lake of the Angels, Valley of Heaven, St. Peter's Gate, Upper Lena Lake",
-  "researched_on": "2026-10-07",
-  "summary": "Skeleton - research in progress.",
-  "nodes": [],
-  "segments": [],
-  "trailheads": [],
-  "classic_trips": [],
-  "hazards": [],
-  "wildlife_and_plants": [],
-  "permit_and_rules": [],
-  "conditions_2026": [],
-  "uncertain_claims": ["Research in progress"],
-  "sources": []
+ "region_id": "hamma_hamma",
+ "region_name": "Hamma Hamma & Lena: Lake of the Angels, Valley of Heaven, St. Peter's Gate, Upper Lena Lake",
+ "researched_on": "2026-10-07",
+ "summary": "The Hamma Hamma River valley on the southeast edge of the Olympics, reached by Forest Road 25 from US 101 near Eldon (14 mi north of Hoodsport). Two trailheads 4.3 road-miles apart lead into the park: the gentle Lena Lake trail (national forest) that steepens savagely to quota-area Upper Lena Lake, and the brutally steep Putvin Trail with its headwall scramble to Lake of the Angels in the Valley of Heaven. St. Peter's Gate, a notch on the shoulder of Mount Stone, links the two by an expert off-trail high route through the Stone Ponds basin and the Scout Lake way trail, making a classic 2-3 night traverse. Extras: the CCC-built Hamma Hamma Cabin, The Brothers climb via the Valley of the Silent Men, Mildred Lakes, and Mount Stone / Mount Skokomish scrambles.",
+ "nodes": [
+  {
+   "id": "hoodsport",
+   "name": "Hoodsport",
+   "type": "town",
+   "elevation_ft": 14,
+   "lat": 47.4062,
+   "lon": -123.1401,
+   "camp": null,
+   "description": "A small Hood Canal town strung along the water, where the last stores before the mountains sell ice, bread and fuel. Gulls argue on the pilings and the canal smells of salt and cedar smoke.",
+   "scene_art_notes": "Foreground: a two-lane highway with a fictional general store (wooden false front, hand-lettered sign); midground: grey-blue canal with pilings and a dock; sky: dithered cyan-to-white morning haze; landmark: dark forested Olympic foothills rising behind the town.",
+   "sources": [
+    "https://www.wta.org/go-hiking/hikes/lake-of-the-angels",
+    "https://www.fs.usda.gov/r06/olympic/recreation/putvin-trailhead",
+    "https://router.project-osrm.org"
+   ]
+  },
+  {
+   "id": "eldon",
+   "name": "Eldon",
+   "type": "town",
+   "elevation_ft": 20,
+   "lat": 47.544,
+   "lon": -123.0421,
+   "camp": null,
+   "description": "A scattering of houses where the Hamma Hamma River meets Hood Canal, with oyster shells crunching underfoot at low tide. The mountains you are about to climb hide behind the first green ridge.",
+   "scene_art_notes": "Foreground: a white shell beach and a weathered oyster shack (FICTIONAL name in game); midground: river mouth braiding into the canal; sky: low grey cloud with a yellow sun gap; landmark: the first forested ridges of the Hamma Hamma valley.",
+   "sources": [
+    "https://router.project-osrm.org"
+   ]
+  },
+  {
+   "id": "hamma_hamma_road_junction",
+   "name": "US 101 / Hamma Hamma River Road (Forest Road 25) junction",
+   "type": "junction",
+   "elevation_ft": 73,
+   "lat": 47.5651,
+   "lon": -123.0171,
+   "camp": null,
+   "description": "At milepost 318 of US 101 a modest sign points west up the Hamma Hamma. From here the road follows the river into the forest; the first 7.5 miles are paved.",
+   "scene_art_notes": "Foreground: green highway sign \"Hamma Hamma Recreation Area\" and a brown Forest Service sign; midground: road disappearing into tall second-growth Douglas fir; sky: drifting cloud bands; landmark: a glimpse of a snowy peak at the valley head.",
+   "sources": [
+    "https://www.wta.org/go-hiking/hikes/lake-of-the-angels",
+    "https://www.wta.org/go-hiking/hikes/lena-lake",
+    "https://www.fs.usda.gov/r06/olympic/recreation/hamma-hamma-campground"
+   ]
+  },
+  {
+   "id": "hamma_hamma_cabin",
+   "name": "Hamma Hamma Cabin (historic CCC guard station)",
+   "type": "amenity",
+   "elevation_ft": 627,
+   "lat": 47.5925,
+   "lon": -123.1151,
+   "camp": {
+    "sites": "1 cabin, max 6 people",
+    "reservation_or_quota": "Reserve on Recreation.gov (1-877-444-6777); $60/night per group, max 7 consecutive nights; not available Thursdays (cleaning). USFS page updated 2025-07-01.",
+    "bear_can_required": false,
+    "food_storage": "none",
+    "fires_allowed": true,
+    "toilet": true,
+    "water": "No potable water - bring all drinking, cooking and washing water.",
+    "notes": "Propane lights, heater, refrigerator and range; flush toilet; fire ring and pedestal grill outside; no pets, no smoking, no extra camping on site. Winter access may require skis or snowshoes. Nominated to the National Register of Historic Places."
+   },
+   "description": "A snug log-and-shingle guard station built by the Civilian Conservation Corps in 1936-37, now a rental cabin by the river. Propane lamps hiss inside while the Hamma Hamma talks to itself beyond the fence.",
+   "scene_art_notes": "Foreground: split-rail fence and a stone-chimneyed cabin with brown walls and green trim; midground: mossy maples and the riverbank; sky: dark green canopy with patches of dithered grey; landmark: lamplight glowing yellow in the windows.",
+   "sources": [
+    "https://www.fs.usda.gov/r06/olympic/recreation/hamma-hamma-cabin",
+    "https://www.wta.org/go-hiking/hikes/living-legacy-interpretive-trail",
+    "https://www.openstreetmap.org/way/1240325420"
+   ]
+  },
+  {
+   "id": "hamma_hamma_campground",
+   "name": "Hamma Hamma Campground",
+   "type": "amenity",
+   "elevation_ft": 554,
+   "lat": 47.5957,
+   "lon": -123.1222,
+   "camp": {
+    "sites": 15,
+    "reservation_or_quota": "First-come, first-served; $14/night (+$5 extra vehicle); pay at the fee machine at the Lena Lake/Brothers Trailhead (no cash on site). Season May-September; page showed \"Closed for the season\" on 2026-09-17.",
+    "bear_can_required": false,
+    "food_storage": "none",
+    "fires_allowed": true,
+    "toilet": true,
+    "water": "No potable water.",
+    "notes": "Vault toilets; max 8 people/site, 14-day stay limit; RVs to 21 ft; pets leashed."
+   },
+   "description": "Fifteen quiet sites under big trees beside the river, where the Living Legacy trail starts. In spring, harlequin ducks bob in the white water near the cabin.",
+   "scene_art_notes": "Foreground: a picnic table and fire ring with a green tent; midground: mossy trunks and the river glinting through; sky: almost hidden by canopy; landmark: a wooden trail sign carved with \"Living Legacy Trail\".",
+   "sources": [
+    "https://www.fs.usda.gov/r06/olympic/recreation/hamma-hamma-campground",
+    "https://www.wta.org/go-hiking/hikes/living-legacy-interpretive-trail"
+   ]
+  },
+  {
+   "id": "lena_creek_campground",
+   "name": "Lena Creek Campground",
+   "type": "amenity",
+   "elevation_ft": 664,
+   "lat": 47.5994,
+   "lon": -123.1523,
+   "camp": {
+    "sites": null,
+    "reservation_or_quota": "First-come, first-served; $14/night (+$5 extra vehicle); pay at the Lena Lake/Brothers Trailhead fee machine. Season May-September; \"Closed for the season\" as of 2026-09-17.",
+    "bear_can_required": false,
+    "food_storage": "none",
+    "fires_allowed": true,
+    "toilet": true,
+    "water": "No drinking water.",
+    "notes": "Each site has table, fire ring and grill; vault toilets; RVs to 21 ft; no horses."
+   },
+   "description": "A small riverside campground right beside the Lena Lake trailhead, handy for an early start. The river is loud enough to drown out the road.",
+   "scene_art_notes": "Foreground: gravel spur and a picnic table with grill; midground: river boulders; sky: dithered grey drizzle; landmark: trailhead kiosk visible across the road.",
+   "sources": [
+    "https://www.fs.usda.gov/r06/olympic/recreation/lena-creek-campground"
+   ]
+  },
+  {
+   "id": "lena_lake_trailhead",
+   "name": "Lena Lake / Brothers Trailhead",
+   "type": "trailhead",
+   "elevation_ft": 663,
+   "lat": 47.5997,
+   "lon": -123.1511,
+   "camp": null,
+   "description": "A busy forest trailhead with two privies, a fee machine and cars lined up along the road. The trail leaves through ferns into a cool, green half-light.",
+   "scene_art_notes": "Foreground: brown trailhead kiosk with a map board and a fee tube; midground: parked cars in a row, sword ferns and moss; sky: a narrow strip of grey above tall firs; landmark: the trail mouth, a dark doorway into the forest.",
+   "sources": [
+    "https://www.wta.org/go-hiking/hikes/lena-lake",
+    "https://www.wta.org/go-hiking/hikes/upper-lena-lake",
+    "https://www.fs.usda.gov/r06/olympic/recreation/trails/lena-lake-trail-810",
+    "https://www.fs.usda.gov/r06/olympic/recreation/lena-lake-campground",
+    "https://elevation.nationalmap.gov/arcgis/rest/services/3DEPElevation/ImageServer"
+   ]
+  },
+  {
+   "id": "lena_creek_bridge",
+   "name": "Lena Creek footbridge (dry creek bed)",
+   "type": "landmark",
+   "elevation_ft": 1580,
+   "lat": null,
+   "lon": null,
+   "camp": null,
+   "description": "Here the trail crosses Lena Creek on a footbridge, but in late summer the bed below is often dry: the creek is running underground through the boulders of an ancient landslide. You can sometimes hear water you cannot see.",
+   "scene_art_notes": "Foreground: a curved wooden footbridge; midground: a jumble of huge mossy boulders with no visible water; sky: none, all canopy; landmark: a single shaft of light on a boulder.",
+   "sources": [
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2025-10-17.180336437388",
+    "https://www.wta.org/go-hiking/hikes/lena-lake",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-09-20.233149203889",
+    "https://elevation.nationalmap.gov/arcgis/rest/services/3DEPElevation/ImageServer"
+   ]
+  },
+  {
+   "id": "lena_lake_upper_lena_junction",
+   "name": "Upper Lena Lake Trail #811 junction",
+   "type": "junction",
+   "elevation_ft": 1910,
+   "lat": 47.6203,
+   "lon": -123.1627,
+   "camp": null,
+   "description": "Just before Lena Lake a narrower path peels off to the left and starts to climb in earnest toward the high country. The broad trail to the right drops to the lakeshore.",
+   "scene_art_notes": "Foreground: a wooden sign with two arrows, \"Upper Lena Lake 4.3\" and \"Lena Lake\"; midground: the narrow trail climbing left into dense forest; sky: green canopy; landmark: blue lake water glimpsed through trunks on the right.",
+   "sources": [
+    "https://www.fs.usda.gov/r06/olympic/recreation/trails/lena-lake-trail-810",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2025-10-08.200156555674",
+    "https://www.openstreetmap.org/relation/12849020",
+    "https://elevation.nationalmap.gov/arcgis/rest/services/3DEPElevation/ImageServer"
+   ]
+  },
+  {
+   "id": "lena_lake",
+   "name": "Lena Lake (Lena Lake Campground)",
+   "type": "camp",
+   "elevation_ft": 1800,
+   "lat": 47.6235,
+   "lon": -123.1572,
+   "camp": {
+    "sites": "About 28 established sites on both shores (WTA; USFS gives no count)",
+    "reservation_or_quota": "Free, first-come, first-served; no permit needed (Olympic National Forest). Camp only in designated sites. Parking pass needed at the trailhead.",
+    "bear_can_required": false,
+    "food_storage": "unknown",
+    "fires_allowed": true,
+    "toilet": true,
+    "water": "Lake (treat). No potable water.",
+    "notes": "Two pit toilets on the west and north shores; a 2026-09-13 trip report says brand-new pit toilets were installed this season. Heavily used on summer weekends; pets allowed on leash (national forest). Fire rings exist; obey seasonal fire restrictions."
+   },
+   "description": "A 55-acre green lake held back by an old landslide, with bleached snags poking from the water when the level drops. Campsites ring the shore and swimmers shriek at how cold it is.",
+   "scene_art_notes": "Foreground: a big flat lunch rock with a backpack leaning on it; midground: green water with silver ghost snags; sky: bright cyan with puffy white cloud; landmark: forested ridges climbing toward the hidden Brothers.",
+   "sources": [
+    "https://www.fs.usda.gov/r06/olympic/recreation/lena-lake-campground",
+    "https://www.fs.usda.gov/r06/olympic/recreation/trails/lena-lake-trail-810",
+    "https://www.wta.org/go-hiking/hikes/lena-lake",
+    "https://www.wta.org/go-hiking/hikes/upper-lena-lake",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-09-15.201049995826",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-09-20.233149203889",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2025-10-17.180336437388",
+    "https://www.openstreetmap.org/relation/15258583"
+   ]
+  },
+  {
+   "id": "brothers_trail_junction",
+   "name": "The Brothers Trail #821 junction",
+   "type": "junction",
+   "elevation_ft": null,
+   "lat": null,
+   "lon": null,
+   "camp": null,
+   "description": "At the far end of the lakeside camps a small shack marks where the Brothers trail turns north up a quiet side valley. Fewer bootprints go this way.",
+   "scene_art_notes": "Foreground: a small weathered shed and a trail sign \"The Brothers 821\"; midground: lake edge and big cedars; sky: grey; landmark: a dark canyon mouth to the north.",
+   "sources": [
+    "https://www.fs.usda.gov/r06/olympic/recreation/trails/lena-lake-trail-810",
+    "https://www.fs.usda.gov/r06/olympic/recreation/trails/brothers-trail-821",
+    "https://www.wta.org/go-hiking/hikes/lena-lake"
+   ]
+  },
+  {
+   "id": "valley_of_the_silent_men",
+   "name": "Valley of the Silent Men (East Fork Lena Creek)",
+   "type": "landmark",
+   "elevation_ft": null,
+   "lat": null,
+   "lon": null,
+   "camp": null,
+   "description": "A hushed canyon of giant trees and car-sized boulders furred in moss, where even the creek sometimes goes quiet and dry. It feels like walking through an old story nobody has finished.",
+   "scene_art_notes": "Foreground: enormous mossy boulders and a thin trickle of creek; midground: columns of old-growth cedar and fir; sky: none, deep green; landmark: a pale ribbon of trail threading between boulders.",
+   "sources": [
+    "https://www.fs.usda.gov/r06/olympic/recreation/trails/brothers-trail-821",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-09-20.233149203889",
+    "https://www.wta.org/go-hiking/hikes/the-brothers"
+   ]
+  },
+  {
+   "id": "brothers_climbers_camp",
+   "name": "The Brothers climbers' camp (East Fork Lena Creek base camp)",
+   "type": "camp",
+   "elevation_ft": 3000,
+   "lat": 47.6399,
+   "lon": -123.1276,
+   "camp": {
+    "sites": null,
+    "reservation_or_quota": "No permit needed (The Brothers Wilderness, Olympic National Forest). Wilderness rules: max group 12, no stock or bikes.",
+    "bear_can_required": false,
+    "food_storage": "unknown",
+    "fires_allowed": true,
+    "toilet": null,
+    "water": "East Fork Lena Creek - can dry up in late summer (a 2026-09-16 trip report found the creek not running).",
+    "notes": "Sources put this camp at about 3,000-3,100 ft. Campfires are prohibited above 3,500 ft in the wilderness; this camp is below that line but seasonal restrictions apply."
+   },
+   "description": "A cluster of flat spots by the East Fork of Lena Creek where climbers sleep before an alpine start. Above the trees the Brothers' twin summits wait in the dark.",
+   "scene_art_notes": "Foreground: two small tents and a hanging headlamp; midground: creek stones and alder; sky: deep blue night with stars; landmark: the double-humped silhouette of The Brothers.",
+   "sources": [
+    "https://www.fs.usda.gov/r06/olympic/recreation/trails/brothers-trail-821",
+    "https://www.wta.org/go-hiking/hikes/the-brothers",
+    "https://www.mountaineers.org/activities/routes-places/the-brothers-south-couloir",
+    "https://www.openstreetmap.org/relation/15258641",
+    "https://elevation.nationalmap.gov/arcgis/rest/services/3DEPElevation/ImageServer"
+   ]
+  },
+  {
+   "id": "the_brothers",
+   "name": "The Brothers (South Brother summit)",
+   "type": "summit",
+   "elevation_ft": 6842,
+   "lat": 47.6537,
+   "lon": -123.1404,
+   "camp": null,
+   "description": "Two rocky summits stand shoulder to shoulder above Hood Canal, visible from Seattle on a clear day. The south peak is the higher one.",
+   "scene_art_notes": "Foreground: a narrow rock notch with a cairn; midground: steep snow couloir falling away; sky: hard cobalt blue; landmark: Hood Canal and Puget Sound glinting far below, Mount Rainier floating on the horizon.",
+   "sources": [
+    "https://en.wikipedia.org/wiki/South_Brother",
+    "https://www.wta.org/go-hiking/hikes/the-brothers",
+    "https://www.mountaineers.org/activities/routes-places/the-brothers-south-couloir",
+    "https://en.wikipedia.org/wiki/The_Brothers_Wilderness"
+   ]
+  },
+  {
+   "id": "upper_lena_park_boundary",
+   "name": "Olympic National Park boundary (Upper Lena Lake Trail)",
+   "type": "landmark",
+   "elevation_ft": 2670,
+   "lat": null,
+   "lon": null,
+   "camp": null,
+   "description": "A small sign marks where the national forest ends and the national park begins: no dogs beyond this point, and your permit now matters.",
+   "scene_art_notes": "Foreground: brown NPS boundary sign on a post with a \"no pets\" symbol; midground: steep rooty trail; sky: green canopy; landmark: a mossy nurse log.",
+   "sources": [
+    "https://www.nps.gov/olym/planyourvisit/wilderness-trail-conditions.htm",
+    "https://www.wta.org/go-hiking/hikes/upper-lena-lake",
+    "https://elevation.nationalmap.gov/arcgis/rest/services/3DEPElevation/ImageServer"
+   ]
+  },
+  {
+   "id": "upper_lena_root_ladder",
+   "name": "The root ladder (Upper Lena Lake Trail)",
+   "type": "landmark",
+   "elevation_ft": 3390,
+   "lat": null,
+   "lon": null,
+   "camp": null,
+   "description": "The trail turns into a staircase of tangled roots and wet rock that you climb with your hands as much as your feet. Coming down is slower than going up.",
+   "scene_art_notes": "Foreground: a near-vertical lattice of brown roots like rungs; midground: dark wet rock slabs; sky: grey through hemlock boughs; landmark: a hiker's pole planted for balance.",
+   "sources": [
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-09-15.075631109419",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-09-19.104606597992",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-09-02.110611361060",
+    "https://elevation.nationalmap.gov/arcgis/rest/services/3DEPElevation/ImageServer"
+   ]
+  },
+  {
+   "id": "upper_lena_lena_creek_ford",
+   "name": "Lena Creek ford (below Upper Lena Lake)",
+   "type": "river_ford",
+   "elevation_ft": 4480,
+   "lat": null,
+   "lon": null,
+   "camp": null,
+   "description": "Lena Creek slides over polished rock about half a mile below the lake. In low water it is a hop across stones; after rain or snowmelt it can sweep you off your feet.",
+   "scene_art_notes": "Foreground: slick tilted rock slabs with a white sheet of water; midground: a lower line of stepping stones; sky: pale grey; landmark: a little waterfall spilling from above.",
+   "sources": [
+    "https://www.nps.gov/olym/planyourvisit/wilderness-trail-conditions.htm",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-09-19.104606597992",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-09-15.075631109419",
+    "https://elevation.nationalmap.gov/arcgis/rest/services/3DEPElevation/ImageServer"
+   ]
+  },
+  {
+   "id": "upper_lena_lake",
+   "name": "Upper Lena Lake",
+   "type": "camp",
+   "elevation_ft": 4555,
+   "lat": 47.6337,
+   "lon": -123.2096,
+   "camp": {
+    "sites": "10 sites plus a group site (WTA; NPS gives no count)",
+    "reservation_or_quota": "Quota area: Olympic National Park wilderness permit required (Recreation.gov permit 4098362). Reservation season for Upper Lena Lake July 1 - Oct 15, 2026; permits limited year round. Designated sites only; max 6 per regular site; group site 7-12 people.",
+    "bear_can_required": true,
+    "food_storage": "can",
+    "fires_allowed": false,
+    "toilet": true,
+    "water": "Upper Lena Lake and Lena Creek (boil, filter or treat).",
+    "notes": "Two compost toilets. No campfires (protects fragile vegetation). Lake peninsula is day-use only. No camping within 0.25 mile of Scout Lake. Closed to stock; no pets in the park. Old bear wires may exist but hanging food is prohibited - use a bear can. Chipmunks are very bold. Seasonal backcountry ranger reported in trip reports."
+   },
+   "description": "A deep green lake in a ring of meadows and peaks, with Mount Bretherton across the water and Mount Lena behind. Marmots whistle, chipmunks raid, and the stars at night are unbelievably bright.",
+   "scene_art_notes": "Foreground: a tent on bare dirt pad among heather and a bear can; midground: emerald lake with rocky shore and a small peninsula; sky: dithered sunset orange to blue; landmark: Mount Bretherton's rocky pyramid reflected in the water.",
+   "sources": [
+    "https://home.nps.gov/olym/planyourvisit/upper-lena-lake-trail.htm",
+    "https://www.nps.gov/olym/planyourvisit/wilderness-trail-conditions.htm",
+    "https://www.recreation.gov/permits/4098362",
+    "https://www.wta.org/go-hiking/hikes/upper-lena-lake",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2021-08-16-2108232854",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-09-15.075631109419",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-09-02.110611361060",
+    "https://elevation.nationalmap.gov/arcgis/rest/services/3DEPElevation/ImageServer"
+   ]
+  },
+  {
+   "id": "milk_lake",
+   "name": "Milk Lake",
+   "type": "lake",
+   "elevation_ft": 4723,
+   "lat": 47.625,
+   "lon": -123.2063,
+   "camp": null,
+   "description": "A short scramble south of Upper Lena hides a milky-blue lake in a steep cirque, often still fed by snowfields into August. Many hikers call it the prettiest lake they have seen.",
+   "scene_art_notes": "Foreground: pale turquoise water with snow chunks floating; midground: talus and snowfield sloping into the lake; sky: bright cyan; landmark: grey cliffs of Mount Bretherton's shoulder.",
+   "sources": [
+    "https://www.wta.org/go-hiking/hikes/upper-lena-lake",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2021-08-16-2108232854",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-09-19.104606597992",
+    "https://www.openstreetmap.org/relation/15260231",
+    "https://elevation.nationalmap.gov/arcgis/rest/services/3DEPElevation/ImageServer"
+   ]
+  },
+  {
+   "id": "mount_lena",
+   "name": "Mount Lena",
+   "type": "summit",
+   "elevation_ft": 5995,
+   "lat": 47.64,
+   "lon": -123.2153,
+   "camp": null,
+   "description": "The rocky peak right above Upper Lena Lake, about 1,500 feet over the shore, with a sunny south face that cooks you on a hot day.",
+   "scene_art_notes": "Foreground: lichen-spotted summit rocks; midground: Upper Lena Lake like a green coin far below; sky: deep blue; landmark: the jagged Olympic interior to the west.",
+   "sources": [
+    "https://en.wikipedia.org/wiki/Mount_Lena_(Washington)",
+    "https://www.mountaineers.org/activities/trip-reports/alpine-scramble-lena-to-putvin-traverse-and-mount-skokomish"
+   ]
+  },
+  {
+   "id": "mount_bretherton",
+   "name": "Mount Bretherton",
+   "type": "summit",
+   "elevation_ft": 5960,
+   "lat": 47.6194,
+   "lon": -123.2099,
+   "camp": null,
+   "description": "The craggy pyramid across Upper Lena Lake, named for a member of the 1890 O'Neil expedition. Its slopes drain south to the Hamma Hamma.",
+   "scene_art_notes": "Foreground: a rocky ridge crest with a cairn; midground: steep meadow ribs; sky: cobalt with a single cloud; landmark: Upper Lena and Milk Lake side by side below.",
+   "sources": [
+    "https://en.wikipedia.org/wiki/Mount_Bretherton",
+    "https://www.mountaineers.org/activities/trip-reports/alpine-scramble-lena-to-putvin-traverse-and-mount-skokomish"
+   ]
+  },
+  {
+   "id": "scout_lake_divide",
+   "name": "Scout Lake Divide / Scout Lake Pass (unofficial name)",
+   "type": "pass",
+   "elevation_ft": null,
+   "lat": null,
+   "lon": null,
+   "camp": null,
+   "description": "West of Upper Lena the way trail climbs onto an open ridge of heather, lupine and paintbrush, with Mount Stone suddenly filling the view ahead. This is where the easy walking ends and the route-finding begins.",
+   "scene_art_notes": "Foreground: purple lupine and magenta paintbrush on a grassy crest; midground: subalpine fir clumps; sky: big cumulus; landmark: Mount Stone's dark multi-horned summit to the southwest.",
+   "sources": [
+    "https://www.wta.org/go-hiking/trip-reports/tripreport-1998080104",
+    "https://www.summitpost.org/stone-ponds-st-peters-gate/308351",
+    "https://www.wta.org/go-hiking/trip-reports/tripreport-2002072816",
+    "https://www.wta.org/go-hiking/trip-reports/tripreport-2002081906"
+   ]
+  },
+  {
+   "id": "deerheart_lake",
+   "name": "Deerheart Lake (unofficial name; also spelled Dearheart)",
+   "type": "camp",
+   "elevation_ft": 4950,
+   "lat": 47.6227,
+   "lon": -123.2378,
+   "camp": {
+    "sites": "1 established tent site above the lake (2026); a 2020 report says 2 sites",
+    "reservation_or_quota": "Non-quota cross-country camping in Olympic National Park; wilderness permit required by phone (WIC 360-565-3100). A 2024 party requested the \"Hamma Hamma River Cross Country\" camp area for this high country.",
+    "bear_can_required": true,
+    "food_storage": "can",
+    "fires_allowed": false,
+    "toilet": false,
+    "water": "The lake (treat).",
+    "notes": "Location identified from trip-report descriptions and map geometry; the name is not on USGS maps. Use durable surfaces; mosquitoes are fierce at dusk in July-August."
+   },
+   "description": "A small lake on the ridge above Scout Lake with one good tent spot on a knoll. Through the treetops you can see St. Peter's Gate notched into the shoulder of Mount Stone.",
+   "scene_art_notes": "Foreground: a single tent on a heather knoll; midground: a little dark lake ringed by subalpine fir; sky: pink alpenglow dithered to violet; landmark: the notch of St. Peter's Gate high on Mount Stone.",
+   "sources": [
+    "https://www.wta.org/go-hiking/trip-reports/tripreport-2008080604",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2020-08-03-5468189069",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-07-06.103329221905",
+    "https://www.mountaineers.org/activities/trip-reports/alpine-scramble-lena-to-putvin-traverse-and-mount-skokomish",
+    "https://elevation.nationalmap.gov/arcgis/rest/services/3DEPElevation/ImageServer"
+   ]
+  },
+  {
+   "id": "scout_lake",
+   "name": "Scout Lake",
+   "type": "lake",
+   "elevation_ft": 4263,
+   "lat": 47.627,
+   "lon": -123.2427,
+   "camp": {
+    "sites": null,
+    "reservation_or_quota": "NO camping within 0.25 mile of Scout Lake (NPS rule).",
+    "bear_can_required": true,
+    "food_storage": "can",
+    "fires_allowed": false,
+    "toilet": false,
+    "water": "Lake (treat).",
+    "notes": "Day-visit only; camp at Upper Lena, Deerheart or Stone Ponds instead."
+   },
+   "description": "A large forested lake tucked in a bowl below the ridge, reached by a steep, brushy, root-grabbing descent. Pretty from above, hard-won from below.",
+   "scene_art_notes": "Foreground: tangled roots and huckleberry on a steep bank; midground: a big dark-green lake rimmed by trees; sky: grey-white; landmark: a spire on the ridge above (the Bandersnatch, unofficial).",
+   "sources": [
+    "https://www.wta.org/go-hiking/hikes/scout-lake",
+    "https://www.nps.gov/olym/planyourvisit/wilderness-trail-conditions.htm",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2020-08-03-5468189069",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2021-08-16-2108232854",
+    "https://www.wta.org/go-hiking/trip-reports/tripreport-2002072816",
+    "https://www.openstreetmap.org/relation/15260235",
+    "https://elevation.nationalmap.gov/arcgis/rest/services/3DEPElevation/ImageServer"
+   ]
+  },
+  {
+   "id": "stone_ponds_junction",
+   "name": "Stone Ponds fork (Scout Lake way trail split; unofficial)",
+   "type": "junction",
+   "elevation_ft": null,
+   "lat": null,
+   "lon": null,
+   "camp": null,
+   "description": "Somewhere past Deerheart the faint left fork toward the Stone Ponds vanishes into a meadow after a few steps, while the obvious path dives toward Scout Lake. Many parties miss it.",
+   "scene_art_notes": "Foreground: two faint paths in heather, one fading; midground: a tiny cairn; sky: thin mist; landmark: a meadow shoulder rising to the left.",
+   "sources": [
+    "https://www.wta.org/go-hiking/trip-reports/tripreport-2002081906",
+    "https://www.wta.org/go-hiking/trip-reports/tripreport-2008080604",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2020-08-03-5468189069",
+    "https://www.summitpost.org/stone-ponds-st-peters-gate/308351"
+   ]
+  },
+  {
+   "id": "stone_ponds_pass",
+   "name": "Stone Ponds Pass (unofficial)",
+   "type": "pass",
+   "elevation_ft": null,
+   "lat": null,
+   "lon": null,
+   "camp": null,
+   "description": "A grassy pass above a lush basin of tarns and flowers, looking down on the upper Stone Pond and up at the snow-filled cirque below St. Peter's Gate.",
+   "scene_art_notes": "Foreground: wildflower meadow and small tarns; midground: a bright blue pond below; sky: clear cobalt; landmark: Mount Stone's black cliffs with a white snow tongue leading to the Gate.",
+   "sources": [
+    "https://www.wta.org/go-hiking/trip-reports/tripreport-2008080604",
+    "https://www.summitpost.org/stone-ponds-st-peters-gate/308351",
+    "https://www.wta.org/go-hiking/trip-reports/tripreport-2002072816"
+   ]
+  },
+  {
+   "id": "stone_ponds",
+   "name": "Stone Ponds (upper and lower; also called Stone's Ponds)",
+   "type": "lake",
+   "elevation_ft": 4710,
+   "lat": 47.6112,
+   "lon": -123.2545,
+   "camp": {
+    "sites": null,
+    "reservation_or_quota": "Non-quota cross-country camping in Olympic National Park; wilderness permit by phone (WIC 360-565-3100).",
+    "bear_can_required": true,
+    "food_storage": "can",
+    "fires_allowed": false,
+    "toilet": false,
+    "water": "The ponds and snowmelt streams (treat).",
+    "notes": "Position is our best identification: the two ponds at about 4,630 and 4,710 ft east-northeast of Mount Stone match descriptions (two ponds east of Mt Stone, upper open / lower forested, about 4,600 ft). A 2002 report calls them \"Ullin's Bathtubs\"."
+   },
+   "description": "Two small ponds on the east side of Mount Stone: the upper one open and sunny in a subalpine basin, the lower one tucked in forest. Everything above them is snow, talus and the dark wall of the mountain.",
+   "scene_art_notes": "Foreground: a clear blue pond with heather banks; midground: a boulder field and a long snowfield climbing the cirque; sky: bright blue with a wisp of cloud; landmark: St. Peter's Gate, a notch between black cliffs.",
+   "sources": [
+    "https://www.summitpost.org/stone-ponds-st-peters-gate/308351",
+    "https://www.wta.org/go-hiking/trip-reports/tripreport-2008080604",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-07-06.103329221905",
+    "https://www.wta.org/go-hiking/trip-reports/tripreport-2002072816",
+    "https://elevation.nationalmap.gov/arcgis/rest/services/3DEPElevation/ImageServer"
+   ]
+  },
+  {
+   "id": "st_peters_gate",
+   "name": "St. Peter's Gate",
+   "type": "pass",
+   "elevation_ft": 5934,
+   "lat": 47.604,
+   "lon": -123.2647,
+   "camp": null,
+   "description": "A narrow notch between black cliffs on the shoulder of Mount Stone, the high door between the Stone Ponds side and the Lake of the Angels side. On one side lie Scout Lake and the Stone Ponds; on the other, the Valley of Heaven.",
+   "scene_art_notes": "Foreground: a tight rock notch framed by dark cliffs; midground (looking south): talus and a snowfield dropping toward a turquoise lake; sky: deep blue, wind streaks; landmark: Lake of the Angels below and Mount Skokomish beyond.",
+   "sources": [
+    "https://www.openstreetmap.org/node/11016327680",
+    "https://www.summitpost.org/mount-stone/151845",
+    "https://www.summitpost.org/stone-ponds-st-peters-gate/308351",
+    "https://www.mountaineers.org/activities/routes-places/putvin-way",
+    "https://www.mountaineers.org/activities/trip-reports/alpine-scramble-lena-to-putvin-traverse-and-mount-skokomish",
+    "https://www.wta.org/go-hiking/trip-reports/tripreport-2002072816",
+    "https://www.wta.org/go-hiking/trip-reports/tripreport-2008080604",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2020-08-03-5468189069",
+    "https://elevation.nationalmap.gov/arcgis/rest/services/3DEPElevation/ImageServer"
+   ]
+  },
+  {
+   "id": "mount_stone",
+   "name": "Mount Stone",
+   "type": "summit",
+   "elevation_ft": 6612,
+   "lat": 47.6063,
+   "lon": -123.2666,
+   "camp": null,
+   "description": "A dark, three-summited peak and the highest point in Mason County. Its main south summit takes a class 3 scramble with a few moves some call class 4.",
+   "scene_art_notes": "Foreground: blocky summit rock and a summit register can; midground: Lake of the Angels and Stone Ponds on either side; sky: deep cobalt; landmark: Hood Canal, The Brothers and Mount Rainier in the distance.",
+   "sources": [
+    "https://www.summitpost.org/mount-stone/151845",
+    "https://en.wikipedia.org/wiki/Mount_Stone",
+    "https://www.mountaineers.org/activities/routes-places/mt-stone-6-616"
+   ]
+  },
+  {
+   "id": "putvin_trailhead",
+   "name": "Putvin Trailhead",
+   "type": "trailhead",
+   "elevation_ft": 1582,
+   "lat": 47.5834,
+   "lon": -123.234,
+   "camp": null,
+   "description": "A gravel pullout on the Hamma Hamma road with no toilets and no fee, just a sign that says Putvin Trail. The first mile is a gentle warm-up beside Boulder Creek. It does not stay gentle.",
+   "scene_art_notes": "Foreground: a short wooden \"Putvin Trail 813\" sign; midground: dusty gravel pullout with one car; sky: hazy blue; landmark: Mount Pershing's rocky face across the valley.",
+   "sources": [
+    "https://www.fs.usda.gov/r06/olympic/recreation/putvin-trailhead",
+    "https://www.fs.usda.gov/r06/olympic/recreation/trails/putvin-trail-813",
+    "https://www.wta.org/go-hiking/hikes/lake-of-the-angels",
+    "https://www.summitpost.org/mount-stone/151845",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-08-16.212239143814",
+    "https://elevation.nationalmap.gov/arcgis/rest/services/3DEPElevation/ImageServer"
+   ]
+  },
+  {
+   "id": "carl_putvin_grave",
+   "name": "Carl Putvin's grave",
+   "type": "landmark",
+   "elevation_ft": 1709,
+   "lat": 47.5854,
+   "lon": -123.2355,
+   "camp": null,
+   "description": "A short spur leads to the grave of Carl Putvin, a young trapper of the early 1900s for whom the trail is named. A birdhouse hangs in a tree where a metal marker and photo once stood.",
+   "scene_art_notes": "Foreground: a simple grave mound edged with moss and fern; midground: a small birdhouse nailed to a cedar; sky: green canopy; landmark: a beam of light on the clearing.",
+   "sources": [
+    "https://www.wta.org/go-hiking/hikes/lake-of-the-angels",
+    "https://www.hikeoftheweek.com/2023/08/03/lake-of-the-angels/",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-08-24.231145415162",
+    "https://www.openstreetmap.org/node/7774477920",
+    "https://elevation.nationalmap.gov/arcgis/rest/services/3DEPElevation/ImageServer"
+   ]
+  },
+  {
+   "id": "putvin_old_road_junction",
+   "name": "Putvin Trail junction at the old Boulder Creek logging road",
+   "type": "junction",
+   "elevation_ft": 2372,
+   "lat": 47.5854,
+   "lon": -123.2481,
+   "camp": null,
+   "description": "The trail meets an overgrown logging road and a signed fork. Turn the right way, walk a little of the old road, and then the real climbing starts: more than 2,000 feet in about a mile and a half.",
+   "scene_art_notes": "Foreground: a signpost with an arrow; midground: an alder-choked old road bed; sky: bright through gaps; landmark: the steep forested wall ahead.",
+   "sources": [
+    "https://www.wta.org/go-hiking/hikes/lake-of-the-angels",
+    "https://www.hikeoftheweek.com/2023/08/03/lake-of-the-angels/",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-09-11.184141577317",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-08-16.212239143814",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2025-12-12.114011042211",
+    "https://elevation.nationalmap.gov/arcgis/rest/services/3DEPElevation/ImageServer"
+   ]
+  },
+  {
+   "id": "putvin_headwall",
+   "name": "The headwall (Putvin Trail)",
+   "type": "landmark",
+   "elevation_ft": 4100,
+   "lat": 47.594,
+   "lon": -123.2595,
+   "camp": null,
+   "description": "A band of rock where Whitehorse Creek pours down in cascades; you find a way up ledges using your hands, and a rope left by other hikers helps on the steepest step. Above it the world opens into meadows and frog-filled tarns.",
+   "scene_art_notes": "Foreground: a grey rock step with a frayed rope; midground: ledges and a hiker's hands; sky: blue through firs; landmark: white cascades of Whitehorse Creek to one side.",
+   "sources": [
+    "https://www.nps.gov/olym/planyourvisit/wilderness-trail-conditions.htm",
+    "https://www.hikeoftheweek.com/2023/08/03/lake-of-the-angels/",
+    "https://www.wta.org/go-hiking/hikes/lake-of-the-angels",
+    "https://www.mountaineers.org/activities/routes-places/mt-stone-6-616",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-09-10.180925120026",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-08-24.231145415162",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-05-18.105504982422",
+    "https://elevation.nationalmap.gov/arcgis/rest/services/3DEPElevation/ImageServer"
+   ]
+  },
+  {
+   "id": "whitehorse_falls",
+   "name": "Whitehorse Falls",
+   "type": "landmark",
+   "elevation_ft": 4503,
+   "lat": 47.5954,
+   "lon": -123.2647,
+   "camp": null,
+   "description": "Whitehorse Creek, draining Lake of the Angels, leaps down the headwall in a chain of white cascades.",
+   "scene_art_notes": "Foreground: wet black rock; midground: a tall white cascade in steps; sky: blue; landmark: meadow lip at the top.",
+   "sources": [
+    "https://www.openstreetmap.org/node/437851150",
+    "https://www.hikeoftheweek.com/2023/08/03/lake-of-the-angels/",
+    "https://outdoor-society.com/exploring-olympics-lake-of-the-angels/"
+   ]
+  },
+  {
+   "id": "pond_of_the_false_prophet",
+   "name": "Pond (Lake) of the False Prophet",
+   "type": "lake",
+   "elevation_ft": 4583,
+   "lat": 47.5964,
+   "lon": -123.2648,
+   "camp": null,
+   "description": "A shallow tarn in a quiet meadow where the obvious path goes straight ahead - and is wrong. The real trail turns sharp left over a few logs at the outlet. Frogs plop into the water as you pass.",
+   "scene_art_notes": "Foreground: a little log bridge over the outlet; midground: a still, shallow pond with reeds and a frog on a stone; sky: soft blue; landmark: a convincing-looking path leading off the wrong way.",
+   "sources": [
+    "https://www.wta.org/go-hiking/hikes/lake-of-the-angels",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-09-11.184141577317",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-08-16.212239143814",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2025-07-11.204347504231",
+    "https://www.summitpost.org/mount-stone/151845",
+    "https://www.openstreetmap.org/way/37750869",
+    "https://elevation.nationalmap.gov/arcgis/rest/services/3DEPElevation/ImageServer"
+   ]
+  },
+  {
+   "id": "putvin_park_boundary",
+   "name": "Olympic National Park boundary (Putvin Trail)",
+   "type": "landmark",
+   "elevation_ft": 4590,
+   "lat": null,
+   "lon": null,
+   "camp": null,
+   "description": "Somewhere in the meadows above the headwall you leave the Mount Skokomish Wilderness and enter the park. From here no dogs, and a permit if you sleep.",
+   "scene_art_notes": "Foreground: brown NPS sign; midground: muddy meadow trail (\"Sites of Slop\"); sky: blue with cumulus; landmark: a final steep green slope rising ahead.",
+   "sources": [
+    "https://www.nps.gov/olym/planyourvisit/wilderness-trail-conditions.htm",
+    "https://www.fs.usda.gov/r06/olympic/recreation/trails/putvin-trail-813",
+    "https://www.hikeoftheweek.com/2023/08/03/lake-of-the-angels/",
+    "https://www.wta.org/go-hiking/hikes/lake-of-the-angels"
+   ]
+  },
+  {
+   "id": "lake_of_the_angels",
+   "name": "Lake of the Angels",
+   "type": "camp",
+   "elevation_ft": 4950,
+   "lat": 47.5966,
+   "lon": -123.2736,
+   "camp": {
+    "sites": null,
+    "reservation_or_quota": "Olympic National Park wilderness permit required for any overnight stay (Recreation.gov permit 4098362; this camp area is not bookable online - call the Wilderness Information Center, 360-565-3100). Not a quota area. Recreation.gov lists the camp area as \"Lake of the Angels (No Campfires)\".",
+    "bear_can_required": true,
+    "food_storage": "can",
+    "fires_allowed": false,
+    "toilet": null,
+    "water": "The lake and inlet streams (treat).",
+    "notes": "A few established sites on the shore and in the basin above; a 2002 report counted three designated sites near the shore plus more above (stale); a 2026 report mentions a small site on the ridge about 0.1 mile above the lake. No toilet is documented in any source we found - plan to dig catholes 200 ft from water. Lake usually frozen until mid/late June. Mosquitoes worst at twilight in early summer."
+   },
+   "description": "A milky-green lake cupped in a bowl of polished rock and snow between Mount Skokomish and Mount Stone. Waterfalls stream down the terraced walls and marmots whistle; it is easy to see how it got its name.",
+   "scene_art_notes": "Foreground: a flat swimming rock and a small tent; midground: green-turquoise lake with snow patches on the far shore; sky: cobalt fading to white at the ridges; landmark: Mount Skokomish's craggy wall to the west and the black horns of Mount Stone to the northeast.",
+   "sources": [
+    "https://www.nps.gov/olym/planyourvisit/wilderness-trail-conditions.htm",
+    "https://www.recreation.gov/permits/4098362",
+    "https://www.wta.org/go-hiking/hikes/lake-of-the-angels",
+    "https://www.hikeoftheweek.com/2023/08/03/lake-of-the-angels/",
+    "https://outdoor-society.com/exploring-olympics-lake-of-the-angels/",
+    "https://www.wta.org/go-hiking/trip-reports/tripreport-2002072816",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-08-03.072954381080",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-09-01.204547395571",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-08-02.220151484236",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-06-19.095612497334",
+    "https://www.openstreetmap.org/relation/15361917",
+    "https://elevation.nationalmap.gov/arcgis/rest/services/3DEPElevation/ImageServer"
+   ]
+  },
+  {
+   "id": "valley_of_heaven",
+   "name": "Valley of Heaven",
+   "type": "landmark",
+   "elevation_ft": null,
+   "lat": null,
+   "lon": null,
+   "camp": null,
+   "description": "The name hikers give to the high, ice-scoured basin that holds Lake of the Angels, with meadows, tarns and boulder fields climbing to the northwest toward the ridge between Mount Skokomish and Mount Stone.",
+   "scene_art_notes": "Foreground: wildflowers (lupine, paintbrush) among white granite-like boulders; midground: terraced rock with silver waterfalls; sky: radiant dithered gold at sunset; landmark: the lake shining in the bowl below the peaks.",
+   "sources": [
+    "https://www.hikeoftheweek.com/2023/08/03/lake-of-the-angels/",
+    "https://www.wta.org/go-hiking/hikes/lake-of-the-angels",
+    "https://outdoor-society.com/exploring-olympics-lake-of-the-angels/"
+   ]
+  },
+  {
+   "id": "lota_west_saddle",
+   "name": "Saddle above Lake of the Angels (Skokomish-Stone ridge; unofficial)",
+   "type": "pass",
+   "elevation_ft": null,
+   "lat": null,
+   "lon": null,
+   "camp": null,
+   "description": "A short scramble above the lake reaches a saddle with a sudden view west over a blue tarn toward Mount Cruiser and the North Fork Skokomish. It is the jumping-off point for Mount Skokomish and for the wild country toward Hagen Lakes.",
+   "scene_art_notes": "Foreground: scree and a faint boot path; midground: a blue tarn far below; sky: wind-torn cloud; landmark: Mount Cruiser's fang to the southwest.",
+   "sources": [
+    "https://outdoor-society.com/exploring-olympics-lake-of-the-angels/",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2020-08-03-5468189069",
+    "https://www.mountaineers.org/activities/trip-reports/alpine-scramble-lena-to-putvin-traverse-and-mount-skokomish",
+    "https://www.wta.org/go-hiking/trip-reports/tripreport-2002081906"
+   ]
+  },
+  {
+   "id": "mount_skokomish",
+   "name": "Mount Skokomish",
+   "type": "summit",
+   "elevation_ft": 6434,
+   "lat": 47.5911,
+   "lon": -123.294,
+   "camp": null,
+   "description": "The craggy wall west of Lake of the Angels, reached by side-hilling around its southeast face on loose, rotten rock - a classic Olympic scramble.",
+   "scene_art_notes": "Foreground: crumbly red-brown summit rock; midground: Lake of the Angels as a small green eye; sky: deep blue; landmark: Mount Stone's two bumps and, far off, The Brothers.",
+   "sources": [
+    "https://www.mountaineers.org/activities/trip-reports/alpine-scramble-lena-to-putvin-traverse-and-mount-skokomish",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2020-08-03-5468189069",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-06-19.095612497334",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-07-24.210043538098",
+    "https://carto.nationalmap.gov/arcgis/rest/services/geonames/MapServer"
+   ]
+  },
+  {
+   "id": "great_stone_arrow_pass",
+   "name": "Great Stone Arrow Pass (saddle above Hagen Lakes; unofficial)",
+   "type": "pass",
+   "elevation_ft": null,
+   "lat": null,
+   "lon": null,
+   "camp": null,
+   "description": "On a saddle west of Mount Stone someone long ago laid out a giant arrow of stones that points toward Mount Hopper and First Divide. Sunset paints Mount Stone red from here.",
+   "scene_art_notes": "Foreground: a huge arrow made of grey stones on the ground; midground: a lake basin below; sky: red-orange sunset dither; landmark: Mount Stone glowing, the moon rising over its shoulder.",
+   "sources": [
+    "https://www.mountaineers.org/activities/trip-reports/alpine-scramble-lena-to-putvin-traverse-and-mount-skokomish",
+    "https://www.wta.org/go-hiking/trip-reports/tripreport-2002081906",
+    "https://www.mountaineers.org/activities/routes-places/putvin-way"
+   ]
+  },
+  {
+   "id": "hagen_lakes",
+   "name": "Hagen Lakes (Hagen Lake; \"Stonesthrow\" on some maps)",
+   "type": "camp",
+   "elevation_ft": 4738,
+   "lat": 47.6193,
+   "lon": -123.2682,
+   "camp": {
+    "sites": null,
+    "reservation_or_quota": "Olympic National Park wilderness permit required for any overnight stay (Recreation.gov permit 4098362; this camp area is not bookable online - call the Wilderness Information Center, 360-565-3100). Recreation.gov lists the camp area as \"Hagen Lakes (No Campfires)\".",
+    "bear_can_required": true,
+    "food_storage": "can",
+    "fires_allowed": false,
+    "toilet": false,
+    "water": "Lakes and snowmelt streams; a good stream runs off the west side of Mount Stone near the saddle (2024).",
+    "notes": "Cross-country only; no trail. Name on USGS/GNIS is \"Hagen Lake\"."
+   },
+   "description": "A cluster of small lakes north of Mount Stone, far from any trail, where elk wander the meadows.",
+   "scene_art_notes": "Foreground: heather and a small lake; midground: scree fans and snow; sky: pale evening blue; landmark: Mount Hopper to the west.",
+   "sources": [
+    "https://www.recreation.gov/permits/4098362",
+    "https://www.mountaineers.org/activities/routes-places/putvin-way",
+    "https://www.mountaineers.org/activities/trip-reports/alpine-scramble-lena-to-putvin-traverse-and-mount-skokomish",
+    "https://www.openstreetmap.org/relation/15260232",
+    "https://carto.nationalmap.gov/arcgis/rest/services/geonames/MapServer",
+    "https://elevation.nationalmap.gov/arcgis/rest/services/3DEPElevation/ImageServer"
+   ]
+  },
+  {
+   "id": "mount_hopper",
+   "name": "Mount Hopper",
+   "type": "summit",
+   "elevation_ft": 6108,
+   "lat": 47.6294,
+   "lon": -123.2967,
+   "camp": null,
+   "description": "A remote peak west of Hagen Lakes, seen from Fisher's Pass and the Great Stone Arrow.",
+   "scene_art_notes": "Foreground: scree; midground: green basin; sky: blue; landmark: Hopper's rocky summit.",
+   "sources": [
+    "https://www.mountaineers.org/activities/routes-places/putvin-way",
+    "https://www.wta.org/go-hiking/trip-reports/tripreport-2002081906",
+    "https://www.openstreetmap.org/relation/15261902",
+    "https://elevation.nationalmap.gov/arcgis/rest/services/3DEPElevation/ImageServer"
+   ]
+  },
+  {
+   "id": "elk_basin",
+   "name": "Elk Basin (unofficial)",
+   "type": "landmark",
+   "elevation_ft": null,
+   "lat": null,
+   "lon": null,
+   "camp": null,
+   "description": "A flowery basin on the Skokomish side where elk trails thread the scree and meadows. You can smell the herd before you hear it thunder away.",
+   "scene_art_notes": "Foreground: elk tracks and droppings in mud; midground: brown elk bodies running; sky: hazy summer blue; landmark: meadow benches stepping up to a pass.",
+   "sources": [
+    "https://www.wta.org/go-hiking/trip-reports/tripreport-2002081906"
+   ]
+  },
+  {
+   "id": "fishers_pass",
+   "name": "Fisher's Pass (unofficial)",
+   "type": "pass",
+   "elevation_ft": null,
+   "lat": null,
+   "lon": null,
+   "camp": null,
+   "description": "A pass with a view up to Mount Hopper where the faint Mount Hopper Way Trail begins its blowdown-choked descent toward the North Fork Skokomish.",
+   "scene_art_notes": "Foreground: a rock cairn; midground: a tangle of fallen trees below; sky: blue; landmark: Mount Hopper.",
+   "sources": [
+    "https://www.wta.org/go-hiking/trip-reports/tripreport-2002081906",
+    "https://www.openstreetmap.org/relation/15261902"
+   ]
+  },
+  {
+   "id": "first_divide",
+   "name": "First Divide",
+   "type": "pass",
+   "elevation_ft": 4688,
+   "lat": 47.6354,
+   "lon": -123.3095,
+   "camp": null,
+   "description": "SHARED NODE (owned by south_quinault_skok). The forested pass between the North Fork Skokomish and the Duckabush, reached from this region only by the expert off-trail route via Hagen Lakes and the Mount Hopper Way Trail.",
+   "scene_art_notes": "See south_quinault_skok.",
+   "sources": [
+    "https://www.nps.gov/olym/planyourvisit/wilderness-trail-conditions.htm",
+    "https://www.openstreetmap.org/relation/15261902"
+   ]
+  },
+  {
+   "id": "mildred_lakes_trailhead",
+   "name": "Mildred Lakes Trailhead (end of FR 25)",
+   "type": "trailhead",
+   "elevation_ft": 1895,
+   "lat": 47.575,
+   "lon": -123.2612,
+   "camp": null,
+   "description": "The road ends past a bridge over the Hamma Hamma near Hamma Hamma Falls. A rough, root-strewn fishermen's path leaves for the Mildred Lakes.",
+   "scene_art_notes": "Foreground: a turnaround with a trailhead sign; midground: concrete bridge and a gorge; sky: grey; landmark: white water of Hamma Hamma Falls.",
+   "sources": [
+    "https://www.wta.org/go-hiking/hikes/mildred-lakes",
+    "https://www.openstreetmap.org/node/2326441656",
+    "https://elevation.nationalmap.gov/arcgis/rest/services/3DEPElevation/ImageServer"
+   ]
+  },
+  {
+   "id": "hamma_hamma_falls",
+   "name": "Hamma Hamma Falls",
+   "type": "landmark",
+   "elevation_ft": 1803,
+   "lat": 47.5755,
+   "lon": -123.2605,
+   "camp": null,
+   "description": "Near the end of the road the Hamma Hamma pours through a narrow rock gorge beneath the bridge.",
+   "scene_art_notes": "Foreground: bridge railing; midground: a white waterfall in a dark slot; sky: grey; landmark: mist rising.",
+   "sources": [
+    "https://www.openstreetmap.org/node/7707176645",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-01-01.191102511633"
+   ]
+  },
+  {
+   "id": "mildred_lakes",
+   "name": "Mildred Lakes",
+   "type": "camp",
+   "elevation_ft": 3807,
+   "lat": 47.5581,
+   "lon": -123.302,
+   "camp": {
+    "sites": null,
+    "reservation_or_quota": "No permit (Mount Skokomish Wilderness, Olympic National Forest). Wilderness rules: max group 12.",
+    "bear_can_required": false,
+    "food_storage": "unknown",
+    "fires_allowed": false,
+    "toilet": false,
+    "water": "Lakes (treat).",
+    "notes": "Campfires prohibited above 3,500 ft in the wilderness (the lakes are about 3,800 ft). WA fishing license required (national forest)."
+   },
+   "description": "A set of lakes below the jagged Sawtooth Range, reached by a steep, unofficial, root-and-mud path. Good fishing, few people.",
+   "scene_art_notes": "Foreground: a granite shoreline and a fishing rod; midground: dark blue lake; sky: clear; landmark: the saw-toothed spires of the Sawtooth Range.",
+   "sources": [
+    "https://www.wta.org/go-hiking/hikes/mildred-lakes",
+    "https://en.wikipedia.org/wiki/Mount_Skokomish_Wilderness",
+    "https://elevation.nationalmap.gov/arcgis/rest/services/3DEPElevation/ImageServer"
+   ]
+  }
+ ],
+ "segments": [
+  {
+   "from": "lena_creek_campground",
+   "to": "lena_lake_trailhead",
+   "miles": 0.1,
+   "gain_ft": 0,
+   "loss_ft": 0,
+   "trail_class": "road_walk",
+   "hazards": [
+    "traffic"
+   ],
+   "snow_free_typical": "Year-round (FR 25 may get snow in winter)",
+   "notes": "Campground is beside the trailhead.",
+   "sources": [
+    "https://www.fs.usda.gov/r06/olympic/recreation/lena-creek-campground"
+   ]
+  },
+  {
+   "from": "hamma_hamma_campground",
+   "to": "lena_lake_trailhead",
+   "miles": 1.6,
+   "gain_ft": 110,
+   "loss_ft": 0,
+   "trail_class": "road_walk",
+   "hazards": [
+    "traffic"
+   ],
+   "snow_free_typical": "Year-round",
+   "notes": "Paved FR 25. Distance from OSM road geometry (campground ~6 mi, trailhead 7.6 mi from US 101).",
+   "sources": [
+    "https://www.fs.usda.gov/r06/olympic/recreation/hamma-hamma-campground",
+    "https://www.wta.org/go-hiking/hikes/lena-lake",
+    "https://elevation.nationalmap.gov/arcgis/rest/services/3DEPElevation/ImageServer"
+   ]
+  },
+  {
+   "from": "hamma_hamma_campground",
+   "to": "hamma_hamma_cabin",
+   "miles": 0.5,
+   "gain_ft": 70,
+   "loss_ft": 0,
+   "trail_class": "maintained",
+   "hazards": [],
+   "snow_free_typical": "Year-round",
+   "notes": "Via the Living Legacy Interpretive Trail (1.5 mi round-trip loop; first 0.25 mi barrier-free). Distance to the cabin is an estimate; respect the cabin renters' privacy.",
+   "sources": [
+    "https://www.wta.org/go-hiking/hikes/living-legacy-interpretive-trail",
+    "https://www.fs.usda.gov/r06/olympic/recreation/hamma-hamma-cabin"
+   ]
+  },
+  {
+   "from": "lena_lake_trailhead",
+   "to": "putvin_trailhead",
+   "miles": 4.3,
+   "gain_ft": 920,
+   "loss_ft": 0,
+   "trail_class": "road_walk",
+   "hazards": [
+    "traffic",
+    "potholes"
+   ],
+   "snow_free_typical": "Year-round; snow possible near Putvin TH in winter",
+   "notes": "FR 25 is paved to about the Lena Lake trailhead, then potholed gravel. This is the road walk (or car/bike shuttle) that closes the Lena-to-Angels traverse loop; WTA gives 4.5 mi, OSM 4.3 mi. Late-finishing parties have hitched rides from Mildred Lakes hikers.",
+   "sources": [
+    "https://www.wta.org/go-hiking/hikes/lake-of-the-angels",
+    "https://www.mountaineers.org/activities/routes-places/putvin-way",
+    "https://www.mountaineers.org/activities/trip-reports/alpine-scramble-lena-to-putvin-traverse-and-mount-skokomish",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-09-11.184141577317",
+    "https://elevation.nationalmap.gov/arcgis/rest/services/3DEPElevation/ImageServer"
+   ]
+  },
+  {
+   "from": "putvin_trailhead",
+   "to": "mildred_lakes_trailhead",
+   "miles": 1.5,
+   "gain_ft": 310,
+   "loss_ft": 0,
+   "trail_class": "road_walk",
+   "hazards": [
+    "traffic",
+    "potholes",
+    "snow_on_road"
+   ],
+   "snow_free_typical": "Snow can cover the last mile in winter",
+   "notes": "Gravel FR 25 to the end of the road. Dec 31, 2025: 4-6 in. of snow on the bridge just before the Mildred Lakes trailhead.",
+   "sources": [
+    "https://www.wta.org/go-hiking/hikes/mildred-lakes",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-01-01.191102511633",
+    "https://elevation.nationalmap.gov/arcgis/rest/services/3DEPElevation/ImageServer"
+   ]
+  },
+  {
+   "from": "lena_lake_trailhead",
+   "to": "lena_creek_bridge",
+   "miles": 1.9,
+   "gain_ft": 920,
+   "loss_ft": 0,
+   "trail_class": "maintained",
+   "hazards": [
+    "roots",
+    "rocks"
+   ],
+   "snow_free_typical": "Year-round at this elevation (occasional winter snow)",
+   "notes": "Wide, well-graded switchbacks through second-growth then old-growth forest; WTA-maintained, in great shape Sept 2026. Look for a big glacial erratic. Bridge mileage from a 2025 trip report; WTA describes a bridge over a dry gully just past 1 mi (there are two bridges).",
+   "sources": [
+    "https://www.wta.org/go-hiking/hikes/lena-lake",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2025-10-17.180336437388",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-09-27.171810907718",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-09-20.233149203889",
+    "https://elevation.nationalmap.gov/arcgis/rest/services/3DEPElevation/ImageServer"
+   ]
+  },
+  {
+   "from": "lena_creek_bridge",
+   "to": "lena_lake_upper_lena_junction",
+   "miles": 1.1,
+   "gain_ft": 370,
+   "loss_ft": 40,
+   "trail_class": "maintained",
+   "hazards": [
+    "blowdown"
+   ],
+   "snow_free_typical": "Year-round",
+   "notes": "One downed tree easy to crawl under (Sept 2026). Junction at 3.0 mi (USFS); the Upper Lena trail branches LEFT just before the lake.",
+   "sources": [
+    "https://www.fs.usda.gov/r06/olympic/recreation/trails/lena-lake-trail-810",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2025-10-08.200156555674",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-09-27.171810907718",
+    "https://elevation.nationalmap.gov/arcgis/rest/services/3DEPElevation/ImageServer"
+   ]
+  },
+  {
+   "from": "lena_lake_upper_lena_junction",
+   "to": "lena_lake",
+   "miles": 0.2,
+   "gain_ft": 0,
+   "loss_ft": 60,
+   "trail_class": "maintained",
+   "hazards": [],
+   "snow_free_typical": "Year-round",
+   "notes": "Right fork drops to the lake with an immediate view; campground about 0.25 mi past the viewpoint. USFS gives 3.2 and 3.5/3.6 mi to the lake/campground in different places.",
+   "sources": [
+    "https://www.fs.usda.gov/r06/olympic/recreation/lena-lake-campground",
+    "https://www.fs.usda.gov/r06/olympic/recreation/trails/lena-lake-trail-810",
+    "https://www.wta.org/go-hiking/hikes/lena-lake"
+   ]
+  },
+  {
+   "from": "lena_lake",
+   "to": "brothers_trail_junction",
+   "miles": 0.4,
+   "gain_ft": 20,
+   "loss_ft": 20,
+   "trail_class": "maintained",
+   "hazards": [],
+   "snow_free_typical": "Year-round",
+   "notes": "Along the lakeshore camps to a small shack at the end of the campground; Brothers Trail #821 at 3.6 mi from the trailhead (USFS).",
+   "sources": [
+    "https://www.fs.usda.gov/r06/olympic/recreation/trails/lena-lake-trail-810",
+    "https://www.wta.org/go-hiking/hikes/lena-lake"
+   ]
+  },
+  {
+   "from": "brothers_trail_junction",
+   "to": "brothers_climbers_camp",
+   "miles": 2.5,
+   "gain_ft": 1150,
+   "loss_ft": 100,
+   "trail_class": "maintained",
+   "hazards": [
+    "boulders",
+    "dry_creek_no_water",
+    "blowdown"
+   ],
+   "snow_free_typical": "Lower part year-round; upper part snow Nov-May",
+   "notes": "Through the Valley of the Silent Men up the East Fork Lena Creek (The Brothers Wilderness; dogs allowed - national forest). Maintained to the climbers' camp. Distance is an estimate from OSM geometry (2.84 mi from the lake); sources put the camp 5-6 mi from the trailhead at about 3,000-3,100 ft. The intermittent creek can be dry in late summer.",
+   "sources": [
+    "https://www.fs.usda.gov/r06/olympic/recreation/trails/brothers-trail-821",
+    "https://www.wta.org/go-hiking/hikes/the-brothers",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-09-20.233149203889",
+    "https://www.openstreetmap.org/relation/15258641",
+    "https://elevation.nationalmap.gov/arcgis/rest/services/3DEPElevation/ImageServer"
+   ]
+  },
+  {
+   "from": "brothers_climbers_camp",
+   "to": "the_brothers",
+   "miles": 2.9,
+   "gain_ft": 3840,
+   "loss_ft": 0,
+   "trail_class": "off_trail",
+   "hazards": [
+    "steep_scree",
+    "rockfall",
+    "snowfield",
+    "avalanche_path",
+    "exposure",
+    "route_finding"
+   ],
+   "snow_free_typical": "Climbed mostly late spring to early summer on snow; late season = loose rock",
+   "notes": "South Couloir climbers' route: cairned way trail, across \"The Nose\" to a gully, scree and ledges, through the Hourglass to a notch and the last 200 ft. Generally class 3 with snow (ice axe, helmet); serious rockfall between the Hourglass and summit reported. Mileage derived (WTA 9 mi one way minus approach). Summit elevation 6,842 ft (USGS) vs 6,866 ft (WTA/Wikipedia).",
+   "sources": [
+    "https://www.mountaineers.org/activities/routes-places/the-brothers-south-couloir",
+    "https://en.wikipedia.org/wiki/South_Brother",
+    "https://www.wta.org/go-hiking/hikes/the-brothers"
+   ]
+  },
+  {
+   "from": "lena_lake_upper_lena_junction",
+   "to": "upper_lena_park_boundary",
+   "miles": 2.1,
+   "gain_ft": 860,
+   "loss_ft": 100,
+   "trail_class": "maintained",
+   "hazards": [
+    "roots",
+    "blowdown",
+    "stream_crossing"
+   ],
+   "snow_free_typical": "Mid-June to October typical",
+   "notes": "Narrower, rockier, rooty; a social trail goes straight about 0.75 mi up - stay LEFT. NPS: boundary to lake is 2.2 mi and the whole trail 7.3 mi, which puts the boundary ~5.1 mi from the trailhead; WTA says the park is entered at about 4 mi. Dogs not allowed past the boundary.",
+   "sources": [
+    "https://www.nps.gov/olym/planyourvisit/wilderness-trail-conditions.htm",
+    "https://home.nps.gov/olym/planyourvisit/upper-lena-lake-trail.htm",
+    "https://www.wta.org/go-hiking/hikes/upper-lena-lake",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-09-19.104606597992",
+    "https://elevation.nationalmap.gov/arcgis/rest/services/3DEPElevation/ImageServer"
+   ]
+  },
+  {
+   "from": "upper_lena_park_boundary",
+   "to": "upper_lena_root_ladder",
+   "miles": 0.7,
+   "gain_ft": 840,
+   "loss_ft": 120,
+   "trail_class": "maintained",
+   "hazards": [
+    "roots",
+    "steep",
+    "loose_dirt",
+    "ladder"
+   ],
+   "snow_free_typical": "Mid-June to October",
+   "notes": "Steep loose-dirt sections and a staircase/ladder; \"more root than trail\" in places. Trip reports: from the lake down to the root ladder is about 1.1 mi and 1,150 ft.",
+   "sources": [
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-09-19.104606597992",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-09-15.075631109419",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-09-02.110611361060",
+    "https://elevation.nationalmap.gov/arcgis/rest/services/3DEPElevation/ImageServer"
+   ]
+  },
+  {
+   "from": "upper_lena_root_ladder",
+   "to": "upper_lena_lena_creek_ford",
+   "miles": 1.0,
+   "gain_ft": 1150,
+   "loss_ft": 60,
+   "trail_class": "maintained",
+   "hazards": [
+    "roots",
+    "steep",
+    "slick_rock",
+    "stream_crossing",
+    "sun_exposure"
+   ],
+   "snow_free_typical": "July to early October",
+   "notes": "The crux of the approach: root ladders, slanting slick slabs at the dried Lena Creek cascades, then an unshaded meadow that goes straight up. \"The last mile gains 1,600 feet\" (2021). Much slower when wet; many parties descend slower than they ascend.",
+   "sources": [
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2021-08-16-2108232854",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-09-15.075631109419",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-08-29.212610979515",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-09-19.104606597992",
+    "https://elevation.nationalmap.gov/arcgis/rest/services/3DEPElevation/ImageServer"
+   ]
+  },
+  {
+   "from": "upper_lena_lena_creek_ford",
+   "to": "upper_lena_lake",
+   "miles": 0.5,
+   "gain_ft": 100,
+   "loss_ft": 25,
+   "trail_class": "maintained",
+   "hazards": [
+    "river_ford",
+    "slick_rock",
+    "snowfield"
+   ],
+   "snow_free_typical": "Snow may cover higher reaches in any season; usually snow-free mid-July to early October",
+   "notes": "NPS 9/30/26: the Lena Creek ford about half a mile before Upper Lena Lake can become hazardous at any time. A 2026 party found a safer lower crossing below the big rocks. Snow may linger; NPS says ice axe/self-arrest skills needed when snow-covered.",
+   "sources": [
+    "https://www.nps.gov/olym/planyourvisit/wilderness-trail-conditions.htm",
+    "https://home.nps.gov/olym/planyourvisit/upper-lena-lake-trail.htm",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-09-19.104606597992"
+   ]
+  },
+  {
+   "from": "upper_lena_lake",
+   "to": "milk_lake",
+   "miles": 0.95,
+   "gain_ft": 250,
+   "loss_ft": 110,
+   "trail_class": "way_trail",
+   "hazards": [
+    "steep",
+    "stream_crossing",
+    "loose_bank",
+    "snowfield"
+   ],
+   "snow_free_typical": "Mid-July to September; snowfields feed the lake into August",
+   "notes": "From the campground info board south along the east shore past the last campsite: very steep drop to the shore, a tilted two-log bridge (cross on rocks instead), sandy collapsing bank. 1.9 mi round trip (2021 report).",
+   "sources": [
+    "https://www.wta.org/go-hiking/hikes/upper-lena-lake",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2021-08-16-2108232854",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-09-19.104606597992",
+    "https://elevation.nationalmap.gov/arcgis/rest/services/3DEPElevation/ImageServer"
+   ]
+  },
+  {
+   "from": "upper_lena_lake",
+   "to": "mount_lena",
+   "miles": 0.7,
+   "gain_ft": 1440,
+   "loss_ft": 0,
+   "trail_class": "off_trail",
+   "hazards": [
+    "steep_scree",
+    "sun_exposure"
+   ],
+   "snow_free_typical": "July-September",
+   "notes": "Non-technical cross-country ascent above the lake; Wikipedia: 8 mi one way and 5,300 ft from the trailhead, so about 0.7 mi from the lake (derived). South face is hot in full sun.",
+   "sources": [
+    "https://en.wikipedia.org/wiki/Mount_Lena_(Washington)",
+    "https://www.mountaineers.org/activities/trip-reports/alpine-scramble-lena-to-putvin-traverse-and-mount-skokomish"
+   ]
+  },
+  {
+   "from": "upper_lena_lake",
+   "to": "mount_bretherton",
+   "miles": 0.7,
+   "gain_ft": 1405,
+   "loss_ft": 0,
+   "trail_class": "off_trail",
+   "hazards": [
+    "steep_scree",
+    "exposure"
+   ],
+   "snow_free_typical": "July-September",
+   "notes": "Non-technical scramble; Wikipedia: 8 mi one way from the trailhead (0.7 mi from the lake is derived). \"A fun scramble\" (Mountaineers 2024).",
+   "sources": [
+    "https://en.wikipedia.org/wiki/Mount_Bretherton",
+    "https://www.mountaineers.org/activities/trip-reports/alpine-scramble-lena-to-putvin-traverse-and-mount-skokomish"
+   ]
+  },
+  {
+   "from": "upper_lena_lake",
+   "to": "deerheart_lake",
+   "miles": 2.0,
+   "gain_ft": 650,
+   "loss_ft": 250,
+   "trail_class": "way_trail",
+   "hazards": [
+    "overgrown",
+    "route_finding",
+    "bog",
+    "mosquitoes"
+   ],
+   "snow_free_typical": "Mid-July to early October",
+   "notes": "Scout Lake way trail (unmaintained, \"Scout Lake #108\" in WTA): picks up on the west side of the lake, crosses Scout Lake Divide/Pass and follows a ridge with views of Bretherton, Pershing and Anderson; overgrown but mostly easy to follow; \"3 miles of blueberry heaven\" (2024). 2.0 mi from a 2020 report (one hour Deerheart to Upper Lena); a 2024 party logged about 3 mi of way trail to a camp near a small lake above Scout Lake. Gain/loss ESTIMATED from endpoint elevations and a 2020 trip log.",
+   "sources": [
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2020-08-03-5468189069",
+    "https://www.mountaineers.org/activities/trip-reports/alpine-scramble-lena-to-putvin-traverse-and-mount-skokomish",
+    "https://www.wta.org/go-hiking/trip-reports/tripreport-2008080604",
+    "https://www.wta.org/go-hiking/trip-reports/tripreport-1998080104",
+    "https://www.wta.org/go-hiking/hikes/scout-lake",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-07-06.103329221905"
+   ]
+  },
+  {
+   "from": "deerheart_lake",
+   "to": "scout_lake",
+   "miles": 1.3,
+   "gain_ft": 50,
+   "loss_ft": 740,
+   "trail_class": "way_trail",
+   "hazards": [
+    "steep",
+    "roots",
+    "exposure",
+    "overgrown",
+    "bushwhack",
+    "route_finding"
+   ],
+   "snow_free_typical": "Mid-July to early October",
+   "notes": "Past the Stone Ponds fork the path drops to Scout Lake through a \"veggie belay\" section of roots with about 40 ft of exposure. 1.3 mi is derived (WTA Scout Lake 21.2 mi round trip). No camping within 0.25 mi of the lake. A 2020 party called it \"a lot of bang for very little buck\".",
+   "sources": [
+    "https://www.wta.org/go-hiking/hikes/scout-lake",
+    "https://www.wta.org/go-hiking/trip-reports/tripreport-2002081906",
+    "https://www.wta.org/go-hiking/trip-reports/tripreport-2008080604",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2020-08-03-5468189069",
+    "https://www.nps.gov/olym/planyourvisit/wilderness-trail-conditions.htm"
+   ]
+  },
+  {
+   "from": "deerheart_lake",
+   "to": "stone_ponds",
+   "miles": 1.4,
+   "gain_ft": 250,
+   "loss_ft": 490,
+   "trail_class": "way_trail",
+   "hazards": [
+    "route_finding",
+    "overgrown",
+    "bog",
+    "snowfield"
+   ],
+   "snow_free_typical": "Late July to early October",
+   "notes": "Via the easily-missed left fork (Stone Ponds fork) and Stone Ponds Pass, through a lush basin of tarns and flowers, then down to the upper pond. ESTIMATE: 1.4 mi from map geometry (straight line 1.1 mi); a 2024 party said it was \"only a mile\" from their camp to where the way trail ends. The trail is heavily overgrown and disappears in wet, boggy, willow-choked sections (July 2026).",
+   "sources": [
+    "https://www.wta.org/go-hiking/trip-reports/tripreport-2008080604",
+    "https://www.wta.org/go-hiking/trip-reports/tripreport-2002081906",
+    "https://www.summitpost.org/stone-ponds-st-peters-gate/308351",
+    "https://www.mountaineers.org/activities/trip-reports/alpine-scramble-lena-to-putvin-traverse-and-mount-skokomish",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-07-06.103329221905"
+   ]
+  },
+  {
+   "from": "upper_lena_lake",
+   "to": "stone_ponds",
+   "miles": null,
+   "gain_ft": null,
+   "loss_ft": null,
+   "trail_class": "off_trail",
+   "hazards": [
+    "route_finding",
+    "exposure",
+    "snowfield"
+   ],
+   "snow_free_typical": "Late July to early October",
+   "notes": "The \"high route\" along the full length of Scout Ridge (2026: easy navigation, stunning, nonstop views of Mount Pershing and Mount Anderson) then a drop into the Stone Ponds basin. Distance and gain not published.",
+   "sources": [
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-07-06.103329221905"
+   ]
+  },
+  {
+   "from": "stone_ponds",
+   "to": "st_peters_gate",
+   "miles": 0.9,
+   "gain_ft": 1225,
+   "loss_ft": 0,
+   "trail_class": "off_trail",
+   "hazards": [
+    "snowfield",
+    "steep_scree",
+    "rockfall",
+    "moraine",
+    "ice",
+    "route_finding"
+   ],
+   "snow_free_typical": "Never reliably snow-free: a permanent snow/ice finger persists; best late July-September with ice axe and traction",
+   "notes": "Old glacial basin and moraine below the Gate: talus, a north-facing snow couloir/finger and loose scree. Two lines in 2008: a high meadow traverse to a long snow ledge, or down across talus to the nearest snowfield then up a scree constriction. 2024: stay on the rock spine on climber's right to avoid raining rocks on partners; took 5 hours from camp with overnight packs. A July 2026 party without microspikes/axe turned back here; estimate 2-3 hours in good conditions. ESTIMATE: 0.9 mi from map geometry; gain from DEM elevations.",
+   "sources": [
+    "https://www.wta.org/go-hiking/trip-reports/tripreport-2008080604",
+    "https://www.mountaineers.org/activities/trip-reports/alpine-scramble-lena-to-putvin-traverse-and-mount-skokomish",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-07-06.103329221905",
+    "https://www.mountaineers.org/activities/routes-places/putvin-way",
+    "https://www.summitpost.org/stone-ponds-st-peters-gate/308351",
+    "https://www.wta.org/go-hiking/trip-reports/tripreport-2002081906"
+   ]
+  },
+  {
+   "from": "st_peters_gate",
+   "to": "lake_of_the_angels",
+   "miles": 0.9,
+   "gain_ft": 0,
+   "loss_ft": 985,
+   "trail_class": "off_trail",
+   "hazards": [
+    "steep_scree",
+    "rockfall",
+    "snowfield",
+    "exposure"
+   ],
+   "snow_free_typical": "Snowfields linger into August most years",
+   "notes": "From the notch, a steep loose section at the top, talus and a snowfield, then boulders and heather to a boot path down to the lake. 2020: Lake of the Angels to the Gate took about an hour (unloaded-ish); wear a helmet, keep the party close together so dislodged rocks cannot gather speed. ESTIMATE: 0.9 mi from map geometry (straight line 0.66 mi).",
+   "sources": [
+    "https://www.wta.org/go-hiking/trip-reports/tripreport-2008080604",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2020-08-03-5468189069",
+    "https://www.wta.org/go-hiking/trip-reports/tripreport-2002072816",
+    "https://www.summitpost.org/mount-stone/151845",
+    "https://www.mountaineers.org/activities/routes-places/putvin-way"
+   ]
+  },
+  {
+   "from": "putvin_trailhead",
+   "to": "carl_putvin_grave",
+   "miles": 0.15,
+   "gain_ft": 125,
+   "loss_ft": 0,
+   "trail_class": "maintained",
+   "hazards": [],
+   "snow_free_typical": "Year-round",
+   "notes": "Short spur near the start.",
+   "sources": [
+    "https://www.wta.org/go-hiking/hikes/lake-of-the-angels",
+    "https://www.openstreetmap.org/node/7774477920",
+    "https://elevation.nationalmap.gov/arcgis/rest/services/3DEPElevation/ImageServer"
+   ]
+  },
+  {
+   "from": "putvin_trailhead",
+   "to": "putvin_old_road_junction",
+   "miles": 1.3,
+   "gain_ft": 830,
+   "loss_ft": 30,
+   "trail_class": "maintained",
+   "hazards": [
+    "hornets"
+   ],
+   "snow_free_typical": "Mostly snow-free April-November",
+   "notes": "Gentle first mile beside Boulder Creek crossing two narrow ravines; recent WTA rock work and steps. Signed fork at the old road (WTA: ~1.5 mi; trip reports: \"signed junction\" after the first mile). Hornet nest reported near here in 2020; yellowjackets common in August.",
+   "sources": [
+    "https://www.wta.org/go-hiking/hikes/lake-of-the-angels",
+    "https://www.hikeoftheweek.com/2023/08/03/lake-of-the-angels/",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-08-16.212239143814",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-09-11.184141577317",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2025-12-12.114011042211",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2020-08-03-5468189069",
+    "https://elevation.nationalmap.gov/arcgis/rest/services/3DEPElevation/ImageServer"
+   ]
+  },
+  {
+   "from": "putvin_old_road_junction",
+   "to": "putvin_headwall",
+   "miles": 1.2,
+   "gain_ft": 1990,
+   "loss_ft": 20,
+   "trail_class": "primitive",
+   "hazards": [
+    "steep",
+    "avalanche_path",
+    "scramble",
+    "roots",
+    "heat"
+   ],
+   "snow_free_typical": "Lower part mostly snow-free May-November; snow above ~4,000 ft until June",
+   "notes": "Very steep: over 2,000 ft in about 1.6 mi (Romano). Brushy avalanche chute, several rock steps (\"five rock faces, each worse than the previous\"); the steepest headwall has a rope left by hikers (not maintained by any agency). NPS: \"the headwall is a scramble and requires the use of hands and feet.\"",
+   "sources": [
+    "https://www.nps.gov/olym/planyourvisit/wilderness-trail-conditions.htm",
+    "https://www.hikeoftheweek.com/2023/08/03/lake-of-the-angels/",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-09-10.180925120026",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-08-24.231145415162",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-05-18.105504982422",
+    "https://elevation.nationalmap.gov/arcgis/rest/services/3DEPElevation/ImageServer"
+   ]
+  },
+  {
+   "from": "putvin_headwall",
+   "to": "pond_of_the_false_prophet",
+   "miles": 0.4,
+   "gain_ft": 220,
+   "loss_ft": 0,
+   "trail_class": "primitive",
+   "hazards": [
+    "mud",
+    "snowfield"
+   ],
+   "snow_free_typical": "Snow-free usually July-October",
+   "notes": "Above the headwall a small meadow at about 4,400 ft and frog tarns; the \"Sites of Slop\" mud begins.",
+   "sources": [
+    "https://www.mountaineers.org/activities/routes-places/mt-stone-6-616",
+    "https://www.hikeoftheweek.com/2023/08/03/lake-of-the-angels/",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-09-11.184141577317",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-05-03.151901079977"
+   ]
+  },
+  {
+   "from": "pond_of_the_false_prophet",
+   "to": "putvin_park_boundary",
+   "miles": 0.1,
+   "gain_ft": 10,
+   "loss_ft": 0,
+   "trail_class": "primitive",
+   "hazards": [
+    "route_finding",
+    "mud"
+   ],
+   "snow_free_typical": "July-October",
+   "notes": "WRONG-TURN SPOT: at the pond the obvious trail continues straight; the correct trail turns sharp LEFT across the outlet on small logs. One more confusing junction beyond. Park boundary at 2.8 mi (Romano) to 3.0 mi (USFS/NPS).",
+   "sources": [
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-09-11.184141577317",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-08-16.212239143814",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2025-07-11.204347504231",
+    "https://www.nps.gov/olym/planyourvisit/wilderness-trail-conditions.htm",
+    "https://www.fs.usda.gov/r06/olympic/recreation/trails/putvin-trail-813",
+    "https://www.hikeoftheweek.com/2023/08/03/lake-of-the-angels/"
+   ]
+  },
+  {
+   "from": "putvin_park_boundary",
+   "to": "lake_of_the_angels",
+   "miles": 0.6,
+   "gain_ft": 370,
+   "loss_ft": 10,
+   "trail_class": "primitive",
+   "hazards": [
+    "steep",
+    "mud",
+    "snowfield",
+    "sun_exposure",
+    "river_ford"
+   ],
+   "snow_free_typical": "Usually snow-free mid-July to October; lake ice-out mid/late June",
+   "notes": "NPS: 0.6 mi inside the park (plus 3 mi outside). Cross Whitehorse Creek, then one last steep, sun-exposed grunt over a ridge (\"there's MORE?!\"). Ripe blueberries in August. In June snow mounds cover the last half mile and can hide the trail in fog.",
+   "sources": [
+    "https://www.nps.gov/olym/planyourvisit/wilderness-trail-conditions.htm",
+    "https://www.hikeoftheweek.com/2023/08/03/lake-of-the-angels/",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-08-16.212239143814",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-06-19.095612497334",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2025-06-24.142320635332"
+   ]
+  },
+  {
+   "from": "lake_of_the_angels",
+   "to": "mount_stone",
+   "miles": 1.2,
+   "gain_ft": 1660,
+   "loss_ft": 0,
+   "trail_class": "off_trail",
+   "hazards": [
+    "steep_scree",
+    "rockfall",
+    "exposure",
+    "snowfield",
+    "scramble"
+   ],
+   "snow_free_typical": "July-September",
+   "notes": "Standard (West Ridge / \"Route 1\"): boot path north from the lake into the talus basin below St. Peter's Gate; do NOT go up into the Gate - go LEFT under the long cliff band to a pass, then class 3 (some class 4 moves) to the south summit. SummitPost: 9-10 mi and 5,100+ ft round trip from the road, so ~1.2 mi from the lake is derived.",
+   "sources": [
+    "https://www.summitpost.org/mount-stone/151845",
+    "https://www.mountaineers.org/activities/routes-places/mt-stone-6-616",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-06-19.095612497334",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2025-06-24.142320635332"
+   ]
+  },
+  {
+   "from": "lake_of_the_angels",
+   "to": "lota_west_saddle",
+   "miles": 0.5,
+   "gain_ft": 300,
+   "loss_ft": 0,
+   "trail_class": "way_trail",
+   "hazards": [
+    "steep_scree"
+   ],
+   "snow_free_typical": "July-September",
+   "notes": "Cross the outlet to the first campsite and follow a path across the meadow and up about 300 ft to the saddle (Outdoor Society). A 2020 party logged \"1 mi RT, 800 ft\" for a scramble to a pass west of the lake overlooking a blue tarn and Mount Cruiser.",
+   "sources": [
+    "https://outdoor-society.com/exploring-olympics-lake-of-the-angels/",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2020-08-03-5468189069"
+   ]
+  },
+  {
+   "from": "lota_west_saddle",
+   "to": "mount_skokomish",
+   "miles": null,
+   "gain_ft": 1180,
+   "loss_ft": null,
+   "trail_class": "off_trail",
+   "hazards": [
+    "steep_scree",
+    "rockfall",
+    "exposure",
+    "snowfield",
+    "scramble"
+   ],
+   "snow_free_typical": "July-September",
+   "notes": "Contour around the southeast face (mostly class 2, rotten rock; go low/mid rather than high to a headwall), then class 2-3 (maybe 3+) to the summit. Return by dropping into the gully rather than the loose side-hill. Distance not published; gain from elevations.",
+   "sources": [
+    "https://www.mountaineers.org/activities/trip-reports/alpine-scramble-lena-to-putvin-traverse-and-mount-skokomish",
+    "https://www.wta.org/go-hiking/trip-reports/trip_report-2020-08-03-5468189069"
+   ]
+  },
+  {
+   "from": "lota_west_saddle",
+   "to": "great_stone_arrow_pass",
+   "miles": 0.75,
+   "gain_ft": null,
+   "loss_ft": null,
+   "trail_class": "off_trail",
+   "hazards": [
+    "exposure",
+    "steep_scree",
+    "downclimb",
+    "snowfield"
+   ],
+   "snow_free_typical": "August-September",
+   "notes": "Boot paths along the west ridge lead to three roughly 20-ft non-trivial downclimbs (two only 10 ft apart; some want a hand-line), then about 3/4 mile across a ~35-degree slope of varied terrain to the saddle with the Great Stone Arrow above Hagen Lake. A 2024 party took about 5 hours from St. Peter's Gate to here.",
+   "sources": [
+    "https://www.mountaineers.org/activities/trip-reports/alpine-scramble-lena-to-putvin-traverse-and-mount-skokomish",
+    "https://www.wta.org/go-hiking/trip-reports/tripreport-2002081906"
+   ]
+  },
+  {
+   "from": "great_stone_arrow_pass",
+   "to": "hagen_lakes",
+   "miles": null,
+   "gain_ft": null,
+   "loss_ft": null,
+   "trail_class": "off_trail",
+   "hazards": [
+    "steep_scree"
+   ],
+   "snow_free_typical": "August-September",
+   "notes": "Short descent into the Hagen Lakes basin; a good stream off the west side of Mount Stone is about 200 yards from the saddle, and durable camping exists at the saddle itself.",
+   "sources": [
+    "https://www.mountaineers.org/activities/trip-reports/alpine-scramble-lena-to-putvin-traverse-and-mount-skokomish",
+    "https://www.mountaineers.org/activities/routes-places/putvin-way"
+   ]
+  },
+  {
+   "from": "great_stone_arrow_pass",
+   "to": "elk_basin",
+   "miles": null,
+   "gain_ft": null,
+   "loss_ft": null,
+   "trail_class": "off_trail",
+   "hazards": [
+    "route_finding",
+    "steep_scree"
+   ],
+   "snow_free_typical": "August-September",
+   "notes": "Elk trails on the Skokomish side through scree and flower meadows (2002). Unmapped; no published distance.",
+   "sources": [
+    "https://www.wta.org/go-hiking/trip-reports/tripreport-2002081906"
+   ]
+  },
+  {
+   "from": "elk_basin",
+   "to": "fishers_pass",
+   "miles": null,
+   "gain_ft": null,
+   "loss_ft": null,
+   "trail_class": "off_trail",
+   "hazards": [
+    "route_finding"
+   ],
+   "snow_free_typical": "August-September",
+   "notes": "Meadow benches up to Fisher's Pass with a view up to Mount Hopper (2002).",
+   "sources": [
+    "https://www.wta.org/go-hiking/trip-reports/tripreport-2002081906"
+   ]
+  },
+  {
+   "from": "fishers_pass",
+   "to": "first_divide",
+   "miles": 2.0,
+   "gain_ft": null,
+   "loss_ft": null,
+   "trail_class": "way_trail",
+   "hazards": [
+    "blowdown",
+    "route_finding",
+    "trail_closed_2026"
+   ],
+   "snow_free_typical": "August-September",
+   "notes": "Mount Hopper Way Trail: primitive, NPS-listed but poorly maintained; countless blowdowns and two places where the tread vanishes (look for cairns). A 2002 party took \"the better part of 2 hours going 2 miles\" to reach the North Fork Skokomish Trail just below First Divide. OSM gives the whole way trail as 3.1 mi. 2026: First Divide connects only to trails CLOSED by the 2025 Bear Gulch Fire (North Fork Skokomish and Home Sweet Home) - not a legal exit in 2026.",
+   "sources": [
+    "https://www.wta.org/go-hiking/trip-reports/tripreport-2002081906",
+    "https://www.openstreetmap.org/relation/15261902",
+    "https://www.nps.gov/olym/planyourvisit/wilderness-trail-conditions.htm",
+    "https://www.nps.gov/olym/planyourvisit/fire-conditions-and-updates.htm"
+   ]
+  },
+  {
+   "from": "mildred_lakes_trailhead",
+   "to": "mildred_lakes",
+   "miles": 4.5,
+   "gain_ft": 2550,
+   "loss_ft": 640,
+   "trail_class": "primitive",
+   "hazards": [
+    "roots",
+    "mud",
+    "steep",
+    "route_finding"
+   ],
+   "snow_free_typical": "July-October",
+   "notes": "Never officially constructed fishermen's path in the Mount Skokomish Wilderness: fairly well defined to Huckleberry Creek, then steep and harder to follow; climbs, drops, climbs again, descends to the lakes. WTA: 9.0 mi RT, ~2,300 ft gain, high point 4,100 ft; gain/loss here from DEM along the OSM line.",
+   "sources": [
+    "https://www.wta.org/go-hiking/hikes/mildred-lakes",
+    "https://elevation.nationalmap.gov/arcgis/rest/services/3DEPElevation/ImageServer"
+   ]
+  }
+ ],
+ "trailheads": [
+  {
+   "node_id": "lena_lake_trailhead",
+   "access": "US 101 north 14 mi from Hoodsport to milepost 318, then west on Hamma Hamma River Road (FR 25) 7.6 mi (paved). Nearest towns: Hoodsport (south) and Brinnon (north); Eldon at the turnoff.",
+   "drive_minutes_from": {
+    "port_angeles": 120,
+    "forks": 205,
+    "quilcene_or_hoodsport": 42
+   },
+   "road_status_2026": "Open. Paved to the trailhead; Sept 2026 trip reports: \"road suitable for all vehicles\", one large pothole on the paved section. No FR 25 closure listed on the Olympic National Forest alerts page (checked 2026-10). Lena Creek and Hamma Hamma campgrounds showed \"Closed for the season\" on 2026-09-17; Lena Lake backcountry campground listed open 2026-09-24.",
+   "notes": "Drive minutes are OSRM estimates (Quilcene ~52). Northwest Forest Pass / America the Beautiful or $5/day ($30/yr) per USFS. Large lot (~30 cars) plus parking along the road - watch traffic crossing. Two privies (stocked Aug 2026). Fee machine here also serves the Hamma Hamma and Lena Creek campgrounds. Entry/exit point on the ONP permit: \"Lena Lake Trail (USFS) TH\"."
+  },
+  {
+   "node_id": "putvin_trailhead",
+   "access": "As for Lena Lake, then continue 4.3-4.5 mi up FR 25 on potholed gravel (about 12 mi from US 101). Pullout parking on the left, trail on the right just past the Putvin grave historical marker. An \"Alternate Putvin Trailhead\" on the old logging road about 0.3 mi west joins via a boot path.",
+   "drive_minutes_from": {
+    "port_angeles": 136,
+    "forks": 221,
+    "quilcene_or_hoodsport": 58
+   },
+   "road_status_2026": "Open; gravel with many potholes beyond the Lena Lake trailhead, passable by any car driven slowly (Sept 2026 reports: \"suitable for all vehicles\" / \"rough but passable\"). Winter: snow began ~0.5 mi before this trailhead on 2025-12-31 (front-wheel-drive car made it in tire tracks). Historical: a 2008 slide blocked the last mile; fully repaired by 2012.",
+   "notes": "No pass or fee; no toilets or water (use the Lena Lake trailhead privies 4 mi back). Drive minutes are OSRM estimates (Quilcene ~68). Entry/exit point on the ONP permit: \"Putvin Trail (USFS) TH\". 95% of the trail is national forest, open to hunting in season."
+  },
+  {
+   "node_id": "mildred_lakes_trailhead",
+   "access": "End of FR 25, about 13.4 mi from US 101 (WTA: ~14 mi; first ~8 mi paved).",
+   "drive_minutes_from": {
+    "port_angeles": 142,
+    "forks": 226,
+    "quilcene_or_hoodsport": 64
+   },
+   "road_status_2026": "Open (no closures listed fall 2026). Snow on the Hamma Hamma bridge just before the trailhead in winter (2025-12-31: 4-6 in.).",
+   "notes": "America the Beautiful or Northwest Forest Pass required (WTA). OSRM drive estimate (Quilcene ~74)."
+  },
+  {
+   "node_id": "hamma_hamma_campground",
+   "access": "FR 25 about 6 mi from US 101 (paved). Trailhead for the Living Legacy Interpretive Trail; the CCC-built Hamma Hamma Cabin rental is just down-valley (5.7 mi from US 101).",
+   "drive_minutes_from": {
+    "port_angeles": 117,
+    "forks": 201,
+    "quilcene_or_hoodsport": 38
+   },
+   "road_status_2026": "Open; campground closed for the season (USFS 2026-09-17), normal season May-September. The trail itself is open year-round.",
+   "notes": "OSRM estimates (to the cabin). Pass required for trail parking (WTA)."
+  }
+ ],
+ "classic_trips": [
+  {
+   "id": "lena_lake_day",
+   "name": "Lena Lake day hike",
+   "trailhead": "lena_lake_trailhead",
+   "shape": "out_and_back",
+   "nights_typical": [
+    0,
+    0
+   ],
+   "itinerary": [
+    {
+     "day": 1,
+     "to": "lena_lake",
+     "miles": 3.2,
+     "gain_ft": 1290
+    },
+    {
+     "day": 1,
+     "to": "lena_lake_trailhead",
+     "miles": 3.2,
+     "gain_ft": 60
+    }
+   ],
+   "layover_ideas": [],
+   "total_miles": 6.4,
+   "difficulty": "moderate",
+   "best_months": "April-November (snow-free most of the year)",
+   "highlights": [
+    "Old-growth forest and a dry, underground creek",
+    "Green landslide lake with ghost snags",
+    "Lunch rock overlook",
+    "Swim in cold water"
+   ],
+   "what_goes_wrong_for_underprepared_hikers": [
+    "Cotton clothes soaked in drizzle",
+    "Forgetting the parking pass",
+    "Thinking the dry creek bed means water at the lake is far - carry a liter anyway",
+    "Parking on the road and crossing without looking"
+   ]
+  },
+  {
+   "id": "lena_lake_overnight",
+   "name": "First backpack: a night at Lena Lake",
+   "trailhead": "lena_lake_trailhead",
+   "shape": "out_and_back",
+   "nights_typical": [
+    1,
+    2
+   ],
+   "itinerary": [
+    {
+     "day": 1,
+     "to": "lena_lake",
+     "miles": 3.2,
+     "gain_ft": 1290
+    },
+    {
+     "day": 2,
+     "to": "lena_lake_trailhead",
+     "miles": 3.2,
+     "gain_ft": 60
+    }
+   ],
+   "layover_ideas": [
+    "Stroll up the Brothers trail into the Valley of the Silent Men (dogs allowed)",
+    "Swim and lounge on the lunch rock",
+    "Day hike to Upper Lena and Milk Lake (14 mi RT from the lake, very steep)"
+   ],
+   "total_miles": 6.4,
+   "difficulty": "easy",
+   "best_months": "May-October",
+   "highlights": [
+    "No permit needed - free, first-come camping",
+    "Gentle switchbacks for heavy first packs",
+    "New pit toilets (2026)"
+   ],
+   "what_goes_wrong_for_underprepared_hikers": [
+    "All sites full on a sunny Saturday",
+    "Raccoon/chipmunk raid on food left out",
+    "No tent stakes for rocky ground",
+    "Smoky campfire banned under seasonal restrictions"
+   ]
+  },
+  {
+   "id": "upper_lena_lake_backpack",
+   "name": "Upper Lena Lake backpack",
+   "trailhead": "lena_lake_trailhead",
+   "shape": "out_and_back",
+   "nights_typical": [
+    1,
+    3
+   ],
+   "itinerary": [
+    {
+     "day": 1,
+     "to": "upper_lena_lake",
+     "miles": 7.3,
+     "gain_ft": 4250
+    },
+    {
+     "day": 2,
+     "to": "lena_lake_trailhead",
+     "miles": 7.3,
+     "gain_ft": 345
+    }
+   ],
+   "layover_ideas": [
+    "Milk Lake (1.9 mi RT) - snowfields and milky-blue water",
+    "Scramble Mount Lena (~0.7 mi, 1,440 ft)",
+    "Scramble Mount Bretherton (~0.7 mi, 1,400 ft)",
+    "Wander the Scout Lake way trail to the ridge for Mount Stone views",
+    "Watch the marmots; sketch wildflowers"
+   ],
+   "total_miles": 14.6,
+   "difficulty": "hard",
+   "best_months": "mid-July to September",
+   "highlights": [
+    "Emerald alpine lake ringed by peaks",
+    "Wildflower meadows",
+    "Marmots and bright stars",
+    "Milk Lake side trip"
+   ],
+   "what_goes_wrong_for_underprepared_hikers": [
+    "No quota permit - turned around or cited",
+    "No bear can (hanging is prohibited)",
+    "Underestimating the last 1.5 miles: root ladders and 1,600 ft in the last mile",
+    "Rain turns the descent into a slow butt-scoot over slick rock",
+    "Lena Creek ford high after rain",
+    "Bringing the dog (not allowed past the park boundary)"
+   ]
+  },
+  {
+   "id": "lake_of_the_angels_day",
+   "name": "Lake of the Angels day hike (Putvin Trail)",
+   "trailhead": "putvin_trailhead",
+   "shape": "out_and_back",
+   "nights_typical": [
+    0,
+    0
+   ],
+   "itinerary": [
+    {
+     "day": 1,
+     "to": "lake_of_the_angels",
+     "miles": 3.6,
+     "gain_ft": 3420
+    },
+    {
+     "day": 1,
+     "to": "putvin_trailhead",
+     "miles": 3.6,
+     "gain_ft": 60
+    }
+   ],
+   "layover_ideas": [],
+   "total_miles": 7.2,
+   "difficulty": "hard",
+   "best_months": "mid-July to early October",
+   "highlights": [
+    "Headwall scramble with a hikers' rope",
+    "Pond of the False Prophet",
+    "Turquoise lake in the Valley of Heaven",
+    "Blueberries in August"
+   ],
+   "what_goes_wrong_for_underprepared_hikers": [
+    "No trekking poles: knees wrecked on the slippery scree descent (the descent is the real challenge)",
+    "Taking the wrong path straight past the False Prophet pond",
+    "Not enough water or food for a 7-9 hour day",
+    "Afternoon thunderstorm with no rain gear (Aug 2026)",
+    "Yellowjackets/hornets near the lower trail",
+    "Starting in June: lake frozen, snow mounds and fog hide the trail"
+   ]
+  },
+  {
+   "id": "lake_of_the_angels_overnight",
+   "name": "Lake of the Angels backpack with peak days",
+   "trailhead": "putvin_trailhead",
+   "shape": "out_and_back",
+   "nights_typical": [
+    1,
+    3
+   ],
+   "itinerary": [
+    {
+     "day": 1,
+     "to": "lake_of_the_angels",
+     "miles": 3.6,
+     "gain_ft": 3420
+    },
+    {
+     "day": 2,
+     "to": "putvin_trailhead",
+     "miles": 3.6,
+     "gain_ft": 60
+    }
+   ],
+   "layover_ideas": [
+    "Wander the Valley of Heaven and its tarns",
+    "Saddle above the lake (~0.5 mi, 300 ft) for views west to Mount Cruiser",
+    "Scramble Mount Skokomish (class 2-3, rotten rock)",
+    "Scramble Mount Stone (class 3; go left under the cliffs, not into the Gate)",
+    "Hike up to look through St. Peter's Gate (helmet, snow gear)",
+    "Swim off the sunning rock; sunset on the walls"
+   ],
+   "total_miles": 7.2,
+   "difficulty": "hard",
+   "best_months": "late July to September",
+   "highlights": [
+    "Camping in a high cirque",
+    "Two summits from one camp",
+    "Marmots, alpenglow, waterfalls"
+   ],
+   "what_goes_wrong_for_underprepared_hikers": [
+    "Forgetting to CALL for the permit (not bookable online)",
+    "Hauling a heavy pack up the headwall - pack snags, balance lost",
+    "Mosquitoes at twilight without a head net",
+    "Cold rain all night with a leaky tent (Aug 2026 party slept 14 hours in the tent)",
+    "Peak attempt without a helmet under rockfall"
+   ]
+  },
+  {
+   "id": "lena_to_angels_traverse",
+   "name": "Lena-to-Angels traverse via St. Peter's Gate (\"Putvin Traverse\")",
+   "trailhead": "lena_lake_trailhead",
+   "shape": "traverse",
+   "nights_typical": [
+    2,
+    3
+   ],
+   "itinerary": [
+    {
+     "day": 1,
+     "to": "upper_lena_lake",
+     "miles": 7.3,
+     "gain_ft": 4250
+    },
+    {
+     "day": 2,
+     "to": "deerheart_lake",
+     "miles": 2.0,
+     "gain_ft": 650
+    },
+    {
+     "day": 3,
+     "to": "lake_of_the_angels",
+     "miles": 3.2,
+     "gain_ft": 1475
+    },
+    {
+     "day": 4,
+     "to": "putvin_trailhead",
+     "miles": 3.6,
+     "gain_ft": 60
+    },
+    {
+     "day": 4,
+     "to": "lena_lake_trailhead",
+     "miles": 4.3,
+     "gain_ft": 0
+    }
+   ],
+   "layover_ideas": [
+    "Layover at Upper Lena for Milk Lake or Mount Lena",
+    "Long lunch at the Stone Ponds to study the snow route",
+    "Layover at Lake of the Angels for Mount Skokomish or Mount Stone",
+    "Fast version: TH to Deerheart day 1 (9.3 mi)"
+   ],
+   "total_miles": 20.4,
+   "difficulty": "expert",
+   "best_months": "August-September (earlier = more snow at the Gate; some parties go earlier, in reverse, with full snow gear)",
+   "highlights": [
+    "St. Peter's Gate (asked for by the game's creator): the notch connecting the Stone Ponds side and the Lake of the Angels side",
+    "Blueberry ridge walk on the Scout Lake way trail",
+    "Stone Ponds basin",
+    "Two quota-free high camps",
+    "Loop closed by a 4.3-mi road walk or car shuttle"
+   ],
+   "what_goes_wrong_for_underprepared_hikers": [
+    "No microspikes/ice axe: stopped below the Gate by icy snow (July 2026 party turned back)",
+    "No helmet: rockfall from partners in the scree chute",
+    "Missing the faint Stone Ponds fork and ending up on the root-and-exposure descent to Scout Lake",
+    "Fog at Upper Lena - zero visibility for an off-trail day",
+    "Mosquitoes and heat slow the party to 5 miles a day",
+    "Arriving at the Putvin trailhead at 8 PM with no car and a 4-mile road walk",
+    "Only an Upper Lena permit - camping elsewhere needs a cross-country permit by phone"
+   ]
+  },
+  {
+   "id": "angels_to_lena_traverse_day",
+   "name": "Ultra day loop: Putvin - St. Peter's Gate - Lena (as done in 2002 and 2023)",
+   "trailhead": "putvin_trailhead",
+   "shape": "loop",
+   "nights_typical": [
+    0,
+    0
+   ],
+   "itinerary": [
+    {
+     "day": 1,
+     "to": "lake_of_the_angels",
+     "miles": 3.6,
+     "gain_ft": 3420
+    },
+    {
+     "day": 1,
+     "to": "st_peters_gate",
+     "miles": 0.9,
+     "gain_ft": 985
+    },
+    {
+     "day": 1,
+     "to": "stone_ponds",
+     "miles": 0.9,
+     "gain_ft": 0
+    },
+    {
+     "day": 1,
+     "to": "deerheart_lake",
+     "miles": 1.4,
+     "gain_ft": 490
+    },
+    {
+     "day": 1,
+     "to": "upper_lena_lake",
+     "miles": 2.0,
+     "gain_ft": 250
+    },
+    {
+     "day": 1,
+     "to": "lena_lake_trailhead",
+     "miles": 7.3,
+     "gain_ft": 345
+    },
+    {
+     "day": 1,
+     "to": "putvin_trailhead",
+     "miles": 4.3,
+     "gain_ft": 920
+    }
+   ],
+   "layover_ideas": [],
+   "total_miles": 20.4,
+   "difficulty": "expert",
+   "best_months": "August-September",
+   "highlights": [
+    "One huge day: 13.5 hours (2002) to 16 hours (2023)"
+   ],
+   "what_goes_wrong_for_underprepared_hikers": [
+    "Headlamp left at home",
+    "Too little food for 16 hours",
+    "Knees give out on the 7-mile descent from Upper Lena"
+   ]
+  },
+  {
+   "id": "scout_ridge_stone_ponds_lollipop",
+   "name": "Scout Ridge and Stone Ponds lollipop",
+   "trailhead": "lena_lake_trailhead",
+   "shape": "lollipop",
+   "nights_typical": [
+    2,
+    3
+   ],
+   "itinerary": [
+    {
+     "day": 1,
+     "to": "upper_lena_lake",
+     "miles": 7.3,
+     "gain_ft": 4250
+    },
+    {
+     "day": 2,
+     "to": "stone_ponds",
+     "miles": null,
+     "gain_ft": null
+    },
+    {
+     "day": 2,
+     "to": "deerheart_lake",
+     "miles": 1.4,
+     "gain_ft": 490
+    },
+    {
+     "day": 3,
+     "to": "upper_lena_lake",
+     "miles": 2.0,
+     "gain_ft": 250
+    },
+    {
+     "day": 3,
+     "to": "lena_lake_trailhead",
+     "miles": 7.3,
+     "gain_ft": 345
+    }
+   ],
+   "layover_ideas": [
+    "Scout the lower snowfield toward St. Peter's Gate without committing",
+    "Visit Scout Lake (steep, brushy)"
+   ],
+   "total_miles": null,
+   "difficulty": "expert",
+   "best_months": "late July to September",
+   "highlights": [
+    "Full Scout Ridge high route with views of Mount Pershing and Mount Anderson",
+    "The \"unreal\" Stone Ponds basin",
+    "One-tent camp at Deerheart Lake"
+   ],
+   "what_goes_wrong_for_underprepared_hikers": [
+    "Overgrown, boggy way trail disappears - no GPS/map",
+    "Underestimating hidden snow above the ponds"
+   ]
+  },
+  {
+   "id": "mount_stone_climb",
+   "name": "Mount Stone (Mason County high point) via Lake of the Angels",
+   "trailhead": "putvin_trailhead",
+   "shape": "out_and_back",
+   "nights_typical": [
+    0,
+    1
+   ],
+   "itinerary": [
+    {
+     "day": 1,
+     "to": "lake_of_the_angels",
+     "miles": 3.6,
+     "gain_ft": 3420
+    },
+    {
+     "day": 1,
+     "to": "mount_stone",
+     "miles": 1.2,
+     "gain_ft": 1660
+    },
+    {
+     "day": 1,
+     "to": "lake_of_the_angels",
+     "miles": 1.2,
+     "gain_ft": 0
+    },
+    {
+     "day": 2,
+     "to": "putvin_trailhead",
+     "miles": 3.6,
+     "gain_ft": 60
+    }
+   ],
+   "layover_ideas": [
+    "Add Mount Skokomish the next day"
+   ],
+   "total_miles": 9.6,
+   "difficulty": "expert",
+   "best_months": "July-September",
+   "highlights": [
+    "Class 3 summit block",
+    "View of Stone Ponds, Scout Lake, Hood Canal and Rainier"
+   ],
+   "what_goes_wrong_for_underprepared_hikers": [
+    "Heading straight up into St. Peter's Gate instead of left under the cliffs",
+    "Whiteout: cutting over the ridge too soon",
+    "No turnaround time on a 10-14 hour day"
+   ]
+  },
+  {
+   "id": "hagen_lakes_great_stone_arrow",
+   "name": "Hagen Lakes and the Great Stone Arrow",
+   "trailhead": "putvin_trailhead",
+   "shape": "out_and_back",
+   "nights_typical": [
+    2,
+    3
+   ],
+   "itinerary": [
+    {
+     "day": 1,
+     "to": "lake_of_the_angels",
+     "miles": 3.6,
+     "gain_ft": 3420
+    },
+    {
+     "day": 2,
+     "to": "lota_west_saddle",
+     "miles": 0.5,
+     "gain_ft": 300
+    },
+    {
+     "day": 2,
+     "to": "great_stone_arrow_pass",
+     "miles": 0.75,
+     "gain_ft": null
+    },
+    {
+     "day": 2,
+     "to": "hagen_lakes",
+     "miles": null,
+     "gain_ft": null
+    },
+    {
+     "day": 3,
+     "to": "lake_of_the_angels",
+     "miles": null,
+     "gain_ft": null
+    },
+    {
+     "day": 3,
+     "to": "putvin_trailhead",
+     "miles": 3.6,
+     "gain_ft": 60
+    }
+   ],
+   "layover_ideas": [
+    "Mount Hopper",
+    "Mount Skokomish on the way out (contour the SE face)"
+   ],
+   "total_miles": null,
+   "difficulty": "expert",
+   "best_months": "August-September",
+   "highlights": [
+    "A giant stone arrow pointing at First Divide",
+    "Sunset turning Mount Stone red",
+    "Elk country"
+   ],
+   "what_goes_wrong_for_underprepared_hikers": [
+    "Three 20-ft downclimbs with a full pack",
+    "Permit says Lake of the Angels but you camp at Hagen - call the WIC for \"Hagen Lakes\""
+   ]
+  },
+  {
+   "id": "hamma_hamma_high_route_to_duckabush",
+   "name": "The old high route: Angels - Great Stone Arrow - Elk Basin - First Divide - Duckabush (NOT possible in 2026)",
+   "trailhead": "lena_lake_trailhead",
+   "shape": "traverse",
+   "nights_typical": [
+    3,
+    4
+   ],
+   "itinerary": [
+    {
+     "day": 1,
+     "to": "upper_lena_lake",
+     "miles": 7.3,
+     "gain_ft": 4250
+    },
+    {
+     "day": 2,
+     "to": "st_peters_gate",
+     "miles": 4.3,
+     "gain_ft": 2125
+    },
+    {
+     "day": 2,
+     "to": "great_stone_arrow_pass",
+     "miles": null,
+     "gain_ft": null
+    },
+    {
+     "day": 3,
+     "to": "first_divide",
+     "miles": null,
+     "gain_ft": null
+    },
+    {
+     "day": 3,
+     "to": "home_sweet_home",
+     "miles": 0.8,
+     "gain_ft": 20
+    },
+    {
+     "day": 3,
+     "to": "upper_duckabush",
+     "miles": 1.8,
+     "gain_ft": 0
+    },
+    {
+     "day": 3,
+     "to": "ten_mile_camp",
+     "miles": 7.5,
+     "gain_ft": null
+    },
+    {
+     "day": 4,
+     "to": "duckabush_trailhead",
+     "miles": 10.0,
+     "gain_ft": null
+    }
+   ],
+   "layover_ideas": [
+    "Mount Hopper from Fisher's Pass"
+   ],
+   "total_miles": null,
+   "difficulty": "expert",
+   "best_months": "August (historical: Aug 16-19, 2002, 39 miles in 4 days)",
+   "highlights": [
+    "Three drainages (Hamma Hamma, Skokomish, Duckabush) in one trip",
+    "Elk herd in Elk Basin",
+    "Ends with Big Hump on the Duckabush"
+   ],
+   "what_goes_wrong_for_underprepared_hikers": [
+    "2026: Home Sweet Home Trail and North Fork Skokomish are CLOSED after the 2025 Bear Gulch Fire - the exit is illegal/unsafe",
+    "Mount Hopper Way Trail vanishes in blowdown",
+    "12-mile day with 5 miles of no trail"
+   ]
+  },
+  {
+   "id": "brothers_climb",
+   "name": "The Brothers (South Brother) climb",
+   "trailhead": "lena_lake_trailhead",
+   "shape": "out_and_back",
+   "nights_typical": [
+    1,
+    1
+   ],
+   "itinerary": [
+    {
+     "day": 1,
+     "to": "brothers_climbers_camp",
+     "miles": 6.1,
+     "gain_ft": 2440
+    },
+    {
+     "day": 2,
+     "to": "the_brothers",
+     "miles": 2.9,
+     "gain_ft": 3840
+    },
+    {
+     "day": 2,
+     "to": "lena_lake_trailhead",
+     "miles": 9.0,
+     "gain_ft": 220
+    }
+   ],
+   "layover_ideas": [
+    "Rest day in the Valley of the Silent Men"
+   ],
+   "total_miles": 18.0,
+   "difficulty": "expert",
+   "best_months": "June-July on snow (ice axe); later = loose rock",
+   "highlights": [
+    "The skyline peak of Seattle",
+    "No park permit needed (national forest)",
+    "Valley of the Silent Men"
+   ],
+   "what_goes_wrong_for_underprepared_hikers": [
+    "No ice axe/helmet in the couloir",
+    "Rockfall below the summit",
+    "Avalanche-prone snow too early in the season",
+    "East Fork Lena Creek dry - no water at camp in late summer"
+   ]
+  },
+  {
+   "id": "valley_of_silent_men_day",
+   "name": "Valley of the Silent Men day hike (dog-friendly)",
+   "trailhead": "lena_lake_trailhead",
+   "shape": "out_and_back",
+   "nights_typical": [
+    0,
+    1
+   ],
+   "itinerary": [
+    {
+     "day": 1,
+     "to": "brothers_climbers_camp",
+     "miles": 6.1,
+     "gain_ft": 2440
+    },
+    {
+     "day": 1,
+     "to": "lena_lake_trailhead",
+     "miles": 6.1,
+     "gain_ft": 220
+    }
+   ],
+   "layover_ideas": [
+    "Camp at Lena Lake and do it as a side trip"
+   ],
+   "total_miles": 12.2,
+   "difficulty": "moderate",
+   "best_months": "May-October",
+   "highlights": [
+    "Moss-buried boulders and giant trees \"like a Lord of the Rings forest\"",
+    "Dogs allowed (all national forest)"
+   ],
+   "what_goes_wrong_for_underprepared_hikers": [
+    "Assuming creek water in September (often dry)",
+    "Wandering past the end of the maintained trail onto the climbers' route"
+   ]
+  },
+  {
+   "id": "mildred_lakes",
+   "name": "Mildred Lakes",
+   "trailhead": "mildred_lakes_trailhead",
+   "shape": "out_and_back",
+   "nights_typical": [
+    0,
+    2
+   ],
+   "itinerary": [
+    {
+     "day": 1,
+     "to": "mildred_lakes",
+     "miles": 4.5,
+     "gain_ft": 2550
+    },
+    {
+     "day": 2,
+     "to": "mildred_lakes_trailhead",
+     "miles": 4.5,
+     "gain_ft": 640
+    }
+   ],
+   "layover_ideas": [
+    "Fish the lakes (WA license)",
+    "Explore between the lakes under the Sawtooth Range"
+   ],
+   "total_miles": 9.0,
+   "difficulty": "hard",
+   "best_months": "July-October",
+   "highlights": [
+    "Sawtooth Range spires",
+    "No permit, few people"
+   ],
+   "what_goes_wrong_for_underprepared_hikers": [
+    "Losing the unofficial path above Huckleberry Creek",
+    "Low-top shoes in deep mud and roots",
+    "Campfire above 3,500 ft (prohibited)"
+   ]
+  },
+  {
+   "id": "living_legacy_loop",
+   "name": "Living Legacy Interpretive Trail",
+   "trailhead": "hamma_hamma_campground",
+   "shape": "loop",
+   "nights_typical": [
+    0,
+    0
+   ],
+   "itinerary": [
+    {
+     "day": 1,
+     "to": "hamma_hamma_campground",
+     "miles": 1.5,
+     "gain_ft": 125
+    }
+   ],
+   "layover_ideas": [],
+   "total_miles": 1.5,
+   "difficulty": "easy",
+   "best_months": "Year-round; spring for harlequin ducks",
+   "highlights": [
+    "CCC history signs",
+    "River bench view",
+    "The 1930s guard station cabin",
+    "Harlequin ducks in spring"
+   ],
+   "what_goes_wrong_for_underprepared_hikers": [
+    "Crossing the road twice without looking"
+   ]
+  },
+  {
+   "id": "hamma_hamma_cabin_basecamp",
+   "name": "Cabin base camp: Hamma Hamma Cabin with day hikes",
+   "trailhead": "hamma_hamma_campground",
+   "shape": "day",
+   "nights_typical": [
+    1,
+    7
+   ],
+   "itinerary": [
+    {
+     "day": 1,
+     "to": "hamma_hamma_cabin",
+     "miles": 0.5,
+     "gain_ft": 70
+    }
+   ],
+   "layover_ideas": [
+    "Lena Lake day hike (drive 1.9 mi)",
+    "Lake of the Angels day hike (drive ~6 mi)",
+    "Living Legacy loop",
+    "Valley of the Silent Men"
+   ],
+   "total_miles": 0.5,
+   "difficulty": "easy",
+   "best_months": "Year-round (winter may need snowshoes to reach the cabin)",
+   "highlights": [
+    "Propane-lit 1930s cabin for up to six",
+    "Good rainy-day plan B"
+   ],
+   "what_goes_wrong_for_underprepared_hikers": [
+    "Forgetting to bring all water (none at the cabin)",
+    "Booked a Thursday (cleaning day)"
+   ]
+  }
+ ],
+ "hazards": [
+  {
+   "id": "putvin_headwall_scramble",
+   "name": "The Putvin headwall",
+   "where": [
+    "putvin_headwall",
+    "putvin_old_road_junction>putvin_headwall"
+   ],
+   "season": "All season; worst wet or snowy (Apr-June)",
+   "real_world": "Several rock steps; the steepest has a rope left by hikers (anchored well in Aug 2026 but not agency-maintained). NPS: requires hands and feet. Many find the downclimb harder than the climb.",
+   "game_event_idea": "The rope hangs down a wet rock step. (A) Climb with pack on, hands on the rope: 90% fine with good boots and light pack, 70% with a heavy pack; a slip = scraped knee and dropped item rolls downhill. (B) Climb free and haul the pack on a cord: +15 min, 97% safe if you packed cord. (C) Trust the old rope blindly with full weight: 10% it frays - fall, trip ends with a sprained wrist. (D) Turn back and picnic at the Pond of the False Prophet - gentle ending.",
+   "mitigations": [
+    "trekking_poles_stowed",
+    "gloves",
+    "light_pack",
+    "cord_or_accessory_line",
+    "grippy_boots",
+    "helmet"
+   ]
+  },
+  {
+   "id": "st_peters_gate_snow",
+   "name": "Snow and ice below St. Peter's Gate",
+   "where": [
+    "stone_ponds>st_peters_gate",
+    "st_peters_gate>lake_of_the_angels",
+    "st_peters_gate"
+   ],
+   "season": "Permanent snow/ice finger; icy in early July and on cold mornings",
+   "real_world": "A north-facing snow couloir and permanent snow/ice field in an old glacial moraine. A July 2026 party without traction turned back; a 2020 party carried axes and spikes and found them optional; a 2024 party took 5 hours with full packs.",
+   "game_event_idea": "The snow tongue is hard and shiny at 9 AM. (A) Microspikes + ice axe: 95% safe, slow. (B) Wait 2 hours for the sun to soften it: 85% safe, lose time, mosquitoes. (C) Kick steps in trail runners: 60% - a slip is a fast slide into the boulders (gentle mode: bruised and rattled, trip ends; Sierra mode: death). (D) Take the rock spine on the right instead: 80% safe, more scree.",
+   "mitigations": [
+    "ice_axe",
+    "microspikes",
+    "helmet",
+    "self_arrest_skill",
+    "early_turnaround_time",
+    "sun_cup_timing"
+   ]
+  },
+  {
+   "id": "party_rockfall",
+   "name": "Rocks knocked down by your own party",
+   "where": [
+    "stone_ponds>st_peters_gate",
+    "st_peters_gate>lake_of_the_angels",
+    "lake_of_the_angels>mount_stone",
+    "brothers_climbers_camp>the_brothers"
+   ],
+   "season": "Snow-free months (July-October)",
+   "real_world": "\"There are boulders just waiting to roll.\" Parties climb close together or one at a time and wear helmets; one 2020 party called the scree below the snow \"nasty.\"",
+   "game_event_idea": "A rock the size of a loaf bounces past. (A) Climb close together so rocks cannot gain speed: 90% fine. (B) One at a time from safe spots: 98% fine, +30 min. (C) Spread out and race: 30% someone is hit - without a helmet the trip ends with a ranger-assisted carry-out.",
+   "mitigations": [
+    "helmet",
+    "party_spacing",
+    "yell_rock",
+    "route_on_rock_spine"
+   ]
+  },
+  {
+   "id": "false_prophet_wrong_turn",
+   "name": "The False Prophet wrong turn",
+   "where": [
+    "pond_of_the_false_prophet",
+    "pond_of_the_false_prophet>putvin_park_boundary"
+   ],
+   "season": "All season; worse in snow or fog",
+   "real_world": "At the pond a very convincing trail continues straight; the real one turns sharp left over small logs at the outlet. Multiple 2025-2026 parties got turned around; a 2025 hiker ran out of time.",
+   "game_event_idea": "Two paths: one wide and inviting, one a few wobbly logs to the left. (A) Follow the wide path: 0% reaches the lake; lose 1 hour. (B) Check the map/GPS: 100% correct with a map item. (C) Ask the frog (storybook hint) - read the journal page about \"prophets that lie\".",
+   "mitigations": [
+    "map",
+    "gps_offline",
+    "trip_notes"
+   ]
+  },
+  {
+   "id": "upper_lena_lena_creek_ford",
+   "name": "Lena Creek ford below Upper Lena",
+   "where": [
+    "upper_lena_lena_creek_ford",
+    "upper_lena_root_ladder>upper_lena_lena_creek_ford"
+   ],
+   "season": "Any time; worst in snowmelt (June-July) and after rain",
+   "real_world": "NPS 9/30/26: \"can become hazardous at any time.\" The official line crosses slick rock; a lower crossing below the big rocks felt safer to a 2026 party.",
+   "game_event_idea": "Water slides over a polished slab. (A) Cross on the slab: 75% (95% with poles); a slip = wet boots and a bruise. (B) Drop to the lower stepping stones: 90%, +10 min. (C) Wait for morning when melt slows: lose half a day.",
+   "mitigations": [
+    "trekking_poles",
+    "water_shoes",
+    "early_start"
+   ]
+  },
+  {
+   "id": "wet_roots_descent",
+   "name": "Descending the root ladders in the rain",
+   "where": [
+    "upper_lena_root_ladder",
+    "upper_lena_park_boundary>upper_lena_root_ladder",
+    "upper_lena_root_ladder>upper_lena_lena_creek_ford",
+    "putvin_old_road_junction>putvin_headwall"
+   ],
+   "season": "Rainy days, any season",
+   "real_world": "A strong pair took longer to descend the top 1.5 miles than to climb it after overnight rain, scooting on slick slabs. Poles described as \"a necessity.\"",
+   "game_event_idea": "Rain overnight; the roots shine. (A) Go now with poles: 85% fine, slow. (B) Wait for a dry window: 50% chance it clears by noon. (C) Rush without poles: 40% twisted knee - the day becomes a limp to Lena Lake and a shortened trip.",
+   "mitigations": [
+    "trekking_poles",
+    "rain_shell",
+    "gaiters",
+    "extra_food_day"
+   ]
+  },
+  {
+   "id": "veggie_belay_scout_lake",
+   "name": "The \"veggie belay\" to Scout Lake",
+   "where": [
+    "deerheart_lake>scout_lake",
+    "stone_ponds_junction"
+   ],
+   "season": "July-October",
+   "real_world": "Missing the faint Stone Ponds fork drops you onto a root scramble with about 40 ft of exposure on the way to Scout Lake.",
+   "game_event_idea": "The path dives into roots over a drop. (A) Turn back and look for cairns: 80% finds the left fork. (B) Hang on the roots and continue to Scout Lake: 85% fine, but you are now off-route (no camping within 0.25 mi). (C) Traverse uphill through heather: 60% finds the way trail a few hundred feet higher (2008 solution).",
+   "mitigations": [
+    "gps_offline",
+    "map",
+    "trip_notes",
+    "gloves"
+   ]
+  },
+  {
+   "id": "fog_whiteout_high_route",
+   "name": "Fog and whiteout on the high route",
+   "where": [
+    "upper_lena_lake",
+    "upper_lena_lake>deerheart_lake",
+    "deerheart_lake>stone_ponds",
+    "lake_of_the_angels>mount_stone"
+   ],
+   "season": "Any time; marine fog common in early summer",
+   "real_world": "A July 2026 party could not even see Upper Lena Lake and stayed put; a climber in a whiteout cut over the ridge too soon near St. Peter's Gate.",
+   "game_event_idea": "You cannot see the lake from the shore. (A) Layover day (uses a food day): 70% clears tomorrow. (B) Navigate by GPS: 75% stays on route. (C) Go by feel: 40% lost for hours; with no extra food the trip ends early.",
+   "mitigations": [
+    "extra_food_day",
+    "gps_offline",
+    "map_compass",
+    "flexible_itinerary"
+   ]
+  },
+  {
+   "id": "hornets_yellowjackets",
+   "name": "Hornets, yellowjackets and biting flies",
+   "where": [
+    "putvin_trailhead>putvin_old_road_junction",
+    "putvin_old_road_junction>putvin_headwall",
+    "putvin_park_boundary>lake_of_the_angels"
+   ],
+   "season": "July-September",
+   "real_world": "A hornet nest on the lower Putvin stung a party in 2020 (a social trail formed around it); yellowjackets and horseflies in Aug 2025-2026; bugs worst at the headwall where your hands are busy.",
+   "game_event_idea": "A buzzing hole beside the trail. (A) Take the beaten detour: 95% safe. (B) Walk past quickly: 60% one sting; if a party member is allergic and no epinephrine was packed, the trip ends (gentle mode: a ranger-assisted walk out).",
+   "mitigations": [
+    "first_aid_kit",
+    "antihistamine",
+    "epinephrine_if_prescribed",
+    "long_sleeves"
+   ]
+  },
+  {
+   "id": "mosquitoes",
+   "name": "Mosquito clouds",
+   "where": [
+    "upper_lena_lake",
+    "deerheart_lake",
+    "lake_of_the_angels",
+    "stone_ponds"
+   ],
+   "season": "Late June to mid-August, worst at dusk",
+   "real_world": "Trip reports from 2002, 2008, 2020 and 2026 describe ravenous mosquitoes at Upper Lena, Deerheart and Lake of the Angels; breezy ridges help.",
+   "game_event_idea": "Dusk, and the whine begins. (A) Head net + repellent: morale holds. (B) Retreat to the tent at 6 PM: skip the sunset scene. (C) Nothing: -morale, a party member wants to go home.",
+   "mitigations": [
+    "head_net",
+    "repellent",
+    "tent_with_mesh",
+    "windy_campsite"
+   ]
+  },
+  {
+   "id": "thunderstorm_cirque",
+   "name": "Afternoon thunderstorm in the cirque",
+   "where": [
+    "lake_of_the_angels",
+    "st_peters_gate",
+    "mount_skokomish",
+    "mount_stone"
+   ],
+   "season": "July-August",
+   "real_world": "A torrential thunderstorm hit just after a hiker left Lake of the Angels (Aug 13, 2026); NPS warns storms move quickly and whiteouts are sudden.",
+   "game_event_idea": "Clouds tower over Mount Skokomish at 1 PM. (A) Turn around now: 100% safe, no summit. (B) Push for the summit: 50% caught on the ridge - soaked, scared, descend in hail. (C) Shelter low in the boulders: wait 1 hour.",
+   "mitigations": [
+    "rain_shell",
+    "early_start",
+    "turnaround_time",
+    "warm_layer"
+   ]
+  },
+  {
+   "id": "heat_and_water_putvin",
+   "name": "Heat on the sun-exposed final climb",
+   "where": [
+    "putvin_park_boundary>lake_of_the_angels",
+    "upper_lena_root_ladder>upper_lena_lena_creek_ford",
+    "upper_lena_lake>mount_lena"
+   ],
+   "season": "July-August heat waves",
+   "real_world": "The last pitch above the park boundary is \"steep and pretty exposed to the sun\"; Upper Lena's upper meadow has no shade; a 2024 party measured 80 degrees F at the lake.",
+   "game_event_idea": "Mid-afternoon sun on the meadow. (A) Drink and rest in shade: lose 30 min, fine. (B) Push on with one liter: 30% heat exhaustion - camp early. (C) Filter at the creek: needs a filter item.",
+   "mitigations": [
+    "water_filter",
+    "extra_water_capacity",
+    "sun_hat",
+    "electrolytes",
+    "early_start"
+   ]
+  },
+  {
+   "id": "early_season_snow_putvin",
+   "name": "Early-season snow and frozen lake",
+   "where": [
+    "putvin_headwall>pond_of_the_false_prophet",
+    "putvin_park_boundary>lake_of_the_angels",
+    "lake_of_the_angels"
+   ],
+   "season": "April to early July",
+   "real_world": "Apr-May 2026: snow from ~4,000-4,500 ft, lake frozen; June 2025: snow mounds over the last half mile, parties turned back in fog; lake usually frozen until mid/late June.",
+   "game_event_idea": "At the False Prophet the trail vanishes under soft snow. (A) Follow old tracks: 70%. (B) GPS + microspikes: 90%. (C) Turn back and camp below the headwall (outside the park, no permit needed): gentle success.",
+   "mitigations": [
+    "microspikes",
+    "gps_offline",
+    "gaiters",
+    "flexible_itinerary"
+   ]
+  },
+  {
+   "id": "road_walk_late_finish",
+   "name": "The 4-mile road walk back to the car",
+   "where": [
+    "lena_lake_trailhead>putvin_trailhead"
+   ],
+   "season": "Any",
+   "real_world": "Traverse parties finish at the Putvin trailhead and must walk 4.3 mi of gravel road (uphill if done the other way) unless they shuttled; a 2024 party arrived at 8 PM and got a ride from Mildred Lakes hikers.",
+   "game_event_idea": "Dusk at the wrong trailhead. (A) You stashed a bike/second car: drive home. (B) Walk the road by headlamp: 1.5 hours. (C) Hitch: 40% a kind stranger appears.",
+   "mitigations": [
+    "car_shuttle",
+    "bike_stash",
+    "headlamp",
+    "plan_direction"
+   ]
+  },
+  {
+   "id": "permit_by_phone",
+   "name": "Permits you have to phone for",
+   "where": [
+    "lake_of_the_angels",
+    "hagen_lakes",
+    "deerheart_lake",
+    "stone_ponds",
+    "upper_lena_lake"
+   ],
+   "season": "Upper Lena reservations July 1 - Oct 15 (2026)",
+   "real_world": "Upper Lena is a quota area reserved on Recreation.gov; Lake of the Angels, Hagen Lakes and \"Hamma Hamma River Cross Country\" are hidden on Recreation.gov and are issued by calling the WIC (360-565-3100).",
+   "game_event_idea": "At the planning desk: (A) Book Upper Lena online early - 80% available on weekdays, 40% on summer weekends. (B) Call the WIC for Lake of the Angels/cross-country - always available but you must name each night's camp. (C) Skip the permit - a ranger at Upper Lena checks: citation and you hike out (gentle end).",
+   "mitigations": [
+    "permit",
+    "printed_itinerary",
+    "bear_can"
+   ]
+  },
+  {
+   "id": "hunting_season",
+   "name": "Bear and deer hunting season on the Putvin",
+   "where": [
+    "putvin_trailhead>putvin_old_road_junction",
+    "putvin_old_road_junction>putvin_headwall"
+   ],
+   "season": "Late summer-fall (bear season noted Aug 2026)",
+   "real_world": "About 95% of the Putvin trail is national forest where hunting is legal; hunters were active in Aug 2026. Hunting is not allowed inside the park.",
+   "game_event_idea": "A rifle shot echoes up the valley. (A) Put on the blaze-orange hat you packed: calm. (B) Sing loudly and keep going. (C) Wait - nothing happens, but lose 15 min.",
+   "mitigations": [
+    "blaze_orange",
+    "bear_bell_or_voice"
+   ]
+  },
+  {
+   "id": "cougar_bear_encounter",
+   "name": "Cougar or black bear",
+   "where": [
+    "hamma_hamma_campground",
+    "lake_of_the_angels",
+    "upper_lena_lake"
+   ],
+   "season": "Any",
+   "real_world": "A cougar was seen crossing FR 25 about a mile before Hamma Hamma Campground (Aug 24, 2026); a black bear grazed a meadow above Lake of the Angels (June 2026) and never came into camp because food was in bear cans.",
+   "game_event_idea": "Eyes in the brush at dusk. (A) Stand tall, group up, make noise: 98% it leaves. (B) Run: 30% it follows - drop the snack bag, lose a food day. (C) Food was in the bear can all along: the bear wanders off - storybook moment.",
+   "mitigations": [
+    "bear_can",
+    "group_travel",
+    "noise",
+    "bear_spray_optional"
+   ]
+  },
+  {
+   "id": "bold_chipmunks",
+   "name": "Chipmunk raiders",
+   "where": [
+    "upper_lena_lake",
+    "lake_of_the_angels"
+   ],
+   "season": "June-October",
+   "real_world": "At Upper Lena a chipmunk ran up and peeked into an open bear can while the owner stood beside it (Sept 2026).",
+   "game_event_idea": "Your lunch is open on a rock. (A) Close the can: safe. (B) Leave it for \"one second\": 50% a chipmunk steals your trail mix (lose a snack).",
+   "mitigations": [
+    "bear_can",
+    "camp_hygiene"
+   ]
+  },
+  {
+   "id": "bear_gulch_closures_west_exit",
+   "name": "Closed trails to the west (Bear Gulch Fire)",
+   "where": [
+    "fishers_pass>first_divide",
+    "first_divide"
+   ],
+   "season": "2026 (through at least 2026-09-30)",
+   "real_world": "After the 2025 Bear Gulch Fire, the North Fork Skokomish (Staircase to First Divide) and Home Sweet Home trails remain closed; the old off-trail exit from Hagen Lakes via the Mount Hopper Way Trail therefore leads only into closed terrain.",
+   "game_event_idea": "At Fisher's Pass a ranger's laminated closure notice flaps on a cairn (fictional scene). (A) Respect it and go back the way you came (+1 day of food needed). (B) Ignore it: blowdown and hazard trees - in gentle mode a ranger escorts you out and the trip ends.",
+   "mitigations": [
+    "current_conditions_check",
+    "extra_food_day"
+   ]
+  },
+  {
+   "id": "fr25_washout_or_snow",
+   "name": "Hamma Hamma road surprises",
+   "where": [
+    "putvin_trailhead",
+    "mildred_lakes_trailhead",
+    "lena_lake_trailhead>putvin_trailhead"
+   ],
+   "season": "Winter storms; spring",
+   "real_world": "A 2008 slide blocked the last mile to the Putvin trailhead (repaired by 2012); a 2013 boulder rutted the road at ~11.5 mi; a Dec 2025 USFS advisory warned of more road failures after heavy rain; winter snow begins near the Putvin trailhead.",
+   "game_event_idea": "Drive scene: a boulder in the road at mile 11. (A) Park and walk the extra mile (+2 mi RT). (B) Creep over in a low car: 70% fine, 30% scraped oil pan - trip delayed. (C) Switch to the Lena Lake plan.",
+   "mitigations": [
+    "high_clearance_vehicle",
+    "flexible_itinerary",
+    "check_usfs_alerts"
+   ]
+  },
+  {
+   "id": "cannabis_on_federal_land",
+   "name": "Weed is federally illegal here (beer is fine for adults)",
+   "where": [
+    "lena_lake",
+    "upper_lena_lake",
+    "lake_of_the_angels",
+    "hamma_hamma_campground"
+   ],
+   "season": "Always",
+   "real_world": "Washington State allows recreational cannabis, but Olympic National Park and Olympic National Forest are federal land where possession remains prohibited; rangers have issued citations (max 6 months/$5,000). Alcohol is legal for adults 21+; the Forest Service Region 6 order bans possession by anyone under 21 on national forest land (through Feb 2027).",
+   "game_event_idea": "PG-13 campfire-chat scene. A friendly ranger stops by Upper Lena to check permits. (A) Your permit is in your pocket and the beers are packed out: the ranger shares a marmot fact and leaves - +morale. (B) Someone left an open stash out: 50% citation, the group is embarrassed, trip continues but -money/-morale. (C) A party member under 21 is drinking (national forest camp): ranger confiscates it.",
+   "mitigations": [
+    "permit",
+    "pack_out_cans",
+    "know_the_rules",
+    "leave_it_at_home"
+   ]
+  }
+ ],
+ "wildlife_and_plants": [
+  {
+   "name": "Olympic marmot",
+   "kind": "animal",
+   "where": [
+    "upper_lena_lake",
+    "lake_of_the_angels"
+   ],
+   "notes": "Endemic to the Olympics; whistling marmots at Lake of the Angels; ONP has run a volunteer marmot-monitoring program that surveyed around Upper Lena (2021).",
+   "game_idea": "Helper character: the marmot whistles a warning before weather turns; sketchable journal entry."
+  },
+  {
+   "name": "Mountain goat (non-native; nearly gone)",
+   "kind": "animal",
+   "where": [
+    "lake_of_the_angels",
+    "st_peters_gate"
+   ],
+   "notes": "Historically abundant here - a 2008 hiker had 15-20 goats raiding sweaty gear at the lake, and NPS targeted the Lake of the Angels area in 2019. The 2018-2022 removal took 548 goats (59% relocated to the Cascades); a few may remain and are rare.",
+   "game_idea": "Rare sighting event / lore page about the goats that used to lick salty packs."
+  },
+  {
+   "name": "Black bear",
+   "kind": "animal",
+   "where": [
+    "lake_of_the_angels",
+    "upper_lena_lake"
+   ],
+   "notes": "Seen grazing a meadow above Lake of the Angels (June 2026). Bear cans required in the park.",
+   "game_idea": "Advisor character (like the book's Bear) who approves of tidy camps."
+  },
+  {
+   "name": "Cougar (mountain lion)",
+   "kind": "animal",
+   "where": [
+    "hamma_hamma_campground",
+    "hamma_hamma_road_junction"
+   ],
+   "notes": "Seen crossing FR 25 about a mile before Hamma Hamma Campground (Aug 2026). The whole park is cougar habitat.",
+   "game_idea": "Hazard: a long tail vanishing into the ferns on the drive in."
+  },
+  {
+   "name": "Roosevelt elk",
+   "kind": "animal",
+   "where": [
+    "elk_basin",
+    "hagen_lakes"
+   ],
+   "notes": "A herd thundered off in Elk Basin in 2002; elk droppings and smell everywhere.",
+   "game_idea": "Sound-only encounter; tracks to sketch."
+  },
+  {
+   "name": "Harlequin duck",
+   "kind": "animal",
+   "where": [
+    "hamma_hamma_cabin",
+    "hamma_hamma_campground"
+   ],
+   "notes": "Nests along the Hamma Hamma near the Living Legacy trail viewpoint in spring (USFS).",
+   "game_idea": "Spring-only journal sketch; painted-face duck in white water."
+  },
+  {
+   "name": "Chipmunks",
+   "kind": "animal",
+   "where": [
+    "upper_lena_lake"
+   ],
+   "notes": "Extremely bold at Upper Lena (2026).",
+   "game_idea": "Comic thief event."
+  },
+  {
+   "name": "Frogs",
+   "kind": "animal",
+   "where": [
+    "pond_of_the_false_prophet",
+    "putvin_headwall",
+    "lake_of_the_angels"
+   ],
+   "notes": "Frog-filled tarns above the headwall (\"Frog Pond\"); a frog sat with a hiker for half an hour at the lake (Aug 2026).",
+   "game_idea": "Gentle helper who sits with you at the lake - the quiet \"listening\" moment."
+  },
+  {
+   "name": "Rufous hummingbird",
+   "kind": "animal",
+   "where": [
+    "st_peters_gate"
+   ],
+   "notes": "A hummingbird buzzed a climber halfway up to St. Peter's Gate (2002) - drawn to red gear.",
+   "game_idea": "Surprise visitor on the snow; points the way."
+  },
+  {
+   "name": "Mosquitoes, horseflies, yellowjackets, hornets",
+   "kind": "animal",
+   "where": [
+    "upper_lena_lake",
+    "deerheart_lake",
+    "lake_of_the_angels",
+    "putvin_trailhead"
+   ],
+   "notes": "See hazards.",
+   "game_idea": "Hazard / morale drain."
+  },
+  {
+   "name": "Pacific oysters (Hood Canal)",
+   "kind": "animal",
+   "where": [
+    "eldon"
+   ],
+   "notes": "Hood Canal oyster farming at the river mouth; real local businesses must get fictional names in game.",
+   "game_idea": "Post-trip treat at a fictional oyster shack."
+  },
+  {
+   "name": "Mountain huckleberry / blueberries",
+   "kind": "plant",
+   "where": [
+    "putvin_park_boundary",
+    "lake_of_the_angels",
+    "upper_lena_lake",
+    "deerheart_lake"
+   ],
+   "notes": "Ripe in August; \"3 miles of blueberry heaven\" on the Scout Lake way trail (2024).",
+   "game_idea": "Forage for +morale but slows the party (the 2024 group)."
+  },
+  {
+   "name": "Thimbleberry, salmonberry, red huckleberry",
+   "kind": "plant",
+   "where": [
+    "putvin_old_road_junction",
+    "lena_lake"
+   ],
+   "notes": "Thimbleberries ripe in the meadow 2/3 of the way up the Putvin (Aug).",
+   "game_idea": "Snack event."
+  },
+  {
+   "name": "Glacier lily (yellow avalanche/glacier lilies)",
+   "kind": "plant",
+   "where": [
+    "scout_lake_divide",
+    "valley_of_heaven",
+    "stone_ponds_pass"
+   ],
+   "notes": "In bloom near Scout Lake Divide in late July (1998). Yellow lilies bloom right at the melting snow edge.",
+   "game_idea": "A natural \"golden glow at the snow's edge\" for the homage ending - sketch it, do not pick it (picking is prohibited in the park)."
+  },
+  {
+   "name": "Beargrass, columbine, Columbia lily",
+   "kind": "plant",
+   "where": [
+    "putvin_headwall",
+    "pond_of_the_false_prophet"
+   ],
+   "notes": "\"Going crazy\" in mid-July 2025 on the Putvin.",
+   "game_idea": "Field-guide page."
+  },
+  {
+   "name": "Lupine, Indian paintbrush, heather, daisies",
+   "kind": "plant",
+   "where": [
+    "upper_lena_lake",
+    "scout_lake_divide",
+    "stone_ponds"
+   ],
+   "notes": "Lupine \"especially fragrant\" near Scout Lake Divide; chest-high wildflowers below St. Peter's Gate (2020).",
+   "game_idea": "Scent/colour journal entries; chest-high flowers slow travel."
+  },
+  {
+   "name": "Old-growth Douglas fir, western red cedar, western hemlock",
+   "kind": "plant",
+   "where": [
+    "lena_lake_trailhead",
+    "lena_creek_bridge",
+    "valley_of_the_silent_men"
+   ],
+   "notes": "Old growth begins about a mile up the Lena Lake trail.",
+   "game_idea": "Field-guide tree page (homage to the book's tree spreads)."
+  },
+  {
+   "name": "Mountain hemlock and subalpine fir",
+   "kind": "plant",
+   "where": [
+    "deerheart_lake",
+    "scout_lake_divide"
+   ],
+   "notes": "Broken mountain hemlock thickets obstruct the way trail near Upper Lena (2002).",
+   "game_idea": "Tree identification puzzle."
+  },
+  {
+   "name": "Fern moss, Oregon grape, twinflower, salal, bunchberry, Indian pipe",
+   "kind": "plant",
+   "where": [
+    "lena_lake_trailhead",
+    "valley_of_the_silent_men"
+   ],
+   "notes": "Forest-floor plants named in 2002 and 2026 reports.",
+   "game_idea": "Low-forest field-guide spread; Indian pipe is a ghostly white non-green plant."
+  },
+  {
+   "name": "Vine maple",
+   "kind": "plant",
+   "where": [
+    "putvin_old_road_junction"
+   ],
+   "notes": "Turning red in early September (2026).",
+   "game_idea": "Autumn palette swap in EGA (red/brown dithers)."
+  },
+  {
+   "name": "Lichen on summit rocks",
+   "kind": "lichen",
+   "where": [
+    "mount_stone",
+    "mount_lena"
+   ],
+   "notes": "General alpine feature (no specific source).",
+   "game_idea": "Texture detail for summit scenes."
+  }
+ ],
+ "permit_and_rules": [
+  {
+   "rule": "Overnight stays anywhere inside Olympic National Park need a wilderness permit (Recreation.gov permit 4098362). Entry/exit points include \"Lena Lake Trail (USFS) TH\" and \"Putvin Trail (USFS) TH\".",
+   "applies_to": [
+    "upper_lena_lake",
+    "lake_of_the_angels",
+    "deerheart_lake",
+    "stone_ponds",
+    "hagen_lakes"
+   ],
+   "source": "https://www.recreation.gov/permits/4098362",
+   "confidence": "high"
+  },
+  {
+   "rule": "Permit fees: $6 non-refundable reservation fee per permit plus $8 per adult (16+) per night; youth 15 and under free; an annual Olympic Wilderness Pass covers the nightly fee for the holder only. Cancel 3+ full days ahead for a refund of nightly fees. There is no park entrance station on FR 25 (both trailheads are on national forest land).",
+   "applies_to": [
+    "upper_lena_lake",
+    "lake_of_the_angels",
+    "deerheart_lake",
+    "stone_ponds",
+    "hagen_lakes"
+   ],
+   "source": "https://www.recreation.gov/permits/4098362",
+   "confidence": "high"
+  },
+  {
+   "rule": "Upper Lena Lake is a quota area: reserve on Recreation.gov (2026 reservation season July 1 - Oct 15); designated sites only; max 6 people per regular site; groups of 7-12 must use the group site; no campfires; two compost toilets.",
+   "applies_to": [
+    "upper_lena_lake"
+   ],
+   "source": "https://www.recreation.gov/permits/4098362",
+   "confidence": "high"
+  },
+  {
+   "rule": "Upper Lena Lake: camp only at marked designated sites on bare soil; the lake peninsula is day-use only; no camping within 0.25 mile of Scout Lake; closed to stock.",
+   "applies_to": [
+    "upper_lena_lake",
+    "scout_lake"
+   ],
+   "source": "https://www.nps.gov/olym/planyourvisit/wilderness-trail-conditions.htm",
+   "confidence": "high"
+  },
+  {
+   "rule": "Lake of the Angels, Hagen Lakes and \"Hamma Hamma River Cross Country\" exist as camp areas in the permit system but are not bookable online; call the Wilderness Information Center (360-565-3100). Lake of the Angels and Hagen Lakes are listed \"No Campfires\".",
+   "applies_to": [
+    "lake_of_the_angels",
+    "hagen_lakes",
+    "deerheart_lake",
+    "stone_ponds"
+   ],
+   "source": "https://www.nps.gov/olym/planyourvisit/wilderness-trail-conditions.htm",
+   "confidence": "high"
+  },
+  {
+   "rule": "Bear canisters (approved hard-sided food containers) are required for all overnight wilderness camping in the park; hanging food, including on old bear wires, is prohibited.",
+   "applies_to": [
+    "upper_lena_lake",
+    "lake_of_the_angels",
+    "deerheart_lake",
+    "stone_ponds",
+    "hagen_lakes"
+   ],
+   "source": "https://www.nps.gov/olym/planyourvisit/wilderness-food-storage.htm",
+   "confidence": "high"
+  },
+  {
+   "rule": "No pets beyond the park boundary on the Upper Lena and Putvin trails (dogs are allowed on the national forest portions, e.g. Lena Lake and the Brothers trail).",
+   "applies_to": [
+    "upper_lena_park_boundary",
+    "putvin_park_boundary",
+    "lena_lake",
+    "brothers_climbers_camp"
+   ],
+   "source": "https://www.wta.org/go-hiking/hikes/upper-lena-lake",
+   "confidence": "high"
+  },
+  {
+   "rule": "Campfires prohibited above 3,500 ft in Olympic National Park and in the Mount Skokomish and Brothers wildernesses (USFS trail pages); all Recreation.gov camp areas here are \"No Campfires\".",
+   "applies_to": [
+    "upper_lena_lake",
+    "lake_of_the_angels",
+    "mildred_lakes",
+    "brothers_climbers_camp"
+   ],
+   "source": "https://www.fs.usda.gov/r06/olympic/recreation/trails/putvin-trail-813",
+   "confidence": "high"
+  },
+  {
+   "rule": "Wilderness rules on national forest land (Mount Skokomish and The Brothers wildernesses): groups larger than 12 prohibited; no motorized vehicles, mountain bikes or stock on the Brothers trail.",
+   "applies_to": [
+    "brothers_climbers_camp",
+    "mildred_lakes",
+    "putvin_old_road_junction"
+   ],
+   "source": "https://www.fs.usda.gov/r06/olympic/recreation/trails/brothers-trail-821",
+   "confidence": "high"
+  },
+  {
+   "rule": "Parking: America the Beautiful or Northwest Forest Pass (or $5/day, $30/yr) at the Lena Lake/Brothers trailhead; pass also required at Mildred Lakes and Living Legacy trailheads; no pass needed at the Putvin trailhead.",
+   "applies_to": [
+    "lena_lake_trailhead",
+    "mildred_lakes_trailhead",
+    "hamma_hamma_campground",
+    "putvin_trailhead"
+   ],
+   "source": "https://www.fs.usda.gov/r06/olympic/recreation/lena-lake-campground",
+   "confidence": "high"
+  },
+  {
+   "rule": "Lena Lake backcountry campground is free, first-come, first-served, with designated sites on both sides of the lake; no ONP permit needed unless you continue into the park.",
+   "applies_to": [
+    "lena_lake"
+   ],
+   "source": "https://www.fs.usda.gov/r06/olympic/recreation/lena-lake-campground",
+   "confidence": "high"
+  },
+  {
+   "rule": "Developed USFS campgrounds (Hamma Hamma, Lena Creek): $14/night, first-come, 14 consecutive days max in one site and 21 days per year on the forest (order 06-09-26-08, June 5, 2026).",
+   "applies_to": [
+    "hamma_hamma_campground",
+    "lena_creek_campground"
+   ],
+   "source": "https://www.fs.usda.gov/r06/olympic/alerts",
+   "confidence": "high"
+  },
+  {
+   "rule": "Hamma Hamma Cabin: reserve on Recreation.gov; $60/night, max 6 people, max 7 nights; no pets, no smoking; no water provided.",
+   "applies_to": [
+    "hamma_hamma_cabin"
+   ],
+   "source": "https://www.fs.usda.gov/r06/olympic/recreation/hamma-hamma-cabin",
+   "confidence": "high"
+  },
+  {
+   "rule": "Cannabis: possession is prohibited on federal land (Olympic National Park and Olympic National Forest) even though Washington State law allows it; rangers can cite (up to 6 months jail / $5,000). Federal rescheduling efforts, if any, do not legalize recreational possession.",
+   "applies_to": [
+    "all"
+   ],
+   "source": "https://peninsuladailynews.com/news/olympic-national-park-bust-an-example-of-where-state-federal-pot-laws-collide",
+   "confidence": "medium"
+  },
+  {
+   "rule": "Alcohol: legal for adults 21+. Forest Service Region 6 order 06-00-00-23-01 prohibits possession by anyone under 21 and providing alcohol to minors on national forest land (in effect until Feb 17, 2027). In the park, 36 CFR 2.35 forbids alcohol use that violates state law or endangers others; no park-specific backcountry alcohol ban was found.",
+   "applies_to": [
+    "lena_lake",
+    "hamma_hamma_campground",
+    "upper_lena_lake",
+    "lake_of_the_angels"
+   ],
+   "source": "https://www.fs.usda.gov/r06/alerts/alcohol-prohibitions",
+   "confidence": "medium"
+  },
+  {
+   "rule": "Fireworks and explosives are always prohibited on national forest land.",
+   "applies_to": [
+    "all"
+   ],
+   "source": "https://www.fs.usda.gov/r06/olympic/alerts",
+   "confidence": "high"
+  },
+  {
+   "rule": "Fishing: no license needed inside Olympic National Park (park regulations apply); a Washington license is needed on national forest lakes such as Lena Lake and Mildred Lakes.",
+   "applies_to": [
+    "lake_of_the_angels",
+    "upper_lena_lake",
+    "lena_lake",
+    "mildred_lakes"
+   ],
+   "source": "https://www.recreation.gov/permits/4098362",
+   "confidence": "medium"
+  },
+  {
+   "rule": "Human waste: use the toilets where provided (Upper Lena, Lena Lake); otherwise bury 6-8 in. deep at least 200 ft from water, camps and trails, and pack out toilet paper.",
+   "applies_to": [
+    "lake_of_the_angels",
+    "deerheart_lake",
+    "stone_ponds",
+    "hagen_lakes"
+   ],
+   "source": "https://www.recreation.gov/permits/4098362",
+   "confidence": "high"
+  }
+ ],
+ "conditions_2026": [
+  {
+   "note": "Upper Lena Lake Trail (park boundary to lake, 2.2 mi): open; Lena Creek ford ~0.5 mi below the lake \"can become hazardous at any time\"; quota area, designated sites, peninsula day-use only, no camping within 0.25 mi of Scout Lake, closed to stock.",
+   "source": "https://www.nps.gov/olym/planyourvisit/wilderness-trail-conditions.htm",
+   "info_date": "2026-09-30",
+   "confidence": "high"
+  },
+  {
+   "note": "Putvin Primitive Trail (Lake of the Angels; 0.6 mi in the park plus 3 mi outside): no recent reports; the headwall is a hands-and-feet scramble; permit required for overnight at Lake of the Angels (call 360-565-3100); bear canisters required.",
+   "source": "https://www.nps.gov/olym/planyourvisit/wilderness-trail-conditions.htm",
+   "info_date": "2026-09-30",
+   "confidence": "high"
+  },
+  {
+   "note": "Bear Gulch Fire (2025) closures still in effect west of this region: North Fork Skokomish trail (Staircase to First Divide) and Home Sweet Home trail closed - the off-trail exit from Hagen Lakes via the Mount Hopper Way Trail to First Divide leads only into closed trails.",
+   "source": "https://www.nps.gov/olym/planyourvisit/wilderness-trail-conditions.htm",
+   "info_date": "2026-09-30",
+   "confidence": "high"
+  },
+  {
+   "note": "Hamma Hamma Road (FR 25): open; no FR 25 alert on the Olympic National Forest alerts page in early October 2026. Paved to about the Lena Lake trailhead, potholed gravel beyond; Sept 2026 trip reports rate it \"suitable for all vehicles\" or \"rough but passable\".",
+   "source": "https://www.fs.usda.gov/r06/olympic/alerts",
+   "info_date": "2026-10-05",
+   "confidence": "medium"
+  },
+  {
+   "note": "Trip reports Sept 2026: Lena Lake trail in great shape (one easy downed tree); Upper Lena trail challenging but in good shape with a couple of blowdowns; Lena Creek cascades dry; Putvin trail has about six small downed trees, a secure rope on the headwall, mud above the False Prophet, a little overgrown near the top.",
+   "source": "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-09-11.184141577317",
+   "info_date": "2026-09-11",
+   "confidence": "medium"
+  },
+  {
+   "note": "Lena Lake campground: brand-new pit toilets installed in 2026 (old 2021 trailhead sign still says toilets are not functioning); USFS lists the site open.",
+   "source": "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-09-15.201049995826",
+   "info_date": "2026-09-13",
+   "confidence": "medium"
+  },
+  {
+   "note": "Hamma Hamma Campground and Lena Creek Campground: \"Closed for the season\" (normal season May-September).",
+   "source": "https://www.fs.usda.gov/r06/olympic/recreation/hamma-hamma-campground",
+   "info_date": "2026-09-17",
+   "confidence": "high"
+  },
+  {
+   "note": "High route: Upper Lena to Lake of the Angels via St. Peter's Gate completed Aug 28-30, 2026; a July 3-5, 2026 party turned back below the Gate without traction devices (snowfields and ice) and found the Scout Lake way trail heavily overgrown and boggy.",
+   "source": "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-07-06.103329221905",
+   "info_date": "2026-07-06",
+   "confidence": "medium"
+  },
+  {
+   "note": "Snow: Lake of the Angels mostly frozen and snow from ~4,000-4,500 ft in late April-May 2026; snow-free by early July; winter snow started on FR 25 ~0.5 mi before the Putvin trailhead on 2025-12-31.",
+   "source": "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-05-03.151901079977",
+   "info_date": "2026-05-03",
+   "confidence": "medium"
+  },
+  {
+   "note": "WTA work party cleared the boot path from the old logging road (alternate trailhead) to the main Putvin trail, Dec 11, 2025.",
+   "source": "https://www.wta.org/go-hiking/trip-reports/trip_report-2025-12-12.114011042211",
+   "info_date": "2025-12-11",
+   "confidence": "medium"
+  },
+  {
+   "note": "Fall 2025: the Upper Lena Lake trail was taped and signed closed at its junction near Lena Lake during the Bear Gulch Fire / shutdown period; reopened by summer 2026 (many 2026 trip reports, NPS 9/30/26).",
+   "source": "https://www.wta.org/go-hiking/trip-reports/trip_report-2025-10-08.200156555674",
+   "info_date": "2025-10-08",
+   "confidence": "medium"
+  },
+  {
+   "note": "Hamma Fire (reported 2025-07-27 on DNR land along FS-2480 in the Hamma Hamma drainage) closed nearby roads and the Jefferson Ridge, Elk Lake and Jefferson Lake trails; FS-25 sites (Lena Lake TH, campgrounds) stayed open; closure order rescinded Aug 3, 2025.",
+   "source": "https://www.fs.usda.gov/r06/olympic/newsroom/releases/additional-road-and-trail-closures-fs-24-road-network-due-hamma-fire",
+   "info_date": "2025-08-03",
+   "confidence": "high"
+  },
+  {
+   "note": "Lena Lake trail and USFS trail pages last updated June 2025 (Putvin, Brothers) - descriptions may be stale; Upper Lena NPS page updated 2026-01-21.",
+   "source": "https://www.fs.usda.gov/r06/olympic/recreation/trails/putvin-trail-813",
+   "info_date": "2025-06-20",
+   "confidence": "medium"
+  },
+  {
+   "note": "Historic road note (stale, pre-2025): a 2008 landslide blocked the last mile to the Putvin trailhead; repaired to passenger-car standard by 2012; a 2013 boulder rut near mile 11.5.",
+   "source": "https://www.summitpost.org/mount-stone/151845",
+   "info_date": "2013 (stale)",
+   "confidence": "low"
+  }
+ ],
+ "uncertain_claims": [
+  "St. Peter's Gate location: OpenStreetMap places a saddle named \"Saint Peter's Gate\" at 47.6040, -123.2647 (USGS 3DEP elevation 5,934 ft), about 0.2 mi southeast of Mount Stone's summit. Sources describe it as the notch/saddle \"east of\" or \"on the SE shoulder of\" Mount Stone; the Mountaineers give the traverse high point as 5,900 ft. Not a USGS/GNIS name (GNIS \"Saint Peters Dome\" is a different feature near The Brothers).",
+  "The creator's belief is CONFIRMED: St. Peter's Gate connects the Lake of the Angels / Valley of Heaven side (south) with the Stone Ponds basin (north/east), which in turn connects via the Scout Lake way trail to Scout Lake and Upper Lena Lake.",
+  "Stone Ponds location: not named on USGS or OSM. We identified them as the two ponds at about 47.6102, -123.2523 (4,626 ft) and 47.6112, -123.2545 (4,710 ft), matching descriptions (two ponds east of Mount Stone, ~4,600 ft, upper open / lower forested). A 2002 report calls them \"Ullin's Bathtubs\".",
+  "Deerheart (Dearheart) Lake location: not on USGS/OSM; placed at the ~4,950-ft lake at 47.6227, -123.2378 (0.4 mi SE of and ~690 ft above Scout Lake) from trip-report descriptions (\"small lake above Scout Lake\", 2 mi / 1 hour from Upper Lena).",
+  "Scout Lake Divide / Scout Lake Pass, Stone Ponds Pass, the Stone Ponds fork, Great Stone Arrow Pass, Elk Basin, Fisher's Pass, Valley of Heaven and the saddle west of Lake of the Angels: unofficial names with no coordinates or elevations in any source we could reach; lat/lon/elevation left null.",
+  "Off-trail segment mileages (Deerheart-Stone Ponds 1.4, Stone Ponds-Gate 0.9, Gate-Lake of the Angels 0.9) are ESTIMATES from straight-line map geometry x ~1.3 and trip-report times; gains are differences of DEM elevations. Total Upper Lena to Lake of the Angels ~5.2 mi by our estimate vs ~5-7 mi implied by sources (Mountaineers 18 mi trailhead-to-trailhead; 2002 day-hiker ~21 mi loop with road walk).",
+  "Upper Lena to Deerheart: 2.0 mi (2020 report) vs ~3 mi of way trail to \"a small lake above Scout Lake\" (2024 report) - possibly different lakes or different measuring.",
+  "Upper Lena Lake Trail park boundary: NPS table (boundary to lake 2.2 mi, total 7.3 mi) implies ~5.1 mi from the trailhead; WTA says ~4 mi. Total distance: NPS/Recreation.gov 7.3 mi; WTA 7.0 (14 RT); Mountaineers 7.2-7.5; Hike Arizona 3.9 from Lena Lake. Gain: Recreation.gov ~3,850 ft, WTA 3,900, Mountaineers 4,000.",
+  "Putvin Trail distance: NPS 3.6 mi (0.6 in park + 3 outside); WTA 3.5 (7.0 RT); Hiking Project 3.25; Mountaineers 4.0; OSM 3.1-3.3. Park boundary at 2.8 mi (Romano) vs 3.0 (USFS/NPS). We used 3.6 with the boundary at 3.0.",
+  "Lena Lake distances: USFS says 3.6 mi to the lake/campground on one page, 3.2 and 3.5 on another; Upper Lena junction 3.0 and Brothers junction 3.6 (USFS). WTA 3.6 one way. We used junction 3.0, campground 3.2, Brothers junction 3.6.",
+  "Trailhead elevations: Lena Lake TH 663 ft (USGS 3DEP lidar) vs 685/700 ft (other sources); Putvin TH 1,582 ft (3DEP) vs 1,530 ft (SummitPost). Lake of the Angels 4,946 ft (3DEP) vs 4,950 (WTA high point), 4,921 (OSM), 4,888 (Outbound).",
+  "The Brothers: summit 6,842 ft (USGS/OSM, Wikipedia South Brother) vs 6,866 ft (WTA, Wikipedia wilderness article). Climbers' camp 3,000-3,100 ft; distance from the Brothers junction (2.5 mi) estimated from OSM.",
+  "Mount Hopper elevation 6,108 ft is a 3DEP sample at the OSM summit point (OSM tag says 1,761 m = 5,778 ft); the true summit value is unverified.",
+  "Lake of the Angels campsite count and whether a toilet exists: not documented in current official sources. A 2002 report counted three designated sites near the shore (stale).",
+  "Upper Lena site count \"10 sites plus a group site\" is from WTA, not NPS.",
+  "Lena Lake ~28 sites (WTA, American Trails) - USFS gives no count. Lena Lake formed ~1,300 years ago by a landslide according to signage quoted in trip reports (not verified in an official source).",
+  "Mountain goats at Lake of the Angels: historically abundant; current presence unknown after the 2018-2022 removal (NPS says a few may remain).",
+  "Carl Putvin: described as a young trapper of the early 1900s who died of exposure (single trip-report source; WTA says \"turn of the 19th century\"); dates unverified.",
+  "\"The Bandersnatch\" (a ~150-ft pinnacle east of Mount Stone's north ridge) and \"Jabberwocky Ridge\" come from a single SummitPost comment and a 2002 trip report.",
+  "Hamma Hamma Road 2026 status is inferred from the absence of alerts plus September 2026 trip reports; no official FR 25 status page was found.",
+  "Fishing at Lake of the Angels (\"stocked with fish\", Aug 2026 report) unverified.",
+  "Cannabis legality: federal prohibition on federal land is well established; any 2025-2026 federal rescheduling status was not verified, but rescheduling would not legalize recreational possession.",
+  "Drive times are OSRM routing estimates, not measured; the gravel part of FR 25 is slower in reality.",
+  "Pre-2025 sources (1998, 2002, 2008, 2013, 2020, 2021 trip reports; SummitPost) are used only for route character and may be stale."
+ ],
+ "sources": [
+  "https://carto.nationalmap.gov/arcgis/rest/services/geonames/MapServer",
+  "https://elevation.nationalmap.gov/arcgis/rest/services/3DEPElevation/ImageServer",
+  "https://en.wikipedia.org/wiki/Mount_Bretherton",
+  "https://en.wikipedia.org/wiki/Mount_Lena_(Washington)",
+  "https://en.wikipedia.org/wiki/Mount_Skokomish_Wilderness",
+  "https://en.wikipedia.org/wiki/Mount_Stone",
+  "https://en.wikipedia.org/wiki/South_Brother",
+  "https://en.wikipedia.org/wiki/The_Brothers_Wilderness",
+  "https://home.nps.gov/olym/planyourvisit/upper-lena-lake-trail.htm",
+  "https://outdoor-society.com/exploring-olympics-lake-of-the-angels/",
+  "https://peninsuladailynews.com/news/olympic-national-park-bust-an-example-of-where-state-federal-pot-laws-collide",
+  "https://router.project-osrm.org",
+  "https://www.ecfr.gov/current/title-36/chapter-I/part-2/section-2.35",
+  "https://www.fs.usda.gov/r06/alerts/alcohol-prohibitions",
+  "https://www.fs.usda.gov/r06/olympic/alerts",
+  "https://www.fs.usda.gov/r06/olympic/alerts/hamma-fire-closure-order-7-29-25",
+  "https://www.fs.usda.gov/r06/olympic/newsroom/releases/additional-road-and-trail-closures-fs-24-road-network-due-hamma-fire",
+  "https://www.fs.usda.gov/r06/olympic/recreation/hamma-hamma-cabin",
+  "https://www.fs.usda.gov/r06/olympic/recreation/hamma-hamma-campground",
+  "https://www.fs.usda.gov/r06/olympic/recreation/lena-creek-campground",
+  "https://www.fs.usda.gov/r06/olympic/recreation/lena-lake-campground",
+  "https://www.fs.usda.gov/r06/olympic/recreation/putvin-trailhead",
+  "https://www.fs.usda.gov/r06/olympic/recreation/trails/brothers-trail-821",
+  "https://www.fs.usda.gov/r06/olympic/recreation/trails/lena-lake-trail-810",
+  "https://www.fs.usda.gov/r06/olympic/recreation/trails/putvin-trail-813",
+  "https://www.hikeoftheweek.com/2023/08/03/lake-of-the-angels/",
+  "https://www.mountaineers.org/activities/routes-places/mt-stone-6-616",
+  "https://www.mountaineers.org/activities/routes-places/putvin-way",
+  "https://www.mountaineers.org/activities/routes-places/the-brothers-south-couloir",
+  "https://www.mountaineers.org/activities/trip-reports/alpine-scramble-lena-to-putvin-traverse-and-mount-skokomish",
+  "https://www.nationalparkstraveler.org/2019/07/more-mountain-goats-be-removed-olympic-national-park",
+  "https://www.nps.gov/olym/planyourvisit/fire-conditions-and-updates.htm",
+  "https://www.nps.gov/olym/planyourvisit/mountain-goat-capture-and-translocation.htm",
+  "https://www.nps.gov/olym/planyourvisit/wilderness-food-storage.htm",
+  "https://www.nps.gov/olym/planyourvisit/wilderness-trail-conditions.htm",
+  "https://www.openstreetmap.org/node/11016327680",
+  "https://www.openstreetmap.org/node/2326441656",
+  "https://www.openstreetmap.org/node/437851150",
+  "https://www.openstreetmap.org/node/7707176645",
+  "https://www.openstreetmap.org/node/7774477920",
+  "https://www.openstreetmap.org/relation/12849020",
+  "https://www.openstreetmap.org/relation/15258583",
+  "https://www.openstreetmap.org/relation/15258641",
+  "https://www.openstreetmap.org/relation/15260231",
+  "https://www.openstreetmap.org/relation/15260232",
+  "https://www.openstreetmap.org/relation/15260235",
+  "https://www.openstreetmap.org/relation/15261902",
+  "https://www.openstreetmap.org/relation/15270961",
+  "https://www.openstreetmap.org/relation/15361917",
+  "https://www.openstreetmap.org/way/1240325420",
+  "https://www.openstreetmap.org/way/37750869",
+  "https://www.recreation.gov/permits/4098362",
+  "https://www.summitpost.org/mount-stone/151845",
+  "https://www.summitpost.org/stone-ponds-st-peters-gate/308351",
+  "https://www.wta.org/go-hiking/hikes/lake-of-the-angels",
+  "https://www.wta.org/go-hiking/hikes/lena-lake",
+  "https://www.wta.org/go-hiking/hikes/living-legacy-interpretive-trail",
+  "https://www.wta.org/go-hiking/hikes/mildred-lakes",
+  "https://www.wta.org/go-hiking/hikes/scout-lake",
+  "https://www.wta.org/go-hiking/hikes/the-brothers",
+  "https://www.wta.org/go-hiking/hikes/upper-lena-lake",
+  "https://www.wta.org/go-hiking/trip-reports/trip_report-2020-08-03-5468189069",
+  "https://www.wta.org/go-hiking/trip-reports/trip_report-2021-08-16-2108232854",
+  "https://www.wta.org/go-hiking/trip-reports/trip_report-2025-06-13.220203882015",
+  "https://www.wta.org/go-hiking/trip-reports/trip_report-2025-06-24.142320635332",
+  "https://www.wta.org/go-hiking/trip-reports/trip_report-2025-07-11.204347504231",
+  "https://www.wta.org/go-hiking/trip-reports/trip_report-2025-08-09.201756670558",
+  "https://www.wta.org/go-hiking/trip-reports/trip_report-2025-08-10.151659562873",
+  "https://www.wta.org/go-hiking/trip-reports/trip_report-2025-10-08.200156555674",
+  "https://www.wta.org/go-hiking/trip-reports/trip_report-2025-10-17.180336437388",
+  "https://www.wta.org/go-hiking/trip-reports/trip_report-2025-12-12.114011042211",
+  "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-01-01.191102511633",
+  "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-04-25.225437929008",
+  "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-05-03.151901079977",
+  "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-05-18.105504982422",
+  "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-06-19.095612497334",
+  "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-07-06.103329221905",
+  "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-07-24.210043538098",
+  "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-08-02.220151484236",
+  "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-08-03.072954381080",
+  "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-08-09.085353963024",
+  "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-08-16.212239143814",
+  "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-08-24.231145415162",
+  "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-08-29.114045398840",
+  "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-08-29.212610979515",
+  "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-09-01.204547395571",
+  "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-09-02.110611361060",
+  "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-09-10.180925120026",
+  "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-09-11.122906676202",
+  "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-09-11.184141577317",
+  "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-09-15.075631109419",
+  "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-09-15.161618291159",
+  "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-09-15.201049995826",
+  "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-09-19.104606597992",
+  "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-09-20.233149203889",
+  "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-09-27.085220046695",
+  "https://www.wta.org/go-hiking/trip-reports/trip_report-2026-09-27.171810907718",
+  "https://www.wta.org/go-hiking/trip-reports/tripreport-1998080104",
+  "https://www.wta.org/go-hiking/trip-reports/tripreport-2002072816",
+  "https://www.wta.org/go-hiking/trip-reports/tripreport-2002081906",
+  "https://www.wta.org/go-hiking/trip-reports/tripreport-2008080604"
+ ]
 }
