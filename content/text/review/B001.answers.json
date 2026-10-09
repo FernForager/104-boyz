@@ -28,9 +28,9 @@
   },
   "app.update": {
    "hash": "daef6bfe",
-   "verdict": "open",
-   "text": null,
-   "question": "What button does this lead to? Open?"
+   "verdict": "rewrite",
+   "text": "A new version is ready.",
+   "via": "chat, 2026-10-09: option a of three"
   },
   "app.error.line": {
    "hash": "60ddbe8a",
@@ -58,6 +58,13 @@
    "verdict": "looks_fine",
    "text": null,
    "note": "the build code alone, no words"
+  },
+  "app.update.restart": {
+   "hash": "2f44ed8c",
+   "verdict": "approve",
+   "text": "Restart",
+   "via": "chat, 2026-10-09: new button line, with option a",
+   "ctx": "The update note's button: saves the game and reloads into the new version"
   }
  },
  "not_ours": {
