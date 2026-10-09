@@ -44,9 +44,9 @@
   },
   "app.error.reopen": {
    "hash": "b41fb578",
-   "verdict": "open",
-   "text": null,
-   "question": "Reopen what?"
+   "verdict": "rewrite",
+   "text": "Restart",
+   "via": "chat, 2026-10-09: option a of three, the same word as the update note"
   },
   "app.preview_name": {
    "hash": "d7264112",
@@ -72,5 +72,6 @@
   "Add to Home Screen": "keep",
   "Olympic National Park": "keep"
  },
- "revised": "The creator revisited B001 on the review page at 2026-10-09T04:39Z: three rewrites, and questions on two lines"
+ "revised": "The creator revisited B001 on the review page at 2026-10-09T04:39Z: three rewrites, and questions on two lines",
+ "status": "answered: every line has an approved text (app.build for a look only)"
 }
