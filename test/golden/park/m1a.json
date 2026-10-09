@@ -80,5 +80,5 @@
  ],
  "spur_rule": { "points": ["lunch_lake", "seven_lakes_basin", "bogachiel_peak", "heart_lake"], "with": 45, "without": 42, "loop_with": 204, "loop_without": 201, "doc": "M1A_DATA_CHECK item 1: without the spur rule the counterclockwise two-night basin day 2 comes out 4.2 and the loop 20.1" },
  "distance_not_time": { "to": "cat_basin", "dir": "ccw", "dist_along": 118, "route": 119, "doc": "GAME_DESIGN 4.3: Cat Basin counterclockwise is 11.8 by distance (by Heart Lake); by time the router goes by Bruce's Roost, 11.9" },
- "counts": { "nodes": 47, "segments": 49, "map_only": 5, "routable": 44, "plannable_camps": 24, "quota_camps": 21, "desk_camps": 3, "never": 3, "doc": "BUILD_PLAN 3.4 (47 segments there; 49 with the two Hoh Lake Trail shares, doubt D3); GAME_DESIGN 4.3" }
+ "counts": { "nodes": 47, "segments": 49, "map_only": 5, "routable": 44, "plannable_camps": 24, "quota_camps": 21, "desk_camps": 3, "never": 3, "doc": "BUILD_PLAN 3.4 (49 segments, with the two Hoh Lake Trail shares; doubt D3, fixed there); GAME_DESIGN 4.3" }
 }

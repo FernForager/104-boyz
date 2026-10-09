@@ -13,6 +13,8 @@
     "lint": "node tools/lint.mjs",
     "test": "node --test \"test/unit/*.test.mjs\"",
     "render": "node tools/render-pics.mjs",
+    "listen": "node tools/listen.mjs",
+    "shots": "node tools/shots.mjs",
     "serve": "node tools/serve.mjs",
     "typecheck": "node tools/typecheck.mjs",
     "sim:smoke": "node tools/sim.mjs --smoke 1000",
@@ -20,7 +22,8 @@
     "ci": "npm run build && npm run lint && npm run typecheck && npm run test && npm run sim:smoke",
     "text:check": "node tools/text.mjs check",
     "text:count": "node tools/text.mjs count",
-    "text:apply": "node tools/text.mjs apply"
+    "text:apply": "node tools/text.mjs apply",
+    "text:batch": "node tools/text.mjs batch"
   },
   "devDependencies": {
     "typescript": "6.0.3"

@@ -1,5 +1,5 @@
 {
- "$comment": "content/stops/*.json: a stop set (BUILD_PLAN S3; S9's cards and S15a's tailgate replace it). A stop has next (a stop in the set, or null for the set's end) or choices. A choice has then or a roll. box and label are display data (voice.json); the rest is logic (rules.json).",
+ "$comment": "content/stops/*.json: a stop set (BUILD_PLAN S3; S9's cards and S15a's tailgate replace it). A stop has next (a stop in the set, or null for the set's end) or choices. A choice has then or a roll. box, label and view are display data (voice.json); the rest is logic (rules.json).",
  "type": "object",
  "required": ["id", "screen", "phase", "first", "stops"],
  "additionalProperties": false,
@@ -15,12 +15,25 @@
   "id": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
   "line": { "type": "string", "pattern": "^@[a-z][a-z0-9_]*(\\.[a-z0-9_]+)+$", "x-text": true, "x-voice": true },
   "box": {
-   "$comment": "One line, a list of variants for one slot, or a list of slots, each a list of variants.",
+   "$comment": "One line, a list of variants for one slot, or a list of slots, each a list of variants; an empty list is a quiet stop, with no box at all (decision 32; GAME_DESIGN 12.2). (The empty list is its own branch, and the two lists need an item, so exactly one branch matches: tools/schema.mjs reads oneOf, not anyOf.)",
    "oneOf": [
     { "$ref": "#/$defs/line" },
-    { "type": "array", "items": { "$ref": "#/$defs/line" } },
-    { "type": "array", "items": { "type": "array", "items": { "$ref": "#/$defs/line" } } }
+    { "type": "array", "maxItems": 0 },
+    { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/line" } },
+    { "type": "array", "minItems": 1, "items": { "type": "array", "items": { "$ref": "#/$defs/line" } } }
    ]
+  },
+  "view": {
+   "$comment": "Display data (x-voice: voice.json, never rules.json): pic, the picture (a place in content/art/recipes.json); node, the park node the caption and the strip read; day, today's route for the strip, its points in order (BUILD_PLAN S5).",
+   "type": "object",
+   "required": ["pic", "node", "day"],
+   "additionalProperties": false,
+   "x-voice": true,
+   "properties": {
+    "pic": { "$ref": "#/$defs/id" },
+    "node": { "$ref": "#/$defs/id" },
+    "day": { "type": "array", "minItems": 2, "items": { "$ref": "#/$defs/id" } }
+   }
   },
   "stop": {
    "type": "object",
@@ -29,6 +42,7 @@
    "properties": {
     "id": { "$ref": "#/$defs/id" },
     "box": { "$ref": "#/$defs/box" },
+    "view": { "$ref": "#/$defs/view" },
     "next": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/id" }] },
     "choices": { "type": "array", "items": { "$ref": "#/$defs/choice" } }
    },

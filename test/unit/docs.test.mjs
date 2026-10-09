@@ -63,8 +63,11 @@ test('package.json names OP Hiker, has no book words, and its scripts are the RE
   assert.equal(lock.packages['node_modules/typescript'].version, pkg.devDependencies.typescript, 'the lockfile pins the same');
   assert.deepEqual(Object.keys(lock.packages).sort(), ['', 'node_modules/typescript'], 'and nothing else');
   const scripts = Object.keys(pkg.scripts).sort();
-  // S4 adds ingest (BUILD_PLAN 3.2).
-  assert.deepEqual(scripts, ['build', 'ci', 'ingest', 'lint', 'play', 'render', 'serve', 'sim:smoke', 'test', 'text:apply', 'text:check', 'text:count', 'typecheck']);
+  // S4 adds ingest (BUILD_PLAN 3.2); S5 (sound A1) adds listen (BUILD_PLAN 13.5), and (the words) shots and text:batch (10.7).
+  assert.deepEqual(scripts, ['build', 'ci', 'ingest', 'lint', 'listen', 'play', 'render', 'serve', 'shots', 'sim:smoke', 'test', 'text:apply', 'text:batch', 'text:check', 'text:count', 'typecheck']);
+  assert.equal(pkg.scripts.listen, 'node tools/listen.mjs');
+  assert.equal(pkg.scripts.shots, 'node tools/shots.mjs');
+  assert.equal(pkg.scripts['text:batch'], 'node tools/text.mjs batch');
   // BUILD_PLAN 6.5: ci runs the five checks, in that order.
   assert.equal(pkg.scripts.ci, 'npm run build && npm run lint && npm run typecheck && npm run test && npm run sim:smoke');
   assert.equal(pkg.scripts['sim:smoke'], 'node tools/sim.mjs --smoke 1000');

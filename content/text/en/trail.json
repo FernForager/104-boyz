@@ -1,5 +1,5 @@
 {
- "$comment": "The trail's stops (GAME_DESIGN 12.1, 12.2): S3's two sample stops at the Sol Duc trailhead and the button between stops. S15a's tailgate and S9's cards replace the sample stops. Drafts until B004 is answered; preview only.",
+ "$comment": "The trail's stops (GAME_DESIGN 12.1, 12.2): S3's two sample stops at the Sol Duc trailhead and the button between stops; S5's sample stops at Deer Lake and the rim, and the trail frame's chrome (the status line, the caption, the toolbar, the (i) square; the strip's mile is a number format, fmt.mile_marker). S15a's tailgate and S9's cards replace the sample stops. Drafts until B004 is answered; preview only.",
  "trail.walk_on": {
   "text": "Walk on",
   "ctx": "Every trail stop's button to the next stop (GAME_DESIGN 12.1)",
@@ -17,5 +17,65 @@
   "ctx": "Sol Duc trailhead, the second stop: the trail into the trees toward the falls (0.8 mi)",
   "screen": "trail",
   "max": 140
+ },
+ "trail.deer_lake_rim.deer_lake": {
+  "text": "You come out of the trees at a still lake ringed with firs. It is the last sure water before the crest.",
+  "ctx": "S5's sample stop at Deer Lake, the first lake on the climb to the High Divide (GAME_DESIGN 4.3: the last sure water before the dry crest)",
+  "screen": "trail",
+  "max": 140
+ },
+ "trail.deer_lake_rim.rim": {
+  "text": "The ground falls away into a bowl of pale rock and heather. You count the lakes twice and get two answers.",
+  "ctx": "S5's sample stop at the rim of the Seven Lakes Basin, looking down into it (4.3: far more than seven lakes)",
+  "screen": "trail",
+  "max": 140
+ },
+ "trail.caption": {
+  "text": "Day {day} · {place} · {elev}",
+  "ctx": "The caption under the picture: the trip's day, the place, its elevation in feet as fmt.ft words it (12.2)",
+  "screen": "trail",
+  "max": 44
+ },
+ "trail.status.sound_on": {
+  "text": "Sound:on",
+  "ctx": "The status line's Sound toggle while sound is on; tap turns it off (12.2, 13.11; King's Quest's own words)",
+  "screen": "trail",
+  "max": 10
+ },
+ "trail.status.sound_off": {
+  "text": "Sound:off",
+  "ctx": "The status line's Sound toggle while sound is off",
+  "screen": "trail",
+  "max": 10
+ },
+ "trail.status.menu": {
+  "text": "Menu",
+  "ctx": "The ≡ button's spoken name, and the name of the sheet it opens",
+  "screen": "trail",
+  "max": 12
+ },
+ "trail.toolbar.pack": {
+  "text": "Pack",
+  "ctx": "The toolbar's first button: what's in the pack (12.2)",
+  "screen": "trail",
+  "max": 8
+ },
+ "trail.toolbar.map": {
+  "text": "Map",
+  "ctx": "The toolbar's second button: the park map with your route (12.2)",
+  "screen": "trail",
+  "max": 8
+ },
+ "trail.toolbar.log": {
+  "text": "Log",
+  "ctx": "The toolbar's third button: the hiker's log, day by day (12.2)",
+  "screen": "trail",
+  "max": 8
+ },
+ "trail.choice.why": {
+  "text": "Why",
+  "ctx": "The (i) square's spoken name: it opens the Why sheet behind a choice's odds (12.1, 12.11)",
+  "screen": "trail",
+  "max": 12
  }
 }

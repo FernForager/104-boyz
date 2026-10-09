@@ -8,7 +8,7 @@ Checked 2026-10-08 against `design/GAME_DESIGN.md` (4.3, 3.x, 5 to 9, 10.2, 11.7
 
 **Ready to build M1a.** Nothing blocks the vertical slice:
 - Every node, segment and camp the loop needs is in the data.
-- All 47 loop segments have miles, gain and loss, so they work in both directions.
+- All 49 loop segments have miles, gain and loss, so they work in both directions.
 - Every mileage in 4.3, B.1, B.2 and B.6 matches the graph to 0.1 mi, once the Bogachiel Peak summit trails are treated as a side trip (issue 1).
 - The catalogs have every M1a item except beer and the pre-roll. The document already plans for ingest to add those two.
 
@@ -43,9 +43,9 @@ Four trivial problems were fixed in place (listed below). Nothing was committed.
 
 `heart_lake_junction` and `appleton_junction` are typed `junction` but carry camps, so the engine should find camps by `camp != null`, not by type.
 
-**Segments.** There are 47 loop segments: 31 maintained, 5 primitive, 7 way trail and 4 off trail.
+**Segments.** There are 49 loop segments: 33 maintained, 5 primitive, 7 way trail and 4 off trail. Two of them, the Hoh Lake Trail's (`hoh_lake`→`c_b_flats_group_site` and C.B. Flats to the Hoh Lake Trail junction), are shared with `hoh_olympus`. (Corrected 2026-10-09 from Session 4's ingest, doubt D3: this check first counted 47, with 31 maintained and 36 with hazards, missing those two.)
 - None has a null mile, gain or loss.
-- Every one has `snow_free_typical`, and 36 have hazards.
+- Every one has `snow_free_typical`, and 38 have hazards.
 - Every segment's net gain agrees with its endpoint elevations to within 60 ft.
 - Segments are stored one way, as E.4 expects, and ingest synthesizes the reverse.
 
@@ -112,7 +112,7 @@ All of these are present:
 - monthly freezing-level percentiles (medians 12,500 ft in August and 11,600 ft in September);
 - melt-out dates.
 
-**Daylight.** `park_rules.json` has the 15th of each month. Computed with the NOAA algorithm at the loop (47.97 N, 123.83 W), it reproduces the 7.2 table to the minute, and B.2's 6:07 am sunrise and 8:34 pm sunset. `data/daylight.json` (the 1st and 15th) can be generated; it is not a research gap.
+**Daylight.** `park_rules.json` has the 15th of each month. Computed with the NOAA algorithm at the loop (47.97 N, 123.83 W), it gives the 7.2 table and B.2's 6:06 am sunrise and 8:34 pm sunset. (Corrected 2026-10-09 from Session 4's ingest, doubts D1 and D8: this check first said it reproduced the doc to the minute, but 7.2's cells then ran a minute late on 8 of 15 and B.2 printed 6:07; both now carry `content/data/daylight.json`'s values for 2027.) `data/daylight.json` (the 1st and 15th) can be generated; it is not a research gap.
 
 ## Gear and food
 

@@ -20,7 +20,7 @@ import { reportState } from '../../web/js/engine/save.js';
 
 const PLAY = join(ROOT, 'tools', 'play.mjs');
 /** The trailhead's lines the sample names, as C0 files them (a temp copy only stubs any not yet in the repo). */
-const TRAIL_LINES = ['trail.sol_duc_trailhead.lot', 'trail.sol_duc_trailhead.trail_mouth', 'trail.walk_on'];
+const TRAIL_LINES = ['trail.sol_duc_trailhead.lot', 'trail.sol_duc_trailhead.trail_mouth', 'trail.deer_lake_rim.deer_lake', 'trail.deer_lake_rim.rim', 'trail.walk_on'];
 
 /**
  * A copy of the repo in a temp folder whose scope has the guest book and
@@ -116,7 +116,7 @@ test('a report made from a real session (reportState) replays here to a match; a
   assert.equal(r.match, true, verdict(r));
   assert.equal(verdict(r), `replay: match ${report.state.trip.hash.slice(0, 12)}`);
   assert.deepEqual(r.steps.map((s) => s.action), [null, 'wait 0', 'next']);
-  assert.deepEqual(r.steps.map((s) => s.screen.stop), ['sol_duc_trailhead.lot', 'sol_duc_trailhead.lot', 'sol_duc_trailhead.trail_mouth']);
+  assert.deepEqual(r.steps.map((s) => s.screen.stop), ['deer_lake_rim.deer_lake', 'deer_lake_rim.deer_lake', 'deer_lake_rim.rim']);
   assert.ok(r.steps[0].screen.lines[0].length > 0 && !r.steps[0].screen.lines[0].startsWith('⟦'), 'the box in words');
   // The CLI, inside the commit: exit 0 on a match, 1 on a mismatch.
   const dir = mkdtempSync(join(tmpdir(), 'oph-report-'));
@@ -195,8 +195,8 @@ test('a sample trip reads as a transcript: the guest book, both stops in words, 
   assert.deepEqual(a.steps.map((s) => s.action), [null, 'sign', 'start sample K7QM2Q9F', 'next', 'next']);
   assert.deepEqual(a.steps.map((s) => s.screen.phase), ['guestbook', 'home', 'trailhead', 'trailhead', 'home']);
   const text = transcriptText(a.steps);
-  assert.match(text, /\[trailhead sol_duc_trailhead\.lot, stop 1\]/);
-  assert.match(text, /\[trailhead sol_duc_trailhead\.trail_mouth, stop 2\]/);
+  assert.match(text, /\[trailhead deer_lake_rim\.deer_lake, stop 1\]/);
+  assert.match(text, /\[trailhead deer_lake_rim\.rim, stop 2\]/);
   assert.match(text, /\(a name field\)/);
   assert.ok(!text.includes('⟦trail.'), 'every trail line in words');
   assert.equal(playTrip({ dist, seed: 'K7QM2Q9F', bot: 'random' }).ended, true);
@@ -249,7 +249,7 @@ test('with git: a report replays through a worktree of its own commit, here when
   assert.equal(viaWorktree.status, 0, viaWorktree.stderr + viaWorktree.stdout);
   assert.match(viaWorktree.stderr, new RegExp(`${shaA.slice(0, 7)} rebuilt in `));
   assert.match(viaWorktree.stdout, /^replay: match [0-9a-f]{12}$/m);
-  assert.match(viaWorktree.stdout, /sol_duc_trailhead\.trail_mouth, stop 2/);
+  assert.match(viaWorktree.stdout, /deer_lake_rim\.rim, stop 2/);
   assert.ok(!git('worktree', 'list').includes(`oph-replay-${shaA.slice(0, 7)}`), `the worktree is removed: ${git('worktree', 'list')}`);
   assert.ok(!existsSync(join(tmpdir(), `oph-replay-${shaA.slice(0, 7)}`)));
   // The same trip named by its build's short SHA only, at HEAD (B changed no rules), with a clean tree: built here.

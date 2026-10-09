@@ -6,11 +6,14 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import vm from 'node:vm';
-import { mkdtempSync, readFileSync, rmSync } from 'node:fs';
+import { existsSync, mkdtempSync, readFileSync, readdirSync, rmSync, statSync } from 'node:fs';
 import { tmpdir } from 'node:os';
-import { join } from 'node:path';
+import { join, posix } from 'node:path';
 import { createHash } from 'node:crypto';
 import { build } from '../../tools/build.mjs';
+import { scanJs } from '../../tools/textlint.mjs';
+import { opensGame, GAME_SCREENS } from '../../web/js/ui/home.js';
+import { opensMap, opensTrail, MAP_SCREEN, TRAIL_SCREEN } from '../../web/js/ui/debug.js';
 
 const tmp = mkdtempSync(join(tmpdir(), 'oph-sw-'));
 const built = {};
@@ -28,8 +31,9 @@ const SCOPES = { main: 'https://ophiker.com/', preview: 'https://ophiker.com/pre
  * @param {'main' | 'preview'} channel
  * stamp: run it as another build of the same files (its worker, version.json
  * and precache.json carry that files hash); wait: a promise a fetch of that
- * path waits on (a slow download).
- * @param {{files?: Record<string, Buffer | string>, redirected?: string[], missing?: string[], version?: any, caches?: Map<string, Map<string, Response>>, stamp?: string, wait?: Record<string, Promise<unknown>>}} [o]
+ * path waits on (a slow download); net: {up: false} takes the network away
+ * (every fetch fails, as on a phone offline).
+ * @param {{files?: Record<string, Buffer | string>, redirected?: string[], missing?: string[], version?: any, caches?: Map<string, Map<string, Response>>, stamp?: string, wait?: Record<string, Promise<unknown>>, net?: {up: boolean}}} [o]
  */
 function world(channel, o = {}) {
   const { out } = built[channel];
@@ -79,6 +83,7 @@ function world(channel, o = {}) {
   async function fetch(input, init = {}) {
     const url = typeof input === 'string' ? input : input.url;
     fetched.push({ url, cache: init.cache });
+    if (o.net && !o.net.up) throw new TypeError('Load failed');
     const path = new URL(url).pathname;
     const base = new URL(scope).pathname;
     const rel = path.startsWith(base) ? path.slice(base.length) : null;
@@ -318,10 +323,95 @@ test('fetch: navigations get the cached page, assets the cache, and the rest the
     assert.deepEqual(w.fetched, [], 'all of that from the cache');
     assert.equal(await w.request(new URL('somewhere/else', w.scope).href, { mode: 'navigate' }), null, 'another page: the network');
     const before = w.store.get(w.name).size;
-    const res = await w.request(new URL('fonts/OFL.txt?v=2', w.scope).href);
+    const res = await w.request(new URL('css/game.css?v=2', w.scope).href);
     assert.ok(res.ok, 'a query on a cached file still hits');
+    assert.deepEqual(w.fetched, [], 'the cache, not the network');
     const miss = await w.request(new URL('not/listed.json', w.scope).href);
     assert.equal(miss.status, 404, 'an unlisted file goes to the network');
     assert.equal(w.store.get(w.name).size, before, 'and is never stored');
   }
 });
+
+/**
+ * What a built page loads, read here on its own (not with tools/reach.mjs):
+ * the src and href in the page, the manifest's icons, the stylesheets'
+ * url()s, the modules' imports and the files they name with new URL(...,
+ * import.meta.url) (a folder: every file the build ships in it; the root is
+ * a scope). A dynamic import listed in gates is followed only when its gate,
+ * the page's own function, says the page takes it.
+ * @param {string} out
+ * @param {Record<string, boolean>} gates "<module> <specifier>" -> taken
+ */
+function pageLoads(out, gates) {
+  const loads = new Set();
+  const dynamic = [];
+  const visit = (rel) => {
+    if (loads.has(rel)) return;
+    assert.ok(existsSync(join(out, rel)), `the page loads ${rel}, and the build ships it`);
+    loads.add(rel);
+    const src = readFileSync(join(out, rel), 'utf8');
+    const at = (ref) => posix.normalize(posix.join(posix.dirname(rel), ref));
+    if (rel.endsWith('.html')) for (const m of src.matchAll(/\s(?:src|href)="([^"#:]+)"/g)) visit(at(m[1]));
+    else if (rel.endsWith('.webmanifest')) for (const icon of JSON.parse(src).icons) visit(at(icon.src));
+    else if (rel.endsWith('.css')) for (const m of src.matchAll(/url\("([^"]+)"\)/g)) visit(at(m[1]));
+    else if (rel.endsWith('.js')) {
+      const code = scanJs(src).code0;
+      for (const m of code.matchAll(/^\s*(?:import|export)\s[^;]*?from\s+'([^']+)'/gms)) visit(at(m[1]));
+      for (const m of code.matchAll(/^import\s+'([^']+)'/gm)) visit(at(m[1]));
+      for (const m of code.matchAll(/import\('([^']+)'\)/g)) {
+        const key = `${rel} ${m[1]}`;
+        dynamic.push(key);
+        if (!(key in gates) || gates[key]) visit(at(m[1]));
+      }
+      for (const m of code.matchAll(/new URL\('([^']*)', import\.meta\.url\)/g)) {
+        const p = at(m[1]);
+        if (p === '.' || p === './') continue;
+        if (m[1].endsWith('/')) for (const f of readdirSync(join(out, p)).filter((n) => statSync(join(out, p, n)).isFile())) visit(posix.join(p, f));
+        else visit(p);
+      }
+    }
+  };
+  visit('index.html');
+  return { loads: [...loads].sort(), dynamic: dynamic.sort() };
+}
+
+test("main's precache is what main's page loads: nothing it never loads (S5's fonts, sound, trail and inspector, the map, the data, the licenses), and everything it needs to open offline", async () => {
+  const { out, list } = built.main;
+  const page = readFileSync(join(out, 'index.html'), 'utf8');
+  const html = { screens: /<html[^>]*\sdata-screens="([^"]*)"/.exec(page)[1], channel: /<html[^>]*\sdata-channel="([^"]*)"/.exec(page)[1] };
+  const doc = { documentElement: { getAttribute: (k) => (k === 'data-screens' ? html.screens : null), dataset: { channel: html.channel } } };
+  // The gates, asked themselves (home.js opensGame; debug.js opensMap, and preview && opensTrail for the inspector): main's page takes none.
+  const gates = { 'js/main.js ./ui/app.js': opensGame(doc), 'js/main.js ./ui/map.js': opensMap(doc), 'js/ui/debug.js ./inspect.js': doc.documentElement.dataset.channel !== 'main' && opensTrail(doc) };
+  assert.deepEqual(Object.values(gates), [false, false, false]);
+  const { loads, dynamic } = pageLoads(out, gates);
+  assert.deepEqual(dynamic, ['js/main.js ./ui/app.js', 'js/main.js ./ui/home.js', 'js/main.js ./ui/map.js', 'js/ui/debug.js ./inspect.js', 'js/ui/selfcheck.js ../engine/selfcheck.js'], 'every dynamic import main reaches, each gated one above');
+  // Each gated import's // screens: note is its gate's own list, so the build's reach agrees with the code.
+  assert.match(readFileSync(join(out, 'js', 'main.js'), 'utf8'), new RegExp(`import\\('\\./ui/app\\.js'\\) // screens: ${GAME_SCREENS.join(' ')}$`, 'm'));
+  assert.match(readFileSync(join(out, 'js', 'main.js'), 'utf8'), new RegExp(`import\\('\\./ui/map\\.js'\\) // screens: ${MAP_SCREEN}$`, 'm'));
+  assert.match(readFileSync(join(out, 'js', 'ui', 'debug.js'), 'utf8'), new RegExp(`import\\('\\./inspect\\.js'\\) // screens: ${TRAIL_SCREEN}$`, 'm'));
+  // Exactly that: no file outside what the page loads, and none of it left out (the worker and the two lists aside).
+  const cached = Object.keys(list.paths);
+  assert.deepEqual(cached, loads.filter((f) => !['sw.js', 'version.json', 'precache.json'].includes(f)));
+  for (const f of ['css/frame.css', 'fonts/OPHChrome.ttf', 'fonts/Literata.woff2', 'fonts/Literata-Italic.woff2', 'fonts/OFL.txt', 'fonts/FONTS.md', 'audio/sounds.json', 'js/audio/engine.js', 'js/audio/dsp.js', 'js/audio/unlock.js', 'js/audio/limiter.worklet.js', 'js/ui/app.js', 'js/ui/frame.js', 'js/ui/sound.js', 'js/ui/inspect.js', 'js/ui/map.js', 'js/ui/strip.js', 'js/gfx/compose.js', 'js/fmt.js', 'data/rules.json', 'data/voice.json', 'flags.json']) {
+    assert.ok(existsSync(join(out, f)), `main ships ${f} (file parity)`);
+    assert.ok(!cached.includes(f), `main's page never loads ${f}, so its worker never downloads it`);
+  }
+  const bytes = (files) => files.reduce((n, f) => n + statSync(join(out, f)).size, 0);
+  const shipped = readdirSync(out, { recursive: true }).filter((f) => statSync(join(out, f)).isFile() && !['sw.js', 'version.json', 'precache.json'].includes(f));
+  assert.ok(bytes(shipped) - bytes(cached) > 290 * 1024, `an installed app no longer downloads ${bytes(shipped) - bytes(cached)} bytes it never uses`);
+  // Offline: installed, then the network gone, the page and every file it loads come from the cache.
+  const net = { up: true };
+  const w = world('main', { net });
+  await w.fire('install');
+  net.up = false;
+  w.fetched.length = 0;
+  const nav = await w.request(w.scope, { mode: 'navigate' });
+  assert.equal(await nav.text(), page, 'the page');
+  for (const f of loads.filter((x) => x !== 'sw.js')) {
+    const res = await w.request(new URL(f, w.scope).href);
+    assert.ok(res && res.ok, `${f} offline`);
+    assert.equal(createHash('sha256').update(Buffer.from(await res.arrayBuffer())).digest('hex').slice(0, 12), list.paths[f], `${f}: the build's bytes`);
+  }
+  assert.deepEqual(w.fetched, [], 'not one of them from the network');
+});
+

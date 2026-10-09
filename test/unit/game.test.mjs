@@ -333,10 +333,10 @@ test('a full run writes oph.preview.device, .hiker and .trip, and nothing else (
   assert.equal(doc.activeElement, doc.querySelector('.game-box'), 'the box takes focus');
   sign(doc, now);
   assert.equal(app.getAttribute('data-screen'), 'trail');
-  assert.deepEqual(boxIds(doc), ['trail.sol_duc_trailhead.lot']);
+  assert.deepEqual(boxIds(doc), ['trail.deer_lake_rim.deer_lake']);
   assert.deepEqual(order, ['oph.preview.device', 'oph.preview.hiker', 'oph.preview.trip', 'oph.preview.hiker'], 'sign saves the hiker; the start saves the trip, then the hiker');
   tap(doc, '.game-choices .choice', now);
-  assert.deepEqual(boxIds(doc), ['trail.sol_duc_trailhead.trail_mouth']);
+  assert.deepEqual(boxIds(doc), ['trail.deer_lake_rim.rim']);
   assert.deepEqual(order.slice(-2), ['oph.preview.trip', 'oph.preview.hiker']);
   assert.deepEqual([...ls.map.keys()].sort(), ['oph.preview.device', 'oph.preview.hiker', 'oph.preview.trip']);
   const hiker = JSON.parse(ls.getItem('oph.preview.hiker'));
@@ -349,7 +349,7 @@ test('a full run writes oph.preview.device, .hiker and .trip, and nothing else (
   assert.equal(trip.snapshot.n, 2);
   assert.ok(!JSON.stringify(trip).includes('Robin'), 'the name is in the hiker record only');
   assert.deepEqual(unpack(fromBase64url(trip.log)).actions, [['next']], 'the complete log');
-  assert.equal(game.session().state.trip.stop, 'trail_mouth');
+  assert.equal(game.session().state.trip.stop, 'rim');
   assert.deepEqual(SAVE_ORDER, ['trip', 'hiker']);
 });
 
@@ -362,7 +362,7 @@ test('resume: closing the app on a stop and opening it again shows the same stop
   // The app is swiped closed; the saves stay. A new page opens on them.
   const again = await start();
   assert.equal(again.doc.getElementById('app').getAttribute('data-screen'), 'trail');
-  assert.deepEqual(boxIds(again.doc), ['trail.sol_duc_trailhead.trail_mouth']);
+  assert.deepEqual(boxIds(again.doc), ['trail.deer_lake_rim.rim']);
   assert.deepEqual(again.game.session().state, before.state, 'the same state');
   assert.deepEqual(again.game.session().log, before.log, 'and the same log, which goes on');
   tap(again.doc, '.game-choices .choice', again.now);
@@ -379,7 +379,7 @@ test('closing the guest book before Sign brings back an empty guest book; closin
   sign(back.doc, back.now);
   ls.removeItem('oph.preview.trip');
   const fresh = await start({ seed: () => 'Q5Z2K8M1' });
-  assert.deepEqual(boxIds(fresh.doc), ['trail.sol_duc_trailhead.lot']);
+  assert.deepEqual(boxIds(fresh.doc), ['trail.deer_lake_rim.deer_lake']);
   assert.equal(fresh.game.session().state.trip.seed, 'Q5Z2K8M1', 'home starts a new trip with a new seed');
 });
 
@@ -391,7 +391,7 @@ test('after the second stop, Walk on ends the sample trip and a new one starts a
   tap(doc, '.game-choices .choice', now);
   tap(doc, '.game-choices .choice', now);
   const s = game.session();
-  assert.deepEqual(boxIds(doc), ['trail.sol_duc_trailhead.lot']);
+  assert.deepEqual(boxIds(doc), ['trail.deer_lake_rim.deer_lake']);
   assert.notEqual(s.state.trip.seed, firstSeed);
   assert.equal(s.state.trip.n, 1);
   assert.deepEqual(s.log.actions, [], 'a fresh log');
@@ -419,7 +419,7 @@ test('a double tap is dropped, and a stale tap the engine refuses is ignored', a
   }
   assert.equal(warned.length, 1);
   assert.equal(game.session().state.trip.n, 2, 'nothing moved');
-  assert.deepEqual(boxIds(doc), ['trail.sol_duc_trailhead.trail_mouth'], 'the same stop, drawn again');
+  assert.deepEqual(boxIds(doc), ['trail.deer_lake_rim.rim'], 'the same stop, drawn again');
   assert.equal(doc.querySelector('.game-choices .choice').disabled, false);
   now.pass();
   assert.throws(() => game.act({ t: 'wait', s: -1 }), (e) => isEngineError(e) && e.code === 'invalid', 'anything else reaches the error sheet');
@@ -504,16 +504,16 @@ test("a trip a later build can't place (its stop renamed) is closed and kept, an
   sign(doc, now);
   tap(doc, '.game-choices .choice', now);
   const rec = JSON.parse(ls.getItem('oph.preview.trip'));
-  assert.equal(rec.snapshot.stop, 'trail_mouth');
+  assert.equal(rec.snapshot.stop, 'rim');
   // The next build renames the stop the trip stands on.
   const renamed = async (url) => {
-    const body = readOut('preview', join('data', basename(url.pathname))).replaceAll('"trail_mouth"', '"trail_end"');
+    const body = readOut('preview', join('data', basename(url.pathname))).replaceAll('"rim"', '"rim_end"');
     return { ok: true, status: 200, json: async () => JSON.parse(body) };
   };
   const page = shell({ rules: '0000000000ab' });
   const game = await startGame(page.doc, { fetchFn: renamed, now: clock(), seed: () => '00000006', hikerId: () => 'h00000001' });
   assert.deepEqual([game.session().state.trip.seed, game.session().state.trip.n], ['00000006', 1], 'a fresh trip at the first stop');
-  assert.deepEqual(boxIds(page.doc), ['trail.sol_duc_trailhead.lot']);
+  assert.deepEqual(boxIds(page.doc), ['trail.deer_lake_rim.deer_lake']);
   assert.deepEqual(JSON.parse(ls.getItem('oph.preview.trip_closed')), [rec], 'the old trip is kept');
   assert.ok(recentErrors().some((e) => /\(missing\) was closed/.test(e.message)));
 });

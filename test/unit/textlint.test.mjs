@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { appendFileSync, cpSync, mkdtempSync, readFileSync, rmSync } from 'node:fs';
+import { appendFileSync, cpSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { ROOT } from '../../tools/pics.mjs';
@@ -22,6 +22,7 @@ import {
   lintT12,
   lintT13,
   lintT14,
+  lintT15,
   lintT16,
   namesIn,
   mapLabels,
@@ -30,6 +31,7 @@ import {
 } from '../../tools/textlint.mjs';
 import { fakeText, entry } from './textfix.mjs';
 import { readSchemas } from '../../tools/content.mjs';
+import { measure } from '../../web/js/text.js';
 
 const codes = (issues) => issues.map((i) => i.code);
 const js = (code) => codes(lintJsEnglish('web/js/x.js', code));
@@ -441,4 +443,77 @@ test("T16 on the repo: the map's 25 labels are sourced places, and nothing else 
   const text = fakeText({ lines: { 'app.name': 'N', 'app.short_name': 'S', 'app.description': 'D', 'app.preview_name': 'P' }, names: GAZ });
   const r = lintT11(text, uses({ 'web/js/map.js': "tx(li, 'place.' + id); // t-ids: @places\nt('place.lunch_lake');\n" }));
   assert.deepEqual(r.issues, []);
+});
+
+// ---- T15: a line over its max (S5) ---------------------------------------
+
+test('measure (T15 and the inspector): code points of the plain words, a break as 1, each {var} and {PLACEHOLDER} at its width; the longest form', () => {
+  const w = { day: 2, place: 21, elev: 8, BOY_1: 12 };
+  assert.equal(measure('Walk on', w), 7);
+  assert.equal(measure('Day {day} · {place} · {elev}', w), 41, 'the caption at its widest, its elevation as fmt.ft words it');
+  assert.equal(measure('*Very* far', w), 8, 'the * marks are dropped');
+  assert.equal(measure('one\ntwo', w), 7, 'a line break counts 1');
+  assert.equal(measure('Café ✓', w), 6, 'code points, not bytes or UTF-16 units');
+  assert.equal(measure('🌲', w), 1);
+  assert.equal(measure('Hi {BOY_1}', w), 15, 'a placeholder at its width');
+  assert.equal(measure('*{place}!*', w), 22, 'a var inside the emphasis');
+  assert.equal(measure({ one: '{day} night', other: '{day} nights' }, w), 9, 'the longer form');
+  assert.ok(Number.isNaN(measure('{nope} here', w)), 'a var with no width cannot be measured');
+  assert.ok(Number.isNaN(measure({ one: 'ok', other: '{nope}' }, w)));
+});
+
+test("T15 passes the repo's lines, every {var} with its width in content/text/vars.json", () => {
+  const text = readText(ROOT);
+  assert.deepEqual(lintT15(text), []);
+  // The widths' own reasons hold: the longest name a caption can show is 21.
+  assert.equal(text.widths.place, 21);
+  const caption = text.lines.get('trail.caption');
+  assert.equal(measure(caption.text, text.widths), 41);
+  assert.ok(measure(caption.text, text.widths) <= caption.max);
+  for (const [k, v] of Object.entries(text.vars.vars)) {
+    assert.equal(v.samples.length, 3, k);
+    for (const sample of v.samples) assert.ok(Array.from(sample).length <= v.width, `${k}: the sample "${sample}" fits its width ${v.width}`);
+  }
+});
+
+test('T15: a planted 141-character box line fails; a {newvar} with no width fails; an ours line without a max fails; a dev line without one passes', () => {
+  const box = 'x'.repeat(141);
+  const text = fakeText({
+    lines: {
+      'trail.long': { text: box, max: 140 },
+      'trail.ok': { text: 'x'.repeat(140), max: 140 },
+      'trail.var': { text: 'mi {newvar}', max: 12 },
+      'trail.nomax': { text: 'Walk on', max: undefined },
+      'trail.zero': { text: 'Walk on', max: 0 },
+      'trail.plural': { text: { one: '{n} mile', other: '{n} miles to the lake' }, max: 12 },
+      'dev.free': { text: 'A dev line of any length at all, with {state} and no max', class: 'dev', screen: 'debug', max: undefined },
+      'dev.capped': { text: 'Too long for its own cap', class: 'dev', screen: 'debug', max: 5 },
+    },
+  });
+  text.widths = { n: 3, state: 8 };
+  const got = lintT15(text).map((i) => `${i.code} ${i.msg}`);
+  assert.deepEqual(got, [
+    'T15 trail.long: is 141 characters, over its max of 140',
+    'T15 trail.var: {newvar} has no width in content/text/vars.json, so its length can\'t be measured',
+    'T15 trail.nomax: needs a max: a whole number of characters, 1 or more',
+    'T15 trail.zero: needs a max: a whole number of characters, 1 or more',
+    'T15 trail.plural: is 21 characters (its longest form), over its max of 12',
+    'T15 dev.capped: is 24 characters, over its max of 5',
+  ]);
+  // With the width, the var line passes; at its max, the box line does.
+  text.widths.newvar = 4;
+  assert.ok(!lintT15(text).some((i) => /trail\.(var|ok)/.test(i.msg)));
+});
+
+test('T15 on the repo: a planted over-long line in a copy fails the lint, and an unmeasured {var} too', (t) => {
+  const root = mkdtempSync(join(tmpdir(), 'oph-t15-'));
+  t.after(() => rmSync(root, { recursive: true, force: true }));
+  for (const d of ['web', 'content', 'schemas']) cpSync(join(ROOT, d), join(root, d), { recursive: true });
+  const file = join(root, 'content', 'text', 'en', 'trail.json');
+  const data = JSON.parse(readFileSync(file, 'utf8'));
+  data['trail.deer_lake_rim.rim'].text = 'y'.repeat(141);
+  data['trail.toolbar.log'].text = 'Log {total}';
+  writeFileSync(file, JSON.stringify(data, null, 1));
+  const t15 = runTextLint(root).issues.filter((i) => i.code === 'T15').map((i) => i.msg);
+  assert.deepEqual(t15, ['trail.deer_lake_rim.rim: is 141 characters, over its max of 140', "trail.toolbar.log: {total} has no width in content/text/vars.json, so its length can't be measured"]);
 });

@@ -223,3 +223,45 @@ test('compileContent reads a tree: the repo copied, with a planted error, fails 
   writeFileSync(join(root, 'content', 'trips', 'sample.json'), readFileSync(join(root, 'content', 'trips', 'sample.json'), 'utf8').replace('"after": "end"', '"after": "home"'));
   assert.deepEqual(codes(compileContent({ root, screens: ['trail'], checkText: false }).problems), ['content/trips/sample.json:7: J01']);
 });
+
+test("S5: a stop's view is display data (voice, never rules), and an empty box is a quiet stop (decision 32)", () => {
+  const view = { pic: 'deer_lake', node: 'deer_lake', day: ['sol_duc_trailhead', 'deer_lake'] };
+  const stops = JSON.parse(JSON.stringify(FX_SET.stops));
+  stops[0] = { id: 'a', box: [], view, next: 'b' };
+  const { rules, voice, problems, infos } = compileFx({ sets: [{ ...FX_SET, stops }] });
+  assert.deepEqual(problems, [], 'nothing in memory to check the view against');
+  assert.deepEqual(voice.stops.fx.a, { box: [], labels: {}, view });
+  assert.deepEqual(rules.stops.fx.stops[0], { id: 'a', next: 'b' });
+  assert.ok(!JSON.stringify(rules).includes('"view"'));
+  assert.deepEqual(infos, ['content/stops/fx.json: stop "a" view.pic "deer_lake" waits for content/art/recipes.json to check against (set fx)']);
+  assert.deepEqual(boxSlots([]), [], 'a quiet stop has no slots');
+  // The schema: every field, nothing else.
+  const bad = (v) => codes(compileFx({ sets: [{ ...FX_SET, stops: [{ ...stops[0], view: v }, ...stops.slice(1)] }] }).problems);
+  assert.equal(bad({ pic: 'p', node: 'n' }).length, 1, 'no day');
+  assert.equal(bad({ ...view, day: ['one'] }).length, 1, 'a day is two points or more');
+  assert.equal(bad({ ...view, hour: 'dusk' }).length, 1, 'no other field');
+  // The picture is checked against the recipes' places when there are some.
+  const sources = [...rulesSources(), source('trips', 'fx_plan', FX_PLAN), source('stops', 'fx', { ...FX_SET, stops })];
+  const checked = compileSources({ sources, schemas, screens: ['fx'], places: new Set(['lake_basin_only']) });
+  assert.deepEqual(codes(checked.problems), [`content/stops/fx.json:${lineIn({ ...FX_SET, stops }, 'stops[0].view.pic')}: R01`]);
+  assert.match(checked.problems[0].msg, /view\.pic "deer_lake" is not a place in content\/art\/recipes\.json/);
+});
+
+test("S5: in the repo's tree, a view's node and day are checked against the scope's park, and its picture against content/art/recipes.json once it is there (R01)", (t) => {
+  const root = mkdtempSync(join(tmpdir(), 'oph-view-'));
+  t.after(() => rmSync(root, { recursive: true, force: true }));
+  for (const d of ['content', 'schemas']) cpSync(join(ROOT, d), join(root, d), { recursive: true });
+  const file = join(root, 'content', 'stops', 'deer_lake_rim.json');
+  const src = readFileSync(file, 'utf8');
+  assert.deepEqual(compileContent({ root, screens: ['trail'], checkText: false }).problems, []);
+  writeFileSync(file, src.replace('"node": "deer_lake"', '"node": "atlantis"').replace('"day": ["sol_duc_trailhead", "seven_lakes_basin"] }, "next": null', '"day": ["sol_duc_trailhead", "el_dorado"] }, "next": null'));
+  const msgs = compileContent({ root, screens: ['trail'], checkText: false }).problems.map((p) => `${p.code} ${p.msg}`);
+  assert.deepEqual(msgs, [
+    'R01 stop "deer_lake": view.node "atlantis" is not a node in the scope\'s park (content/scope/m1a.json)',
+    'R01 stop "rim": view.day "el_dorado" is not a node in the scope\'s park (content/scope/m1a.json)',
+  ]);
+  writeFileSync(file, src);
+  writeFileSync(join(root, 'content', 'art', 'recipes.json'), JSON.stringify({ places: { deer_lake: {} } }));
+  const pics = compileContent({ root, screens: ['trail'], checkText: false }).problems.map((p) => p.msg);
+  assert.deepEqual(pics, ['stop "rim": view.pic "seven_lakes_basin" is not a place in content/art/recipes.json']);
+});

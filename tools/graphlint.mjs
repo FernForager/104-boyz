@@ -23,7 +23,11 @@
 //        elevation in the scope but a footnote's
 //   G04  a shared id whose research records disagree by more than 100 ft
 //        in elevation or position
-//   G05  every place has a picture recipe (lands S5, with recipes.json)
+//   G05  pictures (BUILD_PLAN S5): every node of the M1a scope has a place
+//        in content/art/recipes.json; every place names a base the recipes
+//        list, or a scene; a scene not drawn yet (no pics/scenes/<id>.pic)
+//        names the base that stands in for it and the session it lands in.
+//        Places outside the scope are allowed.
 //   G06  presets: every kept preset routes and ends at a trailhead (a loop
 //        at its start); no preset, trip file or first trip names a
 //        phone-only camp (Lake Morgenroth, 4.3)
@@ -39,7 +43,7 @@
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { pathToFileURL } from 'node:url';
-import { ROOT } from './pics.mjs';
+import { ROOT, loadPicSources } from './pics.mjs';
 import { lineOfPath } from './content.mjs';
 import { buildGraph, route } from '../web/js/engine/graph.js';
 import { covers } from './ingest/report.mjs';
@@ -90,7 +94,9 @@ export function readPark(root = ROOT) {
   const conditions = readDir(root, 'content/park/conditions');
   const drives = readJson(root, 'content/drive/routes.json');
   const trips = readDir(root, 'content/trips');
-  return { regions, overlays, points, raw, scope, known, movement, conditions, drives, trips };
+  const recipes = readJson(root, 'content/art/recipes.json');
+  const scenes = { src: '', data: loadPicSources(join(root, 'content', 'art', 'pics')).filter((p) => p.kind === 'scenes').map((p) => p.id) };
+  return { regions, overlays, points, raw, scope, known, movement, conditions, drives, trips, recipes, scenes };
 }
 
 /**
@@ -117,7 +123,7 @@ export function mergePark(regions) {
  * @returns {Issue[]}
  */
 export function lintGraph(root = ROOT, input = readPark(root)) {
-  const { regions, overlays, raw, scope: scopeFile, known, movement, conditions, drives, trips } = input;
+  const { regions, overlays, raw, scope: scopeFile, known, movement, conditions, drives, trips, recipes, scenes } = input;
   /** @type {Issue[]} */
   const found = [];
   if (!regions.size || !scopeFile) return found;
@@ -347,6 +353,27 @@ export function lintGraph(root = ROOT, input = readPark(root)) {
     }
   }
 
+  // G05: every place has a picture recipe.
+  if (recipes !== undefined) {
+    const RF = 'content/art/recipes.json';
+    const places = (recipes && recipes.data && recipes.data.places) || {};
+    const bases = (recipes && recipes.data && recipes.data.bases) || {};
+    const drawnScenes = new Set((scenes && scenes.data) || []);
+    const at = (path) => (recipes ? lineOfPath(recipes.src, path) : 1);
+    if (!recipes) add('G05', true, 'scope', 'recipes', RF, 1, 'content/art/recipes.json is missing: every place in the M1a scope needs a picture recipe');
+    else {
+      for (const id of sp.nodes || []) if (!own(places, id)) add('G05', true, 'scope', id, 'content/scope/m1a.json', scopeLine('park.nodes'), `${id} has no picture recipe in content/art/recipes.json places`);
+      for (const [id, p] of Object.entries(places)) {
+        if (typeof p.base === 'string' && !own(bases, p.base)) add('G05', true, 'recipes', id, RF, at(`places.${id}.base`), `place ${id}: no base "${p.base}" in the recipes' bases`);
+        if (typeof p.base !== 'string' && typeof p.scene !== 'string') add('G05', true, 'recipes', id, RF, at(`places.${id}`), `place ${id} names neither a base nor a scene`);
+        if (typeof p.scene === 'string' && !drawnScenes.has(p.scene)) {
+          if (typeof p.stand_in !== 'string' || !own(bases, p.stand_in)) add('G05', true, 'recipes', id, RF, at(`places.${id}`), `place ${id}: the scene ${p.scene} isn't drawn yet, so it names a base in stand_in`);
+          if (typeof p.lands !== 'string') add('G05', true, 'recipes', id, RF, at(`places.${id}`), `place ${id}: the scene ${p.scene} isn't drawn yet, so it names the session it lands in (lands)`);
+        }
+      }
+    }
+  }
+
   // G08: the M1a scope.
   const S = 'content/scope/m1a.json';
   const scopeSegs = [...segs].filter(([, { s }]) => segIn(s));
@@ -433,6 +460,6 @@ const isMain = process.argv[1] && import.meta.url === pathToFileURL(process.argv
 if (isMain) {
   const issues = lintGraph();
   for (const i of issues) console.log(`${i.file}:${i.line}: ${i.code} ${i.msg}`);
-  console.log(issues.length ? `graphlint: ${issues.length} problem${issues.length === 1 ? '' : 's'}` : 'graphlint: clean (G01-G04, G06-G08)');
+  console.log(issues.length ? `graphlint: ${issues.length} problem${issues.length === 1 ? '' : 's'}` : 'graphlint: clean (G01-G08)');
   process.exit(issues.length ? 1 : 0);
 }

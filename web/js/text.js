@@ -12,6 +12,15 @@
 // 2.3; S3). A var whose value is itself a ref renders as that line's words,
 // one level deep, so {place} can be a place-name line later; t() and tx()
 // resolve such vars before renderParts, which stays pure.
+//
+// A number's format (a fmt.* line, E.12: "{ft} ft", "mi {mi}"; web/js/fmt.js
+// hands them over as refs) is one unit on the page: wherever it shows, as a
+// var or by its own id, its spaces render as no-break spaces, so a caption
+// never breaks 4,900 from its ft. The words themselves keep plain spaces.
+//
+// measure() is a line's length against its max (S5): lint T15 and the
+// build's text/meta.json (preview's line inspector) both use it, so the
+// number the inspector shows is the one the lint checks.
 
 /** @type {Record<string, string | {one: string, other: string}>} */
 let words = {};
@@ -22,6 +31,8 @@ let channelSet = null;
 
 const MODES = ['on', 'drafts', 'off'];
 const PLACEHOLDER = /^[A-Z][A-Z0-9_]*$/;
+/** The no-break space a number's format binds its number and unit with. */
+export const NBSP = '\u00a0';
 
 /** The channel the build stamped on <html>: 'main', 'preview', or 'dev' (web/ unbuilt). */
 function channel() {
@@ -98,6 +109,23 @@ export function isRef(v) {
 }
 
 /**
+ * A line's parts as the page shows them: a number's format (fmt.*) binds
+ * its words with no-break spaces; any other line's are as written.
+ * @param {string} id
+ * @param {Part[]} parts
+ * @returns {Part[]}
+ */
+function shown(id, parts) {
+  if (!id.startsWith('fmt.')) return parts;
+  return parts.map((p) => {
+    const q = { ...p };
+    if (q.text !== undefined) q.text = q.text.replace(/ /g, NBSP);
+    if (q.em !== undefined) q.em = q.em.replace(/ /g, NBSP);
+    return q;
+  });
+}
+
+/**
  * Vars with each ref value turned into its line's plain words, one level
  * deep: a ref inside a ref's own vars renders as a missing line.
  * @param {Record<string, unknown> | undefined} vars
@@ -113,7 +141,7 @@ function resolveVars(vars, depth = 0) {
     else if (depth > 0 || words[v.id] === undefined) out[k] = missing(v.id);
     else {
       const inner = resolveVars(v.vars, depth + 1);
-      out[k] = plainText(renderParts(pick(words[v.id], inner), inner));
+      out[k] = plainText(shown(v.id, renderParts(pick(words[v.id], inner), inner)));
     }
   }
   return out;
@@ -167,6 +195,42 @@ export function plainText(parts) {
 }
 
 /**
+ * Pure: a line's length, as lint T15 holds it to its max (BUILD_PLAN 10.5,
+ * S5) and the line inspector shows it: for each form (a plural's each), the
+ * code points of its plain words (the *emphasis* marks dropped, a line
+ * break counted as 1), each {var} counted at its width and each
+ * {PLACEHOLDER} at its own (content/text/vars.json, flattened: {day: 2,
+ * place: 21, ...}). The longest form's length; NaN when a {var} or a
+ * {PLACEHOLDER} has no width.
+ * @param {Words} w
+ * @param {Record<string, number>} widths
+ */
+export function measure(w, widths) {
+  const width = (/** @type {string} */ k) => (Object.prototype.hasOwnProperty.call(widths, k) && Number.isInteger(widths[k]) ? widths[k] : NaN);
+  const count = (/** @type {string} */ s) =>
+    s.split(/(\{[a-z][a-z0-9_]*\})/).reduce((n, bit) => n + (/^\{[a-z][a-z0-9_]*\}$/.test(bit) ? width(bit.slice(1, -1)) : Array.from(bit).length), 0);
+  let most = 0;
+  for (const form of typeof w === 'string' ? [w] : [w.one, w.other]) {
+    let n = 0;
+    for (const p of renderParts(form)) n += p.br ? 1 : p.ph !== undefined ? width(p.ph.slice(1, -1)) : count(p.em ?? p.text ?? '');
+    if (Number.isNaN(n)) return NaN;
+    most = Math.max(most, n);
+  }
+  return most;
+}
+
+/**
+ * The working words of a line, as the bundle has them (a string, or a
+ * plural's forms), with their {vars} unfilled; undefined when the id isn't
+ * there. For the line inspector (ui/inspect.js), which copies them for chat.
+ * @param {string} id
+ * @returns {Words | undefined}
+ */
+export function wordsOf(id) {
+  return words[id];
+}
+
+/**
  * What a missing id shows: ⟦id⟧ on preview, nothing on main.
  * @param {string} id
  */
@@ -185,7 +249,7 @@ export function t(id, vars) {
   const w = words[id];
   if (w === undefined) return missing(id);
   const v = resolveVars(vars);
-  return plainText(renderParts(pick(w, v), v));
+  return plainText(shown(id, renderParts(pick(w, v), v)));
 }
 
 /**
@@ -216,7 +280,7 @@ export function tx(el, id, vars) {
     nodes.push(doc.createTextNode(missing(id)));
   } else {
     const v = resolveVars(vars);
-    for (const p of renderParts(pick(w, v), v)) {
+    for (const p of shown(id, renderParts(pick(w, v), v))) {
       if (p.br) nodes.push(doc.createElement('br'));
       else if (p.em !== undefined) {
         const em = doc.createElement('em');

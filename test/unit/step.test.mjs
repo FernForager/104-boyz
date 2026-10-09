@@ -118,15 +118,15 @@ test('start refuses a bad seed or plan, and opens the trip and its log', () => {
   assert.deepEqual(screen, { phase: 'trailhead', stop: { set: 'fx', id: 'a', n: 1 }, box: [{ id: 'fx.a' }], choices: [{ act: { t: 'next' }, label: null, enabled: true }] });
 });
 
-test("a walk through the Sol Duc trailhead's two stops ends the sample trip and comes home, where a fresh trip starts (BUILD_PLAN S3)", () => {
+test("a walk through the sample's two stops (Deer Lake, then the rim, from S5) ends the sample trip and comes home, where a fresh trip starts (BUILD_PLAN S3)", () => {
   const content = liveContent();
   const { session, screens } = play(newSession(content), [{ t: 'sign', name: 'Robin', id: 'h00000001' }, { t: 'start', plan: 'sample', seed: 'K7QM2Q9F' }, { t: 'next' }, { t: 'next' }], content);
   assert.deepEqual(
     screens.map((s) => [s.phase, s.stop && s.stop.id, s.box.map((r) => r.id)]),
     [
       ['home', undefined, []],
-      ['trailhead', 'lot', ['trail.sol_duc_trailhead.lot']],
-      ['trailhead', 'trail_mouth', ['trail.sol_duc_trailhead.trail_mouth']],
+      ['trailhead', 'deer_lake', ['trail.deer_lake_rim.deer_lake']],
+      ['trailhead', 'rim', ['trail.deer_lake_rim.rim']],
       ['home', undefined, []],
     ],
   );
@@ -138,7 +138,7 @@ test("a walk through the Sol Duc trailhead's two stops ends the sample trip and 
   assert.deepEqual(session.log.actions, [['next'], ['next']]);
   assert.throws(() => dispatch(session, { t: 'next' }, content), refused, 'the trip is over');
   const again = dispatch(session, { t: 'start', plan: 'sample', seed: 'ABCDEFGH' }, content).session;
-  assert.equal(again.state.trip.stop, 'lot');
+  assert.equal(again.state.trip.stop, 'deer_lake');
   assert.deepEqual(again.log.actions, [], 'a fresh log');
   assert.equal(again.state.hiker.trips, 1);
 });

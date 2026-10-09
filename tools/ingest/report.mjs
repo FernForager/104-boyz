@@ -108,10 +108,11 @@ const md = (s) => String(s).replace(/\|/g, '\\|').replace(/\r?\n/g, ' ');
  * @param {Record<string, {why: string}>} o.known
  * @param {[string, number | string][]} o.counts the counts, in order
  * @param {{where: string, what: string, evidence: string}[]} o.estimates
- * @param {string[]} o.doubts
+ * @param {string[]} o.doubts the open ones
+ * @param {string[]} [o.resolved] the ones answered since, each saying where
  * @param {string[]} o.sources the input files
  */
-export function renderReport({ entries, known, counts, estimates, doubts, sources }) {
+export function renderReport({ entries, known, counts, estimates, doubts, resolved = [], sources }) {
   const sorted = sortEntries(entries);
   const { acknowledged, unexplained, stale } = explain(sorted, known);
   const out = [];
@@ -206,5 +207,13 @@ export function renderReport({ entries, known, counts, estimates, doubts, source
   if (!doubts.length) out.push('None.');
   for (const d of doubts) out.push(`- ${md(d)}`);
   out.push('');
+  if (resolved.length) {
+    out.push('## Doubts resolved');
+    out.push('');
+    out.push('Doubts this report once raised, since answered at the source or in the docs: kept for the record, no longer disagreements.');
+    out.push('');
+    for (const d of resolved) out.push(`- ${md(d)}`);
+    out.push('');
+  }
   return out.join('\n');
 }

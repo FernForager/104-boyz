@@ -13,13 +13,15 @@
 //      one; the profile and standard rules agree with themselves; and, with
 //      checkText, every "@id" in a file this build ships is a defined line
 //      (a file on a screen the build doesn't have waits for its words, as
-//      T11 lets a line wait for its screen: an info, not a problem).
+//      T11 lets a line wait for its screen: an info, not a problem); and a
+//      stop's view (S5) names nodes of the scope's park and a picture place
+//      in content/art/recipes.json (checked once that file is there).
 //   4. Scope: keep a plan or a stop set only when its screen is in
 //      `screens`; the profile and standard rules always.
 //   5. Split the outcome data (rules: logic, expressions as trees; the rules
-//      hash covers it) from the display data (voice: each stop's line ids
-//      and choice labels; it doesn't), so a word-only change can never move
-//      the rules hash (E.12).
+//      hash covers it) from the display data (voice: each stop's line ids,
+//      choice labels and view; it doesn't), so a word-only change can never
+//      move the rules hash (E.12).
 // Problems are lint issues ({file, line, code, msg}, and level 'warn' for
 // a warning: a divisor whose declared range includes 0); the build refuses
 // on any error. Infos are notes (a stop set's words still to come). compileSources() does the same for files given in memory (the engine
@@ -217,6 +219,7 @@ const lineId = (v) => v.slice(1);
 /** A box (one "@id", a list of variants, or a list of slots) as slots of variant ids. */
 export function boxSlots(box) {
   if (typeof box === 'string') return [[lineId(box)]];
+  if (!box.length) return []; // a quiet stop: no box (decision 32)
   if (box.every((b) => typeof b === 'string')) return [box.map(lineId)];
   return box.map((slot) => slot.map(lineId));
 }
@@ -228,9 +231,12 @@ export function boxSlots(box) {
  *   sections: 'ships' puts a data section in rules.json only when the
  *   screens meet its ships list (the build); 'all' puts every compiled one
  *   in (tests, goldens and the lint)
+ *   places: the picture places (content/art/recipes.json's places) a
+ *   stop's view.pic must name, or null when the recipes aren't there to
+ *   check against (an info, not a problem)
  * @returns {{rules: any, voice: any, problems: Problem[], infos: string[], sections: Record<string, any>, map: any}}
  */
-export function compileSources({ sources, schemas, screens, defined = null, sections = 'ships' }) {
+export function compileSources({ sources, schemas, screens, defined = null, sections = 'ships', places = null }) {
   /** @type {Problem[]} */
   const problems = [];
   /** @type {string[]} */
@@ -367,6 +373,25 @@ export function compileSources({ sources, schemas, screens, defined = null, sect
   const scope = scopeFile ? /** @type {{data: any, src: string}} */ (valid.get(scopeFile)).data : null;
   if (scopeFile && scope) for (const p of checkScope(scope)) add(scopeFile, lineOfPath(/** @type {{data: any, src: string}} */ (valid.get(scopeFile)).src, p.path), 'R01', `${p.path}: ${p.msg}`);
 
+  // A stop's view (S5, display data): its node and its day's points are
+  // nodes of the scope's park, and its picture is a place in the recipes.
+  const scopeNodes = scope && scope.park && Array.isArray(scope.park.nodes) ? new Set(scope.park.nodes) : null;
+  for (const [id, { data, file, src }] of sets) {
+    data.stops.forEach((st, i) => {
+      if (!st.view) return;
+      const at = (/** @type {string} */ k) => lineOfPath(src, `stops[${i}].view.${k}`);
+      if (scopeNodes) {
+        if (!scopeNodes.has(st.view.node)) add(file, at('node'), 'R01', `stop "${st.id}": view.node "${st.view.node}" is not a node in the scope's park (${scopeFile})`);
+        st.view.day.forEach((n, k) => {
+          if (!scopeNodes.has(n)) add(file, at(`day[${k}]`), 'R01', `stop "${st.id}": view.day "${n}" is not a node in the scope's park (${scopeFile})`);
+        });
+      }
+      if (places) {
+        if (!places.has(st.view.pic)) add(file, at('pic'), 'R01', `stop "${st.id}": view.pic "${st.view.pic}" is not a place in content/art/recipes.json`);
+      } else infos.push(`${file}: stop "${st.id}" view.pic "${st.view.pic}" waits for content/art/recipes.json to check against (set ${id})`);
+    });
+  }
+
   // The data sections (S4): each compiled whenever its sources are here, and
   // in rules.json only when the channel's screens meet its ships list (or
   // sections is 'all', for tests and lints).
@@ -408,12 +433,13 @@ export function compileSources({ sources, schemas, screens, defined = null, sect
     for (const st of s.stops) {
       const labels = {};
       for (const c of st.choices || []) labels[c.id] = lineId(c.label);
-      voice.stops[id][st.id] = { box: boxSlots(st.box), labels };
+      voice.stops[id][st.id] = st.view ? { box: boxSlots(st.box), labels, view: st.view } : { box: boxSlots(st.box), labels };
     }
   }
-  // x-voice values (every "@id") are display data: none may reach the rules.
+  // x-voice values (every "@id", and a stop's view) are display data: none may reach the rules.
   const text = canon(rules);
   if (text.includes('"@')) add('tools/content.mjs', 1, 'J01', 'an x-voice value reached rules.json; it belongs in voice.json');
+  if (Object.values(rules.stops).some((set) => set.stops.some((/** @type {any} */ st) => Object.prototype.hasOwnProperty.call(st, 'view')))) add('tools/content.mjs', 1, 'J01', "a stop's view reached rules.json; it belongs in voice.json");
   problems.sort((a, b) => (a.file < b.file ? -1 : a.file > b.file ? 1 : a.line - b.line));
   // The pencil map's display data (data/map.json), for a channel with the map screen.
   const map = screens.includes('map') || sections === 'all' ? mapData({ files: valid, scope }) : null;
@@ -432,13 +458,33 @@ function setPath(obj, path, value) {
 /**
  * Compile the repo's content for a channel's screens.
  * @param {{root?: string, screens: string[], checkText?: boolean, defined?: ((id: string) => boolean) | null}} o
- *   defined: how to tell a defined line (default: content/text, read with tools/text.mjs)
+ *   defined: how to tell a defined line (default: content/text, read with tools/text.mjs).
+ *   A stop's view.pic is checked against content/art/recipes.json when it's there (recipePlaces).
  * @returns {{rules: any, voice: any, problems: Problem[], infos: string[]}}
  */
 export function compileContent({ root = ROOT, screens, checkText = true, defined, sections = 'ships' }) {
   let isDefined = null;
   if (checkText) isDefined = defined || textLines(root);
-  return compileSources({ sources: readSources(root), schemas: readSchemas(root), screens, defined: isDefined, sections });
+  return compileSources({ sources: readSources(root), schemas: readSchemas(root), screens, defined: isDefined, sections, places: recipePlaces(root) });
+}
+
+/**
+ * The picture places a stop's view may name: the keys of
+ * content/art/recipes.json's places (S5, track B's file), or null when the
+ * file isn't there yet. A recipes file that won't parse is null too: the
+ * picture lints (P13) report it.
+ * @param {string} root
+ * @returns {Set<string> | null}
+ */
+export function recipePlaces(root = ROOT) {
+  const p = join(root, 'content', 'art', 'recipes.json');
+  if (!existsSync(p)) return null;
+  try {
+    const data = JSON.parse(readFileSync(p, 'utf8'));
+    return new Set(Object.keys((data && data.places) || {}));
+  } catch {
+    return null;
+  }
 }
 
 /** Is a line id defined in root/content/text/en, or a place or term in content/text/names (tools/text.mjs)? */

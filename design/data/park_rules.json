@@ -241,7 +241,7 @@
    },
    "weekend_nights": "Friday and Saturday nights, and the Sunday of a holiday weekend",
    "season": "May 15 to Oct 15 (the summer permit season); outside it, the Phone the WIC card",
-   "roll_key": "hash(trip seed, date, camp). The trip seed is drawn at Begin a new book, so planning draws (quota and desk rolls) are fixed for the book; Try this trip again copies the stamped permit and does not re-roll them (lead call 8).",
+   "roll_key": "hash(trip seed, date, camp). The trip seed is drawn when the plan is first saved, so planning draws (quota and desk rolls) are fixed for the trip; Hike it again copies the stamped permit and does not re-roll them (lead call 8).",
    "estimate": true,
    "m1a_camps": [
     "bruces_roost",

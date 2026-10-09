@@ -1,6 +1,7 @@
 // A trail stop, plain (BUILD_PLAN S3; GAME_DESIGN 12.1, 12.2): the Sierra
-// box, line by line, then one button per choice. S5's frame (ui/frame.js)
-// replaces it, with the picture above.
+// box, line by line, then one button per choice. From S5 the frame
+// (ui/frame.js) draws it inside the trail stop, with the picture above; a
+// quiet stop (no lines, decision 32) has no box at all.
 //
 // The engine gives lines as refs by id ({id, vars}), never words; tx() turns
 // them into words. A Walk on choice (`next`) carries no label of its own:
@@ -35,19 +36,23 @@ export function choiceLine(c) {
  * @param {HTMLElement} host the game screen's area
  * @param {StopScreen} screen
  * @param {(act: Record<string, unknown>) => void} onAct
- * @returns {{box: HTMLElement, buttons: HTMLButtonElement[]}}
+ * @returns {{box: HTMLElement | null, buttons: HTMLButtonElement[]}} box: null on a quiet stop
  */
 export function renderStop(host, screen, onAct) {
   const doc = host.ownerDocument;
-  const box = doc.createElement('div');
-  box.classList.add('box', 'game-box');
-  box.setAttribute('tabindex', '-1');
-  for (const ref of screen.box) {
-    const p = doc.createElement('p');
-    tx(p, ref.id, ref.vars); // t-ids: @content
-    box.appendChild(p);
+  /** @type {HTMLElement | null} */
+  let box = null;
+  if (screen.box.length) {
+    box = doc.createElement('div');
+    box.classList.add('box', 'game-box');
+    box.setAttribute('tabindex', '-1');
+    for (const ref of screen.box) {
+      const p = doc.createElement('p');
+      tx(p, ref.id, ref.vars); // t-ids: @content
+      box.appendChild(p);
+    }
+    host.appendChild(box);
   }
-  host.appendChild(box);
   const list = doc.createElement('div');
   list.className = 'game-choices';
   /** @type {HTMLButtonElement[]} */

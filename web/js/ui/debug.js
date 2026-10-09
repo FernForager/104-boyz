@@ -3,9 +3,13 @@
 // it; nothing marks it, and it lasts until reload. It shows the bug report
 // exactly as it would be copied, a note field that rides in the next report,
 // Copy bug report, on preview the words' marks (18.6) and, on a build with
-// the map screen, a button that opens the pencil map at #map (S4), and a
-// button that throws a test error so the error sheet can be checked on the
-// phone (F.5).
+// the map screen, a button that opens the pencil map at #map (S4); on a
+// build with the trail screen (preview, S5), the dev controls and actions
+// other modules register (registerDevControl, registerDevAction: the trail
+// picture's hour, the box text's font, the Scenes check view), drawn after
+// the map; and a button that throws a test error so the error sheet can be
+// checked on the phone (F.5). On such a build, debug mode also loads the
+// line inspector (ui/inspect.js, S5): a long press on any words opens it.
 // Nothing in it can change a trip, and the gentle flag is not in it (9.4).
 // It is built here when it first opens, so none of it is in the built page;
 // its labels are dev words (decision 64), and Copy bug report is approved.
@@ -21,6 +25,13 @@
 // registers (provideState), so this module never imports the engine and
 // main's menu loads none of it. The menu's first line says what the
 // self-check found; opening the menu starts it if it hasn't run.
+//
+// On preview, once the sound has loaded (ui/sound.js provideAudio; S5), the
+// report gains an audio field: the Sound state, the unlock and its session
+// type, the context's state and rate, the limiter's worklet, the
+// watchdog's kicks and rebuilds, the cues played and the last 10-second
+// render. Main never loads the sound, so its report keeps version 2 and
+// S3's keys exactly.
 
 import { recentErrors } from './errors.js';
 import { checkResult, runCheck, onCheck, CHECK_GROUPS } from './selfcheck.js';
@@ -65,13 +76,35 @@ const MARKS_ID = 'debug-marks';
 export const MAP_SCREEN = 'map';
 /** The address that opens it (main.js; the menu's Map button sets it). */
 export const MAP_HASH = '#map';
+/** The trail's screen (BUILD_PLAN S5): a build that lists it draws the registered dev controls and actions. */
+export const TRAIL_SCREEN = 'trail';
+const DEV_ID = 'debug-dev';
 
 let note = '';
 let debugOn = false;
-/** @type {{doc: Document, scrim: HTMLElement, check: HTMLElement, pre: HTMLElement, area: HTMLTextAreaElement, noteField: HTMLTextAreaElement, close: HTMLElement, marks: [string, HTMLElement][]} | null} */
+/** @type {{doc: Document, scrim: HTMLElement, check: HTMLElement, pre: HTMLElement, area: HTMLTextAreaElement, noteField: HTMLTextAreaElement, close: HTMLElement, marks: [string, HTMLElement][], dev: HTMLElement | null} | null} */
 let menu = null;
+/**
+ * A dev control: a row of choices, one pressed (the trail picture's hour,
+ * the box text's font). label and each option's label are line ids (dev
+ * words); get() says which value is on; set(value) applies and keeps it.
+ * @typedef {{id: string, label: string, options: {value: string, label: string}[], get: () => string, set: (value: string) => void}} DevControl
+ */
+/**
+ * A dev action: a button (Scenes, the 10-second sound render). run gets
+ * the document, close() for the menu and out, a status line under the
+ * button that the action may fill with its own words. preview: shown on
+ * preview only (the only kind there is: main's menu builds none).
+ * @typedef {{id: string, label: string, run: (o: {doc: Document, close: () => void, out: HTMLElement}) => unknown, preview?: boolean}} DevAction
+ */
+/** @type {Map<string, DevControl>} */
+const devControls = new Map();
+/** @type {Map<string, DevAction>} */
+const devActions = new Map();
 /** @type {(() => unknown) | null} the game's state for the report (ui/app.js registers it) */
 let stateFn = null;
+/** @type {(() => unknown) | null} the sound's state for the report (ui/sound.js registers it, preview only) */
+let audioFn = null;
 
 /**
  * Register what the report's state field holds: ui/app.js passes
@@ -81,6 +114,15 @@ let stateFn = null;
 export function provideState(f) {
   stateFn = f;
   if (menu && !menu.scrim.hidden) refresh(menu);
+}
+
+/**
+ * Register what the report's audio field holds (ui/sound.js, preview only):
+ * the sound engine's report(), read inside the tap. null clears it.
+ * @param {(() => unknown) | null} f
+ */
+export function provideAudio(f) {
+  audioFn = f;
 }
 
 /**
@@ -128,6 +170,41 @@ export function opensMap(doc) {
   return screens.includes(MAP_SCREEN);
 }
 
+/**
+ * Pure: does this build carry the trail (BUILD_PLAN S5)? True when <html
+ * data-screens> lists it (preview); main's never does, so main's menu draws
+ * no dev control or action.
+ * @param {Document} doc
+ */
+export function opensTrail(doc) {
+  const screens = String(doc.documentElement.getAttribute('data-screens') || '').split(/\s+/);
+  return screens.includes(TRAIL_SCREEN);
+}
+
+/**
+ * Register a dev control for the menu (ui/frame.js, ui/textsize.js; S5).
+ * The same id again replaces it. An open menu redraws.
+ * @param {DevControl} c
+ */
+export function registerDevControl(c) {
+  devControls.set(c.id, c);
+  if (menu) renderDev(menu);
+}
+
+/**
+ * Register a dev action for the menu (S5). The same id again replaces it.
+ * @param {DevAction} a
+ */
+export function registerDevAction(a) {
+  devActions.set(a.id, { preview: true, ...a });
+  if (menu) renderDev(menu);
+}
+
+/** The registered controls and actions, by id (tests). */
+export function devRegistry() {
+  return { controls: [...devControls.keys()], actions: [...devActions.keys()] };
+}
+
 /** True once the menu has opened, until reload. */
 export function debugMode() {
   return debugOn;
@@ -149,6 +226,12 @@ export function collectFacts(doc = document) {
     state = stateFn ? stateFn() : null;
   } catch {
     state = null; // a report never fails for want of its state
+  }
+  let audio = null;
+  try {
+    audio = audioFn ? audioFn() : null;
+  } catch {
+    audio = null; // nor of its sound
   }
   return {
     build: html.dataset.build || null,
@@ -173,6 +256,7 @@ export function collectFacts(doc = document) {
     errors: recentErrors(),
     note,
     state,
+    audio,
   };
 }
 
@@ -243,9 +327,49 @@ export function stateField(s) {
   };
 }
 
+/** The render's spectrum (16 x 10 digits and spaces) and its differing cues, at most. */
+const SPECTRUM_CUT = 200;
+const DIFFERS_MAX = 32;
+
+/**
+ * The sound's state, field by field (audio/engine.js report()), or null.
+ * @param {any} a
+ */
+export function audioField(a) {
+  if (!a || typeof a !== 'object') return null;
+  const r = a.render && typeof a.render === 'object' ? a.render : null;
+  return {
+    v: 1,
+    on: Boolean(a.on),
+    unlocked: Boolean(a.unlocked),
+    session: str(a.session),
+    state: str(a.state),
+    rate: num(a.rate),
+    worklet: String(a.worklet ?? '').slice(0, 80),
+    kicks: num(a.kicks),
+    rebuilds: num(a.rebuilds),
+    played: num(a.played),
+    render: r
+      ? {
+          path: str(r.path),
+          ms: num(r.ms),
+          peakDb: num(r.peakDb),
+          truePeakDb: num(r.truePeakDb),
+          lufsI: num(r.lufsI),
+          lufsMMax: num(r.lufsMMax),
+          lufsSMax: num(r.lufsSMax),
+          spectrum: String(r.spectrum ?? '').slice(0, SPECTRUM_CUT),
+          dsp: str(r.dsp),
+          differs: (Array.isArray(r.differs) ? r.differs : []).slice(0, DIFFERS_MAX).map((/** @type {unknown} */ d) => String(d).slice(0, 40)),
+        }
+      : null,
+  };
+}
+
 /**
  * Pure and synchronous: the bug report, built field by field from the
- * facts, so nothing else can ride along.
+ * facts, so nothing else can ride along. The audio field is there only
+ * when the sound has loaded (preview).
  * @param {any} f collectFacts()
  */
 export function buildReport(f) {
@@ -289,6 +413,7 @@ export function buildReport(f) {
     })),
     note: String(f.note || '').slice(0, NOTE_MAX),
     state: stateField(f.state),
+    ...(f.audio ? { audio: audioField(f.audio) } : {}),
   };
 }
 
@@ -426,6 +551,45 @@ function refresh(m) {
   m.pre.textContent = reportText(buildReport(collectFacts(m.doc)));
 }
 
+/**
+ * Draw the registered dev controls and actions into the menu's dev section
+ * (preview builds with the trail only; it is null elsewhere): controls
+ * first, then actions, each in the order registered.
+ * @param {{doc: Document, dev: HTMLElement | null}} m the menu
+ */
+function renderDev(m) {
+  const box = m.dev;
+  if (!box) return;
+  const doc = m.doc;
+  while (box.firstChild) box.removeChild(box.firstChild);
+  for (const c of devControls.values()) {
+    const labelId = `${DEV_ID}-${c.id}`;
+    const label = h(doc, 'span', { class: ['marks-label'], id: labelId });
+    tx(label, c.label); // t-ids: dev.hour, dev.text
+    const group = h(doc, 'div', { class: ['marks', 'dev-control'], role: 'group', 'aria-labelledby': labelId, 'data-dev': c.id }, label);
+    const now = c.get();
+    for (const o of c.options) {
+      const b = h(doc, 'button', { class: ['marks-mode'], type: 'button', 'data-value': o.value });
+      tx(b, o.label); // t-ids: dev.hour.auto, dev.hour.day, dev.hour.dusk, dev.hour.blue, dev.hour.night, dev.text.auto, dev.text.pixel, dev.text.plain
+      b.setAttribute('aria-pressed', String(o.value === now));
+      b.addEventListener('click', () => {
+        c.set(o.value);
+        renderDev(m);
+      });
+      group.appendChild(b);
+    }
+    box.appendChild(group);
+  }
+  for (const a of devActions.values()) {
+    const b = h(doc, 'button', { class: ['box', 'choice', 'debug-action'], type: 'button', 'data-dev': a.id });
+    tx(b, a.label); // t-ids: dev.scenes, dev.audio.render
+    const out = h(doc, 'p', { class: ['debug-check', 'debug-out'], role: 'status' });
+    b.addEventListener('click', () => a.run({ doc, close: closeMenu, out }));
+    box.appendChild(b);
+    box.appendChild(out);
+  }
+}
+
 function closeMenu() {
   if (!menu || menu.scrim.hidden) return;
   menu.scrim.hidden = true;
@@ -499,6 +663,11 @@ function buildMenu(doc) {
     sheet.appendChild(mapButton);
   }
 
+  // The registered dev controls and actions (S5), after the map, where the
+  // build has the trail (preview); main's menu has no such section.
+  const dev = preview && opensTrail(doc) ? h(doc, 'div', { class: ['debug-dev'], id: DEV_ID }) : null;
+  if (dev) sheet.appendChild(dev);
+
   const throwIt = h(doc, 'button', { class: ['box', 'choice', 'debug-throw'], type: 'button' });
   tx(throwIt, 'dev.throw');
   sheet.appendChild(throwIt);
@@ -507,7 +676,8 @@ function buildMenu(doc) {
   scrim.hidden = true;
   doc.body.appendChild(scrim);
 
-  const m = { doc, scrim, check, pre, area, noteField, close, marks };
+  const m = { doc, scrim, check, pre, area, noteField, close, marks, dev };
+  renderDev(m);
   // A self-check that finishes while the menu is built redraws it.
   onCheck(() => refresh(m));
   close.addEventListener('click', closeMenu);
@@ -538,6 +708,28 @@ function buildMenu(doc) {
   return m;
 }
 
+/** @type {Promise<unknown> | null} the line inspector, once debug mode has loaded it */
+let inspector = null;
+
+/**
+ * The line inspector (ui/inspect.js; BUILD_PLAN 10.3, S5): loaded once,
+ * when debug mode starts on a build with the trail (preview); main's page
+ * never imports it. A long press on any words then opens its card.
+ * @param {Document} doc
+ */
+export function loadInspector(doc) {
+  if (!inspector) {
+    inspector = import('./inspect.js') // screens: trail
+      .then(({ installInspector }) => installInspector(doc))
+      .catch((e) => {
+        console.warn('debug: no line inspector', e);
+        inspector = null;
+        return null;
+      });
+  }
+  return inspector;
+}
+
 /**
  * Open the debug menu, building it the first time. Debug mode stays on
  * until reload; on preview it applies the saved marks choice.
@@ -548,11 +740,13 @@ export async function openDebug(doc, words = Promise.resolve()) {
   debugOn = true;
   const preview = doc.documentElement.dataset.channel !== 'main';
   if (preview) setMarks(doc, savedMarks());
+  if (preview && opensTrail(doc)) loadInspector(doc);
   await words;
   await storageFacts();
   if (!menu) menu = buildMenu(doc);
   if (!checkResult().ran) runCheck();
   if (preview) showMarks(menu, savedMarks());
+  renderDev(menu);
   refresh(menu);
   menu.scrim.hidden = false;
   menu.close.focus();
