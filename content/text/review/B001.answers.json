@@ -1,0 +1,21 @@
+{
+ "batch": "B001",
+ "title": "The app's frame",
+ "sent": "2026-10-09",
+ "answered": "2026-10-09T03:23:09Z",
+ "via": "review page (claude.ai artifact 8etjEPE4TzmtwGPUhaKmyf), marked done by the creator",
+ "hash": "fnv1a32 over the UTF-8 draft as shown",
+ "lines": {
+  "app.description": { "hash": "05128d7c", "verdict": "approve", "text": "A backpacking game set in Olympic National Park." },
+  "app.install": { "hash": "8f70cb99", "verdict": "approve", "text": "Before your first trip, tap Share, then Add to Home Screen. The Home Screen app keeps its own saves." },
+  "app.upright": { "hash": "717b8de7", "verdict": "rewrite", "text": "Best held upright" },
+  "app.offline": { "hash": "bc3af3b2", "verdict": "approve", "text": "Works offline" },
+  "app.update": { "hash": "daef6bfe", "verdict": "approve", "text": "An update has arrived. Open it?" },
+  "app.error.line": { "hash": "60ddbe8a", "verdict": "approve", "text": "Something snagged." },
+  "app.error.copy": { "hash": "b3cfbd20", "verdict": "approve", "text": "Copy bug report" },
+  "app.error.reopen": { "hash": "b41fb578", "verdict": "approve", "text": "Reopen" },
+  "app.preview_name": { "hash": "d7264112", "verdict": "approve", "text": "OP Preview" },
+  "app.build": { "hash": "d44beb90", "verdict": "looks_fine", "text": null, "note": "the build code alone, no words" }
+ },
+ "not_ours": { "Share": "keep", "Add to Home Screen": "keep", "Olympic National Park": "keep" }
+}
