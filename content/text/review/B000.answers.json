@@ -1,0 +1,43 @@
+{
+ "batch": "B000",
+ "title": "Approved in conversation",
+ "sent": null,
+ "answered": "2026-10-09",
+ "via": "the creator's decisions in GAME_DESIGN, Decisions made",
+ "hash": "fnv1a32 over the UTF-8 words as approved",
+ "lines": {
+  "app.name": {
+   "hash": "a3e3c244",
+   "verdict": "approve",
+   "text": "Olympic Peninsula Hiker",
+   "via": "decision 35",
+   "answered": "2026-10-08",
+   "quote": "Olympic Peninsula Hiker. OP Hiker when needed like on phone screen under the app etc."
+  },
+  "app.short_name": {
+   "hash": "4f8c12d9",
+   "verdict": "approve",
+   "text": "OP Hiker",
+   "via": "decision 35",
+   "answered": "2026-10-08",
+   "quote": "Olympic Peninsula Hiker. OP Hiker when needed like on phone screen under the app etc."
+  },
+  "credits.people": {
+   "hash": "8681d2ef",
+   "verdict": "approve",
+   "text": "A work of fiction. Real people appear with permission.",
+   "via": "decision 47",
+   "answered": "2026-10-09",
+   "quote": "Sure"
+  },
+  "credits.park_service": {
+   "hash": "421fe49b",
+   "verdict": "approve",
+   "text": "Not affiliated with the National Park Service.",
+   "via": "decision 47",
+   "answered": "2026-10-09",
+   "quote": "Sure"
+  }
+ },
+ "status": "answered: four lines approved in conversation, decisions 35 and 47"
+}

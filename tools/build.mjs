@@ -1,22 +1,41 @@
 #!/usr/bin/env node
-// The build (BUILD_PLAN 3.3, session-1 form). It makes dist/ from web/ and
-// the art, then assembles site/, the folder GitHub Pages deploys.
+// The build (BUILD_PLAN 3.3). It makes one channel, main or preview, into
+// dist/<channel>/ from web/, the art and the words, and assembles site/, the
+// folder GitHub Pages deploys.
 //
 //   1. Compile every picture (.pic text) into op arrays, and check that
-//      each one runs: dist/art/art.json holds the palette, the pictures and
-//      the stamps, so the phone fetches one small file and runs the same
+//      each one runs: art/art.json holds the palette, the pictures and the
+//      stamps, so the phone fetches one small file and runs the same
 //      picture VM as Node. (The .pic text is the source; it is not shipped.)
-//   2. Copy web/ into dist/ as is.
+//   2. Copy web/ into dist/<channel>/ as is.
 //   3. Draw the icons from the cover with the PNG tools: the 180 px
 //      apple-touch-icon (opaque, or iOS fills it with black), 192, 512 and
-//      a maskable 512.
-//   4. Stamp the build id into dist/index.html and dist/version.json. The id
-//      is the commit's own UTC date and its short SHA, read from git, so the
-//      same commit always builds the same stamp; outside git it is "dev".
-//   5. Write dist/flags.json: config/flags.json plus the channel.
-//   6. Check the total size (under 5 MB).
-//   7. Assemble site/. For now site/ is the main channel, at the root; the
-//      preview channel joins it under preview/ in session 2.
+//      a maskable 512. Preview's are the same crops at a later hour (the
+//      dusk table) with a teal band along the bottom, so the two icons on
+//      a Home Screen never look alike.
+//   4. Write flags.json: config/flags.json plus the channel.
+//   5. The words (GAME_DESIGN 18.6): the shell carries ids, and the fill
+//      writes the channel's words into index.html, with the build id and
+//      the channel stamped on <html>; the manifest is made from its ids;
+//      text/en.json is the channel's bundle (and on preview text/marks.json,
+//      each unapproved line's state). Main ships the ledger's words only:
+//      its gate (T14) runs before the fill and again over what was built,
+//      and the build fails on any word that isn't approved.
+//   6. The worker's lists (GAME_DESIGN E.7): precache.json names every
+//      shipped file with the hash of its bytes, so a new worker downloads
+//      only what changed; the files hash covers them all, and sw.js's first
+//      four lines are stamped with the channel, the build id and that hash,
+//      so any change to any file changes sw.js, which is what the phone's
+//      update check compares.
+//   7. Stamp version.json. The build id is the commit's own UTC date and its
+//      short SHA, read from git, so the same commit always builds the same
+//      stamp; outside git it is "dev".
+//   8. Check the total size (under 5 MB a channel).
+//
+// `node tools/build.mjs` builds main and preview, then assembles site/: main
+// at the root and preview under preview/, as ophiker.com serves them
+// (tools/assemble-site.mjs). --channel <c> (or CHANNEL) builds one; main
+// alone assembles site/ with the /preview/ placeholder.
 //
 // The same commit builds the same bytes: no clocks, sorted walks, and the
 // build id from git, not from the time of the build. In GitHub Actions a
@@ -31,6 +50,8 @@ import { renderPic, composite } from '../web/js/gfx/picvm.js';
 import { makePalette, resolve } from '../web/js/gfx/palette.js';
 import { encodePNG } from './png.mjs';
 import { ROOT, loadArt, loadPalette } from './pics.mjs';
+import { readText, fillPage, makeManifest, mainReach, bundle, checkMainBuild, gateSummary, stateOf, json1, CHANNELS } from './text.mjs';
+import { assemble } from './assemble-site.mjs';
 
 export const MAX_BYTES = 5 * 1024 * 1024;
 const COVER = 'cover_high_divide_dusk';
@@ -111,24 +132,36 @@ export function compileArt() {
   return out;
 }
 
-/** Draw the icons from the cover. Returns [{file, png}]. */
-export function makeIcons(art) {
+/** Preview's band along the bottom of its icons: teal (BUILD_PLAN S2). */
+export const PREVIEW_BAND = { slot: 15, rows: 1 / 8 };
+
+/**
+ * Draw the icons from the cover. Main's are the cover as drawn (the day
+ * table); preview's are the same crops through the dusk table, with a solid
+ * teal band across the bottom eighth. Returns [{file, png}].
+ * @param {any} art the compiled art bundle
+ * @param {string} [channel] 'main' or 'preview'
+ */
+export function makeIcons(art, channel = 'main') {
+  if (!CHANNELS.includes(channel)) throw new Error(`icons: no channel "${channel}"`);
   const pic = art.pics[COVER];
   if (!pic) throw new Error(`icons: no picture "${COVER}"`);
   const pal = makePalette(art.palette);
   const r = renderPic(pic.ops, { width: pic.width, height: pic.height, stamps: art.stamps });
-  const slots = resolve(composite(r), pic.width, pal, { remap: 'day', frame: 0, background: 0 });
+  const remap = channel === 'preview' ? 'dusk' : 'day';
+  const slots = resolve(composite(r), pic.width, pal, { remap, frame: 0, background: 0 });
   return ICONS.map(({ file, crop: [cx, cy, n], scale, out }) => {
     if (cx < 0 || cy < 0 || cx + n > pic.width || cy + n > pic.height) throw new Error(`icons: ${file} crop is off the cover`);
     const big = n * scale;
     const off = (big - out) >> 1;
     if (off < 0) throw new Error(`icons: ${file} crop is too small`);
+    const band = channel === 'preview' ? out - Math.round(out * PREVIEW_BAND.rows) : out;
     const rgb = new Uint8Array(out * out * 3);
     for (let y = 0; y < out; y++) {
       for (let x = 0; x < out; x++) {
         const px = cx + Math.floor((x + off) / scale);
         const py = cy + Math.floor((y + off) / scale);
-        const c = pal.rgb[slots[py * pic.width + px]];
+        const c = pal.rgb[y >= band ? PREVIEW_BAND.slot : slots[py * pic.width + px]];
         const q = (y * out + x) * 3;
         rgb[q] = c[0];
         rgb[q + 1] = c[1];
@@ -140,12 +173,26 @@ export function makeIcons(art) {
   });
 }
 
-/** A hash over every shipped file but version.json (paths and bytes). */
+/** Files the worker's lists leave out: the worker itself and the two lists. */
+export const UNLISTED = new Set(['sw.js', 'version.json', 'precache.json']);
+
+/** Every shipped file the worker caches, as {rel path: first 12 hex of the sha256 of its bytes}, sorted. */
+export function precachePaths(dir) {
+  const paths = {};
+  for (const f of walkFiles(dir)) {
+    const rel = relative(dir, f).split(sep).join('/');
+    if (UNLISTED.has(rel)) continue;
+    paths[rel] = createHash('sha256').update(readFileSync(f)).digest('hex').slice(0, 12);
+  }
+  return paths;
+}
+
+/** A hash over every shipped file but sw.js and the two lists (paths and bytes). */
 function hashFiles(dir) {
   const h = createHash('sha256');
   for (const f of walkFiles(dir)) {
     const rel = relative(dir, f).split(sep).join('/');
-    if (rel === 'version.json') continue;
+    if (UNLISTED.has(rel)) continue;
     h.update(rel);
     h.update('\0');
     h.update(readFileSync(f));
@@ -154,72 +201,132 @@ function hashFiles(dir) {
   return h.digest('hex').slice(0, 12);
 }
 
+/** The placeholder lines web/sw.js starts with, which the build stamps. */
+export const SW_STAMP = ['// oph-sw dev dev dev', "const CHANNEL = 'dev';", "const BUILD = 'dev';", "const FILES = 'dev';"];
+
 /**
- * Build dist/ and site/.
+ * Stamp the worker: its first four lines become the channel, the build id
+ * and the files hash; nothing else changes. Throws if a placeholder line is
+ * missing, so a worker can never ship unstamped.
+ * @param {string} src web/sw.js
+ * @param {{channel: string, build: string, files: string}} stamp
+ */
+export function stampWorker(src, { channel, build: id, files }) {
+  const lines = src.split('\n');
+  SW_STAMP.forEach((want, k) => {
+    if (lines[k] !== want) throw new Error(`build: web/sw.js line ${k + 1} must be exactly ${JSON.stringify(want)}`);
+  });
+  const q = (v) => `'${String(v).replace(/[^\w.-]/g, '')}'`;
+  lines.splice(0, 4, `// oph-sw ${channel} ${id} ${files}`, `const CHANNEL = ${q(channel)};`, `const BUILD = ${q(id)};`, `const FILES = ${q(files)};`);
+  return lines.join('\n');
+}
+
+/**
+ * The words for a channel: the filled shell, the manifest and the bundles.
+ * Main's gate (T14) runs first, over every line main reaches, and then over
+ * what was made, so a draft can never reach main.
+ * @returns {{html: string, manifest: string, files: Record<string, string>}}
+ */
+export function makeWords({ root = ROOT, channel, build: id }) {
+  const text = readText(root);
+  const html = readFileSync(join(root, 'web', 'index.html'), 'utf8');
+  const manifestSrc = readFileSync(join(root, 'web', 'manifest.webmanifest'), 'utf8');
+  const reach = mainReach(text, html, manifestSrc);
+  if (channel === 'main') {
+    const blocked = reach.filter((r) => ['draft', 'cut'].includes(stateOf(r, text)));
+    if (blocked.length) throw new Error(`build: ${gateSummary(text, blocked)}`);
+  }
+  const page = fillPage(html, { channel, text, build: id });
+  const manifest = makeManifest(manifestSrc, { channel, text });
+  const files = Object.fromEntries(Object.entries(bundle(text, channel, reach)).map(([f, o]) => [f, json1(o)]));
+  if (channel === 'main') {
+    const issues = checkMainBuild({ html: page, manifest, words: JSON.parse(files['en.json']), text, build: id, reach });
+    if (issues.length) throw new Error(`build: main's words fail the gate:\n  ${issues.map((i) => `${i.file}:${i.line}: ${i.code} ${i.msg}`).join('\n  ')}`);
+  }
+  return { html: page, manifest, files };
+}
+
+/**
+ * Build one channel into out (dist/<channel>/).
  * @param {object} [o]
- * @param {string} [o.root] the repo (web/, config/ and git are read from it)
- * @param {string} [o.dist] where the channel is built
- * @param {string} [o.site] the folder Pages deploys
- * @param {string} [o.channel]
+ * @param {string} [o.root] the repo (web/, content/, config/ and git are read from it)
+ * @param {string} [o.channel] 'main' or 'preview'
+ * @param {string} [o.out] where the channel is built
  * @param {boolean} [o.quiet]
  */
-export function build({
-  root = ROOT,
-  dist = join(root, 'dist'),
-  site = join(root, 'site'),
-  channel = process.env.CHANNEL || 'main',
-  quiet = false,
-} = {}) {
+export function build({ root = ROOT, channel = process.env.CHANNEL || 'main', out = join(root, 'dist', channel), quiet = false } = {}) {
+  if (!CHANNELS.includes(channel)) throw new Error(`build: no channel "${channel}" (main or preview)`);
   const log = quiet ? () => {} : (...a) => console.log(...a);
-  rmSync(dist, { recursive: true, force: true });
-  rmSync(site, { recursive: true, force: true });
+  rmSync(out, { recursive: true, force: true });
 
   // 1. Pictures.
   const art = compileArt();
   // 2. The shell, as written.
-  cpSync(join(root, 'web'), dist, { recursive: true });
-  mkdirSync(join(dist, 'art'), { recursive: true });
-  writeFileSync(join(dist, 'art', 'art.json'), JSON.stringify(art));
-  // 3. Icons.
-  mkdirSync(join(dist, 'icons'), { recursive: true });
-  for (const { file, png } of makeIcons(art)) writeFileSync(join(dist, 'icons', file), png);
+  cpSync(join(root, 'web'), out, { recursive: true });
+  mkdirSync(join(out, 'art'), { recursive: true });
+  writeFileSync(join(out, 'art', 'art.json'), JSON.stringify(art));
+  // 3. Icons, the channel's own.
+  mkdirSync(join(out, 'icons'), { recursive: true });
+  for (const { file, png } of makeIcons(art, channel)) writeFileSync(join(out, 'icons', file), png);
   // 4. Flags, with the channel stamped in.
   const flags = JSON.parse(readFileSync(join(root, 'config', 'flags.json'), 'utf8'));
-  writeFileSync(join(dist, 'flags.json'), `${JSON.stringify({ ...flags, channel }, null, 2)}\n`);
-  // 5. The build id.
+  writeFileSync(join(out, 'flags.json'), `${JSON.stringify({ ...flags, channel }, null, 2)}\n`);
+  // 5. The words, and the build id.
   const info = buildInfo(root);
   if (info.id === 'dev' && process.env.GITHUB_ACTIONS === 'true') throw new Error('build: no git build id in GitHub Actions (is git on the runner?)');
-  const indexPath = join(dist, 'index.html');
-  const html = readFileSync(indexPath, 'utf8');
-  for (const mark of ['data-build="dev"', '<span id="build-id">dev</span>']) {
-    if (!html.includes(mark)) throw new Error(`build: web/index.html has lost its build-id placeholder (${mark})`);
-  }
-  const stamped = html
-    .replace('data-build="dev"', `data-build="${info.id}"`)
-    .replace('<span id="build-id">dev</span>', `<span id="build-id">${info.id}</span>`);
-  writeFileSync(indexPath, stamped);
+  const words = makeWords({ root, channel, build: info.id });
+  writeFileSync(join(out, 'index.html'), words.html);
+  writeFileSync(join(out, 'manifest.webmanifest'), words.manifest);
+  mkdirSync(join(out, 'text'), { recursive: true });
+  for (const [f, body] of Object.entries(words.files)) writeFileSync(join(out, 'text', f), body);
+  // 6. The worker's lists, and its stamp.
+  const paths = precachePaths(out);
+  const filesHash = hashFiles(out);
+  writeFileSync(join(out, 'precache.json'), `${JSON.stringify({ build: info.id, channel, files: filesHash, paths }, null, 1)}\n`);
+  writeFileSync(join(out, 'sw.js'), stampWorker(readFileSync(join(out, 'sw.js'), 'utf8'), { channel, build: info.id, files: filesHash }));
+  // 7. The version.
   const version = {
     build: info.id,
     channel,
     commit: info.commit,
     date: info.date,
-    files: hashFiles(dist),
+    files: filesHash,
   };
-  writeFileSync(join(dist, 'version.json'), `${JSON.stringify(version, null, 2)}\n`);
-  // 6. Size.
-  const files = walkFiles(dist);
-  const total = checkSize(dist);
-  // 7. The site: main at the root.
-  cpSync(dist, site, { recursive: true });
-  log(`build: ${info.id} (${channel}), ${files.length} files, ${(total / 1024).toFixed(1)} KB -> site/`);
-  log(`  art.json ${(statSync(join(dist, 'art', 'art.json')).size / 1024).toFixed(1)} KB: ${Object.keys(art.pics).length} picture(s), ${Object.keys(art.stamps).length} stamp(s)`);
-  return { info, version, total, files: files.length };
+  writeFileSync(join(out, 'version.json'), `${JSON.stringify(version, null, 2)}\n`);
+  // 8. Size.
+  const files = walkFiles(out);
+  const total = checkSize(out);
+  const name = out.startsWith(root + sep) ? relative(root, out).split(sep).join('/') : out;
+  log(`build: ${info.id} (${channel}), ${files.length} files, ${(total / 1024).toFixed(1)} KB -> ${name}/`);
+  log(`  art.json ${(statSync(join(out, 'art', 'art.json')).size / 1024).toFixed(1)} KB: ${Object.keys(art.pics).length} picture(s), ${Object.keys(art.stamps).length} stamp(s)`);
+  return { info, version, total, files: files.length, out };
+}
+
+/**
+ * Build the channels into dist/<channel>/ and, when main is among them,
+ * assemble site/: main at the root, and preview under preview/ (or, when
+ * preview wasn't built, the placeholder), as ophiker.com serves them.
+ * @param {{root?: string, channels?: string[], dist?: string, site?: string, quiet?: boolean}} [o]
+ */
+export function buildAll({ root = ROOT, channels = CHANNELS, dist = join(root, 'dist'), site = join(root, 'site'), quiet = false } = {}) {
+  // Every channel at once starts from an empty dist/, so nothing stale ships.
+  if (CHANNELS.every((c) => channels.includes(c))) rmSync(dist, { recursive: true, force: true });
+  const built = channels.map((channel) => build({ root, channel, out: join(dist, channel), quiet }));
+  const main = built.find((b) => b.version.channel === 'main');
+  if (main) {
+    const preview = built.find((b) => b.version.channel === 'preview');
+    assemble({ root, main: main.out, preview: preview ? preview.out : undefined, out: site });
+    if (!quiet) console.log(`  site/: main at /, ${preview ? 'preview' : 'the placeholder'} at /preview/`);
+  }
+  return built;
 }
 
 const isMain = process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href;
 if (isMain) {
   try {
-    build();
+    const k = process.argv.indexOf('--channel');
+    const one = k > 0 ? process.argv[k + 1] : process.env.CHANNEL;
+    buildAll({ channels: one ? [one] : CHANNELS });
   } catch (e) {
     console.error(e.message);
     process.exit(1);

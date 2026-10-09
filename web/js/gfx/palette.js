@@ -29,7 +29,7 @@ export const PALETTE = Object.freeze([
 ]);
 
 export const NAMES = Object.freeze([
-  'ink', 'night navy', 'slate', 'glacier blue', 'snow', 'paper cream', 'alpenglow pink', 'bonfire gold',
+  'ink', 'night navy', 'slate', 'glacier blue', 'snow', 'paper cream', 'alpenglow pink', 'bonfire gold', // t-ok: palette names (developer text)
   'rust', 'brick', 'bark', 'spruce', 'forest', 'moss', 'sage', 'teal',
 ]);
 
@@ -59,7 +59,7 @@ export const CYCLES = Object.freeze({
   20: Object.freeze({ name: 'fire', slots: [8, 6, 5], light: true, hold: 1, phase: 'scatter' }),
   21: Object.freeze({ name: 'surf', slots: [4, 3, 2, 15], light: false, hold: 2, phase: 'wave' }),
   22: Object.freeze({ name: 'stars', slots: [5, 4, 5, 3], light: true, hold: 3, phase: 'scatter' }),
-  23: Object.freeze({ name: 'rain glint', slots: [2, 3], light: false, hold: 2, phase: 'scatter' }),
+  23: Object.freeze({ name: 'rain glint', slots: [2, 3], light: false, hold: 2, phase: 'scatter' }), // t-ok: palette names (developer text)
   24: Object.freeze({ name: 'lamp', slots: [5], light: true, hold: 1, phase: 'none' }),
   25: Object.freeze({ name: 'dust', slots: [5, 10, 2], light: true, hold: 2, phase: 'none' }),
 });

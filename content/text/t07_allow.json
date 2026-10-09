@@ -1,0 +1,4 @@
+{
+ "$comment": "T07's allowlist (GAME_DESIGN F.3): text or catalog ids that may use a book word because they are real things that are books or have pages, each with its reason. A new entry shows in the next batch. Empty in S2.",
+ "ids": {}
+}

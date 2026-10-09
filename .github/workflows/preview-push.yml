@@ -1,0 +1,19 @@
+name: preview-push
+# A push to the preview branch rebuilds the whole site (BUILD_PLAN 6.4):
+# Pages deploys one artifact, so pages.yml runs on main and builds both
+# channels. A workflow_dispatch is the one event a GITHUB_TOKEN may start.
+on:
+  push:
+    branches: [preview]
+permissions:
+  actions: write
+jobs:
+  kick:
+    runs-on: ubuntu-latest
+    steps:
+      - run: >
+          gh workflow run pages.yml
+          --ref main -R "$REPO"
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}

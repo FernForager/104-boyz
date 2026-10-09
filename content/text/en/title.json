@@ -1,0 +1,27 @@
+{
+ "$comment": "Session 1's title page, word for word (GAME_DESIGN 18.11). Off main since S2 (decision 64); the ids retire with the title page when the cabin replaces it (S7). The name over the cover is app.name.",
+ "title.tagline": {
+  "text": "a picture-book trip",
+  "ctx": "Session 1's title page: the line under the name",
+  "screen": "title",
+  "max": 32
+ },
+ "title.start_label": {
+  "text": "Bookshelf",
+  "ctx": "Session 1's title page: VoiceOver's name for the section under the cover (main labels it app.name)",
+  "screen": "title",
+  "max": 24
+ },
+ "title.begin": {
+  "text": "Begin a new book",
+  "ctx": "Session 1's title page: the start button, disabled (hidden on main until it does something)",
+  "screen": "title",
+  "max": 22
+ },
+ "title.begin_note": {
+  "text": "The trail opens soon.",
+  "ctx": "Session 1's title page: the note under the start button (hidden with it)",
+  "screen": "title",
+  "max": 40
+ }
+}

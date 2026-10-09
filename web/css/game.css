@@ -49,8 +49,8 @@ button { font: inherit; font-variant-ligatures: none; }
 }
 
 .plate {
-  --plate-w: 320px;      /* the picture's width, set by shelf.js */
-  --title-room: 88px;    /* the cover's quiet sky (its top 88 rows), set by shelf.js */
+  --plate-w: 320px;      /* the picture's width, set by home.js */
+  --title-room: 88px;    /* the cover's quiet sky (its top 88 rows), set by home.js */
   position: relative;
   margin: 0;
   flex: none;
@@ -203,13 +203,50 @@ button { font: inherit; font-variant-ligatures: none; }
   color: var(--c5);
 }
 
-.install b { font-weight: 700; color: var(--c4); }
+/* The update note (E.7): a new build waits until Restart. */
+.update-note {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 8px 12px;
+}
 
-.edition {
+.update-line {
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.2;
+  color: var(--ink);
+}
+
+/* The stamps: Works offline, once the game is saved on the phone, and the
+   build code alone (app.build). */
+.stamps {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 10px;
   margin: 4px 2px 0;
   font-size: 13px;
   line-height: 1.2;
   color: var(--c3);
+}
+
+.offline-stamp {
+  border: 1px solid var(--c3);
+  padding: 0 4px;
+}
+
+.offline-stamp::before { content: "✓ "; content: "✓ " / ""; }
+
+/* Five quick taps on the build code open the debug menu (E.11). The hit
+   area is 44 pt, and the stamp looks no different: nothing marks it. */
+.build-stamp {
+  /* Pixelify's 5 reads as an S, and the code is read off the phone. */
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 12px;
+  display: inline-block;
+  padding: 14px 8px;
+  margin: -14px -8px;
   -webkit-touch-callout: none;
   user-select: none;
   -webkit-user-select: none;
@@ -221,11 +258,21 @@ button { font: inherit; font-variant-ligatures: none; }
   display: none;
   position: fixed;
   inset: 0;
+  flex-direction: column;
+  gap: 14px;
   align-items: center;
   justify-content: center;
   padding: var(--safe-top) var(--safe-right) var(--safe-bottom) var(--safe-left);
   background: var(--c0);
   text-align: center;
+}
+
+/* The turn-the-phone glyph: whole 16x16 grid squares, like the art. */
+.turn-glyph {
+  flex: none;
+  width: 64px;
+  height: 64px;
+  color: var(--c4);
 }
 
 .upright p {
@@ -241,3 +288,154 @@ button { font: inherit; font-variant-ligatures: none; }
   .title-page { display: none; }
   .upright { display: flex; }
 }
+
+/* ---- Sheets: the error sheet and the debug menu ---------------------- */
+
+.scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: var(--safe-top) var(--safe-right) 0 var(--safe-left);
+  background: rgb(27 31 42 / 0.72);
+}
+
+/* An error comes first, even over the debug menu. */
+#error-sheet { z-index: 20; }
+
+.sheet {
+  width: 100%;
+  max-width: 440px;
+  max-height: 80dvh;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px 12px calc(14px + var(--safe-bottom));
+}
+
+.sheet-line {
+  margin: 0;
+  font-size: 20px;
+  line-height: 1.2;
+}
+
+/* The bug report, exactly as it is copied: selectable, so a long press
+   can copy it too. */
+.report {
+  flex: none;
+  margin: 0;
+  max-height: 40dvh;
+  overflow: auto;
+  font: 12px/1.3 ui-monospace, monospace;
+  white-space: pre-wrap;
+  word-break: break-all;
+  color: var(--ink);
+  user-select: text;
+  -webkit-user-select: text;
+  -webkit-touch-callout: default;
+}
+
+/* Inputs at 16 px or more, or iOS zooms the page (BUILD_PLAN 2.8). */
+textarea.report {
+  width: 100%;
+  min-height: 8em;
+  font-size: 16px;
+  background: var(--c4);
+  border: 1px solid var(--c2);
+  border-radius: 0;
+  resize: none;
+}
+
+/* Copied: a ✓ after the label for two seconds (no words). */
+.done::after { content: " ✓"; content: " ✓" / ""; }
+
+/* ---- The debug menu (built by ui/debug.js when it opens) ------------- */
+
+.debug-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.debug-id {
+  margin: 0;
+  font-size: 15px;
+  color: var(--c2);
+  user-select: text;
+  -webkit-user-select: text;
+}
+
+.debug-close {
+  flex: none;
+  width: var(--target);
+  height: var(--target);
+  margin: -8px -6px -8px 0;
+  padding: 0;
+  font-size: 28px;
+  line-height: 1;
+  color: var(--ink);
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+/* While the copy fallback shows the report selected, the plain copy hides. */
+.debug textarea.report:not([hidden]) + pre.report { display: none; }
+
+.debug-note-label {
+  font-size: 15px;
+  color: var(--c2);
+}
+
+.debug-note {
+  width: 100%;
+  font: 16px/1.3 var(--font-pixel);
+  color: var(--ink);
+  background: var(--c4);
+  border: 1px solid var(--c2);
+  border-radius: 0;
+  resize: vertical;
+}
+
+.marks {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  font-size: 15px;
+}
+
+.marks-label { color: var(--c2); margin-right: 4px; }
+
+.marks-mode {
+  min-height: var(--target);
+  padding: 4px 10px;
+  color: var(--ink);
+  background: var(--c4);
+  border: 1px solid var(--c2);
+  border-radius: 0;
+  cursor: pointer;
+}
+
+.marks-mode[aria-pressed="true"] {
+  color: var(--c4);
+  background: var(--c2);
+}
+
+/* ---- Preview's debug marks ------------------------------------------- */
+
+/* Preview's debug marks (GAME_DESIGN 18.6): draft dotted, changed dashed,
+   cut struck through, placeholders cyan, a missing id in brackets. Main
+   never carries data-t-state, so none of this applies there. */
+html[data-marks="on"] [data-t-state="draft"],
+html[data-marks="drafts"] [data-t-state="draft"] { text-decoration: underline dotted var(--c6); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+html[data-marks="on"] [data-t-state="changed"] { text-decoration: underline dashed var(--c3); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+html[data-marks="on"] [data-t-state="cut"] { text-decoration: line-through var(--c9); }
+html[data-marks="on"] .t-ph { color: var(--c3); }
+html[data-marks] [data-t-state="missing"] { outline: 1px dashed var(--c6); }

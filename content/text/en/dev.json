@@ -1,0 +1,45 @@
+{
+ "$comment": "The hidden debug menu (GAME_DESIGN E.11). Dev words: exempt from approval (decision 64), never in the built page; the menu is built when it opens.",
+ "dev.note": {
+  "text": "Note",
+  "ctx": "The debug menu: the note field's label (the note rides in the next bug report)",
+  "screen": "debug",
+  "class": "dev"
+ },
+ "dev.close": {
+  "text": "Close",
+  "ctx": "The debug menu: the close button's accessible name (the button shows ×)",
+  "screen": "debug",
+  "class": "dev"
+ },
+ "dev.throw": {
+  "text": "Test the error sheet",
+  "ctx": "The debug menu: throws a test error, so the error sheet opens (F.5)",
+  "screen": "debug",
+  "class": "dev"
+ },
+ "dev.marks": {
+  "text": "words",
+  "ctx": "The debug menu, preview only: the label of the marks control (GAME_DESIGN 18.6)",
+  "screen": "debug",
+  "class": "dev"
+ },
+ "dev.marks.on": {
+  "text": "marks on",
+  "ctx": "The debug menu, preview only: mark drafts, changed and cut lines",
+  "screen": "debug",
+  "class": "dev"
+ },
+ "dev.marks.drafts": {
+  "text": "drafts only",
+  "ctx": "The debug menu, preview only: mark drafts only",
+  "screen": "debug",
+  "class": "dev"
+ },
+ "dev.marks.off": {
+  "text": "off",
+  "ctx": "The debug menu, preview only: no marks",
+  "screen": "debug",
+  "class": "dev"
+ }
+}

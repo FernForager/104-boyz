@@ -1,12 +1,12 @@
-// The title page (GAME_DESIGN 12.3): the cover drawing itself in at dusk,
-// the title, the bookshelf (empty until the trail opens), the Add to Home
-// Screen line, and the edition stamp. The Trail Register and the books
-// arrive with the engine.
+// The title page (until the cabin replaces it, S7; GAME_DESIGN 12.3): the
+// cover drawing itself in at dusk, the name, the update note, the install
+// line and the stamps. This file becomes the cabin (BUILD_PLAN 2.5).
 
 import { renderPic } from '../gfx/picvm.js';
 import { makePalette } from '../gfx/palette.js';
 import { createDisplay, startCycles } from '../gfx/display.js';
 import { playDrawIn } from '../gfx/drawin.js';
+import { isInstalled } from '../platform/sw-client.js';
 
 const ART_URL = new URL('../../art/art.json', import.meta.url);
 const COVER = 'cover_high_divide_dusk';
@@ -18,14 +18,6 @@ const PLATE = { width: 160, height: 320 };
 const TITLE_ROWS = 88;
 /** Held sideways: the title page hides behind the plate. Same query as game.css. */
 const SIDEWAYS = '(orientation: landscape) and (max-height: 540px)';
-
-/** True when the book runs from the Home Screen, not in a Safari tab. */
-export function isInstalled() {
-  // iOS sets navigator.standalone; other browsers report display-mode.
-  const nav = /** @type {any} */ (navigator);
-  if (nav.standalone === true) return true;
-  return typeof matchMedia === 'function' && matchMedia('(display-mode: standalone)').matches;
-}
 
 function reducedMotion() {
   return typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -102,6 +94,8 @@ export async function showTitle(doc = document) {
   if (doc.fonts) doc.fonts.ready.then(fit);
   window.addEventListener('resize', fit);
   window.addEventListener('orientationchange', fit);
+  // The update note and the offline stamp appear later (sw-client.js).
+  window.addEventListener('oph:layout', fit);
 
   const reduced = reducedMotion();
   // The page starts with the title held back (class "drawing"); it steps in

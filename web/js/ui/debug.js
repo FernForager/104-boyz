@@ -1,0 +1,396 @@
+// The hidden debug menu and Copy bug report (GAME_DESIGN E.11; BUILD_PLAN
+// 2.5, 2.8). Five quick taps on the build stamp, or ?debug=1 at launch, open
+// it; nothing marks it, and it lasts until reload. It shows the bug report
+// exactly as it would be copied, a note field that rides in the next report,
+// Copy bug report, on preview the words' marks (18.6), and a button that
+// throws a test error so the error sheet can be checked on the phone (F.5).
+// Nothing in it can change a trip, and the gentle flag is not in it (9.4).
+// It is built here when it first opens, so none of it is in the built page;
+// its labels are dev words (decision 64), and Copy bug report is approved.
+//
+// The report holds only game state and device facts, and only the fields
+// buildReport names: storage key names but never their values, no language,
+// time zone, URL, referrer or location. From session 3 its state holds the
+// seed, the plan, the action log and the profile snapshot (E.11).
+
+import { recentErrors } from './errors.js';
+import { workerStatus, isInstalled } from '../platform/sw-client.js';
+import { lastFacts, storageFacts, ownKeys, load, save } from '../platform/storage.js';
+import { copyText, shareText, selectAll } from '../platform/share.js';
+import { t, tx, setMarks } from '../text.js';
+
+/** A pasted report stays under this many characters (BUILD_PLAN 2.8). */
+export const MAX_REPORT = 60000;
+const STACK_CUT = 2000;
+const KEEP_ERRORS = 5;
+const NOTE_MAX = 1000;
+const NOTE_CUT = 500;
+const KEYS_MAX = 100;
+/** Five taps, each within this many ms of the last. */
+const TAPS = 5;
+const TAP_GAP_MS = 700;
+/** How long the ✓ shows after a copy. */
+const DONE_MS = 2000;
+const MARK_MODES = ['on', 'drafts', 'off'];
+/** Preview's marks control: [mode, id] (GAME_DESIGN 18.6). */
+const MARKS = [
+  ['on', 'dev.marks.on'],
+  ['drafts', 'dev.marks.drafts'],
+  ['off', 'dev.marks.off'],
+];
+const HEAD_ID = 'debug-head';
+const NOTE_ID = 'debug-note';
+const MARKS_ID = 'debug-marks';
+
+let note = '';
+let debugOn = false;
+/** @type {{doc: Document, scrim: HTMLElement, pre: HTMLElement, area: HTMLTextAreaElement, noteField: HTMLTextAreaElement, close: HTMLElement, marks: [string, HTMLElement][]} | null} */
+let menu = null;
+
+/**
+ * Pure: count taps. The returned function takes each tap's time (ms) and
+ * says true on the n-th tap in a row, each within gap ms of the last; then
+ * the count starts over.
+ * @param {number} [n]
+ * @param {number} [gap]
+ */
+export function makeTapCounter(n = TAPS, gap = TAP_GAP_MS) {
+  let count = 0;
+  let last = -Infinity;
+  return (time) => {
+    count = time - last <= gap ? count + 1 : 1;
+    last = time;
+    if (count < n) return false;
+    count = 0;
+    last = -Infinity;
+    return true;
+  };
+}
+
+/** Pure: did the address ask for the debug menu (?debug=1)? */
+export function debugRequested(search) {
+  try {
+    return new URLSearchParams(search || '').get('debug') === '1';
+  } catch {
+    return false;
+  }
+}
+
+/** True once the menu has opened, until reload. */
+export function debugMode() {
+  return debugOn;
+}
+
+/**
+ * Everything the report needs, read at once, with nothing awaited (a
+ * clipboard write must start inside the tap, 2.8).
+ * @param {Document} [doc]
+ */
+export function collectFacts(doc = document) {
+  const win = /** @type {any} */ (doc.defaultView || globalThis);
+  const html = doc.documentElement;
+  const app = doc.getElementById('app');
+  const mq = (q) => typeof win.matchMedia === 'function' && win.matchMedia(q).matches;
+  const scr = win.screen || {};
+  return {
+    build: html.dataset.build || null,
+    channel: html.dataset.channel || null,
+    time: new Date().toISOString(),
+    screen: (app && app.dataset.screen) || null,
+    device: {
+      ua: (win.navigator && win.navigator.userAgent) || '',
+      screen: [scr.width, scr.height],
+      viewport: [win.innerWidth, win.innerHeight],
+      dpr: win.devicePixelRatio || 1,
+      standalone: isInstalled(),
+      orientation: mq('(orientation: landscape)') ? 'landscape' : 'portrait',
+      reducedMotion: mq('(prefers-reduced-motion: reduce)'),
+    },
+    worker: workerStatus(),
+    storage: lastFacts(),
+    keys: ownKeys(),
+    errors: recentErrors(),
+    note,
+  };
+}
+
+const num = (v) => (typeof v === 'number' && Number.isFinite(v) ? v : null);
+const str = (v) => (v === null || v === undefined ? null : String(v));
+const pair = (p) => (Array.isArray(p) ? [num(p[0]), num(p[1])] : [null, null]);
+
+/**
+ * Pure and synchronous: the bug report, built field by field from the
+ * facts, so nothing else can ride along.
+ * @param {any} f collectFacts()
+ */
+export function buildReport(f) {
+  const d = f.device || {};
+  const w = f.worker || {};
+  const s = f.storage || {};
+  return {
+    report: 1,
+    build: str(f.build),
+    channel: str(f.channel),
+    time: str(f.time),
+    screen: str(f.screen),
+    device: {
+      ua: String(d.ua || ''),
+      screen: pair(d.screen),
+      viewport: pair(d.viewport),
+      dpr: num(d.dpr),
+      standalone: Boolean(d.standalone),
+      orientation: d.orientation === 'landscape' ? 'landscape' : 'portrait',
+      reducedMotion: Boolean(d.reducedMotion),
+    },
+    app: {
+      worker: str(w.worker),
+      workerBuild: str(w.build),
+      update: Boolean(w.update),
+      offline: Boolean(w.offline),
+      persisted: typeof s.persisted === 'boolean' ? s.persisted : null,
+      storage: { usage: num(s.usage), quota: num(s.quota) },
+      keys: (Array.isArray(f.keys) ? f.keys : []).slice(0, KEYS_MAX).map((k) => String(k).slice(0, 64)),
+    },
+    errors: (Array.isArray(f.errors) ? f.errors : []).map((e) => ({
+      message: String(e.message ?? ''),
+      stack: String(e.stack ?? ''),
+      source: str(e.source),
+      line: num(e.line),
+      col: num(e.col),
+      ms: num(e.ms),
+    })),
+    note: String(f.note || '').slice(0, NOTE_MAX),
+    state: null,
+  };
+}
+
+/** The report in a json fence, so a pasted GitHub issue shows it verbatim. */
+const fenced = (r) => `\`\`\`json\n${JSON.stringify(r, null, 1)}\n\`\`\``;
+
+/**
+ * The report as copied, under MAX_REPORT characters: first each stack is
+ * cut to 2,000 characters, then the oldest errors go (the newest 5 stay),
+ * then the note is cut to 500, and last of all the messages too and, one by
+ * one, the oldest errors left.
+ * @param {ReturnType<typeof buildReport>} report
+ */
+export function reportText(report) {
+  let r = report;
+  let text = fenced(r);
+  const steps = [
+    (x) => ({ ...x, errors: x.errors.map((e) => ({ ...e, stack: e.stack.slice(0, STACK_CUT) })) }),
+    (x) => ({ ...x, errors: x.errors.slice(-KEEP_ERRORS) }),
+    (x) => ({ ...x, note: x.note.slice(0, NOTE_CUT) }),
+    (x) => ({ ...x, device: { ...x.device, ua: x.device.ua.slice(0, NOTE_CUT) }, errors: x.errors.map((e) => ({ ...e, message: e.message.slice(0, NOTE_CUT) })) }),
+  ];
+  for (const step of steps) {
+    if (text.length <= MAX_REPORT) return text;
+    r = step(r);
+    text = fenced(r);
+  }
+  while (text.length > MAX_REPORT && r.errors.length) {
+    r = { ...r, errors: r.errors.slice(1) };
+    text = fenced(r);
+  }
+  return text;
+}
+
+function clearNote() {
+  note = '';
+  if (menu) menu.noteField.value = '';
+}
+
+/**
+ * Copy bug report, for the menu and the error sheet alike. Call it inside
+ * the tap: the report is built and the clipboard written at once. On
+ * success the button shows a ✓ for 2 s and the note is cleared. If the
+ * clipboard refuses, the report appears selected in area (a long press
+ * offers iOS's Copy), and the same button's next tap opens the share sheet,
+ * whose first row is Copy. Resolves to what happened.
+ * @param {HTMLElement} button
+ * @param {HTMLTextAreaElement} area a readonly textarea, hidden until needed
+ * @param {{nav?: any, facts?: any}} [o]
+ * @returns {Promise<'copied' | 'fallback' | 'shared' | 'closed' | 'selected'>}
+ */
+export function copyReport(button, area, { nav = globalThis.navigator, facts } = {}) {
+  const text = reportText(buildReport(facts || collectFacts(button.ownerDocument)));
+  if (button.dataset.mode === 'share') {
+    area.value = text;
+    return shareText(text, nav).then(
+      () => 'shared',
+      (err) => {
+        if (err && err.name === 'AbortError') return 'closed';
+        selectAll(area);
+        return 'selected';
+      },
+    );
+  }
+  return copyText(text, nav).then(
+    () => {
+      button.classList.add('done');
+      setTimeout(() => button.classList.remove('done'), DONE_MS);
+      clearNote();
+      return 'copied';
+    },
+    () => {
+      area.value = text;
+      area.hidden = false;
+      selectAll(area);
+      button.dataset.mode = 'share';
+      return 'fallback';
+    },
+  );
+}
+
+/** An element with attributes (class as a list) and children. */
+function h(doc, tag, attrs = {}, ...kids) {
+  const el = doc.createElement(tag);
+  for (const [k, v] of Object.entries(attrs)) {
+    if (k === 'class') el.classList.add(...v);
+    else el.setAttribute(k, v);
+  }
+  for (const kid of kids) el.appendChild(kid);
+  return el;
+}
+
+/** Preview's saved marks choice (default on). */
+function savedMarks() {
+  const m = load('marks');
+  return MARK_MODES.includes(m) ? m : 'on';
+}
+
+function showMarks(m, mode) {
+  for (const [k, b] of m.marks) b.setAttribute('aria-pressed', String(k === mode));
+}
+
+function refresh(m) {
+  m.pre.textContent = reportText(buildReport(collectFacts(m.doc)));
+}
+
+function closeMenu() {
+  if (!menu || menu.scrim.hidden) return;
+  menu.scrim.hidden = true;
+  const stamp = menu.doc.getElementById('build-stamp');
+  if (stamp && typeof stamp.focus === 'function') stamp.focus({ preventScroll: true });
+}
+
+/** The menu, built once, on first open. */
+function buildMenu(doc) {
+  const html = doc.documentElement;
+  const preview = html.dataset.channel !== 'main';
+
+  const id = h(doc, 'p', { class: ['debug-id'], id: HEAD_ID });
+  id.textContent = `${html.dataset.build || ''} · ${html.dataset.channel || ''}`;
+  const close = h(doc, 'button', { class: ['debug-close'], type: 'button' });
+  close.textContent = '×';
+  close.setAttribute('aria-label', t('dev.close'));
+  const head = h(doc, 'div', { class: ['debug-head'] }, id, close);
+
+  // The copy fallback's textarea sits before the report, which CSS hides
+  // while the textarea shows (they hold the same text).
+  const area = /** @type {HTMLTextAreaElement} */ (h(doc, 'textarea', { class: ['report'], readonly: '', 'aria-labelledby': HEAD_ID }));
+  area.hidden = true;
+  const pre = h(doc, 'pre', { class: ['report'] });
+
+  const noteLabel = h(doc, 'label', { class: ['debug-note-label'], for: NOTE_ID });
+  tx(noteLabel, 'dev.note');
+  const noteField = /** @type {HTMLTextAreaElement} */ (h(doc, 'textarea', { class: ['debug-note'], id: NOTE_ID, maxlength: String(NOTE_MAX), rows: '3' }));
+  noteField.value = note;
+
+  const copy = h(doc, 'button', { class: ['box', 'choice'], type: 'button' });
+  tx(copy, 'app.error.copy');
+
+  const sheet = h(doc, 'div', { class: ['sheet', 'box', 'debug-sheet'], role: 'dialog', 'aria-modal': 'true', 'aria-labelledby': HEAD_ID }, head, area, pre, noteLabel, noteField, copy);
+
+  /** @type {[string, HTMLElement][]} */
+  const marks = [];
+  if (preview) {
+    const label = h(doc, 'span', { class: ['marks-label'], id: MARKS_ID });
+    tx(label, 'dev.marks');
+    const group = h(doc, 'div', { class: ['marks'], role: 'group', 'aria-labelledby': MARKS_ID }, label);
+    for (const [mode, lineId] of MARKS) {
+      const b = h(doc, 'button', { class: ['marks-mode'], type: 'button' });
+      tx(b, lineId); // t-ids: dev.marks.on, dev.marks.drafts, dev.marks.off
+      b.addEventListener('click', () => {
+        save('marks', mode);
+        setMarks(doc, mode);
+        showMarks(/** @type {any} */ (menu), mode);
+      });
+      group.appendChild(b);
+      marks.push([mode, b]);
+    }
+    sheet.appendChild(group);
+  }
+
+  const throwIt = h(doc, 'button', { class: ['box', 'choice', 'debug-throw'], type: 'button' });
+  tx(throwIt, 'dev.throw');
+  sheet.appendChild(throwIt);
+
+  const scrim = h(doc, 'div', { class: ['scrim', 'debug'] }, sheet);
+  scrim.hidden = true;
+  doc.body.appendChild(scrim);
+
+  const m = { doc, scrim, pre, area, noteField, close, marks };
+  close.addEventListener('click', closeMenu);
+  scrim.addEventListener('click', (event) => {
+    if (event.target === scrim) closeMenu();
+  });
+  doc.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') closeMenu(); // t-ok: a key's name, never shown
+  });
+  noteField.addEventListener('input', () => {
+    note = noteField.value;
+    refresh(m);
+  });
+  noteField.addEventListener('focus', () => {
+    // Keep the field in view above the keyboard once it has slid up.
+    setTimeout(() => noteField.scrollIntoView({ block: 'center' }), 300);
+  });
+  copy.addEventListener('click', () => {
+    copyReport(copy, area).then(() => refresh(m));
+  });
+  throwIt.addEventListener('click', () => {
+    closeMenu();
+    // Uncaught on purpose, so it reaches the error sheet as a real one would.
+    setTimeout(() => {
+      throw new Error('debug: test error');
+    }, 0);
+  });
+  return m;
+}
+
+/**
+ * Open the debug menu, building it the first time. Debug mode stays on
+ * until reload; on preview it applies the saved marks choice.
+ * @param {Document} doc
+ * @param {Promise<unknown>} [words] loadText(), so the labels are there
+ */
+export async function openDebug(doc, words = Promise.resolve()) {
+  debugOn = true;
+  const preview = doc.documentElement.dataset.channel !== 'main';
+  if (preview) setMarks(doc, savedMarks());
+  await words;
+  await storageFacts();
+  if (!menu) menu = buildMenu(doc);
+  if (preview) showMarks(menu, savedMarks());
+  refresh(menu);
+  menu.scrim.hidden = false;
+  menu.close.focus();
+}
+
+/**
+ * Wire the entry: five quick taps on the build stamp, or ?debug=1.
+ * @param {Document} doc
+ * @param {Promise<unknown>} [words] loadText()
+ */
+export function initDebug(doc, words = Promise.resolve()) {
+  const stamp = doc.getElementById('build-stamp');
+  const tap = makeTapCounter();
+  if (stamp) {
+    stamp.addEventListener('pointerup', (event) => {
+      if (tap(event.timeStamp)) openDebug(doc, words);
+    });
+  }
+  const win = doc.defaultView;
+  if (win && debugRequested(win.location.search)) openDebug(doc, words);
+}

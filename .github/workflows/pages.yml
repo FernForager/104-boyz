@@ -1,37 +1,128 @@
 name: pages
+# One deployment, two channels (GAME_DESIGN E.9; BUILD_PLAN 6.1 to 6.3):
+# main's build at https://ophiker.com/ and the preview branch's at /preview/,
+# assembled into one artifact. A push to main runs this; a push to preview
+# dispatches it on main (preview-push.yml), and main rebuilds byte for byte
+# the same, so installed main apps see no update. If main's CI fails, nothing
+# deploys. If preview's head fails, the last-good-preview tag goes up
+# instead, or the placeholder; a bad preview never stops main.
+#
+# Each channel builds in its own job, and the site is assembled in a third
+# that never runs the preview branch's code, so nothing a preview build does
+# (to files, the runner's env or a job's outputs) can reach what goes live at
+# /: main's files come from the main job's artifact. No build job keeps
+# credentials, so the preview branch's code never runs beside a write token;
+# only the tag job, after a good deploy, may move last-good-preview. Node is
+# pinned to an exact version, so the same commit always builds the same bytes.
 on:
   push:
     branches: [main]
   workflow_dispatch:
 permissions:
   contents: read
-  pages: write
-  id-token: write
 concurrency:
   group: pages
   cancel-in-progress: false
 jobs:
-  build:
+  main:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 30
     steps:
-      - uses: actions/checkout@v5
-      - uses: actions/setup-node@v5
+      - uses: actions/checkout@v7
         with:
-          node-version: 22
-      - name: Build and check
-        env:
-          CHANNEL: main
+          fetch-depth: 1
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22.23.3
+      - name: Main channel
         run: npm run ci
-      - uses: actions/upload-pages-artifact@v4
+      - name: Same commit, same bytes
+        run: node tools/assemble-site.mjs --check-live https://ophiker.com/version.json dist/main/version.json
+      - uses: actions/upload-artifact@v7
+        with:
+          name: main-dist
+          path: dist/main
+          if-no-files-found: error
+          retention-days: 1
+          overwrite: true
+  preview:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    outputs:
+      status: ${{ steps.preview.outputs.status }}
+      sha: ${{ steps.preview.outputs.sha }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          path: main
+          fetch-depth: 1
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22.23.3
+      - name: Preview channel
+        id: preview
+        run: node main/tools/preview.mjs --repo main --out preview-dist
+      - if: steps.preview.outputs.status != 'placeholder'
+        uses: actions/upload-artifact@v7
+        with:
+          name: preview-dist
+          path: preview-dist
+          if-no-files-found: error
+          retention-days: 1
+          overwrite: true
+  assemble:
+    needs: [main, preview]
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          path: main
+          fetch-depth: 1
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22.23.3
+      - uses: actions/download-artifact@v8
+        with:
+          name: main-dist
+          path: main-dist
+      - if: needs.preview.outputs.status != 'placeholder'
+        uses: actions/download-artifact@v8
+        with:
+          name: preview-dist
+          path: preview-dist
+      - name: Assemble
+        run: node main/tools/assemble-site.mjs --main main-dist --preview preview-dist --out site
+      - uses: actions/upload-pages-artifact@v5
         with:
           path: site
   deploy:
-    needs: build
+    needs: assemble
     runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
+  tag:
+    needs: [preview, deploy]
+    if: needs.preview.outputs.status == 'built'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Move last-good-preview
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          SHA: ${{ needs.preview.outputs.sha }}
+        run: >
+          gh api -X PATCH "repos/$REPO/git/refs/tags/last-good-preview" -f sha="$SHA" -F force=true
+          || gh api -X POST "repos/$REPO/git/refs" -f ref=refs/tags/last-good-preview -f sha="$SHA"

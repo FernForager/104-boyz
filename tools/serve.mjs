@@ -1,17 +1,17 @@
 #!/usr/bin/env node
-// A tiny static server for sessions: serves site/ under /104-boyz/, the
-// same subpath GitHub Pages uses, so relative URLs are tested for real.
+// A tiny static server for sessions: serves site/ at the root, as
+// ophiker.com does, so main is at / and preview at /preview/, each with its
+// own worker scope. A folder without its slash is sent to it with a 301, as
+// GitHub Pages does (/preview to /preview/).
 //
-//   npm run serve                 http://127.0.0.1:8104/104-boyz/
-//   npm run serve -- --port 9000 --host 0.0.0.0
+//   npm run serve                 http://127.0.0.1:8104/ (preview at /preview/)
+//   npm run serve -- --port 9000 --host 0.0.0.0 --dir site
 
 import { createServer } from 'node:http';
 import { readFile, stat } from 'node:fs/promises';
 import { join, resolve, sep, extname } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { ROOT } from './pics.mjs';
-
-export const PREFIX = '/104-boyz/';
 
 const TYPES = {
   '.html': 'text/html; charset=utf-8',
@@ -41,27 +41,30 @@ export function makeServer(dir = join(ROOT, 'site')) {
     };
     try {
       const url = new URL(req.url || '/', 'http://localhost');
-      const path = decodeURIComponent(url.pathname);
-      if (path === '/' || path === PREFIX.slice(0, -1)) return send(302, '', { Location: PREFIX });
-      if (!path.startsWith(PREFIX)) return send(404, 'Not here: try /104-boyz/\n', { 'Content-Type': 'text/plain' });
-      let rel = path.slice(PREFIX.length);
-      if (rel === '' || rel.endsWith('/')) rel += 'index.html';
-      const file = resolve(base, rel);
-      if (file !== base && !file.startsWith(base + sep)) return send(403, 'No\n');
+      let path;
+      try {
+        path = decodeURIComponent(url.pathname);
+      } catch {
+        return send(400, 'Bad path\n', { 'Content-Type': 'text/plain' });
+      }
+      if (path.includes('\0')) return send(400, 'Bad path\n', { 'Content-Type': 'text/plain' });
+      const rel = path.endsWith('/') ? `${path}index.html` : path;
+      const file = resolve(base, `.${rel}`);
+      if (file !== base && !file.startsWith(base + sep)) return send(403, 'No\n', { 'Content-Type': 'text/plain' });
       let st;
       try {
         st = await stat(file);
       } catch {
         return send(404, 'Not found\n', { 'Content-Type': 'text/plain' });
       }
-      if (st.isDirectory()) return send(302, '', { Location: `${path}/` });
+      if (st.isDirectory()) return send(301, '', { Location: `${url.pathname}/${url.search}` });
       const body = await readFile(file);
       send(200, req.method === 'HEAD' ? '' : body, {
         'Content-Type': TYPES[extname(file)] || 'application/octet-stream',
         'Content-Length': String(body.length),
       });
     } catch (e) {
-      send(500, `${e && e.message}\n`);
+      send(500, `${e && e.message}\n`, { 'Content-Type': 'text/plain' });
     }
   });
 }
@@ -77,6 +80,6 @@ if (isMain) {
   const host = opt('--host', '127.0.0.1');
   const dir = opt('--dir', join(ROOT, 'site'));
   makeServer(dir).listen(port, host, () => {
-    console.log(`serve: ${dir} at http://${host}:${port}${PREFIX}`);
+    console.log(`serve: ${dir} at http://${host}:${port}/ (preview at /preview/)`);
   });
 }

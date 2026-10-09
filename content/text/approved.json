@@ -1,0 +1,132 @@
+{
+ "$comment": "The ledger (GAME_DESIGN 18.4): the exact words the creator approved, by id. Written only by tools/text.mjs apply. State is computed by comparing it with content/text/en.",
+ "lines": {
+  "app.description": {
+   "text": "A backpacking adventure",
+   "sha256": "718a0aa533b2cbf0e31398c2b2d97f594e2425f344c08fcaf1a5fd88eab53beb",
+   "seen": "05128d7c",
+   "batch": "B001",
+   "line": 1,
+   "on": "2026-10-09",
+   "how": "rewrite, review page (claude.ai artifact 8etjEPE4TzmtwGPUhaKmyf), marked done by the creator"
+  },
+  "app.error.copy": {
+   "text": "Copy bug report",
+   "sha256": "6232537fe30119f919885982c7ad2855ae94cf43bf48f25289c708704b97deb1",
+   "seen": "b3cfbd20",
+   "batch": "B001",
+   "line": 7,
+   "on": "2026-10-09",
+   "how": "approve, review page (claude.ai artifact 8etjEPE4TzmtwGPUhaKmyf), marked done by the creator"
+  },
+  "app.error.line": {
+   "text": "Something snagged.",
+   "sha256": "bc7bea2191868f2fd3180a5c2711385b1179ade23eeca4236f8dd3745684cfef",
+   "seen": "60ddbe8a",
+   "batch": "B001",
+   "line": 6,
+   "on": "2026-10-09",
+   "how": "approve, review page (claude.ai artifact 8etjEPE4TzmtwGPUhaKmyf), marked done by the creator"
+  },
+  "app.error.reopen": {
+   "text": "Restart",
+   "sha256": "6b983a81e5e8099e4e23a368e72636e31f029f2e691e5be714106b8cf59d70a7",
+   "seen": "b41fb578",
+   "batch": "B001",
+   "line": 8,
+   "on": "2026-10-09",
+   "how": "rewrite, chat, 2026-10-09: option a of three, the same word as the update note"
+  },
+  "app.install": {
+   "text": "Tap Share, then Add to Home Screen.\nThe Home Screen app keeps its own saves.",
+   "sha256": "e958ef9f7f8869184cb7fb7d9090f69d11660e3a35a1cd6e3c6ee5829b7195fa",
+   "seen": "8f70cb99",
+   "batch": "B001",
+   "line": 2,
+   "on": "2026-10-09",
+   "how": "rewrite, review page (claude.ai artifact 8etjEPE4TzmtwGPUhaKmyf), marked done by the creator"
+  },
+  "app.name": {
+   "text": "Olympic Peninsula Hiker",
+   "sha256": "77d78967773403a5c18f0bb6995d0c0f54c8b20458d19f17170e945563b43744",
+   "seen": "a3e3c244",
+   "batch": "B000",
+   "line": 1,
+   "on": "2026-10-08",
+   "how": "approve, decision 35"
+  },
+  "app.offline": {
+   "text": "Works offline",
+   "sha256": "09918727725cf77e84df99b4d4c5d120a96064f3974d5834c5eea0a1811f48b8",
+   "seen": "bc3af3b2",
+   "batch": "B001",
+   "line": 4,
+   "on": "2026-10-09",
+   "how": "approve, review page (claude.ai artifact 8etjEPE4TzmtwGPUhaKmyf), marked done by the creator"
+  },
+  "app.preview_name": {
+   "text": "OP Preview",
+   "sha256": "6bf4bf79ede54369a0016696858b299b19ef2074c372246bd4ad0931c9eab87c",
+   "seen": "d7264112",
+   "batch": "B001",
+   "line": 9,
+   "on": "2026-10-09",
+   "how": "approve, review page (claude.ai artifact 8etjEPE4TzmtwGPUhaKmyf), marked done by the creator"
+  },
+  "app.short_name": {
+   "text": "OP Hiker",
+   "sha256": "518da097dadb05dbf545100d65bd0fcae93a14994a65bdf4ece4fad7d29a4d2f",
+   "seen": "4f8c12d9",
+   "batch": "B000",
+   "line": 2,
+   "on": "2026-10-08",
+   "how": "approve, decision 35"
+  },
+  "app.update": {
+   "text": "A new version is ready.",
+   "sha256": "b9d4487cad049dd7a72a9cc649d7c795eadf701b1bb560fedf58e972aa65cc7d",
+   "seen": "daef6bfe",
+   "batch": "B001",
+   "line": 5,
+   "on": "2026-10-09",
+   "how": "rewrite, chat, 2026-10-09: option a of three"
+  },
+  "app.update.restart": {
+   "text": "Restart",
+   "sha256": "6b983a81e5e8099e4e23a368e72636e31f029f2e691e5be714106b8cf59d70a7",
+   "seen": "2f44ed8c",
+   "batch": "B001",
+   "line": 11,
+   "on": "2026-10-09",
+   "how": "approve, chat, 2026-10-09: new button line, with option a"
+  },
+  "app.upright": {
+   "text": "Best held upright",
+   "sha256": "abc5763b547705c80fdea0907b00c7e54948f4417abde1db196baac6998efb9d",
+   "seen": "717b8de7",
+   "batch": "B001",
+   "line": 3,
+   "on": "2026-10-09",
+   "how": "rewrite, review page (claude.ai artifact 8etjEPE4TzmtwGPUhaKmyf), marked done by the creator"
+  },
+  "credits.park_service": {
+   "text": "Not affiliated with the National Park Service.",
+   "sha256": "331cc5f07e7c06a74dec692bcbd03212be8a1b570dd27d7893025d9ba76030bc",
+   "seen": "421fe49b",
+   "batch": "B000",
+   "line": 4,
+   "on": "2026-10-09",
+   "how": "approve, decision 47"
+  },
+  "credits.people": {
+   "text": "A work of fiction. Real people appear with permission.",
+   "sha256": "69efdac3957d8080648102418f0de0fe95c071c1fe21e69a0fcdf3c620d9d5dc",
+   "seen": "8681d2ef",
+   "batch": "B000",
+   "line": 3,
+   "on": "2026-10-09",
+   "how": "approve, decision 47"
+  }
+ },
+ "cut": {}
+}

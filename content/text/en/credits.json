@@ -1,0 +1,15 @@
+{
+ "$comment": "Credits (GAME_DESIGN 12.20): decision 47's two approved lines. The credits screen isn't built yet, so nothing shows them.",
+ "credits.people": {
+  "text": "A work of fiction. Real people appear with permission.",
+  "ctx": "Credits, People: the opening line (decision 47). Main carries it only once everyone named on main has agreed (GAME_DESIGN 12.20)",
+  "screen": "credits",
+  "max": 80
+ },
+ "credits.park_service": {
+  "text": "Not affiliated with the National Park Service.",
+  "ctx": "Credits: the park service line (decision 47)",
+  "screen": "credits",
+  "max": 80
+ }
+}

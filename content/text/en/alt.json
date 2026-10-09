@@ -1,0 +1,9 @@
+{
+ "$comment": "Pictures' alt text, read by VoiceOver (GAME_DESIGN 18.3). Working words; status comes from approved.json.",
+ "alt.cover_high_divide_dusk": {
+  "text": "The High Divide at dusk. Across the Hoh valley, Mount Olympus glows pink in the last light, under the first stars. A hiker in a rust jacket walks the crest trail among subalpine firs and pink heather.",
+  "ctx": "VoiceOver's description of the cover on the title page (off main: there the cover is decoration beside the name; it returns as the loading art's in B002)",
+  "screen": "title",
+  "max": 240
+ }
+}

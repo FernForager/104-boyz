@@ -89,7 +89,7 @@ export function parsePic(text) {
       continue;
     }
     if (!COMMANDS.has(cmd)) {
-      errors.push({ line, msg: `unknown command "${cmd}"` });
+      errors.push({ line, msg: `unknown command "${cmd}"` }); // t-ok: .pic diagnostics (developer text)
       continue;
     }
     const points = () => {
@@ -97,20 +97,20 @@ export function parsePic(text) {
       for (const a of args) {
         const m = POINT_RE.exec(a);
         if (!m) {
-          err(`"${a}" is not a point (x,y)`);
+          err(`"${a}" is not a point (x,y)`); // t-ok: .pic diagnostics (developer text)
           return null;
         }
         out.push(Number(m[1]), Number(m[2]));
       }
       if (out.length === 0) {
-        err('needs at least one point');
+        err('needs at least one point'); // t-ok: .pic diagnostics (developer text)
         return null;
       }
       return out;
     };
     const color = (a) => {
       if (!INT_RE.test(a) || Number(a) > MAX_COLOR) {
-        err(`"${a}" is not a color 0-${MAX_COLOR}`);
+        err(`"${a}" is not a color 0-${MAX_COLOR}`); // t-ok: .pic diagnostics (developer text)
         return null;
       }
       return Number(a);
@@ -118,7 +118,7 @@ export function parsePic(text) {
     let op = null;
     switch (cmd) {
       case 'C': {
-        if (args.length !== 1) err('takes one color');
+        if (args.length !== 1) err('takes one color'); // t-ok: .pic diagnostics (developer text)
         else {
           const c = color(args[0]);
           if (c !== null) op = ['C', c];
@@ -152,37 +152,37 @@ export function parsePic(text) {
           const a = color(args[0]);
           const b = color(args[1]);
           if (!Object.prototype.hasOwnProperty.call(PATTERNS, args[2])) {
-            err(`unknown dither pattern "${args[2]}"`);
+            err(`unknown dither pattern "${args[2]}"`); // t-ok: .pic diagnostics (developer text)
           } else if (a !== null && b !== null) op = ['D', a, b, args[2]];
-        } else err('takes "a" or "a b pattern"');
+        } else err('takes "a" or "a b pattern"'); // t-ok: .pic diagnostics (developer text)
         break;
       }
       case 'B': {
-        if (args.length !== 2) err('takes a shape and a size');
-        else if (!BRUSH_SHAPES.includes(args[0])) err(`unknown brush shape "${args[0]}"`);
-        else if (!INT_RE.test(args[1]) || Number(args[1]) > MAX_BRUSH) err(`size must be 0-${MAX_BRUSH}`);
+        if (args.length !== 2) err('takes a shape and a size'); // t-ok: .pic diagnostics (developer text)
+        else if (!BRUSH_SHAPES.includes(args[0])) err(`unknown brush shape "${args[0]}"`); // t-ok: .pic diagnostics (developer text)
+        else if (!INT_RE.test(args[1]) || Number(args[1]) > MAX_BRUSH) err(`size must be 0-${MAX_BRUSH}`); // t-ok: .pic diagnostics (developer text)
         else op = ['B', args[0], Number(args[1])];
         break;
       }
       case 'T': {
-        if (args.length < 2 || args.length > 3) err('takes an id, a point and an optional fx');
-        else if (!ID_RE.test(args[0])) err(`"${args[0]}" is not a stamp id`);
-        else if (args.length === 3 && args[2] !== 'fx') err(`unknown stamp option "${args[2]}"`);
+        if (args.length < 2 || args.length > 3) err('takes an id, a point and an optional fx'); // t-ok: .pic diagnostics (developer text)
+        else if (!ID_RE.test(args[0])) err(`"${args[0]}" is not a stamp id`); // t-ok: .pic diagnostics (developer text)
+        else if (args.length === 3 && args[2] !== 'fx') err(`unknown stamp option "${args[2]}"`); // t-ok: .pic diagnostics (developer text)
         else {
           const m = POINT_RE.exec(args[1]);
-          if (!m) err(`"${args[1]}" is not a point (x,y)`);
+          if (!m) err(`"${args[1]}" is not a point (x,y)`); // t-ok: .pic diagnostics (developer text)
           else op = ['T', args[0], Number(m[1]), Number(m[2]), args.length === 3 ? 1 : 0];
         }
         break;
       }
       case 'Z': {
         const m = args.length === 2 ? RECT_RE.exec(args[1]) : null;
-        if (!m || !ID_RE.test(args[0])) err('takes an id and x,y,w,h');
+        if (!m || !ID_RE.test(args[0])) err('takes an id and x,y,w,h'); // t-ok: .pic diagnostics (developer text)
         else op = ['Z', args[0], Number(m[1]), Number(m[2]), Number(m[3]), Number(m[4])];
         break;
       }
       case '@': {
-        if (args.length !== 1 || !LAYERS.includes(args[0])) err(`layer must be one of ${LAYERS.join(', ')}`);
+        if (args.length !== 1 || !LAYERS.includes(args[0])) err(`layer must be one of ${LAYERS.join(', ')}`); // t-ok: .pic diagnostics (developer text)
         else op = ['@', args[0]];
         break;
       }

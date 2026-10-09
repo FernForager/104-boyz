@@ -1,18 +1,38 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { cpSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { parsePic } from '../../web/js/gfx/picvm.js';
-import { lintPicture, lintPictures, lintPalette, lintText, lintShell, lintPure, lintUrls, runLint } from '../../tools/lint.mjs';
+import { lintPicture, lintPictures, lintPalette, lintText, lintShell, lintPure, lintUrls, runLint, isError } from '../../tools/lint.mjs';
 import { ROOT } from '../../tools/pics.mjs';
 
 const plate = (text, id = 'test_plate') => ({ id, kind: 'plates', rel: `plates/${id}.pic`, parsed: parsePic(text), width: 160, height: 320 });
 const stamp = (text, id = 'test_stamp') => ({ id, kind: 'stamps', rel: `stamps/${id}.pic`, parsed: parsePic(text), width: 0, height: 0 });
 const codes = (issues) => issues.map((i) => i.code);
 
-test('the repo lints clean', () => {
+test('the repo lints clean, with only the three T07 warnings', () => {
   const issues = runLint();
-  assert.deepEqual(issues.map((i) => `${i.file}:${i.line}: ${i.code} ${i.msg}`), []);
+  assert.deepEqual(issues.filter(isError).map((i) => `${i.file}:${i.line}: ${i.code} ${i.msg}`), []);
+  // Session 1's book words, on lines only preview shows; they retire with the
+  // title page (S7). Any new warning fails here.
+  assert.deepEqual(
+    issues.filter((i) => !isError(i)).map((i) => `${i.code} ${i.id}`),
+    ['T07 title.tagline', 'T07 title.start_label', 'T07 title.begin'],
+  );
+});
+
+test('S01 in the repo: storage named outside platform/storage.js fails the lint (E.9)', (t) => {
+  const tmp = mkdtempSync(join(tmpdir(), 'oph-s01-'));
+  t.after(() => rmSync(tmp, { recursive: true, force: true }));
+  cpSync(join(ROOT, 'web'), join(tmp, 'web'), { recursive: true });
+  cpSync(join(ROOT, 'content'), join(tmp, 'content'), { recursive: true });
+  assert.deepEqual(runLint(tmp).filter(isError), []);
+  writeFileSync(join(tmp, 'web', 'js', 'ui', 'planted.js'), "export const saved = () => localStorage.getItem('oph.main.device');\n");
+  assert.deepEqual(
+    runLint(tmp).filter(isError).map((i) => `${i.file}:${i.line}: ${i.code}`),
+    ['web/js/ui/planted.js:1: S01', 'web/js/ui/planted.js:1: S01'],
+  );
 });
 
 test('gold is caught anywhere in M1a art', () => {
@@ -59,12 +79,17 @@ test('T04 and T06 catch shipped text', () => {
 });
 
 test('U01 keeps URLs relative', () => {
-  assert.deepEqual(codes(lintUrls('a.html', '<link rel="manifest" href="/manifest.webmanifest">')), ['U01']);
+  assert.deepEqual(lintUrls('a.html', '<link rel="manifest" href="/manifest.webmanifest">'), [
+    { file: 'a.html', line: 1, code: 'U01', msg: '"/manifest.webmanifest" must be relative: the same build is served at / and at /preview/' },
+  ]);
+  assert.deepEqual(codes(lintUrls('a.html', '<a href="https://ophiker.com/">x</a>')), ['U01'], 'not even our own address');
+  assert.deepEqual(codes(lintUrls('a.js', "navigator.serviceWorker.register(new URL('/sw.js', import.meta.url));")), ['U01']);
+  assert.deepEqual(codes(lintUrls('a.js', "navigator.serviceWorker.register(new URL('../../sw.js', import.meta.url).href);")), []);
   assert.deepEqual(codes(lintUrls('a.html', '<script src="js/main.js"></script>')), []);
   assert.deepEqual(codes(lintUrls('a.css', 'src: url("/fonts/x.woff2")')), ['U01']);
   assert.deepEqual(codes(lintUrls('m.webmanifest', '{"start_url": "/104-boyz/", "scope": "./"}')), ['U01']);
   assert.deepEqual(codes(lintUrls('a.js', "import { x } from '/js/gfx/picvm.js';")), ['U01']);
-  assert.deepEqual(codes(lintUrls('a.js', "const m = await import('/js/ui/shelf.js');")), ['U01']);
+  assert.deepEqual(codes(lintUrls('a.js', "const m = await import('/js/ui/home.js');")), ['U01']);
   assert.deepEqual(codes(lintUrls('a.js', "const r = await fetch('/art/art.json');")), ['U01']);
   assert.deepEqual(codes(lintUrls('a.js', "import { x } from '../gfx/picvm.js';")), []);
   assert.deepEqual(codes(lintUrls('a.js', "const u = new URL('../../art/art.json', import.meta.url);")), []);

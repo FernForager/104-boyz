@@ -1,0 +1,81 @@
+{
+ "$comment": "The app's frame: the name, the manifest, the install and upright lines, the update note, the error sheet and the stamps (GAME_DESIGN 18.3, 18.11). Working words; status comes from approved.json.",
+ "app.name": {
+  "text": "Olympic Peninsula Hiker",
+  "ctx": "The game's full name: the page title, the manifest, and the name over the cover (split over two lines there)",
+  "screen": "app",
+  "max": 24
+ },
+ "app.short_name": {
+  "text": "OP Hiker",
+  "ctx": "Under the Home Screen icon, and anywhere space is tight (iOS cuts labels at about 12 characters)",
+  "screen": "app",
+  "max": 12
+ },
+ "app.description": {
+  "text": "A backpacking adventure",
+  "ctx": "Search results and link previews",
+  "screen": "app",
+  "max": 120
+ },
+ "app.install": {
+  "text": "Tap Share, then Add to Home Screen.\nThe Home Screen app keeps its own saves.",
+  "ctx": "In Safari only, until the game is on the Home Screen (two lines)",
+  "screen": "app",
+  "max": 140
+ },
+ "app.upright": {
+  "text": "Best held upright",
+  "ctx": "When the phone is turned sideways, beside a turn-the-phone glyph",
+  "screen": "app",
+  "max": 40
+ },
+ "app.offline": {
+  "text": "Works offline",
+  "ctx": "A small stamp, once the game is saved on the phone",
+  "screen": "app",
+  "max": 24
+ },
+ "app.update": {
+  "text": "A new version is ready.",
+  "ctx": "The update note: the title page until the cabin is built, then the mailbox, when a new version arrives",
+  "screen": "app",
+  "max": 60
+ },
+ "app.update.restart": {
+  "text": "Restart",
+  "ctx": "The update note's button: saves the game and reloads into the new version",
+  "screen": "app",
+  "max": 22
+ },
+ "app.error.line": {
+  "text": "Something snagged.",
+  "ctx": "The error sheet, if something breaks",
+  "screen": "app",
+  "max": 60
+ },
+ "app.error.copy": {
+  "text": "Copy bug report",
+  "ctx": "Error sheet button",
+  "screen": "app",
+  "max": 22
+ },
+ "app.error.reopen": {
+  "text": "Restart",
+  "ctx": "Error sheet button: re-renders the screen from the autosave (a reload until S3)",
+  "screen": "app",
+  "max": 22
+ },
+ "app.preview_name": {
+  "text": "OP Preview",
+  "ctx": "Under the preview build's Home Screen icon (iOS cuts labels at about 12 characters)",
+  "screen": "app",
+  "max": 12
+ },
+ "app.build": {
+  "text": "{build}",
+  "ctx": "The build stamp: the build code alone, no words (five taps on it open the debug menu)",
+  "screen": "app",
+  "max": 24
+ }
+}

@@ -1,0 +1,21 @@
+{
+ "$comment": "What this milestone ships (BUILD_PLAN 3.6, 10.6). S2 writes the screens, the main block and the channel swap; S4 adds the shows-and-hides switches. screens: the screens this build has (a line on another screen waits for it: T11). main.screens: the screens the main channel carries. main.off: lines on those screens that main leaves out, each with its reason; the fill removes them, and T14 holds every other line main reaches to the ledger. channels: per-channel id swaps for the fill.",
+ "screens": ["app", "debug", "title"],
+ "main": {
+  "screens": ["app", "debug", "title"],
+  "off": {
+   "alt.cover_high_divide_dusk": "Unapproved (decision 64): on main the cover is decoration beside the name; B002 brings it back as the loading art's",
+   "dev.marks": "Preview only: main has no drafts to mark",
+   "dev.marks.drafts": "Preview only",
+   "dev.marks.off": "Preview only",
+   "dev.marks.on": "Preview only",
+   "title.begin": "Unapproved (decision 64): the button is hidden on main until it does something",
+   "title.begin_note": "Unapproved (decision 64): hidden with its button",
+   "title.start_label": "Unapproved (decision 64): main labels the section with app.name",
+   "title.tagline": "Unapproved (decision 64), and book words (decision 22)"
+  }
+ },
+ "channels": {
+  "preview": { "swap": { "app.short_name": "app.preview_name" } }
+ }
+}

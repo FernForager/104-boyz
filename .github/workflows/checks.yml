@@ -1,0 +1,22 @@
+name: checks
+# The same checks as a deploy, on every pull request and on every branch but
+# main and preview (which pages.yml builds), so a session's branch is green
+# before it merges (BUILD_PLAN 6.2). It deploys nothing.
+on:
+  pull_request:
+  push:
+    branches-ignore: [main, preview]
+permissions:
+  contents: read
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22.23.3
+      - run: npm run ci

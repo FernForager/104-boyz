@@ -1,8 +1,8 @@
 {
   "id": "./",
-  "name": "Olympic Peninsula Hiker",
-  "short_name": "OP Hiker",
-  "description": "A picture-book hiking trip on the Olympic Peninsula.",
+  "name": "@app.name",
+  "short_name": "@app.short_name",
+  "description": "@app.description",
   "lang": "en",
   "start_url": "./",
   "scope": "./",

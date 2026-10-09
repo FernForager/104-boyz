@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="dev">
+<html lang="en" data-build="dev" data-channel="dev">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -7,11 +7,11 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="OP Hiker">
+<meta name="apple-mobile-web-app-title" data-t-attr="content:app.short_name">
 <meta name="theme-color" content="#1b1f2a">
 <meta name="color-scheme" content="dark">
-<meta name="description" content="A picture-book hiking trip on the Olympic Peninsula.">
-<title>Olympic Peninsula Hiker</title>
+<meta name="description" data-t-attr="content:app.description">
+<title data-t="app.name"></title>
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
@@ -19,29 +19,49 @@
 <link rel="modulepreload" href="js/gfx/picvm.js">
 <link rel="stylesheet" href="css/tokens.css">
 <link rel="stylesheet" href="css/game.css">
+<script type="module" src="js/boot.js"></script>
 <script type="module" src="js/main.js"></script>
 </head>
 <body>
-<main class="title-page" id="app">
+<main class="title-page" id="app" data-screen="title">
   <figure class="plate drawing" id="plate">
-    <canvas class="picture" id="cover" width="160" height="320" role="img"
-      aria-label="The High Divide at dusk. Across the Hoh valley, Mount Olympus glows pink in the last light, under the first stars. A hiker in a rust jacket walks the crest trail among subalpine firs and pink heather."></canvas>
+    <canvas class="picture" id="cover" width="160" height="320" data-t-img="alt.cover_high_divide_dusk"></canvas>
     <figcaption class="cover-title">
-      <h1 class="title"><span class="title-small">Olympic Peninsula</span> <span class="title-big">Hiker</span></h1>
-      <p class="tagline">a picture-book trip</p>
+      <h1 class="title" data-t="app.name" data-t-split="title"></h1>
+      <p class="tagline" data-t="title.tagline"></p>
     </figcaption>
   </figure>
-  <section class="shelf" id="shelf" aria-label="Bookshelf">
-    <button class="box choice" type="button" disabled aria-labelledby="begin-label" aria-describedby="trail-soon">
-      <span class="choice-label" id="begin-label">Begin a new book</span>
-      <span class="choice-note" id="trail-soon">The trail opens soon.</span>
+  <section class="shelf" id="shelf" data-t-attr="aria-label:title.start_label|app.name">
+    <button class="box choice" type="button" disabled aria-labelledby="begin-label" aria-describedby="trail-soon" data-t-unit>
+      <span class="choice-label" id="begin-label" data-t="title.begin"></span>
+      <span class="choice-note" id="trail-soon" data-t="title.begin_note"></span>
     </button>
-    <p class="install" id="install">Before your first book, tap Share, then <b>Add to Home Screen</b>. The Home Screen book keeps its own saves.</p>
-    <p class="edition">Edition <span id="build-id">dev</span></p>
+    <div class="update-note box" id="update" role="status" hidden>
+      <p class="update-line" data-t="app.update"></p>
+      <button class="box choice" type="button" id="update-restart" data-t="app.update.restart"></button>
+    </div>
+    <p class="install" id="install" data-t="app.install"></p>
+    <p class="stamps">
+      <span class="offline-stamp" id="offline" data-t="app.offline" hidden></span>
+      <span class="build-stamp" id="build-stamp" data-t="app.build"></span>
+    </p>
   </section>
 </main>
 <div class="upright" role="note">
-  <p>This book reads best held upright.</p>
+  <svg class="turn-glyph" viewBox="0 0 16 16" width="64" height="64" fill="currentColor" aria-hidden="true" focusable="false" shape-rendering="crispEdges"><!-- a phone held sideways, and an arrow turning it upright, on the 16x16 grid -->
+    <rect x="6" y="1" width="5" height="1"/><rect x="4" y="2" width="2" height="1"/><rect x="11" y="2" width="2" height="1"/><rect x="3" y="3" width="1" height="2"/><rect x="13" y="3" width="1" height="2"/>
+    <rect x="11" y="5" width="5" height="1"/><rect x="12" y="6" width="3" height="1"/><rect x="13" y="7" width="1" height="1"/>
+    <rect x="1" y="8" width="11" height="1"/><rect x="1" y="14" width="11" height="1"/><rect x="1" y="9" width="1" height="5"/><rect x="11" y="9" width="1" height="5"/><rect x="9" y="11" width="1" height="1"/>
+  </svg>
+  <p data-t="app.upright"></p>
+</div>
+<div class="scrim" id="error-sheet" hidden>
+  <div class="sheet box" role="alertdialog" aria-modal="true" aria-labelledby="error-line">
+    <p class="sheet-line" id="error-line" data-t="app.error.line"></p>
+    <textarea class="report" id="error-report" readonly hidden aria-labelledby="error-line"></textarea>
+    <button class="box choice" type="button" id="error-copy" data-t="app.error.copy"></button>
+    <button class="box choice" type="button" id="error-restart" data-t="app.error.reopen"></button>
+  </div>
 </div>
 </body>
 </html>

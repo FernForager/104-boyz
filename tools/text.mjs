@@ -1,0 +1,871 @@
+#!/usr/bin/env node
+// The words (GAME_DESIGN 18; BUILD_PLAN 10). Every line of English a player
+// sees lives in content/text/en/ by id; this module reads it, works out each
+// line's state from the ledger, fills the shell and the manifest for each
+// channel, and writes the ledger from the creator's answers.
+//
+//   node tools/text.mjs check [--main]   the text lints (T07, T10-T14); with
+//                                        --main, also main's built words, in
+//                                        memory
+//   node tools/text.mjs count            where things stand
+//   node tools/text.mjs apply B00n       a batch's answers into the ledger
+//
+// State is computed, never stored (18.4): approved when the ledger's hash
+// matches the working words, changed when the ledger has other words, cut
+// when the words were vetoed, draft otherwise. Dev lines are exempt
+// (decision 64), and a line with no letters (the bare build code) has no
+// words to approve. Main ships the ledger's words only; preview ships the
+// working words. Only `apply` writes content/text/approved.json, and only
+// from an answers file that names each line and the hash the creator saw
+// (lead call 27). It never reads the clock: dates come from the answers.
+
+import { existsSync, readFileSync, readdirSync, statSync, writeFileSync } from 'node:fs';
+import { basename, join, relative, sep } from 'node:path';
+import { createHash } from 'node:crypto';
+import { pathToFileURL } from 'node:url';
+import { ROOT } from './pics.mjs';
+import { parseHtml, serialize, walk, getAttr, setAttr, removeAttr, hasAttr, el, text as textNode, textOf } from './html.mjs';
+import { renderParts, plainText } from '../web/js/text.js';
+
+export const ID_RE = /^[a-z][a-z0-9_]*(\.[a-z0-9_]+)+$/;
+export const CLASSES = ['ours', 'dev'];
+export const CHANNELS = ['main', 'preview'];
+/** Ids that generated files use (the manifests, the /preview/ placeholder), for T11. */
+export const MANIFEST_IDS = ['app.name', 'app.short_name', 'app.description', 'app.preview_name'];
+export const PLACEHOLDER_IDS = ['app.preview_name', 'app.name'];
+/** The variables the build's fill knows. */
+export const FILL_VARS = ['build'];
+/** Preview's own name, for its manifest's name and short_name (E.7). */
+export const PREVIEW_NAME = 'app.preview_name';
+export const SCOPE_FILE = 'content/scope/m1a.json';
+export const LEDGER_FILE = 'content/text/approved.json';
+const LEDGER_COMMENT =
+  'The ledger (GAME_DESIGN 18.4): the exact words the creator approved, by id. Written only by tools/text.mjs apply. State is computed by comparing it with content/text/en.';
+const FIELDS = new Set(['text', 'ctx', 'screen', 'max', 'class']);
+const VERDICTS = new Set(['approve', 'rewrite', 'cut', 'looks_fine', 'later', 'note']);
+/** States that main may ship. */
+export const SHIPPABLE = new Set(['approved', 'changed', 'nowords', 'dev']);
+/** States preview leaves unmarked; the rest get data-t-state and a line in marks.json. */
+export const UNMARKED = new Set(['approved', 'nowords', 'dev']);
+
+// ---- Hashes ---------------------------------------------------------------
+
+/** FNV-1a, 32-bit, over the UTF-8 bytes: the batches' hash, 8 hex digits. */
+export function fnv1a(s) {
+  let h = 0x811c9dc5;
+  for (const b of Buffer.from(String(s), 'utf8')) h = Math.imul(h ^ b, 0x01000193) >>> 0;
+  return h.toString(16).padStart(8, '0');
+}
+
+/** A line's words as one string: itself, or a plural as canonical JSON (sorted keys, each form NFC). */
+export function wordsString(text, nfc = false) {
+  if (typeof text === 'string') return nfc ? text.normalize('NFC') : text;
+  const keys = Object.keys(text).sort();
+  return JSON.stringify(Object.fromEntries(keys.map((k) => [k, nfc ? text[k].normalize('NFC') : text[k]])));
+}
+
+/** SHA-256 hex of the words after NFC (the ledger's hash). */
+export function wordsHash(text) {
+  return createHash('sha256').update(wordsString(text, true), 'utf8').digest('hex');
+}
+
+/** A line's forms: one string, or a plural's forms. */
+export function forms(text) {
+  return typeof text === 'string' ? [text] : Object.values(text);
+}
+
+/** False when no letter is left once the {...} tokens are removed (the bare build code). */
+export function hasWords(text) {
+  return forms(text).some((f) => /\p{L}/u.test(f.replace(/\{[^{}]*\}/g, '')));
+}
+
+const sameWords = (a, b) => wordsString(a) === wordsString(b);
+
+// ---- Reading --------------------------------------------------------------
+
+function walkJson(dir) {
+  const out = [];
+  let names = [];
+  try {
+    names = readdirSync(dir).sort();
+  } catch {
+    return out;
+  }
+  for (const n of names) {
+    const p = join(dir, n);
+    if (statSync(p).isDirectory()) out.push(...walkJson(p));
+    else if (n.endsWith('.json')) out.push(p);
+  }
+  return out;
+}
+
+function readJson(path, fallback) {
+  if (!existsSync(path)) return fallback;
+  return JSON.parse(readFileSync(path, 'utf8'));
+}
+
+/** The 1-based line of a JSON key in its file (after `from`, when given). */
+export function lineOfKey(src, key, from = 0) {
+  const k = src.indexOf(`${JSON.stringify(key)}:`, from);
+  if (k < 0) return 1;
+  let n = 1;
+  for (let i = 0; i < k; i++) if (src.charCodeAt(i) === 10) n++;
+  return n;
+}
+
+function isWords(t) {
+  if (typeof t === 'string') return true;
+  if (!t || typeof t !== 'object' || Array.isArray(t)) return false;
+  const keys = Object.keys(t).sort().join(',');
+  return keys === 'one,other' && typeof t.one === 'string' && typeof t.other === 'string';
+}
+
+/**
+ * Read every line, the ledger, the scope, the T07 allowlist and the answers.
+ * Throws on a duplicate id, an id outside its area's file, a bad id or a
+ * missing field; with strict false it lists them in `problems` instead (T11).
+ * @param {string} [root]
+ * @param {{strict?: boolean}} [o]
+ */
+export function readText(root = ROOT, { strict = true } = {}) {
+  const lines = new Map();
+  const problems = [];
+  const files = [];
+  const rel = (p) => relative(root, p).split(sep).join('/');
+  for (const path of walkJson(join(root, 'content', 'text', 'en'))) {
+    const file = rel(path);
+    const area = basename(path, '.json');
+    const src = readFileSync(path, 'utf8');
+    files.push(file);
+    let data;
+    try {
+      data = JSON.parse(src);
+    } catch (e) {
+      problems.push({ file, line: 1, msg: `not JSON: ${e.message}` });
+      continue;
+    }
+    for (const [id, l] of Object.entries(data)) {
+      if (id === '$comment') continue;
+      const line = lineOfKey(src, id);
+      const bad = (msg) => problems.push({ file, line, msg: `${id}: ${msg}` });
+      if (!ID_RE.test(id)) bad('not a good id (area.thing[.detail]: lowercase, digits, underscores)');
+      else if (!id.startsWith(`${area}.`)) bad(`belongs in en/${id.split('.')[0]}.json (an id's area is its file)`);
+      if (lines.has(id)) {
+        bad(`also defined in ${lines.get(id).file}`);
+        continue;
+      }
+      if (!l || typeof l !== 'object') {
+        bad('not a line');
+        continue;
+      }
+      for (const k of Object.keys(l)) if (!FIELDS.has(k)) bad(`unknown field "${k}"`);
+      const cls = l.class === undefined ? 'ours' : l.class;
+      if (!isWords(l.text)) bad('text must be words, or a plural {one, other}');
+      if (typeof l.ctx !== 'string' || !l.ctx.trim()) bad('needs a ctx note');
+      if (typeof l.screen !== 'string' || !/^[a-z][a-z0-9_]*$/.test(l.screen)) bad('needs a screen');
+      if (!CLASSES.includes(cls)) bad(`class must be one of ${CLASSES.join(', ')}`);
+      if (cls === 'ours' && !(Number.isInteger(l.max) && l.max > 0)) bad('needs a max (characters)');
+      lines.set(id, { id, text: l.text, ctx: l.ctx, screen: l.screen, max: l.max, class: cls, file, line });
+    }
+  }
+  const ledgerSrc = existsSync(join(root, LEDGER_FILE)) ? readFileSync(join(root, LEDGER_FILE), 'utf8') : '';
+  const scopeSrc = existsSync(join(root, SCOPE_FILE)) ? readFileSync(join(root, SCOPE_FILE), 'utf8') : '';
+  const ledger = ledgerSrc ? JSON.parse(ledgerSrc) : { lines: {}, cut: {} };
+  ledger.lines = ledger.lines || {};
+  ledger.cut = ledger.cut || {};
+  const scope = scopeSrc ? JSON.parse(scopeSrc) : {};
+  scope.screens = scope.screens || [];
+  scope.main = { screens: [], off: {}, ...(scope.main || {}) };
+  scope.channels = scope.channels || {};
+  const allow = readJson(join(root, 'content', 'text', 't07_allow.json'), { ids: {} });
+  const answers = new Map();
+  for (const path of walkJson(join(root, 'content', 'text', 'review'))) {
+    if (!path.endsWith('.answers.json')) continue;
+    answers.set(basename(path, '.answers.json'), { file: rel(path), src: readFileSync(path, 'utf8'), data: JSON.parse(readFileSync(path, 'utf8')) });
+  }
+  if (strict && problems.length) throw new Error(`text:\n  ${problems.map((p) => `${p.file}:${p.line}: ${p.msg}`).join('\n  ')}`);
+  return { root, lines, files, ledger, ledgerSrc, scope, scopeSrc, allow, answers, problems };
+}
+
+// ---- States and channels --------------------------------------------------
+
+/**
+ * A line's state: dev, nowords, cut, approved, changed or draft, in that
+ * order; missing when the id isn't defined.
+ */
+export function stateOf(id, text) {
+  const line = text.lines.get(id);
+  if (!line) return 'missing';
+  if (line.class === 'dev') return 'dev';
+  if (!hasWords(line.text)) return 'nowords';
+  const h = wordsHash(line.text);
+  if ((text.ledger.cut[id] || []).some((e) => e.sha256 === h)) return 'cut';
+  const e = text.ledger.lines[id];
+  if (e && e.sha256 === h) return 'approved';
+  if (e) return 'changed';
+  return 'draft';
+}
+
+/**
+ * What a channel ships, by id. Main: the ledger's words for approved and
+ * changed lines, the working words for dev and no-words lines, nothing for
+ * drafts and cut lines. Preview: the working words, and "" for cut ones.
+ * @returns {Record<string, string | {one: string, other: string}>}
+ */
+export function wordsFor(text, channel) {
+  const out = {};
+  for (const [id, line] of text.lines) {
+    const s = stateOf(id, text);
+    if (channel === 'main') {
+      if (s === 'approved' || s === 'changed') out[id] = text.ledger.lines[id].text;
+      else if (s === 'nowords' || s === 'dev') out[id] = line.text;
+    } else out[id] = s === 'cut' ? '' : line.text;
+  }
+  return out;
+}
+
+const offMain = (text, id) => Object.prototype.hasOwnProperty.call(text.scope.main.off, id);
+const swapId = (text, channel, id) => (text.scope.channels[channel] && text.scope.channels[channel].swap && text.scope.channels[channel].swap[id]) || id;
+/** Does an id ship on this channel? Preview: any. Main: any not in main.off. */
+const shipsOn = (text, channel, id) => channel !== 'main' || !offMain(text, id);
+
+function pick(w, vars) {
+  if (typeof w === 'string') return w;
+  return vars && vars.n === 1 ? w.one : w.other;
+}
+
+// ---- The fill -------------------------------------------------------------
+
+/** Parse data-t-attr="name:id|id2|;name2:id" into [[name, [ids]]]. */
+export function parseAttrChains(spec) {
+  return String(spec)
+    .split(';')
+    .map((s) => s.trim())
+    .filter(Boolean)
+    .map((s) => {
+      const k = s.indexOf(':');
+      return [s.slice(0, k).trim(), s.slice(k + 1).split('|').map((x) => x.trim())];
+    });
+}
+
+/** Nodes for a line's words: text, <br>, <em>, and on preview <span class="t-ph"> around {UPPER}. */
+function wordNodes(parts, channel) {
+  return parts.map((p) => {
+    if (p.br) return el('br');
+    if (p.em !== undefined) return el('em', [], [textNode(p.em)]);
+    if (p.ph !== undefined && channel !== 'main') return el('span', [['class', 't-ph']], [textNode(p.ph)]);
+    return textNode(p.ph ?? p.text);
+  });
+}
+
+function removeNode(node, parents) {
+  const parent = parents.get(node);
+  const i = parent.children.indexOf(node);
+  const prev = parent.children[i - 1];
+  // Take the indent before it too, so the page reads as if it was never there.
+  if (prev && prev.type === 'text' && !prev.raw.trim()) parent.children.splice(i - 1, 2);
+  else parent.children.splice(i, 1);
+}
+
+/**
+ * Fill a parsed page for a channel (A.5). Returns the ids it used, the ids
+ * it couldn't find, and on main the ids that aren't shippable (T14).
+ */
+function fillTree(tree, { channel, text, build }) {
+  const words = wordsFor(text, channel);
+  const vars = { build };
+  const used = new Set();
+  const missing = new Set();
+  const blocked = new Set();
+  const parents = new Map();
+  const order = [];
+  walk(tree, (n, p) => {
+    parents.set(n, p || tree);
+    if (n.type === 'element') order.push(n);
+  });
+  const gone = new Set();
+  const isGone = (n) => {
+    for (let x = n; x && x !== tree; x = parents.get(x)) if (gone.has(x)) return true;
+    return false;
+  };
+  const plain = (id) => {
+    if (!text.lines.has(id)) {
+      missing.add(id);
+      return `⟦${id}⟧`;
+    }
+    if (channel === 'main' && !SHIPPABLE.has(stateOf(id, text))) blocked.add(id);
+    const w = words[id];
+    return w === undefined ? '' : plainText(renderParts(pick(w, vars), vars)).replace(/\n/g, ' ');
+  };
+
+  for (const node of order) {
+    if (isGone(node)) continue;
+    const img = getAttr(node, 'data-t-img');
+    if (img) {
+      const id = swapId(text, channel, img);
+      if (shipsOn(text, channel, id)) {
+        used.add(id);
+        setAttr(node, 'role', 'img');
+        setAttr(node, 'aria-label', plain(id));
+      } else setAttr(node, 'aria-hidden', 'true');
+    }
+    const chains = getAttr(node, 'data-t-attr');
+    if (chains) {
+      for (const [name, chain] of parseAttrChains(chains)) {
+        let done = false;
+        for (const c of chain) {
+          if (c === '') break; // an empty end: leave the attribute out
+          const id = swapId(text, channel, c);
+          if (!shipsOn(text, channel, id)) continue;
+          used.add(id);
+          setAttr(node, name, plain(id));
+          done = true;
+          break;
+        }
+        if (!done) removeAttr(node, name);
+      }
+    }
+    const tid = getAttr(node, 'data-t');
+    if (!tid) continue;
+    const id = swapId(text, channel, tid);
+    if (!shipsOn(text, channel, id)) {
+      let unit = node;
+      for (let x = node; x && x !== tree; x = parents.get(x)) {
+        if (x.type === 'element' && hasAttr(x, 'data-t-unit')) {
+          unit = x;
+          break;
+        }
+      }
+      gone.add(unit);
+      removeNode(unit, parents);
+      continue;
+    }
+    used.add(id);
+    if (!text.lines.has(id)) {
+      missing.add(id);
+      node.children = [textNode(`⟦${id}⟧`)];
+      setAttr(node, 'data-t-state', 'missing');
+      continue;
+    }
+    const state = stateOf(id, text);
+    if (channel === 'main' && !SHIPPABLE.has(state)) blocked.add(id);
+    const w = words[id];
+    const parts = w === undefined ? [] : renderParts(pick(w, vars), vars);
+    if (getAttr(node, 'data-t-split') === 'title') {
+      const s = plainText(parts).replace(/\n/g, ' ');
+      const k = s.lastIndexOf(' ');
+      node.children =
+        k < 0
+          ? [el('span', [['class', 'title-big']], [textNode(s)])]
+          : [el('span', [['class', 'title-small']], [textNode(s.slice(0, k))]), textNode(' '), el('span', [['class', 'title-big']], [textNode(s.slice(k + 1))])];
+    } else node.children = wordNodes(parts, channel);
+    if (channel !== 'main' && !UNMARKED.has(state)) setAttr(node, 'data-t-state', state);
+  }
+  return { used, missing, blocked };
+}
+
+/**
+ * Fill the shell for a channel: words by id, the build code, and the channel
+ * and build stamped on <html> (A.5). Main throws on a missing id (T11) and
+ * on a line it can't ship (T14).
+ * @param {string} html
+ * @param {{channel: string, text: any, build: string}} ctx
+ */
+export function fillPage(html, { channel, text, build }) {
+  if (!CHANNELS.includes(channel)) throw new Error(`fill: no channel "${channel}"`);
+  const tree = parseHtml(html);
+  let root = null;
+  walk(tree, (n) => {
+    if (!root && n.type === 'element' && n.name === 'html') root = n;
+  });
+  for (const a of ['data-build', 'data-channel']) {
+    if (!root || getAttr(root, a) !== 'dev') throw new Error(`build: web/index.html has lost its placeholder (<html ${a}="dev">)`);
+  }
+  setAttr(root, 'data-build', build);
+  setAttr(root, 'data-channel', channel);
+  const r = fillTree(tree, { channel, text, build });
+  if (channel === 'main' && r.missing.size) throw new Error(`fill: T11 main uses undefined ids: ${[...r.missing].sort().join(', ')}`);
+  if (channel === 'main' && r.blocked.size) throw new Error(gateSummary(text, [...r.blocked]));
+  return serialize(tree);
+}
+
+/** The ids of a manifest source's "@id" values. */
+export function manifestIds(src) {
+  const m = typeof src === 'string' ? JSON.parse(src) : src;
+  return Object.values(m)
+    .filter((v) => typeof v === 'string' && v.startsWith('@'))
+    .map((v) => v.slice(1));
+}
+
+/**
+ * Preview's manifest id. An id resolves against start_url's origin, not the
+ * manifest's URL (W3C appmanifest, "process the id member"; WebKit's parser
+ * does the same), so "./" names https://ophiker.com/ on both channels, and
+ * they would be one app. Main keeps "./"; preview names its own path.
+ */
+export const PREVIEW_MANIFEST_ID = '/preview/';
+
+/**
+ * The manifest for a channel, from web/manifest.webmanifest, whose name,
+ * short_name and description are "@id"s. Preview's name and short_name are
+ * app.preview_name, and its id is PREVIEW_MANIFEST_ID (E.7). start_url and
+ * scope stay "./", each resolving to its channel's folder, so each channel
+ * is its own app.
+ */
+export function makeManifest(src, { channel, text }) {
+  if (!CHANNELS.includes(channel)) throw new Error(`manifest: no channel "${channel}"`);
+  const words = wordsFor(text, channel);
+  let out = src;
+  for (const [k, v] of Object.entries(JSON.parse(src))) {
+    if (typeof v !== 'string' || !v.startsWith('@')) continue;
+    let id = swapId(text, channel, v.slice(1));
+    if (channel !== 'main' && (k === 'name' || k === 'short_name')) id = PREVIEW_NAME;
+    const w = words[id];
+    if (typeof w !== 'string' || !w) throw new Error(`manifest: ${k} (${id}) has no words to ship on ${channel}`);
+    // Replace the value in place, so the file keeps the source's layout.
+    const at = new RegExp(`(${JSON.stringify(k)}\\s*:\\s*)${JSON.stringify(v).replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`);
+    out = out.replace(at, (m, key) => `${key}${JSON.stringify(plainText(renderParts(w)).replace(/\n/g, ' '))}`);
+  }
+  if (channel !== 'main') {
+    if (!/"id"\s*:\s*"\.\/"/.test(out)) throw new Error('manifest: web/manifest.webmanifest has lost its "id": "./"');
+    out = out.replace(/("id"\s*:\s*)"\.\/"/, `$1${JSON.stringify(PREVIEW_MANIFEST_ID)}`);
+  }
+  JSON.parse(out);
+  return out;
+}
+
+/**
+ * The ids main reaches (T14): those main's fill uses in the shell, after
+ * main.off and the attribute chains; the manifest's; and every line on a
+ * screen main carries that isn't in main.off (JS-only lines).
+ * @returns {string[]}
+ */
+export function mainReach(text, html, manifest) {
+  const reach = new Set();
+  const r = fillTree(parseHtml(html), { channel: 'main', text, build: 'dev' });
+  for (const id of r.used) reach.add(id);
+  if (manifest) for (const id of manifestIds(manifest)) reach.add(id);
+  for (const [id, line] of text.lines) if (text.scope.main.screens.includes(line.screen) && !offMain(text, id)) reach.add(id);
+  return [...reach].sort();
+}
+
+/** The shell and manifest sources, as the build reads them. */
+export function shellSources(root = ROOT) {
+  return {
+    html: readFileSync(join(root, 'web', 'index.html'), 'utf8'),
+    manifest: readFileSync(join(root, 'web', 'manifest.webmanifest'), 'utf8'),
+  };
+}
+
+/**
+ * The text bundles for a channel: main's en.json holds the words of every
+ * id main reaches, and nothing else (18.6); preview's holds every line, with
+ * marks.json, the state of each line that isn't approved, dev or no-words.
+ * @returns {Record<string, Record<string, any>>}
+ */
+export function bundle(text, channel, reach) {
+  const sorted = (o) => Object.fromEntries(Object.keys(o).sort().map((k) => [k, o[k]]));
+  const words = wordsFor(text, channel);
+  if (channel === 'main') {
+    const out = {};
+    for (const id of reach) {
+      if (words[id] === undefined) throw new Error(`bundle: main reaches ${id} (${stateOf(id, text)}), which has no words to ship`);
+      out[id] = words[id];
+    }
+    return { 'en.json': sorted(out) };
+  }
+  const marks = {};
+  for (const id of text.lines.keys()) {
+    const s = stateOf(id, text);
+    if (!UNMARKED.has(s)) marks[id] = s;
+  }
+  return { 'en.json': sorted(words), 'marks.json': sorted(marks) };
+}
+
+/** JSON as the text files write it: one-space indent, a final newline. */
+export const json1 = (o) => `${JSON.stringify(o, null, 1)}\n`;
+
+// ---- The main gate (T14) --------------------------------------------------
+
+/** "T14 main gate: 1 line not approved | title: title.begin (draft)" */
+export function gateSummary(text, ids) {
+  const by = new Map();
+  for (const id of [...ids].sort()) {
+    const line = text.lines.get(id);
+    const screen = line ? line.screen : '?';
+    if (!by.has(screen)) by.set(screen, []);
+    by.get(screen).push(`${id} (${stateOf(id, text)})`);
+  }
+  const n = ids.length;
+  return `T14 main gate: ${n} line${n === 1 ? '' : 's'} not approved | ${[...by].map(([s, l]) => `${s}: ${l.join(', ')}`).join(' | ')}`;
+}
+
+/** The T07 pattern: F.3's book words, whole words, case-blind. */
+export const BOOK_WORDS = /\b(?:books?|bookshelf|chapters?|pages?|volumes?|back\s+cover|picture-book|storybook|editions?|shelf\s+of\s+trips)\b/i;
+
+/**
+ * Attributes that hold code, never words (T10, T14). Any other attribute
+ * counts as words a player, a screen reader or a link preview may meet (a
+ * button's value, an option's label, aria-label): the list names what is
+ * safe, so anything new is checked until a session adds it here, with care.
+ * Every data-* attribute is code.
+ */
+const CODE_ATTRS = new Set([
+  ...['id', 'class', 'style', 'lang', 'dir', 'translate', 'hidden', 'inert', 'tabindex', 'role', 'slot', 'part', 'is', 'popover', 'popovertarget'],
+  ...['href', 'src', 'srcset', 'sizes', 'rel', 'as', 'type', 'media', 'crossorigin', 'integrity', 'referrerpolicy', 'loading', 'decoding', 'fetchpriority', 'async', 'defer', 'nomodule', 'nonce', 'charset'],
+  ...['name', 'property', 'itemprop', 'http-equiv', 'for', 'form', 'list', 'action', 'method', 'target', 'accept', 'pattern', 'min', 'max', 'step', 'maxlength', 'minlength', 'rows', 'cols', 'wrap'],
+  ...['disabled', 'readonly', 'required', 'checked', 'selected', 'multiple', 'open', 'autofocus', 'autocomplete', 'autocapitalize', 'autocorrect', 'spellcheck', 'inputmode', 'enterkeyhint', 'draggable', 'contenteditable'],
+  ...['width', 'height', 'colspan', 'rowspan', 'controls', 'muted', 'loop', 'playsinline', 'preload', 'poster'],
+  ...['xmlns', 'viewbox', 'preserveaspectratio', 'fill', 'fill-rule', 'clip-rule', 'stroke', 'stroke-width', 'stroke-linecap', 'stroke-linejoin', 'opacity', 'transform', 'focusable', 'shape-rendering'],
+  ...['x', 'y', 'x1', 'y1', 'x2', 'y2', 'cx', 'cy', 'r', 'rx', 'ry', 'd', 'points'],
+  ...['aria-hidden', 'aria-modal', 'aria-pressed', 'aria-expanded', 'aria-checked', 'aria-selected', 'aria-disabled', 'aria-current', 'aria-live', 'aria-atomic', 'aria-busy', 'aria-haspopup'],
+  ...['aria-labelledby', 'aria-describedby', 'aria-controls', 'aria-owns', 'aria-details', 'aria-errormessage', 'aria-activedescendant', 'aria-flowto'],
+  ...['aria-level', 'aria-posinset', 'aria-setsize', 'aria-valuemin', 'aria-valuemax', 'aria-valuenow', 'aria-orientation', 'aria-sort', 'aria-invalid', 'aria-required', 'aria-readonly', 'aria-multiline', 'aria-multiselectable', 'aria-autocomplete'],
+]);
+/** Metas (by name or property) whose content is a setting or a URL, not words. Every other meta's content counts as words (description, the app titles, og:title, og:description, twitter:*). */
+const SETTING_METAS = new Set([
+  ...['viewport', 'theme-color', 'color-scheme', 'format-detection', 'referrer', 'robots'],
+  ...['apple-mobile-web-app-capable', 'apple-mobile-web-app-status-bar-style', 'mobile-web-app-capable'],
+  ...['og:url', 'og:image', 'og:type', 'og:locale', 'twitter:card', 'twitter:image'],
+]);
+
+/** A meta's name (or property, or itemprop), for messages. */
+export const metaName = (n) => getAttr(n, 'name') || getAttr(n, 'property') || getAttr(n, 'itemprop') || getAttr(n, 'http-equiv') || '';
+
+/** Does an attribute, by name alone, count as words? (T10's setAttribute sink; value and content count, not knowing the element.) */
+export const isWordAttr = (name) => !CODE_ATTRS.has(name) && !name.startsWith('data-');
+
+/** Inputs whose value is a setting, never shown as words. */
+const VALUE_INPUTS = new Set(['hidden', 'checkbox', 'radio', 'range', 'color', 'number']);
+
+/**
+ * The attributes of an element that count as words (T10, T14), as [name,
+ * value] pairs: everything but CODE_ATTRS and data-*; a meta's content
+ * unless the meta is a setting (or http-equiv); and value only on an input
+ * that shows it (a button-type input's label, a text field's first words).
+ */
+export function wordAttrs(n) {
+  const meta = n.name === 'meta' && !SETTING_METAS.has(getAttr(n, 'name') || getAttr(n, 'property') || '') && !hasAttr(n, 'http-equiv') && !hasAttr(n, 'charset');
+  const shown = n.name === 'input' && !VALUE_INPUTS.has(getAttr(n, 'type') || '');
+  return n.attrs.filter(([k]) => {
+    if (k === 'content' && n.name === 'meta') return meta;
+    if (k === 'value') return shown;
+    return !CODE_ATTRS.has(k) && !k.startsWith('data-');
+  });
+}
+
+/** Every player-visible string in a page: text nodes, every attribute that counts as words (wordAttrs), and the metas' words. */
+export function pageStrings(html) {
+  const out = [];
+  walk(parseHtml(html), (n) => {
+    if (n.type === 'element' && (n.name === 'script' || n.name === 'style')) return false;
+    if (n.type === 'text') {
+      const s = textOf(n).trim();
+      if (s) out.push({ where: 'text', s, line: n.line });
+    }
+    if (n.type !== 'element') return undefined;
+    for (const [k, v] of wordAttrs(n)) if (v && v.trim()) out.push({ where: k === 'content' && n.name === 'meta' ? `meta ${metaName(n)}` : k, s: v.trim(), line: n.line });
+    return undefined;
+  });
+  return out;
+}
+
+/**
+ * T14's check of main's built words (A.7): every string the page shows is
+ * approved words of a line main reaches (or a piece of one, or the build
+ * code); the manifest's name, short name and description are the ledger's;
+ * the bundle holds only ledger words, no-words lines and dev words for the
+ * debug screen; and none of it has a book word (T07).
+ * @returns {{file: string, line: number, code: string, msg: string}[]}
+ */
+export function checkMainBuild({ html, manifest, words: bundled, text, build, reach }) {
+  const issues = [];
+  const add = (file, line, code, msg) => issues.push({ file, line, code, msg });
+  const main = wordsFor(text, 'main');
+  const allowed = new Set([build]);
+  const splitIds = new Set();
+  walk(parseHtml(html), (n) => {
+    if (n.type === 'element' && getAttr(n, 'data-t-split')) splitIds.add(getAttr(n, 'data-t'));
+  });
+  for (const id of reach) {
+    if (!['approved', 'changed', 'nowords'].includes(stateOf(id, text)) || main[id] === undefined) continue;
+    for (const f of forms(main[id])) {
+      const parts = renderParts(f, { build });
+      const whole = plainText(parts);
+      allowed.add(whole.trim());
+      allowed.add(whole.replace(/\n/g, ' ').trim());
+      for (const row of whole.split('\n')) allowed.add(row.trim());
+      for (const p of parts) for (const s of [p.text, p.em, p.ph]) if (s) allowed.add(s.trim());
+      if (splitIds.has(id)) {
+        const s = whole.replace(/\n/g, ' ');
+        const k = s.lastIndexOf(' ');
+        if (k > 0) allowed.add(s.slice(0, k)).add(s.slice(k + 1));
+      }
+    }
+  }
+  const all = [];
+  for (const { where, s, line } of pageStrings(html)) {
+    all.push({ file: 'index.html', line, s });
+    if (/\p{L}/u.test(s) && !allowed.has(s)) add('index.html', line, 'T14', `main's page shows "${s}" (${where}), which isn't approved words`);
+  }
+  const m = JSON.parse(manifest);
+  for (const [k, id] of [['name', 'app.name'], ['short_name', 'app.short_name'], ['description', 'app.description']]) {
+    const e = text.ledger.lines[id];
+    all.push({ file: 'manifest.webmanifest', line: 1, s: String(m[k]) });
+    if (!e || m[k] !== e.text) add('manifest.webmanifest', 1, 'T14', `main's manifest ${k} is "${m[k]}", not the approved words of ${id}`);
+  }
+  for (const [id, v] of Object.entries(bundled)) {
+    const line = text.lines.get(id);
+    for (const f of forms(v)) all.push({ file: 'text/en.json', line: 1, s: f });
+    if (!line) add('text/en.json', 1, 'T14', `main's bundle has ${id}, which isn't defined`);
+    else if (line.class === 'dev') {
+      if (line.screen !== 'debug') add('text/en.json', 1, 'T14', `main's bundle has dev line ${id} on screen ${line.screen} (dev words ship only on the debug screen)`);
+    } else if (hasWords(v) && !(text.ledger.lines[id] && sameWords(text.ledger.lines[id].text, v))) {
+      add('text/en.json', 1, 'T14', `main's bundle has ${id}, whose words aren't the ledger's`);
+    }
+  }
+  for (const { file, line, s } of all) {
+    const b = BOOK_WORDS.exec(s);
+    if (b) add(file, line, 'T07', `main ships the book word "${b[0]}" in "${s}" (F.3)`);
+  }
+  return issues;
+}
+
+// ---- Counting -------------------------------------------------------------
+
+/** A line's words, for the count (18.9): split at whitespace across its forms, {variables} out. */
+export function wordCount(text) {
+  return forms(text).reduce((n, f) => n + f.replace(/\{[^{}]*\}/g, ' ').split(/\s+/).filter((w) => /\p{L}/u.test(w)).length, 0);
+}
+
+/**
+ * Where things stand (18.9): the numbers `count` prints. Lines by class and
+ * state, and their words (the working words, as the creator would read them).
+ * @param {any} text
+ * @param {{html?: string, manifest?: string, t07?: string[]}} [o]
+ */
+export function countText(text, o = {}) {
+  const src = o.html && o.manifest ? o : shellSources(text.root);
+  const reach = mainReach(text, src.html, src.manifest);
+  const ours = { total: 0, approved: 0, draft: 0, changed: 0, cut: 0, nowords: 0 };
+  const words = { ours: { total: 0, approved: 0, draft: 0, changed: 0, cut: 0 }, dev: 0 };
+  let dev = 0;
+  const screens = new Map();
+  for (const [id, line] of text.lines) {
+    const s = stateOf(id, text);
+    const n = wordCount(line.text);
+    if (!screens.has(line.screen)) screens.set(line.screen, { total: 0, built: text.scope.screens.includes(line.screen), states: {} });
+    const sc = screens.get(line.screen);
+    sc.total++;
+    sc.states[s] = (sc.states[s] || 0) + 1;
+    if (s === 'dev') {
+      dev++;
+      words.dev += n;
+    } else {
+      ours.total++;
+      ours[s]++;
+      words.ours.total += n;
+      if (s in words.ours) words.ours[s] += n;
+    }
+  }
+  const needs = reach.filter((id) => text.lines.has(id) && !SHIPPABLE.has(stateOf(id, text)));
+  const unapplied = [];
+  for (const [batch, { data }] of text.answers) {
+    for (const [id, a] of Object.entries(data.lines || {})) if (applicable(text, batch, id, a)) unapplied.push(`${batch} ${id}`);
+  }
+  return {
+    lines: text.lines.size,
+    files: text.files.length,
+    ours,
+    dev,
+    words,
+    screens: Object.fromEntries(screens),
+    main: { screens: text.scope.main.screens, reach, needs, off: Object.keys(text.scope.main.off).sort() },
+    t07: o.t07 || [],
+    unapplied,
+  };
+}
+
+/** The count, as printed. */
+export function formatCount(c) {
+  const st = (states) =>
+    Object.entries(states)
+      .map(([k, v]) => `${k === 'nowords' ? 'no words' : k} ${v}`)
+      .join(', ');
+  const scr = Object.entries(c.screens)
+    .sort(([a, x], [b, y]) => Number(y.built) - Number(x.built) || (c.main.screens.indexOf(a) + 1 || 99) - (c.main.screens.indexOf(b) + 1 || 99) || a.localeCompare(b))
+    .map(([name, s]) => `${name} ${s.total} (${st(s.states)}${s.built ? '' : '; waiting for its screen'})`);
+  return [
+    `text: ${c.lines} lines in ${c.files} files`,
+    `  ours  ${c.ours.total}: approved ${c.ours.approved}, draft ${c.ours.draft}, changed ${c.ours.changed}, cut ${c.ours.cut}, no words ${c.ours.nowords}`,
+    `        words ${c.words.ours.total}: approved ${c.words.ours.approved}, draft ${c.words.ours.draft}, changed ${c.words.ours.changed}, cut ${c.words.ours.cut}`,
+    `  dev    ${c.dev}: exempt (decision 64); words ${c.words.dev}`,
+    `  screens: ${scr.join(' | ')}`,
+    `  main: carries ${c.main.screens.join(', ')}; reaches ${c.main.reach.length} lines, ${c.main.needs.length ? `${c.main.needs.length} not shippable` : 'all shippable'}; needs ${c.main.needs.length}${c.main.needs.length ? ` (${c.main.needs.join(', ')})` : ''}; off main ${c.main.off.length} (${c.main.off.join(', ')})`,
+    `  T07 warnings on preview-only drafts: ${c.t07.length ? c.t07.join(', ') : 'none'}`,
+    `  answers not yet applied: ${c.unapplied.length ? c.unapplied.join(', ') : 'none'}`,
+  ].join('\n');
+}
+
+// ---- Apply ----------------------------------------------------------------
+
+/** Would `apply` record this answer now? (For T12's "answered but not applied".) */
+export function applicable(text, batch, id, a) {
+  if (!['approve', 'rewrite', 'cut'].includes(a.verdict)) return false;
+  const line = text.lines.get(id);
+  if (!line || !hasWords(line.text)) return false;
+  if (alreadyApplied(text, batch, id, a) || superseded(text.ledger, batch, id)) return false;
+  if (fnv1a(wordsString(line.text)) !== a.hash) return false;
+  return a.verdict !== 'approve' || a.text == null || sameWords(a.text, line.text);
+}
+
+/** The ledger already holds this batch's answer for the id (same batch, same hash seen, same words). */
+function alreadyApplied(text, batch, id, a) {
+  const same = (e) => e.batch === batch && e.seen === a.hash && (a.text == null || sameWords(e.text, a.text));
+  if (a.verdict === 'cut') return (text.ledger.cut[id] || []).some(same);
+  return Boolean(text.ledger.lines[id] && same(text.ledger.lines[id]));
+}
+
+/** A later batch has answered for the id since: this answer is history, even when the words went back to the ones it saw. */
+function superseded(ledger, batch, id) {
+  const n = (b) => Number(String(b).slice(1));
+  return [ledger.lines[id], ...((ledger.cut && ledger.cut[id]) || [])].some((e) => e && n(e.batch) > n(batch));
+}
+
+function sortedObj(o) {
+  return Object.fromEntries(Object.keys(o).sort().map((k) => [k, o[k]]));
+}
+
+/**
+ * Apply a batch's answers (content/text/review/<batch>.answers.json) to the
+ * ledger, and a rewrite's words to its line. A missing file, an unknown id
+ * or an unknown verdict is an error, and nothing is written. A line whose
+ * words changed after the batch went out isn't approved: it stays a draft
+ * and goes in the next batch. Re-running is safe: an answer already in the
+ * ledger is skipped, and so is one a later batch has answered since.
+ * @param {string} root
+ * @param {string} batch
+ * @returns {{errors: string[], results: {id: string, line: number, result: string}[], wrote: string[]}}
+ */
+export function applyBatch(root, batch) {
+  const errors = [];
+  const results = [];
+  if (!/^B\d{3,}$/.test(batch)) return { errors: [`apply: "${batch}" is not a batch (B000, B001, ...)`], results, wrote: [] };
+  const text = readText(root);
+  const ans = text.answers.get(batch);
+  if (!ans) return { errors: [`apply: no content/text/review/${batch}.answers.json`], results, wrote: [] };
+  const file = ans.data;
+  const ledgerPath = join(root, LEDGER_FILE);
+  const raw = existsSync(ledgerPath) ? JSON.parse(readFileSync(ledgerPath, 'utf8')) : { $comment: LEDGER_COMMENT, lines: {}, cut: {} };
+  const ledger = { $comment: raw.$comment || LEDGER_COMMENT, lines: { ...(raw.lines || {}) }, cut: { ...(raw.cut || {}) } };
+  const rewrites = new Map(); // file -> {id: words}
+  Object.entries(file.lines || {}).forEach(([id, a], k) => {
+    const n = k + 1;
+    const line = text.lines.get(id);
+    if (!line) {
+      errors.push(`apply: ${batch} line ${n}: ${id} isn't defined in content/text/en`);
+      return;
+    }
+    if (!a || !VERDICTS.has(a.verdict)) {
+      errors.push(`apply: ${batch} line ${n}: ${id} has an unknown verdict "${a && a.verdict}"`);
+      return;
+    }
+    const say = (result) => results.push({ id, line: n, result });
+    const entry = (words) => ({
+      text: words,
+      sha256: wordsHash(words),
+      seen: a.hash,
+      batch,
+      line: n,
+      on: String(a.answered || file.answered || '').slice(0, 10),
+      how: `${a.verdict}, ${a.via || file.via}`,
+    });
+    const working = line.text;
+    const noWords = !hasWords(working);
+    if (a.verdict === 'later' || a.verdict === 'note') return say(`stays a draft (${a.verdict}${a.note ? `: ${a.note}` : ''})`);
+    if (noWords && (a.verdict === 'looks_fine' || (a.verdict === 'approve' && a.text == null))) return say('no words');
+    if (a.verdict === 'looks_fine') return say('stays a draft (looks fine is for a line with no words)');
+    if (alreadyApplied({ ledger }, batch, id, a)) return say('already applied');
+    if (superseded(ledger, batch, id)) return say('superseded (a later batch answered it)');
+    if (fnv1a(wordsString(working)) !== a.hash) return say(`stays a draft (changed since ${batch}: not approved; goes in the next batch)`);
+    if (a.verdict === 'approve') {
+      if (a.text != null && !sameWords(a.text, working)) return say(`stays a draft (the answer's words aren't the line's)`);
+      ledger.lines[id] = entry(working);
+      return say('approved');
+    }
+    if (a.verdict === 'rewrite') {
+      if (!isWords(a.text) || !hasWords(a.text)) {
+        errors.push(`apply: ${batch} line ${n}: ${id} is a rewrite with no words`);
+        return undefined;
+      }
+      if (!rewrites.has(line.file)) rewrites.set(line.file, {});
+      rewrites.get(line.file)[id] = a.text;
+      ledger.lines[id] = entry(a.text);
+      return say('rewritten and approved');
+    }
+    ledger.cut[id] = [...(ledger.cut[id] || []), entry(working)];
+    return say('cut');
+  });
+  if (errors.length) return { errors, results, wrote: [] };
+  const wrote = [];
+  for (const [rel, ids] of rewrites) {
+    const path = join(root, rel);
+    const data = JSON.parse(readFileSync(path, 'utf8'));
+    for (const [id, words] of Object.entries(ids)) data[id].text = words;
+    writeFileSync(path, json1(data));
+    wrote.push(rel);
+  }
+  const out = { $comment: ledger.$comment, lines: sortedObj(ledger.lines), cut: sortedObj(ledger.cut) };
+  const next = json1(out);
+  if (!existsSync(ledgerPath) || readFileSync(ledgerPath, 'utf8') !== next) {
+    writeFileSync(ledgerPath, next);
+    wrote.push(LEDGER_FILE);
+  }
+  return { errors, results, wrote };
+}
+
+// ---- CLI ------------------------------------------------------------------
+
+/** The command line: check, count and apply. */
+async function cli(cmd, args) {
+  // The lints import this module, so they load here, once it has finished loading.
+  const { runTextLint } = await import('./textlint.mjs');
+  if (cmd === 'apply') {
+    const batch = args[0];
+    const r = applyBatch(ROOT, batch || '');
+    for (const e of r.errors) console.error(e);
+    if (r.errors.length) return 1;
+    for (const x of r.results) console.log(`${batch} ${String(x.line).padStart(2)} ${x.id}: ${x.result}`);
+    console.log(r.wrote.length ? `apply: wrote ${r.wrote.join(', ')}` : 'apply: nothing to write');
+    return 0;
+  }
+  if (cmd === 'count') {
+    const lint = runTextLint(ROOT);
+    const t07 = lint.issues.filter((i) => i.code === 'T07' && i.level === 'warn').map((i) => i.id).sort();
+    console.log(formatCount(countText(readText(ROOT), { t07 })));
+    return 0;
+  }
+  if (cmd === 'check') {
+    const lint = runTextLint(ROOT, { main: args.includes('--main') });
+    for (const i of lint.issues) console.log(`${i.file}:${i.line}: ${i.code} ${i.msg}${i.level === 'warn' ? ' (warning)' : ''}`);
+    for (const i of lint.infos) console.log(`info: ${i}`);
+    const errs = lint.issues.filter((i) => i.level !== 'warn').length;
+    const warns = lint.issues.length - errs;
+    console.log(errs ? `text: ${errs} problem${errs === 1 ? '' : 's'}` : `text: clean (T07, T10-T14)${warns ? `; ${warns} warning${warns === 1 ? '' : 's'}` : ''}`);
+    return errs ? 1 : 0;
+  }
+  console.error('usage: node tools/text.mjs check [--main] | count | apply B00n');
+  return 2;
+}
+
+const isMain = process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href;
+if (isMain) {
+  const [cmd, ...args] = process.argv.slice(2);
+  cli(cmd, args).then(
+    (code) => process.exit(code),
+    (e) => {
+      console.error(e.message);
+      process.exit(1);
+    },
+  );
+}

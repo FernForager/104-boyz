@@ -23,16 +23,25 @@
 //   T04 no "Golden Glow" (the book is inspiration only, doc 10.1)
 //   T06 no phone links (tel:), and the shell carries the format-detection
 //       meta, so iOS never turns a number into a Call link (doc E.7)
-//   U01 URLs stay relative, so the site works under /104-boyz/
+//   T07, T10-T14 the words: no book frame, no English outside
+//       content/text/, ids defined and used, the ledger, variables, and
+//       the main gate (tools/textlint.mjs; doc 18.5)
+//   U01 URLs stay relative: the same build is served at / and at /preview/
 // Code:
 //   E01 the picture VM and the palette stay pure: no Math.random, no Date,
 //       no clock, no DOM
+//   S01 storage names (GAME_DESIGN E.9, F.3): in web/js/ only
+//       platform/storage.js touches localStorage, sessionStorage, indexedDB
+//       or caches, and no string starting oph. or oph- appears in web/
+//       outside storage.js and sw.js, so every key and cache name carries
+//       its channel and main and preview never share a save
 
 import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { join, relative, sep, extname } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { renderPic, LAYERS, MAX_STAMP_DEPTH } from '../web/js/gfx/picvm.js';
 import { ROOT, loadPicSources, loadPalette } from './pics.mjs';
+import { runTextLint, scanJs } from './textlint.mjs';
 
 const GOLD_SLOT = 7;
 const GLOW = 19;
@@ -41,7 +50,7 @@ const DUST = 25;
 const TEXT_EXT = new Set(['.html', '.css', '.js', '.mjs', '.json', '.webmanifest', '.pic', '.md', '.txt', '.svg']);
 export const PURE_MODULES = ['web/js/gfx/picvm.js', 'web/js/gfx/palette.js'];
 
-/** @typedef {{file: string, line: number, code: string, msg: string}} Issue */
+/** @typedef {{file: string, line: number, code: string, msg: string, level?: 'error' | 'warn'}} Issue */
 
 function colorsOf(op) {
   if (op[0] === 'C') return [op[1]];
@@ -166,7 +175,7 @@ export function lintUrls(file, text) {
   /** @type {Issue[]} */
   const out = [];
   const ext = extname(file);
-  const bad = (line, url) => out.push({ file, line, code: 'U01', msg: `"${url}" must be relative (the site lives under /104-boyz/)` });
+  const bad = (line, url) => out.push({ file, line, code: 'U01', msg: `"${url}" must be relative: the same build is served at / and at /preview/` });
   if (ext === '.webmanifest') {
     let m;
     try {
@@ -218,6 +227,35 @@ export function lintPure(file, code) {
   return out;
 }
 
+/** S01: where storage may be named. */
+export const STORAGE_MODULE = 'web/js/platform/storage.js';
+export const WORKER = 'web/sw.js';
+const STORAGE_APIS = /(?<![\w$])(localStorage|sessionStorage|indexedDB|caches)(?![\w$])/g;
+
+/**
+ * S01 over one module under web/: the storage APIs only in storage.js, and
+ * oph. and oph- names only there and in the worker.
+ * @returns {Issue[]}
+ */
+export function lintStorage(file, code) {
+  /** @type {Issue[]} */
+  const out = [];
+  if (file === STORAGE_MODULE) return out;
+  const scan = scanJs(code);
+  if (file.startsWith('web/js/')) {
+    scan.masked.split('\n').forEach((row, i) => {
+      for (const m of row.matchAll(STORAGE_APIS)) out.push({ file, line: i + 1, code: 'S01', msg: `${m[1]} only in platform/storage.js, which names every key and cache by channel (E.9)` });
+    });
+  }
+  if (file !== WORKER) {
+    for (const lit of scan.literals) {
+      const head = lit.chunks[0] || '';
+      if (/^oph[.-]/.test(head)) out.push({ file, line: lit.line, code: 'S01', msg: `"${head}" is a storage name: make it with platform/storage.js (keyName, dbName, cacheName), which adds the channel` });
+    }
+  }
+  return out;
+}
+
 function walk(dir) {
   const out = [];
   let names = [];
@@ -247,19 +285,26 @@ export function runLint(root = ROOT) {
       const text = readFileSync(f, 'utf8');
       issues.push(...lintText(rel(f), text));
       if (dir === 'web') issues.push(...lintUrls(rel(f), text));
+      if (dir === 'web' && extname(f) === '.js') issues.push(...lintStorage(rel(f), text));
     }
   }
   const shell = join(root, 'web', 'index.html');
   issues.push(...lintShell('web/index.html', readFileSync(shell, 'utf8')));
   for (const m of PURE_MODULES) issues.push(...lintPure(m, readFileSync(join(root, m), 'utf8')));
+  issues.push(...runTextLint(root).issues);
   return issues;
 }
+
+/** Errors fail the lint; warnings are printed and counted. */
+export const isError = (i) => (i.level || 'error') !== 'warn';
 
 const isMain = process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href;
 if (isMain) {
   const issues = runLint();
-  for (const i of issues) console.log(`${i.file}:${i.line}: ${i.code} ${i.msg}`);
-  const n = issues.length;
-  console.log(n ? `lint: ${n} problem${n === 1 ? '' : 's'}` : 'lint: clean (pictures, palette, T04, T06, U01, E01)');
+  for (const i of issues) console.log(`${i.file}:${i.line}: ${i.code} ${i.msg}${isError(i) ? '' : ' (warning)'}`);
+  const n = issues.filter(isError).length;
+  const w = issues.length - n;
+  const warned = w ? `; ${w} warning${w === 1 ? '' : 's'}` : '';
+  console.log(n ? `lint: ${n} problem${n === 1 ? '' : 's'}${warned}` : `lint: clean (pictures, palette, T04, T06, T07, T10-T14, U01, E01, S01)${warned}`);
   process.exit(n ? 1 : 0);
 }
