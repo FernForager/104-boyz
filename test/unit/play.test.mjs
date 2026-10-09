@@ -47,7 +47,14 @@ function trailTree(t, name, dirs = ['web', 'config', 'content', 'schemas']) {
 function trailDist(t) {
   const root = trailTree(t, 'play');
   const out = join(root, 'dist', 'preview');
-  build({ root, channel: 'preview', out, quiet: true });
+  // Outside git the build id is "dev", which a GitHub Actions run refuses; this copy is not the deploy.
+  const gha = process.env.GITHUB_ACTIONS;
+  delete process.env.GITHUB_ACTIONS;
+  try {
+    build({ root, channel: 'preview', out, quiet: true });
+  } finally {
+    if (gha !== undefined) process.env.GITHUB_ACTIONS = gha;
+  }
   return out;
 }
 
