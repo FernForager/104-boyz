@@ -5,8 +5,11 @@ import { inflateSync } from 'node:zlib';
 import { cpSync, mkdtempSync, mkdirSync, readFileSync, readdirSync, rmSync, statSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join, relative, sep } from 'node:path';
-import { compileArt, makeIcons, buildInfo, build, buildAll, checkSize, stampWorker, precachePaths, ICONS, MAX_BYTES, SW_STAMP } from '../../tools/build.mjs';
+import { compileArt, makeIcons, buildInfo, build, buildAll, checkSize, stampWorker, precachePaths, makeData, ICONS, MAX_BYTES, SW_STAMP } from '../../tools/build.mjs';
 import { ROOT } from '../../tools/pics.mjs';
+import { readText, channelScreens } from '../../tools/text.mjs';
+import { rulesHash } from '../../tools/rules.mjs';
+import { canon } from '../../web/js/engine/canon.js';
 
 /** Every file under dir, as {relative path: bytes}. */
 function snapshot(dir) {
@@ -101,22 +104,30 @@ test('each channel builds reproducibly into its own folder, and stamps its id', 
     const sb = snapshot(join(tmp, 'b', channel));
     assert.deepEqual(Object.keys(sa), Object.keys(sb));
     for (const f of Object.keys(sa)) assert.ok(sa[f].equals(sb[f]), `${channel}: ${f} is the same bytes in both builds`);
-    for (const f of ['index.html', 'manifest.webmanifest', 'sw.js', 'precache.json', 'version.json', 'flags.json', 'text/en.json', 'art/art.json', 'icons/apple-touch-icon.png', 'icons/icon-192.png', 'icons/icon-512.png', 'icons/icon-maskable-512.png', 'fonts/PixelifySans.woff2', 'fonts/OFL.txt', 'js/boot.js', 'js/main.js', 'js/text.js', 'js/platform/storage.js', 'js/platform/sw-client.js', 'js/ui/debug.js', 'js/ui/errors.js', 'js/ui/home.js']) {
+    for (const f of ['index.html', 'manifest.webmanifest', 'sw.js', 'precache.json', 'version.json', 'flags.json', 'text/en.json', 'art/art.json', 'icons/apple-touch-icon.png', 'icons/icon-192.png', 'icons/icon-512.png', 'icons/icon-maskable-512.png', 'fonts/PixelifySans.woff2', 'fonts/OFL.txt', 'js/boot.js', 'js/main.js', 'js/text.js', 'js/platform/storage.js', 'js/platform/sw-client.js', 'js/ui/debug.js', 'js/ui/errors.js', 'js/ui/home.js', 'data/rules.json', 'data/voice.json', 'js/engine/api.js', 'selfcheck.json']) {
       assert.ok(sa[f], `${channel}: ${f} ships`);
     }
     assert.equal(Boolean(sa['text/marks.json']), channel === 'preview', 'only preview carries the marks');
     assert.ok(!Object.keys(sa).some((f) => f.endsWith('.pic')), 'the .pic text is compiled, not shipped');
     const version = JSON.parse(sa['version.json'].toString());
-    assert.deepEqual(Object.keys(version), ['build', 'channel', 'commit', 'date', 'files']);
+    assert.deepEqual(Object.keys(version), ['build', 'channel', 'commit', 'date', 'files', 'rules']);
     assert.equal(version.build, a.info.id);
     assert.equal(version.build, b.info.id);
     assert.equal(version.channel, channel);
     assert.match(version.files, /^[0-9a-f]{12}$/);
+    assert.match(version.rules, /^[0-9a-f]{12}$/);
+    assert.equal(version.rules, rulesHash(join(tmp, 'a', channel)), "version.json's rules is the hash of the build's engine and rules.json");
+    assert.equal(a.rules, b.rules, 'two builds give the same rules hash');
     if (version.build !== 'dev') {
       assert.equal(version.build, `${version.date.replaceAll('-', '')}-${version.commit.slice(0, 7)}`);
     }
     const html = sa['index.html'].toString();
-    assert.ok(html.includes(`<html lang="en" data-build="${version.build}" data-channel="${channel}">`), 'the build and the channel are stamped on <html>');
+    const screens = channelScreens(readText(), channel).join(' ');
+    assert.ok(
+      html.includes(`<html lang="en" data-build="${version.build}" data-channel="${channel}" data-commit="${version.commit || 'dev'}" data-rules="${version.rules}" data-screens="${screens}">`),
+      'the build, the channel, the commit, the rules hash and the screens are stamped on <html>',
+    );
+    assert.ok(!/data-(commit|rules|screens)="dev"/.test(html) || version.commit === null, 'no placeholder left but a commit outside git');
     assert.ok(html.includes(`id="build-stamp" data-t="app.build">${version.build}</span>`), 'the build stamp is the bare build code');
     assert.ok(!html.includes('data-build="dev"') && !html.includes('data-channel="dev"'));
     assert.deepEqual(JSON.parse(sa['flags.json'].toString()), { gentle: false, larry: true, channel });
@@ -155,7 +166,7 @@ test('one changed byte changes the files hash, its precache entry and sw.js, and
   const lists = {};
   for (const name of ['same', 'changed']) {
     const root = join(tmp, name);
-    for (const d of ['web', 'config', 'content']) cpSync(join(ROOT, d), join(root, d), { recursive: true });
+    for (const d of ['web', 'config', 'content', 'schemas']) cpSync(join(ROOT, d), join(root, d), { recursive: true });
     if (name === 'changed') writeFileSync(join(root, 'web', 'css', 'tokens.css'), `${readFileSync(join(root, 'web', 'css', 'tokens.css'), 'utf8')} `);
     const { version } = build({ root, out: join(root, 'dist', 'main'), channel: 'main', quiet: true });
     lists[name] = { version, list: JSON.parse(readFileSync(join(root, 'dist', 'main', 'precache.json'), 'utf8')), sw: readFileSync(join(root, 'dist', 'main', 'sw.js'), 'utf8') };
@@ -208,4 +219,61 @@ test('the size check refuses a site over the budget', (t) => {
   assert.equal(checkSize(tmp, 1100), 1100, 'at the budget is fine');
   assert.throws(() => checkSize(tmp, 1099), /1100 bytes, over the 1099-byte budget/);
   assert.equal(MAX_BYTES, 5 * 1024 * 1024, 'the budget is 5 MB');
+});
+
+test("the data step: each channel's rules.json is canonical and scoped to its screens (BUILD_PLAN S3, 6.1)", (t) => {
+  const tmp = mkdtempSync(join(tmpdir(), 'oph-data-'));
+  t.after(() => rmSync(tmp, { recursive: true, force: true }));
+  const text = readText();
+  for (const channel of ['main', 'preview']) {
+    const out = join(tmp, channel);
+    build({ out, channel, quiet: true });
+    const rulesSrc = readFileSync(join(out, 'data', 'rules.json'), 'utf8');
+    const rules = JSON.parse(rulesSrc);
+    const voice = JSON.parse(readFileSync(join(out, 'data', 'voice.json'), 'utf8'));
+    assert.equal(rulesSrc, `${canon(rules)}\n`, 'canonical JSON and a final newline');
+    assert.equal(rules.format, 1);
+    assert.equal(voice.format, 1);
+    assert.deepEqual(Object.keys(rules), ['format', 'plans', 'profile', 'standard', 'stops']);
+    assert.ok(!rulesSrc.includes('trail.'), 'no line id in the outcome data (call 1)');
+    const screens = channelScreens(text, channel);
+    assert.deepEqual(Object.keys(rules.plans), screens.includes('trail') ? ['sample'] : [], `${channel}: the sample plan exactly when the channel has the trail screen`);
+    assert.deepEqual(Object.keys(rules.stops), Object.keys(voice.stops));
+    if (channel === 'main') {
+      assert.deepEqual(rules.plans, {}, "main's rules.json holds no plans");
+      assert.deepEqual(rules.stops, {}, "main's rules.json holds no stops");
+      assert.deepEqual(voice.stops, {});
+    }
+  }
+});
+
+test('the data step on a preview whose scope has the trail screen carries the sample, and its words', (t) => {
+  const root = mkdtempSync(join(tmpdir(), 'oph-data-trail-'));
+  t.after(() => rmSync(root, { recursive: true, force: true }));
+  for (const d of ['web', 'config', 'content', 'schemas']) cpSync(join(ROOT, d), join(root, d), { recursive: true });
+  const scopeFile = join(root, 'content', 'scope', 'm1a.json');
+  const scope = JSON.parse(readFileSync(scopeFile, 'utf8'));
+  scope.screens = [...new Set([...scope.screens, 'guestbook', 'trail'])].sort();
+  writeFileSync(scopeFile, JSON.stringify(scope, null, 1));
+  // The trailhead's two lines, as C0 files them (a temp copy; the repo's are C's).
+  const trail = join(root, 'content', 'text', 'en', 'trail.json');
+  const have = (() => {
+    try {
+      return JSON.parse(readFileSync(trail, 'utf8'));
+    } catch {
+      return { $comment: 'test' };
+    }
+  })();
+  for (const id of ['trail.sol_duc_trailhead.lot', 'trail.sol_duc_trailhead.trail_mouth']) have[id] = have[id] || { text: 'Words.', ctx: 'test', screen: 'trail', max: 140 };
+  writeFileSync(trail, JSON.stringify(have, null, 1));
+  const { rules, voice, screens } = makeData({ root, channel: 'preview' });
+  assert.ok(screens.includes('trail'));
+  assert.deepEqual(rules.plans, { sample: { after: 'end', mode: 'open', start: { day: 1, s: 30600, set: 'sol_duc_trailhead' } } });
+  assert.deepEqual(rules.stops.sol_duc_trailhead, { first: 'lot', phase: 'trailhead', stops: [{ id: 'lot', next: 'trail_mouth' }, { id: 'trail_mouth', next: null }] });
+  assert.deepEqual(voice.stops.sol_duc_trailhead, { lot: { box: [['trail.sol_duc_trailhead.lot']], labels: {} }, trail_mouth: { box: [['trail.sol_duc_trailhead.trail_mouth']], labels: {} } });
+  assert.deepEqual(makeData({ root, channel: 'main' }).rules.stops, {}, 'main still carries none');
+  // A dangling next fails the build, with its file and line.
+  const stopsFile = join(root, 'content', 'stops', 'sol_duc_trailhead.json');
+  writeFileSync(stopsFile, readFileSync(stopsFile, 'utf8').replace('"next": "trail_mouth"', '"next": "nowhere"'));
+  assert.throws(() => makeData({ root, channel: 'preview' }), /content\/stops\/sol_duc_trailhead\.json:8: R01 stop "lot": next "nowhere" is not a stop in set "sol_duc_trailhead"/);
 });

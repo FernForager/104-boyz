@@ -35,7 +35,7 @@ export function pickPixelShape(o) {
   const margin = o.margin === undefined ? 2 : o.margin;
   const avail = Math.min(o.cssWidth, o.maxCssWidth || 440) - margin;
   const short = o.screenHeight < SHORT_SCREEN_PT;
-  const syFor = (sx) => Math.max(1, short ? Math.floor(sx / 2) : Math.round(sx * PIXEL_ASPECT));
+  const syFor = (/** @type {number} */ sx) => Math.max(1, short ? Math.floor(sx / 2) : Math.round(sx * PIXEL_ASPECT));
   let sx = Math.max(1, Math.floor((avail * dpr + 1e-6) / picW));
   if (o.picHeight && o.maxCssHeight) {
     while (sx > 1 && (o.picHeight * syFor(sx)) / dpr > o.maxCssHeight) sx--;
@@ -70,6 +70,7 @@ export function createDisplay(canvas, width, height, edge = '#1b1f2a') {
   let dpr = 1;
   let ox = 0;
   let oy = 0;
+  /** @type {ArrayLike<number> | null} */
   let last = null;
 
   function snap() {
@@ -88,6 +89,7 @@ export function createDisplay(canvas, width, height, edge = '#1b1f2a') {
     if (Math.abs(fx) > 1e-3 || Math.abs(fy) > 1e-3) canvas.style.transform = `translate(${fx}px, ${fy}px)`;
   }
 
+  /** @param {ArrayLike<number>} rgba RGBA bytes, width x height */
   function present(rgba) {
     last = rgba;
     img.data.set(rgba);
@@ -100,7 +102,10 @@ export function createDisplay(canvas, width, height, edge = '#1b1f2a') {
     get shape() {
       return shape;
     },
-    /** Size the canvas for this screen. */
+    /**
+     * Size the canvas for this screen.
+     * @param {{cssWidth: number, screenHeight: number, maxCssHeight?: number, margin?: number, maxCssWidth?: number}} opts
+     */
     layout(opts) {
       dpr = window.devicePixelRatio || 1;
       shape = pickPixelShape({ dpr, picWidth: width, picHeight: height, ...opts });
@@ -142,8 +147,8 @@ export function createDisplay(canvas, width, height, edge = '#1b1f2a') {
  * @param {ReturnType<typeof createDisplay>} display
  * @param {Uint8Array} indices composited picture (0-25, 255)
  * @param {number} width
- * @param {object} pal makePalette()
- * @param {object} [o] { remap, background }
+ * @param {import('./palette.js').Palette} pal makePalette()
+ * @param {{remap?: string, background?: number}} [o]
  */
 export function startCycles(display, indices, width, pal, o = {}) {
   if (!hasCycles(indices)) return () => {};
@@ -152,7 +157,7 @@ export function startCycles(display, indices, width, pal, o = {}) {
   let raf = 0;
   let shown = -1;
   let t0 = -1;
-  const tick = (now) => {
+  const tick = (/** @type {number} */ now) => {
     if (t0 < 0) t0 = now;
     const frame = Math.floor(((now - t0) * CYCLE_FPS) / 1000);
     if (frame !== shown) {

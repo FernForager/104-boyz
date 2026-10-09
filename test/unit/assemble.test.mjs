@@ -10,7 +10,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { build } from '../../tools/build.mjs';
 import { assemble, placeholderPage, placeholderWords, liveVerdict, checkLive, workerStamp } from '../../tools/assemble-site.mjs';
-import { choosePreview, shouldTryTag, buildPreview, previewEnv } from '../../tools/preview.mjs';
+import { choosePreview, shouldTryTag, buildPreview, previewEnv, DEFAULT_CI } from '../../tools/preview.mjs';
 import { pageStrings, readText, stateOf, PLACEHOLDER_IDS } from '../../tools/text.mjs';
 import { ROOT } from '../../tools/pics.mjs';
 
@@ -217,4 +217,14 @@ test('preview.mjs: a bad head and a bad tag give the placeholder', () => {
   assert.equal(got.status, 'placeholder');
   assert.match(got.summary, /failed too; \/preview\/ is the placeholder/);
   assert.equal(existsSync(r.out), false);
+});
+
+test("the preview head installs its one dev dependency before its CI, and so does every workflow that runs it (BUILD_PLAN 2.1, S3)", () => {
+  const install = 'npm ci --ignore-scripts --no-audit --no-fund';
+  assert.equal(DEFAULT_CI, `${install} && npm run ci`);
+  const checks = readFileSync(join(ROOT, '.github', 'workflows', 'checks.yml'), 'utf8');
+  assert.match(checks, new RegExp(`- run: ${install}\\n\\s+- run: npm run ci\\n`), 'checks.yml installs, then runs the checks');
+  const pages = readFileSync(join(ROOT, '.github', 'workflows', 'pages.yml'), 'utf8');
+  assert.ok(pages.includes(`run: ${install} && npm run ci`), "pages.yml's main job installs, then runs the checks");
+  assert.ok(pages.includes('node-version: 22.23.3') && checks.includes('node-version: 22.23.3'), 'Node stays pinned');
 });

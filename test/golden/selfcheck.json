@@ -1,0 +1,16 @@
+{
+ "$comment": "The self-check's frozen numbers (BUILD_PLAN S3, D11): the seeds tools/goldens.mjs --find-seeds finds, and Node's group hashes over the corpus. golden.test.mjs requires Node to get these; the phone compares itself with the build's own selfcheck.json.",
+ "seeds": {
+  "S_PASS": "00000001",
+  "S_MID": "00000006"
+ },
+ "groups": {
+  "sha": "272b256b0e0d148bc91bc8cd72615b190a05de850c4a9ce4a95d5c11b8eeda1f",
+  "rng": "84fe310f3ab764abb6a8c855a563ba152e765653fae1045df12c4ee3d809aaf3",
+  "math": "6bfa392612a1243777c41098555ff24cb9c640c7a37d96e7f18187f8fdce46d1",
+  "expr": "9a212b93171c95c915ea969f298318b98b19d19222ac3ba1e7d16a0baa116bb7",
+  "log": "20f6dcaecfa908c49b9a728dd78168746ac5b06651c16ebe552f06677ab03893",
+  "trips": "78334a04d25447fa23557b2231ecb1ba81d02720a518ba2135275a5519975d55",
+  "screens": "e6fb5651ce100fba06135f454b97db063400deaefaf2518ebe16e6980d8bdfaa"
+ }
+}

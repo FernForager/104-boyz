@@ -1,0 +1,16 @@
+{
+ "$comment": "Expression variables (GAME_DESIGN 8.3; engine.md 4.4): every name a card may read, with its type and range.",
+ "vars": {
+  "trip.day": { "type": "number", "int": true, "min": 1, "max": 60 },
+  "trip.n": { "type": "number", "int": true, "min": 0, "max": 100000 },
+  "clock.s": { "type": "number", "int": true, "min": 0, "max": 172800 },
+  "skill.footing": { "type": "number", "int": true, "min": 0, "max": 5 },
+  "skill.navigation": { "type": "number", "int": true, "min": 0, "max": 5 },
+  "skill.river": { "type": "number", "int": true, "min": 0, "max": 5 },
+  "skill.snow": { "type": "number", "int": true, "min": 0, "max": 5 },
+  "skill.coast": { "type": "number", "int": true, "min": 0, "max": 5 },
+  "skill.campcraft": { "type": "number", "int": true, "min": 0, "max": 5 },
+  "skill.first_aid": { "type": "number", "int": true, "min": 0, "max": 5 },
+  "skill.glacier": { "type": "number", "int": true, "min": 0, "max": 5 }
+ }
+}

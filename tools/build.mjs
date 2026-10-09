@@ -8,6 +8,19 @@
 //      stamps, so the phone fetches one small file and runs the same
 //      picture VM as Node. (The .pic text is the source; it is not shipped.)
 //   2. Copy web/ into dist/<channel>/ as is.
+//   2b. The data (BUILD_PLAN S3): content/rules, trips and stops compiled
+//      for the channel's screens (tools/content.mjs) into data/rules.json
+//      (the outcome data, canonical JSON) and data/voice.json (the line
+//      ids each stop shows); the build refuses on any error. Then the
+//      rules hash over js/engine/ and data/rules.json (tools/rules.mjs),
+//      which version.json and <html data-rules> carry.
+//   2c. The self-check corpus (BUILD_PLAN S3, D11): selfcheck.json, the
+//      frozen engine fixture, the golden trips' inputs and the vectors, with
+//      the group hashes Node gets running web/js/engine/selfcheck.js over
+//      them (tools/goldens.mjs), so the phone can compare itself with Node
+//      on the same code. It comes from this tree's test/fixtures/ and
+//      test/golden/, whatever root the build is given, and the same on both
+//      channels; the rules hash doesn't cover it.
 //   3. Draw the icons from the cover with the PNG tools: the 180 px
 //      apple-touch-icon (opaque, or iOS fills it with black), 192, 512 and
 //      a maskable 512. Preview's are the same crops at a later hour (the
@@ -15,8 +28,9 @@
 //      a Home Screen never look alike.
 //   4. Write flags.json: config/flags.json plus the channel.
 //   5. The words (GAME_DESIGN 18.6): the shell carries ids, and the fill
-//      writes the channel's words into index.html, with the build id and
-//      the channel stamped on <html>; the manifest is made from its ids;
+//      writes the channel's words into index.html, with the build id, the
+//      channel, the commit, the rules hash and the channel's screens
+//      stamped on <html>; the manifest is made from its ids;
 //      text/en.json is the channel's bundle (and on preview text/marks.json,
 //      each unapproved line's state). Main ships the ledger's words only:
 //      its gate (T14) runs before the fill and again over what was built,
@@ -27,9 +41,10 @@
 //      four lines are stamped with the channel, the build id and that hash,
 //      so any change to any file changes sw.js, which is what the phone's
 //      update check compares.
-//   7. Stamp version.json. The build id is the commit's own UTC date and its
-//      short SHA, read from git, so the same commit always builds the same
-//      stamp; outside git it is "dev".
+//   7. Stamp version.json: the build id, the channel, the commit, its date,
+//      the files hash and the rules hash. The build id is the commit's own
+//      UTC date and its short SHA, read from git, so the same commit always
+//      builds the same stamp; outside git it is "dev".
 //   8. Check the total size (under 5 MB a channel).
 //
 // `node tools/build.mjs` builds main and preview, then assembles site/: main
@@ -50,8 +65,12 @@ import { renderPic, composite } from '../web/js/gfx/picvm.js';
 import { makePalette, resolve } from '../web/js/gfx/palette.js';
 import { encodePNG } from './png.mjs';
 import { ROOT, loadArt, loadPalette } from './pics.mjs';
-import { readText, fillPage, makeManifest, mainReach, bundle, checkMainBuild, gateSummary, stateOf, json1, CHANNELS } from './text.mjs';
+import { readText, fillPage, makeManifest, mainReach, bundle, checkMainBuild, gateSummary, stateOf, json1, channelScreens, CHANNELS } from './text.mjs';
 import { assemble } from './assemble-site.mjs';
+import { compileContent } from './content.mjs';
+import { selfcheckCorpus } from './goldens.mjs';
+import { rulesHash } from './rules.mjs';
+import { canon } from '../web/js/engine/canon.js';
 
 export const MAX_BYTES = 5 * 1024 * 1024;
 const COVER = 'cover_high_divide_dusk';
@@ -222,12 +241,28 @@ export function stampWorker(src, { channel, build: id, files }) {
 }
 
 /**
+ * The data for a channel (step 2b): rules.json and voice.json from the
+ * content, scoped to the channel's screens. Throws on any error (J01,
+ * X01, R01), so a broken reference never ships; warnings are the lint's.
+ * @param {{root?: string, channel: string}} o
+ * @returns {{screens: string[], rules: any, voice: any, files: Record<string, string>}}
+ */
+export function makeData({ root = ROOT, channel }) {
+  if (!CHANNELS.includes(channel)) throw new Error(`build: no channel "${channel}" (main or preview)`);
+  const screens = channelScreens(readText(root), channel);
+  const { rules, voice, problems: all } = compileContent({ root, screens });
+  const problems = all.filter((p) => p.level !== 'warn');
+  if (problems.length) throw new Error(`build: the content has ${problems.length} problem${problems.length === 1 ? '' : 's'}:\n  ${problems.map((p) => `${p.file}:${p.line}: ${p.code} ${p.msg}`).join('\n  ')}`);
+  return { screens, rules, voice, files: { 'rules.json': `${canon(rules)}\n`, 'voice.json': JSON.stringify(voice) } };
+}
+
+/**
  * The words for a channel: the filled shell, the manifest and the bundles.
  * Main's gate (T14) runs first, over every line main reaches, and then over
  * what was made, so a draft can never reach main.
  * @returns {{html: string, manifest: string, files: Record<string, string>}}
  */
-export function makeWords({ root = ROOT, channel, build: id }) {
+export function makeWords({ root = ROOT, channel, build: id, commit = null, rules = 'dev' }) {
   const text = readText(root);
   const html = readFileSync(join(root, 'web', 'index.html'), 'utf8');
   const manifestSrc = readFileSync(join(root, 'web', 'manifest.webmanifest'), 'utf8');
@@ -236,7 +271,7 @@ export function makeWords({ root = ROOT, channel, build: id }) {
     const blocked = reach.filter((r) => ['draft', 'cut'].includes(stateOf(r, text)));
     if (blocked.length) throw new Error(`build: ${gateSummary(text, blocked)}`);
   }
-  const page = fillPage(html, { channel, text, build: id });
+  const page = fillPage(html, { channel, text, build: id, commit, rules });
   const manifest = makeManifest(manifestSrc, { channel, text });
   const files = Object.fromEntries(Object.entries(bundle(text, channel, reach)).map(([f, o]) => [f, json1(o)]));
   if (channel === 'main') {
@@ -265,6 +300,14 @@ export function build({ root = ROOT, channel = process.env.CHANNEL || 'main', ou
   cpSync(join(root, 'web'), out, { recursive: true });
   mkdirSync(join(out, 'art'), { recursive: true });
   writeFileSync(join(out, 'art', 'art.json'), JSON.stringify(art));
+  // 2b. The data, and the rules hash over the engine and the outcome data.
+  const data = makeData({ root, channel });
+  mkdirSync(join(out, 'data'), { recursive: true });
+  for (const [f, body] of Object.entries(data.files)) writeFileSync(join(out, 'data', f), body);
+  const rules = rulesHash(out);
+  // 2c. The self-check corpus, with Node's group hashes.
+  const corpus = selfcheckCorpus();
+  writeFileSync(join(out, 'selfcheck.json'), JSON.stringify(corpus));
   // 3. Icons, the channel's own.
   mkdirSync(join(out, 'icons'), { recursive: true });
   for (const { file, png } of makeIcons(art, channel)) writeFileSync(join(out, 'icons', file), png);
@@ -274,7 +317,7 @@ export function build({ root = ROOT, channel = process.env.CHANNEL || 'main', ou
   // 5. The words, and the build id.
   const info = buildInfo(root);
   if (info.id === 'dev' && process.env.GITHUB_ACTIONS === 'true') throw new Error('build: no git build id in GitHub Actions (is git on the runner?)');
-  const words = makeWords({ root, channel, build: info.id });
+  const words = makeWords({ root, channel, build: info.id, commit: info.commit, rules });
   writeFileSync(join(out, 'index.html'), words.html);
   writeFileSync(join(out, 'manifest.webmanifest'), words.manifest);
   mkdirSync(join(out, 'text'), { recursive: true });
@@ -291,6 +334,7 @@ export function build({ root = ROOT, channel = process.env.CHANNEL || 'main', ou
     commit: info.commit,
     date: info.date,
     files: filesHash,
+    rules,
   };
   writeFileSync(join(out, 'version.json'), `${JSON.stringify(version, null, 2)}\n`);
   // 8. Size.
@@ -299,7 +343,9 @@ export function build({ root = ROOT, channel = process.env.CHANNEL || 'main', ou
   const name = out.startsWith(root + sep) ? relative(root, out).split(sep).join('/') : out;
   log(`build: ${info.id} (${channel}), ${files.length} files, ${(total / 1024).toFixed(1)} KB -> ${name}/`);
   log(`  art.json ${(statSync(join(out, 'art', 'art.json')).size / 1024).toFixed(1)} KB: ${Object.keys(art.pics).length} picture(s), ${Object.keys(art.stamps).length} stamp(s)`);
-  return { info, version, total, files: files.length, out };
+  log(`  rules ${rules}: ${Object.keys(data.rules.plans).length} plan(s), ${Object.keys(data.rules.stops).length} stop set(s) for screens ${data.screens.join(' ')}`);
+  log(`  selfcheck.json ${(statSync(join(out, 'selfcheck.json')).size / 1024).toFixed(1)} KB: ${corpus.trips.length} golden trips, ${Object.keys(corpus.expect).length} groups`);
+  return { info, version, total, files: files.length, out, rules };
 }
 
 /**

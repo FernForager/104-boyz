@@ -1,4 +1,6 @@
 {
- "$comment": "T07's allowlist (GAME_DESIGN F.3): text or catalog ids that may use a book word because they are real things that are books or have pages, each with its reason. A new entry shows in the next batch. Empty in S2.",
- "ids": {}
+ "$comment": "T07's allowlist (GAME_DESIGN F.3): text or catalog ids that may use a book word because they are real things that are books or have pages, each with its reason. A new entry shows in the next batch. S3 adds the guest book (filed in B003).",
+ "ids": {
+  "first.guestbook.prompt": "The cabin's guest book, a real book on the porch table: F.3 names it (GAME_DESIGN 12.4)"
+ }
 }

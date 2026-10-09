@@ -1,0 +1,21 @@
+{
+ "$comment": "A new hiker's first screens (GAME_DESIGN 3.6, 12.4): the guest book, plain in S3; S7 puts it on the cabin's porch table, after the lockbox. Drafts until B003 is answered; preview only.",
+ "first.guestbook.prompt": {
+  "text": "Sign the guest book.",
+  "ctx": "A new hiker's first screen: the box above the name field, and the field's name for VoiceOver (plain in S3; on the cabin's porch table from S7)",
+  "screen": "guestbook",
+  "max": 60
+ },
+ "first.guestbook.one_life": {
+  "text": "One life. If your hiker dies, the trail ends, and their stories go with them.",
+  "ctx": "The guest book: the one plain line under the name field (GAME_DESIGN 3.6, 12.4)",
+  "screen": "guestbook",
+  "max": 120
+ },
+ "first.guestbook.sign": {
+  "text": "Sign",
+  "ctx": "The guest book's button: signs the name and starts the hiker",
+  "screen": "guestbook",
+  "max": 22
+ }
+}

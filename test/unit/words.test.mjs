@@ -56,8 +56,8 @@ test("main's manifest and bundle hold approved words only, and pass the gate", (
   assert.deepEqual([m.name, m.short_name, m.description], ['Olympic Peninsula Hiker', 'OP Hiker', 'A backpacking adventure']);
   assert.deepEqual([m.id, m.start_url, m.scope], ['./', './', './']);
   assert.equal(JSON.parse(built.preview.manifest).id, '/preview/', "preview's own app id (main's ./ resolves to the origin's root)");
-  // The debug menu's dev words ride along for the debug screen (decision 64);
-  // its marks control is preview's alone.
+  // The debug menu's dev words ride along for the debug screen (decision 64),
+  // the self-check's three with them (S3); its marks control is preview's alone.
   assert.deepEqual(Object.keys(words), [
     'app.build',
     'app.description',
@@ -72,6 +72,9 @@ test("main's manifest and bundle hold approved words only, and pass the gate", (
     'app.update',
     'app.update.restart',
     'app.upright',
+    'dev.check.differs',
+    'dev.check.match',
+    'dev.check.running',
     'dev.close',
     'dev.note',
     'dev.throw',
@@ -112,13 +115,19 @@ test('preview carries the working words, Session 1 marked as drafts', () => {
   const m = JSON.parse(manifest);
   assert.deepEqual([m.name, m.short_name, m.description], ['OP Preview', 'OP Preview', 'A backpacking adventure']);
   const words = JSON.parse(read('text/en.json'));
-  assert.equal(Object.keys(words).length, 27);
+  assert.equal(Object.keys(words).length, 36);
   assert.deepEqual(JSON.parse(read('text/marks.json')), {
     'alt.cover_high_divide_dusk': 'draft',
+    'first.guestbook.one_life': 'draft',
+    'first.guestbook.prompt': 'draft',
+    'first.guestbook.sign': 'draft',
     'title.begin': 'draft',
     'title.begin_note': 'draft',
     'title.start_label': 'draft',
     'title.tagline': 'draft',
+    'trail.sol_duc_trailhead.lot': 'draft',
+    'trail.sol_duc_trailhead.trail_mouth': 'draft',
+    'trail.walk_on': 'draft',
   });
 });
 

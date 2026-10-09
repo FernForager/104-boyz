@@ -1,0 +1,8 @@
+{
+ "$comment": "The engine fixture's one plan (BUILD_PLAN S3): the fx set from its first stop, day 1 at 8:00.",
+ "id": "fx_plan",
+ "screen": "fx",
+ "mode": "open",
+ "start": { "set": "fx", "day": 1, "s": 28800 },
+ "after": "end"
+}

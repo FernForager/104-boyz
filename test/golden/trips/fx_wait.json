@@ -1,0 +1,55 @@
+{
+ "name": "fx_wait",
+ "about": "fx_pass with wait 600 after the first Walk on: another hash (the clock) and identity.",
+ "fixture": "engine",
+ "log": {
+  "format": 1,
+  "rules": "000000000001",
+  "mode": "open",
+  "rule": "oldschool",
+  "seed": "00000001",
+  "plan": "fx_plan",
+  "profile": "c1695851a682",
+  "base": "",
+  "actions": [
+   [
+    "next"
+   ],
+   [
+    "wait",
+    600
+   ],
+   [
+    "choose",
+    "go"
+   ],
+   [
+    "next"
+   ]
+  ]
+ },
+ "profile": {
+  "body_lb": 165,
+  "fitness": "regular",
+  "regions": {},
+  "seen": {},
+  "skills": {
+   "campcraft": 1,
+   "coast": 1,
+   "first_aid": 1,
+   "footing": 1,
+   "glacier": 0,
+   "navigation": 1,
+   "river": 1,
+   "snow": 1
+  }
+ },
+ "base": null,
+ "expect": {
+  "hash": "8adfefc649bbb2c7ab0f53782c93a13f466d8d019a6533c1af9c6294b1d58920",
+  "identity": "0e58d64f1d04f871e64f2d8ae07470f43703e728774b7c53054ccfd7a820b712",
+  "packed": "4f50010c30303030303030303030303100000830303030303030310766785f706c616e0c633136393538353161363832000102676f040103d804020001",
+  "screens": "b27587ff7144d18bfb71d68364a9737d238d38aba448abf3e1538406a9df8cc0",
+  "error": null
+ }
+}

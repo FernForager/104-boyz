@@ -1,6 +1,12 @@
 // The title page (until the cabin replaces it, S7; GAME_DESIGN 12.3): the
 // cover drawing itself in at dusk, the name, the update note, the install
 // line and the stamps. This file becomes the cabin (BUILD_PLAN 2.5).
+//
+// On preview from S3 the title page is the loading art: showTitle's `done`
+// settles when the draw-in has finished (or a tap finished it, or at once
+// under Reduce Motion), and the game (ui/app.js) takes the page then.
+// opensGame() is the gate: only a build whose <html data-screens> lists the
+// guestbook and trail screens loads the game, so main's page never does.
 
 import { renderPic } from '../gfx/picvm.js';
 import { makePalette } from '../gfx/palette.js';
@@ -18,16 +24,33 @@ const PLATE = { width: 160, height: 320 };
 const TITLE_ROWS = 88;
 /** Held sideways: the title page hides behind the plate. Same query as game.css. */
 const SIDEWAYS = '(orientation: landscape) and (max-height: 540px)';
+/** The screens a build needs before it loads the game (content/scope/m1a.json; BUILD_PLAN S3). */
+export const GAME_SCREENS = Object.freeze(['guestbook', 'trail']);
+
+/**
+ * Pure: does this build carry the game? True when <html data-screens>
+ * (stamped by the build from the scope file) lists every one of
+ * GAME_SCREENS. Main's lists app, debug and title, so main never loads it.
+ * @param {Document} doc
+ */
+export function opensGame(doc) {
+  const screens = String(doc.documentElement.getAttribute('data-screens') || '').split(/\s+/);
+  return GAME_SCREENS.every((s) => screens.includes(s));
+}
 
 function reducedMotion() {
   return typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
 }
 
+/** @param {string} v a CSS length */
 function px(v) {
   return parseFloat(v) || 0;
 }
 
-/** Resolves once the phone is upright, so the draw-in plays where it can be seen. */
+/**
+ * Resolves once the phone is upright, so the draw-in plays where it can be seen.
+ * @returns {Promise<void>}
+ */
 function whenUpright() {
   if (typeof matchMedia !== 'function') return Promise.resolve();
   const mq = matchMedia(SIDEWAYS);
@@ -43,8 +66,12 @@ function whenUpright() {
 }
 
 /**
- * Show the title page.
+ * Show the title page. Resolves once the draw-in has started, to
+ * {finish, stop, done}: finish() ends the draw-in, stop() ends the stars and
+ * the page's resize handling (the game calls it when it takes the page), and
+ * done settles when the picture has finished drawing.
  * @param {Document} doc
+ * @returns {Promise<{finish: () => void, stop: () => void, done: Promise<void>}>}
  */
 export async function showTitle(doc = document) {
   const install = doc.getElementById('install');
@@ -91,11 +118,24 @@ export async function showTitle(doc = document) {
     display.snap();
   };
   fit();
-  if (doc.fonts) doc.fonts.ready.then(fit);
+  let fitting = true;
+  if (doc.fonts) doc.fonts.ready.then(() => fitting && fit());
   window.addEventListener('resize', fit);
   window.addEventListener('orientationchange', fit);
   // The update note and the offline stamp appear later (sw-client.js).
   window.addEventListener('oph:layout', fit);
+  const unfit = () => {
+    fitting = false;
+    window.removeEventListener('resize', fit);
+    window.removeEventListener('orientationchange', fit);
+    window.removeEventListener('oph:layout', fit);
+  };
+  /** @type {() => void} */
+  let drawn = () => {};
+  /** @type {Promise<void>} */
+  const done = new Promise((resolve) => {
+    drawn = resolve;
+  });
 
   const reduced = reducedMotion();
   // The page starts with the title held back (class "drawing"); it steps in
@@ -132,15 +172,26 @@ export async function showTitle(doc = document) {
         plate.classList.remove('drawing');
         // The stars twinkle, unless Reduce Motion is on (doc 11.5).
         if (!reduced) stopCycles = startCycles(display, final, pic.width, palette, { remap: 'day' });
+        drawn();
       },
     });
     // A tap anywhere finishes the draw-in.
     const skip = () => run.finish();
     doc.addEventListener('pointerdown', skip, { once: true });
     doc.addEventListener('keydown', skip, { once: true });
-    return { finish: run.finish, stop: () => stopCycles() };
+    return {
+      finish: run.finish,
+      stop: () => {
+        stopCycles();
+        unfit();
+        doc.removeEventListener('pointerdown', skip);
+        doc.removeEventListener('keydown', skip);
+      },
+      done,
+    };
   } catch (err) {
     plate.classList.remove('drawing');
+    drawn();
     throw err;
   }
 }

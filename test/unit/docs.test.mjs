@@ -55,9 +55,18 @@ test('package.json names OP Hiker, has no book words, and its scripts are the RE
   const pkg = JSON.parse(read('package.json'));
   assert.match(pkg.description, /^Olympic Peninsula Hiker \(OP Hiker\): /);
   assert.deepEqual(bookWords(JSON.stringify(pkg)), []);
-  assert.ok(!pkg.dependencies && !pkg.devDependencies, 'no dependencies yet');
+  // BUILD_PLAN 2.1: one dev dependency, TypeScript, exact, with a lockfile; nothing the page loads.
+  assert.ok(!pkg.dependencies, 'no runtime dependencies');
+  assert.deepEqual(Object.keys(pkg.devDependencies), ['typescript'], 'exactly one dev dependency');
+  assert.match(pkg.devDependencies.typescript, /^\d+\.\d+\.\d+$/, 'at an exact version');
+  const lock = JSON.parse(read('package-lock.json'));
+  assert.equal(lock.packages['node_modules/typescript'].version, pkg.devDependencies.typescript, 'the lockfile pins the same');
+  assert.deepEqual(Object.keys(lock.packages).sort(), ['', 'node_modules/typescript'], 'and nothing else');
   const scripts = Object.keys(pkg.scripts).sort();
-  assert.deepEqual(scripts, ['build', 'ci', 'lint', 'render', 'serve', 'test', 'text:apply', 'text:check', 'text:count']);
+  assert.deepEqual(scripts, ['build', 'ci', 'lint', 'play', 'render', 'serve', 'sim:smoke', 'test', 'text:apply', 'text:check', 'text:count', 'typecheck']);
+  // BUILD_PLAN 6.5: ci runs the five checks, in that order.
+  assert.equal(pkg.scripts.ci, 'npm run build && npm run lint && npm run typecheck && npm run test && npm run sim:smoke');
+  assert.equal(pkg.scripts['sim:smoke'], 'node tools/sim.mjs --smoke 1000');
   // The README's command list is the scripts, no more and no fewer.
   const readme = read('README.md');
   const listed = [...readme.matchAll(/^npm (?:run )?([a-z:]+)/gm)].map((m) => m[1]).sort();
@@ -67,14 +76,15 @@ test('package.json names OP Hiker, has no book words, and its scripts are the RE
 test('the README carries the icon and both names, serves at the root, and has no book frame', () => {
   const readme = read('README.md');
   assert.ok(readme.startsWith('<img src="https://ophiker.com/icons/icon-192.png" width="96" alt="The OP Hiker icon">\n'), 'the icon comes first');
-  for (const s of ['**OP Hiker**', '**OP Preview**', 'https://ophiker.com/preview/', 'http://127.0.0.1:8104/, preview at /preview/', 'content/text/', 'content/scope/', 'web/js/platform/', 'web/sw.js']) {
+  for (const s of ['**OP Hiker**', '**OP Preview**', 'https://ophiker.com/preview/', 'http://127.0.0.1:8104/, preview at /preview/', 'content/text/', 'content/scope/', 'web/js/platform/', 'web/sw.js', 'web/js/engine/', 'schemas/', 'sims/', 'test/golden/', 'test/fixtures/', 'npm ci --ignore-scripts', 'The engine is pure: Node runs the same files']) {
     assert.ok(readme.includes(s), s);
   }
   assert.ok(!readme.includes('8104/104-boyz'), 'serve is at the root now');
   assert.ok(!/working title/i.test(readme), 'decision 35 named it');
-  // "page" is the web's own word here (the title page, GitHub Pages); T07's
-  // other words are the book frame, which is gone (decision 22).
-  assert.deepEqual(bookWords(readme).filter((w) => !/^pages?$/i.test(w)), []);
+  // "page" is the web's own word here (the title page, GitHub Pages), and the
+  // guest book is a real one, on T07's allowlist (F.3; S3); T07's other words
+  // are the book frame, which is gone (decision 22).
+  assert.deepEqual(bookWords(readme.replace(/\bguest book\b/gi, '')).filter((w) => !/^pages?$/i.test(w)), []);
 });
 
 test('every build log entry from S2 on has the five lines and the batch line (BUILD_PLAN 8.1)', () => {

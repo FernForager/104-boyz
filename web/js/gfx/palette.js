@@ -64,21 +64,36 @@ export const CYCLES = Object.freeze({
   25: Object.freeze({ name: 'dust', slots: [5, 10, 2], light: true, hold: 2, phase: 'none' }),
 });
 
+/** @typedef {{name: string, slots: number[], light: boolean, hold: number, phase: string}} Cycle */
+/** @typedef {{colors: readonly string[], remaps: Readonly<Record<string, readonly number[]>>, cycles: Record<number, Cycle>, rgb: number[][]}} Palette a palette ready to resolve pictures (makePalette) */
+
 /** Cycling runs at 8 frames a second (11.5). */
 export const CYCLE_FPS = 8;
 
-/** '#rrggbb' -> [r, g, b] */
+/**
+ * '#rrggbb' -> [r, g, b]
+ * @param {string} hex
+ */
 export function hexToRgb(hex) {
   const n = parseInt(hex.slice(1), 16);
   return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
 }
 
+/**
+ * @param {number} x
+ * @param {number} y
+ */
 function scatter(x, y) {
   let h = Math.imul(x, 0x9e3779b1) ^ Math.imul(y, 0x85ebca6b);
   h = Math.imul(h ^ (h >>> 13), 0xc2b2ae35);
   return (h ^ (h >>> 16)) >>> 0;
 }
 
+/**
+ * @param {string} kind
+ * @param {number} x
+ * @param {number} y
+ */
 function phaseOf(kind, x, y) {
   switch (kind) {
     case 'scatter':
@@ -97,11 +112,15 @@ function phaseOf(kind, x, y) {
 /**
  * A palette ready to resolve pictures, from palette.json (or the built-in
  * tables when called with no argument).
+ * @param {{colors: {hex: string}[], remaps: Record<string, number[]>, cycles: Record<string, Cycle>}} [json]
+ * @returns {Palette}
  */
 export function makePalette(json) {
   const colors = json ? json.colors.map((c) => c.hex) : PALETTE;
   const remaps = json ? json.remaps : REMAPS;
+  /** @type {Record<number, Cycle>} */
   const cycles = {};
+  /** @type {Record<string, Cycle>} */
   const src = json ? json.cycles : CYCLES;
   for (const k of Object.keys(src)) cycles[Number(k)] = src[k];
   const rgb = colors.map(hexToRgb);
@@ -113,7 +132,7 @@ export function makePalette(json) {
  *
  * @param {Uint8Array} src indices from picvm.composite
  * @param {number} width
- * @param {object} pal makePalette()
+ * @param {Palette} pal makePalette()
  * @param {object} [o]
  * @param {string} [o.remap] 'day' | 'dusk'
  * @param {number} [o.frame] cycle frame (8 per second)
@@ -124,7 +143,7 @@ export function makePalette(json) {
 export function resolve(src, width, pal, o = {}, out) {
   const map = pal.remaps[o.remap || 'day'];
   if (!map) throw new Error(`unknown remap "${o.remap}"`);
-  const frame = o.frame | 0;
+  const frame = (o.frame || 0) | 0;
   const bg = o.background === undefined ? 0 : o.background;
   const dst = out || new Uint8Array(src.length);
   for (let p = 0; p < src.length; p++) {
@@ -147,13 +166,21 @@ export function resolve(src, width, pal, o = {}, out) {
   return dst;
 }
 
-/** True when any pixel cycles, so the page needs to animate at all. */
+/**
+ * True when any pixel cycles, so the page needs to animate at all.
+ * @param {ArrayLike<number>} src
+ */
 export function hasCycles(src) {
   for (let p = 0; p < src.length; p++) if (src[p] >= 16 && src[p] !== 255) return true;
   return false;
 }
 
-/** Slots 0-15 -> RGBA bytes. */
+/**
+ * Slots 0-15 -> RGBA bytes.
+ * @param {ArrayLike<number>} slots
+ * @param {{rgb: number[][]}} pal
+ * @param {Uint8ClampedArray} [out]
+ */
 export function toRGBA(slots, pal, out) {
   const dst = out || new Uint8ClampedArray(slots.length * 4);
   const rgb = pal.rgb;

@@ -1,0 +1,21 @@
+{
+ "$comment": "The trail's stops (GAME_DESIGN 12.1, 12.2): S3's two sample stops at the Sol Duc trailhead and the button between stops. S15a's tailgate and S9's cards replace the sample stops. Drafts until B004 is answered; preview only.",
+ "trail.walk_on": {
+  "text": "Walk on",
+  "ctx": "Every trail stop's button to the next stop (GAME_DESIGN 12.1)",
+  "screen": "trail",
+  "max": 22
+ },
+ "trail.sol_duc_trailhead.lot": {
+  "text": "The road ends in a ring of giant trees. You smell wet moss and the river.",
+  "ctx": "Sol Duc trailhead, the first stop: the road's end, where the loop starts",
+  "screen": "trail",
+  "max": 140
+ },
+ "trail.sol_duc_trailhead.trail_mouth": {
+  "text": "The trail slips between two huge trunks. Sol Duc Falls is under a mile in.",
+  "ctx": "Sol Duc trailhead, the second stop: the trail into the trees toward the falls (0.8 mi)",
+  "screen": "trail",
+  "max": 140
+ }
+}

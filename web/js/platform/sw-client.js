@@ -36,7 +36,11 @@ export function workerStatus() {
   return { ...status };
 }
 
-/** Unhide one of the title page's elements, and let the page refit. */
+/**
+ * Unhide one of the title page's elements, and let the page refit.
+ * @param {Document} doc
+ * @param {string} id
+ */
 function reveal(doc, id) {
   const el = doc.getElementById(id);
   if (!el || !el.hidden) return;
@@ -45,13 +49,19 @@ function reveal(doc, id) {
   if (win) win.dispatchEvent(new win.Event('oph:layout'));
 }
 
-/** The worker's state, from its registration. */
+/**
+ * The worker's state, from its registration.
+ * @param {ServiceWorkerRegistration | null} reg
+ */
 function note(reg) {
   if (!reg) return;
   status.worker = reg.waiting ? 'waiting' : reg.installing ? 'installing' : reg.active ? 'active' : 'none';
 }
 
-/** Ask our active worker which build it is, for the report. */
+/**
+ * Ask our active worker which build it is, for the report.
+ * @param {ServiceWorker | null} worker
+ */
 function askStatus(worker) {
   if (!worker || typeof MessageChannel !== 'function') return;
   const ch = new MessageChannel();
@@ -66,7 +76,7 @@ function askStatus(worker) {
  * Register the channel's worker and wire the update note, Restart and the
  * offline stamp. Never throws; returns workerStatus().
  * @param {Document} doc
- * @param {any} [nav]
+ * @param {{serviceWorker?: ServiceWorkerContainer}} [nav]
  */
 export function startWorker(doc, nav = globalThis.navigator) {
   try {
@@ -91,14 +101,14 @@ export function startWorker(doc, nav = globalThis.navigator) {
     // (Not navigator.serviceWorker.ready: on a first visit to /preview/ the
     // page starts out under main's worker, whose scope covers it, and ready
     // would answer for main's.)
-    const offline = (r) => {
+    const offline = (/** @type {ServiceWorkerRegistration} */ r) => {
       if (status.offline) return;
       status.offline = true;
       note(r);
       reveal(doc, 'offline');
       askStatus(r.active);
     };
-    const whenActive = (r, w) => {
+    const whenActive = (/** @type {ServiceWorkerRegistration} */ r, /** @type {ServiceWorker | null} */ w) => {
       if (!w) return;
       w.addEventListener('statechange', () => {
         note(r);
@@ -135,7 +145,8 @@ export function startWorker(doc, nav = globalThis.navigator) {
     });
 
     // Restart: the waiting build takes over, then the page reloads into it
-    // (boot.js, shared with the error sheet). Session 3 saves the game first.
+    // (boot.js, shared with the error sheet). The game is already saved: it
+    // saves at every tap (ui/app.js), so the new build opens on the same screen.
     const again = doc.getElementById('update-restart');
     if (again && win) again.addEventListener('click', () => restart(win));
   } catch (err) {

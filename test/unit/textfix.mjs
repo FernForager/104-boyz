@@ -46,12 +46,12 @@ export function fakeText({ lines = {}, approved = {}, cut = {}, off = {}, screen
 }
 
 /** A page for the fill, with the build's placeholders. */
-export const page = (body, head = '') => `<!doctype html>\n<html lang="en" data-build="dev" data-channel="dev">\n<head>${head}</head>\n<body>${body}</body>\n</html>\n`;
+export const page = (body, head = '') => `<!doctype html>\n<html lang="en" data-build="dev" data-channel="dev" data-commit="dev" data-rules="dev" data-screens="dev">\n<head>${head}</head>\n<body>${body}</body>\n</html>\n`;
 
 /** The <body> of a filled page. */
 export const bodyOf = (html) => html.slice(html.indexOf('<body>') + 6, html.indexOf('</body>'));
 
-// ---- A tiny DOM, enough for tx() ----------------------------------------
+// ---- A tiny DOM, enough for tx() and the game's screens ------------------
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
@@ -75,6 +75,9 @@ class FakeNode {
     n.parentNode = null;
     return n;
   }
+  get textContent() {
+    return this.childNodes.map((c) => c.textContent).join('');
+  }
 }
 
 class FakeText extends FakeNode {
@@ -85,6 +88,24 @@ class FakeText extends FakeNode {
   get outerHTML() {
     return esc(this.data);
   }
+  get textContent() {
+    return this.data;
+  }
+}
+
+/** data-* attributes as a dataset (camelCase keys), as the DOM gives them. */
+function dataset(el) {
+  const attr = (k) => `data-${k.replace(/[A-Z]/g, (c) => `-${c.toLowerCase()}`)}`;
+  return new Proxy(
+    {},
+    {
+      get: (_, k) => (typeof k === 'string' ? (el.getAttribute(attr(k)) ?? undefined) : undefined),
+      set: (_, k, v) => {
+        el.setAttribute(attr(String(k)), v);
+        return true;
+      },
+    },
+  );
 }
 
 class FakeElement extends FakeNode {
@@ -92,12 +113,58 @@ class FakeElement extends FakeNode {
     super(doc);
     this.tagName = tag.toUpperCase();
     this.attributes = new Map();
+    this.listeners = new Map();
+    this.value = '';
+    this.dataset = dataset(this);
+    this.focused = 0;
+    const props = new Map();
+    this.style = {
+      setProperty: (k, v) => props.set(k, String(v)),
+      removeProperty: (k) => props.delete(k),
+      getPropertyValue: (k) => props.get(k) ?? '',
+    };
+    const el = this;
+    this.classList = {
+      add: (...cs) => el.setAttribute('class', [...new Set([...el.className.split(' ').filter(Boolean), ...cs])].join(' ')),
+      remove: (...cs) => el.setAttribute('class', el.className.split(' ').filter((c) => c && !cs.includes(c)).join(' ')),
+      contains: (c) => el.className.split(' ').includes(c),
+    };
   }
   set className(v) {
     this.setAttribute('class', v);
   }
   get className() {
     return this.getAttribute('class') || '';
+  }
+  set id(v) {
+    this.setAttribute('id', v);
+  }
+  get id() {
+    return this.getAttribute('id') || '';
+  }
+  set disabled(v) {
+    if (v) this.setAttribute('disabled', '');
+    else this.removeAttribute('disabled');
+  }
+  get disabled() {
+    return this.hasAttribute('disabled');
+  }
+  set hidden(v) {
+    if (v) this.setAttribute('hidden', '');
+    else this.removeAttribute('hidden');
+  }
+  get hidden() {
+    return this.hasAttribute('hidden');
+  }
+  set textContent(v) {
+    while (this.firstChild) this.removeChild(this.firstChild);
+    this.appendChild(new FakeText(this.ownerDocument, String(v)));
+  }
+  get textContent() {
+    return super.textContent;
+  }
+  get children() {
+    return this.childNodes.filter((c) => c instanceof FakeElement);
   }
   setAttribute(k, v) {
     this.attributes.set(k, String(v));
@@ -111,6 +178,57 @@ class FakeElement extends FakeNode {
   hasAttribute(k) {
     return this.attributes.has(k);
   }
+  addEventListener(type, f) {
+    if (!this.listeners.has(type)) this.listeners.set(type, []);
+    this.listeners.get(type).push(f);
+  }
+  removeEventListener(type, f) {
+    const list = this.listeners.get(type) || [];
+    if (list.includes(f)) list.splice(list.indexOf(f), 1);
+  }
+  /** Fire an event's listeners (an object with at least {type}). */
+  dispatchEvent(event) {
+    const e = { target: this, preventDefault() {}, ...event };
+    for (const f of [...(this.listeners.get(e.type) || [])]) f(e);
+    return true;
+  }
+  /** A click, as a tap gives it: nothing happens on a disabled button. */
+  click() {
+    if (this.disabled) return;
+    this.dispatchEvent({ type: 'click' });
+  }
+  focus() {
+    this.focused++;
+    this.ownerDocument.activeElement = this;
+  }
+  blur() {
+    if (this.ownerDocument.activeElement === this) this.ownerDocument.activeElement = null;
+  }
+  scrollIntoView() {}
+  /** Every element under this one, in document order. */
+  descendants() {
+    return this.children.flatMap((c) => [c, ...c.descendants()]);
+  }
+  /** One simple selector: tag, .class, #id, or tag.class, or [attr]. */
+  matches(sel) {
+    const m = /^([a-z]+)?(?:#([\w-]+))?((?:\.[\w-]+)*)(?:\[([\w-]+)\])?$/.exec(sel);
+    if (!m) throw new Error(`fake DOM: no selector ${sel}`);
+    const [, tag, id, cls, attr] = m;
+    if (tag && this.tagName !== tag.toUpperCase()) return false;
+    if (id && this.id !== id) return false;
+    if (attr && !this.hasAttribute(attr)) return false;
+    return cls.split('.').filter(Boolean).every((c) => this.classList.contains(c));
+  }
+  /** Descendant selectors of simple parts ('.a .b'). */
+  querySelectorAll(sel) {
+    const parts = sel.trim().split(/\s+/);
+    let found = [this];
+    for (const part of parts) found = [...new Set(found.flatMap((n) => n.descendants().filter((d) => d.matches(part))))];
+    return found;
+  }
+  querySelector(sel) {
+    return this.querySelectorAll(sel)[0] || null;
+  }
   get innerHTML() {
     return this.childNodes.map((c) => c.outerHTML).join('');
   }
@@ -121,12 +239,26 @@ class FakeElement extends FakeNode {
   }
 }
 
-/** A document with createElement, createTextNode and a documentElement. */
+/** A document with createElement, createTextNode, a documentElement and a body. */
 export function fakeDocument() {
   const doc = {
     createElement: (tag) => new FakeElement(doc, tag),
     createTextNode: (data) => new FakeText(doc, data),
+    activeElement: null,
+    listeners: new Map(),
+    getElementById: (id) => doc.documentElement.querySelector(`#${id}`),
+    querySelector: (sel) => doc.documentElement.querySelector(sel),
+    querySelectorAll: (sel) => doc.documentElement.querySelectorAll(sel),
+    addEventListener(type, f) {
+      if (!doc.listeners.has(type)) doc.listeners.set(type, []);
+      doc.listeners.get(type).push(f);
+    },
+    removeEventListener(type, f) {
+      const list = doc.listeners.get(type) || [];
+      if (list.includes(f)) list.splice(list.indexOf(f), 1);
+    },
   };
   doc.documentElement = new FakeElement(doc, 'html');
+  doc.body = doc.documentElement.appendChild(new FakeElement(doc, 'body'));
   return doc;
 }

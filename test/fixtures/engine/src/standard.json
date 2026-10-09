@@ -1,0 +1,13 @@
+{
+ "$comment": "The timed modes' standard hiker and runner, shed and pantry (GAME_DESIGN 1.3, 7.3, E.12; BUILD_PLAN 14.1). T0's stub: the hiker only. T1 fills in the runner (Strong fitness) and the shed and pantry. Nothing of the Open hiker reaches them.",
+ "hiker": {
+  "fitness": "regular",
+  "body_lb": 165,
+  "skills": { "footing": 1, "navigation": 1, "river": 1, "snow": 1, "coast": 1, "campcraft": 1, "first_aid": 1, "glacier": 0 },
+  "regions": {},
+  "seen": {}
+ },
+ "runner": null,
+ "shed": [],
+ "pantry": []
+}

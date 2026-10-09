@@ -29,7 +29,7 @@ const ring = [];
 /** @type {Document | null} */
 let sheetDoc = null;
 /** @type {(button: HTMLElement, area: HTMLTextAreaElement) => unknown} */
-let copyFn = () => {};
+let copyFn = () => undefined;
 
 const now = () => (typeof performance !== 'undefined' ? Math.round(performance.now()) : 0);
 
@@ -51,8 +51,8 @@ export function describeError(err, o = {}) {
   message = message.slice(0, KEEP_CHARS);
   const stack = e && typeof e === 'object' && typeof e.stack === 'string' ? e.stack.slice(0, KEEP_CHARS) : '';
   let source = o.filename || null;
-  let line = Number.isFinite(o.lineno) ? o.lineno : null;
-  let col = Number.isFinite(o.colno) ? o.colno : null;
+  let line = typeof o.lineno === 'number' && Number.isFinite(o.lineno) ? o.lineno : null;
+  let col = typeof o.colno === 'number' && Number.isFinite(o.colno) ? o.colno : null;
   if (!source && stack) {
     // The first frame with a URL: Safari's fn@url:1:2, or V8's "at fn (url:1:2)".
     const m = FRAME_RE.exec(stack);
@@ -145,9 +145,10 @@ export function installErrors(doc, { copy } = {}) {
   const again = doc.getElementById('error-restart');
   if (again && win) {
     again.addEventListener('click', () => {
-      // Session 3 re-renders the screen from the trip's autosave here, and
-      // never rewinds (E.11). Until there is one, Restart reloads, into the
-      // new build when one waits: a reload alone would keep the broken one.
+      // Restart reloads, into the new build when one waits (a reload alone
+      // would keep the broken one), and the game comes back on its
+      // autosave: every tap saves before the screen changes (ui/app.js), so
+      // nothing is rewound or lost (E.11).
       restart(win);
     });
   }

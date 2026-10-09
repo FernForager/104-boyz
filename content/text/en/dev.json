@@ -41,5 +41,23 @@
   "ctx": "The debug menu, preview only: no marks",
   "screen": "debug",
   "class": "dev"
+ },
+ "dev.check.running": {
+  "text": "Self-check: running",
+  "ctx": "The debug menu: the replay self-check is running (BUILD_PLAN S3)",
+  "screen": "debug",
+  "class": "dev"
+ },
+ "dev.check.match": {
+  "text": "Self-check: match",
+  "ctx": "The debug menu: the golden trips replayed in this phone's engine match Node's hashes",
+  "screen": "debug",
+  "class": "dev"
+ },
+ "dev.check.differs": {
+  "text": "Self-check: no match",
+  "ctx": "The debug menu: some group's hash differs from Node's; the report says which",
+  "screen": "debug",
+  "class": "dev"
  }
 }

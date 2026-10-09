@@ -1,0 +1,11 @@
+{
+ "$comment": "Two stops at the Sol Duc trailhead (BUILD_PLAN S3). S3's stop list; S9's cards and S15a's tailgate replace it. box holds line ids (voice data, not rules-hashed).",
+ "id": "sol_duc_trailhead",
+ "screen": "trail",
+ "phase": "trailhead",
+ "first": "lot",
+ "stops": [
+  { "id": "lot", "box": "@trail.sol_duc_trailhead.lot", "next": "trail_mouth" },
+  { "id": "trail_mouth", "box": "@trail.sol_duc_trailhead.trail_mouth", "next": null }
+ ]
+}

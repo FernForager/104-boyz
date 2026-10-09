@@ -69,7 +69,7 @@ const APPROVED = {
 test('every line file reads cleanly: good ids, in their area, complete', () => {
   const text = readText(ROOT);
   assert.deepEqual(text.problems, []);
-  assert.deepEqual(text.files, ['content/text/en/alt.json', 'content/text/en/app.json', 'content/text/en/credits.json', 'content/text/en/dev.json', 'content/text/en/title.json']);
+  assert.deepEqual(text.files, ['content/text/en/alt.json', 'content/text/en/app.json', 'content/text/en/credits.json', 'content/text/en/dev.json', 'content/text/en/first.json', 'content/text/en/title.json', 'content/text/en/trail.json']);
   for (const [id, l] of text.lines) {
     assert.match(id, ID_RE);
     assert.equal(l.file, `content/text/en/${id.split('.')[0]}.json`);
@@ -239,13 +239,16 @@ test('count: where things stand', () => {
   const lint = runTextLint(ROOT);
   const t07 = lint.issues.filter((i) => i.code === 'T07' && i.level === 'warn').map((i) => i.id).sort();
   const c = countText(text, { t07 });
-  assert.equal(c.lines, 27);
-  assert.equal(c.files, 5);
-  assert.deepEqual(c.ours, { total: 20, approved: 14, draft: 5, changed: 0, cut: 0, nowords: 1 });
-  assert.equal(c.dev, 7);
-  // The 13 app lines, and the debug menu's three dev lines main keeps
-  // (dev.note, dev.close, dev.throw; the marks are preview's alone).
-  assert.equal(c.main.reach.length, 16);
+  // S3 adds six drafts (the guest book's three, the trail's three) and the
+  // self-check's three dev lines (BUILD_PLAN S3; SPEC D19).
+  assert.equal(c.lines, 36);
+  assert.equal(c.files, 7);
+  assert.deepEqual(c.ours, { total: 26, approved: 14, draft: 11, changed: 0, cut: 0, nowords: 1 });
+  assert.equal(c.dev, 10);
+  // The 13 app lines, and the debug menu's six dev lines main keeps
+  // (dev.note, dev.close, dev.throw and the three dev.check lines; the marks
+  // are preview's alone).
+  assert.equal(c.main.reach.length, 19);
   assert.deepEqual(c.main.screens, ['app', 'debug', 'title']);
   assert.deepEqual(c.main.needs, []);
   assert.equal(c.main.off.length, 9);
@@ -260,10 +263,10 @@ test('count: where things stand', () => {
   assert.equal(c.words.ours.total, c.words.ours.approved + c.words.ours.draft + c.words.ours.changed + c.words.ours.cut);
   assert.ok(c.words.ours.draft > 0 && c.words.dev > 0);
   const out = formatCount(c);
-  assert.match(out, /^text: 27 lines in 5 files\n {2}ours {2}20: approved 14, draft 5, changed 0, cut 0, no words 1\n {8}words \d+: approved 58, draft \d+, changed 0, cut 0\n {2}dev {4}7: exempt \(decision 64\); words \d+/);
+  assert.match(out, /^text: 36 lines in 7 files\n {2}ours {2}26: approved 14, draft 11, changed 0, cut 0, no words 1\n {8}words \d+: approved 58, draft \d+, changed 0, cut 0\n {2}dev {4}10: exempt \(decision 64\); words \d+/);
   assert.match(out, /credits 2 \(approved 2; waiting for its screen\)/);
-  assert.match(out, /debug 7 \(dev 7\)/);
-  assert.match(out, /main: carries app, debug, title; reaches 16 lines, all shippable; needs 0; off main 9/);
+  assert.match(out, /debug 10 \(dev 10\)/);
+  assert.match(out, /main: carries app, debug, title; reaches 19 lines, all shippable; needs 0; off main 9/);
   assert.match(out, /answers not yet applied: none$/);
 });
 
@@ -298,7 +301,7 @@ test('the fill: escaping, emphasis, line breaks, the build code, the title split
   assert.equal(body('<h1 data-t="app.name" data-t-split="title"></h1>'), '<h1 data-t="app.name" data-t-split="title"><span class="title-small">Olympic Peninsula</span> <span class="title-big">Hiker</span></h1>');
   assert.equal(body('<p data-t="app.ph"></p>'), '<p data-t="app.ph">Hello {BOY_1}</p>', 'main shows a placeholder plainly (T13 keeps them out of main)');
   const html = fillPage(page('<p></p>'), { channel: 'main', text, build: 'b1' });
-  assert.match(html, /<html lang="en" data-build="b1" data-channel="main">/);
+  assert.match(html, /<html lang="en" data-build="b1" data-channel="main" data-commit="dev" data-rules="dev" data-screens="app title">/);
   assert.throws(() => fillPage('<html lang="en"><body></body></html>', { channel: 'main', text, build: 'b1' }), /lost its placeholder \(<html data-build="dev">\)/);
 });
 
@@ -401,6 +404,22 @@ test('t(), lineState() and setMarks() on each channel', () => {
   assert.equal(quiet.documentElement.getAttribute('data-marks'), null);
   setBundle({}, {}, null);
   assert.deepEqual(renderParts('*a* {x}\n{BOY_2}', { x: '*y*' }), [{ em: 'a' }, { text: ' *y*' }, { br: true }, { ph: '{BOY_2}' }], "a var's value never adds markup");
+});
+
+test("a var that is a ref renders as that line's words, one level deep (SPEC D4: the engine gives refs, never words)", () => {
+  setBundle({ 'trail.at': 'You reach {place}.', 'place.falls': '*Sol Duc* Falls', 'place.near': 'near {place}', 'trail.n': { one: '{n} mile to {place}', other: '{n} miles to {place}' } }, { 'trail.at': 'draft' }, 'preview');
+  assert.equal(t('trail.at', { place: { id: 'place.falls' } }), 'You reach Sol Duc Falls.', 'the inner line in plain words');
+  assert.equal(t('trail.n', { n: 2, place: { id: 'place.falls' } }), '2 miles to Sol Duc Falls', 'plurals still pick by n');
+  assert.equal(t('trail.at', { place: { id: 'place.near', vars: { place: { id: 'place.falls' } } } }), 'You reach near ⟦place.falls⟧.', 'one level: a ref inside a ref is not followed');
+  assert.equal(t('trail.at', { place: { id: 'place.gone' } }), 'You reach ⟦place.gone⟧.', 'a missing inner line shows as missing on preview');
+  const doc = fakeDocument();
+  const el = doc.createElement('p');
+  tx(el, 'trail.at', { place: { id: 'place.falls' } });
+  assert.equal(el.outerHTML, '<p data-t="trail.at" data-t-state="draft">You reach Sol Duc Falls.</p>', 'the inner markup never becomes markup');
+  setBundle({ 'trail.at': 'You reach {place}.' }, {}, 'main');
+  assert.equal(t('trail.at', { place: { id: 'place.gone' } }), 'You reach .', 'main shows nothing for a missing inner line');
+  setBundle({}, {}, null);
+  assert.deepEqual(renderParts('a {x}', { x: 'b' }), [{ text: 'a b' }], 'renderParts itself is unchanged: the fill keeps parity');
 });
 
 test('the ledger only ever comes from apply: no hand-written entry slips past T12', () => {

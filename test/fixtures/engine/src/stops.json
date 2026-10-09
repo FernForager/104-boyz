@@ -1,0 +1,17 @@
+{
+ "$comment": "The engine fixture's stop set (BUILD_PLAN 2.7, S3; GAME_DESIGN F.4: a tiny frozen build for engine goldens, where any change is a regression). a, then b with go (a roll whose p rises after a rest) and rest (once: it hides itself), then c or d. Its line ids are fx.*, never defined and never rendered. tools/goldens.mjs compiles it to ../build.json.",
+ "id": "fx",
+ "screen": "fx",
+ "phase": "trailhead",
+ "first": "a",
+ "stops": [
+  { "id": "a", "box": "@fx.a", "next": "b" },
+  { "id": "b", "box": ["@fx.b1", "@fx.b2"],
+    "choices": [
+     { "id": "go", "label": "@fx.go", "roll": { "p": "0.5 + (flag('rested') ? 0.25 : 0)", "pass": "c", "fail": "d" } },
+     { "id": "rest", "label": "@fx.rest", "show_if": "!flag('rested')", "effects": [{ "flag": "rested" }, { "add_s": 600 }], "then": "b" }
+    ] },
+  { "id": "c", "box": "@fx.c", "next": null },
+  { "id": "d", "box": "@fx.d", "next": null }
+ ]
+}

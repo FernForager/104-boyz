@@ -41,7 +41,20 @@ export const MAX_COLOR = 25;
 export const BRUSH_SHAPES = Object.freeze(['circle', 'square', 'splat']);
 export const MAX_BRUSH = 7;
 
-/** Dither rules: true means color b, false means color a (doc 11.4). */
+/** @typedef {(x: number, y: number) => boolean} Pattern a dither rule */
+/** @typedef {{buf: Uint8Array, w: number, h: number, x0: number, y0: number, ox: number, oy: number, fx: number, depth: number}} Target a buffer being drawn: the layer, or a stamp's scratch */
+/** @typedef {{a: number, b: number, pat: string | null}} Paint the fill paint: solid a, or a dither of a and b */
+/** @typedef {{x0: number, y0: number, x1: number, y1: number}} Box */
+/** @typedef {{id: string, x: number, y: number, w: number, h: number}} Hotspot */
+/** @typedef {{op: number, layer: number, count: number, top: boolean, area: number, edge: boolean, x: number, y: number}} FillNote */
+/** @typedef {{fills: FillNote[], oob: {op: number, x: number, y: number}[], unknownStamps: {op: number, id: string}[], tooDeep: {op: number, id: string}[], maxDepth: number, colors: Set<number>}} Diag */
+/** @typedef {{kind: string[], layer: number[], start: number[], end: number[], writes: number[], colors: number[]}} DrawLog the draw-in's log: each op's run of writes */
+/** @typedef {{width: number, height: number, layers: Uint8Array[], hotspots: Hotspot[], diag: Diag, record: DrawLog | null}} Rendered */
+
+/**
+ * Dither rules: true means color b, false means color a (doc 11.4).
+ * @type {Readonly<Record<string, Pattern>>}
+ */
 export const PATTERNS = Object.freeze({
   checker: (x, y) => ((x + y) & 1) === 0,
   checker25: (x, y) => (x & 1) === 0 && (y & 1) === 0,
@@ -74,16 +87,20 @@ export function parsePic(text) {
     const body = hash >= 0 ? rows[i].slice(0, hash) : rows[i];
     for (const t of body.split(/\s+/)) if (t) toks.push({ t, line: i + 1 });
   }
-  const isCmd = (t) => t === '@' || /^[A-Z]$/.test(t);
+  const isCmd = (/** @type {string} */ t) => t === '@' || /^[A-Z]$/.test(t);
+  /** @type {any[][]} */
   const ops = [];
+  /** @type {number[]} */
   const lines = [];
+  /** @type {{line: number, msg: string}[]} */
   const errors = [];
   let i = 0;
   while (i < toks.length) {
     const { t: cmd, line } = toks[i++];
+    /** @type {string[]} */
     const args = [];
     while (i < toks.length && !isCmd(toks[i].t)) args.push(toks[i++].t);
-    const err = (msg) => errors.push({ line, msg: `${cmd}: ${msg}` });
+    const err = (/** @type {string} */ msg) => errors.push({ line, msg: `${cmd}: ${msg}` });
     if (!isCmd(cmd)) {
       errors.push({ line, msg: `expected a command, found "${cmd}"` });
       continue;
@@ -93,6 +110,7 @@ export function parsePic(text) {
       continue;
     }
     const points = () => {
+      /** @type {number[]} */
       const out = [];
       for (const a of args) {
         const m = POINT_RE.exec(a);
@@ -108,7 +126,7 @@ export function parsePic(text) {
       }
       return out;
     };
-    const color = (a) => {
+    const color = (/** @type {string} */ a) => {
       if (!INT_RE.test(a) || Number(a) > MAX_COLOR) {
         err(`"${a}" is not a color 0-${MAX_COLOR}`); // t-ok: .pic diagnostics (developer text)
         return null;
@@ -209,7 +227,12 @@ export function compilePic(text, name = 'picture') {
   return ops;
 }
 
-/** A small integer hash for the splat brush. Deterministic everywhere. */
+/**
+ * A small integer hash for the splat brush. Deterministic everywhere.
+ * @param {number} x
+ * @param {number} y
+ * @param {number} [s]
+ */
 export function hash2(x, y, s = 0) {
   let h = Math.imul(x | 0, 0x27d4eb2d) ^ Math.imul(y | 0, 0x165667b1) ^ Math.imul(s | 0, 0x9e3779b1);
   h = Math.imul(h ^ (h >>> 15), 0x85ebca6b);
@@ -217,6 +240,12 @@ export function hash2(x, y, s = 0) {
   return (h ^ (h >>> 16)) >>> 0;
 }
 
+/**
+ * @param {string} shape
+ * @param {number} size
+ * @param {number} dx
+ * @param {number} dy
+ */
 function brushHas(shape, size, dx, dy) {
   if (shape === 'square') return true;
   return dx * dx + dy * dy <= size * size + (size >> 1);
@@ -225,14 +254,20 @@ function brushHas(shape, size, dx, dy) {
 /**
  * The bounding box of a stamp's ops in its own coordinates, nested stamps
  * included. Returns null for a stamp that draws nothing.
+ * @param {string} id
+ * @param {Record<string, any[][]>} stamps
+ * @param {Map<string, Box | null>} cache
+ * @param {Set<string>} seen
+ * @returns {Box | null}
  */
 function stampBBox(id, stamps, cache, seen) {
-  if (cache.has(id)) return cache.get(id);
+  const cached = cache.get(id);
+  if (cached !== undefined) return cached;
   const ops = stamps[id];
   if (!ops || seen.has(id)) return null;
   seen.add(id);
   let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
-  const add = (ax, ay, bx = ax, by = ay) => {
+  const add = (/** @type {number} */ ax, /** @type {number} */ ay, bx = ax, by = ay) => {
     if (ax < x0) x0 = ax;
     if (ay < y0) y0 = ay;
     if (bx > x1) x1 = bx;
@@ -279,7 +314,7 @@ function stampBBox(id, stamps, cache, seen) {
  * @param {number} opts.height
  * @param {Record<string, any[][]>} [opts.stamps] stamp id -> compiled ops
  * @param {boolean} [opts.record] also log every pixel write, op by op, for the draw-in
- * @returns {{width: number, height: number, layers: Uint8Array[], hotspots: object[], diag: object, record: object|null}}
+ * @returns {Rendered}
  */
 export function renderPic(ops, opts) {
   const W = opts.width | 0;
@@ -287,8 +322,11 @@ export function renderPic(ops, opts) {
   const N = W * H;
   const stamps = opts.stamps || {};
   const layers = LAYERS.map(() => new Uint8Array(N).fill(TRANSPARENT));
+  /** @type {Map<string, Box | null>} */
   const bboxCache = new Map();
+  /** @type {Hotspot[]} */
   const hotspots = [];
+  /** @type {Diag} */
   const diag = {
     fills: [], // {op, layer, count, top, area, edge, x, y}
     oob: [], // {op, x, y}
@@ -298,6 +336,7 @@ export function renderPic(ops, opts) {
     colors: new Set(),
   };
   // Draw-in log: each entry is one op's run of writes into writes/colors.
+  /** @type {DrawLog | null} */
   const rec = opts.record
     ? { kind: [], layer: [], start: [], end: [], writes: [], colors: [] }
     : null;
@@ -311,8 +350,10 @@ export function renderPic(ops, opts) {
   let lastFillEdge = false;
   let topOp = 0; // index of the top-level op being run (for diagnostics)
 
+  /** @type {Target} */
   const top = { buf: layers[0], w: W, h: H, x0: 0, y0: 0, ox: 0, oy: 0, fx: 1, depth: 0 };
 
+  /** @param {string} kind */
   function logStart(kind) {
     if (!rec) return;
     rec.kind.push(kind);
@@ -325,6 +366,12 @@ export function renderPic(ops, opts) {
     rec.end[rec.end.length - 1] = rec.writes.length;
   }
 
+  /**
+   * @param {Target} t
+   * @param {number} lx
+   * @param {number} ly
+   * @param {number} c
+   */
   function plot(t, lx, ly, c) {
     const bx = lx - t.x0;
     const by = ly - t.y0;
@@ -344,6 +391,15 @@ export function renderPic(ops, opts) {
   // covers the same pixels whichever way it is written, and two shapes that
   // share an edge meet without a seam. skipFirst skips the written start
   // point (a polyline's joint, already plotted).
+  /**
+   * @param {Target} t
+   * @param {number} ax
+   * @param {number} ay
+   * @param {number} bx
+   * @param {number} by
+   * @param {number} c
+   * @param {boolean} skipFirst
+   */
   function line(t, ax, ay, bx, by, c, skipFirst) {
     const skipX = skipFirst ? ax : NaN;
     const skipY = skipFirst ? ay : NaN;
@@ -377,6 +433,12 @@ export function renderPic(ops, opts) {
     }
   }
 
+  /**
+   * @param {Target} t
+   * @param {number} lx
+   * @param {number} ly
+   * @param {Paint} paint
+   */
   function fill(t, lx, ly, paint) {
     const bx = lx - t.x0;
     const by = ly - t.y0;
@@ -435,6 +497,14 @@ export function renderPic(ops, opts) {
     return count;
   }
 
+  /**
+   * @param {Target} t
+   * @param {number} cx
+   * @param {number} cy
+   * @param {string} shape
+   * @param {number} size
+   * @param {number} c
+   */
   function brush(t, cx, cy, shape, size, c) {
     for (let dy = -size; dy <= size; dy++) {
       for (let dx = -size; dx <= size; dx++) {
@@ -450,12 +520,21 @@ export function renderPic(ops, opts) {
     }
   }
 
+  /**
+   * @param {number} x
+   * @param {number} y
+   */
   function inCanvas(x, y) {
     return x >= 0 && y >= 0 && x < W && y < H;
   }
 
+  /**
+   * @param {Target} t
+   * @param {any[][]} list
+   */
   function run(t, list) {
     let pen = 0;
+    /** @type {Paint} */
     let paint = { a: 0, b: 0, pat: null };
     let shape = 'circle';
     let size = 0;
@@ -531,6 +610,14 @@ export function renderPic(ops, opts) {
     }
   }
 
+  /**
+   * @param {Target} t
+   * @param {string} id
+   * @param {number} ax
+   * @param {number} ay
+   * @param {number} flip
+   * @param {number} opIndex
+   */
   function stamp(t, id, ax, ay, flip, opIndex) {
     const sops = stamps[id];
     if (!sops) {
@@ -546,10 +633,13 @@ export function renderPic(ops, opts) {
     const box = stampBBox(id, stamps, bboxCache, new Set());
     if (!box) return;
     const f = flip ? -1 : 1;
+    const w = box.x1 - box.x0 + 1;
+    const h = box.y1 - box.y0 + 1;
+    /** @type {Target} */
     const child = {
-      buf: null,
-      w: box.x1 - box.x0 + 1,
-      h: box.y1 - box.y0 + 1,
+      buf: new Uint8Array(w * h).fill(TRANSPARENT),
+      w,
+      h,
       x0: box.x0,
       y0: box.y0,
       ox: t.ox + t.fx * ax,
@@ -557,7 +647,6 @@ export function renderPic(ops, opts) {
       fx: t.fx * f,
       depth,
     };
-    child.buf = new Uint8Array(child.w * child.h).fill(TRANSPARENT);
     run(child, sops);
     // Composite the stamp's opaque pixels into the parent buffer. (The
     // draw-in log already holds each write, mapped to the picture.)
@@ -580,6 +669,8 @@ export function renderPic(ops, opts) {
 
 /**
  * Composite the layers, near over mid over far over sky.
+ * @param {{width: number, height: number, layers: Uint8Array[]}} result
+ * @param {Uint8Array} [out]
  * @returns {Uint8Array} indices 0-25, TRANSPARENT where nothing was drawn
  */
 export function composite(result, out) {
@@ -599,7 +690,10 @@ export function composite(result, out) {
   return o;
 }
 
-/** FNV-1a over a byte buffer, as 8 hex digits. For determinism checks. */
+/**
+ * FNV-1a over a byte buffer, as 8 hex digits. For determinism checks.
+ * @param {ArrayLike<number>} bytes
+ */
 export function hashBytes(bytes) {
   let h = 0x811c9dc5;
   for (let i = 0; i < bytes.length; i++) {

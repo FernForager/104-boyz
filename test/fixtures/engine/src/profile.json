@@ -1,0 +1,13 @@
+{
+ "$comment": "The Open hiker's profile rules (GAME_DESIGN 7.3, 7.10, 12.4): every hiker starts the same. The profile snapshot holds exactly the fields the engine reads (E.1).",
+ "fitness_levels": ["easygoing", "casual", "regular", "strong", "mountain_goat"],
+ "skills": ["footing", "navigation", "river", "snow", "coast", "campcraft", "first_aid", "glacier"],
+ "name_max": 12,
+ "open_start": {
+  "fitness": "regular",
+  "body_lb": 165,
+  "skills": { "footing": 1, "navigation": 1, "river": 1, "snow": 1, "coast": 1, "campcraft": 1, "first_aid": 1, "glacier": 0 },
+  "regions": {},
+  "seen": {}
+ }
+}

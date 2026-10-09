@@ -65,8 +65,9 @@ export function scrub(s, base = SITE) {
  * Restart into the newest build (the update note's Restart, E.7, and the
  * error sheet's, E.11): a worker of ours that waits takes over first, and
  * the page reloads once it controls the page; with none waiting, a reload,
- * which also has the browser check for a new worker. Session 3 saves the
- * trip first.
+ * which also has the browser check for a new worker. Nothing is lost: the
+ * game saves at every tap (ui/app.js, from S3), so the reload comes back to
+ * the autosaved screen.
  * @param {any} [win]
  */
 export function restart(win = globalThis.window) {
@@ -113,9 +114,9 @@ export function handOver() {
  * @param {string} [base]
  */
 export function shortReport(f, errors, base = SITE) {
-  const num = (v) => (typeof v === 'number' && Number.isFinite(v) ? v : null);
-  const str = (v) => (v === null || v === undefined ? null : String(v));
-  const pair = (p) => (Array.isArray(p) ? [num(p[0]), num(p[1])] : [null, null]);
+  const num = (/** @type {unknown} */ v) => (typeof v === 'number' && Number.isFinite(v) ? v : null);
+  const str = (/** @type {unknown} */ v) => (v === null || v === undefined ? null : String(v));
+  const pair = (/** @type {unknown} */ p) => (Array.isArray(p) ? [num(p[0]), num(p[1])] : [null, null]);
   return {
     report: 1,
     boot: true,
@@ -138,7 +139,10 @@ export function shortReport(f, errors, base = SITE) {
   };
 }
 
-/** The page's facts for the short report, read at once inside the tap. */
+/**
+ * The page's facts for the short report, read at once inside the tap.
+ * @param {any} win
+ */
 function facts(win) {
   const html = win.document.documentElement;
   const scr = win.screen || {};
@@ -153,7 +157,12 @@ function facts(win) {
   };
 }
 
-/** Copy the short report; if the clipboard refuses, show it selected, and the next tap opens the share sheet. */
+/**
+ * Copy the short report; if the clipboard refuses, show it selected, and the next tap opens the share sheet.
+ * @param {any} win
+ * @param {HTMLElement} button
+ * @param {any} area the report's textarea
+ */
 function copyShort(win, button, area) {
   const text = `\`\`\`json\n${JSON.stringify(shortReport(facts(win), kept), null, 1)}\n\`\`\``;
   const nav = win.navigator || {};
@@ -224,14 +233,14 @@ export function guard(win) {
   restarting = false;
   win.addEventListener(
     'error',
-    (event) => {
+    (/** @type {any} */ event) => {
       const t = event.target;
       if (t === win || event.error) caught(win, { error: event.error ?? event.message, filename: event.filename, lineno: event.lineno, colno: event.colno, ms: now() });
       else if (t && t.tagName === 'SCRIPT') caught(win, { error: new Error(`boot: ${sitePath(t.src || '')} did not load`), ms: now() });
     },
     true,
   );
-  win.addEventListener('unhandledrejection', (event) => caught(win, { error: event.reason, ms: now() }));
+  win.addEventListener('unhandledrejection', (/** @type {any} */ event) => caught(win, { error: event.reason, ms: now() }));
 }
 
 if (typeof window !== 'undefined' && window.document) guard(window);

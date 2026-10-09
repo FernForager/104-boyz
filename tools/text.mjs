@@ -364,25 +364,46 @@ function fillTree(tree, { channel, text, build }) {
   return { used, missing, blocked };
 }
 
+/** The placeholders on the shell's <html> that the fill stamps, each "dev" in source (BUILD_PLAN S2, S3). */
+export const HTML_STAMPS = ['data-build', 'data-channel', 'data-commit', 'data-rules', 'data-screens'];
+
 /**
- * Fill the shell for a channel: words by id, the build code, and the channel
- * and build stamped on <html> (A.5). Main throws on a missing id (T11) and
- * on a line it can't ship (T14).
- * @param {string} html
- * @param {{channel: string, text: any, build: string}} ctx
+ * The screens a channel's build has: content/scope/m1a.json's screens on
+ * preview, its main.screens on main; sorted. The data step scopes the
+ * content to them, and the fill stamps them on <html data-screens>.
+ * @param {any} text readText()'s result
+ * @param {string} channel
+ * @returns {string[]}
  */
-export function fillPage(html, { channel, text, build }) {
+export function channelScreens(text, channel) {
+  const list = channel === 'main' ? text.scope.main.screens : text.scope.screens;
+  return [...list].sort((a, b) => (a < b ? -1 : a > b ? 1 : 0));
+}
+
+/**
+ * Fill the shell for a channel: words by id, the build code, and the
+ * stamps on <html> (A.5; S3): the build id, the channel, the full commit
+ * (or dev), the rules hash (or dev, outside a build) and the channel's
+ * screens, space-separated. Main throws on a missing id (T11) and on a line
+ * it can't ship (T14). Every placeholder must be in the source as "dev".
+ * @param {string} html
+ * @param {{channel: string, text: any, build: string, commit?: string | null, rules?: string, screens?: string[]}} ctx
+ */
+export function fillPage(html, { channel, text, build, commit = null, rules = 'dev', screens = channelScreens(text, channel) }) {
   if (!CHANNELS.includes(channel)) throw new Error(`fill: no channel "${channel}"`);
   const tree = parseHtml(html);
   let root = null;
   walk(tree, (n) => {
     if (!root && n.type === 'element' && n.name === 'html') root = n;
   });
-  for (const a of ['data-build', 'data-channel']) {
+  for (const a of HTML_STAMPS) {
     if (!root || getAttr(root, a) !== 'dev') throw new Error(`build: web/index.html has lost its placeholder (<html ${a}="dev">)`);
   }
   setAttr(root, 'data-build', build);
   setAttr(root, 'data-channel', channel);
+  setAttr(root, 'data-commit', commit && /^[0-9a-f]{40}$/.test(commit) ? commit : 'dev');
+  setAttr(root, 'data-rules', /^[0-9a-f]{12}$/.test(rules) ? rules : 'dev');
+  setAttr(root, 'data-screens', [...screens].sort((a, b) => (a < b ? -1 : a > b ? 1 : 0)).join(' '));
   const r = fillTree(tree, { channel, text, build });
   if (channel === 'main' && r.missing.size) throw new Error(`fill: T11 main uses undefined ids: ${[...r.missing].sort().join(', ')}`);
   if (channel === 'main' && r.blocked.size) throw new Error(gateSummary(text, [...r.blocked]));

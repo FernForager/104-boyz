@@ -1,0 +1,51 @@
+{
+ "name": "fx_fail",
+ "about": "S_MID (00000006): Walk on, go (0.5 <= u < 0.75 fails at p 0.5), Walk on. Ends at d.",
+ "fixture": "engine",
+ "log": {
+  "format": 1,
+  "rules": "000000000001",
+  "mode": "open",
+  "rule": "oldschool",
+  "seed": "00000006",
+  "plan": "fx_plan",
+  "profile": "c1695851a682",
+  "base": "",
+  "actions": [
+   [
+    "next"
+   ],
+   [
+    "choose",
+    "go"
+   ],
+   [
+    "next"
+   ]
+  ]
+ },
+ "profile": {
+  "body_lb": 165,
+  "fitness": "regular",
+  "regions": {},
+  "seen": {},
+  "skills": {
+   "campcraft": 1,
+   "coast": 1,
+   "first_aid": 1,
+   "footing": 1,
+   "glacier": 0,
+   "navigation": 1,
+   "river": 1,
+   "snow": 1
+  }
+ },
+ "base": null,
+ "expect": {
+  "hash": "02e33a9fd4d97f932940406669ae01e1022f19d8b3d87535a4b75e7bfa1513a1",
+  "identity": "70fea058ffc18f7c1e7e4c17192b2de950e5ff97c95491bb8e57b4c2eb20de72",
+  "packed": "4f50010c30303030303030303030303100000830303030303030360766785f706c616e0c633136393538353161363832000102676f0301020001",
+  "screens": "4b1f38d631b3fbb3caed5ef31df8c3cca80df28beeb91146ed6795e1d1293f6c",
+  "error": null
+ }
+}

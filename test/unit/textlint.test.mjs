@@ -13,6 +13,9 @@ import {
   lintManifestEnglish,
   lintSvgEnglish,
   lintTextFields,
+  lintContentText,
+  contentRefs,
+  contentFiles,
   collectUses,
   lintT07,
   lintT11,
@@ -23,6 +26,7 @@ import {
   T07_PREVIEW,
 } from '../../tools/textlint.mjs';
 import { fakeText, entry } from './textfix.mjs';
+import { readSchemas } from '../../tools/content.mjs';
 
 const codes = (issues) => issues.map((i) => i.code);
 const js = (code) => codes(lintJsEnglish('web/js/x.js', code));
@@ -211,12 +215,49 @@ test('T11: ids used are defined, and lines on built screens are used', () => {
   assert.deepEqual(msgs, [
     "web/index.html:1 data-t uses app.gone, which isn't defined in content/text",
     "web/js/a.js:1 t() asks for nope.x, which isn't defined in content/text",
-    'web/js/a.js:3 tx() needs a literal id, or the line ends // t-ids: <every id it can be>',
+    'web/js/a.js:3 tx() needs a literal id, or the line ends // t-ids: <every id it can be> (or @content)',
     'content/text/en/app.json:1 app.unused is defined and never used',
   ]);
   assert.deepEqual(r.infos, ['credits.later: waiting for screen credits']);
   const lit = lintT11(text, uses({ 'web/js/b.js': "const IDS = ['app.unused', 'app.used', 'app.listed'];" }));
   assert.deepEqual(lit.issues, [], 'an id in an array counts as used');
+});
+
+test('content refs (S3): "@id" strings in content files are uses; a call ending // t-ids: @content is accepted', () => {
+  const src = '{\n "id": "s",\n "$comment": "@app.comment",\n "stops": [\n  { "id": "a", "box": "@trail.a", "next": null },\n  { "id": "b", "box": ["@trail.b1", "not an id", "@trail.gone"] }\n ]\n}\n';
+  const refs = contentRefs({ file: 'content/stops/s.json', src, data: JSON.parse(src) });
+  assert.deepEqual(refs.map((r) => `${r.id}:${r.line}`), ['trail.a:5', 'trail.b1:6', 'trail.gone:6'], 'with their lines; $comment and plain strings aside');
+  const text = fakeText({
+    lines: { 'app.name': 'N', 'app.short_name': 'S', 'app.description': 'D', 'app.preview_name': 'P', 'trail.a': { text: 'A', screen: 'trail' }, 'trail.b1': { text: 'B', screen: 'trail' }, 'trail.walk_on': { text: 'Walk on', screen: 'trail' } },
+    screens: ['app', 'trail'],
+  });
+  const u = uses({ 'web/js/stop.js': "const W = 'trail.walk_on';\ntx(p, ref.id, ref.vars); // t-ids: @content\n" });
+  u.content = refs;
+  const r = lintT11(text, u);
+  assert.deepEqual(r.issues.map((i) => `${i.file}:${i.line} ${i.msg}`), ["content/stops/s.json:6 content refers to trail.gone, which isn't defined in content/text"], 'trail.a and trail.b1 count as used; the tagged call passes');
+  const none = lintT11(text, uses({ 'web/js/stop.js': "const W = 'trail.walk_on';" }));
+  assert.deepEqual(none.issues.map((i) => i.msg), ['trail.a is defined and never used', 'trail.b1 is defined and never used'], 'without the content, its lines are unused');
+});
+
+test('content refs: T13 holds their lines to no {variables} (the engine passes none yet), and T10 finds words where a schema wants an "@id"', () => {
+  const text = fakeText({ lines: { 'trail.a': { text: 'At {place}', screen: 'trail' }, 'trail.b': { text: 'Plain', screen: 'trail' } } });
+  const u = uses({});
+  u.content = [{ id: 'trail.a', file: 'content/stops/s.json', line: 3 }, { id: 'trail.b', file: 'content/stops/s.json', line: 4 }];
+  assert.deepEqual(lintT13(text, u).map((i) => `${i.file}:${i.line} ${i.msg}`), ['content/stops/s.json:3 trail.a: content refers to it, and knows no {place}']);
+  // The real stops schema: box and label are "@id"s through $ref and oneOf.
+  const schema = readSchemas(ROOT)['stops.schema.json'];
+  const stops = (box, label = '@fx.go') => ({ id: 'fx', screen: 'fx', phase: 'trailhead', first: 'a', stops: [{ id: 'a', box, choices: [{ id: 'go', label, then: 'a' }] }] });
+  const t10 = (data) => lintTextFields('content/stops/fx.json', data, schema, `${JSON.stringify(data, null, 1)}\n`).map((i) => `${i.line} ${i.msg}`);
+  assert.deepEqual(t10(stops('@fx.a')), []);
+  assert.deepEqual(t10(stops(['@fx.a', '@fx.b'])), []);
+  assert.deepEqual(t10(stops([['@fx.a'], ['@fx.b1', '@fx.b2']])), []);
+  assert.deepEqual(t10(stops('The road ends here.')), ['9 stops[0].box is text: give it as "@<id>"']);
+  assert.deepEqual(t10(stops(['@fx.a', 'You smell moss.'])), ['11 stops[0].box[1] is text: give it as "@<id>"']);
+  assert.deepEqual(t10(stops('@fx.a', 'Go on')), ['13 stops[0].choices[0].label is text: give it as "@<id>"']);
+  // The repo's content passes, and so does every content file it has.
+  assert.deepEqual(lintContentText(ROOT), []);
+  assert.ok(contentFiles(ROOT).some((f) => f.file === 'content/stops/sol_duc_trailhead.json'));
+  assert.ok(!contentFiles(ROOT).some((f) => f.file.startsWith('content/text/') || f.file.startsWith('content/art/')));
 });
 
 test('T12: the ledger matches the answers', () => {

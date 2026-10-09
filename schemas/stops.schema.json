@@ -1,0 +1,67 @@
+{
+ "$comment": "content/stops/*.json: a stop set (BUILD_PLAN S3; S9's cards and S15a's tailgate replace it). A stop has next (a stop in the set, or null for the set's end) or choices. A choice has then or a roll. box and label are display data (voice.json); the rest is logic (rules.json).",
+ "type": "object",
+ "required": ["id", "screen", "phase", "first", "stops"],
+ "additionalProperties": false,
+ "properties": {
+  "$comment": { "type": "string" },
+  "id": { "$ref": "#/$defs/id" },
+  "screen": { "$ref": "#/$defs/id" },
+  "phase": { "$ref": "#/$defs/id" },
+  "first": { "$ref": "#/$defs/id" },
+  "stops": { "type": "array", "items": { "$ref": "#/$defs/stop" } }
+ },
+ "$defs": {
+  "id": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+  "line": { "type": "string", "pattern": "^@[a-z][a-z0-9_]*(\\.[a-z0-9_]+)+$", "x-text": true, "x-voice": true },
+  "box": {
+   "$comment": "One line, a list of variants for one slot, or a list of slots, each a list of variants.",
+   "oneOf": [
+    { "$ref": "#/$defs/line" },
+    { "type": "array", "items": { "$ref": "#/$defs/line" } },
+    { "type": "array", "items": { "type": "array", "items": { "$ref": "#/$defs/line" } } }
+   ]
+  },
+  "stop": {
+   "type": "object",
+   "required": ["id", "box"],
+   "additionalProperties": false,
+   "properties": {
+    "id": { "$ref": "#/$defs/id" },
+    "box": { "$ref": "#/$defs/box" },
+    "next": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/id" }] },
+    "choices": { "type": "array", "items": { "$ref": "#/$defs/choice" } }
+   },
+   "oneOf": [{ "required": ["next"] }, { "required": ["choices"] }]
+  },
+  "choice": {
+   "type": "object",
+   "required": ["id", "label"],
+   "additionalProperties": false,
+   "properties": {
+    "id": { "$ref": "#/$defs/id" },
+    "label": { "$ref": "#/$defs/line" },
+    "show_if": { "type": "string", "x-expr": "bool" },
+    "effects": { "type": "array", "items": { "$ref": "#/$defs/effect" } },
+    "then": { "$ref": "#/$defs/id" },
+    "roll": {
+     "type": "object",
+     "required": ["p", "pass", "fail"],
+     "additionalProperties": false,
+     "properties": {
+      "p": { "type": "string", "x-expr": "number" },
+      "pass": { "$ref": "#/$defs/id" },
+      "fail": { "$ref": "#/$defs/id" }
+     }
+    }
+   },
+   "oneOf": [{ "required": ["then"] }, { "required": ["roll"] }]
+  },
+  "effect": {
+   "oneOf": [
+    { "type": "object", "required": ["flag"], "additionalProperties": false, "properties": { "flag": { "$ref": "#/$defs/id" } } },
+    { "type": "object", "required": ["add_s"], "additionalProperties": false, "properties": { "add_s": { "type": "integer", "minimum": 0, "maximum": 86400 } } }
+   ]
+  }
+ }
+}

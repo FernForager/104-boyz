@@ -18,6 +18,8 @@ export const OUTLINE_SHARE = 0.35;
  * (renderPic(..., {record: true})). A pixel appears when the last op that
  * wrote it reaches it: lines at a steady pace, fills in their own flood
  * order, so a fill spreads out from its seed.
+ * @param {import('./picvm.js').Rendered} result
+ * @param {number} [outlineShare]
  * @returns {{width: number, height: number, layers: number, time: Float32Array, color: Uint8Array}}
  */
 export function buildTimeline(result, outlineShare = OUTLINE_SHARE) {
@@ -76,6 +78,9 @@ export function buildTimeline(result, outlineShare = OUTLINE_SHARE) {
 /**
  * The picture at draw-in time t (0 to 1): each pixel shows the nearest
  * layer that has appeared there.
+ * @param {{width: number, height: number, layers: number, time: Float32Array, color: Uint8Array}} tl buildTimeline()
+ * @param {number} t
+ * @param {Uint8Array} [out]
  * @returns {Uint8Array} indices, TRANSPARENT where nothing has appeared
  */
 export function frameAt(tl, t, out) {
@@ -99,9 +104,9 @@ export function frameAt(tl, t, out) {
 /**
  * Play the draw-in on a display.
  * @param {object} o
- * @param {object} o.result renderPic result (recorded, unless reduced)
- * @param {object} o.palette makePalette()
- * @param {object} o.display createDisplay()
+ * @param {import('./picvm.js').Rendered} o.result renderPic result (recorded, unless reduced)
+ * @param {import('./palette.js').Palette} o.palette makePalette()
+ * @param {{present: (rgba: ArrayLike<number>) => void}} o.display createDisplay()
  * @param {string} [o.remap] time-of-day table
  * @param {number} [o.background] slot under nothing drawn
  * @param {boolean} [o.reduced] Reduce Motion: show it finished
@@ -117,7 +122,7 @@ export function playDrawIn(o) {
   const slots = new Uint8Array(N);
   const rgba = new Uint8ClampedArray(N * 4);
   const ropts = { remap: o.remap || 'day', frame: 0, background: o.background || 0 };
-  const draw = (indices) => display.present(toRGBA(resolve(indices, W, palette, ropts, slots), palette, rgba));
+  const draw = (/** @type {Uint8Array} */ indices) => display.present(toRGBA(resolve(indices, W, palette, ropts, slots), palette, rgba));
   let done = false;
   let raf = 0;
   const finish = () => {
@@ -134,7 +139,7 @@ export function playDrawIn(o) {
     const buf = new Uint8Array(N);
     const ms = o.ms || DRAW_IN_MS;
     let start = -1;
-    const step = (now) => {
+    const step = (/** @type {number} */ now) => {
       if (done) return;
       if (start < 0) start = now;
       const t = Math.min(1, (now - start) / ms);

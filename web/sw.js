@@ -16,28 +16,35 @@ const FILES = 'dev';
 // channel's caches, a pin cache, or the cache a newer install is filling.
 //
 // A classic script, not a module, for the widest iOS support, and so the
-// tests can run it in node:vm.
+// tests can run it in node:vm. Type-checked with the WebWorker library
+// (jsconfig.worker.json), where self is the worker's global scope.
 
+/** The worker's global scope, typed (the WebWorker library calls self a plain WorkerGlobalScope). */
+const sw = /** @type {ServiceWorkerGlobalScope} */ (/** @type {unknown} */ (self));
 const PREFIX = `oph-${CHANNEL}-`;
 const PIN = `${PREFIX}pin-`;
 const NAME = `${PREFIX}${FILES}`;
-const PASS = CHANNEL === 'main' ? 'preview' : 'review';
+const PASS = /** @type {string} */ (CHANNEL) === 'main' ? 'preview' : 'review';
 const LIST = 'precache.json';
 
-const here = (rel) => new URL(rel, self.registration.scope).href;
-const usable = (res) => res && res.ok && !res.redirected; // never a redirect; opaque responses aren't ok
+const here = (/** @type {string} */ rel) => new URL(rel, sw.registration.scope).href;
+const usable = (/** @type {Response | undefined} */ res) => res && res.ok && !res.redirected; // never a redirect; opaque responses aren't ok
 /** Another build's cache of this channel (not a pin, not this build's own). */
-const ours = (name) => name.startsWith(PREFIX) && !name.startsWith(PIN) && name !== NAME;
+const ours = (/** @type {string} */ name) => name.startsWith(PREFIX) && !name.startsWith(PIN) && name !== NAME;
 /** A cache holds a whole build once it holds the list, which goes in last. Never creates the cache. */
-const complete = async (name) => Boolean(await caches.match(here(LIST), { cacheName: name }));
+const complete = async (/** @type {string} */ name) => Boolean(await caches.match(here(LIST), { cacheName: name }));
 
+/** @param {string} rel */
 async function fresh(rel) {
   const res = await fetch(here(rel), { cache: 'reload' });
   if (!usable(res)) throw new Error(`sw: ${rel} ${res && res.status}`);
   return res;
 }
 
-/** The first 12 hex of the SHA-256 of a response's bytes, as precache.json lists them. */
+/**
+ * The first 12 hex of the SHA-256 of a response's bytes, as precache.json lists them.
+ * @param {Response} res
+ */
 async function hashOf(res) {
   const digest = new Uint8Array(await crypto.subtle.digest('SHA-256', await res.clone().arrayBuffer()));
   return Array.from(digest.slice(0, 6), (b) => b.toString(16).padStart(2, '0')).join('');
@@ -87,34 +94,38 @@ async function precache() {
   }
 }
 
-self.addEventListener('install', (event) => event.waitUntil(precache()));
+sw.addEventListener('install', (event) => event.waitUntil(precache()));
 
-self.addEventListener('activate', (event) => {
+sw.addEventListener('activate', (event) => {
   event.waitUntil(
     (async () => {
       // The older builds go; a cache with no list yet is a newer install, still filling.
       for (const name of await caches.keys()) if (ours(name) && (await complete(name))) await caches.delete(name);
-      await self.clients.claim();
+      await sw.clients.claim();
     })(),
   );
 });
 
-self.addEventListener('message', (event) => {
+sw.addEventListener('message', (event) => {
   const msg = event.data || {};
-  if (msg.type === 'skip-waiting') self.skipWaiting();
+  if (msg.type === 'skip-waiting') sw.skipWaiting();
   else if (msg.type === 'status' && event.ports && event.ports[0]) event.ports[0].postMessage({ channel: CHANNEL, build: BUILD, files: FILES });
 });
 
+/**
+ * @param {string} rel
+ * @param {Request} req
+ */
 async function fromCache(rel, req) {
   const hit = await caches.match(here(rel), { cacheName: NAME }); // never creates an empty cache
   return hit || fetch(req);
 }
 
-self.addEventListener('fetch', (event) => {
+sw.addEventListener('fetch', (event) => {
   const req = event.request;
   if (req.method !== 'GET') return;
   const url = new URL(req.url);
-  const scope = new URL(self.registration.scope);
+  const scope = new URL(sw.registration.scope);
   if (url.origin !== scope.origin || !url.pathname.startsWith(scope.pathname)) return;
   const rel = url.pathname.slice(scope.pathname.length);
   if (rel === PASS || rel.startsWith(`${PASS}/`)) return; // the other channel, or the review site

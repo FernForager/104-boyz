@@ -12,12 +12,16 @@ content/text/
     title.json       Session 1's title page (retires in S7)
     alt.json         pictures' alt text
     credits.json     decision 47's two lines (no screen yet)
-    dev.json         the debug menu's labels (class dev, exempt)
-  t07_allow.json     T07's allowlist of real things that are books (empty)
+    dev.json         the debug menu's labels and the self-check's line (class dev, exempt)
+    first.json       a new hiker's first screens: the guest book (S3, plain)
+    trail.json       the trail's stops: Walk on, and S3's two sample stops at the Sol Duc trailhead
+  t07_allow.json     T07's allowlist of real things that are books, each with its reason
   approved.json      the ledger: written only by tools/text.mjs apply
   review/
     B000.md, B000.answers.json   approved in conversation (decisions 35 and 47)
     B001.md, B001.answers.json   the app's frame, as sent and answered
+    B003.md                      the lockbox and the guest book: filed, not sent (S7 sends it)
+    B004.md                      trail stops: filed, not sent (after the cabin's batches)
 ```
 
 What each channel ships is set in `content/scope/m1a.json`.
@@ -38,7 +42,7 @@ What each channel ships is set in `content/scope/m1a.json`.
 - **id:** `<area>.<thing>[.<detail>]`, lowercase letters, digits and underscores, joined by dots. The area is the file: `app.*` lives only in `en/app.json`.
 - **`text`:** the working words. `{var}` for a variable, `{UPPER}` for a placeholder (T13), `*emphasis*` as the one markup, `\n` for a line break, never HTML. A plural is `{"one": "...", "other": "..."}`, picked by the `n` variable.
 - **`ctx`:** the note a batch shows: where, when, what it has to do.
-- **`screen`:** the screen it shows on (`app`, `title`, `credits`, `debug` so far).
+- **`screen`:** the screen it shows on (`app`, `title`, `credits`, `debug`, `guestbook`, `trail` so far).
 - **`max`:** the character limit, required for class `ours` (T15 enforces it from S5).
 - **`class`:** `ours` (the default: the creator approves every line) or `dev` (the debug menu and the bug report: exempt, decision 64). Later: `yours`, `term`, `place`, `quote`.
 
@@ -65,6 +69,20 @@ Two more fall outside approval: a `dev` line, and a line with no letters once it
 4. List it for the session's batch. Keep new lines to the minimum.
 
 Approved lines are left alone: a change goes in the next batch, and main keeps the approved words meanwhile.
+
+## Lines the content names
+
+Content files name lines too, never words: a field such as a stop's `box` or a choice's `label` holds `"@trail.sol_duc_trailhead.lot"`, an `@` and the id (its schema marks it `"x-text": true`). The build sends the ids to `data/voice.json`, the engine hands them to the page as refs (`{id, vars}`), and `tx()` turns them into words. Code that shows such a line has no literal id to give, so its call ends `// t-ids: @content`:
+
+```js
+tx(p, ref.id, ref.vars); // t-ids: @content
+```
+
+The lints follow the content: every `"@id"` in `content/**/*.json` (outside `content/text/` and `content/art/`) is a use and must be defined (T11), a field its schema marks `x-text` must hold one (T10), and such a line holds no `{variables}` until the engine passes some (T13). The smoke run checks that every ref a screen shows is a line.
+
+## Filed batches
+
+A batch file is written when its lines are drafted, marked *filed, not sent*, and grows until the batch goes out (BUILD_PLAN 10.7: batches go out in the order the creator reads the game, the front door first). Once sent, it is the record and is never edited. S5's `tools/text.mjs batch` reads filed files to seed its batches.
 
 ## Answers and `apply`
 

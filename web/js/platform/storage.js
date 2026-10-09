@@ -5,8 +5,9 @@
 // so main and preview never share a save. Every read and write is wrapped:
 // storage can be missing or full, and the game runs without it.
 //
-// S2 stores one key, preview's marks choice (oph.preview.marks). The saves
-// arrive in session 3.
+// S2 stored one key, preview's marks choice (oph.preview.marks). From S3 the
+// game's three saves join it, written by ui/app.js at every tap (E.6): the
+// device (once), the hiker and the trip (engine/save.js holds their shapes).
 
 const CHANNELS = ['main', 'preview'];
 const NAME = /^[a-z][a-z0-9_]*$/;
@@ -19,7 +20,10 @@ let persisted;
 /** @type {{persisted: boolean | null, usage: number | null, quota: number | null} | null} */
 let facts = null;
 
-/** Set the channel by hand (tests); null goes back to <html data-channel>. */
+/**
+ * Set the channel by hand (tests); null goes back to <html data-channel>.
+ * @param {string | null} ch
+ */
 export function setChannel(ch) {
   channelSet = ch;
 }
@@ -28,38 +32,55 @@ export function setChannel(ch) {
  * The channel the build stamped on <html>: 'main' or 'preview'. Throws on
  * anything else (the unbuilt shell says 'dev'), so nothing is ever stored
  * under a name another channel could read.
+ * @returns {string}
  */
 export function channel() {
   const ch = channelSet ?? (typeof document === 'undefined' ? null : document.documentElement.dataset.channel);
-  if (!CHANNELS.includes(ch)) throw new Error(`storage: no channel "${ch}" (main or preview)`);
+  if (typeof ch !== 'string' || !CHANNELS.includes(ch)) throw new Error(`storage: no channel "${ch}" (main or preview)`);
   return ch;
 }
 
-/** oph.<channel>.<name>, for localStorage and sessionStorage. */
+/**
+ * oph.<channel>.<name>, for localStorage and sessionStorage.
+ * @param {string} name
+ */
 export function keyName(name) {
   if (!NAME.test(String(name))) throw new Error(`storage: "${name}" is not a key name (a-z, 0-9, _)`);
   return `oph.${channel()}.${name}`;
 }
 
-/** oph-<channel>-<name>, for an IndexedDB database. */
+/**
+ * oph-<channel>-<name>, for an IndexedDB database.
+ * @param {string} name
+ */
 export function dbName(name) {
   if (!NAME.test(String(name))) throw new Error(`storage: "${name}" is not a database name (a-z, 0-9, _)`);
   return `oph-${channel()}-${name}`;
 }
 
-/** oph-<channel>-<hash>, for a build's cache (the worker makes the same name, web/sw.js). */
+/**
+ * oph-<channel>-<hash>, for a build's cache (the worker makes the same name, web/sw.js).
+ * @param {string} hash
+ */
 export function cacheName(hash) {
   if (!HASH.test(String(hash))) throw new Error(`storage: "${hash}" is not a cache hash`);
   return `oph-${channel()}-${hash}`;
 }
 
-/** oph-<channel>-pin-<hash>, for a timed attempt's pinned build (9.10). */
+/**
+ * oph-<channel>-pin-<hash>, for a timed attempt's pinned build (9.10).
+ * @param {string} hash
+ */
 export function pinName(hash) {
   if (!HASH.test(String(hash))) throw new Error(`storage: "${hash}" is not a cache hash`);
   return `oph-${channel()}-pin-${hash}`;
 }
 
-/** The store, or null when it's missing or refuses to be touched (a private tab, a sandbox). */
+/**
+ * The store, or null when it's missing or refuses to be touched (a private tab, a sandbox).
+ * @param {boolean} session
+ * @returns {Storage | null}
+ */
 function store(session) {
   try {
     const s = session ? globalThis.sessionStorage : globalThis.localStorage;

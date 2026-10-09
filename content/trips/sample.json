@@ -1,0 +1,8 @@
+{
+ "$comment": "S3's stand-in plan (Lead call 8): the Sol Duc trailhead's two stops. The map table's plans replace it in S10.",
+ "id": "sample",
+ "screen": "trail",
+ "mode": "open",
+ "start": { "set": "sol_duc_trailhead", "day": 1, "s": 30600 },
+ "after": "end"
+}

@@ -7,6 +7,11 @@
 // *emphasis*, and \n for a line break; never HTML. renderParts turns them
 // into parts, and the build's fill (tools/text.mjs) uses the same function,
 // so the first paint and a later tx() agree.
+//
+// The engine hands the UI lines as refs, {id, vars}, never words (BUILD_PLAN
+// 2.3; S3). A var whose value is itself a ref renders as that line's words,
+// one level deep, so {place} can be a place-name line later; t() and tx()
+// resolve such vars before renderParts, which stays pure.
 
 /** @type {Record<string, string | {one: string, other: string}>} */
 let words = {};
@@ -30,7 +35,15 @@ function showsDrafts() {
   return channel() !== 'main';
 }
 
-/** Feed a bundle directly (tests, and loadText). */
+/** @typedef {string | {one: string, other: string}} Words a line's words, or its plural forms */
+/** @typedef {{text?: string, em?: string, ph?: string, br?: boolean}} Part */
+
+/**
+ * Feed a bundle directly (tests, and loadText).
+ * @param {Record<string, Words>} w
+ * @param {Record<string, string>} [m]
+ * @param {string | null} [ch]
+ */
 export function setBundle(w, m = {}, ch = null) {
   words = { ...w };
   marks = { ...m };
@@ -48,6 +61,7 @@ export async function loadText(base = new URL('../text/', import.meta.url)) {
     const res = await fetch(new URL('en.json', base));
     if (!res.ok) throw new Error(`text: en.json ${res.status}`);
     const w = await res.json();
+    /** @type {Record<string, string>} */
     let m = {};
     if (showsDrafts()) {
       const mr = await fetch(new URL('marks.json', base));
@@ -62,14 +76,55 @@ export async function loadText(base = new URL('../text/', import.meta.url)) {
   }
 }
 
-/** Pick a plural form: one when vars.n is 1, else other. */
+/**
+ * Pick a plural form: one when vars.n is 1, else other.
+ * @param {Words} w
+ * @param {Record<string, unknown>} [vars]
+ */
 function pick(w, vars) {
   if (typeof w === 'string') return w;
   return vars && vars.n === 1 ? w.one : w.other;
 }
 
+/** @typedef {{id: string, vars?: Record<string, unknown>}} Ref a line by id, as the engine gives it */
+
+/**
+ * Is a var's value a ref to another line?
+ * @param {unknown} v
+ * @returns {v is Ref}
+ */
+export function isRef(v) {
+  return v !== null && typeof v === 'object' && !Array.isArray(v) && typeof (/** @type {any} */ (v).id) === 'string';
+}
+
+/**
+ * Vars with each ref value turned into its line's plain words, one level
+ * deep: a ref inside a ref's own vars renders as a missing line.
+ * @param {Record<string, unknown> | undefined} vars
+ * @param {number} [depth]
+ * @returns {Record<string, unknown> | undefined}
+ */
+function resolveVars(vars, depth = 0) {
+  if (!vars || !Object.values(vars).some(isRef)) return vars;
+  /** @type {Record<string, unknown>} */
+  const out = {};
+  for (const [k, v] of Object.entries(vars)) {
+    if (!isRef(v)) out[k] = v;
+    else if (depth > 0 || words[v.id] === undefined) out[k] = missing(v.id);
+    else {
+      const inner = resolveVars(v.vars, depth + 1);
+      out[k] = plainText(renderParts(pick(words[v.id], inner), inner));
+    }
+  }
+  return out;
+}
+
+/**
+ * @param {string} s
+ * @param {Record<string, unknown>} [vars]
+ */
 function fill(s, vars) {
-  return s.replace(/\{([a-z][a-z0-9_]*)\}/g, (m, k) => (vars && Object.prototype.hasOwnProperty.call(vars, k) ? String(vars[k]) : m));
+  return s.replace(/\{([a-z][a-z0-9_]*)\}/g, (/** @type {string} */ m, /** @type {string} */ k) => (vars && Object.prototype.hasOwnProperty.call(vars, k) ? String(vars[k]) : m));
 }
 
 /**
@@ -78,8 +133,10 @@ function fill(s, vars) {
  * {ph} for an {UPPER} placeholder, and {br: true}.
  * @param {string} s
  * @param {Record<string, unknown>} [vars]
+ * @returns {Part[]}
  */
 export function renderParts(s, vars) {
+  /** @type {Part[]} */
   const out = [];
   String(s)
     .split('\n')
@@ -101,12 +158,18 @@ export function renderParts(s, vars) {
   return out;
 }
 
-/** Plain text from parts: markup dropped, line breaks kept. */
+/**
+ * Plain text from parts: markup dropped, line breaks kept.
+ * @param {Part[]} parts
+ */
 export function plainText(parts) {
   return parts.map((p) => (p.br ? '\n' : p.em ?? p.ph ?? p.text)).join('');
 }
 
-/** What a missing id shows: ⟦id⟧ on preview, nothing on main. */
+/**
+ * What a missing id shows: ⟦id⟧ on preview, nothing on main.
+ * @param {string} id
+ */
 function missing(id) {
   console.warn(`text: no line ${id}`);
   return showsDrafts() ? `⟦${id}⟧` : '';
@@ -121,7 +184,8 @@ function missing(id) {
 export function t(id, vars) {
   const w = words[id];
   if (w === undefined) return missing(id);
-  return plainText(renderParts(pick(w, vars), vars));
+  const v = resolveVars(vars);
+  return plainText(renderParts(pick(w, v), v));
 }
 
 /**
@@ -151,7 +215,8 @@ export function tx(el, id, vars) {
   if (w === undefined) {
     nodes.push(doc.createTextNode(missing(id)));
   } else {
-    for (const p of renderParts(pick(w, vars), vars)) {
+    const v = resolveVars(vars);
+    for (const p of renderParts(pick(w, v), v)) {
       if (p.br) nodes.push(doc.createElement('br'));
       else if (p.em !== undefined) {
         const em = doc.createElement('em');
@@ -162,7 +227,7 @@ export function tx(el, id, vars) {
         span.className = 't-ph';
         span.appendChild(doc.createTextNode(p.ph));
         nodes.push(span);
-      } else nodes.push(doc.createTextNode(p.ph ?? p.text));
+      } else nodes.push(doc.createTextNode(p.ph ?? p.text ?? ''));
     }
   }
   while (el.firstChild) el.removeChild(el.firstChild);

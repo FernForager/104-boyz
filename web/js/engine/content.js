@@ -1,0 +1,87 @@
+// The content loader (BUILD_PLAN 2.3, 3.3; GAME_DESIGN E.4).
+//
+// PURE. The build writes two files per channel: data/rules.json, the
+// outcome data the rules hash covers (profile rules, the standard profile,
+// plans, stop sets with their expressions as checked syntax trees), and
+// data/voice.json, the display data it doesn't (each stop's line ids and
+// choice labels), so a word-only change can never move the rules hash
+// (E.12). loadContent freezes both, builds the id lookups, and compiles an
+// expression the first time it runs (E.10: lazy compiling), caching the
+// closure by the syntax tree's identity. The cache is not state.
+
+import { EngineError } from './error.js';
+import { deepFreeze } from './canon.js';
+import { compile } from './expr.js';
+
+/** The rules hash: 12 lowercase hex (tools/rules.mjs). */
+export const RULES_HASH_RE = /^[0-9a-f]{12}$/;
+
+/**
+ * @typedef {object} Content
+ * @property {string} rulesHash
+ * @property {{rules: any, voice: any}} data the frozen files
+ * @property {any} profile the profile rules (content/rules/profile.json)
+ * @property {any} standard the standard profile (content/rules/standard.json)
+ * @property {(id: string) => any} plan a plan, or null
+ * @property {() => string[]} plans every plan id, in code-unit order
+ * @property {(id: string) => any} set a stop set, or null
+ * @property {(set: string, id: string) => any} stop a stop, or null
+ * @property {(set: string, stop: string) => any} voice a stop's display data ({box, labels}), or null
+ * @property {(ast: any[]) => import('./expr.js').Compiled} expr the compiled closure for a syntax tree
+ */
+
+const own = (/** @type {any} */ o, /** @type {string} */ k) => o !== null && typeof o === 'object' && Object.prototype.hasOwnProperty.call(o, k);
+
+/**
+ * Load a build's data. Throws EngineError('format') on a file that isn't
+ * the format this engine reads.
+ * @param {{rules: any, voice: any, rulesHash: string}} o
+ * @returns {Content}
+ */
+export function loadContent({ rules, voice, rulesHash }) {
+  if (!rules || rules.format !== 1) throw new EngineError('format', 'content: rules.json is not format 1');
+  if (!voice || voice.format !== 1) throw new EngineError('format', 'content: voice.json is not format 1');
+  if (typeof rulesHash !== 'string' || !RULES_HASH_RE.test(rulesHash)) throw new EngineError('format', 'content: the rules hash is 12 lowercase hex');
+  if (!rules.profile || !rules.standard) throw new EngineError('format', 'content: rules.json has no profile rules or standard profile');
+  deepFreeze(rules);
+  deepFreeze(voice);
+  const plans = rules.plans || {};
+  const sets = rules.stops || {};
+  /** @type {Map<string, Map<string, any>>} */
+  const stops = new Map();
+  for (const [id, set] of Object.entries(sets)) {
+    const byId = new Map();
+    for (const s of set.stops) byId.set(s.id, s);
+    if (!byId.has(set.first)) throw new EngineError('format', 'content: a stop set has no first stop');
+    stops.set(id, byId);
+  }
+  for (const p of Object.values(plans)) {
+    if (!stops.has(p.start && p.start.set)) throw new EngineError('format', 'content: a plan starts at a set the rules lack');
+  }
+  const planIds = Object.keys(plans).sort((a, b) => (a < b ? -1 : a > b ? 1 : 0));
+  const vstops = (voice.stops || {});
+  /** @type {Map<any, import('./expr.js').Compiled>} */
+  const cache = new Map();
+  return Object.freeze({
+    rulesHash,
+    data: Object.freeze({ rules, voice }),
+    profile: rules.profile,
+    standard: rules.standard,
+    plan: (/** @type {string} */ id) => (own(plans, id) ? plans[id] : null),
+    plans: () => planIds.slice(),
+    set: (/** @type {string} */ id) => (own(sets, id) ? sets[id] : null),
+    stop: (/** @type {string} */ set, /** @type {string} */ id) => {
+      const byId = stops.get(set);
+      return (byId && byId.get(id)) || null;
+    },
+    voice: (/** @type {string} */ set, /** @type {string} */ stop) => (own(vstops, set) && own(vstops[set], stop) ? vstops[set][stop] : null),
+    expr: (/** @type {any[]} */ ast) => {
+      let f = cache.get(ast);
+      if (!f) {
+        f = compile(ast);
+        cache.set(ast, f);
+      }
+      return f;
+    },
+  });
+}

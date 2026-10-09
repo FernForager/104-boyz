@@ -252,6 +252,100 @@ button { font: inherit; font-variant-ligatures: none; }
   -webkit-user-select: none;
 }
 
+/* ---- The game: the guest book and the trail's stops (S3) ------------- */
+
+/* The game takes the title page's place (ui/app.js): a full-height column
+   with the same safe-area padding. The box and the choices sit in the lower
+   half, the thumb zone (doc 12.1); S5's frame puts the picture above. While
+   the guest book's field has focus, --keyboard (ui/guestbook.js, from
+   visualViewport) lifts it all above the keyboard (BUILD_PLAN 2.8). */
+.game-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100dvh;
+  padding: var(--safe-top) var(--safe-right) max(var(--safe-bottom), var(--keyboard, 0px)) var(--safe-left);
+  overflow: hidden;
+}
+
+.game {
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  max-width: 440px;
+  display: flex;
+  flex-direction: column;
+  padding: 14px 12px 8px;
+}
+
+.game-screen {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 12px;
+  padding-bottom: 6px;
+}
+
+/* The Sierra box: the stop's lines, one paragraph each. */
+.game-box {
+  padding: 12px 14px;
+  font-size: 20px;
+  line-height: 1.3;
+}
+
+.game-box p { margin: 0; }
+.game-box p + p { margin-top: 0.6em; }
+/* The box takes focus on every new screen only so VoiceOver reads it; it
+   is not a control, so it shows no ring. */
+.game-box:focus { outline: none; }
+
+.game-choices {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* The guest book's field: 20 px (iOS zooms the page under 16 px, BUILD_PLAN
+   2.8), a full-width box in snow and ink. */
+.name-field {
+  width: 100%;
+  min-height: var(--choice-h);
+  padding: 8px 14px;
+  font: 20px/1.2 var(--font-pixel);
+  color: var(--ink);
+  background: var(--c4);
+  border: 4px double var(--box-border);
+  border-radius: 0;
+  -webkit-appearance: none;
+  appearance: none;
+  user-select: text;
+  -webkit-user-select: text;
+}
+
+.name-field:focus { outline: 2px solid var(--c3); outline-offset: 0; }
+
+.game-note {
+  margin: 0 2px;
+  font-size: 15px;
+  line-height: 1.3;
+  color: var(--c5);
+}
+
+/* The stamps row: the update note, the install line, Works offline and the
+   build code, moved here from the title page. */
+.game-foot {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 8px;
+}
+
 /* ---- Held sideways --------------------------------------------------- */
 
 .upright {
@@ -285,7 +379,7 @@ button { font: inherit; font-variant-ligatures: none; }
 }
 
 @media (orientation: landscape) and (max-height: 540px) {
-  .title-page { display: none; }
+  .title-page, .game-page { display: none; }
   .upright { display: flex; }
 }
 
@@ -351,8 +445,17 @@ textarea.report {
   resize: none;
 }
 
-/* Copied: a ✓ after the label for two seconds (no words). */
-.done::after { content: " ✓"; content: " ✓" / ""; }
+/* Copied: a ✓ after the label for two seconds (no words). A choice is a
+   flex column, so the tick sits at the right edge instead of on its own row. */
+.done { position: relative; }
+.done::after {
+  content: "✓";
+  content: "✓" / "";
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+}
 
 /* ---- The debug menu (built by ui/debug.js when it opens) ------------- */
 
@@ -384,6 +487,20 @@ textarea.report {
   border: 0;
   cursor: pointer;
 }
+
+/* The replay self-check's line (BUILD_PLAN S3): what this phone's engine
+   found against Node's hashes. */
+.debug-check {
+  margin: 0;
+  font-size: 15px;
+  color: var(--c2);
+}
+
+.debug-check[data-check="match"]::before { content: "✓ "; content: "✓ " / ""; }
+.debug-check[data-check="differs"],
+.debug-check[data-check="error"] { color: var(--c9); }
+.debug-check[data-check="differs"]::before,
+.debug-check[data-check="error"]::before { content: "✗ "; content: "✗ " / ""; }
 
 /* While the copy fallback shows the report selected, the plain copy hides. */
 .debug textarea.report:not([hidden]) + pre.report { display: none; }

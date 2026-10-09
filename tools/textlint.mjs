@@ -11,6 +11,13 @@
 //   T13 {variables} match their calls; {PLACEHOLDERS} only where allowed
 //   T14 the main gate: every line main reaches is approved words
 //
+// Content refers to lines too (S3): a string "@<id>" in a content file
+// (content/**/*.json outside content/text/ and content/art/) is a use (T11),
+// a field its schema marks "x-text" must hold one (T10), and the engine
+// passes such a line no {variables} yet (T13). Code that shows a line the
+// content names ends its tx() or t() line `// t-ids: @content`: its ids are
+// the content's refs, which T11 and the smoke run's template check cover.
+//
 // Each issue is {file, line, code, msg, level}, level 'error' or 'warn'.
 // What isn't a problem but is worth knowing (a line waiting for its screen,
 // an off-main line now approved) comes back as `infos`.
@@ -19,6 +26,8 @@ import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { join, relative, sep, extname } from 'node:path';
 import { ROOT } from './pics.mjs';
 import { parseHtml, walk, getAttr, textOf } from './html.mjs';
+import { validate } from './schema.mjs';
+import { FOLDERS, readSchemas, lineOfPath } from './content.mjs';
 import {
   readText,
   stateOf,
@@ -53,6 +62,10 @@ export const T07_PREVIEW = 'warn';
 export const T13_PLACEHOLDER_FILES = [];
 export const PLACEHOLDER_RE = /^(?:BOY_\d(?:_QUIRK|_TUB|_GUESTBOOK)?|JON_QUIRK|MORGENROTH_STORY_\d|STORE_GENERAL|STORE_GEAR|STORE_BOUTIQUE|JOB_DRIVEIN|JOB_GASTROPUB|JOB_BOOKSTORE|BOYZ_DATES)$/;
 const VAR_RE = /^[a-z][a-z0-9_]*$/;
+/** A content ref: "@" and a line id. */
+export const CONTENT_REF_RE = /^@([a-z][a-z0-9_]*(?:\.[a-z0-9_]+)+)$/;
+/** The `// t-ids:` entry for a call whose ids come from content refs. */
+export const CONTENT_TIDS = '@content';
 const T10_EXT = new Set(['.html', '.js', '.css', '.svg', '.webmanifest']);
 const KEYWORDS = new Set(['return', 'typeof', 'instanceof', 'in', 'of', 'new', 'delete', 'void', 'throw', 'case', 'do', 'else', 'yield', 'await']);
 const LETTER = /\p{L}/u;
@@ -536,17 +549,90 @@ export function lintSvgEnglish(file, src) {
   return [...src.matchAll(/<text[\s>/]/gi)].map((m) => ({ file, line: lineAt(m.index), code: 'T10', msg: 'an svg holds no <text>: words come from content/text' }));
 }
 
+/** A schema with the patterns on its "x-text" values set aside, so words in such a field still reach T10 (J01 reports the pattern). */
+function looseText(schema) {
+  if (Array.isArray(schema)) return schema.map(looseText);
+  if (!schema || typeof schema !== 'object') return schema;
+  const out = {};
+  for (const [k, v] of Object.entries(schema)) if (!(k === 'pattern' && schema['x-text'])) out[k] = looseText(v);
+  return out;
+}
+
 /**
- * T10 over content JSON: a field its schema marks "x-text" holds an "@id".
- * There are no schemas until S3 and S4, so in S2 nothing calls it but tests.
+ * T10 over content JSON: every value its schema marks "x-text" holds an
+ * "@id", found through $ref, oneOf, items and properties (tools/schema.mjs's
+ * annotations). src, when given, places each issue on its line.
+ * @returns {Issue[]}
  */
-export function lintTextFields(file, data, schema, path = '') {
-  /** @type {Issue[]} */
+export function lintTextFields(file, data, schema, src = '') {
+  if (!schema || data === undefined || data === null) return [];
+  let annotations = [];
+  try {
+    ({ annotations } = validate(looseText(schema), data));
+  } catch {
+    return []; // a broken schema is J01's
+  }
+  return annotations
+    .filter((a) => a.keyword === 'x-text' && !(typeof a.value === 'string' && a.value.startsWith('@')))
+    .map((a) => ({ file, line: src ? lineOfPath(src, a.path) : 1, code: 'T10', msg: `${a.path || 'the value'} is text: give it as "@<id>"` }));
+}
+
+/**
+ * Every content file that refers to lines: content/**\/*.json outside
+ * content/text/ and content/art/, read.
+ * @returns {{file: string, src: string, data: any}[]}
+ */
+export function contentFiles(root = ROOT) {
+  const rel = (p) => relative(root, p).split(sep).join('/');
   const out = [];
-  if (!schema || data === undefined || data === null) return out;
-  if (schema['x-text'] && !(typeof data === 'string' && data.startsWith('@'))) out.push({ file, line: 1, code: 'T10', msg: `${path || 'the value'} is text: give it as "@<id>"` });
-  if (schema.properties && typeof data === 'object') for (const [k, s] of Object.entries(schema.properties)) out.push(...lintTextFields(file, data[k], s, path ? `${path}.${k}` : k));
-  if (schema.items && Array.isArray(data)) data.forEach((d, i) => out.push(...lintTextFields(file, d, schema.items, `${path}[${i}]`)));
+  for (const p of walkFiles(join(root, 'content'))) {
+    const file = rel(p);
+    if (extname(p) !== '.json' || file.startsWith('content/text/') || file.startsWith('content/art/')) continue;
+    const src = readFileSync(p, 'utf8');
+    let data;
+    try {
+      data = JSON.parse(src);
+    } catch {
+      continue; // J01 reports it
+    }
+    out.push({ file, src, data });
+  }
+  return out;
+}
+
+/**
+ * Pure: the content refs in a file, every string "@<id>" (keys and
+ * $comment aside), with its line.
+ * @param {{file: string, src: string, data: any}} f
+ * @returns {{id: string, file: string, line: number}[]}
+ */
+export function contentRefs({ file, src, data }) {
+  const out = [];
+  const visit = (v, path) => {
+    if (typeof v === 'string') {
+      const m = CONTENT_REF_RE.exec(v);
+      if (m) out.push({ id: m[1], file, line: lineOfPath(src, path) });
+    } else if (Array.isArray(v)) v.forEach((x, i) => visit(x, `${path}[${i}]`));
+    else if (v && typeof v === 'object') for (const [k, x] of Object.entries(v)) if (k !== '$comment') visit(x, path ? `${path}.${k}` : k);
+  };
+  visit(data, '');
+  return out;
+}
+
+/**
+ * T10 over the content the build compiles: each file against its schema
+ * (by folder, as tools/content.mjs reads them).
+ * @returns {Issue[]}
+ */
+export function lintContentText(root = ROOT, files = contentFiles(root)) {
+  const schemas = readSchemas(root);
+  const out = [];
+  for (const f of files) {
+    const [, folder, name] = /^content\/([a-z]+)\/([^/]+)\.json$/.exec(f.file) || [];
+    if (!folder || !Object.prototype.hasOwnProperty.call(FOLDERS, folder)) continue;
+    const schema = schemas[FOLDERS[folder](name)];
+    if (schema) out.push(...lintTextFields(f.file, f.data, schema, f.src));
+  }
   return out;
 }
 
@@ -688,11 +774,12 @@ export function lintT11(text, uses) {
   for (const id of [...MANIFEST_IDS, ...PLACEHOLDER_IDS]) need(id, 'tools/text.mjs', 1, 'the generated files use');
   for (const u of uses.html) need(u.id, u.file, u.line, `${u.how} uses`);
   for (const u of uses.manifest) need(u.id, u.file, u.line, 'the manifest uses');
+  for (const u of uses.content || []) need(u.id, u.file, u.line, 'content refers to');
   for (const l of uses.literals) if (defined(text, l.value)) used.add(l.value);
-  for (const t of uses.tids) for (const id of t.ids) need(id, t.file, t.line, '// t-ids: lists');
+  for (const t of uses.tids) for (const id of t.ids) if (id !== CONTENT_TIDS) need(id, t.file, t.line, '// t-ids: lists');
   for (const c of uses.calls) {
     if (c.literal) need(c.id, c.file, c.line, `${c.fn}() asks for`);
-    else if (!c.tids) issues.push({ file: c.file, line: c.line, code: 'T11', msg: `${c.fn}() needs a literal id, or the line ends // t-ids: <every id it can be>` });
+    else if (!c.tids) issues.push({ file: c.file, line: c.line, code: 'T11', msg: `${c.fn}() needs a literal id, or the line ends // t-ids: <every id it can be> (or ${CONTENT_TIDS})` });
   }
   for (const [id, line] of text.lines) {
     if (used.has(id)) continue;
@@ -783,6 +870,7 @@ export function lintT13(text, uses) {
   for (const [list, known, what] of [
     [uses.html, FILL_VARS, 'the build fills'],
     [uses.manifest, [], 'the manifest takes'],
+    [uses.content || [], [], 'content refers to'],
   ]) {
     for (const u of list) {
       if (!defined(text, u.id)) continue;
@@ -863,6 +951,9 @@ export function runTextLint(root = ROOT, { main = false } = {}) {
     issues.push({ file: 'web/index.html', line: 1, code: 'T14', msg: `can't work out what main reaches: ${e.message}` });
   }
   const uses = collectUses(files.filter((f) => f.file.startsWith('web/')));
+  const content = contentFiles(root);
+  uses.content = content.flatMap(contentRefs);
+  issues.push(...lintContentText(root, content));
   issues.push(...lintT07(text, reach));
   const t11 = lintT11(text, uses);
   issues.push(...t11.issues);

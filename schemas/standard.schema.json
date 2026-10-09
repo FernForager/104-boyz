@@ -1,0 +1,28 @@
+{
+ "$comment": "content/rules/standard.json: the timed modes' standard hiker, runner, shed and pantry (GAME_DESIGN 1.3, 7.3, E.12; BUILD_PLAN 14.1). Rules-hashed. The runner, shed and pantry fill in with T1.",
+ "type": "object",
+ "required": ["hiker", "runner", "shed", "pantry"],
+ "additionalProperties": false,
+ "properties": {
+  "$comment": { "type": "string" },
+  "hiker": { "$ref": "#/$defs/profile" },
+  "runner": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/profile" }] },
+  "shed": { "type": "array", "items": { "$ref": "#/$defs/id" } },
+  "pantry": { "type": "array", "items": { "$ref": "#/$defs/id" } }
+ },
+ "$defs": {
+  "id": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+  "profile": {
+   "type": "object",
+   "required": ["fitness", "body_lb", "skills", "regions", "seen"],
+   "additionalProperties": false,
+   "properties": {
+    "fitness": { "$ref": "#/$defs/id" },
+    "body_lb": { "type": "integer", "minimum": 60, "maximum": 400 },
+    "skills": { "type": "object", "additionalProperties": { "type": "integer", "minimum": 0, "maximum": 5 } },
+    "regions": { "type": "object" },
+    "seen": { "type": "object" }
+   }
+  }
+ }
+}

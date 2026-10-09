@@ -9,8 +9,10 @@
 //
 //   1. Fetch the preview branch's head and the last-good-preview tag (the
 //      repo is public, so no credentials; either may be missing).
-//   2. Build the head in its own worktree with CHANNEL=preview npm run ci,
-//      and copy its dist/preview/ to --out: status "built".
+//   2. Build the head in its own worktree with CHANNEL=preview, installing
+//      its one dev dependency first (npm ci --ignore-scripts --no-audit
+//      --no-fund && npm run ci, the default --ci), and copy its
+//      dist/preview/ to --out: status "built".
 //   3. If the head fails, or there is no preview branch, and the tag names
 //      another commit, build the tag (CHANNEL=preview node tools/build.mjs):
 //      status "tag".
@@ -30,6 +32,8 @@ import { dirname, join, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 
 const CI_TIMEOUT_MS = 10 * 60 * 1000;
+/** The head's checks: install the lockfile's dev dependency (TypeScript, BUILD_PLAN 2.1), then the whole CI. */
+export const DEFAULT_CI = 'npm ci --ignore-scripts --no-audit --no-fund && npm run ci';
 export const TAG = 'last-good-preview';
 const BRANCH = 'preview';
 
@@ -72,7 +76,7 @@ export function previewEnv(env) {
  * @param {{repo: string, out: string, ci?: string, build?: string, quiet?: boolean, env?: Record<string, string | undefined>}} o
  * @returns {{status: 'built' | 'tag' | 'placeholder', sha: string, summary: string}}
  */
-export function buildPreview({ repo, out, ci = 'npm run ci', build = 'node tools/build.mjs', quiet = false, env = process.env }) {
+export function buildPreview({ repo, out, ci = DEFAULT_CI, build = 'node tools/build.mjs', quiet = false, env = process.env }) {
   const log = quiet ? () => {} : (s) => console.log(s);
   const stdio = quiet ? 'pipe' : 'inherit';
   const git = (args, o = {}) => execFileSync('git', ['-C', repo, ...args], { stdio: ['ignore', 'pipe', quiet ? 'pipe' : 'inherit'], ...o }).toString().trim();
@@ -151,7 +155,7 @@ if (isMain) {
     const repo = opt('--repo', 'main');
     const out = resolve(opt('--out', 'preview-dist'));
     if (!existsSync(join(repo, '.git'))) throw new Error(`preview: ${repo} is not a git checkout`);
-    const r = buildPreview({ repo, out, ci: opt('--ci', 'npm run ci'), build: opt('--build', 'node tools/build.mjs') });
+    const r = buildPreview({ repo, out, ci: opt('--ci', DEFAULT_CI), build: opt('--build', 'node tools/build.mjs') });
     console.log(r.summary);
     if (process.env.GITHUB_OUTPUT) appendFileSync(process.env.GITHUB_OUTPUT, `status=${r.status}\nsha=${r.sha}\n`);
     if (process.env.GITHUB_STEP_SUMMARY) appendFileSync(process.env.GITHUB_STEP_SUMMARY, `${r.summary}\n`);

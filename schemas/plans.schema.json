@@ -1,0 +1,26 @@
+{
+ "$comment": "content/trips/*.json: a plan (S3: the stand-in sample, Lead call 8; S10's map table makes them). Rules-hashed but for screen, which scopes it to a channel.",
+ "type": "object",
+ "required": ["id", "screen", "mode", "start", "after"],
+ "additionalProperties": false,
+ "properties": {
+  "$comment": { "type": "string" },
+  "id": { "$ref": "#/$defs/id" },
+  "screen": { "$ref": "#/$defs/id" },
+  "mode": { "enum": ["open"] },
+  "start": {
+   "type": "object",
+   "required": ["set", "day", "s"],
+   "additionalProperties": false,
+   "properties": {
+    "set": { "$ref": "#/$defs/id" },
+    "day": { "type": "integer", "minimum": 1, "maximum": 60 },
+    "s": { "type": "integer", "minimum": 0, "maximum": 86399 }
+   }
+  },
+  "after": { "enum": ["end"] }
+ },
+ "$defs": {
+  "id": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" }
+ }
+}

@@ -1,0 +1,79 @@
+{
+ "name": "fx_rebase",
+ "about": "A log rebased on the state after fx_pass's first two actions (call 4), then Walk on: fx_pass's hash.",
+ "fixture": "engine",
+ "log": {
+  "format": 1,
+  "rules": "000000000001",
+  "mode": "open",
+  "rule": "oldschool",
+  "seed": "00000001",
+  "plan": "fx_plan",
+  "profile": "c1695851a682",
+  "base": "44c66151ef6b",
+  "actions": [
+   [
+    "next"
+   ]
+  ]
+ },
+ "profile": {
+  "body_lb": 165,
+  "fitness": "regular",
+  "regions": {},
+  "seen": {},
+  "skills": {
+   "campcraft": 1,
+   "coast": 1,
+   "first_aid": 1,
+   "footing": 1,
+   "glacier": 0,
+   "navigation": 1,
+   "river": 1,
+   "snow": 1
+  }
+ },
+ "base": {
+  "v": 1,
+  "mode": "open",
+  "rule": "oldschool",
+  "seed": "00000001",
+  "plan": "fx_plan",
+  "profile": {
+   "body_lb": 165,
+   "fitness": "regular",
+   "regions": {},
+   "seen": {},
+   "skills": {
+    "campcraft": 1,
+    "coast": 1,
+    "first_aid": 1,
+    "footing": 1,
+    "glacier": 0,
+    "navigation": 1,
+    "river": 1,
+    "snow": 1
+   }
+  },
+  "phase": "trailhead",
+  "set": "fx",
+  "stop": "c",
+  "n": 3,
+  "clock": {
+   "day": 1,
+   "s": 28800
+  },
+  "flags": {},
+  "attempts": {
+   "fx.b.go.1": 1
+  },
+  "end": null
+ },
+ "expect": {
+  "hash": "c955f943cd86ddd50aa743c437274da33db82cc815084c8f847ee937cac04031",
+  "identity": "e0d0e07fb00ed982381cc33e0ccfb227f67674ec77f30a26fd23dd94a76da7f6",
+  "packed": "4f50010c30303030303030303030303100000830303030303030310766785f706c616e0c6331363935383531613638320c343463363631353165663662000101",
+  "screens": "3215b1daa6eee90e299f10837c746f78b8cc2215141667ffb5753678bd5e483a",
+  "error": null
+ }
+}

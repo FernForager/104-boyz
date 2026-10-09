@@ -13,9 +13,15 @@
     "test": "node --test \"test/unit/*.test.mjs\"",
     "render": "node tools/render-pics.mjs",
     "serve": "node tools/serve.mjs",
-    "ci": "npm run build && npm run lint && npm run test",
+    "typecheck": "node tools/typecheck.mjs",
+    "sim:smoke": "node tools/sim.mjs --smoke 1000",
+    "play": "node tools/play.mjs",
+    "ci": "npm run build && npm run lint && npm run typecheck && npm run test && npm run sim:smoke",
     "text:check": "node tools/text.mjs check",
     "text:count": "node tools/text.mjs count",
     "text:apply": "node tools/text.mjs apply"
+  },
+  "devDependencies": {
+    "typescript": "6.0.3"
   }
 }
