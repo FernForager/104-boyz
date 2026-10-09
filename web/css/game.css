@@ -241,6 +241,7 @@ button { font: inherit; font-variant-ligatures: none; }
 /* Five quick taps on the build code open the debug menu (E.11). The hit
    area is 44 pt, and the stamp looks no different: nothing marks it. */
 .build-stamp {
+  touch-action: manipulation;
   /* Pixelify's 5 reads as an S, and the code is read off the phone. */
   font-family: ui-monospace, "SF Mono", Menlo, monospace;
   font-size: 12px;

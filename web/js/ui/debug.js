@@ -570,6 +570,9 @@ export function initDebug(doc, words = Promise.resolve()) {
     stamp.addEventListener('pointerup', (event) => {
       if (tap(event.timeStamp)) openDebug(doc, words);
     });
+    // iOS still zooms on quick repeated taps on text, touch-action or not;
+    // cancelling the touch's end stops the zoom (pointerup has already fired).
+    stamp.addEventListener('touchend', (event) => event.preventDefault(), { passive: false });
   }
   const win = doc.defaultView;
   if (win && debugRequested(win.location.search)) openDebug(doc, words);
