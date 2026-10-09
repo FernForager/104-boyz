@@ -122,7 +122,7 @@ The live site carries 13 strings of original English (doc 18.11). Two are yours 
 - **B000** records decision 35's two lines and decision 47's two Credits lines, each with its decision as your answer.
 - **B001 · The app's frame** (10 lines): the description, the install line, the upright line, the *works offline* stamp, the update note, the error sheet's line and buttons, the preview icon's name, and the bare build code for a look. It went to the review page on 2026-10-09, before S2, once you said the frame was set (decision 65), and you answered it the same day, then revisited it that evening: the description, the install line and the upright line in your own words, the update note as *A new version is ready.* with a new *Restart* button, *Restart* for the error sheet's button too (the last two settled in chat), and the rest as drafted (`content/text/review/B001.answers.json`, doc 18.11). S2 applies the answers.
 - **B002 · The cabin** (about 30 lines, from S7): the places' names, the porch rail, the next-step button, the cabin's alt text, the name over the cabin, the cover's alt text as the loading art.
-- **B003 · The lockbox and the guest book** (about 45 lines, from S7): the locals' questions and answers, read as a set, and the one-life line.
+- **B003 · The lockbox and the guest book** (about 45 lines, from S7): the locals' questions and answers, read as a set, and the one-life line. Over decision 64's 25 to 40 by the creator's OK: one pool, one batch (doc decision 64).
 
 You chose this (decision 64): Session 1's unapproved lines leave main in S2, rather than staying up until they're answered.
 
