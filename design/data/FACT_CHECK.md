@@ -193,3 +193,126 @@ After the edits:
 12. **Hurricane Ridge winter 2026-27 schedule** is not yet published.
 13. **Old pre-2025 context** remains flagged in the files: the 2015 Enchanted Valley bear closure, the 2014 chalet move, the 2009 hanging standard, the 2017 Dosewallips road entry, and the 2021 Olympic Hot Springs Road entry, which is old but still current.
 14. **Gear catalog** (out of scope, for the gear agent): NPS now says blue bags are *required* on Mount Olympus, which resolves that catalog's "wag bags are common practice" uncertainty.
+
+---
+
+## 2026-10-09: the rapid-fire round
+
+**Checked:** 2026-10-09, for decisions 41 to 65 and Lead calls 29 to 43 in `GAME_DESIGN.md`. All sources were fetched that day. **Changed in the data:** `gear_catalog.json` gains two instruments (R9); both catalogs still parse as valid JSON.
+
+### R1. Razor clams: Washington's rules (Lead call 37)
+
+- **Keep the first 15.** WDFW: *"Diggers must retain the first 15 razor clams harvested regardless of clam size or condition."* WAC 220-330-170(1) makes it unlawful to return any razor clam to the beach or water *"regardless of size or condition"*, and every clam taken counts toward the digger's limit. So a broken clam counts toward the 15.
+- **Daily limit:** 15, with no minimum size (WAC 220-330-010(1)(d)). Digging is legal only when an emergency rule opens a beach (WAC 220-330-160), and such a rule can set another limit; some 2022 digs allowed 20. A person may hold only one daily limit.
+- **Gear:** by hand, shovels, or cylindrical cans, tubes or hinged digging devices (WAC 220-330-120(2)); a round tube at least 4 in across, an oval one at least 4 by 3 in. Shovels and clam guns are both legal, so the game's shovel only is a design choice, not the law.
+- **Your own limit, your own container:** no digger may take part of another's limit, except a helper holding a Designated Harvester card for a digger with a disability (WAC 220-305-120). In the field each limit goes in a separate container (WAC 220-330-120(8)); diggers may share equipment.
+- **License:** from age 16 (WDFW's 2025 releases).
+
+Sources: [WDFW razor clam species page](https://wdfw.wa.gov/species-habitats/species/siliqua-patula); [WAC 220-330-170](https://app.leg.wa.gov/wac/default.aspx?cite=220-330-170), [-010](https://app.leg.wa.gov/wac/default.aspx?cite=220-330-010), [-120](https://app.leg.wa.gov/wac/default.aspx?cite=220-330-120), [-160](https://app.leg.wa.gov/wac/default.aspx?cite=220-330-160); [WAC 220-305-120 (2023)](https://lawfilesext.leg.wa.gov/law/WACArchive/2023/htm/WAC%20220%20%20TITLE/WAC%20220%20-305%20%20CHAPTER/WAC%20220%20-305%20-120.htm); [WDFW razor clam regulations](https://wdfw.wa.gov/fishing/shellfishing-regulations/razor-clams); [WDFW, a 20-clam dig](https://wdfw.wa.gov/news/wdfw-approves-9-days-razor-clam-digs-beginning-april-29-daily-limit-20-clams). Confidence: high.
+
+### R2. Kalaloch and Mocrocks (Lead call 37)
+
+- **Kalaloch is inside the park:** NPS calls it *"located within Olympic National Park."* The dig beach runs from South Beach Campground north to Brown's Point, just south of Beach Trail 3 (WDFW: *"from the South Beach campground north to ONP Beach Trail 3"*); it is Area 6 in the WAC. NPS says razor clam harvest on the rest of the park's coast *"is always closed."*
+- **Who decides:** the park opens or closes Kalaloch. In 2006 NPS approved the Kalaloch digs while WDFW approved the other four beaches; NPS itself closed Kalaloch in 2011 and cancelled the 2022-23 season. Park, Quinault Indian Nation, Hoh Tribe and WDFW biologists survey the beach together, and WDFW lists it among its five management beaches, co-managed with the tribes. State rules (license, limit, gear) still apply.
+- **How rarely it opens:** NPS (Oct 12, 2022): *"The last full harvest season was in 2009,"* with *"either full or partial harvest closures occurring in 16 of the last 17 years."* Since then: a dig in January 2017, the first since 2012; one set for January 19-21, 2019 and cancelled by the federal shutdown; and the last dig held there, in February 2019. None in 2021-22, 2022-23 (small clams, linked to the NIX gill pathogen) or 2024-25; not on the 2025-26 schedules, and the tentative 2026-27 schedule (Oct 9 to Dec 27) lists only the four southern beaches. As of 2026-10-09 it has gone about seven and a half years without a dig, so a rare special dig is accurate.
+- **Mocrocks** is WDFW razor clam Area 5, in Grays Harbor County: *"from the Copalis River to the south boundary of the Quinault Indian Reservation,"* taking in Iron Springs, Roosevelt Beach, Seabrook, Pacific Beach and Moclips. It is well outside the park: the reservation's whole coastline lies between it and Kalaloch. It is one of WDFW's four regularly opened beaches (with Long Beach, Twin Harbors and Copalis) and the nearest regular beach south of Lake Quinault. WDFW: *"Razor clam digging in 2021-2022, 2024-2025, and 2025-2026 was open the entire season."*
+- **This week:** on Oct 6, 2026 WDFW postponed the season's first digs (Oct 9-14) on all four beaches, over rising domoic acid.
+
+Sources: [NPS, 2022](https://www.nps.gov/olym/learn/news/razorclam2022.htm); [NPS, an October dig](https://www.nps.gov/olym/learn/news/october-razor-clam-dig.htm); [NPS, 2011](https://www.nps.gov/olym/learn/news/2011-razor-clam-harvest-suspended.htm); [WDFW razor clam regulations](https://wdfw.wa.gov/fishing/shellfishing-regulations/razor-clams); [WDFW, the January 2019 closure](https://wdfw.wa.gov/newsroom/news-release/wdfw-closes-kalaloch-beach-razor-clamming-jan-19-21-digs-proceed-twin-harbors-mocrocks-and-copalis); [WDFW emergency rule, Dec 2019](https://wdfw.wa.gov/fishing/regulations/emergency-rules/razor-clam-digs-approved-dec-23-26-27-28-and-29-2019-12); [Northwest Sportsman, 2017](https://nwsportsmanmag.com/first-razor-clam-dig-since-2012-set-for-kalaloch-jan-8-9/); Peninsula Daily News ([1](https://www.peninsuladailynews.com/?p=191257), [2](https://www.peninsuladailynews.com/?p=210815)). Confidence: high.
+
+### R3. Sunrise over the Olympics (decision 49, Lead call 34)
+
+**Method:** NOAA's solar position equations, with sunrise when the true solar zenith reaches 90.833° (the sun's upper edge on a sea-level horizon, with standard refraction), for 2026. The US Naval Observatory's API agrees to the minute on every date tested (Lake Quinault: Jun 15, Jun 21, Oct 31, Dec 21, Dec 31, Jan 1; Mount Olympus: Jun 21, Dec 21).
+
+**Lake Quinault's center** (47.47 N, 123.86 W), the point the cabin's sky and the daily's opening use:
+
+| Date, 2026 | Sunrise, Pacific | UTC |
+|---|---|---|
+| Jan 1 (the latest) | 8:03:07 am PST | 16:03:07 |
+| Mar 7, the day before DST | 6:43:50 am PST | 14:43:50 |
+| Mar 8, DST begins | 7:41:53 am PDT | 14:41:53 |
+| Mar 20 | 7:17:56 am PDT | 14:17:56 |
+| Jun 15 and 16 (the earliest) | 5:17:42 am PDT | 12:17:42 |
+| Jun 21 | 5:18:18 am PDT | 12:18:18 |
+| Sep 23 | 7:03:51 am PDT | 14:03:51 |
+| Oct 9 | 7:25:50 am PDT | 14:25:50 |
+| Oct 31 (the latest PDT) | 7:57:58 am PDT | 14:57:58 |
+| Nov 1, DST ends | 6:59:28 am PST | 14:59:28 |
+| Dec 21 | 8:00:21 am PST | 16:00:21 |
+
+- Every day from June 11 to June 20 is within 30 seconds of the earliest. Sunrise is 8:00 am PST or later on Jan 1-12 and Dec 21-31; Dec 31 is 8:03:06 and Jan 2 is 8:03:05.
+- **So the daily opens** between 12:17:42 UTC (June 15-16) and 16:03:07 UTC (Jan 1). A forecast bake finished before about 12:00 UTC always comes first; the morning job's 4:45 am Pacific cutoff is 11:45 UTC in summer.
+- **Mount Olympus** (47.80 N, 123.71 W), for comparison: earliest 5:15:37 am PDT (Jun 15-16), Jun 21 5:16:12, Dec 21 8:01:08 PST, latest 8:03:51 PST (Jan 1, Dec 31 the same). About 2 minutes earlier than the lake in June, and under a minute later in deep winter.
+- **A correction:** the chat's "about 5:15 am in June and 7:55 am in December" is slightly off for the lake's center. Use about 5:17 am in mid-June and a little after 8:00 in winter.
+
+Sources: [NOAA solar calculation details](https://gml.noaa.gov/grad/solcalc/calcdetails.html); US Naval Observatory one-day API for [Jun 21](https://aa.usno.navy.mil/api/rstt/oneday?date=2026-06-21&coords=47.47,-123.86&tz=-8&dst=true), [Dec 21](https://aa.usno.navy.mil/api/rstt/oneday?date=2026-12-21&coords=47.47,-123.86&tz=-8&dst=true), [Jan 1](https://aa.usno.navy.mil/api/rstt/oneday?date=2026-01-01&coords=47.47,-123.86&tz=-8&dst=true) and [Olympus, Jun 21](https://aa.usno.navy.mil/api/rstt/oneday?date=2026-06-21&coords=47.80,-123.71&tz=-8&dst=true). Confidence: high.
+
+### R4. The WIC's bear canister loans (Lead call 33)
+
+- **Confirmed** on the NPS WIC page (updated 2026-09-29) and food-storage page (2026): canisters are required for any overnight stay in the park's wilderness; they *"are available for loan from Wilderness Information Centers during business hours"*; *"While we do have a large supply of canisters, we occasionally run out over exceptionally busy weekends"*; and *"We do not reserve canisters in advance."* Neither 2026 page names a fee, donation or deposit.
+- **The Port Angeles WIC** is at the Olympic National Park Visitor Center, open daily all year except Thanksgiving and Christmas; the WIC page shows 9 AM to 5 PM (one search snippet said 9 to 4).
+- **Quinault:** the WIC page shows the Quinault Rainforest Ranger Station as *"Closed"*, with a canister return bin open all year. The food-storage page still lists it as a loan location, the conflict section 2 already resolved as closed for 2026.
+- **A donation, long ago:** a June 15, 2015 NPS release said *"A suggested $3 donation per canister helps sustain the canister loan program."* Nothing newer mentions one.
+- **The catalog matches:** the `rentals` note and `canister_wic_loaner` say the WIC lends canisters free, first come, first served, and that the Quinault station was closed in 2026. Their *"available about 70% of the time on summer weekends"* was gloomier than *"occasionally run out over exceptionally busy weekends"*, and Lead call 33 makes the desk's can the one an empty shed relies on, so the doc settles it: the game's desk always has one to lend (GAME_DESIGN 3.1, 5.1, Lead call 33). **Changed** (R9): the availability stats are 1.0, and the `rentals` note and the item's real-world note say the real WIC occasionally runs out. Outfitter rental prices were not rechecked.
+
+Sources: [NPS WIC page](https://www.nps.gov/olym/planyourvisit/wic.htm); [NPS food storage](https://www.nps.gov/olym/planyourvisit/wilderness-food-storage.htm); [NPS, 2015 release](https://www.nps.gov/olym/learn/news/enchanted-valley-reopens-to-camping-bear-canisters-required.htm). Confidence: high.
+
+### R5. The three places behind the jobs (Lead call 30, lint T03)
+
+All three are real businesses in Port Angeles. The game uses fictional names for them, so this table exists only for T03's deny-list.
+
+| The job | The place's own spelling | Also seen in print | Web |
+|---|---|---|---|
+| Dishwashing at a gastropub | Next Door Gastropub | Next Door Gastro Pub | nextdoorgastropub.com |
+| Selling books | Port Book & News (logo, address, copyright) and Port Book and News (page title) | | portbooknews.com |
+| Flipping burgers | Frugals, no apostrophe | Frugal's | frugalburger.com |
+
+- The bookstore is an independent general bookstore, founded in 1986, selling new and used books, magazines and maps; it changed owners in early 2025.
+- The burger stand is the chain's first location, opened in Port Angeles in 1988; the chain is now small, in Washington and Montana. It is a double drive-thru with no dining room or carhops, so *drive-thru* is more exact than *drive-in*; either works for a fictional stand.
+- **For T03's deny-list:** Next Door Gastropub, Next Door Gastro Pub, nextdoorgastropub, Port Book and News, Port Book & News, portbooknews, Frugals, Frugal's, frugalburger. **Never** the bare words *next door* or *frugal*, which are ordinary English (*the cabin next door*, *a frugal meal*): match the full names or exact case-sensitive tokens.
+
+Sources: [nextdoorgastropub.com](https://www.nextdoorgastropub.com/); [portbooknews.com](https://www.portbooknews.com/); [frugalburger.com](https://www.frugalburger.com/) and [its locations](https://www.frugalburger.com/locations); [WTA, Will Hike for Food](https://www.wta.org/news/magazine/northwest-weekends/will-hike-for-food); [Missoula Current](https://missoulacurrent.com/burger-stand-missoula); [Flathead Beacon, 2011](https://flatheadbeacon.com/2011/12/08/frugals-celebrates-with-feeding-frenzy/). Confidence: high.
+
+### R6. The park's berry limit (decision 58)
+
+The Superintendent's Compendium (36 CFR 2.1(c); the amended page, updated Jan 21, 2026):
+- *"Edible fruits, berries, nuts, and the fruiting bodies of mushrooms may be collected by hand for personal consumption, except within 200 feet of nature trails, special trails, and natural study areas."*
+- *"The total quantity of edible fruits, berries, mushrooms, or nuts that may be possessed is limited to 1 quart per person per day."*
+- Cranberries and native blackberries: 3½ gallons, once in two weeks. Exotic species (apples, pears, non-native blackberries) are exempt.
+
+So the cup is exactly one quart per person per day, shared across all fruit, berries, nuts and mushrooms, huckleberries included: by hand, for personal use, and not within 200 ft of nature trails. The doc's "about a quart" can be exact. For contrast, Olympic National Forest, outside the park, allows 1 gallon a day and 3 gallons a year.
+
+Sources: [NPS Superintendent's Compendium](https://www.nps.gov/olym/learn/management/superintendent-s-compendium.htm); [NPS laws and policies](https://www.nps.gov/olym/learn/management/lawsandpolicies.htm); [USFS, wild berries](https://www.fs.usda.gov/r06/olympic/forest-products/wild-berries). Confidence: high.
+
+### R7. Two instruments: a full-size dreadnought and a melodica (decision 62, Lead call 38)
+
+- **A full-size dreadnought, alone:** about 4 to 5 lb (owner-weighed ones about 4.0 to 4.5 lb; guides say 4 to 6). Body about 20 in long, 15⅝ to 15¾ in across the lower bout, 11½ to 12 in across the upper, about 4 in deep at the heel to 4⅞ to 5 in at the tail; about 41 in overall, with a 25.4 to 25.5 in scale. Bounding box about 41 x 15.75 x 5 in, roughly 53 L.
+- **In a gig bag:** typical padded bags weigh 1.8 to 3.4 lb (hybrids 8 to 9), so about 6.5 to 8 lb with the guitar; outside about 43 x 17 x 6 in, roughly 70 to 72 L, bigger than a whole 50 to 65 L pack. It has to ride strapped outside.
+- **In a hard case:** the case alone weighs 8.5 to 14 lb, about 13 to 18.5 lb with the guitar, and takes about 94 to 99 L.
+- **A melodica:** a 32-key student model is about 580 g (20 oz) and 42 cm long; 37-key models are 542 to 720 g (19 to 25 oz) and 47 to 56 cm long, some sold with a soft bag or zip case. With a soft case, about 32 to 36 oz and about 5 to 6 L (around 50 x 14 x 8 cm).
+- **Prices, for the catalog:** a 32-key student melodica runs about $48 to $73 new in the US in 2026; a mid-range all-solid-wood dreadnought about $1,000 to $2,000 (one specialist listing at $1,365).
+
+Sources: [UMGF, owner weights](https://umgf.com/viewtopic.php?p=2698785); [Music Industry How To](https://www.musicindustryhowto.com/acoustic-guitar-weight/); [Retrofret](https://retrofret.com/products/c-f-martin-d-28-flat-top-acoustic-guitar-1975-4503); [Dream Guitars](https://www.dreamguitars.com/shop/instruments/guitars/steel-string-guitars/flattop/martin-d-28-5/); gig bags at [zZounds](https://www.zzounds.com/item--GATGBEDREAD), [Full Compass](https://www.fullcompass.com/prod/631124-gator-gssl-dread-lux-series-dreadnaught-guitar-gig-bag) and [Reverb](https://www.reverb.com/item/29356778-access-stage-one-dreadnought-acoustic-guitar-gig-bag-ab1da1); hard cases at [zZounds](https://zzounds.com/item--GATGCDREAD), [zZounds](https://www.zzounds.com/adid--lp_563_sku_7/item--MRT12C345) and [Cream City Music](https://www.creamcitymusic.com/tkl-triumph-series-hardshell-case-for-dreadnought-acoustic-guitar/); melodicas at [Bax Music](https://bax-shop.co.uk/melodica/hohner-melodica-student-32-black), [Thomann](https://thomann.co.uk/suzuki_m_37c_melodica.htm), [zZounds](https://www.zzounds.com/item--HOHS37) and [Thomann](https://www.thomannmusic.com/hohner_performer_melodica_37_set.htm); prices at [Equipboard](https://equipboard.com/items/hohner-student-32-melodica) and [Elderly Instruments](https://www.elderly.com/products/blueridge-br-160a-dreadnought). Confidence: medium; weights vary by model.
+
+### R8. A CC0 Pacific wren (decision 63)
+
+Almost none, and no good one. Xeno-canto holds 361 Pacific wren recordings: 304 are CC BY-NC-SA, one is CC BY (XC819593, a Colorado song), one is CC BY-SA (XC120847, a call), and exactly one is public domain (XC915129): a 5 min 15 s song from the Black Hills of South Dakota, recorded on an iPhone, of the interior race, with seven background species. It is not an Olympic or coastal-race wren, and not clean. Freesound has nothing for "pacific wren" or "troglodytes pacificus"; "winter wren" has 6 sounds, none CC0; the only CC0 "troglodytes" hits are Eurasian wrens in mixed soundscapes from Brittany. So "no usable CC0 recording" is accurate, the doc's "a CC0 search finds none" (13.9) is very slightly too strong, and synthesizing the wren stands.
+
+Sources: [xeno-canto search](https://xeno-canto.org/explore?query=troglodytes+pacificus), [public domain only](https://xeno-canto.org/explore?query=troglodytes+pacificus+lic:pd), [XC915129](https://xeno-canto.org/915129), [search help](https://xeno-canto.org/help/search); Freesound searches for ["pacific wren"](https://freesound.org/search/?q=%22pacific+wren%22) and ["winter wren"](https://freesound.org/search/?q=%22winter+wren%22). Confidence: high.
+
+### R9. Changed
+
+| File | Item | Change | Source |
+|---|---|---|---|
+| gear_catalog | new `melodica` | Beside the harmonica and the ukulele, in their schema: 32 oz in its soft case, 5.5 L, `outside_strappable`, $59; tags luxury, music, heavy, bulky, fragile; joy 2, joy_camp 4, neighbors_annoyed 0.4 | R7 |
+| gear_catalog | new `guitar_dreadnought`, named *Bigleaf Dreadnought Guitar* (the maker is fictional, and the name a draft for you, decision 21) | 120 oz with a padded gig bag, 70 L, `outside_strappable`, $1,399; the same tags; joy 4 and joy_camp 6, the highest of any item, neighbors_annoyed 0.4. By far the heaviest and bulkiest instrument, on purpose | R7 |
+| gear_catalog | `canister_wic_loaner` and the `rentals` note | `availability_summer_weekend` 0.7 and `availability_midweek` 0.95 become 1.0: the game's desk always has a can to lend (GAME_DESIGN Lead call 33). The notes keep the real WIC's *"occasionally run out over exceptionally busy weekends"* | R4 |
+| gear_catalog, food_catalog | a clam gun | Nothing to remove: neither catalog has a clam gun or any clam gear. Clamming is a shovel only (Lead call 37) | — |
+
+The catalog now holds 219 items, up from 217.
+
+### Still uncertain (this round)
+
+1. **The loaner can's weekend availability** (R4): settled. The game's desk always has one (Lead call 33); the real WIC occasionally runs out over exceptionally busy weekends, and how often is not published.
+2. **Instrument weights** (R7) are typical values, not one model's.
+3. **Kalaloch's next dig** (R2): none is scheduled; the tentative 2026-27 schedule lists only the four southern beaches.

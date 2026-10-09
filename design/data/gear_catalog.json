@@ -4171,10 +4171,10 @@
     "usable_l": 8.6,
     "person_days_typical": 4,
     "approved_olympic_2026": true,
-    "availability_summer_weekend": 0.7,
-    "availability_midweek": 0.95
+    "availability_summer_weekend": 1.0,
+    "availability_midweek": 1.0
    },
-   "real_world_notes": "The Port Angeles Wilderness Information Center lends canisters free when they have them (the Quinault station was closed in 2026). Availability is first come, first served; return it after the trip.",
+   "real_world_notes": "The Port Angeles Wilderness Information Center lends canisters free, first come, first served, with no reservations (the Quinault station was closed in 2026); it has a large supply but occasionally runs out over exceptionally busy weekends. Return it after the trip. In game the ranger desk always has one to lend, so a hiker with an empty shed and $0 is never stranded (GAME_DESIGN Lead call 33).",
    "flavor": "A well-traveled canister with scuffs from a hundred trips, borrowed from the rangers and returned with thanks."
   },
   {
@@ -5053,6 +5053,54 @@
    "flavor": "A small four-stringed guitar that turns any campsite into a concert hall."
   },
   {
+   "id": "melodica",
+   "name": "Melodica",
+   "category": "luxury",
+   "weight_oz": 32,
+   "volume_l": 5.5,
+   "carry": "outside_strappable",
+   "price_usd": 59,
+   "ten_essentials": null,
+   "tags": [
+    "luxury",
+    "music",
+    "heavy",
+    "bulky",
+    "fragile"
+   ],
+   "stats": {
+    "joy": 2,
+    "joy_camp": 4,
+    "neighbors_annoyed": 0.4
+   },
+   "real_world_notes": "A small keyboard you play by blowing through a mouthpiece or a short tube. A 32-key one weighs about 20 oz alone and about 2 lb in its soft case, which is about 20 in long; 37-key ones run 19 to 25 oz. Reedy and loud enough to carry across a still lake, so keep it soft and short where other campers are close.",
+   "flavor": "A little keyboard you play by blowing into it, which sounds like an accordion that went to summer camp."
+  },
+  {
+   "id": "guitar_dreadnought",
+   "name": "Bigleaf Dreadnought Guitar",
+   "category": "luxury",
+   "weight_oz": 120,
+   "volume_l": 70.0,
+   "carry": "outside_strappable",
+   "price_usd": 1399,
+   "ten_essentials": null,
+   "tags": [
+    "luxury",
+    "music",
+    "heavy",
+    "bulky",
+    "fragile"
+   ],
+   "stats": {
+    "joy": 4,
+    "joy_camp": 6,
+    "neighbors_annoyed": 0.4
+   },
+   "real_world_notes": "A full-size dreadnought, the big steel-string acoustic: about 4.5 lb alone, about 41 in long, nearly 16 in across the lower bout and 5 in deep. In a padded gig bag it is about 7.5 lb and about 70 L, bigger than most whole backpacks, so it rides strapped to the outside and catches every branch and gust; a hard case would add 8 to 14 lb. A solid-wood one costs about $1,000 to $2,000 new. Backpackers who want music usually carry a travel guitar or a ukulele; this is the loud, rich-sounding choice, and the heavy, awkward one. The maker is fictional.",
+   "flavor": "A big full-size guitar that bumps every tree on the way in, then makes the whole camp go quiet to listen."
+  },
+  {
    "id": "playing_cards",
    "name": "Deck of Playing Cards",
    "category": "luxury",
@@ -5873,7 +5921,7 @@
   },
   "sample_kits_computed_note": "loop_in_a_day_3l and day_gear_TRAP_no_canister were added 2026-10-08 (M1A_DATA_CHECK item 23) with the same method: base weight is the pack plus carried items (consumables like fuel excluded); total adds water at 2.2 lb per liter and the day's food; load ratio is total over the pack's comfortable maximum. The phone is worn (pocket) in the loop kit. These two and the four above become rules/kits.json test kits at ingest."
  },
- "rentals": "BEAR CANISTERS: required for every wilderness overnight in Olympic in 2026 (park-approved hard-sided containers; soft sacks and hangs do not count). The Port Angeles Wilderness Information Center lends canisters free, first come, first served (the Quinault station was closed in 2026). In game: canister_wic_loaner, available about 70% of the time on summer weekends and 95% midweek. Outfitters typically rent canisters for about $4 to $6 a day or $15 to $25 a week, carbon canisters about $7 a day; buying ($80 to $95) beats renting after about three trips. SNOW AND GLACIER GEAR: outfitters in Port Angeles, Sequim and Seattle-area shops rent ice axes (about $10/day), steel crampons (about $15/day), mountaineering boots (about $25 to $35/day), helmets and harnesses (about $8/day each), glacier rope (about $20/day), crevasse rescue kits (about $15/day), avalanche beacon-probe-shovel sets (about $25/day), snowshoes (about $15/day) and slip-on traction chains (about $5/day, though most people just buy them). Deposits and ID are required, stock is limited on summer weekends (in game, roll availability and cap at 2 or 3 glacier sets), pickup happens during store hours the day before (which can push back the drive and the trailhead start), and late returns cost an extra day. Items with stats.rent_usd_per_day are rentable. SKILLS ARE NOT RENTABLE: an ice axe only helps if you can self-arrest, and a rope only helps a trained team of two or more. Most people who reach the summit of Mount Olympus go with experienced partners or a guide, and many turn back at the Blue Glacier's lateral moraine. OTHER: tide tables cost about $2 at outfitters and visitor-center shops. The permit is bought online or at the WIC, not at a store. There is no gear rental inside the park, so anything forgotten after the last-chance store stays forgotten.",
+ "rentals": "BEAR CANISTERS: required for every wilderness overnight in Olympic in 2026 (park-approved hard-sided containers; soft sacks and hangs do not count). The Port Angeles Wilderness Information Center lends canisters free, first come, first served (the Quinault station was closed in 2026). In game: canister_wic_loaner; the ranger desk always has one to lend (GAME_DESIGN Lead call 33), though the real WIC says it occasionally runs out over exceptionally busy weekends. Outfitters typically rent canisters for about $4 to $6 a day or $15 to $25 a week, carbon canisters about $7 a day; buying ($80 to $95) beats renting after about three trips. SNOW AND GLACIER GEAR: outfitters in Port Angeles, Sequim and Seattle-area shops rent ice axes (about $10/day), steel crampons (about $15/day), mountaineering boots (about $25 to $35/day), helmets and harnesses (about $8/day each), glacier rope (about $20/day), crevasse rescue kits (about $15/day), avalanche beacon-probe-shovel sets (about $25/day), snowshoes (about $15/day) and slip-on traction chains (about $5/day, though most people just buy them). Deposits and ID are required, stock is limited on summer weekends (in game, roll availability and cap at 2 or 3 glacier sets), pickup happens during store hours the day before (which can push back the drive and the trailhead start), and late returns cost an extra day. Items with stats.rent_usd_per_day are rentable. SKILLS ARE NOT RENTABLE: an ice axe only helps if you can self-arrest, and a rope only helps a trained team of two or more. Most people who reach the summit of Mount Olympus go with experienced partners or a guide, and many turn back at the Blue Glacier's lateral moraine. OTHER: tide tables cost about $2 at outfitters and visitor-center shops. The permit is bought online or at the WIC, not at a store. There is no gear rental inside the park, so anything forgotten after the last-chance store stays forgotten.",
  "tag_glossary": {
   "absorbs_water": "Gets heavier when wet.",
   "adjustable_torso": "Fits a range of torso lengths (fewer fit complaints).",
