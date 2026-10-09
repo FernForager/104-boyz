@@ -4,7 +4,7 @@
 
 ## Play it
 
-1. On your iPhone, open **Safari** and go to **[fernforager.github.io/104-boyz](https://fernforager.github.io/104-boyz/)**.
+1. On your iPhone, open **Safari** and go to **[ophiker.com](https://ophiker.com/)**.
 2. Tap **Share** (on iOS 26 it's inside the **•••** button at the bottom). Then tap **Add to Home Screen**; if you don't see it, tap **View More** or scroll down. If there's an **Open as Web App** switch, leave it on. Tap **Add**.
 3. From then on, open it from the new **Hiker** icon. Do the install *before* you start a book: the Home Screen app keeps its own saves, separate from Safari's.
 

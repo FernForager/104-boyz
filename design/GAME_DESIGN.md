@@ -1,6 +1,6 @@
 # Olympic Peninsula Hiker
 
-*Master game design document for `FernForager/104-boyz`. The game's name is **Olympic Peninsula Hiker**, and **OP Hiker** where space is tight, such as the Home Screen label (decision 35). Status: design, with Session 1 of the build shipped: a title page with a chunky-pixel High Divide cover at `fernforager.github.io/104-boyz`.*
+*Master game design document for `FernForager/104-boyz`. The game's name is **Olympic Peninsula Hiker**, and **OP Hiker** where space is tight, such as the Home Screen label (decision 35). Status: design, with Session 1 of the build shipped: a title page with a chunky-pixel High Divide cover at `ophiker.com`.*
 
 *Written 2026-10-08 and revised the same day for every decision you made, one at a time. Then revised again, the same day, for the new direction (decisions 21 to 35). Your decisions override anything older in this document or the proposals. They are listed, in your words, in [Decisions made](#decisions-made). The engineering calls the lead designer made follow them in [Lead calls](#lead-calls), each yours to overrule. What is still to come from you is in the last section.*
 
@@ -8,7 +8,7 @@
 
 *What stays: the chunky Sierra pixels and palette, the engine, the park data, honest odds with the red diamond, permadeath and the death sequence, the Larry moments, the Bonfire Lily, the High Divide loop as the first playable, Lake Morgenroth off the menu, Ranger Jon with badge #104, and permit numbers that start with 104.*
 
-*Still being written in: the three ways to play (Open, the Hike of the Day and FKT attempts, decisions 23 to 25 and 31), the eight minigames (29, 30), the sound (32, 33) and the text system (21). Until they land here, their drafts in `design/drafts/` (`daily_fkt.md`, `minigames.md`, `audio_text.md`) hold the detail. This document already gives them their places: the chalkboard, the peak and the camp tiles (2.2, 12.14).*
+*All of the new direction is now written in: the cabin home and the frame (2.2, 3, 5, 6), the three ways to play with the leaderboards and what they ask of the engine (decisions 23 to 25 and 31; 1.3, 9.9 to 9.12, E.12), the eight minigames (decisions 29 and 30; section 17), the sound (decisions 32 and 33; section 13) and the text system that brings every line to you (decision 21; section 18). The four drafts in `design/drafts/` keep the full reasoning and every tuning table; this document wins where they differ, and each draft says so at its top.*
 
 *Every line of in-game English in this document is a draft for you to rewrite or approve (decision 21). Lines written for this revision are marked (DRAFT). Real place names, real terms and verbatim public-domain quotes are not ours to write, but stay yours to veto.*
 
@@ -17,18 +17,20 @@
 > **Read this first (about 10 minutes on a phone):**
 > 1. [The one-page pitch](#1-one-page-pitch)
 > 2. [Home: the old ranger cabin at Lake Quinault](#22-home-the-old-ranger-cabin-at-lake-quinault): where every trip starts and ends
-> 3. [Decisions made](#decisions-made), [the lead calls](#lead-calls) and [still to come from you](#still-to-come-from-you): the last three sections
-> 4. [The first trip](#36-the-first-trip): what a new player meets, on the High Divide loop
-> 5. The first playable, worked through: [Appendix B](#appendix-b-seven-lakes-and-the-high-divide-planned-well): the loop both ways round, the basin or the crest, and [the fork where you choose](#b6-the-other-way-round-the-fork-at-the-rim) (B.6)
-> 6. [Larry moments](#26-larry-moments-pg-13): the PG-13 part, with beer and weed in (your call)
+> 3. [Three ways to play](#13-three-ways-to-play): Open, the Hike of the Day and FKT attempts, on one table
+> 4. [Decisions made](#decisions-made), [the lead calls](#lead-calls) and [still to come from you](#still-to-come-from-you): the last three sections
+> 5. [Every word yours](#18-every-word-yours-the-text-system): how each line of English reaches you, and B001, the first batch, ready when you are (18.11)
+> 6. [The first trip](#36-the-first-trip): what a new player meets, on the High Divide loop
+> 7. The first playable, worked through: [Appendix B](#appendix-b-seven-lakes-and-the-high-divide-planned-well): the loop both ways round, the basin or the crest, and [the fork where you choose](#b6-the-other-way-round-the-fork-at-the-rim) (B.6)
+> 8. [Larry moments](#26-larry-moments-pg-13): the PG-13 part, with beer and weed in (your call)
 >
-> **With 20 more minutes:** [player experience](#2-player-experience-and-tone), [the core loop](#3-core-loop), [the build roadmap](#15-build-roadmap), and your Olympus example from day one, how it ends and how often it ends for good: [A.5 to A.7](#a5-the-ending). Everything else is reference; the engineering detail lives in Appendices E and F.
+> **With 20 more minutes:** [player experience](#2-player-experience-and-tone), [the core loop](#3-core-loop), [the Hike of the Day](#99-the-hike-of-the-day) and [FKT attempts](#911-fkt-attempts), [the minigames' one rule](#172-the-one-rule-hands-and-dice) and [the bear can](#177-packing-the-bear-can-the-first-playable), [the sound](#13-audio), [the build roadmap](#15-build-roadmap), and your Olympus example from day one, how it ends and how often it ends for good: [A.5 to A.7](#a5-the-ending). Everything else is reference; the engineering detail lives in Appendices E and F.
 
 ---
 
 ## Contents
 
-1. [One-page pitch](#1-one-page-pitch)
+1. [One-page pitch](#1-one-page-pitch), with [three ways to play](#13-three-ways-to-play)
 2. [Player experience and tone](#2-player-experience-and-tone), with [home: the cabin](#22-home-the-old-ranger-cabin-at-lake-quinault)
 3. [Core loop](#3-core-loop)
 4. [The park in the game](#4-the-park-in-the-game)
@@ -36,19 +38,21 @@
 6. [Packing: the flat lay](#6-packing-the-flat-lay)
 7. [Simulation](#7-simulation)
 8. [Decisions and odds](#8-decisions-and-odds)
-9. [Consequences, modes and scoring](#9-consequences-modes-and-scoring)
+9. [Consequences, modes and scoring](#9-consequences-modes-and-scoring), with [the Hike of the Day](#99-the-hike-of-the-day), [today's real weather](#910-todays-real-weather), [FKT attempts](#911-fkt-attempts) and [the leaderboards](#912-leaderboards-in-steps)
 10. [The homage: art style and the Bonfire Lily](#10-the-homage-art-style-and-the-bonfire-lily)
 11. [Art direction and the scene system](#11-art-direction-and-the-scene-system)
 12. [iPhone screens](#12-iphone-screens)
-13. [Audio](#13-audio)
+13. [Audio](#13-audio): the place and your footsteps on the trail, music at home
 14. [Content plan and volume targets](#14-content-plan-and-volume-targets)
 15. [Build roadmap](#15-build-roadmap)
 16. [Risks](#16-risks)
+17. [The minigames](#17-the-minigames), with [the one rule for hands and dice](#172-the-one-rule-hands-and-dice)
+18. [Every word yours: the text system](#18-every-word-yours-the-text-system)
 - [Appendix A: Olympus in one night with day gear](#appendix-a-olympus-in-one-night-with-day-gear) (M2)
 - [Appendix B: Seven Lakes and the High Divide, planned well](#appendix-b-seven-lakes-and-the-high-divide-planned-well) (the first playable: start here)
 - [Appendix C: The coast tide mistake](#appendix-c-the-coast-tide-mistake) (M4)
 - [Appendix D: Sample screens](#appendix-d-sample-screens)
-- [Appendix E: Tech architecture and data files](#appendix-e-tech-architecture-and-data-files)
+- [Appendix E: Tech architecture and data files](#appendix-e-tech-architecture-and-data-files), with [determinism for the timed modes](#e12-determinism-what-the-timed-modes-ask-of-the-engine)
 - [Appendix F: Balancing and testing](#appendix-f-balancing-and-testing)
 - [Sources for this document](#sources-for-this-document)
 - [Decisions made](#decisions-made)
@@ -76,6 +80,8 @@
 
 **How it reads.** Deadpan, dry but kind, written for adults (decision 5). There is no narrator character any more (decision 22). The recommended voice is terse second person, present tense, in the Sierra box, and the hiker's own first-person log is the record that becomes the trip report (2.3). Animals never talk and never help. They are wildlife: lovely to watch, sometimes in the way, and very interested in your lunch. Somewhere high in the park, on snow, after dark, there is a rare golden flower that most players will never see. The game never advertises it (10.2).
 
+**How it sounds.** On the trail there is no music: the creek, the wind on the crest, rain on your hood, a thrush in the fog, and your boots on every surface, the way *Lonely Mountains: Downhill* does it (decision 32). Music plays at the cabin, following the real clock, and at a few moments: the soak, the finish, *YOU PERISHED*. Every sound is public domain, CC0 or synthesized, and logged (13).
+
 **How you play an Open trip.**
 - **Sign** the guest book at the cabin with your hiker's name. That's the whole character sheet: every hiker starts the same (12.4).
 - **Plan** at the cabin's map table: where to go, which way round a loop, day hike or how many nights, a layover day or a new camp each night, the basin or the crest. **Print** your own permit, as real Olympic hikers do (3.1).
@@ -85,9 +91,11 @@
 - **Hike**, stop by stop. About 3 to 5 real decisions a day. Camp, cook, watch the light change, sleep, wake up.
 - **Come home** to the cabin: the trip report, and after a big hike, the hot tub (2.2).
 
-**Three ways to play** (decisions 23 to 25). **Open** is the career: plan any hike, with one hiker who carries on from trip to trip until they die, Old School. **The Hike of the Day** gives everyone the same route and today's real forecast, one shot, scored on time; it uses a fresh standard hiker, and a death there is a DNF that breaks your streak but never touches your Open hiker. **FKT attempts** race the big routes. Their full rules are being written in (see the note at the top).
+**Three ways to play** (decisions 23 to 25, 31; [1.3](#13-three-ways-to-play)). **Open** is the career: plan any hike, with one hiker who carries on from trip to trip until they die, Old School. **The Hike of the Day** gives everyone in the world the same route, today's real National Weather Service forecast and the same dice, one shot, scored on time home alive; it uses a fresh standard hiker, and a death there is a DNF that breaks your streak but never touches your Open hiker (9.9, 9.10). **FKT attempts** race the big routes in the trail runners' three real styles, unsupported, self-supported and supported, with a fuel plan, splits and a ghost of your best, as often as you like each week (9.11). Your times live on your phone, then travel as share cards and crew links that the receiving phone checks by replaying them, with a world board later if you want one (9.12).
 
 **Decisions with honest odds.** Every risky choice shows the chance it goes all right: `Wade across now  83%`. Tap the small (i) beside it to see why: the river's depth at this hour, the poles you packed (+10), the tent strapped outside (-3). Choices that could turn serious get a red diamond, the chance it goes badly in red (`Climb the ladder ♦ 79% · 21% fall`), a confirming tap and a short compass roll. When a choice could kill the hiker, its **fatal share** shows in red too (`21% fall · 0.3% fatal`, always rounded up), and no setting hides it. If you lack knowledge (no tide table, no forecast), the number blurs into a range, and a fatal share shows the worst end of it, so knowing things matters as much as carrying things.
+
+**Eight minigames, each under a minute** (decisions 29 and 30; 17). Packing the bear can, Suika-style, is the signature; the first playable adds the alpenglow shot from the High Divide and huckleberries in the basin; later come the technical descent, ice-axe self-arrest, the cold creek ford, a tent in the rain and razor clams by lantern. **Your hands decide what hands control, the dice decide the rest, and the button shows the whole range before you play** (17.2). Every one has *Auto*, and none is ever required.
 
 **Consequences: hard, final and fair.** This is an old-school game. The hiker can die, and death is final: no Restore, no going back. But planning is what keeps you alive. Plan well and it is as easy and lovely as backpacking: sensible trips in season finish happily at least 95% of the time (at least 85% in the shoulder season), and end in death at most 1 time in 200 (the model says far less).
 
@@ -103,13 +111,13 @@ When a hiker dies, the game says so the old way: **YOU PERISHED** in big blocky 
 
 **Lots of outcomes.** About 217 gear items and 88 foods become about 40 event tags. Every card reads those tags, the place, the weather, the hour and what already happened. Version 1.0 has about 260 hand-written cards with about 730 choices, and their combinations make nearly every multi-night trip tell its own story (8.12). A test harness proves each item matters somewhere.
 
-**Built simply.** Plain HTML, CSS and JavaScript modules with a canvas picture: no framework, no bundler, only a small data build step. Hosted free on GitHub Pages at `fernforager.github.io/104-boyz`, installable to the Home Screen as OP Hiker, playable offline at the trailhead, portrait and touch only.
+**Built simply.** Plain HTML, CSS and JavaScript modules with a canvas picture: no framework, no bundler, only a small data build step. Hosted free on GitHub Pages at `ophiker.com`, installable to the Home Screen as OP Hiker, playable offline at the trailhead, portrait and touch only.
 
 **First playable: the High Divide and Seven Lakes Basin loop** (your calls: *"Gotta be B only because I know that hike"*, then *"The first one should just be High Divide and the 7 Lakes Basin loop either direction and option if drop into basin or stay high I mean every choice needs to be made"*). The vertical slice (M1a) is the whole loop from the Sol Duc trailhead, clockwise or counterclockwise, as a day hike or one to three nights or more, with layovers, at any permitted camp on or just off it. Every route choice is yours, at the map table and on the trail: the direction, each night, the basin or the crest at a fork card with honest numbers, the side trips, and changing your mind with real permit consequences (4.3). Then the whole Sol Duc side (M1b), with your favorite spot, **Lake Morgenroth**, kept off the menu: no list or preset offers it, and the only way in is to call the WIC (4.3). The Hoh, Glacier Meadows and Mount Olympus with Ranger Jon come next (M2), and Royal Basin completes version 1.0 (M3).
 
 ### 1.1 What a play session looks like
 
-A **first trip** reaches the trail within about 7 minutes of opening the game (3.6). A returning player spends 4 to 8 minutes planning, in town and at the flat lay ("Fill from the list" and "Like last time" keep it quick), then 5 to 7 minutes per hiking day, evening included (8.4). A two-night trip has three hiking days, so it is a 20 to 30 minute trip (your call, confirmed 2026-10-08). The Hike of the Day is shorter: most days it is a day hike with no town run.
+A **first trip** takes about 7 minutes from signing the guest book to *Start walking* (3.6). A returning player spends 4 to 8 minutes planning, in town and at the flat lay ("Fill from the list" and "Like last time" keep it quick), then 5 to 7 minutes per hiking day, evening included (8.4). A two-night trip has three hiking days, so it is a 20 to 30 minute trip (your call, confirmed 2026-10-08). The Hike of the Day is shorter, about 10 to 20 minutes: most days it is a day hike with no town run and no shopping. An FKT attempt is about 8 to 12 minutes of play, and you can go again (1.3).
 
 Every stop autosaves, so a phone call never loses anything, and nothing ever goes back: what happened, happened.
 
@@ -124,13 +132,17 @@ Where the three proposals disagreed, these are the calls. The reasoning is in th
 - **Near-universal** (yours, decision 34: *"I am making this game for the 104 boyz but I want it to also be near universal"*). The Boyz, 104 and the inside jokes are easter eggs that reward insiders, and a stranger never needs them (2.2).
 - **The name: Olympic Peninsula Hiker, OP Hiker for short** (yours, decision 35).
 - **PG-13, with beer and weed** (yours, 2026-10-08: *"Pg 13 but beer and weed."*). Cheeky innuendo and a pixel censor bar, never anything explicit, in the same deadpan voice. Beer and cannabis are in, with honest consequences in the simulation, and never anywhere near a car (2.6). Every Larry moment carries the `larry` tag, and `flags.larry` is on in every v1 build, main and preview.
-- **Old School** (your decision, 2026-10-08). Death is possible and final, and it plays as one short **death sequence** (your design, the same day): the death box with its Ranger's Note, *YOU PERISHED* with an Oregon Trail cause of death, the remains turning to dust (*Leave No Trace*), an epitaph for the Trail Register, then GAME OVER (9.5, 12.17). It is the rule of Open play, the career. In the Hike of the Day a death is a DNF on a fresh standard hiker, and the Open hiker is untouched (yours, decisions 24 and 25).
+- **Old School** (your decision, 2026-10-08). Death is possible and final, and it plays as one short **death sequence** (your design, the same day): the death box with its Ranger's Note, *YOU PERISHED* with an Oregon Trail cause of death, the remains turning to dust (*Leave No Trace*), an epitaph for the Trail Register, then GAME OVER (9.5, 12.17). It is the rule of Open play, the career. In the Hike of the Day and FKT attempts a death plays the same sequence but is a DNF on a fresh standard hiker, and the Open hiker is untouched (yours, decisions 24 and 25; 9.4).
 - **The gentle mode: kept, but hidden** (yours, 2026-10-08: *"C but don't release that shelf yet hide it"*). The no-death mode stays in the engine, with its own hikers, never in the Trail Register or Best trips. No v1 screen, setting or line mentions it; it sits behind an internal flag, off in every build you can install, until you decide to release it (9.4). Code and data call the modes `oldschool` and `gentle` (its old name, Storybook, is retired with the book, decision 22; the older key `sierra` stays retired, so a real company's name never reaches a button).
 - **Fair deaths only:** a hiker can die only at a ♦ choice that showed its fatal share, or at the end of a crisis chain after two warnings the player walked past; never on a random draw. Every such moment offers a sure way out (9.5).
 - **What survives a death:** only the hiker's line in the Trail Register: name, epitaph, cause, dates and score (no tombstone in the park: Leave No Trace). The hiker, their skills, their trip reports, the career marks at the cabin and anything they collected are gone, and the next hiker inherits nothing (yours, 2026-10-08: *"Full wipe"*; 9.8). While a hiker lives, they carry on from trip to trip: skills grow, and their trip reports pile up by the fire bowl.
 - **One hiker, one trip at a time:** a phone has one living Open hiker, and that hiker has one trip in progress at most, so no hiker is ever alive on one trip and dead on another (9.8). The Hike of the Day's fresh hiker never touches them.
+- **Three ways to play** (yours, decisions 23 to 25 and 31): Open, the Hike of the Day and FKT attempts (1.3). The timed modes use a fresh standard hiker, kit and dice, so a time is a time, and nothing in them touches the Open hiker.
+- **The Hike of the Day** (yours: one shot, today's real forecast): it opens at 5:00 am Pacific, is scored on time home alive, keeps a streak of days you came home, and shares a card that spoils nothing (9.9). A morning job in GitHub Actions bakes the NWS forecast into one file that never changes, and if the job fails, every phone plays the same standby day, baked weeks ahead on climatology (9.10).
+- **FKT attempts:** each big route, each way round, in the three real styles as rule sets, with a weekly window of fixed conditions and unlimited tries, running with fuel, water and ankles, splits and ghosts, and the real 24-hour rule for stashes (9.11).
+- **Leaderboards in steps,** each working without the next: your phone, the share card, crew links checked by replay with no server, then a world board only when you say go (9.12). The engine keeps an integer-second clock and a complete action log from M1a, so every time can be replayed (E.12).
 - **The hiker: a name, nothing else** (yours: *"less is more"*). You sign a name in the guest book, and every hiker starts the same: no backgrounds, occupations, pronouns, fitness level, jacket color or glacier-course box (12.4).
-- **The epitaph: type your own or roll the dice** (yours: *"Write your own or tap random"*). Up to 40 characters of your own, or a dice button that draws a short line from the public-domain accounts of the park's first explorers and the 1890 newspapers that printed their story (the 1889-90 Press Expedition, Lt. Joseph O'Neil, other pre-1931 texts), preferring lines that suit the cause of death, or skip. You asked for a random Robert Wood sentence: Wood's books are the backbone of the game's history, but they are still in copyright, so his sentences are not quoted; he is credited in Credits and on the **Ranger's Bookshelf**, a real shelf of his books inside the cabin door (9.5, 12.20).
+- **The epitaph: type your own or roll the dice** (yours: *"Write your own or tap random"*). Up to 40 characters of your own, or a dice button that draws a short line from the public-domain accounts of the park's first explorers and the 1890 newspapers that printed their story (the 1889-90 Press Expedition, Lt. Joseph O'Neil, other pre-1931 texts), preferring lines that suit the cause of death, or skip. You asked for a random Robert Wood sentence: Wood's books are the backbone of the game's history, but they are still in copyright, so his sentences are not quoted; he is credited in Credits and on **the ranger's reading** (a DRAFT name), a real shelf of his books inside the cabin door (9.5, 12.20).
 - **Score:** one KQ-style `Score: N of M`, with M computed for the itinerary. No spirits multiplier; low spirits instead switch off some joys ("too cold to stay up for the sunset").
 - **Odds:** every rolled choice shows the chance it goes all right ("made it"). Choices that can reach Serious or worse get a ♦, the fail share in red, a confirming tap and the compass roll; a ♦ that can kill adds its fatal share, which no setting hides (yours: *"A for sure"*). Safe choices show costs, never a %. Missing knowledge shows an honest range, and a fatal share shows the worst end of it, always rounded up (8.1, 8.6-8.8).
 - **Meters:** seven simulated, four shown as plain conditions, plus a Wet or Thirsty glyph when it matters.
@@ -143,7 +155,7 @@ Where the three proposals disagreed, these are the calls. The reasoning is in th
 - **No restore, in any mode.** No going back, no Back to Last Camp, no Restart Trip. Every stop autosaves, an error never rolls back a choice, and an imported save can't be older than the game's record of that trip or bring back a dead hiker. Rolls are keyed to content and to the mode, so the same choice in the same place repeats its result, and a gentle-mode trip can never scout an Old School one (8.14, E.6).
 - **Physics lives in one place:** fords from the river model, headlands from the tide margin, freezing levels from measured soundings, tides from NOAA La Push predictions.
 - **Park conditions** (yours, confirmed 2026-10-08): the real 2026 conditions by default ("As researched (Oct 2026)"), and "Timeless" one tap away. A trip falls in the 12 months after the conditions date, and dated closures apply only on their dates (4.7).
-- **Session length** (yours, confirmed): about 20 to 30 minutes for a two-night trip, about 7 minutes to the trail on a first trip, and 5 to 7 minutes per hiking day (1.1, 3.5).
+- **Session length** (yours, confirmed): about 20 to 30 minutes for a two-night trip, about 7 minutes from the guest book to *Start walking* on a first trip, and 5 to 7 minutes per hiking day (1.1, 3.5, 3.6).
 - **Rules can be broken**, with gentle ranger cards, Leave No Trace costs and wildlife consequences. **Only three hard blocks:** a pack that won't close, a load you can't lift (over about 60% of body weight), and routing through a closed trail.
 - **Money:** prices and a receipt are shown, with no budget. Because there is no budget, the three stores differ in kind, not only in price (5.2). The Shoestring wallet comes later (M6).
 - **Gear comes from** the shed at the cabin, the WIC's loaner canister and the three stores in Port Angeles (rent or buy at the gear shop). For Olympus you can also hire Ranger Jon.
@@ -153,12 +165,52 @@ Where the three proposals disagreed, these are the calls. The reasoning is in th
 - **Mount Olympus: Ranger Jon, or alone** (yours). The only guide you can hire is **Ranger Jon**, a ranger moonlighting as a guide (a playful liberty: real rangers don't guide climbs), who wears badge #104; his quirk is still to come from you. Or go alone at your own risk: each crevasse crossing is a ♦ with its honest fatal share, and turning back is always offered (4.2).
 - **The 104 wink** (yours): every wilderness permit number starts with 104 (`Permit No. 104-0037`), and Ranger Jon wears badge #104 (12.6).
 - **Bug reports** (yours: *"A, no Mac"*): a **Copy bug report** button in a hidden debug menu. You have no Mac, so the testing plan never needs Safari's Web Inspector (E.11, F.5).
-- **Hosting** (yours, set up 2026-10-08): the repo `FernForager/104-boyz` is public, and GitHub Pages deploys it from GitHub Actions, so the game lives at `fernforager.github.io/104-boyz` (E.9).
+- **Hosting** (yours, set up 2026-10-08): the repo `FernForager/104-boyz` is public, and GitHub Pages deploys it from GitHub Actions, so the game lives at `ophiker.com` (E.9).
 - **Trip date:** you pick it; the planner suggests the destination's best month; October is allowed with warnings.
-- **Sound:** on after the first tap, in an "ambient" audio session so the silent switch mutes it. No music on the trail (yours, decision 32).
+- **Sound** (yours, decisions 32 and 33): no music on the trail, only the place and your own sounds; music at the cabin and at a few key moments; every source public domain, CC0 or synthesized, each logged with its license. It starts on the first tap, in Safari's ambient session, so Silent Mode mutes it and your own music plays on underneath (13).
+- **Minigames** (yours, decisions 29 and 30): eight, each a real ONP activity, under a minute and one-thumbed, with real stakes; three in the first playable. One rule for skill and odds: hands decide what hands control, dice decide the rest, and the button shows the whole range first (17.2). *Auto* plays each at par, for anyone (17.3).
+- **Every word yours** (decision 21): every line of original English has an id and a context note, reaches you in a batch by screen, and ships to main only once you approve it; preview shows drafts, marked (18).
 - **Data:** `gear_catalog.json` names and stats are authoritative (for example `daypack_28`).
 - **First playable: the High Divide and Seven Lakes Basin loop** (yours: *"Gotta be B only because I know that hike"*, then, 2026-10-08, *"The first one should just be High Divide and the 7 Lakes Basin loop either direction"*). The vertical slice ships the whole loop, both directions, as a day or one to three nights or more, with the basin-or-crest fork and every other route choice left to the player (4.3, 15). The Hoh, Glacier Meadows and Mount Olympus with Ranger Jon come after. Appendix B is the primary worked example.
 - **Lake Morgenroth is off the menu** (yours: *"Morgenroth shouldn't be the trip it's an off menu gotta call"*). It is never in the camp list, a preset, a fill or a first trip. The only way to camp there is the hidden phone call to the WIC, from the cabin's phone while you plan. It stays a hand-drawn signature scene, reached by a primitive but findable way trail, and it arrives in M1b, after the slice (4.3, 12.5).
+
+### 1.3 Three ways to play
+
+*Decisions 23, 24, 25 and 31. The full rules are in section 9: [the Hike of the Day](#99-the-hike-of-the-day) (9.9), [its real weather](#910-todays-real-weather) (9.10), [FKT attempts](#911-fkt-attempts) (9.11) and [the leaderboards](#912-leaderboards-in-steps) (9.12). What they ask of the engine is E.12. The draft behind them, with its reasoning, is `design/drafts/daily_fkt.md`.*
+
+| | **Open** | **Hike of the Day** | **FKT attempt** |
+|---|---|---|---|
+| Who walks | Your career hiker | A fresh standard hiker | A fresh standard runner |
+| Where | Any hike you plan | Today's route, the same for all | One big route, one way round |
+| Tries | One trip at a time | One shot a day | As many as you like this week |
+| Weather | Seeded per trip | Today's real NWS forecast | The week's, fixed |
+| Scored on | The trip report | Your time, home alive | Elapsed time, by style |
+| A death | The full wipe | A DNF; the streak resets | A DNF; try again |
+| At the cabin | The screen door | The chalkboard | The peak |
+
+**Open is the heart of the game.** It is everything else in this document: plan any hike, go to town, lay it out, drive, hike, and live with what happens. The hiker grows from trip to trip and dies for good (Old School, 9.5).
+
+**The Hike of the Day is the habit.** Ten to twenty minutes, once a day, the same for everyone: the same route, the same real forecast, the same dice. One shot. It is the thing you open on the bus and compare in the group chat (9.9).
+
+**FKT attempts are the obsession.** The trail runner's game inside the hiker's game: one route, a stopwatch, a fuel plan, a pace at every split, a ghost of your best, and again (9.11).
+
+**What "standard" means.** A time is fair only if everyone starts from the same place, so in the timed modes everything but your choices is fixed:
+
+- **The hiker:** beginner's skills, 165 lb, Regular fitness on the daily and Strong for the runner (7.3), and an empty memory, so the Director deals from the same deck for everyone.
+- **The kit:** the same standard shed and pantry for everyone, with no shopping (5.2).
+- **The route, the date, the permit, the weather and the dice:** set by the day, or by the week.
+- **The rules:** every attempt names the exact engine and data it ran on (E.12).
+
+**What crosses between the modes:**
+
+| From | To | What |
+|---|---|---|
+| Open | FKT | A stash your Open hiker placed, within 24 game hours (9.11) |
+| Daily or FKT | Open | *Plan this in Open* (DRAFT): the route, filled in |
+| Any mode | Your phone | Settings, the Trail Register, your handle, your times |
+| Daily or FKT | Open hiker | Nothing, ever (decision 25) |
+
+**Your handle** is the name on your times. It is asked once, the first time you play a timed mode, and suggested from your Open hiker's name (DRAFT). It belongs to the phone, not to a hiker, so no death takes it. The tally marks for your streak and the race bibs for your FKT routes are yours too, and the full wipe leaves them alone (2.2, 9.8).
 
 ---
 
@@ -199,11 +251,11 @@ Home is **Ranger Jon's old ranger cabin at Lake Quinault**, on the wet southwest
 | **The car** | Drive: to town, or to the trailhead once packed | Grocery bags on the seat after town; the pack in the back |
 | **The fire bowl** | Stories: your trip reports and photos, and the hiker's card | Lit on homecoming evenings; ashes otherwise; a cap of snow in winter |
 | **The register post** at the lawn's edge | The Trail Register (9.8) | A fresh pencil mark when a line is added |
-| **The mailbox** | Settings, Credits, the Ranger's Bookshelf, Export and Import | The flag goes up when an update arrives |
+| **The mailbox** | Settings, Credits, the ranger's reading, Export and Import | The flag goes up when an update arrives |
 | **The hot tub** | The soak, only after a big hike | Covered and cold otherwise, and then only a Look |
 | **The guest book** on the porch table | Sign in a new hiker | Open on the first launch and after a death |
 
-The chalkboard and the peak belong to the Hike of the Day and FKT attempts (decisions 23 to 25), whose rules are being written in. Here they only get their places.
+The chalkboard opens the Hike of the Day (9.9, 12.26) and the peak the FKT boards (9.11, 12.27).
 
 **How the places behave:**
 
@@ -219,6 +271,7 @@ The chalkboard and the peak belong to the Hike of the Day and FKT attempts (deci
 |---|---|
 | A hiker with no plan | Plan a trip |
 | A plan drafted | Print the permit |
+| A plan with a desk request | Take it to the WIC (it can't print at the cabin, 3.1) |
 | Permit printed, overnight | Drive to town |
 | Back from town, or a day hike planned | Lay out your gear |
 | Packed | Leave in the morning (time chips show the arrival) |
@@ -249,11 +302,11 @@ Opening the game becomes a small ritual, and it keeps the daily honest: today at
 | This trip | A tiny flat lay on the deck boards | Laid out |
 | This trip | The pack leaning on the car | Packed |
 | The hiker | Plank route signs on the shed wall, up to six | Each new route finished |
-| The hiker | Tally marks on the chalkboard | The daily streak |
-| The hiker | A race bib on a porch post | An FKT record |
+| You | Tally marks on the chalkboard | The daily streak (9.9) |
+| You | A race bib on a porch post | Each FKT route finished, your best inked on it (9.11) |
 | The hiker | A gold sketch in the arched gable window | The Bonfire Lily, found and left |
 
-**The lily's sketch is allowed to be gold.** It is the lily's own mark, the one place outside the lily itself where gold may appear (11.1). Nobody who hasn't found the lily ever sees it, so the cabin never advertises the flower. **The full wipe takes every career mark** (9.8).
+**The lily's sketch is allowed to be gold.** It is the lily's own mark, the one place outside the lily itself where gold may appear (11.1). Nobody who hasn't found the lily ever sees it, so the cabin never advertises the flower. **The full wipe takes every career mark** (9.8), but not yours: the tally marks and the bibs belong to the player, like the timed modes they come from (1.3).
 
 #### Coming home
 
@@ -274,7 +327,7 @@ The tub is **a reward, not the home and not the frame** (decision 34, revising 2
 
 - walked at least **8 trail hours**,
 - summited Mount Olympus, or
-- finished an FKT attempt.
+- set a new personal best on an FKT board whose route is at least 8 trail hours (a first finish on a board is a best).
 
 **Trail hours = miles / 2.4 + feet climbed / 1,300.** That is the base of the movement formula (7.4) at Regular pace, without its load, pace or weather terms, summed over what was actually walked. Side trips count, and so does a walk that turned back. So the number measures the hike, not the hiker, and it is the same for everyone. The trip report shows it.
 
@@ -291,6 +344,7 @@ The tub is **a reward, not the home and not the frame** (decision 34, revising 2
 - **Every finished High Divide loop gets the tub,** so the first playable's reward is there for anyone who finishes it.
 - **A rescue or a turnaround counts what you actually walked.** A death gets no tub.
 - **The Hike of the Day uses the same rule.**
+- **FKTs need a big route and a new best,** because tries are unlimited: a plain finish would light the tub at will, and Storm King (3.4 trail hours) or the flat Spruce Railroad (4.8) would light it after a short run. On the Sol Duc side's boards that leaves the High Divide Loop (11.1), the grand loop (15.7) and Aurora Ridge (14.2) (9.11).
 - **Why 8 hours:** it splits the Sol Duc side's classic trips cleanly into walks and real days out. The number lives in `rules/tuning.json`.
 
 **The soak** (12.24) is a full scene with no chrome: night, stars, the real moon, steam off the tub, and a floating thermometer at 104°F, the usual safe maximum for hot tub water ([CPSC](https://www.cpsc.gov/content/cpsc-warns-of-hot-tub-temperatures)). The cabin's music plays, since music belongs at home and at key moments (decision 32). The trip's best three to five moments come back from the log, one at a time, picked by the same weights that pick the day headlines (9.7). When the crew is around, they are in the tub too, and each gets one line (`{BOY_n_TUB}`, yours to write). You can get out any time, and the share card is offered once, at the end.
@@ -304,14 +358,14 @@ The tub is **a reward, not the home and not the frame** (decision 34, revising 2
 - **The full wipe plays here.** The trip reports by the fire bowl and the route signs on the shed wall crumble to dust, with the same renderer as the bones (11.10). The shed door swings shut on its starting shelves. With Reduce Motion it is a cross-fade.
 - **The register post gets a fresh mark,** and two buttons follow (DRAFT): *Read the register* and *Sign the guest book*.
 
-**Only the Open hiker dies this way.** A death on the Hike of the Day is a DNF: the chalkboard says so, the streak resets, and the Open hiker is untouched (decision 25). How much of the death sequence a daily death plays is settled with the modes.
+**Only the Open hiker dies this way.** A death in the Hike of the Day or an FKT attempt plays the same five screens, then comes home to the cabin on the real clock, with no dusk and no wipe: the chalkboard or the peak says DNF, a daily streak resets, and the Open hiker is untouched (decision 25, 9.4).
 
 #### The Trail Register lives at the cabin
 
 - **The register box stands on a post at the edge of the lawn,** where an old trail leaves into the maples. Old ranger stations often sit at a trailhead.
 - **Its contents are unchanged:** Best trips, and *Remembered*, with every GAME OVER and the Boyz' pre-filled lines (9.8), and the 104 permit counter (12.6).
 - **The epitaph is still signed at the trailhead** where the trip began, as approved (decision 1, 9.5). It is the same register you read at the cabin's post. Signing it at the cabin's post instead, so the name goes home, is your call ([still to come](#still-to-come-from-you)).
-- **Daily DNFs stay on the chalkboard,** not in *Remembered* (proposed).
+- **Timed-mode deaths are remembered too,** under your handle, tagged with the daily's number or the FKT board, and the chalkboard or the peak shows the DNF (9.4). Keeping them on the chalkboard only is the alternative ([still to come](#still-to-come-from-you)).
 
 #### Near-universal: the Boyz and 104 are easter eggs
 
@@ -327,7 +381,7 @@ The tub is **a reward, not the home and not the frame** (decision 34, revising 2
 | The crew's lines in the tub | Friends joking | Inside jokes (`{BOY_n_TUB}`) |
 | Old signatures in the guest book | Old signatures | The Boyz' entries (`{BOY_n_GUESTBOOK}`) |
 | The Boyz in *Remembered* | Old register lines | Their fictional deaths (decision 19) |
-| A clam gun leaning on the shed | A tool | Jon's razor clamming, and the door to that minigame if the minigames use it |
+| A clam gun leaning on the shed | A tool, and on dig nights the door to razor clamming (17.14) | Jon's own ritual: clams, then the tub |
 
 **Rules for every egg:**
 
@@ -336,7 +390,7 @@ The tub is **a reward, not the home and not the frame** (decision 34, revising 2
 - **The consent gate stays.** `{BOYZ_CONSENT}` in Credits still blocks a release build (12.20).
 - **The crew is around (proposed):** on real summer weekends, from 5 pm Pacific on Fridays and Saturdays, June to September; the evening of any big homecoming; and any dates you pick (`{BOYZ_DATES}`).
 
-**What a stranger never meets** is the word Boyz, an explanation of 104 or a name they are supposed to know.
+**What a stranger never meets,** on any screen, share image or card, is the word Boyz, an explanation of 104 or a name they are supposed to know. So the flat lay's share image and the trip report's card print *Olympic Peninsula Hiker* and no address (6.10, 9.7), and Credits names no crew (12.20). **The one exception is a link.** The game's address, and so every crew link (9.12), is `ophiker.com`, the repo's own name; a custom domain or a short link would remove it, and that is your call ([still to come](#still-to-come-from-you)).
 
 #### First launch
 
@@ -346,9 +400,9 @@ The tub is **a reward, not the home and not the frame** (decision 34, revising 2
 | 2 | **The key lockbox** on the porch post asks three locals' questions (the opener from 2.6, moved). Wrong answers open it too | 30 s |
 | 3 | **The guest book:** type a name, or tap suggest (12.4) | 20 s |
 | 4 | The porch, with labels on. The next-step button says to plan your first trip | — |
-| 5 | The first trip (3.6) | about 7 min |
+| 5 | The first trip, from *Sign* to *Start walking* (3.6) | about 7 min |
 
-The Hike of the Day is on the chalkboard from the first minute, and nothing gates it. Teaching new players beyond this minimum is still open.
+The Hike of the Day is on the chalkboard from the first minute, and nothing gates it; the first time, it asks for your handle (1.3). Teaching new players beyond this minimum is still open.
 
 ### 2.3 Who speaks: the voice
 
@@ -397,7 +451,7 @@ Your calls: the voice is **deadpan Sierra, dry but kind, written for adults** (d
 9. Items are characters. The voice notices what you brought and what you didn't. Turning back is never a failure.
 10. At least one quiet stop a day where nothing happens but the place.
 
-**Words to love:** scree, tarn, krummholz, alpenglow, cairn, moraine, nurse log, blue hour, huckleberry, splits, base weight. **Words to avoid:** epic, crush, insane, loot, grind, real brand names, gamer jargon (HP, XP) in the prose, anything cute (critters, tummy, oopsie), the retired book words (book, chapter, page, volume, shelf), and anything explicit: the Larry moments get their laughs from timing and the censor bar, never from a described body (2.6).
+**Words to love:** scree, tarn, krummholz, alpenglow, cairn, moraine, nurse log, blue hour, huckleberry, splits, base weight. **Words to avoid:** epic, crush, insane, loot, grind, real brand names, gamer jargon (HP, XP) in the prose, anything cute (critters, tummy, oopsie), the retired book words (book, chapter, page, volume, the shelf of trips; T07 holds the exact list, and a real shelf in a store is fine), and anything explicit: the Larry moments get their laughs from timing and the censor bar, never from a described body (2.6).
 
 ### 2.4 The King's Quest look and manners
 
@@ -424,6 +478,8 @@ Your calls: the voice is **deadpan Sierra, dry but kind, written for adults** (d
 
 ### 2.6 Larry moments (PG-13)
 
+*All in-game words in this section are DRAFT (decision 21), marked or not; the final words are yours.*
+
 Your call (2026-10-08): *"I want it to have some leisure suit Larry in it too. like swimming naked in heart lake. Drinking a hazy ipa at morgrnroth. Smoking a doobie at st peters gate."* Asked how spicy: *"Pg 13 but beer and weed."* So: a dash of *Leisure Suit Larry*, rated PG-13, with beer and weed in (decision 18). Al Lowe's *Leisure Suit Larry in the Land of the Lounge Lizards* (1987) was Sierra's own comedy, so a dash of it belongs in a Sierra homage. Ours is cheeky innuendo, bad timing and a pixel censor bar, in the same deadpan voice (2.3). Nothing explicit, ever. The game itself never names Larry: inside the content, a Larry moment is any card tagged `larry`.
 
 **The rules for every Larry moment:**
@@ -437,7 +493,7 @@ Your call (2026-10-08): *"I want it to have some leisure suit Larry in it too. l
 - **The censor bar.** A black bar, absurdly big for a 7x18 hiker, with CENSORED in small snow-white pixel letters, slammed on with a low blip (11.6, 13.2).
 - **One switch.** Every Larry card carries the `larry` tag, and `flags.larry` is on in every v1 build, main and preview. If the hidden gentle mode is ever released for a younger player (9.4), the switch can go with it.
 
-**The opener: a quiz for locals** (first launch only). The original *Larry* opened with an "adults only" trivia quiz. Ours asks three questions only a Pacific Northwest local would know, dealt from a pool of about twelve, each with a source: how to say *Sequim*, what a *sunbreak* is, what *Hoh* rhymes with, what locals call a Canada jay. A right answer gets *"Welcome home."* A wrong one gets *"Nice try, tourist."* Everyone gets in anyway. It is now the cabin's **key lockbox** on the porch post: the key is inside, and the box wants three answers, right or wrong (2.2). It takes about 30 seconds, comes before the guest book (so a first trip's 7 minutes start after it), and never comes back, not even after a death (wireframe in 12.3).
+**The opener: a quiz for locals** (first launch only). The original *Larry* opened with an "adults only" trivia quiz. Ours asks three questions only a Pacific Northwest local would know, dealt from a pool of about twelve, each with a source: how to say *Sequim*, what a *sunbreak* is, what *Hoh* rhymes with, what locals call a Canada jay. A right answer gets *"Welcome home."* A wrong one gets *"Nice try, tourist."* Everyone gets in anyway. It is now the cabin's **key lockbox** on the porch post: the key is inside, and the box wants three answers, right or wrong (2.2). It takes about 30 seconds, comes before the guest book (so it isn't in a first trip's 7 minutes, which run from *Sign* to *Start walking*, 3.6), and never comes back, not even after a death (wireframe in 12.3).
 
 **Skinny dipping in Heart Lake** (M1a). Heart Lake sits at 4,780 ft just below the crest, a small lake shaped like a heart and fed by snow. At camp there, or on a stop at the lake during an overnight trip (the Heart Lake landmark stop, passing by day or walking up from a camp nearby; never on a day hike or the walk-out day, and it costs 30 to 60 minutes), the *Swim (brr)* tile (12.14) offers three ways in: feet only (sure, a little joy), in your shorts (sure: spirits up, soaked, a warmth cost), or **skinny dipping**, the biggest spirits lift a swim can give and the biggest warmth cost. Then, on screen:
 - **The censor bar**, every time (wireframe in 12.21; Appendix D, screen 25).
@@ -477,7 +533,9 @@ Your call (2026-10-08): *"I want it to have some leisure suit Larry in it too. l
 
 ## 3. Core loop
 
-An Open trip, from the cabin and back (the Hike of the Day and FKT attempts use the same trail, with their own starts, 2.2):
+*All in-game words in this section are DRAFT (decision 21), marked or not; the final words are yours.*
+
+An Open trip, from the cabin and back. The Hike of the Day and FKT attempts use the same trail with their own, shorter starts: no planning, no town and the standard shed (9.9, 9.11).
 
 ```
  First launch only: the lockbox,
@@ -594,7 +652,7 @@ Tap **Print it** (DRAFT; an old printer's clatter). The printed permit is pinned
 
 ### 3.2 Town and the flat lay
 
-**The town run** (sections 5 and 12.7). The car drives to Port Angeles along Lake Crescent, the day before. Town is a stylized street with four doors, and you may visit any, all or none:
+**The town run** (sections 5 and 12.7). The car drives to Port Angeles along Lake Crescent, the day before. Town is a stylized street with four doors (and on overnight trips, from M1b, a fifth beside the general store: Second Growth's, 5.3), and you may visit any, all or none:
 - **the WIC**: the briefing, the free loaner can, and the desk-only camps (3.1);
 - **the three stores**: the general store, the gear shop and the boutique (5.2).
 
@@ -606,7 +664,7 @@ There is no packing prose any more: the flat lay is the picture of the pack, and
 
 ### 3.3 The drive
 
-**From the cabin, through Forks.** Quinault is about an hour from Forks ([NPS](https://www.nps.gov/olym/planyourvisit/visiting-quinault.htm)), and the region data gives the time from Forks to each trailhead: the Sol Duc 69 minutes, so about 2 hours 10 from the cabin; the Hoh 58, so about 2 hours. East-side trailheads go through Port Angeles or Hoodsport; the legs from the cabin to those towns are to be measured before M3, and NPS gives about three hours to Port Angeles. On a route you haven't driven before, the drive is two to five road scenes: the lake and the rain forest at the start, the coast and the long straights of US 101, elk on the Upper Hoh Road, the old forest at the end of the Sol Duc Road. **On a route you've already driven, the drive is one screen**, with the optional stops as chips: *The Huckleberry Skillet* (a fictional diner; pie costs 45 minutes and lifts spirits), the last-chance shelf in Forks with higher prices, and on the Sol Duc road a soak at *The Steaming Fern Lodge* (about 90 minutes of Day 1's daylight, 2.6). **No drive, trailhead or car screen ever offers, shows or mentions a drink or a joint**, and nothing links either to driving (lint T05). Lake Crescent, with its palette-cycled water, is on the town run (3.2).
+**From the cabin, north on US 101.** Quinault is about an hour from Forks ([NPS](https://www.nps.gov/olym/planyourvisit/visiting-quinault.htm)), and the region data gives the time from Forks to each trailhead: the Sol Duc 69 minutes, so about 2 hours 10 from the cabin, through Forks. **The Hoh doesn't go through Forks.** The Upper Hoh Road leaves US 101 about 13 miles south of Forks and runs about 18.2 miles to the trailhead ([WTA](https://www.wta.org/go-hiking/hikes/hoh-river)), so a driver coming north from Quinault turns off before town. Counting the hour to Forks and the data's 58 minutes from Forks, each less those same 13 miles of US 101 (about 14 minutes each way), the cabin to the Hoh trailhead is about **1 hour 30 minutes**: an estimate, to be measured from the road data before M2. Forks, and its last-chance shelf, is then a detour on a Hoh trip. East-side trailheads go through Port Angeles or Hoodsport; the legs from the cabin to those towns are to be measured before M3, and NPS gives about three hours to Port Angeles. On a route you haven't driven before, the drive is two to five road scenes: the lake and the rain forest at the start, the coast and the long straights of US 101, elk on the Upper Hoh Road, the old forest at the end of the Sol Duc Road. **On a route you've already driven, the drive is one screen**, with the optional stops as chips: *The Huckleberry Skillet* (a fictional diner; pie costs 45 minutes and lifts spirits), the last-chance shelf in Forks with higher prices, and on the Sol Duc road a soak at *The Steaming Fern Lodge* (about 90 minutes of Day 1's daylight, 2.6). **No drive, trailhead or car screen ever offers, shows or mentions a drink or a joint**, and nothing links either to driving (lint T05). Lake Crescent, with its palette-cycled water, is on the town run (3.2).
 
 **Leaving time matters.** You choose when to leave the cabin, and a late start shortens Day 1. Road conditions come from the dated conditions overlay and apply only on the dates they cover (4.7): the Elwha road walk from Madison Falls and the Dosewallips washout (open-ended), entrance-station lines at the Hoh in summer, and in this autumn only, Mora Road closed through Oct 15, 2026 and the US 101 Hoh River Bridge closed Oct 8 to 13, 2026: a 4-hour detour that cuts Kalaloch, Queets and Quinault, and so the cabin, off from Forks.
 
@@ -634,7 +692,7 @@ MORNING move on / stay / side trip /
 
 A layover day replaces DEPART and LEGS with side trips and camp time. **Splits** are taken at each named place on the route (the trailhead, falls, junctions, lakes, camps) against the plan's ETAs; the strip under the picture shows them (12.2).
 
-**Known ground: Walk out and Walk on.** On ground you have already walked (the way home on an out-and-back, or a valley from an earlier trip), the morning screen offers **Walk out** (or **Walk on**): one summary stop per leg (DRAFT: *"You go down the valley the way you came. The river, loud going up, has calmed down about everything."*). The simulation still runs underneath, and the summary stops only for forced beats (a crisis, a fork, a delayed payoff) and for anything new (an animal, a view not yet seen, a river that has changed). Out-and-back trips stay brisk without extra writing. M1 transcript reviews track stops per return day (target: 3 to 6).
+**Known ground: Walk out.** On ground you have already walked (the way home on an out-and-back, or a valley from an earlier trip), the morning screen offers **Walk out** (DRAFT): one summary stop per leg (DRAFT: *"You go down the valley the way you came. The river, loud going up, has calmed down about everything."*). The simulation still runs underneath, and the summary stops only for forced beats (a crisis, a fork, a delayed payoff) and for anything new (an animal, a view not yet seen, a river that has changed). Out-and-back trips stay brisk without extra writing. M1 transcript reviews track stops per return day (target: 3 to 6). (*Walk on* is only ever the per-stop button, 12.1, and ships in M1a; *Walk out* is this summary mode, and arrives in M1b.)
 
 ### 3.5 Pacing targets
 
@@ -652,20 +710,19 @@ A **Trail stops** setting (DRAFT: Few, Usual, Many) changes how many quiet, deci
 
 ### 3.6 The first trip
 
-**Target: the trail within about 7 minutes of opening the game for the first time.** There is no prologue: after the lockbox and the guest book (2.2), the game opens on the cabin with the next-step button pointing at the map table. Without help, a new player would face a park map, a long list of presets, quotas, 88 foods and a 217-item shed before Day 1, which is where players quit. So the first trip is short on chores and long on trail. Every later trip gets the full manual path.
+**Target: about 7 minutes from *Sign* in the guest book to *Start walking*, with the bear can on Auto.** That is the one definition, here and in the harness (`BUILD_PLAN.md` 7.3). The lockbox and the guest book come first (2.2, about a minute), and there is no prologue: the game opens on the cabin with the next-step button pointing at the map table. Without help, a new player would face a park map, a long list of presets, quotas, 88 foods and a 217-item shed before Day 1, which is where players quit. So the first trip is short on chores and long on trail. Every later trip gets the full manual path.
 
 | Step | On the first trip | Minutes |
 |---|---|---|
-| Guest book | Type a name (12.4) | 0.5 |
 | Map table | The loop's three questions; a filled-in permit to print | 2 |
-| Town | "Fill from the list" at the general store, 2-3 swaps; the loaner can at the WIC | 1 |
-| Flat lay | The checklist chalked on the deck; about 15 taps | 2.5 |
+| Town | The drive there and home; "Fill from the list" at the general store, 2-3 swaps; the loaner can at the WIC | 1.5 |
+| Flat lay | The checklist chalked on the deck; about 15 taps; the bear can on Auto (playing it adds about half a minute) | 2.5 |
 | Drive and tailgate | One screen and the last look | 1 |
-| **Total** | | **about 7** |
+| **Total** | From *Sign* to *Start walking* | **about 7** |
 
 1. **The loop, three questions.** In M1, the first playable, a first trip is always the High Divide and Seven Lakes Basin loop from the Sol Duc trailhead (your call, 2026-10-08). The map table asks three things, each a row of chips with one honest line (wireframe in 12.5): **which way round** (Deer Lake first, or the river first), **how long** (a day, or 1, 2 or 3 nights), and **up high, the basin or the crest**. It fills in sensible camps for that answer (the twelve fills are in B.1), every night row stays one tap from changing, and the full map and the planner are one tap away for a player who wants more nights or other camps. From M2 the first trip may offer the Hoh instead (Happy Four, the Blue Glacier classic, Five Mile Island), and from v1.0 Royal Basin with a layover. No fill ever offers Lake Morgenroth, and nothing mentions the phone (4.3).
 2. **Fill from the list.** The general store's list fills itself with a varied menu sized to the itinerary that fits the canister, then highlights two or three swaps for the player to make (5.3).
-3. **The checklist is chalked on the deck.** On the flat lay, the ranger's checklist items show as chalk outlines in their places on the deck boards, not yet laid out. Each tap lays one out from the shed, and whatever is still only an outline stays in plain sight. A first flat lay is about 15 meaningful taps; the long tail and the traps wait in *More from the shed* (6.1).
+3. **The checklist is chalked on the deck.** On the flat lay, the ranger's checklist items show as chalk outlines in their places on the deck boards, not yet laid out. Each tap lays one out from the shed, and whatever is still only an outline stays in plain sight. A first flat lay is about 15 meaningful taps; the long tail and the traps wait in *More from the shed* (6.1). On an overnight, the bear can is the first minigame a player meets: its card offers *Auto*, which costs nothing, and playing it adds about half a minute, with the ghost thumb showing the drop and the press (17.7).
 4. **The presets list is short:** filtered by region, nights and level, about 8 at a time.
 5. **No tutorial screens.** The box explains each new thing once, in one line, the first time it appears: the first %, the first ♦, the first fatal share (8.7).
 6. **There is nothing to choose but a name** (12.4). No mode, no character options: the guest book asks for a name and says one plain line (DRAFT): *"One life. If your hiker dies, the trail ends, and their stories go with them."* A new hiker after a death gets exactly this first trip again, short chores and all, because they start from nothing (9.8). Every fill with nights in it is a sensible plan, so a first trip that takes the ranger's kit is about as safe as backpacking (F.1). The *Day* chip is the one ambitious answer, and its note says so (DRAFT): *"Eighteen miles. Take a headlamp and three liters."* With that kit it is the "ambitious but equipped" row of F.1. The first time a button shows a fatal share, the sure choice beside it is outlined, and the box says why in one line (8.7).
@@ -774,6 +831,8 @@ The **summit block**, a short pitch of fifth-class rock, is a ♦ for a soloist 
 So every crossing offers a sure way back, no plan is refused, and the summit is open to anyone willing to look at the price. Appendix A.7 plays out the day-gear version, and F.1 tests both.
 
 ### 4.3 Seven Lakes Basin and the High Divide
+
+*All in-game words in this section are DRAFT (decision 21), marked or not; the final words are yours.*
 
 *The first playable, built in M1: the whole loop, either way round (your calls, 2026-10-08: "Gotta be B only because I know that hike", then "the 7 Lakes Basin loop either direction and option if drop into basin or stay high I mean every choice needs to be made"; 15).*
 
@@ -972,6 +1031,8 @@ Rentals come from `gear_catalog.json` (`rentals`, `stats.rent_usd_per_day`). **S
 
 ### 5.2 The stores
 
+*All in-game words in this section are DRAFT (decision 21), marked or not; the final words are yours.*
+
 **Three stores in Port Angeles** (decision 27: *"Three stores, ones closely based on swains browns and moss."*). Real businesses inspire the vibe; the in-game names, shopkeepers and lines are fictional and yours to write, unless a store gives permission to use its real name. Until then they are `{STORE_GENERAL}`, `{STORE_GEAR}` and `{STORE_BOUTIQUE}`.
 
 | Store | In the spirit of | Behind the counter | In your flat lay |
@@ -988,7 +1049,7 @@ Rentals come from `gear_catalog.json` (`rentals`, `stats.rent_usd_per_day`). **S
 - **The gear shop is light and technical, and some of it is fragile:** the composite-fabric tent, the 900-fill bag, the carbon poles. The simulation already has their failure chances (the `fragile` and `puncture_risk` tags).
 - **The boutique is morale and style:** a small lift at camp each evening, and the look.
 
-Without a budget, buying is choosing whose version you carry. The receipt still shows the money. The Shoestring wallet waits for M6. **The Hike of the Day has no shopping (proposed):** everyone packs from the same standard shed, so the skill on display is choosing what to leave behind.
+Without a budget, buying is choosing whose version you carry. The receipt still shows the money. The Shoestring wallet waits for M6. **The Hike of the Day and FKT attempts have no shopping (proposed):** everyone packs from the same standard shed and pantry, so the skill on display is choosing what to leave behind (1.3). An FKT's self-supported stash is the exception, bought by your Open hiker in town (9.11).
 
 **Everyone else on the Peninsula.** All private businesses get fictional names. Public places keep real names.
 - **Second Growth**, next door to the general store: a licensed cannabis shop (21+). In the game it sells one thing, a pre-roll, and its clerk says the true thing out loud: *"Legal here. Not where you're going."* (2.6). Washington sells cannabis only in licensed shops, which is why it isn't on the general store's shelves.
@@ -1049,7 +1110,7 @@ Cold nights add 5 to 20%. Most hikers pack 2,500 to 3,500 kcal a day, about 1.75
 
 ### 5.5 Food has a volume, and the canister has a size
 
-Food rides **inside the bear canister** at night. Its liters count against the canister, not the pack. A canister holds fewer days than people expect: rigid walls leave gaps (only about 85% is usable), and toothpaste, sunscreen and trash need room too (about 0.3 L plus 0.1 L per night).
+Food rides **inside the bear canister** at night. Its liters count against the canister, not the pack. A canister holds fewer days than people expect: rigid walls leave gaps (only about 85% is usable, which is what the bear-can minigame packs at par: careless hands fit about 75% and careful ones about 92%, 17.7), and toothpaste, sunscreen and trash need room too (about 0.3 L plus 0.1 L per night).
 
 | Canister | Usable L | Days of food (typical 2.0 L/day) | Weight |
 |---|---|---|---|
@@ -1158,7 +1219,7 @@ The ids are from `gear_catalog.json` and `food_catalog.json`. A tier is the cata
 - **`bombproof`:** a new tag. The item never fails from wear.
 - **`style`:** a new tag. The look, with little or no effect on the trail.
 
-The catalog item *Town Book Bag 20* is a school bag, not a book frame, so it keeps its name unless you'd rather rename it.
+The catalog item *Town Book Bag 20* is a school bag, not a book frame, so it keeps its name (on T07's allowlist, F.3) unless you'd rather rename it.
 
 ---
 
@@ -1188,7 +1249,7 @@ In this game **the flat lay is the packing screen itself**, not a picture of it.
    - **top:** shelter on the left, the pack in the middle (the anchor, drawn to its liters), sleep on the right;
    - **middle:** clothes and rain on the left, the kitchen and water in the middle, the worn row on the right;
    - **lower:** the open bear can with its lid beside it and the food around it, then the small kits;
-   - **bottom edge:** the fun row (book, camera, mug, stickers, ukulele).
+   - **bottom edge:** the fun row (a paperback, camera, mug, stickers, ukulele).
 3. **The worn row lies head to toe,** like an outfit on the floor: hat, shirt, shorts, socks, shoes.
 4. **Gutters are 2 pixels and 2 rows.** Inside a zone, the biggest item goes first, in checklist order. Pairs and sets line up: socks paired, bottles in a row.
 5. **Food is grouped by meal** in rows around the can (breakfast, lunch, dinner, snacks), so you can count the days at a glance.
@@ -1200,7 +1261,7 @@ In this game **the flat lay is the packing screen itself**, not a picture of it.
 - **Two taps move things.** Tap a row in the drawer to lay the item out (a *bloop*); tap an item on the deck to put it back in the shed.
 - **A long-press opens the item's card:** its weight and volume, its store, its state (wet, patched, used up) and where it rides.
 - **Choosing a place.** Where an item rides is the **slot picker** (12.9), opened from the item's card. It lists only the legal places for that item, each with its cost: *Inside (stuffed in its sack: 3.1 L)*, *Bottom straps: may snag; wet without a dry bag*, *Top strap: top-heavy, -4 on footing*. The picker is optional: the game picks the sensible place by default, and items riding outside are drawn beside the pack with a small strap mark.
-- **Tap the bear can** for the canister panel (12.9): food liters against usable liters and days of food (`Food 7.1 of 8.6 L · 4.1 days · smellables 0.5 L`), with **Repack all food** as one tap. The can-packing minigame opens from here too (decision 30; its rules are being written in).
+- **Tap the bear can** for the canister panel (12.9): food liters against usable liters and days of food (`Food 7.1 of 8.6 L · 4.1 days · smellables 0.5 L`), with **Repack all food** as one tap. The bear-can minigame opens from here too: Suika in a cutaway can, where your hands decide how much food fits (17.7).
 - **The water stepper** sets liters carried in 0.5 L steps, up to your bottles' capacity, and shows the weight (2.2 lb per liter).
 - **The ranger's checklist** is a corner chip, from the list the cabin's old ranger pinned inside the shed door: the ten essentials plus what this region and month expect, ticking as you lay things out. It never packs for you. On a first trip, its items show as chalk outlines on the deck (3.6).
 - **The checklist reads the forecast.** When showers are forecast and the rain jacket is still in the shed, its row says so in one dry line (DRAFT: *"Showers Thursday. The jacket is in the shed."*); a September high camp with no warm layer gets the same. When everything is fine, the checklist says nothing, which is the best feedback in the game.
@@ -1215,7 +1276,7 @@ In this game **the flat lay is the packing screen itself**, not a picture of it.
 | Pack weight | Base plus food, water and fuel, with the felt-load word (6.4) | What the simulation's felt load reads (6.3) |
 | Worn | Shoes and the outfit you start in | Counted apart, as gear lists do |
 | Liters, can | Inside liters of the pack; can liters and days of food | The two hard fits (6.3) |
-| From | Items from the shed and from each store | The style read, and the share image's store marks |
+| From | Items from the shed and from each store, each store shown by its outline mark | The style read, and the share image's store marks |
 
 **Worn items need a lead call.** Today every item counts toward the pack. Proposed: a `worn` place for footwear and one outfit. Worn things leave the pack's weight and liters, and footwear keeps its own effect on pace. It is a small change in the simulation, and every serious backpacker will expect it. Your call ([still to come](#still-to-come-from-you)).
 
@@ -1318,7 +1379,7 @@ The trip report's gear notes, **What the pack taught**, list what you used every
 |---|---|---|
 | A 50 L pack: canister + bulky synthetic bag + tent is 3 L over | Strap the tent outside: snags, wet fly, ladder -3 | Leave the puffy: colder evenings |
 | Rain pants vs. a fourth food day in a full canister | Short on food the last day | Wet legs in showers and wet brush; colder night |
-| Ice axe for early-July avalanche chutes above Elk Lake | +25 on snow traverses, 17 oz on a tool loop | Turn-back card likely |
+| Ice axe for early-July avalanche chutes above Elk Lake | +25 on snow traverses (proposed: +10 for the self-belay, plus self-arrest after a slip, 17.11), 17 oz on a tool loop | Turn-back card likely |
 | A day pack "for one night" | — | No room for bag, tent or canister (Appendix A) |
 | Extra water on a dry crest | 3 L: +6.6 lb | 1 L: parched by the crest |
 | Camp chair vs. dry camp clothes | Layover joy | Warmth reset at camp; feet recover |
@@ -1355,12 +1416,12 @@ Eighteen catalog items are tagged `trap`: cotton tee, jeans, cotton hoodie, cott
 |---|---|---|
 | Top | 150 px | A paper-cream permit strip: permit number, route, dates, nights, direction. A day hike shows *day hike* and no number |
 | Picture | 960 px | The flat lay, with 60 px of deck boards either side |
-| Bottom | 240 px | Base weight, pack weight, can and days, liters; the store marks; the hiker's name (optional); *Olympic Peninsula Hiker* and `fernforager.github.io/104-boyz` in small type |
+| Bottom | 240 px | Base weight, pack weight, can and days, liters; the store marks (each store's outline mark and a count, never a letter); the hiker's name (optional); *Olympic Peninsula Hiker* in small type |
 
-- **The text is drawn into the PNG** with the pixel fonts at whole-number scales. Its wording is yours (DRAFT until approved).
+- **The text is drawn from a bitmap atlas** of the pixel font, made at build time, straight into the 16-color index buffer at whole-number scales, as YOU PERISHED's 8 x 14 letters already are (11.10). Never canvas `fillText`: antialiased canvas text adds colors outside the palette, and iOS quietly draws canvas text in a fallback font if the web font hasn't loaded. So the whole image is a pure function of the kit and the words, encoded to PNG with no canvas at all, and its golden is checked in Node. Its wording is yours (DRAFT until approved).
 - **The file is small.** The palette is the 16 colors, and the repo's own PNG encoder (`tools/png.mjs`) can write an indexed file in the browser.
-- **A Hike of the Day version** heads its strip with the day instead of a permit. The trip report's own card is in 9.7.
-- **How it reaches the share sheet:** `navigator.canShare({ files })`, then `navigator.share`. Safari has supported sharing files since iOS 15 ([Adactio](https://adactio.com/journal/15972)). The fallback is the image on a sheet with "press and hold to save" (DRAFT); the usual no-callout rule is lifted on that one image. Both paths are tested on your phone (F.5).
+- **A Hike of the Day version** heads its strip with the day instead of a permit, and an FKT runner's with the route, the direction and the style (9.9, 9.11). The trip report's own card is in 9.7.
+- **How it reaches the share sheet:** `navigator.canShare({ files })`, then `navigator.share`. Safari has supported sharing files since iOS 15 ([Adactio](https://adactio.com/journal/15972)). The image is re-rendered on every change to the flat lay (debounced), so the file is ready the moment the button is tapped. The share passes **the file alone**; the text, or a gear list, is its own action, since mixing files with text or a link can behave differently from one share target to another. The button is never left disabled while waiting for the share to finish: an iOS 15 bug left that promise unresolved after *Save Image* ([WebKit bug 234187](https://bugs.webkit.org/show_bug.cgi?id=234187)). The fallback is the image on a sheet with "press and hold to save" (DRAFT); the usual no-callout rule is lifted on that one image. Both paths are tested on your phone (F.5).
 - **Privacy.** No location and no real names. The hiker's name is an in-game name and can be switched off.
 - **Beer and the pre-roll** may show in a deck flat lay (no car in frame), never in a tailgate one (2.6, T05).
 
@@ -1376,6 +1437,7 @@ One deterministic, seeded simulation sits under the screens. The player sees wor
 
 - **Tick** = 15 minutes. Each tick runs movement, weather, body meters and the delayed-consequence queue.
 - **Beat** = a stop the player sees. Beats sit at landmark nodes (camps, junctions, bridges, fords, passes, headlands), in mid-segment slots (0 to 2 per segment, by hiking time) and at forced moments (thresholds crossed, delayed consequences due, darkness).
+- **Seconds, in the timed modes.** The Hike of the Day and FKT attempts keep the clock in whole seconds, so two times can be compared to the second (9.9, E.12). The tick still runs the body and the weather, pro rata over exact durations.
 
 ### 7.2 Daylight and darkness
 
@@ -1407,17 +1469,20 @@ After trail-dark, travel time is multiplied: **headlamp x1.35** (x1.5 on primiti
 
 Plus injuries and illness, body weight (`body_lb`, 165 in v1), **fitness** and **eight skills**: footing, navigation, river, snow, coast, campcraft, first aid and **glacier** (4.2). **Every hiker starts the same** (your call: a name and nothing else, 12.4): Regular fitness, 165 lb, and beginner's skills, level 1 in each except glacier at 0. The other four fitness levels (Easygoing, Casual, Strong, Mountain goat) stay in the engine for the harness and are never offered. Skills grow across trips for as long as the hiker lives, and a death resets everything (9.8).
 
+**The standard hiker and runner** (1.3). The timed modes use a fresh hiker with the same beginner's skills and 165 lb: Regular fitness on the Hike of the Day, and **Strong** for an FKT runner (recommended, 9.11), the one place a level other than Regular plays outside the harness. Nothing of the Open hiker reaches them: no skills, no region memory, no recently seen cards.
+
 The caption line shows four plain conditions (Warm, Legs, Feet, Heart) and adds a Wet or Thirsty glyph only when it matters. **Two bad conditions at once** trigger a ranger-voice nudge (DRAFT: *"It might be time to think about the way home."*), always with a sure choice: Turn back, or, where the way back is itself rolled (a dark trail by phone light), stop and make camp or wait for help. The nudge is an extra warning; it never stands in for one of a crisis chain's own warning steps (8.10).
 
 ### 7.4 Movement
 
 ```
-moving hours = miles x class / flat speed
-             + gain / climb rate
-             + steep descent / 2000
-hours = moving hours x load x dark x energy
-      x injury x weather x snow x pace
-      x 1.12 (breaks) x today's legs
+moving h = miles x class / flat speed
+         + gain / climb rate
+         + steep descent / 2000
+hours = moving h x load x dark
+      x energy x injury x weather
+      x snow x pace x 1.12 (breaks)
+      x today's legs
 ```
 
 | Fitness | Flat mph | Climb ft/h | Energy cost |
@@ -1434,6 +1499,21 @@ Trail class multiplies distance: road walk 0.85, maintained 1.0, primitive 1.25,
 
 **Sanity check** (Regular fitness, light pack): Hoh trailhead to Lewis Meadow, 10.4 mi, about 5.1 h. Hoh trailhead to Glacier Meadows, 17.4 mi and +4,292 ft, about **11.3 h**. Trip reports say 4.5 to 6 h and 9 to 12 h.
 
+**Running (FKT attempts, 9.11).** Two more paces exist only for the runner, **Run** and **Race**, and a runner may change pace at every split, not only in the morning. The numbers are design estimates for the harness to tune (F.1):
+
+| Pace | Flat · climb (Strong) | Burn, kcal/h | Water, L/h |
+|---|---|---|---|
+| Steady | 2.7 mph · 1,600 ft/h | About 350 | 0.4-0.6 |
+| Push | x0.88 time | About 450 | 0.5-0.7 |
+| Run | 5.4 mph · 2,160 ft/h | About 700 | 0.6-0.9 |
+| Race | 6.2 mph · 2,400 ft/h | About 850 | 0.7-1.0 |
+
+- **In the formula,** Run and Race replace the flat speed and the climb rate, halve the steep-descent cost (runners go down faster, on the same knees: an estimate), and cut the break factor from 1.12 to 1.03 (Run) or 1.00 (Race). Trail class still multiplies distance, and primitive and way trail cost a runner more than a hiker (each multiplier up by 0.2, an estimate).
+- **The burn** follows running's cost of about 1 kcal per kilogram per kilometer on the flat, roughly the same at any speed ([Wikipedia, Cost of transport](https://en.wikipedia.org/wiki/Cost_of_transport)): about 120 kcal a mile for the 165-lb runner, with climbing on top. Water rises by 0.2 L an hour above 75 °F.
+- **Footing at speed.** On segments tagged technical, Run and Race add a footing check each mile: likelier at Race, after dark, on wet rock and when Tired or Spent, and less likely with poles. A mild sprain slows the rest of the run (x1.15), and a moderate one is Serious (x1.6, 7.9). Like every rolled check, its chance shows before you choose: the pace button carries the look-ahead's figure for the miles ahead (8.9, 12.27).
+- **The technical descent** (a minigame, 17.10) plays on those segments at Run or Race. It sets the segment's time between x0.92 and x1.10 and feeds its stumbles into the footing check, whose chance the pace button shows as a hands range before you choose (17.2, E.12).
+- **Headlamp starts.** Before first light the headlamp rule holds (x1.35, 7.2), and the footing chance doubles while running in the dark.
+
 **Honest ETAs.** Wherever you choose where to go next, the screen shows the ETA from the same formula with a 10th-to-90th percentile band: *"About 6 h. You'd arrive between 9:40 and 10:50 pm, about 2½ hours after dark."*
 
 **The Fork card** (8.2) fires at the first landmark beat (a named camp or junction where stopping or turning is a real option) at which the ETA to tonight's camp lands within an hour of trail-dark or after it. It fires again at later landmarks while that stays true, at most once every two hours of walking. So no one walks into the dark without being asked: the tailgate already showed the ETA, and the first fork comes at the first real place to stop.
@@ -1447,6 +1527,7 @@ Trail class multiplies distance: road walk 0.85, maintained 1.0, primitive 1.25,
 - **One park-wide weather story per day.** A single synoptic Markov chain per month (fair, unsettled, wet, storm; tomorrow tends to be like today) drives every zone, so the Hoh valley and Glacier Meadows can't disagree about the same storm. Each zone derives its daily state from it: clear, partly cloudy, fog, overcast/drizzle, showers, rain, storm. The rain shadow stays dry on about 40% of wet synoptic days; the coast adds a fog overlay; High and Alpine add an afternoon **thunderstorm** overlay.
 - **The actual weather is generated when the trip is created and never changes.** The **forecast** is derived from the synoptic state, less accurate the further ahead it looks (85% at 1 day down to 45% at 5 days). It covers only trip days within five days of the planning day; later days get climatology.
 - **Rain chances are honest.** The "40%" on the ranger's board is computed by Monte Carlo so that it really rains 40% of the time in the game.
+- **The Hike of the Day's weather is real** (decision 31). Its forecast and its actual weather come from the morning job, which maps the National Weather Service's forecast onto this same model, so the engine runs the same code (9.10). An FKT week draws its weather from this climatology, with the week's seed (9.11).
 - **Temperature** comes from the shared synoptic state through each zone's reference and a lapse rate with elevation (-3.3 °F per 1,000 ft in cloud, -4.5 on clear afternoons), plus a daily cycle, cold pools in basins and meadows (-4 °F on clear nights), canopy and glacier effects, and NWS wind chill.
 
 ### 7.6 Snow
@@ -1496,7 +1577,7 @@ Modifiers come from the shared table (8.5): trekking poles +10, unbuckling the h
 m ≥ 1      auto-pass (told)
 0 ≤ m < 1  base = 85 + 10m      (cap 95)
 -1 ≤ m < 0 base = 85 + 55m
-m < -1     base = 30 + 20(m+1)  (floor 5)
+m < -1     base = 30 + 20(m+1) (floor 5)
 rising tide -10, falling tide +5
 ```
 
@@ -1507,7 +1588,9 @@ rising tide -10, falling tide +5
 ### 7.9 Body models in brief
 
 - **Energy and food.** Drain scales with effort-miles, fitness, load and weather. A calorie deficit lowers the energy ceiling. **Bonk** (energy under 15) slows you, hurts footing and makes you cold: the classic way day-gear trips go wrong. Daily eating follows the allowance and rationing rules in 5.6.
-- **Water.** Loss per moving hour rises with heat and climbing. Treated water is automatic if you have a filter or tablets. Untreated water carries a small risk per liter (1-4% by source, stylized and labeled as such): a **trail bug** 36 to 96 hours later, or a **giardia epilogue** 7 to 14 days after the trip. A can of beer costs about 0.3 L of water on top of its own (2.6).
+- **Water.** Loss per moving hour rises with heat and climbing. Treated water is automatic if you have a filter or tablets. Untreated water carries a small risk per liter (1-4% by source, stylized and labeled as such): a **trail bug** 36 to 96 hours later, or a **giardia aftermath** 7 to 14 days after the trip. A can of beer costs about 0.3 L of water on top of its own (2.6).
+- **Fuel, for runners** (9.11). An FKT runner carries a carbohydrate store of about 1,800 kcal (a design estimate) and burns it at a share of the pace's burn (7.4): half at Steady, 70% at Run, 80% at Race. Eating puts it back only so fast: about 60 g of carbohydrate an hour (240 kcal). Sports-science guidance allows up to 60 g an hour for efforts of two to three hours, and up to 90 g of a glucose-fructose mix past 2.5 hours ([GSSI, *The Science of Carbohydrate*](https://performancepartner.gatorade.com/content/resources/pdfs/science-of-carbohydrate-2024.pdf)). The game holds its cap at 60 for now, a tuning knob, so that pacing stays the puzzle. When the store runs out the runner bonks: the same Bonked state, slow, clumsy and cold. Racing the whole High Divide Loop bonks somewhere on the river trail, even eating at the cap; running it with a gel every 30 minutes doesn't.
+- **Water at speed.** A runner who loses more than about 2% of body weight to sweat (about 1.5 L for 165 lb) slows and chills: the line sports medicine tells athletes to stay under ([ACSM position stand, 2007](https://pubmed.ncbi.nlm.nih.gov/17277604/)). On the High Divide's dry crest, that is the trade between a light vest and a full one (9.11).
 - **Warmth.** A heat balance each tick: air temperature, wind (halved by a shell), rain, insulation reduced by wetness, and activity (climbing makes heat, sitting doesn't). The danger starts when the walking stops.
 - **The night.** A sleep-system rating, built from each item's stats in `gear_catalog.json`, which are authoritative: `comfort_f` for bags, `r_value` for pads, `insulation` for clothes, `warmth_bonus_f` for shelters and liners, and `wet_warmth_retained` for anything soaked. (This section used to carry fixed figures of its own: tent -4, bivy -3, tarp -2, and wet cotton 20%, wool and synthetic 70%. They disagreed with the catalog, so they are gone, and the worked nights here, in 8.13 and in Appendix A, were recomputed from the item stats on 2026-10-08.)
 
@@ -1548,6 +1631,8 @@ margin -18: 9% · -34: 33% · -40: 42%
 Each trip earns experience in the skills you used, for as long as the hiker lives (a new hiker, after a death, starts over at beginner's level: 9.8). Levels run from 0 to 5, the cap `simulation.md` sets, and the experience each level needs lives in `rules/tuning.json` (a few trips that use a skill reach level 2, as Robin's navigation has by B.2). Each level adds +2 on matching checks, counted from 0, so a beginner's level 1 already adds +2 and glacier at 0 adds nothing (every worked example in this document includes it), **and unlocks better foreshadowing**: at `coast` 2 the HUD computes *"You'll reach Strawberry Point about 4:10 pm, tide 3.2 ft and falling"*; at `navigation` 2 way-trail forks are flagged; at `campcraft` 2 the evening screen says whether you'll sleep warm; `glacier` 1 comes from glacier school with Ranger Jon (4.2) and adds +2 on a soloist's crossings, and at `glacier` 2 the crevasse odds on the ice sharpen from a range to a number. Veterans read the world better.
 
 ### 7.11 Other people and living things
+
+*All in-game words in this section are DRAFT (decision 21), marked or not; the final words are yours.*
 
 Trail popularity x weekend x month sets how likely you meet kind strangers, a ranger patrol (Olympus Guard Station in summer, Royal Lake's summer ranger) or a full camp. You always hike alone (1.2); other people are part of the place, like the weather. Seasonal curves drive mosquitoes (high country, late June to early August), yellowjackets (August-September), bears (berry season, late July to September), the elk rut (mid-September to October) and marmots (June to September).
 
@@ -1618,7 +1703,7 @@ The stop sets up the dilemma, and the buttons finish the sentence. Labels are ve
 | Chain step | An earlier card set it up | Wet legs, then a damp camp, then a cold night |
 | Delayed payoff | A queued consequence comes due | The trail bug arrives |
 | Drive / town / trailhead | Those phases | Elk on the Upper Hoh Road |
-| Epilogue | After the trip | Giardia; "the bears here have learned" |
+| Aftermath | After the trip, at home | Giardia; "the bears here have learned" |
 
 ### 8.3 Inside a card
 
@@ -1632,23 +1717,28 @@ Cards are JSON (full format: `engine.md` section 4). In short:
 - **Archetypes and place patches.** A generic archetype (any braided-river ford) plus a short place patch (the Hoh braids at mile 8) covers the park with personality. (This is card reuse in the data, nothing to do with hikers: a new hiker inherits nothing, 9.8.)
 
 ```json
-{ "id": "wade",
-  "label": "Wade across now",
-  "roll": {
-    "base": "river.ford_base",
-    "mods": [
-      {"if": "has('poles')", "add": 10,
-       "why": "Trekking poles to lean on"},
-      {"if": "gear.outside_bulky > 0",
-       "add": "max(-10, -3 * gear.outside_bulky)",
-       "why": "Gear strapped outside"}],
-    "use_mods": ["mods.dark", "mods.fatigue",
-                 "mods.load", "mods.skill.river"],
-    "pass": "across",
-    "fail": [{"to": "soaked", "w": 70},
-             {"to": "dropped_item", "w": 15},
-             {"to": "swept", "w": 15,
-              "if": "river.flow_index > 1.5"}] } }
+{"id": "wade",
+ "label": "Wade across now",
+ "roll": {
+  "base": "river.ford_base",
+  "mods": [
+   {"if": "has('poles')",
+    "add": 10,
+    "why": "Trekking poles to lean on"},
+   {"if": "gear.outside_bulky > 0",
+    "add":
+    "max(-10,-3*gear.outside_bulky)",
+    "why": "Gear strapped outside"}],
+  "use_mods": [
+   "mods.dark", "mods.fatigue",
+   "mods.load", "mods.skill.river"],
+  "pass": "across",
+  "fail": [
+   {"to": "soaked", "w": 70},
+   {"to": "dropped_item", "w": 15},
+   {"to": "swept", "w": 15,
+    "if": "river.flow_index > 1.5"}
+  ]}}
 ```
 
 The hour and the afternoon snowmelt are already inside `river.ford_base`, through the depth model (7.7), so no card adds them twice. Shared modifier sets (`mods.*`) come from `rules/mods.json`, one value each, everywhere.
@@ -1679,7 +1769,9 @@ At most 2 hazard cards per day in either mode, not counting forced ones, and at 
 **One formula, everywhere:**
 
 ```
-p = clamp(base + Σ labeled modifiers, 5, 97)
+p = clamp(base
+          + Σ labeled modifiers,
+          5, 97)
 ```
 
 - **This p is the chance of a clean success.** The button shows the chance you make it at all, clean or shaky, which is p plus the shaky band (8.8).
@@ -1718,6 +1810,7 @@ This is what makes **knowing** as important as **carrying**.
 - If you lack the knowledge (no tide table, no forecast, no map, didn't scout the ford, skipped the WIC briefing), the gated modifier is unknown to you. The tag shows the **range of p over that modifier's possible values**, for example `40-80%`.
 - **The roll always uses the true value, and the true value always lies inside the range.** Because the range comes from the modifier's real spread, not from a blur around the answer, the middle of the range is not a giveaway.
 - If the range is 50 points or wider, the tag reads `??`, which is itself a strong hint.
+- **A hands range is a different thing,** and looks different: a small hand glyph beside it means "it's up to you", not "you don't know yet". It is the spread a minigame's play can make, worst to best, and the roll inside it is just as honest (17.2).
 - The Why sheet shows the gated row honestly: `? Tide (no tide table): -40 to +10`.
 - **A blurred ♦ shows its worst case for death.** When a ♦ choice's odds are a range, its fatal share is computed at the worst end of that range and reads `up to 18% fatal`. Not knowing never hides how bad it could be. Finding out narrows the range around the true value at that moment. But finding out by waiting lets the clock run, and on a rising tide or a river in the afternoon the true value itself gets worse while you watch, so a range can narrow and still keep its fatal share, or gain one (C.4).
 - **Ways to sharpen it:** carry the item (tide table, map), get the ranger's briefing at planning, spend time at the stop (*Wait and watch the water* for an hour; *Scout upstream* for 20 minutes; *Study the map* for 10), have walked this way before, raise the skill.
@@ -1726,12 +1819,15 @@ On the coast this makes a 1-oz tide table an item of real power. On the High Div
 
 ### 8.7 What shows a %, and the words option
 
+*All in-game words in this section are DRAFT (decision 21), marked or not; the final words are yours.*
+
 | Decision kind | Shows |
 |---|---|
 | Rolled, can kill (Old School) | everything in the next row, plus the fatal share in red (`0.3% fatal`, rounded up; a blurred range shows its worst end); the confirm reads (DRAFT) *This could be fatal* |
 | Rolled, can reach Serious or worse | ♦ + "made it" % + the fail share in red; the Why sheet adds a three-band bar (two bands on a night roll, 8.8) and an "if it goes badly" line |
 | Rolled, smaller stakes (a soak, a lost sandal, a mild sprain) | "made it" % |
 | Rolled, tiny stakes (spot the marmot, a photo before the fog) | a small grey % |
+| Rolled, with a minigame (the ford, the descent, steep snow) | a small hand glyph and a **hands range**, worst hands to best (`{hand}87-94%`), and a ♦'s fatal share at the worst-hands end, marked *up to*; with *Auto* on, one exact number (17.2) |
 | Compound (push on 7 miles in the dark) | one word and a small three-color bar (8.9) |
 | Unrolled (camp here or there, eat now) | no %; deterministic effects (ETA, kcal, liters, LNT) |
 | Planning | the forecast's rain %, and the Trip Outlook in words |
@@ -1757,7 +1853,7 @@ A range wider than 30 points reads *hard to say*. The prose carries the hunch na
 - the first range: *"A range means you don't know something yet. Find out, and it narrows."*
 - the first `??`: *"Two question marks: you really don't know. Look, wait, or ask."*
 - the first ♦: *"A red diamond: this one could go badly wrong. The red number says how often."*
-- the first fatal share, with the sure choice beside it outlined: (DRAFT) *"'Fatal' means your hiker would die here, for good. There is always another way: look for 'sure'."*
+- the first fatal share, with the sure choice beside it outlined: *"'Fatal' means your hiker would die here, for good. There is always another way: look for 'sure'."*
 - the first compound bar: *"For a long push, the bar shows how evenings like this tend to end."*
 - the first `sure` or cost icon, and the first Words phrase, the same way.
 
@@ -1768,10 +1864,13 @@ Every roll has bands, built from the clean chance p (8.5):
 ```
 shaky = min(ceil((100 - p) / 2), 25)
         (a card may set its own)
-roll < p - 30      Great (only if the card has it)
-roll < p           Clean success
-roll < p + shaky   Shaky: made it, at a small cost
-otherwise          Fail, then the card's fail table
+roll < p - 30     Great (if the card
+                  has it)
+roll < p          Clean success
+roll < p + shaky  Shaky: made it, at
+                  a small cost
+otherwise         Fail, then the
+                  card's fail table
 ```
 
 **The number on the button is "made it": clean plus shaky.** It is the chance of the outcome the player is actually deciding about, so `79%` means about one time in five it goes badly. The fail share is never more than 70% (p is at least 5), and "made it" runs from 30% to 99%.
@@ -1792,7 +1891,7 @@ Fatal: 21 x 2% x 50% = 0.21%,
 shown rounded up: 0.3%
 ```
 
-**The compass roll** plays only on ♦ choices, after the confirming tap: a compass rose fills the picture, its dial painted with the same three bands in the palette's colors (moss clean, alpenglow pink shaky, brick fail; 11.1), or two on a night roll (moss and brick), plus a thin ink-black sliver at the far end of the red for the fatal share when there is one. The needle spins about 1.2 seconds with PC-speaker ticks and comes to rest **somewhere inside the band it landed in**, not at the exact roll, so a player replaying the same weather on a new trip (9.7) can't read the number and nudge the odds just past it. Raw rolls appear only in the debug overlay and, from M6, the post-trip Notebook. A tap skips the spin. Ordinary risky choices go straight to the outcome.
+**The compass roll** plays only on ♦ choices, after the confirming tap: a compass rose fills the picture, its dial painted with the same three bands in the palette's colors (moss clean, alpenglow pink shaky, brick fail; 11.1), or two on a night roll (moss and brick), plus a thin ink-black sliver at the far end of the red for the fatal share when there is one. The needle spins about 1.2 seconds with dry wooden ticks that slow (13.2) and comes to rest **somewhere inside the band it landed in**, not at the exact roll, so a player replaying the same weather on a new trip (9.7) can't read the number and nudge the odds just past it. Raw rolls appear only in the debug overlay and, from M6, the post-trip Notebook. A tap skips the spin. Ordinary risky choices go straight to the outcome.
 
 ### 8.9 Compound choices: an honest look-ahead
 
@@ -1814,7 +1913,7 @@ Some choices aren't one roll: *push on to Glacier Meadows in the dark*, *wait fo
 
 | Cause (your choice) | When it pays off | Payoff |
 |---|---|---|
-| Drank untreated water | 36-96 h; or 7-14 days after | Trail bug; giardia epilogue |
+| Drank untreated water | 36-96 h; or 7-14 days after | Trail bug; giardia aftermath |
 | No rain pants in rain or wet brush | That evening | Damp camp; colder night |
 | No sun kit on snow or beach | Next morning | Sunburn |
 | New boots | Around mile 6 | Hot spot card |
@@ -1871,10 +1970,10 @@ This is the Oregon Trail learning loop made explicit, and the main tool for chec
 
 ### 8.14 Seeds and save-scumming
 
-- Randomness comes from one seeded generator split into named streams (weather, environment, permits, director, rolls, effects, text, art, store, lookahead). The trip seed is drawn when a plan is first saved at the map table, so planning's own draws (quotas, desk requests, the canister loan) use it too (E.8). A Hike of the Day's seed is the day's, the same for everyone. **Weather never shifts because you dawdled**, and editing text never changes an outcome.
+- Randomness comes from one seeded generator split into named streams (weather, environment, permits, director, rolls, effects, text, mini, art, store, lookahead). The trip seed is drawn when a plan is first saved at the map table, so planning's own draws (quotas, desk requests, the canister loan) use it too (E.8). A Hike of the Day's seed comes with the day's file, and an FKT attempt's with the week's, the same for everyone (9.10, 9.11). **Weather never shifts because you dawdled**, and editing text never changes an outcome.
 - **There is no going back, in any mode.** No Restore, no going back a stop, no Back to Last Camp, no Restart Trip. Every stop autosaves. **The save written at the confirming tap already holds the outcome**, before the compass spins, so closing the app mid-spin changes nothing. If the outcome is a death, that same write adds the Trail Register entry and marks the hiker dead, so nothing can bring them back; the death sequence only displays it, and the full wipe of the hiker's trip reports and skills follows at the cabin when the sequence closes (E.6). The one thing still unwritten is the epitaph, which can add words to the register entry and change nothing else (9.5). An error never rolls back a choice either (E.11).
 - **Rolls are keyed to content and mode, not to stop counts:** `hash(trip seed, mode, node, card, choice, trip day, attempts here)`. An optional stop inserted before a check (a Look, a rest, a different chore order) changes nothing. And the same choice at the same ladder on the same day, in the same weather and the same mode, always gives the same result: on a new trip with the same weather (*Hike it again*, 9.7), a fall is still a fall. It is a puzzle you solve on the next trip by changing your approach (haul the pack up on a rope, wait for morning, take the overland trail), the King's Quest way, never by reloading. A different choice, a new day, or a genuine second attempt (trying the ford again after failing it) gets a fresh, equally honest roll.
-- **No scouting.** A phone has one living Open hiker with one trip in progress at a time, so there is no parallel trip to scout with; a seed already in progress can't be opened twice, and a code from a trip that ended in GAME OVER rolls new weather for your own hiker (the register keeps the seed, 9.7, 9.8). The mode is in the key too, so if the hidden gentle mode is ever released, a gentle trip of the same route rolls its own dice and can never show which Old School ♦ would have killed (9.4). An imported save can never be older than the hiker record's mark for that trip (E.6). The Hike of the Day is one shot for the same reason: the same seed for everyone, and no second try (decision 24).
+- **No scouting.** A phone has one living Open hiker with one trip in progress at a time, so there is no parallel trip to scout with; a seed already in progress can't be opened twice, and a code from a trip that ended in GAME OVER rolls new weather for your own hiker (the register keeps the seed, 9.7, 9.8). The mode is in the key too, so if the hidden gentle mode is ever released, a gentle trip of the same route rolls its own dice and can never show which Old School ♦ would have killed (9.4). An imported save can never be older than the hiker record's mark for that trip (E.6). The Hike of the Day is one shot for the same reason: the same seed for everyone, and no second try (decision 24). FKT attempts are the one place the same dice come round again on purpose: every attempt in a week replays them, so a rolled ankle at Race pace is a puzzle you solve by running that mile differently (9.11). Across phones, the daily's one shot is kept by the honor system (9.12).
 - The compass shows only the band, never the exact roll (8.8).
 
 ---
@@ -1898,7 +1997,7 @@ This is the Oregon Trail learning loop made explicit, and the main tool for chec
 2. Trouble becomes Serious only after a crisis card the player saw.
 3. Serious always offers a safe-ish option, and any moment that could reach rung 5 offers a sure one (9.5).
 4. Rung 5 is reached only by the two fair paths in 9.5, never from a choice shown as `sure`.
-5. In the hidden gentle mode nothing goes above 4b (9.4). On the Hike of the Day, rung 5 is a DNF (9.3).
+5. In the hidden gentle mode nothing goes above 4b (9.4). In the Hike of the Day and FKT attempts, rung 5 plays the same death sequence and is a DNF that never touches the Open hiker (9.3, 9.4).
 
 ### 9.2 Help and rescue
 
@@ -1931,7 +2030,17 @@ Every ending is stamped at the car, where the trip comes off the trail (12.22). 
 | **With a Little Help** | A rung-4b rescue | Stamp (DRAFT): WALKED OUT WITH HELP. The Olympus Guard Station porch, or a helicopter as a dot over the valley |
 | **GAME OVER** | The hiker died (Old School) | No car. After the death sequence (9.5): the GAME OVER card at the trailhead's register box, its lid closed; then the cabin at dusk, with only the Trail Register line left (2.2, 9.8, 12.17) |
 
-**On the Hike of the Day** a death is a DNF on today's board, not a GAME OVER: the streak resets, and the Open hiker is untouched (decisions 24 and 25). Its other endings are the same four.
+**In the timed modes** the endings are the same, and each also says what it posts (9.9, 9.11):
+
+| Ending | Hike of the Day | FKT attempt |
+|---|---|---|
+| Finished, or the Hard Way | Your time | Your time, in your style |
+| Sooner Than Planned | *Home safe*, no time | No time |
+| With a Little Help | *Home safe*, no time | No time |
+| GAME OVER | DNF; the streak resets | DNF |
+| A finish, disqualified | No time, and why | No time, and why |
+
+A death there is a DNF and never a wipe: the death sequence plays in full, and the Open hiker is untouched (decisions 24 and 25, 9.4).
 
 **Finding the Bonfire Lily is not an ending.** It adds a small gold ✶ to whatever ending the trip gets, on its stamp, its trip report and its Trail Register line, and a gold sketch in the cabin's gable window, if the hiker left it where it grew (2.2, 10.2).
 
@@ -1943,13 +2052,18 @@ Every ending is stamped at the car, where the trip comes off the trail (12.22). 
 
 ### 9.4 Ways to play, and a gentle mode kept hidden
 
-**Three ways to play** (decisions 23 to 25; their full rules are being written in, and `design/drafts/daily_fkt.md` holds them until then):
+**Three ways to play** (1.3): Open, the Hike of the Day (9.9) and FKT attempts (9.11). The same two fair paths to death (9.5) hold in all three. What a death does differs:
 
-| Way | What it is | If the hiker dies |
-|---|---|---|
-| **Open** | Plan any hike. One career hiker per phone, who carries on from trip to trip (9.8) | Old School: the death sequence and the full wipe |
-| **Hike of the Day** | The same route and today's real forecast for everyone, one shot, scored on time, with a fresh standard hiker (decision 31) | A DNF: the streak resets; the Open hiker is untouched |
-| **FKT attempts** | The big routes against the clock | Being written in, with the modes |
+| | Open | Hike of the Day | FKT attempt |
+|---|---|---|---|
+| The screens | All five (9.5) | All five; the card says DNF | All five; the card says DNF |
+| Then | The cabin at dusk; the full wipe | The cabin, now; the streak resets | The cabin, now; try again |
+| The register | *Remembered* | *Remembered*, tagged `#212` | *Remembered*, tagged with the board |
+| The Open hiker | Gone | Untouched | Untouched |
+
+**Every death plays the same five screens, in every mode** (a lead call). The death sequence is yours (decision 1) and the game's signature, so it stays whole. In a timed mode the fifth screen is the same GAME OVER card with a DNF stamp and the day's number or the board's name (DRAFT, 12.26); its button goes back to the cabin on the real clock, with no dusk and no wipe. The epitaph signs a line in *Remembered* under your handle, with a small tag, because the register is where the game remembers every death (9.8). Keeping timed deaths off the register (the chalkboard and the peak only, with no epitaph) is the alternative ([still to come](#still-to-come-from-you)).
+
+**The hidden gentle mode never applies to the timed modes.** They are Old School by nature: a time means something only if the danger is real.
 
 **Old School is the rule of Open play.** Every Open trip is Old School, and nothing in the v1 UI mentions another death rule: no mode picker, no setting, no mark on a trip report, no line of text. The **gentle mode**, where nobody dies, stays in the engine, but hidden (your decision, 2026-10-08: *"C but don't release that shelf yet hide it"*). Its old name, Storybook, is retired with the book frame (decision 22): the internal key is `gentle`, and it gets a public name only if you ship it. It is released later only if you decide to.
 
@@ -1993,6 +2107,7 @@ Every ending is stamped at the car, where the trip comes off the trail (12.22). 
 | A night with a margin below -25 °F and no shelter, toughed out; or the end of the Cold chain | 15% | 42% x 15% = 6.3%, shown 6.3% (A.3; the night curve in 7.9 at a margin of -40) |
 | Staying on an exposed crest in a thunderstorm (a choice) | 2% | shown on the card |
 | Off trail in fog near a cliff | 10% | shown on the card |
+| A slide into rocks after a slip on steep snow (self-arrest, 17.11) | 20% | 6% slide x 100% reach the rocks x 20% = 1.2% at the worst hands; Auto 0.15%, shown 0.2% (17.11) |
 
 (The Cold chain's last step is the same night roll whatever started the chain: a bagless night, a soaking, or a skinny dip at dusk with no towel, 2.6.)
 
@@ -2010,7 +2125,7 @@ Every ending is stamped at the car, where the trip comes off the trail (12.22). 
 
 `[ Next ▸ ]` → ***YOU PERISHED.*** *You have died of a rising tide.*
 
-**The death sequence.** In Old School every death plays the same five screens, in this order, and nothing else (wireframes in 12.17; one complete sample in Appendix D, screen 17). The hidden gentle mode never shows any of them, because its would-be deaths are rescues (9.4). How much of it a Hike of the Day DNF plays is settled with the modes.
+**The death sequence.** In Old School every death plays the same five screens, in this order, and nothing else (wireframes in 12.17; one complete sample in Appendix D, screen 17). The hidden gentle mode never shows any of them, because its would-be deaths are rescues (9.4). A death in the Hike of the Day or an FKT attempt plays all five as well; only the GAME OVER card changes, and nothing is wiped (9.4, 12.26).
 
 1. **The death box**, as above: the scene drained to cold blue-grays, a title and a deadpan line, the Ranger's Note, one button.
 2. **YOU PERISHED.** A black screen with the chrome hidden. *YOU PERISHED* stands in big blocky EGA letters, and under it is one line in the second person, Oregon Trail style: *You have died of the river.* The dirge plays once (13.2).
@@ -2031,8 +2146,9 @@ Closing the app anywhere in the sequence changes nothing: the death was saved at
 | A night with a margin below -25 °F and no shelter, toughed out; or the end of the Cold chain | `cold` | By a fixed order among what the cause trace (8.13) holds: a skinny dip at dusk with no towel, *...of skinny dipping.* (2.6); else wet cotton, *...of cotton.*; else rain, *...of a long, wet night.*; else a clear sky, *...of a cold, clear night.*; else *...of the cold.* |
 | Staying on an exposed crest in a thunderstorm | `lightning` | *You have died of a thunderstorm.* |
 | Off trail in fog near a cliff | `fog` | *You have died of the fog.* |
+| A slide into rocks on steep snow (self-arrest) | `fall`, snow variant | (DRAFT, yours to write) *You have died of hard snow.* |
 
-Any fall or cliff after trail-dark without a headlamp reads *You have died of the dark.* instead. A variant is picked by **whether its condition is in the trace, in that fixed order**, never by which factor cost the most, so the line is easy to predict and to test: a night with wet cotton reads *cotton* even when the missing sleeping bag cost more warmth (Appendix D, screen 17). The rules for every line: second person, starting *You have died of*, at most 40 characters; wry, never mocking; it names the weather, the water, the ground, the dark or the gear, never the player's choice. There is one exception, which comes with your Larry moments (2.6): *You have died of skinny dipping.* names the swim, because that line is the joke the whole Larry moment is built to earn (2.6); its death box still aims only at the water and the wind. There is no wildlife key, because no animal can kill (principle 2), and no line names a real incident or a place where one happened (principle 3). Each milestone brings its fatal moments' keys with it: `lightning`, `fog` and `cold` (skinny dipping included) with the first playable (M1), `fall`, `river` and `crevasse` with the Hoh and Olympus (M2), `tide` with the coast (M4). A `hiker_dies` with no known key fails the lint (F.3).
+Any fall or cliff after trail-dark without a headlamp reads *You have died of the dark.* instead. A variant is picked by **whether its condition is in the trace, in that fixed order**, never by which factor cost the most, so the line is easy to predict and to test: a night with wet cotton reads *cotton* even when the missing sleeping bag cost more warmth (Appendix D, screen 17). The rules for every line: second person, starting *You have died of*, at most 40 characters; wry, never mocking; it names the weather, the water, the ground, the dark or the gear, never the player's choice. There is one exception, which comes with your Larry moments (2.6): *You have died of skinny dipping.* names the swim, because that line is the joke the whole Larry moment is built to earn (2.6); its death box still aims only at the water and the wind. There is no wildlife key, because no animal can kill (principle 2), and no line names a real incident or a place where one happened (principle 3). Each milestone brings its fatal moments' keys with it: `lightning`, `fog` and `cold` (skinny dipping included) with the first playable (M1a); `fall` in M1b, with self-arrest's snow variant and its own epitaph deck, and its ladder and washout variants with the Hoh (M2); `river` and `crevasse` with the Hoh and Olympus (M2); `tide` with the coast (M4). A `hiker_dies` with no known key fails the lint (F.3).
 
 **The epitaph: type your own, or roll the dice** (your decision, 2026-10-08: *"Write your own or tap random"*). The epitaph screen has one line to fill and three ways to fill it (wireframe in 12.17):
 - **Type your own.** Up to 40 characters, on a one-line field with a counter. The words are the player's, kept in the Trail Register and its exports.
@@ -2058,7 +2174,7 @@ A line can be dealt only if it fits 40 characters as printed (`fits_epitaph_40`)
 
 Lines are printed exactly, 1890 spelling and lower-case starts included. The deadpan comes free: a man of 1890 saying *It was terribly cold* about a January on the Elwha, set under a hiker who died of cotton, is as dry as anything we could write.
 
-**Robert L. Wood.** You asked for *"a random Robert Wood sentence."* Robert L. Wood (1925-2003) wrote the histories of the Press and O'Neil expeditions and the standard Olympic trail guide, and his books are the factual backbone of the game's history (`lore/history.json`, planned): what we take from them is facts, retold in our own words and credited. His sentences are not quoted, because his books are still in copyright (`lore/wood_bibliography.json` has the details). He is credited in Credits and on the **Ranger's Bookshelf**, a real shelf of his books inside the cabin door, listed on a screen of its own (12.20). If his rights holders, reached through The Mountaineers Books, ever give written permission, licensed lines would live in a file of their own (`lore/wood_licensed_lines.json`) with the permission's scope and credit wording, and could join the deck. Whether to ask is up to you.
+**Robert L. Wood.** You asked for *"a random Robert Wood sentence."* Robert L. Wood (1925-2003) wrote the histories of the Press and O'Neil expeditions and the standard Olympic trail guide, and his books are the factual backbone of the game's history (`lore/history.json`, planned): what we take from them is facts, retold in our own words and credited. His sentences are not quoted, because his books are still in copyright (`lore/wood_bibliography.json` has the details). He is credited in Credits and on **the ranger's reading** (a DRAFT name), a real shelf of his books inside the cabin door, listed on a screen of its own (12.20). If his rights holders, reached through The Mountaineers Books, ever give written permission, licensed lines would live in a file of their own (`lore/wood_licensed_lines.json`) with the permission's scope and credit wording, and could join the deck. Whether to ask is up to you.
 
 **Rules for every epitaph line:** at most 40 characters. A typed line is the player's own and is checked only for length. A dealt line is verbatim and credited. It comes from a verified public-domain text, never from a Wood book and never from the unverified secondary pool. It never mentions a real death, an injury or a named person, so O'Neil's lines about a fallen mule or a private who nearly died are never dealt (F.3). The register stores the line and, for a dealt line, its quote id, so the credit goes wherever the line goes.
 
@@ -2104,6 +2220,8 @@ Looking at the same marmot ten times earns its point once. There are no points f
 
 **Leave No Trace** is a separate ledger (starts at 100) shown in the trip report: off-permit camp -5 (-10 on a meadow), always charged, whether or not a ranger comes by (3.7), food left out overnight (no canister, or food that doesn't fit it, 6.3) -5 a night, food lost to wildlife -15, a fire above 3,500 ft or during a ban -20, shortcutting switchbacks -5, feeding wildlife -10, picking plants -10 (the Bonfire Lily included, 10.2), a can, a roach or a shallow cathole left behind -5, packing out someone else's trash +3. The ledger never goes above 100: the +3 can only win back points already lost.
 
+**In the timed modes the time is the score** (decision 24). The status line shows the clock and the last split against par, or against your best on an FKT attempt, in place of `Score: N of M` (12.27), and nothing earns points. Looks are still free and still answer, but they add nothing. The Leave No Trace ledger still runs, and an FKT run that breaks it is disqualified (9.11).
+
 **A citation** (the pre-roll and a passing ranger, 2.6) is the one penalty that touches the score line, and it still never takes points away: the finish award drops to 10, as for the Hard Way, and the trip's register line gets a small *cited* stamp. The two don't stack: a cited trip that also ends the Hard Way or Sooner Than Planned still gets 10, not 5.
 
 ### 9.7 The trip report
@@ -2117,34 +2235,683 @@ Looking at the same marmot ten times earns its point once. There are no points f
 - **The days.** Each day's headline, picked from that day's biggest event, and the hiker's log lines under it (2.3).
 - **Gear notes:** used every day, never used, wished for. This is *What the pack taught* (6.6). It never lists beer or the pre-roll, used or not, and no line in the report mentions either (2.6, T05).
 - **Conditions:** trail, road, bugs, snow. Published Washington Trails Association trip reports carry the same fields (Type of Hike, Trail Conditions, Road, Bugs, Snow), so local hikers will recognize the shape ([an example report](https://www.wta.org/go-hiking/trip-reports/trip_report-2024-06-21.151916120349), seen in search results). The game's report keeps a generic name.
-- **Photos,** if you carried a camera: the alpenglow shot, if the minigames give you one (decision 30).
+- **Photos,** if you carried a camera or a phone: the alpenglow shot's best photo is the report's cover, and film prints arrive here like an envelope from the drugstore (17.8).
 - **Field Notes:** the cause trace, one tap away (8.13).
 - **Buttons** (DRAFT): *Share*, *Hike it again* and *Back to the cabin*.
 
 **Hike it again** (DRAFT; it was *Try this trip again*) is the Oregon Trail loop made one tap: it copies the printed permit (the plan, the dates, each night's camp as granted and the canister as lent) under the next permit number, skips planning, so nothing on the permit is rolled again, and goes straight to the town run and the flat lay with your last kit loaded. You choose **same weather** (the same seed: change the pack, see what changes) or **new weather** (a new seed for everything after the permit). Either way it is a new trip for the same hiker, never a restore, and it can't open a seed that is already in progress. A trip that ended in GAME OVER has its GAME OVER card instead of a report, and no *Hike it again*: the next hiker may plan the same trip, but with new weather (the register keeps the dead trip's seed for exactly this), so a death can never be replayed choice by choice.
 
-**Share** renders a **share card** as a 1080 x 1350 PNG through the iOS share sheet, with no server: the picture (the trip's best photo, or the route's own scene), the stamp, the title, the dates, the miles, climb and nights, the elevation profile, the splits, the permit number and the hiker's name (optional), and the game's name and address in small type (wireframe in 12.23). The flat lay has its own share image (6.10). A Hike of the Day shares as text, so it pastes anywhere and gives nothing away; its format is settled with the modes.
+**Share** renders a **share card** as a 1080 x 1350 PNG through the iOS share sheet, with no server: the picture (the trip's best photo, or the route's own scene), the stamp, the title, the dates, the miles, climb and nights, the elevation profile, the splits, the permit number and the hiker's name (optional), and the game's name in small type, with no address (wireframe in 12.23; why, 2.2). The flat lay has its own share image (6.10). A Hike of the Day or an FKT attempt shares its own card instead: text that pastes anywhere and spoils nothing, and a picture of the trailhead (9.9).
 
 ### 9.8 Across trips: the hiker's career
 
+*All in-game words in this section are DRAFT (decision 21), marked or not; the final words are yours.*
+
 **One hiker at a time.** A phone has one living Open hiker, and that hiker has at most one trip in progress. While the hiker lives, they carry on from trip to trip:
 - **Trip reports** pile up by the fire bowl at the cabin, to read again: the report and its log, with the route replaying on the map with its splits (E.6). If the phone runs short of space, the oldest reports keep their summary and lose their log text first.
-- **Career marks** show at the cabin: a plank sign on the shed wall for each route finished, a race bib for an FKT record, the lily's gold sketch (2.2).
+- **Career marks** show at the cabin: a plank sign on the shed wall for each route finished, and the lily's gold sketch (2.2). The chalkboard's tally marks and the race bibs are yours, not the hiker's (1.3).
 - **Skills** grow (7.10).
 - **Memory:** *Like last time* reloads their last kit; the checklist in the shed and the WIC ranger remember what the pack taught (6.6); if a bear got their food, their next trip into that region meets a bolder bear; and if a ranger wrote them a citation, the next permit check there is likelier (2.6).
 - **From M6, badges** (Every camp on the Hoh; Seven Lakes, all seven; Royal Basin; Tide Reader, for every South Coast headland rounded with at least 1 ft to spare). Badges belong to the hiker. The same-weather-for-everyone idea once planned for M6 is now the Hike of the Day (decision 23), with its own fresh hiker.
 
 **After a death: a full wipe** (your decision, 2026-10-08: *"Full wipe"*). Everything that was the hiker's is gone: the hiker, their skills, their trip reports, the dead trip itself, their career marks at the cabin, their badges and anything else they collected, their region memory and their *Like last time*. It plays at the cabin at dusk, where the reports and the signs crumble to dust (2.2). The next trip starts a **new hiker** from nothing: a new name in the guest book, beginner's skills, a first trip with its short chores (3.6), and nothing inherited.
 
-**The only thing that survives is the Trail Register.** There is no tombstone in the park, because Leave No Trace: the hiker's remains turn to dust on screen (9.5), and the epitaph goes where trailheads keep names. What the phone itself keeps is not the hiker's: your settings, the daily streak and personal bests (which belong to the player, decision 25), and which odds lines you've already been shown (8.7).
+**The only thing that survives is the Trail Register.** There is no tombstone in the park, because Leave No Trace: the hiker's remains turn to dust on screen (9.5), and the epitaph goes where trailheads keep names. What the phone itself keeps is not the hiker's: your settings, your handle, every timed result with the streak and the personal bests (which belong to the player, decision 25; E.6), and which odds lines you've already been shown (8.7).
 
 **The Trail Register** is our version of Oregon Trail's tombstones and its Top Ten in one, like the paper sign-in registers at real trailheads. It opens from the register post at the edge of the cabin's lawn (2.2, 12.3) and holds two lists:
 - **Best trips:** the top ten finished Open trips by any hiker who ever lived on this phone, ranked by the share of their own maximum, so a good day hike can top a long trip. Each line has the hiker's name, the trip, the date and the score (and a *cited* stamp, if a ranger wrote one, 9.6). The list starts empty, so a first finished trip tops it.
-- **Remembered:** every hiker whose trip ended in GAME OVER, newest first, with the name, the place, the dates, the score reached, the *YOU PERISHED* line, the permit number (or *day hike*, which has none) and the epitaph (typed, dealt with its credit, or blank). Tapping a line opens a small card with the same facts and the trip's title. It comes **pre-filled with the 104 Boyz** (your call; 7.11): one line each, a fictional misadventure death with a funny epitaph, dated before any trip on the phone, so real lines always sit above them. To a stranger they are old register lines (2.2). They can never be removed, and they carry no seed.
+- **Remembered:** every hiker whose trip ended in GAME OVER, and every death in a timed mode, under your handle with a small tag (`#212`, or the FKT board, 9.4), newest first, with the name, the place, the dates, the score reached, the *YOU PERISHED* line, the permit number (or *day hike*, which has none) and the epitaph (typed, dealt with its credit, or blank). Tapping a line opens a small card with the same facts and the trip's title. It comes **pre-filled with the 104 Boyz** (your call; 7.11): one line each, a fictional misadventure death with a funny epitaph, dated before any trip on the phone, so real lines always sit above them. To a stranger they are old register lines (2.2). They can never be removed, and they carry no seed.
 
-Each new trip's trailhead screen shows the register's last few lines on the kiosk, epitaphs included (12.10). Gentle-mode trips, if that mode is ever released, never appear in either list (9.4), and Hike of the Day DNFs stay on the chalkboard (2.2). The register also keeps what the game needs to stay fair after a wipe, out of sight: each dead trip's seed (so its code rolls new weather, 9.7) and the permit counter (12.6).
+Each new trip's trailhead screen shows the register's last few lines on the kiosk, epitaphs included (12.10). Gentle-mode trips, if that mode is ever released, never appear in either list (9.4), and the timed modes appear only in *Remembered*, tagged (9.4). The register also keeps what the game needs to stay fair after a wipe, out of sight: each dead trip's seed (so its code rolls new weather, 9.7) and the permit counter (12.6).
 
 **Trip codes:** `SOL3-K7QM-2Q9F` shares a template, a seed and the profile values the engine reads. *Same mountain, same weather, your own pack.* When friends compare the same code, novelty is switched off so the trips match. A code from a GAME OVER trip still shares its mountain and weather with friends; on your own phone it opens a new trip with new weather, so a code is never a restore. A code whose seed is already in progress won't open at all. A code remembers its trip's mode, for the day the gentle mode is released: opened in the other mode, it rolls new weather.
+
+### 9.9 The Hike of the Day
+
+*Decisions 23, 24, 25 and 31. The overview is 1.3, and the full draft with its reasoning is `design/drafts/daily_fkt.md`. Every in-game word here is a DRAFT for you (decision 21).*
+
+#### The rules
+
+1. **One route, one date, one set of dice.** The route, its direction, the camp on an overnight, the start window, the forecast, the actual weather, every roll and today's legs are the same for every player (E.12).
+2. **One shot** (decision 24). Starting commits you. Closing the app mid-trail resumes the same attempt, never a fresh one: the save at each confirming tap already holds its outcome, as in Open (8.14).
+3. **The score is the time, home alive.** A finish posts a time. A death is a DNF.
+4. **A death never touches your Open hiker** (decision 25). The death sequence plays in full, then you are back at the cabin with your career as you left it (9.4).
+5. **Coming home is never punished.** Turning back or being rescued posts no time, but it keeps your streak. The game must never teach anyone to hesitate before turning around or calling for help (9.2).
+6. **A fresh standard hiker and kit** (1.3): the same shed and pantry for everyone, and no shopping (5.2).
+
+#### When a day opens and closes
+
+A daily opens at **5:00 am Pacific** and closes 24 hours later. The Pacific date names it everywhere in the world, and the first one is #1.
+
+- **Why 5:00 am.** The National Weather Service's Seattle office issued its routine forecasts at 2:37 am Pacific on every day checked (October 4 to 8, 2026). The morning job first runs at 3:03, tries every 10 minutes until 4:23, and the day must be live by 4:45 or the standby day takes its place (9.10). Before 5:00 you are still on yesterday's hike.
+- **Started is pinned.** An attempt belongs to the day it started on, and may finish up to two hours past the close. One still unfinished after that posts nothing, and the day counts as missed.
+- **Missed days** can be played later as practice: no streak, no board.
+- **Time zones.** The day opens at 8:00 am in New York and 1:00 pm in London. That is the price of one board on one real forecast. Midnight Pacific is the alternative ([still to come](#still-to-come-from-you)).
+- **A daily and an Open trip** can both be in progress, saved apart (E.6). The app opens on the one you played last, and the cabin's next-step button offers the other.
+
+#### The flow
+
+```
+ THE CABIN · the chalkboard
+  #212 · Thu Sep 23, 2027
+  Deer Lake · out and back
+  7.4 mi · +1,950 ft
+  NWS: showers · par 2:31
+  One shot.            [Go]
+    ▼
+ TODAY'S CARD
+  a day hike: the day-use line
+  an overnight: today's permit,
+  the same for everyone
+  pick a start: 6:00-10:00 am
+    ▼
+ THE FLAT LAY: the standard
+  shed and pantry     [share]
+    ▼
+ THE DRIVE · one screen
+    ▼
+ THE TRAILHEAD · last look
+  Start walking ▶ the clock runs
+    ▼
+ THE TRAIL · splits at named
+  places, against par
+    ▼
+ THE CAR ▶ the clock stops
+  or the death sequence: DNF
+    ▼
+ DRIVE HOME ▸ THE CABIN ▸ TRIP
+ REPORT ▸ (a big hike) THE SOAK
+```
+
+*(Every label is a DRAFT. Wireframes: 12.26.)*
+
+- **The flat lay is part of the daily.** It is the same signature screen (6.1), packed from the standard shed, so the whole question is what you leave behind. It shares before you start. After you finish, your crew's flat lays for the day are one tap away: who packed the cheese.
+- **The drive is one screen** in the daily. The clock doesn't run until *Start walking*, so the drive costs nothing; its job is the mood.
+- **Overnight permits carry the day's number** after the 104, the same on every phone, like a race bib: `Permit No. 104-0212`. Daily permits never move the Open counter (12.6).
+- **The tub** follows the Open rule (2.2). Today's trail hours are known in advance, so the chalkboard can draw a small steam curl beside a route that earns it (a DRAFT idea).
+
+#### What the clock counts
+
+- **Day hikes:** elapsed time from *Start walking* to the car, to the second. Breaks, waits and side trips all count. A sure choice that costs time (waiting out the fog) costs time, which is exactly the trade the daily is about.
+- **Overnights: trail time.** The clock runs on the trail and stops in camp, from *Make camp* until you start walking the next morning. You must sleep at the permitted camp, and the morning's *Start walking* opens an hour before first light. So the night is off the clock, but what you did with it isn't: a cold ultralight night slows tomorrow's legs, and a hot dinner and a warm bag pay you back (7.9).
+- **The start window** is a real decision: early to beat the afternoon thunder on the crest, or later to let the frost come off the stone staircase.
+- **Seconds, honestly.** The timed modes keep an integer-second clock (7.1, E.12), so two players a minute apart are a minute apart.
+
+#### The route library
+
+A daily route needs a trailhead the drive can reach on that date, a route on the graph, season and snow windows, a camp if it is an overnight, and weather anchors (9.10). The library is data, `content/daily/library.json` (E.5), built from each region's `classic_trips` and a few graph routes, each tagged with its slot.
+
+**M1a: the loop only.** From `sol_duc_high_divide.json`:
+
+| Route | Mi · gain ft | Kind | Season |
+|---|---|---|---|
+| Sol Duc Falls | 1.6 · 260 | Day | Road open |
+| Deer Lake | 7.4 · 1,950 | Day | Jul-Oct |
+| Lunch Lake and back | 15.6 · 4,130 | Day | Mid-Jul-Sep |
+| Bogachiel Peak by Deer Lake | 16.2 · 4,320 | Day | Late Jul-Sep |
+| The loop, ↺ or ↻, by the crest | 18.4 · 4,400 | Day | Late Jul-late Sep |
+| The loop by the basin | 18.7 · 4,420 | Day | Late Jul-late Sep |
+| Deer Lake overnight | 7.4 · 1,950 | 1 night | Jul-early Oct |
+| Lunch Lake overnight | 15.6 · 4,130 | 1 night | Mid-Jul-Sep |
+| The loop with one night (B.1's fills) | 18.4-18.7 | 1 night | Late Jul-Sep |
+
+That carries a summer, not a winter. The High Divide is snowbound from about November into June, and `park_rules.json` plans no High-zone trips outside June to October. **So the daily can't launch on M1a alone outside the summer.** It waits for M1b's low trails.
+
+**M1b: the whole Sol Duc side, and Lake Crescent** (recommended). Every route here is a `classic_trips` entry in `sol_duc_high_divide.json`:
+
+| Route | Mi · gain ft | Slot | Season |
+|---|---|---|---|
+| Marymere Falls | 1.8 · 330 | Short | Year-round |
+| Lover's Lane loop | 5.3 · 380 | Short | Road open |
+| Mink Lake | 5.2 · 1,520 | Medium | Mid-Jun-Sep |
+| Spruce Railroad Trail | 8.0 · 140 | Flat | Year-round |
+| Mount Storm King, to the end of the maintained trail | 4.4 · 2,100 | Vertical | May-Oct |
+| Pyramid Peak | 7.0 · 2,770 | Vertical | Apr-Nov |
+| Aurora Creek to Aurora Ridge | 6.8 · 3,220 | Vertical | Jun-Oct |
+| Little Divide loop | 13.6 · 2,920 | Long | Mid-Jul-Sep |
+| Appleton Pass | 14.8 · 3,660 | Long | Jul-early Oct |
+| Barnes Creek to Aurora Divide | 15.0 · 4,260 | Long | Jul-Oct |
+| Hoh Lake from Sol Duc | 18.0 · 4,760 | 1 night | Late Jul-Sep |
+| Little Divide loop, a night at Deer Lake | 13.6 · 2,920 | 1 night | Mid-Jul-Sep |
+| Mink Lake overnight | 5.2 · 1,520 | 1 night | Mid-Jun-Sep |
+
+- **Mount Storm King stops at the end of the maintained trail.** The ropes above it are the hazard `storm_king_ropes`, tagged `real_incident` (9.5), and the daily never sends anyone there.
+- **The Sol Duc Road** is often closed by snow and ice in winter (it reopened about 2026-03-24), so every Sol Duc route leaves the library whenever the conditions overlay or the winter rule says the road is closed.
+
+**Winter, honestly.** With the Sol Duc Road closed, M1's winter library is Lake Crescent's low trails: Marymere Falls, the Spruce Railroad Trail (and its shorter walk to the Devil's Punchbowl, about 2.2 mi), and Pyramid Peak and Storm King when the snow level allows. Five routes repeat every week or so. Two fixes:
+
+- **Lake Quinault's own backyard (recommended).** The cabin is at Lake Quinault, and `south_quinault_skok.json` already has four low trips there: the Quinault Rain Forest loop (4.2 mi), the Kestner Homestead and Maple Glade (1.3), Pony Bridge (5.0, road permitting) and Irely Lake (2.2, spring to fall). Pulling these four forward is a small content job, and it puts winter dailies in the home base's own rain forest, which is the right feeling for a rainy January.
+- **The coast (M4)** brings winter weekend overnights and the tides, and fully meets decision 31's *"winter weather pushes the daily to the coast and low trails."*
+
+Until the coast arrives, **winter weekends are day hikes**: there is no sensible low overnight in the M1 data.
+
+#### How the day's route is chosen
+
+The morning job picks it (9.10). The rules are data, so they can be tuned without code:
+
+1. **The slot.** Monday short, Tuesday medium, Wednesday vertical, Thursday medium or long, Friday the big one (the loop in a day, in season), and Saturday and Sunday one-night overnights. Each weekend day is its own daily, so one calendar day is always one daily and one step of the streak.
+2. **The season.** Only routes whose season, snow window (the melt-out line of 7.6 against the route's high point) and road allow that date.
+3. **The cooldown.** No route repeats within 10 days in summer, counting direction and camp variants as one route. Winter's small library relaxes it to 4 days.
+4. **The ranger's veto.** If NWS has a warning in force for the route's zone that day (a winter storm, high wind or flood warning, from the `hazards` layer), the job moves to the next candidate. Ordinary bad weather is never vetoed: rain on Deer Lake is the day's puzzle, not a reason to skip it.
+5. **The smoke test.** The job plays the candidate 2,000 times with the harness's bots (F.2). If the sensible bots die more often than F.1 allows a sensible plan (0.5% a trip), it moves on.
+6. **The draw.** Among the candidates left, the job draws with the day's random seed, so nobody can predict next week.
+
+#### Par and splits
+
+- **Splits** fall at named places on the route (trailheads, junctions, camps and landmarks), about one every 1 to 3 miles, listed per route in the library.
+- **Par** is the median time of the harness's Steady bot (F.2) on today's daily, split by split. The job works it out during the smoke test and publishes only the split times, never what happened on the way.
+- **On the trail,** each split on the strip shows your time against par (12.2). The share card makes each split a block.
+- **Par's name is yours to write.** *Jon's pace* would be an insider's wink (DRAFT).
+
+#### Streaks
+
+The streak counts **days in a row you played and came home**.
+
+| Outcome | Board | Streak |
+|---|---|---|
+| Finished, or the Hard Way | Your time | +1 |
+| Turned back or walked out early | *Home safe*, no time | +1 |
+| Rescued | *Home safe*, no time | +1 |
+| Disqualified | No time, and why | +1 |
+| Died | DNF | Back to 0 |
+| Didn't play | Nothing | Back to 0 |
+
+(*Home safe* is a DRAFT label; DNF and DQ are the runners' own terms.) A death resets the streak, as decision 25 says. Turning back keeps it, because the honest odds offer a sure way out at every moment that can end a hike, and the streak should reward taking it. The phone also keeps your best streak, your finishes and DNFs, and a calendar of every day you played (9.12). At the cabin the streak is tally marks on the chalkboard (2.2).
+
+#### The share card
+
+Two things share, through the iOS share sheet, with no server.
+
+**The text.** Wordle's trick: a strip that says how it went and nothing about what happened. It never names a hazard, a choice, a place mid-route or the weather that bit you.
+
+```
+OP Hiker · Hike of the Day #212
+Deer Lake · out and back
+2:41:07 · home
+▲▲▼▲  ♦1  streak 7
+```
+
+```
+OP Hiker · Hike of the Day #212
+Deer Lake · out and back
+DNF · 2 of 4 splits
+▲▼✕   streak 0
+```
+
+*(DRAFT. The short name, OP Hiker, is approved by decision 35; every other word is yours to write.)* Each block is a split: ahead of par, behind par, or where it ended. In the real text the blocks are colored square emoji, which read in any group chat. `♦1` counts the red-diamond choices you took and survived, without saying which. A crew link can ride along (9.12).
+
+**The picture** is a 160 x 168 card of the trailhead (never a mid-route scene) under today's real sky at the hour you finished, with your time in the pixel font, the daily's number and the split strip. It is the game's summit photo, and it spoils nothing by construction. The flat lay's own share image heads its strip with the day (6.10).
+
+**Easter eggs, if you want them:** daily #104 could be the day every Boy is on the trail, and a time ending in 1:04 could make a little thermometer in the card's corner wink. Insiders notice; nobody else needs to (decision 34).
+
+#### Deaths, disqualifications and the register
+
+- **A death plays the whole death sequence** (9.4, 12.17), then comes home to the cabin on the real clock, with nothing wiped. The chalkboard says DNF, the tally marks are wiped clean, and the line goes into the Trail Register's *Remembered* under your handle, tagged with the day's number (9.8). Crew boards show a typed epitaph; the world board shows only a dealt public-domain line or none, because typed text there would need moderation (9.12).
+- **Disqualified** means the run broke a rule the game showed on the button before you chose: cutting a switchback, camping off today's permit, or skipping a required split. You still come home, the streak still counts, and the trip report says why there is no time.
+- **The Bonfire Lily stays out of the timed modes** (recommended). The same dice for everyone would make it the same for everyone that day, and *"the lily is out today"* would be all over the group chat. It belongs to Open hikers out on the snow after dark (10.2).
+- **Larry moments:** the dealt ones can come, the same for everyone. Beer and the pre-roll can't, because the standard pantry has neither (2.6).
+
+### 9.10 Today's real weather
+
+*Decision 31: each morning a scheduled build bakes the National Weather Service forecast for that day's route into the daily.*
+
+#### What the morning job does
+
+Every morning, `daily.yml` runs `tools/daily.mjs` in GitHub Actions:
+
+1. **Check the rules.** Read the live `version.json`, check out the tag `rules-<hash>` it names, and refuse to bake unless `/e/<hash>/` is live (E.12). Release any held rules change first (below).
+2. **Pick the slot and the candidates** for today (9.9). The route choice and its smoke test can run the evening before, on climatology, if the morning's runtime budget needs it.
+3. **Fetch the forecast** for each candidate's weather anchors, for Quillayute's grid cell (the park-wide state), and for Lake Quinault (the cabin's sky, 2.2).
+4. **Convert** each forecast into game weather, and draw the actual weather once.
+5. **Smoke-test** each candidate with bots, and pick (9.9).
+6. **Write the day's file** with a fresh random seed, and add it to the index.
+7. **Publish it, data only:** push it to the `daily` data branch, overlay it on the last good site and deploy that in about a minute, with no app build (below), then wait until it is live.
+8. **Bake one more standby day,** 45 days ahead, on climatology (below).
+9. **On failure,** retry; if the day isn't live by 4:45, publish today's standby day instead.
+
+About ten requests to NWS a day, a few minutes of compute, and no secret: the NWS API needs no key. **Phones never call NWS;** only the job does. **From T1, weeks before the daily ships,** steps 3 and 4 run every morning in shadow mode, publishing nothing, to measure how reliably NWS answers GitHub's runners: NWS's firewall isn't run by the API team, and it has blocked some proxy traffic ([weather-gov/api #435](https://github.com/weather-gov/api/discussions/435)).
+
+#### The NWS API, checked
+
+Checked against the documentation and by calling the API on 2026-10-08:
+
+- **A User-Agent is required:** *"A User Agent is required to identify your application"* ([NWS API](https://www.weather.gov/documentation/services-web-api)). A request without one got 403. The job sends `(104-boyz daily, github.com/FernForager/104-boyz)` and no email address, since the repo is public.
+- **Two calls per place.** `/points/{lat},{lon}` gives the forecast office, the grid cell and the raw grid's URL: `SEW` for everything in the M1 library, and `SEW 81,94` for the Sol Duc trailhead (rechecked for this revision). The grid is *"about 2.5km x 2.5km"*, and a point's cell can occasionally change, so the job re-checks `/points` weekly and caches the mapping (`/points` answers are cached for a day, grid data for an hour).
+- **The raw grid has what the game needs:** temperature, dew point, sky cover, wind and gusts, the chance and amount of precipitation, snowfall, **snow level**, **probability of thunder**, the `weather` layer (rain, showers, fog or snow, with coverage), visibility and `hazards` (watches and warnings), each as ISO 8601 time ranges, plus the cell's own elevation.
+- **Errors come as `application/problem+json`,** and an impossible point gets 404. A May 2025 service change made invalid grid cells return 404 instead of 500, and missing data return nulls instead of 503.
+- **Rate limits aren't public.** Over the limit a request errors, and can be retried *"after the limit clears (typically within 5 seconds)"*. Ten requests a day is nothing.
+- **Timing.** Seattle's routine zone forecasts came out at 2:37 am and 2:37 pm PDT on each day checked (October 4 to 8, 2026); the grid also updates at other hours. The file records the grid's `updateTime`.
+- **Public domain, with conditions.** NWS information is public domain, but reusers may not imply endorsement and may not *"modify its content and then present it as official government material"* ([NWS disclaimer](https://www.weather.gov/disclaimer)).
+
+#### Weather anchors
+
+Each route has two to four **anchors**: the trailhead, the high point, and anywhere the weather changes the play (the crest, a lake camp). The 2.5 km grid smooths the mountains, so a cell's elevation can be far from the place's. Checked on 2026-10-08:
+
+| Place (ft) | NWS cell | Cell ft | Use |
+|---|---|---|---|
+| Sol Duc trailhead (1,980) | SEW 81,94 | 2,100 | Good match |
+| Deer Lake (3,530) | SEW 81,93 | 3,458 | Good match |
+| Lunch Lake (4,450) | SEW 82,92 | 4,787 | Good match |
+| High Divide (5,180) | SEW 82,91 | 4,685 | Lapse 500 ft |
+| Heart Lake jct (5,080) | SEW 83,91 | 3,330 | Use 82,91 |
+| Appleton Pass (5,140) | SEW 84,93 | 5,443 | Good match |
+| Mink Lake trailhead (1,650) | SEW 80,95 | 1,624 | Good match |
+| Aurora Divide (4,770) | SEW 84,96 | 3,406 | Lapse 1,360 ft |
+| Marymere Falls trailhead (600) | SEW 83,99 | 577 | Good match |
+| Storm King, trail's end (2,700) | SEW 84,98 | 1,713 | Lapse 990 ft |
+| Pyramid Peak (3,100) | SEW 83,100 | 2,385 | Shares a cell... |
+| Spruce RR, Lyre River (600) | SEW 83,100 | 2,385 | ...2,500 ft apart |
+| Quillayute (the state) | SEW 58,98 | 98 | The chain's station |
+| Lake Quinault (its center) | SEW 75,72 | 348 | The cabin's sky |
+
+So ingest does two things once, and stores the result in the library:
+
+- **Nearest-elevation neighbor.** For each anchor, look at the 3 x 3 block of cells around it and take the one whose elevation is closest to the place's. That is how Heart Lake Junction gets 82,91.
+- **Lapse the rest.** Shift temperature from the cell's elevation to the place's with the rates in 7.5 (-3.3 °F per 1,000 ft in cloud, -4.5 on a clear afternoon), and nothing else: rain chance, wind and thunder come straight from the cell, with the ridge factor below.
+
+The cabin's sky uses the lake's center, never a building's position (2.2).
+
+#### From forecast to game weather
+
+The weather model (7.5) runs on a daily park-wide state (fair, unsettled, wet, storm), zone weather derived from it, overlays for thunder, fog and wind up high, and temperatures by lapse rate. The job maps the forecast onto exactly those inputs, so the engine runs the same code on a daily as on any trip:
+
+| Game input | From the NWS grid | Rule |
+|---|---|---|
+| The day's state | Quillayute's 24-h precipitation | The chain's own cut-offs |
+| Rain by hour | Chance and amount | Drawn once (below) |
+| Thunder up high | `probabilityOfThunder` | Drawn once per block |
+| Fog on the crest | `weather` fog, visibility | Else the data's climatology |
+| Crest wind | Wind speed, gusts | x1.1 ridge factor (estimate) |
+| Temperatures | `temperature` | Lapsed to each place |
+| Snow on the trail | Snow level, snowfall | Into the 7.6 snow model |
+| Warnings | `hazards` | The ranger's veto (9.9) |
+| Daylight | Computed for the date | 7.2 |
+
+**The state is the neat part.** The park data built the weather chain from Quillayute's daily precipitation (`park_rules.json`, `climate.m1a_weather_inputs.weather_chain`: fair under 0.01 in, unsettled 0.01 to 0.09, wet 0.10 to 0.99, storm 1.00 or more). So the job reads NWS's precipitation forecast for Quillayute's own cell and applies the same cut-offs, and the forecast lands in the same four states the climatology speaks.
+
+**Fog** comes from the `weather` layer where NWS forecasts it (*patchy*, *areas of* and *widespread* map to 0.3, 0.5 and 0.8, estimates), and otherwise from the data's high-zone fog shares by state, since ridge fog is often finer than a 2.5 km grid. **Day two** of an overnight uses the same grid: the forecast runs seven days.
+
+#### The forecast and the truth
+
+The game keeps its difference between the forecast and what happens (7.5), now with a real forecast:
+
+- **The forecast** on the board is NWS's own, unaltered and credited: the real thing hikers read before a real trip.
+- **The truth** is drawn once by the job from that forecast, with the day's seed: whether it rains in each six-hour block (at the forecast's own chance), how hard, whether thunder reaches the crest this afternoon, whether fog sits on the rim at 2 pm, whether dawn is two degrees colder than forecast. Then it is frozen into the file, the same for everyone.
+- **The odds stay honest.** A 40% chance of rain on the board means a day like it rains 40% of the time in the game. A nightly check keeps score over the archive (F.1): if NWS is well calibrated, so is the game.
+- **No peeking.** The truth is in the file, so a player with developer tools open could read it, which is the same as reading the dice: the honor system covers it (9.12). The file stores it in the engine's own form, not as a weather report.
+
+#### The day's file
+
+One small JSON file per day, written once:
+
+```json
+{
+ "v": 1,
+ "n": 212,
+ "date": "2027-09-23",
+ "opens": "05:00 PT",
+ "route": "deer_lake_day",
+ "kind": "day",
+ "start": ["06:00", "10:00"],
+ "seed": "9f2c…",
+ "rules": "r7c41e0",
+ "wx": {
+  "src": "nws",
+  "office": "SEW",
+  "grid": "2027-09-23T09:41Z",
+  "fetched": "2027-09-23T10:24Z",
+  "board": "…NWS periods…",
+  "truth": "…engine form…"
+ },
+ "par": [762, 5544, 8312, 9060]
+}
+```
+
+- `seed` is 128 random bits from the job, so nobody can work out a future day's dice.
+- `rules` names the exact engine and data that play this day (E.12).
+- `par` is the Steady bot's median at each split, in seconds.
+- `src` is `nws` or `standby` (a day baked ahead on climatology, used when a morning fails), and the board says which (DRAFT wording).
+
+The files live at `daily/2027/2027-09-23.json` on the `daily` data branch, with `daily/index.json` listing each day's number, date, source and SHA-256 hash. Pages serves them under `/104-boyz/daily/`. Each is well under 20 KB, so a year of them is a few MB against Pages' 1 GB limit ([GitHub Pages limits](https://docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits)).
+
+#### Pinning: why a late player gets the same day
+
+- **Written once.** The job refuses to overwrite a published day. A fix ships as a new rules version for tomorrow, never as an edit to today.
+- **Checked by hash.** The phone fetches the index past its cache, then the day's file, and refuses a file whose hash doesn't match. The attempt's action log records the hash.
+- **Live is the commit point.** A day counts as published only once it is live. After deploying, the job polls `daily/index.json?cb=…` until the live index lists today's hash. If that hasn't happened by **4:45 am**, `daily-push` deletes the unpublished NWS file and publishes today's standby day instead; and the deploy step refuses to upload an NWS-sourced file for a day whose open has passed and that isn't already live. So no day can ever exist in two versions, and nothing with real weather appears after the day opens.
+- **A data-only deploy.** The morning job never rebuilds the app. Every full deploy keeps its assembled site as the single commit of an orphan `site` branch, force-pushed, so it never grows; the job checks that out, overlays `daily/`, `fkt/` and `e/`, and uploads and deploys it, in about a minute: no `npm ci`, no tests. A red main or preview build, or a slow one, never touches the daily (E.9).
+- **The standby calendar, so a phone never computes a day.** Each morning the job also bakes one standby day 45 days ahead, on climatology, through the same steps a real day takes (candidates, smoke test, par, seed, the drawn truth), naming the rules it was baked on, and `daily/standby.json` lists the next 45. The service worker keeps that file in its data cache whenever it fetches the index. **A phone whose index has no file for today at 5:00 plays that date's standby entry,** and the job archives exactly that entry for any day that opened without a live file, so the record is complete and crew links verify. The archive keeps every rules version a standby entry names (E.12). Past the standby horizon, the chalkboard says the daily is resting (DRAFT), and nothing is computed. The price: a standby day's dice are public weeks ahead, and they play only when a morning fails.
+- **"Today" is the server's.** The phone takes *now* from the `Date` header of the index fetch the daily already needs (same origin, so it can read it), never from its own clock, so a phone whose clock is set ahead never pins an attempt to a day that doesn't exist yet.
+- **Offline, the daily waits.** A phone can't tell a missing file from a missing signal, so it starts today's daily only after it has fetched the index once that day; the chalkboard says so (DRAFT), and Open plays offline as ever (E.7).
+- **Kept while you play.** When a timed attempt starts, its pin (the rules hash and the day's or week's file) is written to IndexedDB, where the service worker can read it. A new worker, on install, fetches `/e/<pinned hash>/` into its own cache, `oph-<channel>-pin-<hash>`, which activate never deletes until the pin clears; and a resumed attempt loads the engine its pin names, never the current one. So an attempt survives an update, iOS killing the app in the background, and airplane mode (E.6, E.7).
+
+#### When things fail
+
+| What fails | What happens |
+|---|---|
+| No User-Agent (403) | A unit test makes sure the job always sends one |
+| NWS errors or times out | Retry after 5, 15 and 45 s, then the next run |
+| Over the rate limit | Wait 5 s and retry |
+| A cell moved (404) | Re-resolve with `/points`, else the next anchor |
+| A missing layer | The next hour, then climatology; logged |
+| A stale grid, over 12 h old | Used and flagged; over 24 h, the fallback |
+| The schedule runs late | Nine runs, every 10 minutes from 3:03 to 4:23 am, each idempotent |
+| The schedule never runs | Phones play the standby day at 5:00; nothing is computed |
+| The deploy fails or is slow | The next run retries; not live by 4:45, the standby day |
+| Main or preview is red | Nothing: the morning deploy is data only |
+| The schedule goes dormant | Below |
+
+**The sleeping schedule.** In a public repository, GitHub disables scheduled workflows *"when no repository activity has occurred in 60 days"* ([GitHub Docs](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows)), and scheduled workflows run only from the default branch, while the job's pushes go to `daily`; whether pushes by the workflow's own token count as activity isn't documented. So the game never depends on the job (the standby calendar covers 45 days, far longer than it takes to notice the issue email), the job opens a GitHub issue after two failed mornings (which emails you), and at the end of each run it calls GitHub's *enable a workflow* endpoint (`PUT /repos/{owner}/{repo}/actions/workflows/{id}/enable`, [GitHub Docs](https://docs.github.com/en/rest/actions/workflows)) for each scheduled workflow, as [gh-workflow-immortality](https://github.com/PhrozenByte/gh-workflow-immortality) does. Two things are unconfirmed and get tested first: whether that resets the 60-day clock (the tool's author says so; GitHub doesn't), and whether the default `GITHUB_TOKEN` with `actions: write` may call it (the tool asks for a personal token). While it sleeps, the board says it is a standby day.
+
+#### The workflow (sketch)
+
+```yaml
+name: daily
+on:
+  schedule:
+    - cron: '3-53/10 3 * * *'
+      timezone: America/Los_Angeles
+    - cron: '3-23/10 4 * * *'
+      timezone: America/Los_Angeles
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: write
+  issues: write
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: false
+jobs:
+  bake:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment: github-pages
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - run: node tools/daily.mjs
+      - run: node tools/daily-push.mjs
+      - run: node tools/site-overlay.mjs
+      # upload and deploy, as pages
+      - run: node tools/daily-live.mjs
+      - run: node tools/keep-awake.mjs
+```
+
+- **Nine runs a morning,** every 10 minutes from 3:03 to 4:23 Pacific, each idempotent: if today is live, it exits at once. The times avoid the top of the hour, when GitHub says scheduled runs may be delayed, or under enough load dropped (the same GitHub Docs page), and the 2:00 to 3:00 hour that vanishes in spring. A schedule can name an IANA time zone, so the times stay Pacific all year; GitHub's shortest schedule is every 5 minutes.
+- **The deploy is data only** (`site-overlay.mjs`: the `site` branch plus `daily/`, `fkt/` and `e/`), in the same `pages` concurrency group as the full deploy, so the two never race. `daily-live.mjs` polls the live index until today's hash is there, or swaps in the standby day at 4:45 (above). `keep-awake.mjs` calls the enable endpoint for each scheduled workflow.
+- **No full history.** Each step fetches only the refs it needs, shallowly (`BUILD_PLAN.md` 6.3).
+- **Workflow files need your permission to push** (`BUILD_PLAN.md` 6.1). If a session's push is refused, it hands you the file to paste on GitHub, as before.
+- **Actions minutes are free** for a public repository on standard runners.
+
+#### What the forecast board may say
+
+- **NWS's own words, unaltered,** with a credit line: the period names, the short forecasts and the numbers, exactly as the Seattle office wrote them. They are not original English, so decision 21 doesn't make them yours to write, but you can veto showing them.
+- **Everything the game works out** (the crest at 5,180 ft is 6 °F colder than its cell; the afternoon's thunder chance on the crest) is labeled as the game's estimate *from* the NWS forecast, in your words.
+- **Nothing the game computes is ever shown as an NWS forecast,** and nothing suggests NWS endorses the game. Credits carry *"Forecasts from the National Weather Service"* (12.20).
+- **On a fallback day** the board says so plainly (DRAFT, the wording yours).
+
+### 9.11 FKT attempts
+
+*Decision 23: "I love trail running and FKT culture. Each big route in the game could also have a fkt." The overview is 1.3, and the full draft is `design/drafts/daily_fkt.md`. Every in-game word here is a DRAFT.*
+
+#### What an FKT is, in the game
+
+A Fastest Known Time is the trail runners' record for a route. The keepers of the records, fastestknowntime.com, ask for *"elapsed time"*, the route followed, and nothing that violates *"any applicable law, rule, or policy"* ([FKT guidelines](https://fastestknowntime.com/guidelines)). In the game, an FKT attempt is a timed run of one route, one way round and in one style, by a fresh standard runner, scored by elapsed time and checked by replaying it (9.12).
+
+**The game's times are the game's.** They come from the engine's own trail graph and runner, and they can't be compared with a real watch. So **the game never shows a real athlete's name or time** (a lead call). The real *High Divide Loop (ONP, WA)* route is 17.6 mi and 5,300 ft from the Sol Duc Falls trailhead, with only unsupported times on record ([FKT](https://fastestknowntime.com/route/high-divide-loop-onp-wa)). It tells us what the route is, nothing more; the game's graph says 18.4 mi and 4,400 ft (4.3).
+
+#### Which routes get a board
+
+A route gets a board if it is fully on trail, long (12 miles or more) or steep (2,000 ft or more of climbing), and a loop, a peak or an end-to-end runners would recognize. One flat route gets a board too, for winter. From `sol_duc_high_divide.json`:
+
+| Route | Shape | Mi · gain ft | Boards |
+|---|---|---|---|
+| High Divide Loop | Loop | 18.4 · 4,400 | ↺ and ↻ |
+| Little Divide loop | Loop | 13.6 · 2,920 | Both ways |
+| Appleton-Cat Basin grand loop | Loop | 25.4 · 6,650 | Both ways |
+| Mount Storm King | Up and back | 4.4 · 2,100 | One |
+| Pyramid Peak | Up and back | 7.0 · 2,770 | One |
+| Aurora Ridge traverse | End to end | 22.8 · 6,090 | Both ways |
+| Spruce Railroad and Discovery trails | End to end | 10.5 · 560 westbound | Both ways |
+
+(Miles and climb are the data's itinerary totals and segment sums; ingest recomputes every route on the graph, E.4.)
+
+- **The High Divide Loop is the flagship** and the first board, right after M1a (15).
+- **Storm King and Pyramid** are short vertical boards for the weeks the high country is out. Storm King ends at the end of the maintained trail, as the daily does (9.9).
+- **The grand loop** uses the primitive Cat Basin trail and the Spread Eagle way trail; the data marks it expert.
+- **The Spruce Railroad route** is the flat winter board, with its graph segment on to the Fairholme trailhead.
+
+**Later, as regions land:** the Hoh to Glacier Meadows and back (M2), the Hoh to Sol Duc traverse by Hoh Lake (M2), Royal Lake (M3), the South Coast with its tide gates (M4), Enchanted Valley in a day (26.2 mi) and Lake Constance (M5). Real FKT routes exist in the park (the Grand Loop from Deer Park, the Constance Pass Loop, Shi Shi to Oil City, the Olympic segment of the Pacific Northwest Trail), which shows the community runs it.
+
+**The finale: the Press Expedition crossing.** Elwha to the North Fork Quinault over Low Divide, the route of the 1889-90 *Seattle Press* expedition (`elwha_to_north_fork_quinault`, 34.9 mi to Low Divide and about 16.5 more down the North Fork). It ends at Lake Quinault, a short drive from the cabin, where the tub is waiting. M5 at the earliest, since it needs the Elwha and the Quinault.
+
+#### Direction, and the peak
+
+- **Each direction is its own board** (recommended). The real guidelines let a loop be run *"in either direction"* on one board, but the game's two directions play very differently: ↺ climbs 3,200 ft to the rim in 6.9 miles and crosses the dry crest at midday; ↻ climbs more gently and ends with 3,200 ft of steep, rooty descent on tired legs (4.3, 7.4). Two boards keep that choice worth making.
+- **The route is data:** an ordered list of required waypoints, so "continuously and in order" is a check, not a judgment.
+- **Bogachiel Peak is not required** (recommended). The real route page describes the loop climbing *toward* the peak, and one real record was flagged for not tagging it. The game's data makes the peak a spur (4.3), so the standard line is the crest. Tagging the summit could earn a small mark beside your time, if you like.
+
+#### The three styles, as rule sets
+
+| Style | The real rule | In the game |
+|---|---|---|
+| **Unsupported** | *"no external support of any kind"*: carry everything; water from natural sources, and public taps | What you start with; streams, lakes and public taps |
+| **Self-supported** | Only support equally open to anyone; caching supplies in advance is allowed | Plus your own stash (below) and public taps on the route |
+| **Supported** | *"as much support as you can enlist, as long as you are entirely self-powered"* | Plus crew at support points (no pacer in v1, below) |
+
+Three more real rules carry over:
+
+- **Pre-arranged spectating is support,** except at the start and finish. Jon cheering at the Sol Duc Falls bridge mid-route makes a run supported.
+- **A chance meeting is not support** (*"Speaking and traveling with strangers you encounter by chance does not count as support"*), but taking something from it is. When a passing hiker offers a trade on an unsupported run, the button says before you take it that the run becomes supported (DRAFT). It reclassifies the run and never disqualifies it.
+- **The crown, if you want it.** The real rule: *"To get a self-supported FKT you must also beat the fastest unsupported time."* The game can follow it ([still to come](#still-to-come-from-you)).
+
+The real site keeps gender categories; the game has none, because every runner is the same simulated athlete.
+
+#### Stashes: your Open hiker, and the 24-hour rule
+
+A self-supported runner may use a stash they placed. In the game, the one who places it is **your Open hiker**, on an Open trip: the one bridge between the career and the stopwatch.
+
+1. In Open, buy a canister and what goes in it in town.
+2. Plan an Open trip that passes the stash point, dated the day before the week's date or that morning.
+3. At the stash point, *Stash the can* (DRAFT): a bear canister, out of sight of the trail.
+4. Within 24 game hours, the runner finds it, eats, refills, and **carries the empty can out**. The small canister in the catalog weighs 33 oz empty (`canister_small`), carried for the rest of the run: that is the trade.
+
+**The 24 hours is real law.** 36 CFR 2.22(a)(2) prohibits *"Leaving property unattended for longer than 24 hours, except in locations where longer time periods have been designated"* ([LII](https://www.law.cornell.edu/cfr/text/36/2.22)), and Olympic requires food, garbage and scented items to be secured from wildlife *"24 hours a day"* in approved containers ([NPS, Wilderness Regulations](https://www.nps.gov/olym/planyourvisit/wilderness-regulations.htm)). A stash not used in time simply vanishes, and the run is unsupported whether you meant it or not. Nothing is written to your Open hiker: no note, no citation, no memory, because nothing from a timed mode ever reaches the Open hiker (1.3, decision 25).
+
+**The can is settled on the Open side, at the stash.** The can and its food leave your Open hiker's shed when the hiker stashes them, on the Open trip, and they never come back, used or not. If the runner uses the stash, the empty can rides to the finish and stays with the run. Your Open hiker buys another for the next stash.
+
+**Where a stash may go** is data (`stash_ok`): trailheads (your car is always fine), designated camps, and nowhere off trail. Whether Olympic's Superintendent's Compendium adds anything about caches by private visitors is still to check, so backcountry stashes stay behind a flag until it is. The car works either way.
+
+**The stakes are real.** The stash trip is an Open trip, Old School. Your hiker can die placing a can for a run that hasn't started. That is not a bug.
+
+#### Support: Jon and the crew box
+
+**Support points** are listed per route: every trailhead it touches, and, on routes with no road partway, one or two places a crew box can wait (Deer Lake or Sol Duc Park on the High Divide Loop). A support point offers water, food from your crew box, a dry layer and a battery swap, at a time cost you choose.
+
+- **Ranger Jon crews** at the trailheads, with his truck and badge #104, on his days off: a seeded calendar per week, like his guiding days on Olympus (4.2). On the Aurora Ridge traverse he drives the shuttle and waits at the far end.
+- **The crew box** at a support point with no road is one Jon carried in that morning: support is a place you reach, never someone who runs with you.
+- **No pacer in v1.** A pacer runs a section with you and carries your water and food, which the real guidelines allow and which makes supported runs fastest. But a pacer is a companion on the trail, and decision 7 says no companions in v1: the Boyz never join you, and none carries anything for you (7.11). So supported runs use crew at support points only. Whether a pacer should be the one exception to decision 7, later, is your call ([still to come](#still-to-come-from-you)).
+- **Never physical help.** The runner is self-powered in every style.
+
+#### The week's window
+
+**Each week, each route gets one window:** a date in the route's season and that date's conditions, fixed from Monday 5:00 am Pacific to the next Monday. Every attempt that week runs on the same weather, the same dice and **the same rules**, the ones live at Monday 5:00, so you can try as often as you like, and your best counts. A rules change waits for the next Monday, unless it is an explicit hotfix, which starts a new board segment for the rest of the week (E.12).
+
+- **Why fixed, and not a new roll each time:** fairness and ghosts. With one set of conditions, a faster time is a better run, not better luck, and your ghost is directly comparable. It is the King's Quest rule the game already has (8.14): the same choice at the same place gives the same result, so a rolled ankle at Race pace on the way down to Deer Lake is a puzzle you solve by running that mile differently, never by trying the same thing again.
+- **Why not today's NWS weather:** the daily already is that. A window's date is a summer date even in January, so the High Divide board stays open all year. Its weather comes from the climatology chain (7.5) with the week's random seed, published Monday morning by the same job (`fkt/2027-W33.json`, E.5).
+- **A later upgrade:** windows on **real past days**, with the weather Quillayute and the SNOTEL stations actually recorded on, say, August 14, 2025. The park data already works from those records.
+- **All-time boards** mix weeks, each time tagged with its week's conditions. Luck with the weather is part of real FKT culture; the weekly board is the fair one.
+
+#### Running: pace, fuel, water, ankles, the dark
+
+The numbers live in the simulation (7.4, 7.9). What they ask of a runner:
+
+- **Pace** is chosen at the start and at every split: Steady (a fast hike), Push, **Run** or **Race**. Race is the fastest and the costliest.
+- **Fuel.** The runner carries about 1,800 kcal of stored carbohydrate and can eat back only about 240 kcal an hour. Race the whole High Divide Loop and you bonk somewhere on the river trail, even eating at the cap; Run with a gel every 30 minutes and you don't. A **fuel plan** is set at the trailhead (every 30, 45 or 60 minutes, or at splits), and *Eat now* (DRAFT) breaks it by hand.
+- **Water.** The crest is dry (`dry_crest`): Deer Lake going ↺ and Heart Lake going ↻ are the last sure water. Soft flasks are light and small, and carrying more is slower. Past about 2% of body weight lost, the runner slows and chills.
+- **Rolled ankles.** On segments tagged technical, Run and Race add a footing check each mile. The pace button's (i) shows the honest chance before you choose, from the look-ahead (8.9): about 1 in 14 on the way down to Deer Lake at Race pace, say (an illustrative figure). A mild sprain slows the rest of the run; a moderate one usually means walking out.
+- **The technical descent** (a minigame, 17.10) plays on those segments at Run or Race: rhythm taps on roots and rocks that set the segment's time between x0.92 and x1.10 and feed the footing check. *Auto* gives the median result (17.3, E.12).
+- **Headlamp starts.** Start before first light to cross the crest ahead of the afternoon thunder, at the headlamp's cost (7.2) and twice the footing chance while running in the dark.
+
+**The kit.** A runner's flat lay is its own small art form: a vest, two soft flasks, gels in a row, a shell, a headlamp, a phone. The catalogs already have trail runners, watches and the headlamp (`gear_catalog.json`), and gels, chews and electrolyte sticks (`food_catalog.json`). They need a few new generic items: a 12 L running vest, 500 mL soft flasks and folding poles.
+
+**An attempt takes about 8 to 12 minutes to play** (an estimate): the stops are the splits, the choices and the descents, and the quiet stops become the strip rushing by. FKT attempts have no Larry moments, which are overnight-only (2.6). A finish lights the tub only when it is a new personal best on a route of at least 8 trail hours, so the loop qualifies and Storm King doesn't (2.2).
+
+#### Splits and ghosts
+
+Splits fall at the route's named junctions. The High Divide Loop ↺, with the movement formula's first estimate for the standard runner at Run pace, with no stops:
+
+```
+HIGH DIVIDE LOOP ↺ · UNSUPPORTED
+Week 2027-W33 · Aug 14 · fair
+                 time     vs PB
+Sol Duc Falls    0:12:36  -0:08
+Deer Lake        1:32:24  +0:51
+The rim          2:50:24  +1:02
+Hoh Lake jct     3:14:24  +0:40
+Heart Lake jct   3:57:00  -0:22
+Sol Duc Park     4:19:12  -0:35
+Appleton jct     4:51:00  -1:10
+Sol Duc Falls    5:44:24  -2:03
+Trailhead        5:57:36  -2:31
+```
+
+*(The times come from the movement formula at these splits; the deltas are illustrative; every label is a DRAFT.)*
+
+**Ghosts.** A ghost is a pale runner on the route strip, where a past run was at this same elapsed time (wireframe in 12.27):
+
+- **Your best this week:** exact, since it ran in the same conditions.
+- **Your all-time best:** for reference, in other weather.
+- **A crew member's or a board leader's,** from their result link or the world board (9.12).
+
+A ghost is drawn from split times, so it needs no extra data. Watching a whole run replayed is a later extra; the action log already holds everything it needs.
+
+**In the daily, ghosts are off by default** (recommended), because a friend who lost forty minutes between the rim and Heart Lake tells you something. Once you've finished, *Watch the crew* (DRAFT) plays everyone's dots along the route at sixty times speed: all of the fun, none of the spoiler.
+
+#### Ethics: what disqualifies a run
+
+The real guidelines ask runners to follow the route and keep to existing trails, say that submissions that cut switchbacks are likely to be declined, and accept nothing that breaks a law, rule or policy. In the game:
+
+| You chose to | Result |
+|---|---|
+| Cut a switchback | DQ, and Leave No Trace -5 |
+| Leave the route and not rejoin it where you left | DQ |
+| Skip a required waypoint | DQ |
+| Take support your style doesn't allow | Reclassified, not DQ |
+| Drop a wrapper, feed a jay, any Leave No Trace break | DQ |
+| Let a stash sit past 24 hours | The stash is gone |
+
+Every one of these is a choice the screen offers, with its consequence on the button before the tap (lint, F.3). The game never disqualifies anyone for something it didn't say. Your **action log is your GPS track:** the board's replay check (9.12) is the game's version of the FKT site's review.
+
+#### The runner, and calibration
+
+**The standard runner** has the standard skills and **Strong** fitness (recommended, 7.3), because a trail runner should feel faster than the daily's Regular hiker. Everyone gets the same runner, so this only sets how fast the game feels. From the movement formula, on the High Divide Loop ↺:
+
+| Who | Pace | Time |
+|---|---|---|
+| Regular hiker, with breaks | Steady | About 13 h |
+| Strong runner | Run | About 6 h |
+| Strong runner | Race | About 5 h, if it didn't bonk (it does) |
+| A well-paced Strong runner | Mixed | 5 to 5½ h (the target) |
+
+A fast run should feel like a strong amateur's day, five-ish hours, with the best weeks bringing it under five. The harness tunes speeds, burns and footing so that sensible runner bots finish 95% of the time in fair weather, Race-everywhere bots bonk or roll an ankle more often than not, and a sloppy run and a perfect one are about an hour apart (F.1). The real record on the real route page is far faster than any of these, and the game never mentions it.
+
+**Easter egg, with consent:** the Boyz could set the first ghosts on each board, playing the real game before launch. Only with each Boy's OK, like their register lines.
+
+### 9.12 Leaderboards, in steps
+
+Each step works without the next, and only the last needs a server.
+
+#### Step 1: on your phone
+
+- **Dailies:** a calendar of every day you played, with your time, *home safe* or DNF; your streak and best streak; your finishes and DNFs; and your average place against par.
+- **FKTs:** for each route, direction and style, your best time with its splits and ghost, your best this week, and your last ten attempts.
+- **Where it lives:** a device-level record of its own (E.6), which outlives every Open hiker and is never wiped by an Open death, just as the timed modes never touch the Open hiker. The action logs behind your ghosts go in IndexedDB. A year of daily results is about 20 KB, and Export and Import carry it.
+
+#### Step 2: the share card
+
+The text and the picture (9.9), and the same pair for an FKT: route, direction, style, time, the split strip, and *PB* or *week's best* (DRAFT). No server, nothing to sign up for.
+
+#### Step 3: crew boards, with no server
+
+- **A result carries the whole run.** A result is a self-contained block of text: the day or the week, the rules version, a handle and the run's action log, packed small, which pastes cleanly into and out of any group chat. A link, `ophiker.com/#r=…`, is the same block after the `#`, so it never reaches a server. A daily day hike's log is a few hundred decisions and taps: under 1 KB packed and under 2 KB in the link, because each minigame's input log stays under its own budget (17.4) and a test checks the size for every route in the library.
+- **Links on an iPhone open in Safari, not in the installed app.** A link tapped in Messages opens in Safari (still so on iOS 18.3, per [user reports](https://community.glideapps.com/t/open-url-from-other-app-in-pwa/59048); nothing found from Apple says iOS 26 changes it), and the Home Screen app keeps its storage apart from Safari's (E.6). So Safari can't see your record, your pins or your crew board. **In Safari, a `#r=` link opens a landing card:** spoiler-guarded until you tap (*Played today's hike? Tap to see*, DRAFT), then the replayed time, *Open OP Hiker to compare* (DRAFT) and one-tap *Copy*. **In the app, the chalkboard and the peak have *Paste crew results*** (DRAFT): it reads the clipboard behind your tap, where iOS shows its own Paste prompt, with a paste field as the fallback. Copying the block straight from the group chat works too, so the link is a convenience, never a requirement. Every link-shaped share (share codes, the catch-up link) works the same way.
+- **The phone that opens it checks it.** It replays the log with the same engine and the same day's file, and gets the time itself. A link that doesn't replay to its claimed time shows as unverified, in grey. So a crew board is trustworthy with no server at all, because the engine is deterministic (E.12).
+- **Your crew is whoever's results you've opened or pasted.** Pin them, give them local nicknames, unpin them. A daily's crew board shows only after you've played it yourself; links that arrive earlier wait, sealed (DRAFT: *Play first*).
+- **Catching up:** any phone can export the crew results it holds as one block (or one link), so someone who joins the chat late gets the whole board with one paste.
+- **Old results** name their rules version. If your phone has moved on, it fetches that version's engine from the archive on Pages to replay it (E.12); once that version leaves Pages, after 45 days, the time shows as unverified on the phone, though the verifier can still check it from the version's Release asset.
+
+#### Step 4: the world board, when you say go
+
+A tiny server, only on your word. Recommended: **Cloudflare Workers with D1**, Cloudflare's SQLite database, **on the Workers Paid plan, $5 a month.**
+
+**What it does:** it accepts a result (the same packed log a crew link carries), checks it, and stores it; it serves today's daily board, each FKT board for the week and for all time, and your own ranks; and it lets you claim a handle and erase yourself.
+
+**Why the paid plan.** Replaying a run, a bear can's thousands of physics ticks included, needs real CPU time. The free plan gives a Worker 10 ms of CPU per request and per Cron Trigger; the paid plan gives 30 seconds by default and up to 5 minutes, and a Cron Trigger up to 15 minutes ([Workers limits](https://developers.cloudflare.com/workers/platform/limits/)). And the free plan's other route, checking runs in GitHub Actions every 20 minutes, would make Actions the compute half of a server, which GitHub's terms rule out: *"don't use Actions as a content delivery network or as part of a serverless application"* ([GitHub additional product terms](https://docs.github.com/en/site-policy/github-terms/github-terms-for-additional-products-and-features)). That would put at risk the very repo the game is served from.
+
+1. **A result arrives,** and the Worker stores it as *checking* and queues it.
+2. **The Worker's own cron consumer replays it** with the same engine the phones run, against the exact rules version and day file the log names (`/e/<hash>/` on Pages), and marks it *verified* with the true time, or *rejected*.
+3. **The board** shows a *checking* time in grey with a small clock, then for real.
+4. **Board reads are cheap:** each board's JSON is cached at the edge for 30 to 60 seconds, and **ranks come from per-board time histograms** updated when a result is verified, never from counting rows.
+5. **The morning after a day closes,** a GitHub Actions job writes the final top 100 to the `daily` branch as static JSON, so the history survives even if the Worker doesn't. That is the only part Actions plays: publishing, which is what Actions is for.
+6. **When a limit trips** (a Worker error such as the free plan's 1027, or D1 refusing queries), the chalkboard and the peak fall back to the static boards on Pages, marked as yesterday's (DRAFT).
+
+| Table | Holds |
+|---|---|
+| `handles` | Name, its normalized form, a hash of your device key, a hidden flag |
+| `results` | Board, handle, time, status, log hash, the log, rules version |
+| `reports` | A handle someone reported, for you to look at |
+| `limits` | Request counts by a salted, daily-rotated hash of the address |
+
+**Handles.** Three to sixteen letters, digits, `_` or `-`; the first submission claims one. Your phone makes a random device key and keeps it, the server stores only its hash, and Export carries it to a new phone. No email, no password, no account.
+
+**The PG-13 filter** is one shared module, on the phone (instant feedback) and in the Worker (the real check):
+
+- **Normalize:** lowercase, strip accents, undo leetspeak (`0` to o, `1` to i, `3` to e, `4` to a, `5` to s, `7` to t, `@` to a, `$` to s), collapse repeated letters.
+- **Deny:** the LDNOOBW word lists (CC BY 4.0, credited), whole-word for short words and substring for long ones, so *Scunthorpe* and *assassin* get through.
+- **Allow:** the game's own PG-13 words, yours to set (beer and IPA, surely; *420*, your call).
+- **Reserve:** Jon, Ranger, the Boyz' names, 104, NPS, the stores' real names (lint T03's list), admin, moderator and official.
+- **Moderate:** a *Report* tap on any board line. The nightly board job opens a GitHub issue for each new report, so you hear about it by email, and one admin call hides a handle.
+
+**Privacy, plainly:**
+
+- The world board is **opt-in.** The first time you finish, the game asks once (DRAFT), and the setting is in the mailbox (12.18).
+- It stores a handle, results and their logs. No email, no name, no location, no analytics and no addresses (rate limits use a salted hash thrown away daily).
+- Logs are kept 90 days, except each board's top 100 and each handle's FKT bests, which ghosts need.
+- *Erase me* (DRAFT) deletes everything tied to your device key.
+- It is the first time the game talks to any server besides GitHub Pages, and the privacy note (your words) says so.
+
+**Cost.** $5 a month for Workers Paid, which includes 10 million requests a month, and D1's 25 billion rows read and 50 million written a month ([D1 pricing](https://developers.cloudflare.com/d1/platform/pricing/)). D1 counts **rows scanned, not rows returned**, so a rank worked out with a `COUNT` over a board would scan about rank-many rows per view; the histograms make a rank a handful of rows, and an index serves each board's top 100. A thousand daily players make roughly 5,000 requests, 2,000 writes and, with the histograms, well under a million rows read a day: a tiny share of what's included. Logs of about 1 KB each come to well under half a GB a year. On the free plan, past its daily limits (5 million rows read, 100,000 written), queries fail until 00:00 UTC, which is 4 or 5 pm Pacific, the middle of a daily's afternoon: one more reason for the paid plan. The address is a free `workers.dev` subdomain.
+
+**What you would do,** once: make a Cloudflare account on the Workers Paid plan ($5 a month), create an API token, and add it and the board's admin token as two GitHub secrets. About ten minutes. Claude writes, deploys and maintains the rest from CI.
+
+#### Cheating: what's stopped, and what isn't
+
+| Trick | Stopped? |
+|---|---|
+| Typing in a fake time | Yes: only replayed times count |
+| A modified game | Yes: the real engine replays the run |
+| Posting someone else's run as yours | Mostly: a second identical run is hidden |
+| Scouting the daily on a second phone | No: one shot is the honor system, as in Wordle |
+| A bot playing the minigames | Partly: inhumanly fast input is rejected |
+| Reading the dice in the day's file | No: the honor system again |
+| A script that searches the day for its best valid run | Not by replay alone (below) |
+
+**Among crews, that is the right size:** your friends can scout a daily, but they can't fake a time. **A public world board fails on day one,** though. The engine is public and deterministic, and the day's seed and drawn truth ship in the file at 5:00, so a script can search every choice path (about four real decisions a day) plus minigame inputs tuned to just pass the human limits, and post a valid time that replays correctly within minutes of the open. Replay proves a log is consistent, not that it was one person's only try. So **before T4, one of these is chosen** ([still to come](#still-to-come-from-you)):
+
+- **(a) Server-held dice** (recommended, if you want a global time board). The day's file carries only a hash commitment of the seed; the Worker deals each stop's roll as you play and records one attempt per device key. The daily already needs a signal to start; it would need one throughout, and Open stays fully offline.
+- **(b) A softer world board:** percentiles and *beat par* counts instead of an absolute top 100, with absolute times kept to crew boards, where people know each other.
+- **(c) At the least,** with either: only a device key's first posted attempt counts; a post is rejected if it arrives sooner after that key first fetched the day than the run's own simulated length allows; and a run where every ♦ broke the player's way is flagged for a look.
+
+#### Where the boards live
+
+At the cabin: the daily's boards behind the chalkboard (12.26), the FKT boards behind the peak (12.27), and the crew's and the world's one tap behind each. The Trail Register stays what it is: Best trips (Open trips only) and *Remembered* (9.8).
 
 ---
 
@@ -2197,7 +2964,7 @@ sky = 1.0 clear, 0.6 partly cloudy,
       0.1 overcast, 0 rain or fog
 ```
 
-Each eligible evening rolls on its own, and the trip's chance is `1 - (1 - P1)(1 - P2)...`. The layover bonus is for a second evening in the same place: a second sunset at the camp, or at a viewpoint you also watched from the evening before. A side-trip viewpoint seen once on a layover day is a first evening there and gets no layover bonus, which is why B.3's sunset on Bogachiel Peak rolls 11%, not 13%. With August high-country skies (an average sky factor near 0.57), a player who stays out for the whole sunset and turns the headlamp off gets about 6% from one evening and about 13% from a layover's two. One who goes to bed at sunset gets about 3%. The targets are **4-8% of such trips with one eligible evening, 10-16% with a high layover**, and no plan above 25% (F.1). There is no first-trip guarantee and no pity counter. Most players will finish many trips before they see it, and some never will, which is what makes it worth mentioning to a friend.
+The alpenglow shot (17.8) plays inside that sunset, and staying to the end of blue hour, rather than tapping *Done*, is what keeps the whole-sunset term; the lily, when it comes, comes after the shot is over, and never in a photo. Each eligible evening rolls on its own, and the trip's chance is `1 - (1 - P1)(1 - P2)...`. The layover bonus is for a second evening in the same place: a second sunset at the camp, or at a viewpoint you also watched from the evening before. A side-trip viewpoint seen once on a layover day is a first evening there and gets no layover bonus, which is why B.3's sunset on Bogachiel Peak rolls 11%, not 13%. With August high-country skies (an average sky factor near 0.57), a player who stays out for the whole sunset and turns the headlamp off gets about 6% from one evening and about 13% from a layover's two. One who goes to bed at sunset gets about 3%. The targets are **4-8% of such trips with one eligible evening, 10-16% with a high layover**, and no plan above 25% (F.1). There is no first-trip guarantee and no pity counter. Most players will finish many trips before they see it, and some never will, which is what makes it worth mentioning to a friend.
 
 **The sequence.** Only on the evening the roll comes up, three screens:
 1. **The glow plate** (full-bleed, chrome hidden, in the night palette with the snow gone to slate): one pixel of gold in the snow begins to cycle and grows over three seconds into a small 5x5 star, the only gold in the picture (11.1, 11.5). (DRAFT) *"Where the snow is bluest, something small is shining. You check the headlamp. The headlamp is off."* The Bonfire Lily motif plays once (13.2).
@@ -2350,12 +3117,15 @@ Pseudo-colors 16-24 resolve each frame to a palette color from a cycle (numbers 
 | 24 | lamp | a light: 5, fixed | A headlamp beam, a tent lit from inside |
 | 25 | dust | by age, not by frame: 5, 10, 2, then gone | The Leave No Trace dissolve and the wipe at the cabin only (11.10); renderer-only, so no picture can use it |
 | 26 | steam | a light: 4, 3, 5, phased by row so it rises | The lit hot tub at the cabin and in the soak (11.11) |
+| 27 | alpen | by light level, not by frame: 4, 5, 6, 3, through the ordered dithers | The subject's snow in the alpenglow shot, row by row as the shadow climbs (17.8); never gold |
 
 **Lights are exempt from the time-of-day remap.** Glow, fire, stars and lamp are resolved after it, to their own slots, so at blue hour and night, when the snow has gone to glacier blue or slate and the forest to navy, a headlamp beam, a stove flame and the stars stay bright, and the Bonfire Lily stays the only gold in the picture and never flickers blue. The other cycles are remapped with the scene. The fire cycle never uses gold; nothing but the glow does (11.1).
 
 Cycling runs at **8 fps** only while a cycling screen is visible, pauses when static or hidden, and freezes under iOS Reduce Motion (except the glow, which slows to 2 fps).
 
 ### 11.6 Sprites
+
+*All in-game words in this section are DRAFT (decision 21), marked or not; the final words are yours.*
 
 Small pixel figures in the same 16 colors, placed at anchors each base scene defines (trail spot, far bank, campsite, rock, sky).
 
@@ -2404,7 +3174,7 @@ The park has 449 places in the research and roughly 500 to 600 once overlay poin
 **Seasonal and weather overlays:** ground above the snowline switches to snow dithers; fall color swaps vine maple and huckleberry to rust and brick; flowers by month and elevation; fog hides the far layer and lays bands across the middle; stars and the real moon phase for the trip date.
 
 **About 24 hand-drawn signature scenes** get an illustrator's full attention, still accepting palette, weather and sprite layers. They arrive with their milestones (15):
-- **The first playable (M1):** **the cabin at Lake Quinault** (the home scene, in its seasons and times of day, 11.11); the High Divide at dusk (Session 1's cover, now the loading art, and the Hike of the Day card's picture whenever the day's route is on the loop); **Lake Morgenroth, your favorite spot** (M1b), drawn from your GPS track, photos and stories (4.3, B.7); the town street in Port Angeles and the store interiors (one interior drawn three ways, by each store's palette, 5.2); the WIC counter, with the number card on it (drawn in from M1b, with the call, 15); the flat lay's deck boards (6.1); US 101 along Lake Crescent, on the town run; Sol Duc Falls; Seven Lakes Basin from the rim; Heart Lake; the Bonfire Lily in the blue snow; the car at the trailhead, for the ending's stamp (12.22); and the soak (12.24).
+- **The first playable (M1):** **the cabin at Lake Quinault** (the home scene, in its seasons and times of day, 11.11); the High Divide at dusk (Session 1's cover, now the loading art only: the Hike of the Day's picture is always the trailhead under the day's real sky, never a mid-route scene, 9.9); **Lake Morgenroth, your favorite spot** (M1b), drawn from your GPS track, photos and stories (4.3, B.7); the town street in Port Angeles and the store interiors (one interior drawn three ways, by each store's palette, 5.2); the WIC counter, with the number card on it (drawn in from M1b, with the call, 15); the flat lay's deck boards (6.1); US 101 along Lake Crescent, on the town run; Sol Duc Falls; Seven Lakes Basin from the rim; Heart Lake; the Bonfire Lily in the blue snow; the car at the trailhead, for the ending's stamp (12.22); and the soak (12.24).
 - **The Hoh and Olympus (M2):** the Hall of Mosses; the Hoh braids with elk; the Glacier Meadows ladder; the Blue Glacier from the moraine; Snow Dome and the summit block at dawn.
 - **Royal Basin (M3):** Royal Lake under Mount Deception; Upper Royal Basin.
 - **Later (M4-M5):** Hurricane Hill and the Bailey Range; Grand Valley and Moose Lake; the Enchanted Valley chalet; Rialto's Hole-in-the-Wall; Shi Shi and Point of the Arches.
@@ -2507,20 +3277,23 @@ Two screens of the death sequence (9.5) need the renderer, and so does the wipe 
 
 **States:** normal; a trip in preparation (the four props of 2.2); homecoming (the car pulls in; the fire bowl lit in the evening); tub lit (cover off, steam, the 104°F thermometer); the crew around (tents, camp chairs, a closed cooler, the dog, figures on the porch); after a death (dusk, one chair empty, the tub covered, the bowl cold); first launch (the lockbox lit by one lantern, the guest book open).
 
-**The hotspot map,** in picture pixels on the 160 x 320 plate. A 44-pt target is about 19 x 33 pixels at 7x4 on a 3x phone, so hit areas are drawn bigger than the art.
+**The hotspot map,** in picture pixels on the 160 x 320 plate. Hit areas are sized for the worst case. On a 3x phone at 7x4, a 44-pt target is about 19 x 33 pixels; but on the iPhone SE the plate runs at 4x2 device pixels at 2x (11.2), so one picture row is 1 pt and one column 2 pt, and a 44-pt target is **22 columns by 44 rows**. Every hit area is at least that, so hit areas are drawn bigger than the art, and the nearest center wins where two overlap.
 
 | Place | Art (x, y, w, h) | Hit area (x, y, w, h) |
 |---|---|---|
 | Peak | 20, 30, 75, 60 | 10, 20, 90, 70 |
-| Screen door | 73, 180, 14, 32 | 66, 175, 28, 40 |
-| Chalkboard | 52, 214, 12, 14 | 40, 200, 26, 36 |
+| Screen door | 73, 180, 14, 32 | 64, 172, 30, 44 |
+| Chalkboard | 52, 214, 12, 14 | 40, 198, 26, 44 |
 | Shed | 130, 165, 28, 65 | 126, 160, 34, 70 |
-| Hot tub | 112, 218, 24, 16 | 104, 205, 28, 36 |
+| Hot tub | 112, 218, 24, 16 | 104, 200, 28, 44 |
 | Car | 0, 280, 40, 40 | 0, 272, 44, 48 |
-| Fire bowl | 68, 262, 24, 14 | 56, 250, 46, 36 |
+| Fire bowl | 68, 262, 24, 14 | 56, 246, 46, 44 |
 | Register post | 4, 225, 10, 37 | 0, 220, 24, 46 |
-| Mailbox | 142, 292, 12, 22 | 132, 284, 28, 36 |
+| Mailbox | 142, 292, 12, 22 | 132, 276, 28, 44 |
 | Guest book | 58, 212, 8, 4 | First launch only; the rail otherwise |
+| The ranger's reading | Indoors, not on the plate | A Look at the map table (12.5, 12.20) |
+
+`content/home/cabin.json` keeps the boxes in picture pixels, and the hit-area lint converts each to points for every device row of 11.2's table and fails any under 44 x 44 pt.
 
 **New stamps and sprites.** Stamps: the cabin, one per season; the shed; the tub, with and without its cover; the fire bowl, cold and lit; an Adirondack chair; the chalkboard; the register post; the mailbox, flag up and down; mole hills; a bigleaf maple, bare and in leaf; a Sitka spruce; a tent; a cooler; the clam gun; route signs; the race bib; the lily sketch (gold, the lily's own mark). Sprites: the hiker sitting and soaking; three crew figures; the dog. Pseudo-color 26, `steam` (11.5).
 
@@ -2532,9 +3305,11 @@ Two screens of the death sequence (9.5) need the renderer, and so does the wipe 
 
 ## 12. iPhone screens
 
+*All in-game words in this section are DRAFT (decision 21), marked or not; the final words are yours.*
+
 The screens before the trail (the cabin, the map table, the permit, town and the flat lay) use the first playable's example trip, Robin's from Appendix B.2: ↻ river first, three nights, Thursday to Sunday, August 12 to 15, 2027, `Score: 0 of 170` at the permit. The trail screens use Robin's four-night Hoh trip (Lewis Meadow, Glacier Meadows twice, Five Mile Island), Jul 14 to 18, 2027, `Score: 0 of 131` at the permit, because its Day 1 has the ford that the odds screens need: the trailhead at 9:40 am (12.10), the braids at mile 8.0 about 1:35 pm (12.2, 12.11, 12.13), and camp at Lewis Meadow, mile 10.4, about 3:20 pm, half an hour behind the planned 2:50 because of the ford (12.14). Screens from other trips say so. The Hoh arrives in M2; on the loop these are the same screens with Sol Duc's places in them.
 
-**Every word inside a wireframe is a DRAFT** for you to rewrite (decision 21), and so is every quoted line under one. The Hike of the Day's board and the FKT board get their wireframes with the modes; their places at the cabin are already in 12.3.
+**Every word inside a wireframe is a DRAFT** for you to rewrite (decision 21), and so is every quoted line under one. The Hike of the Day's chalkboard and the FKT boards are 12.26 and 12.27; their places at the cabin are in 12.3.
 
 ### 12.1 Global rules
 
@@ -2543,9 +3318,9 @@ The screens before the trail (the cabin, the map table, the permit, town and the
 - **Height:** `100dvh`, `overscroll-behavior: none` (no rubber band), `touch-action: manipulation` (no double-tap zoom). Only explicit panes scroll (a store's list, the flat lay's drawer, the log, the trip report).
 - **Targets:** at least 44x44 pt everywhere, the cabin's hotspots included (11.11). The status line is 22 pt tall, so ≡ and Sound get invisible 44x44-pt hit areas that extend below it. Choices are full width, 52 pt tall (64 pt when the odds tag takes a second line), 8 pt apart, in the bottom half (the thumb zone). The **(i) is its own 44x44-pt square** at a choice's right edge, so a slightly-off tap on the odds never commits the choice. Picture hotspots get a hit area of at least 44 pt.
 - **♦ choices need a confirming tap.** Tapping one turns it, in place, into `Climb the ladder?  [Yes]  [Not yet]`; when it carries a fatal share, the prompt reads (DRAFT) `This could be fatal. [Yes] [Not yet]`. Nothing critical happens on a single brush of the thumb.
-- **Touch only.** On the trail, swipe left on the box to walk on (always duplicated by the *Walk on* button, DRAFT); swipe right to open today's log. Elsewhere the button reads *Next* (DRAFT). **Swipes that start within 24 pt of a screen edge are ignored**, so they never fight Safari's edge-swipe Back. Long-press is an accelerator (the Why sheet, an item's card, a place's name at the cabin), never the only way. Choices and the picture set `-webkit-touch-callout: none` and `user-select: none`, so a long-press never selects text or opens the iOS callout menu. The only typing is the hiker's name in the guest book, which has a suggest button (12.4), and the optional epitaph on the death sequence's epitaph screen (up to 40 characters), which has the dice beside it (12.17); and, in the hidden debug menu, the bug-report note (E.11).
+- **Touch only.** On the trail, swipe left on the box to walk on (always duplicated by the *Walk on* button, DRAFT); swipe right to open today's log. Elsewhere the button reads *Next* (DRAFT). **Swipes that start within 24 pt of a screen edge are ignored**, so they never fight Safari's edge-swipe Back. Long-press is an accelerator (the Why sheet, an item's card, a place's name at the cabin), never the only way. Choices and the picture set `-webkit-touch-callout: none` and `user-select: none`, so a long-press never selects text or opens the iOS callout menu. The only typing is the hiker's name in the guest book, which has a suggest button (12.4); your handle, once, the first time you play a timed mode, suggested the same way (1.3); and the optional epitaph on the death sequence's epitaph screen (up to 40 characters), which has the dice beside it (12.17); and, in the hidden debug menu, the bug-report note (E.11).
 - **Browser history:** trip screens use `history.replaceState`, so the browser's Back button can never rewind a trip. A `popstate` (Back pressed in a Safari tab) opens the ≡ menu instead.
-- **No timers, ever,** outside the clock you choose to race (the Hike of the Day and FKT attempts score elapsed trail time; nothing on screen counts down).
+- **No timers, ever,** outside the clock you choose to race (the Hike of the Day and FKT attempts score elapsed trail time; nothing on screen counts down) and the minigames, each under a minute of real-time play that you choose with *Play*, with *Auto* beside it (17).
 
 **Space check** on the trail, at the default text size, with three choices:
 
@@ -2597,7 +3372,7 @@ The screens before the trail (the cabin, the map table, the permit, town and the
 ```
 
 - **The box** is the Sierra message box (2.4): snow (4) fill, a double brick (9) border, ink (0) text, a small inner margin, drawn in CSS around real HTML text. It holds one or two short lines, or nothing at all: a quiet stop may have no box, and the scene and its sound carry it (decision 32).
-- **The strip** between the caption and the box is today's elevation profile, with a tick for each checkpoint (the trailhead, falls, junctions, lakes, camps), a dot for you and the mile, and under it the last **split** against the plan's ETA (7.4). FKT attempts show splits against the record instead, with the modes.
+- **The strip** between the caption and the box is today's elevation profile, with a tick for each checkpoint (the trailhead, falls, junctions, lakes, camps), a dot for you and the mile, and under it the last **split** against the plan's ETA (7.4). In the timed modes the split is against par on the Hike of the Day and against your best on an FKT attempt, whose strip also carries the ghost (9.9, 9.11, 12.27).
 - **The choices** are matching boxes. This ford is ♦ because at thigh depth in the afternoon "swept" is in its fail table (8.1); the fail share takes the second line. It shows no fatal share, because at thigh depth "swept" ends in a rescue. A ♦ that can kill adds its fatal share to that second line in red: `21% fall · 0.3% fatal`.
 - **The toolbar** opens one modal with three tabs: **Pack** (contents with states: wet, used, lost, outside, battery; food left by meal; water; weight; the conditions), **Map** (the park map, your route dotted, "you are here", today's profile and splits) and **Log** (the hiker's first-person log, day by day, with each day's headline, 2.3). There is no field guide tab: nothing is collected. On short screens it folds into ≡.
 
@@ -2699,7 +3474,7 @@ Each answer is a choice button; there is no typing and no timer. After the third
 └──────────────────────────────────────┘
 ```
 
-Best trips rank by the share of each trip's own maximum, so a lovely day hike can sit above a long trip. They are the register's Top Ten, and they outlive their hikers: Robin's two best trips stay at the top after Robin's death, and Sam, the next hiker, slots in between. *Remembered* lists every hiker whose trip ended in GAME OVER, newest first, with the place, the dates, the score reached, the cause and the epitaph in quotes. Robin's line was dealt by the dice, so its credit sits under it; Jo, an earlier hiker on this phone, typed theirs (9.5). At the bottom, older than anyone on the phone, are the 104 Boyz' pre-filled lines (your call, 7.11): `{BOY_1}`, dead of skinny dipping at Heart Lake and not sorry about it, is one of them, a fictional death with a funny epitaph, and the real names drop in when you send them. To a stranger they are old lines in an old register (2.2). It is the game's only graveyard, and there is no stone in it: Leave No Trace. Tapping a line opens a small card with the trip's title and the full *YOU PERISHED* line. Only Old School trips are ever listed (9.4).
+Best trips rank by the share of each trip's own maximum, so a lovely day hike can sit above a long trip. They are the register's Top Ten, and they outlive their hikers: Robin's two best trips stay at the top after Robin's death, and Sam, the next hiker, slots in between. *Remembered* lists every hiker whose trip ended in GAME OVER, newest first, with the place, the dates, the score reached, the cause and the epitaph in quotes. Robin's line was dealt by the dice, so its credit sits under it; Jo, an earlier hiker on this phone, typed theirs (9.5). At the bottom, older than anyone on the phone, are the 104 Boyz' pre-filled lines (your call, 7.11): `{BOY_1}`, dead of skinny dipping at Heart Lake and not sorry about it, is one of them, a fictional death with a funny epitaph, and the real names drop in when you send them. To a stranger they are old lines in an old register (2.2). It is the game's only graveyard, and there is no stone in it: Leave No Trace. Tapping a line opens a small card with the trip's title and the full *YOU PERISHED* line. Only Old School trips are ever listed (9.4). A death in a timed mode reads like any other line, under your handle, with its tag: `#212` for a daily, the board's name for an FKT run (9.4).
 
 ### 12.4 A new hiker: the guest book
 
@@ -2884,7 +3659,7 @@ A guided Olympus trip adds Jon to the party line: `Party: Robin + Ranger Jon  Si
 └──────────────────────────────────────┘
 ```
 
-A stylized street, not real storefronts: any of the four doors, or none (5.3). The WIC gives the briefing (8.6), the loaner can and the desk-only camps (3.1). Second Growth's door, next to the general store, shows on overnight trips only (2.6).
+A stylized street, not real storefronts: any of the four doors, or none (5.3), and on overnight trips, from M1b, a fifth. The WIC gives the briefing (8.6), the loaner can and the desk-only camps (3.1). Second Growth's door, next to the general store, shows on overnight trips only (2.6).
 
 **The general store:**
 
@@ -2975,12 +3750,12 @@ Each row says what the item does on the trail (morale, or nothing but looks) and
 │ │ [ BEAR CAN, lid off][ shorts   ] │ │
 │ │ [brk][lun][din][snk ][ socks   ] │ │
 │ │ [map][lamp][aid][fix][ shoes   ] │ │
-│ │ [book][camera][mug][stickers  ]  │ │
+│ │ [paperback][camera][mug][stckr]  │ │
 │ └──────────────────────────────────┘ │
 │ Base 19 lb 11 oz · Pack 27 lb 9      │
 │ 40 of 50 L Roomy · comfortable       │
 │ Can 6.6 of 9.8 L · 3.0 days food     │
-│ From: shed 22 · G 5 · B 11 · M 3     │
+│ From: shed 22 · ▣ 5 · □ 11 · ▦ 3     │
 │ [Checklist 10/10]  [Like last]       │
 │ [Shelter][Sleep][Rain][Warm] >       │
 │ · Rain pants   8oz   in the shed     │
@@ -2989,7 +3764,7 @@ Each row says what the item does on the trail (morale, or nothing but looks) and
 └──────────────────────────────────────┘
 ```
 
-The picture is the deck, seen from above (6.1). Only the drawer scrolls; the picture, the gauges and the buttons stay put. Tap a row in the drawer to lay an item out; tap an item on the deck to put it back in the shed. Long-press an item for its card: weight and volume, store, state, and where it rides, which opens the slot picker (12.9). Tap the can for the canister panel. ⇪ is the share image. The weights are computed from the catalog for a kit like B.2's; "From" counts the shed and the three stores.
+The picture is the deck, seen from above (6.1). Only the drawer scrolls; the picture, the gauges and the buttons stay put. Tap a row in the drawer to lay an item out; tap an item on the deck to put it back in the shed. Long-press an item for its card: weight and volume, store, state, and where it rides, which opens the slot picker (12.9). Tap the can for the canister panel. ⇪ is the share image. The weights are computed from the catalog for a kit like B.2's; "From" counts the shed and the three stores. Each store shows as its own outline mark from 6.1 (the bark frame, the ink frame, the patterned frame), never as a letter: a letter would only spell a real store's initial, and it wouldn't translate (T03).
 
 **The share image** (6.10):
 
@@ -3008,9 +3783,8 @@ The picture is the deck, seen from above (6.1). Only the drawer scrolls; the pic
 │ └──────────────────────────────────┘ │
 │ BASE 19 lb 11 oz · PACK 27 lb 9      │
 │ CAN 6.6/9.8 L · 3 DAYS · 40 L        │
-│ SHED 22 · G 5 · B 11 · M 3  Robin    │
+│ SHED 22 · ▣ 5 · □ 11 · ▦ 3  Robin    │
 │ OLYMPIC PENINSULA HIKER              │
-│ fernforager.github.io/104-boyz       │
 └──────────────────────────────────────┘
 ```
 
@@ -3050,7 +3824,7 @@ The picker lists only the places this item can legally go on this pack, each wit
 └──────────────────────────────────────┘
 ```
 
-The can-packing minigame opens from this panel when it lands (decision 30).
+The bear-can minigame opens from this panel, and from a tap on the open can on the deck (17.7). Its result replaces the panel's flat 85%.
 
 ### 12.10 The trailhead: the tailgate
 
@@ -3065,7 +3839,7 @@ The can-packing minigame opens from this panel when it lands (decision 30).
 │ With this pack: a long, lovely       │
 │ trip. Sol Duc Park about 2 pm.       │
 │ Leave anything in the car?           │
-│ [ ] Camp chair 18oz [ ] Book 8oz     │
+│ [ ] Chair 18oz    [ ] Paperback 8oz  │
 │ [ ] Camera 8oz    [ ] Puffy 11oz     │
 │ Pack 27 lb 9 oz -> 25 lb 12 oz       │
 │ Trip plan left with: a friend        │
@@ -3073,7 +3847,7 @@ The can-packing minigame opens from this panel when it lands (decision 30).
 └──────────────────────────────────────┘
 ```
 
-The last look is the flat lay's second backdrop: the open tailgate (6.1), on Appendix B's trip. The outlook line is the Trip Outlook's third reading (3.3). The *Leave anything in the car?* list never shows beer or the pre-roll, and the tailgate's flat lay draws the bear can with its lid on: they come out of the pack only in the flat lay at the cabin, so nothing at the car ever shows or mentions them (2.6, T05). (The "Book" here is the paperback you might carry.)
+The last look is the flat lay's second backdrop: the open tailgate (6.1), on Appendix B's trip. The outlook line is the Trip Outlook's third reading (3.3). The *Leave anything in the car?* list never shows beer or the pre-roll, and the tailgate's flat lay draws the bear can with its lid on: they come out of the pack only in the flat lay at the cabin, so nothing at the car ever shows or mentions them (2.6, T05). (The paperback is the one book you might carry, a real thing, so it passes T07.)
 
 **The trailhead register.** Tapping the kiosk shows the Trail Register's last few lines in pencil, as on a real trailhead register: the 104 Boyz' memorial lines from the start, with their fictional deaths and funny epitaphs (7.11), and later any real memorial line with its epitaph (*"Robin. Sep 25. Glacier Meadows, 1 night. 'It was terribly cold.'"*). This is the register a dead hiker's epitaph is written into (9.5): the one at the trailhead where that trip began, the same register you read at the cabin's post (2.2). *Start walking* signs this trip in, with its permit number, and the clock for its splits starts.
 
@@ -3234,7 +4008,7 @@ State changes go in a **pencil strip** under the box, never in a side column, so
 ```
 
 - **Make camp** does the sensible routine in one tap: pitch the tent, get water with your treatment, cook the next planned dinner, put the food in the canister. It sums up all of it at one stop, with a pencil strip for what changed.
-- **Two tiles open minigames** when they apply (decision 30): packing the can, and pitching the tent in the rain. Their rules are being written in; until then the tiles do the sensible thing in one tap.
+- **Two tiles open minigames** when they apply: *Pack the can*, when something is outside it, from M1b (17.7), and *Rain pitch*, in rain or real wind (17.13). Until they arrive, and whenever *Auto* is set, the tiles do the sensible thing in one tap. *Watch sunset* with a camera or phone packed becomes the alpenglow shot on a clear or partly cloudy evening (17.8).
 - **My own way...** opens the separate chores for anything different: pitch somewhere else, drink from the creek (with its honest later-days risk), a different dinner, no cooking, food left out.
 - **The other tiles are joys and side trips.** *Wander* is half an hour around camp with new things to Look at. A packed joy item adds its own quiet use to the evening (a chapter of the paperback, a photo, the binoculars), for spirits, never for points. Dimmed tiles explain themselves on tap (no warm layer: the sunset lasts 10 minutes). *Swim (brr)* asks how far in, and at a lake like Heart Lake that includes all the way (2.6). A packed can of beer adds *Crack the IPA*, and a packed pre-roll adds *Light it*, each with its costs on the tile, at a camp where the hiker sleeps that night (2.6); *My own way...* holds them on a full grid.
 - **The light keeps moving.** Everything costs time, so the sky palette steps Day, Dusk, Blue hour, Night as you go.
@@ -3299,7 +4073,7 @@ The status line and toolbar are **hidden** on full-bleed plates. On the trail, a
 
 ### 12.17 The death sequence: from the death box to GAME OVER
 
-Five screens, in this order, and nothing else (9.5), then the cabin at dusk (12.25). None of them exists in the hidden gentle mode (9.4). From Appendix A's trip, had no tent glowed through the trees at Glacier Meadows (A.3): Robin chose *Curl up, wait for dawn* (♦ 58% · 42% shivering · 6.3% fatal), and the roll landed in the black. The death box keeps the status line, with the score frozen; the four screens after it hide the chrome, like a full-bleed plate. Each screen waits for a tap: nothing in the sequence advances on its own (12.1). Appendix D, screen 17, has the same sequence as text. M1a's review site shows this sequence for a Divide death (Appendix D, 18b).
+Five screens, in this order, and nothing else (9.5), then the cabin at dusk (12.25). None of them exists in the hidden gentle mode (9.4). From Appendix A's trip, had no tent glowed through the trees at Glacier Meadows (A.3): Robin chose *Curl up, wait for dawn* (♦ 58% · 42% shivering · 6.3% fatal), and the roll landed in the black. The death box keeps the status line, with the score frozen; the four screens after it hide the chrome, like a full-bleed plate. Each screen waits for a tap: nothing in the sequence advances on its own (12.1). Appendix D, screen 17, has the same sequence as text. M1a's review site shows this sequence for a Divide death (Appendix D, 18b). A death in a timed mode plays the same five screens; only the GAME OVER card changes, and nothing is wiped (12.26).
 
 **1. The death box**
 
@@ -3463,16 +4237,19 @@ The place where it happened, in its own daylight colors, with the remains sprite
 │ Text     [Pixel] [Plain] [Large]     │
 │ Stops    [Few] [Usual] [Many]        │
 │ Sound    [On] [Off]                  │
+│ Music    [On] [Off]                  │
+│ Minigames  one row each:             │
+│          [Ask] [Play] [Auto]         │
 │ Park     [As researched] [Timeless]  │
 │ ──────────────────────────────────   │
 │ [Export save]  [Import]  [Credits]   │
-│ [Ranger's Bookshelf]   v1.0 · 3f9c   │
+│ [The ranger's reading]   v1.0 · 3f9c │
 └──────────────────────────────────────┘
 ```
 
-Settings open from the mailbox at the cabin and from ≡ on the trail. That is the whole v1.0 list: Odds, Text, Trail stops, Sound and Park (all labels DRAFT). There is no Read to me (cut; VoiceOver reads the real text, 11.9), no hint character to switch off, and **no mode setting**: Open play is Old School, and the gentle flag is in no menu at all (9.4). Pictures (the draw-in style), Money (the Shoestring wallet), Units, Paper, the Notebook of raw numbers, the Tandy sound mode and badges wait for M6, so the first release reads as a game and not a control panel. The sound settings may change with decision 32 (a separate Music switch is proposed). On short screens the ≡ menu also holds Pack, Map and Log.
+Settings open from the mailbox at the cabin and from ≡ on the trail. That is the whole v1.0 list: Odds, Text, Trail stops, Sound, Music, Minigames and Park (all labels DRAFT). There is no Read to me (cut; VoiceOver reads the real text, 11.9), no hint character to switch off, and **no mode setting**: Open play is Old School, and the gentle flag is in no menu at all (9.4). Pictures (the draw-in style), Money (the Shoestring wallet), Units, Paper, the Notebook of raw numbers and badges wait for M6, so the first release reads as a game and not a control panel. **Music** switches off the cabin band for players who want their own playlist under the park, while **Sound** (also in the status line) switches off everything (13.11). **Minigames** opens one row per minigame, *Ask* (the default), *Play* or *Auto*, with the Open-only assists and a *Left-handed* switch (17.3). With the world board (Step 4, 9.12) the list gains one row, *World board* (DRAFT), off until you opt in, with *Erase me* beside it. On short screens the ≡ menu also holds Pack, Map and Log.
 
-*Credits* and *Ranger's Bookshelf* open the credits screens (12.20). The small **version stamp** in the corner (`v1.0 · 3f9c`, the build hash) hides the debug menu: five taps on it open the menu with **Copy bug report** (E.11). Nothing marks it, and nothing in it can change a trip. When an update arrives, the mailbox flag goes up at the cabin (E.7).
+*Credits* and *The ranger's reading* (DRAFT) open the credits screens (12.20). The small **version stamp** in the corner (`v1.0 · 3f9c`, the build hash) hides the debug menu: five taps on it open the menu with **Copy bug report** (E.11). Nothing marks it, and nothing in it can change a trip. When an update arrives, the mailbox flag goes up at the cabin (E.7).
 
 ### 12.19 The tide booklet (M4)
 
@@ -3496,20 +4273,20 @@ Settings open from the mailbox at the cabin and from ≡ on the trail. That is t
 
 A two-week page, like the paper booklet it is. The trip days carry the player's pencil bracket, and **nothing marks today**, exactly as on paper; reading the wrong row is the player's own mistake (Appendix C). At `coast` skill 2 a small pencil arrow marks today, and the HUD computes the windows (7.10). Opening the booklet costs no game time. The heights shown here are illustrative until the real NOAA tables ship.
 
-### 12.20 Credits and the Ranger's Bookshelf
+### 12.20 Credits and the ranger's reading
 
-**Credits** are one scrolling screen of plain credits, opened from the mailbox (12.18). With the Ranger's Bookshelf below, it is the only place the game names its sources. Every line is a DRAFT for you:
+**Credits** are one scrolling screen of plain credits, opened from the mailbox (12.18). With the ranger's reading below, it is the only place the game names its sources. Every line is a DRAFT for you:
 - **Art style:** the credit line for *The Golden Glow* (10.3).
 - **History:** *"The history in this game draws on the work of Robert L. Wood (1925-2003), historian of the exploration of the Olympic Mountains. No text from his books appears in this game; facts are retold in our own words."* Then a line for the quotations: *"Quoted lines are from public-domain accounts of the Press Expedition of 1889-90 (the Seattle Press, July 16, 1890, as reprinted in 1890 newspapers and The Mountaineer, 1907) and Lt. Joseph P. O'Neil's 1890 expedition (Senate Doc. 59, 1896), with a few from other accounts published before 1931, such as The Mountaineer of 1907 and 1920."* The full source list, with page and URL for every quoted line, is generated from `lore/quotes_public_domain.json` (E.5).
-- **People:** *"Every person in this game is fictional, except the 104 Boyz, who play themselves, by first name or nickname; Ranger Jon is one of them. {BOYZ_CONSENT} Their deaths in the Trail Register are fiction. Real park rangers don't guide climbs; Jon does it only here."* `{BOYZ_CONSENT}` becomes, for example, *"With their blessing."* only once each Boy has seen his entry and agreed; until then it is a placeholder, and a release build refuses to ship it (7.11, F.3).
+- **People:** *"Every person in this game is fictional, except a few friends of the game's maker, who play themselves by first name. {BOYZ_CONSENT} Their deaths in the Trail Register are fiction. Real park rangers don't guide climbs; Ranger Jon does it only here."* It names no crew, so a stranger reading Credits never meets the word Boyz (2.2). `{BOYZ_CONSENT}` becomes, for example, *"With their blessing."* only once each Boy has seen his entry and agreed; until then it is a placeholder, and a release build refuses to ship it (7.11, F.3).
 - **The stores:** *"The stores in Port Angeles are fictional, inspired by the town's own."* No real store is named unless it gives permission (5.2).
 - **The park:** *"Park conditions as researched on 2026-10-07"* (4.7); *"Lake Morgenroth is drawn from the trips of someone who camped there once and keeps going back"* (4.3); and the credit for the weather, *"Forecasts from the National Weather Service"*, with no edited NWS text presented as theirs. Then the font and sound credits (11.9, 13).
 
-**The Ranger's Bookshelf** lists Wood's books, so the credit points somewhere a reader can go. It is a real shelf of his books inside the cabin door: a shelf of real books is a place, not a frame. It opens from the mailbox, from Credits, and from a Look at the shelf (a hotspot inside the screen door, +1 the first time like any Look). Its picture is the shelf stamp: no new scene.
+**The ranger's reading** (DRAFT name; it was *the Ranger's Bookshelf*, renamed so it doesn't reuse the word decision 22 retired) lists Wood's books, so the credit points somewhere a reader can go. It is a real shelf of his books inside the cabin door. It opens from the mailbox, from Credits, and from a Look at the map table, where the shelf stands beside the old ranger's binder (12.5; +1 the first time, like any Look). The shelf has no hotspot on the cabin plate, since it is indoors (11.11). Its picture is the shelf stamp: no new scene. The screen's ids are on T07's allowlist, because it lists real books (F.3).
 
 ```
 ┌──────────────────────────────────────┐
-│ < Back    THE RANGER'S BOOKSHELF     │
+│ < Back      THE RANGER'S READING     │
 │ ┌──────────────────────────────────┐ │
 │ │ Inside the cabin door: a shelf   │ │
 │ │ of six worn books, a coffee mug  │ │
@@ -3639,7 +4416,6 @@ The report (9.7) replaces the old back cover, and it scrolls. Its share card:
 │ Splits 5:30 · 2:55 · 1:05 · 5:00     │
 │ Permit No. 104-0037 · Robin          │
 │ OLYMPIC PENINSULA HIKER              │
-│ fernforager.github.io/104-boyz       │
 └──────────────────────────────────────┘
 ```
 
@@ -3691,55 +4467,471 @@ Shown only after a big hike (2.2). The cabin's music plays (decision 32). When t
 
 This follows the GAME OVER card (12.17). The wipe plays in this scene (2.2, 11.10): the trip reports and the route signs crumble to dust, and the shed door swings shut on its starting shelves. With Reduce Motion it is a cross-fade. The game never opens on this scene again: after the guest book, the cabin returns to the real clock.
 
+### 12.26 The chalkboard: the Hike of the Day
+
+The chalkboard by the porch steps opens today's daily (9.9). The first time, it asks for your handle (1.3).
+
+```
+┌──────────────────────────────────────┐
+│ < Cabin        HIKE OF THE DAY #212  │
+│ ┌──────────────────────────────────┐ │
+│ │ THE CHALKBOARD by the steps:     │ │
+│ │ today's route in chalk, a rain   │ │
+│ │ cloud, a steam curl if it's big, │ │
+│ │ the streak in tally marks        │ │
+│ └──────────────────────────────────┘ │
+│ Thu Sep 23, 2027 · opened 5:00 am PT │
+│ Deer Lake · out and back             │
+│ 7.4 mi · +1,950 ft · day hike        │
+│ Start between 6:00 and 10:00 am      │
+│ NWS SEATTLE (illustrative)           │
+│  Today: Showers likely. High 55.     │
+│  Chance of precipitation 70%.        │
+│ Game estimate, Deer Lake: high 50    │
+│ Par 2:31:00 · streak 6 · best 14     │
+│ One shot. No second try today.       │
+│ [ Go  >                            ] │
+│ [ Plan this in Open ]  [ Crew ]      │
+└──────────────────────────────────────┘
+```
+
+- **The forecast lines are NWS's own words,** unaltered and credited (9.10). The words in the wireframe are illustrative, not fetched. The line under them is the game's estimate, labeled as one.
+- **Par, the streak and your best** sit under the forecast. Par's name is yours (9.9).
+- **Go** opens today's card (the start window; on an overnight, today's permit), then the flat lay from the standard shed (9.9).
+- **After you play,** the same screen shows your time, *home safe* or DNF, the share button, and the crew's board, which stays sealed until you've played (9.12).
+
+**A death on the daily** plays the five screens of 12.17. Only the last changes: the GAME OVER card names the day, stamps DNF and says the Open hiker is fine (all DRAFT).
+
+```
+┌──────────────────────────────────────┐
+│ ▌HIKE OF THE DAY #212 · DNF          │
+│ ┌──────────────────────────────────┐ │
+│ │ The register box at the Sol Duc  │ │
+│ │ trailhead, its lid closed        │ │
+│ └──────────────────────────────────┘ │
+│            G A M E   O V E R         │
+│ ╔══════════════════════════════════╗ │
+│ ║ (DRAFT) Today's hike ends below  ║ │
+│ ║ Deer Lake, after dark, in the    ║ │
+│ ║ rain. The streak goes back to    ║ │
+│ ║ nothing. Your hiker at the cabin ║ │
+│ ║ is fine.                         ║ │
+│ ║ You have died of a long, wet     ║ │
+│ ║ night.                           ║ │
+│ ║ "We look like tramps"            ║ │
+│ ║    C. A. Barnes, 1890            ║ │
+│ ╚══════════════════════════════════╝ │
+│ [ Back to the cabin  >             ] │
+│ [ Share ]  [ Field Notes ]           │
+└──────────────────────────────────────┘
+```
+
+*Back to the cabin* returns to the cabin on the real clock, with nothing wiped. The chalkboard reads DNF and its tally marks are wiped clean. The line in *Remembered* carries your handle and the tag `#212` (9.4, 9.8). The share text reads `DNF` and spoils nothing (9.9).
+
+### 12.27 The peak: FKT boards, and a run
+
+The peak above the trees opens the FKT boards (9.11):
+
+```
+┌──────────────────────────────────────┐
+│ < Cabin              FKT · THE PEAK  │
+│ ┌──────────────────────────────────┐ │
+│ │ THE PEAK above the trees, its    │ │
+│ │ snow line in season; the race    │ │
+│ │ bibs on the porch post below     │ │
+│ └──────────────────────────────────┘ │
+│ This week: 2027-W33 · Aug 14 · fair  │
+│ HIGH DIVIDE LOOP ↺ · 18.4 mi         │
+│  Unsupported     yours 6:00:07       │
+│  Self-supported  yours  —            │
+│  Supported       yours  —            │
+│ HIGH DIVIDE LOOP ↻                   │
+│  Unsupported     yours 5:58:40       │
+│ MOUNT STORM KING · up and back       │
+│  Unsupported     yours 1:12:05       │
+│ [ Run ↺ unsupported  >             ] │
+│ [ Crew board ]  [ All time ]         │
+└──────────────────────────────────────┘
+```
+
+On the trail, an attempt's status line carries the clock and the split against your best in place of the score, and the strip carries the ghost (9.11):
+
+```
+┌──────────────────────────────────────┐
+│ 2:50:24 · +1:02 vs PB    ≡  Sound:on │
+│ ┌──────────────────────────────────┐ │
+│ │ THE RIM of the Seven Lakes       │ │
+│ │ Basin, mid-morning; Olympus      │ │
+│ │ across the Hoh; a runner, small  │ │
+│ └──────────────────────────────────┘ │
+│ ↺ Unsup · 9:20 am · the rim · Aug    │
+│ Legs:steady  Fuel:ok  Water:0.4 L    │
+│ ▁▂▄▆█▇▆▅▃▂▁▁▁▁▁▁▁                    │
+│ ·····●··◌·········   ghost +1:02     │
+│ SPLIT the rim 2:50:24 · +1:02        │
+│ ╔══════════════════════════════════╗ │
+│ ║ (DRAFT) The crest runs on in     ║ │
+│ ║ the sun. Heart Lake is the next  ║ │
+│ ║ sure water.                      ║ │
+│ ╚══════════════════════════════════╝ │
+│ ╔═════════════════════════════╗╔═══╗ │
+│ ║ Run the crest       Run     ║║ i ║ │
+│ ╚═════════════════════════════╝╚═══╝ │
+│ ╔═════════════════════════════╗╔═══╗ │
+│ ║ Race the crest   ankle 7%   ║║ i ║ │
+│ ╚═════════════════════════════╝╚═══╝ │
+│ ╔═════════════════════════════╗      │
+│ ║ Eat a gel now     +240 kcal ║      │
+│ ╚═════════════════════════════╝      │
+├──────────────────────────────────────┤
+│ [Pack]       [Map]        [Log]      │
+└──────────────────────────────────────┘
+```
+
+- **The status line** shows the elapsed clock and the last split against your best. There is no score in the timed modes: the time is the score (9.6).
+- **The caption** adds Fuel and Water, which matter at speed (7.9).
+- **The strip** puts you (●) and the ghost (◌) on the route's profile. The ghost here is your best this week (9.11), which is also your all-time best, 6:00:07, set earlier this week, so the ghost and the PB agree. The run is 9.11's split table: it finishes in 5:57:36, 2:31 under that best, and the board then reads 5:57:36.
+- **The pace choices** carry what they cost. *Race* shows the look-ahead's honest chance of rolling an ankle on the miles ahead (8.9), illustrative here, and its (i) opens the Why sheet. *Eat a gel now* is a sure choice that shows its cost and its gain.
+
 ---
 
 ## 13. Audio
 
-*Decisions 32 and 33 reshape this section: no music on the trail, only the place and your own footsteps, as in* Lonely Mountains: Downhill*; music only at the cabin and at a few key moments; every sound public-domain (CC0) or synthesized, each source logged. The full design is in `design/drafts/audio_text.md` until it is written in here. This section has only had its book-era cue names replaced so far.*
+*Decisions 32 and 33: no music on the trail, only the place and your own sounds, as in* Lonely Mountains: Downhill*; music only at the cabin and at a few key moments; every sound public domain, CC0 or synthesized, each source logged. The full draft, with every table, is part one of `design/drafts/audio_text.md`. Sound is not English, so decision 21 doesn't require your approval of it, but the music is a big part of the feel, so short listen batches come to you if you want them (13.11). Your calls are in [Still to come](#still-to-come-from-you).*
 
-### 13.1 The sound engine: PC-speaker charm
+**The short version.**
 
-The 1984 PC speaker was one square-wave voice, and we imitate it honestly with Web Audio: a square oscillator, an envelope at low gain (about 0.06), and a gentle low-pass filter (about 3.5 kHz) to take the harsh edge off. A tiny sequencer plays `[note, ms]` lists, one voice at a time.
+- **On the trail there is no score.** You hear the place and yourself: the creek, wind on the crest, rain on your hood, a thrush in the fog, your boots on each surface, your poles, your pack, your breath on the climb.
+- **The ground is the instrument.** Each surface in the park data owns its footstep, and *Walk on* plays a short montage of the segment you just walked (13.6).
+- **Music lives at home, and at a few moments:** the cabin theme, the soak, the finish, YOU PERISHED, the daily sting and the Bonfire Lily's motif, which plays once in a lifetime. All of it is a small "cabin band" of chunky synth voices running in code, so there are no music files and nothing borrowed but the Chopin dirge (13.2).
+- **Silence is a sound.** When a red-diamond choice is on screen, the birds fall away and you hear the wind and your breath: with every ♦, and never otherwise (13.5).
+- **Sources:** public-domain and CC0 recordings plus synthesis. Freesound's CC0 filter and the NPS sound libraries at Rocky Mountain and Yellowstone are in; BBC Sound Effects and the Sonniss GDC bundles are out (13.9).
+- **The iPhone:** sound starts on the first tap, in Safari's *ambient* session, so it respects Silent Mode and mixes with your own music or podcast. Files are AAC, about 2 MB for M1a, all cached for offline. Nothing depends on a gapless loop (13.10).
+- **Sound never carries information alone.** Most players will play on silent, so anything that matters is also in the words or the picture. Sound is the reward for turning it on.
 
-- **Mostly events and jingles,** like AGI games. No continuous music by default.
-- **iOS:** the audio context is created on the first tap. Where Safari supports it, `navigator.audioSession.type = "ambient"` makes the game **respect the ring/silent switch** and mix politely with your own music. The game never depends on sound.
-- **The status line** toggle `Sound: on / off` works exactly as in KQ.
-- **Later options (M6):** a *Tandy* mode with 3 voices plus noise (an easter egg for those who remember the PCjr), and an ambient bed (rain as filtered noise, surf, a creek), off by default.
-- **No Read to me.** Spoken narration is cut (your decision, 2026-10-08). Players who want the screen read aloud use VoiceOver, which reads the real HTML text (11.9).
+### 13.1 What Lonely Mountains: Downhill does, and our rules
 
-### 13.2 Cue list
+You named it: *"I like how lonely mountains downhill did music honestly."* What the record says:
 
-| Cue | When | Sound |
+- **No music on the ride.** Megagon, in 2017: *"There will be no background music as you ride down the mountain."* Instead, *"expect to hear the wind rustling in the trees, the chirping of birds and animals grazing in the forests"* ([Worthplaying](https://worthplaying.com/article/2017/11/10/news/106038-lonely-mountains-downhill-reaches-kickstarter-goal-gets-1-minute-demo/), checked again for this revision).
+- **The ground carries the sound.** In Megagon's level-production breakdown, ground types define the ground color *"but also all attached physic and audio properties"* ([80.lv](https://80.lv/articles/level-game-production-lonely-mountains-downhill)).
+- **The bike sound is computed** from momentum, the bike, the terrain and the player's movement, and each track is timed in checkpoint segments ([Wikipedia](https://en.wikipedia.org/wiki/Lonely_Mountains:_Downhill)): our splits.
+- **Reviewers heard it as the point:** *"The only sounds are the chirrups of birdsong and the crunch of knobbly tyres"* ([Thumbsticks](https://www.thumbsticks.com/lonely-mountains-downhill-nintendo-switch-review/)).
+- **Not confirmed:** what plays in its menus. Our plan doesn't depend on it, because decision 32 already says where music goes.
+
+**What we take:** no score while you move; each surface owns its sound, from the same data that draws it; the body tells the effort; sparse life (one owl at the right hour beats a wall of birds); and room for the player's own soundtrack. **What we add:** real places, the real season, the real NWS weather on the daily, real thunder distance, music at the cabin, and music you carried in.
+
+**Ten rules for our sound:**
+
+1. **No music on the trail,** on the drive, in town, or under any minigame played out there. Music plays only at the cabin and at the moments in 13.2. Music you carried in is the one exception, if you allow it. The Bonfire Lily's motif is a proposed second one, a key moment on the trail that waits for your yes (13.2).
+2. **Let nature's sounds prevail:** Leave No Trace's seventh principle in the NPS's own words ([NPS](https://home.nps.gov/articles/leave-no-trace-seven-principles.htm)), and Lonely Mountains' rule too.
+3. **Sound never carries information alone.** The thunder's distance, the creek you're near and the shiver that stops are in the words or the picture as well. Players on silent miss the beauty, not the facts, so no captions are needed.
+4. **Honest, like the odds.** The marmot whistles only above 4,000 ft and only while marmots are awake; the elk bugle in September; thunder arrives 5 seconds per mile after the flash; the hush comes with every ♦ and never without one.
+5. **The ground is the instrument.** Surfaces come from the park data, never from a guess.
+6. **Real world, toy interface.** The world sounds like recordings, a little band-limited to sit with the chunky pixels; the interface and the music use the chunky synth voice.
+7. **Quiet by default.** A phone at half volume should feel like standing there, not like a game shouting.
+8. **Audio is decoration in every minigame.** Judging happens against ticks, never against sound, because Bluetooth adds delay (E.12).
+9. **Only public-domain, CC0 or synthesized sources,** each logged (decision 33). **No human voices** at all, not even crowd murmur, and **no spoken narration:** Read to me stays cut (decision 12), and VoiceOver reads the real HTML text (11.9).
+10. **The audio dice are never the game's dice.** Sound picks its variations from its own random stream, so it can never change a daily, a replay or a seed (E.8).
+
+### 13.2 Music and the key cues
+
+**The voice: the cabin band.** All music is a small band of chunky synth voices played from note lists by the synthesis module (13.3): a pulse-wave lead with a quick pluck, like a pixel guitar; a softer, slightly detuned square for harmony; a triangle bass; filtered-noise brushes on the off-beats; and a short synthesized room, like the porch. It grows out of the old one-voice PC-speaker sound, warmed up enough to live beside real recordings. A whole score is a few kilobytes of notes, and everything is original except the Chopin dirge. (The alternatives, CC0 instrument samples or the strict one-voice PC speaker, are your call.)
+
+**The cabin theme** plays at the cabin, and only there: at the porch, the map table, the shed and the flat lay. A walking-pace tune (about 72 beats a minute, working title *The Trail Goes Up*) that climbs and comes home, 16 bars with variations, so it can loop for an evening without wearing out. **It follows the real clock** (2.2):
+
+| When | The band |
+|---|---|
+| Morning | Lead and bass, brighter |
+| Afternoon | The full band |
+| Evening | Slower, the lead an octave down |
+| Night | The lead alone, quiet, with the room |
+| Winter | Slower still, a bell-like tone in place of the pluck |
+| Rain | The band drops back, so the roof can be heard |
+
+- **When the crew is around, the tune gains a voice for each of them.** On a summer weekend a stranger just hears a fuller tune; an insider hears the crew (decision 34).
+- **First launch:** the cabin draws itself in silently. The first tap, which skips the draw-in, opens the sound: the ambience fades in over three seconds, then the theme's first phrase. That is also when iOS lets sound start (13.10).
+
+**The soak** (12.24), only after a big hike: the theme's slow version, half-time and low-passed, the lead an octave down, with the jets bubbling and the night under it. When the crew is in the tub, their parts join.
+
+**The finish, at the car** (12.22): a 3 to 4 second cadence from the theme's last phrase. *Finished* resolves home; a tub-worthy trip adds a voice and a held chord; turning back or a rescue ends gentler, on an open chord; an FKT record is quicker and ends high.
+
+**The death sequence** keeps its cues, in the new voice (9.5, 12.17):
+
+| Screen | Cue |
+|---|---|
+| The death box | A short, low sting: three notes falling, then silence (a nod to Sierra's sting, quoting no real melody) |
+| YOU PERISHED | Silence for 0.8 s, then **the dirge:** our own one-voice arrangement of the opening of Chopin's funeral march (the *Marche funèbre* of his Piano Sonata No. 2, 1839, public domain), slow, about 8 seconds, played once |
+| Leave No Trace | A faint low-passed hiss that thins as the dust blows away |
+| The epitaph | The dice: three quick clicks falling in pitch, like dice on a wooden counter; then the pencil, one tick per word |
+| GAME OVER | The cabin theme's first bar, once, slowly, then silence |
+
+The dirge is the game's one borrowed melody, borrowed from the score, not from any recording. None of the death cues exists in the hidden gentle mode (9.4).
+
+**The daily sting.** When today's Hike of the Day is on the chalkboard, a short motif of about 1.5 seconds plays with the chalk: the same every day, so it becomes the sound of *today's hike*. The time reveal is ticks counting up, then the motif resolved; streak milestones (7, 30, 100) add a note; a DNF is the motif, unresolved.
+
+**The Bonfire Lily motif** plays once, on the glow plate (10.2), and nowhere else, so no other cue hints at it: C5 E5 G5 C6 E6, then C6 held with tremolo. It would be the one moment the band plays on the trail, and the rarest sound in the game. Decision 32 named three key moments (finishing, YOU PERISHED and the daily sting), so this fourth is a proposal: yours to accept, or the lily gets silence and the place only ([still to come](#still-to-come-from-you)).
+
+**Music you carried in** (your call). The catalog has a harmonica and a travel ukulele, luxury items with real weight. Carry one, and camp offers a tile to play it: a short tune in a reed or a plucked-string voice, from a small book of public-domain folk tunes we arrange ourselves. It would be the only music on the trail, and you paid for it in ounces.
+
+**The other cues, reconciled with the old list:**
+
+| Cue | Now |
+|---|---|
+| Walk on, Next | The walk-on montage on the trail (13.6); two dry clicks elsewhere |
+| Look box | A soft wooden tick |
+| Pack bloop and thunk | The flat lay's materials (13.7); the pack-full thunk stays, a low 110 Hz |
+| The permit | An old printer's clatter at the cabin (12.6) |
+| Compass roll | Kept, drier: wooden ticks that slow, then a landing (8.8) |
+| Success, mishap, serious | Two- and three-note ticks, quiet, never a melody |
+| Marmot, elk, thrush, wren, jay | Recordings or synthesis now (13.9) |
+| Campfire | Synthesized crackle, where fires are legal |
+| Day start | Retired: the trail has no music; the dawn chorus does it (13.5) |
+| Page turn, chapter fanfare, The End | Retired with the book (decision 22): the walk-on and the finish replace them |
+| The locals' quiz | The lockbox: a combination lock's clicks; it opens either way (12.3) |
+| Censor bar | One low 110 Hz blip, 40 ms (2.6) |
+| A can, opened | A 120 ms burst of filtered noise, falling (2.6) |
+| The WIC line | Two short rings, 440 and 480 Hz alternated fast, then a click (12.5) |
+
+The quiz, censor-bar and can cues play only with `flags.larry` on, and the can and the lighter never play at the cabin, the car, the drive or a trailhead (lint A07, the sound side of T05).
+
+### 13.3 The stack: nine layers, and where it lives
+
+| Layer | What's in it | Made from |
 |---|---|---|
-| Cabin theme, "The Trail Goes Up" (working title) | Home, at the cabin | 8 bars, C major pentatonic, walking pace: a melody that climbs and comes home |
-| Walk on / Next | Every *Walk on* and *Next* | Two clicks: 1,200 Hz then 900 Hz, 12 ms each (on the trail, a footstep instead, decision 32) |
-| Day start | The first stop of each trail day | G4 C5 E5 G5, then a held C6 (to be revisited: decision 32 keeps the trail free of music) |
-| Look box | Picture tap | A5, 30 ms |
-| Pack bloop / thunk | Item in / pack full | A rising slide; a low 110 Hz thunk |
-| Printer | Permit printed | A short, rattling burst of filtered noise, like an old printer |
-| Compass roll | ♦ choices | Ticks that slow, then a landing chord (major, falling or low) |
-| Success / mishap / serious | Outcomes | C-E-G up; G-F slightly flat; a slow four-note descent |
-| Sketch | Sketching the Bonfire Lily, the game's one sketch (10.2) | Soft 2 kHz ticks, one per line |
-| Marmot | Marmot | A high whistle, twice |
-| Elk bugle | Sept-Oct | A slide up to 1,800 Hz, then three low grunts |
-| Varied thrush | Fog stops | One long vibrato note, then silence |
-| Pacific wren | Rain-forest dawn | A trill far too big for its body |
-| Jay | A theft | Two quick notes and a flutter |
-| Campfire | Where fires are legal | Faint random crackle |
-| **The Bonfire Lily motif** | The glow plate, on the rare evening it shows | C5 E5 G5 C6 E6, then C6 held with tremolo. **Played once, nowhere else**, so no other cue hints at it |
-| Finish | The stamp at the car (12.22) | The cabin theme's first four bars, slower |
-| Death sting | The death box (Old School) | Three low notes falling, then silence: a nod to Sierra's death sting without quoting any real melody |
-| **Dirge** | YOU PERISHED (Old School) | The opening bars of Chopin's funeral march (the *Marche funèbre* of his Piano Sonata No. 2, 1839, public domain) in B♭ minor: our own one-voice square-wave arrangement of the melody, slow, about 8 seconds, played once |
-| Dust | The Leave No Trace dissolve | A faint low-passed noise hiss that thins to nothing as the dust blows away |
-| Dice | Tapping the dice on the epitaph screen | Three quick clicks, falling in pitch, like dice on a wooden counter |
-| Pencil | Signing the Trail Register | The sketch ticks, one per word of the epitaph |
-| GAME OVER | The GAME OVER card | The cabin theme's first bar, once, slowly, then silence |
-| Locals' quiz | First launch: a right answer, a wrong one | C-E-G up; a two-note raspberry, low and a little flat |
-| Censor bar | A Larry moment's bar slamming on (2.6) | One low 110 Hz blip, 40 ms |
-| The WIC line | The hidden phone call (12.5) | Two short rings, 440 and 480 Hz alternated fast, then a click |
-| A can, opened | *Crack the IPA* | A 120 ms burst of filtered noise, falling |
+| **Bed** | Air tone, wind, distant valley hush | Synthesis |
+| **Water** | Creek, river, falls, lake, surf | Synthesis plus recorded grains |
+| **Life** | Birds, marmots, elk, squirrels, insects, frogs | Recordings, some synthesized |
+| **Weather** | Rain by surface, gusts, thunder, hail, drip | Synthesis plus recordings |
+| **Body** | Footsteps, breath, heartbeat, shiver | Recordings plus synthesis |
+| **Gear** | Poles, pack, stove, zipper, can, pad | Recordings plus synthesis |
+| **Events** | One-shots from cards: a rockfall, a branch | Recordings |
+| **UI** | Ticks, the compass, the censor blip | Synthesis (the chunky voice) |
+| **Music** | The cabin band | Synthesis (code) |
 
-None of the death cues (the sting, the dirge, the dust, the dice, the pencil and GAME OVER) exists in the hidden gentle mode. The quiz, censor-bar and can cues play only in builds with `flags.larry` on (2.6). The dirge is the game's one borrowed melody, and it is borrowed from the score, not from any recording.
+Each layer has its own bus, so the mix can raise or duck it as a whole (13.11). **In the repo** (a proposal; the build plan's revision places it):
+
+| Path | What it is |
+|---|---|
+| `web/js/audio/engine.js` | The context, unlock, session type, buses, interruptions; the master limiter is `dsp.js`'s own, run in an AudioWorklet |
+| `web/js/audio/dsp.js` | Pure synthesis (oscillators, noise, envelopes, filters) and the limiter. On the phone it renders every synthesized sound into buffers; in Node, the same code renders the same samples, like the picture VM |
+| `web/js/audio/scape.js`, `steps.js`, `music.js` | Place, hour, season and weather into layers; footsteps and the walk-on; scores a bar ahead |
+| `content/audio/sounds.json`, `scapes/`, `music/` | The bank of cues; the listening maps; the scores, as notes |
+| `content/audio/credits.json` | The license log (13.12) |
+| `content/audio/masters/`, `enc/` | Trimmed sources (FLAC, short excerpts only); the AAC files that ship |
+| `tools/audio.mjs`, `tools/listen.mjs` | Fetch, trim, encode and log; render a scene to WAV, a spectrogram PNG and a loudness reading |
+
+`dsp.js` and the scores join the pure modules lint E01 already guards: no `Math.random`, no clock, no DOM.
+
+### 13.4 Where you are: zones, water, echo, the cabin and town
+
+**Every stop has a listening-map entry,** like a picture recipe for the ear: its zone (the six weather zones of 7.5, plus town and the cabin), its canopy, its water (each source and its distance), its exposure (from the hazards and the node type), any echo (hand-tagged rock bowls) and its life (`wildlife_and_plants`). For M1a's 35 or so places it is written by hand, in `content/audio/scapes/sol_duc.json`; later regions start from the data and get a review pass. Sol Duc Falls, for example: old-growth canopy, the falls near plus the river, an echo in the rock slot, the dipper on the rocks and the thrushes in season.
+
+| Zone | The bed | Water and life |
+|---|---|---|
+| **Coast** | Surf roar, offshore wind | Surf by tide and swell, gulls; fog drip in the spruce |
+| **West valleys** | Deep hush under the canopy | River, drip; Pacific wren, varied thrush; elk in the fall |
+| **North mid** (Sol Duc) | Canopy wind high above you | River and falls; thrushes, kinglets, Douglas squirrel |
+| **High** (the Divide) | Open air, wind on the crest | Lakes, outlets, snowmelt; marmots, sooty grouse, Canada jay, ravens |
+| **East high** | Drier wind, less drip | Fewer creeks; the same high life |
+| **Alpine** | Wind, then nothing | Meltwater under rock; the glacier's creak (M2) |
+| **Town** | Street hum, harbor wind | Gulls; each store's own door |
+| **The cabin** | Quinault rain-forest hush | Rain on the roof, maples dripping, wrens and thrushes; elk in September |
+
+The Park Service describes the same span: the winds of the glacial peaks, the coast's waves and seabirds, rain under the Hoh's canopy, Roosevelt elk bugling in late summer and Pacific wrens ([NPS, Olympic soundscapes](https://www.nps.gov/olym/learn/nature/soundscapes.htm)).
+
+**Water tells you where you are.** Near water is loud and bright, far water quiet and low-passed. Rivers follow the monthly flows (7.7), and a ford's roar follows the same flow the ford card rolls against, so a louder ford really is a harder one, and the card says so in words too. A falls is a steady roar with a mist hiss, a creek babbles, a lake laps only in wind, and a still tarn is silent. **Dry stretches are dry:** segments tagged `no_water`, like the High Divide crest, have no water layer, so players who listen learn where the last water was. **Echo** touches two kinds of room, rock bowls like the basin from the rim and slots like Sol Duc Falls, with a synthesized impulse response that costs no file.
+
+**The cabin** gets music, and under it each place in the scene has its sound: the screen door's spring creak and slap, the shed's latch, the car door and keys, the fire bowl's crackle (nothing when it's ashes), a pencil at the register post, the mailbox hinge and its flag's tick, the tub's jets and a lid thump, a page in the guest book, chalk on the chalkboard, and an old printer for the permit. **The real weather plays on the roof** (2.2): rain, the gutter's trickle, the downspout; in snow the world goes quiet, as fresh snow does ([WFPL, citing the NSIDC](https://wfpl.org/why-is-it-so-quiet-after-it-snows/)), and now and then a load slides off a branch. **When the crew is around,** there are no voices: the cooler lid, a dog, tent zippers on the lawn, and the fuller theme.
+
+**The drive** has no music: the engine, the road, rain and wipers, the turn signal at the junction (a car radio is your call). **Town** has gulls, street hum, the harbor wind and each store's door: a bell and a creaky floor at the general store, a quiet room with a hum at the gear shop, softer still at the boutique.
+
+### 13.5 When: hour, season, weather, and the hush
+
+**The hour.** The dawn chorus has the most birds of the day, rising with the light; midday lulls, with wind and insects up in summer; evening brings the thrushes back; at night the birds are gone and the water seems louder, with wind, an owl, the odd branch. The engine's sun times (7.2) drive it, so dawn at Deer Lake is when the game says it is.
+
+**The season.** Each species in a listening map carries its months, hours and heights; the ones below are verified, and anything else is marked *to check* in the scape file until a source confirms it.
+
+| Who | Where and when | Source |
+|---|---|---|
+| **Olympic marmot** whistle | Meadows above 4,000 ft; hibernate from September or early October, for 7 to 8 months | [NPS](https://www.nps.gov/olym/learn/nature/olympic-marmot.htm) |
+| **Roosevelt elk** bugle | Bulls bugle in September | NPS; region data |
+| **Sooty grouse** | Deep hoots in mountain meadows, early summer | [NPS](https://www.nps.gov/olym/learn/nature/birds.htm); region data |
+| **Varied thrush** | One long buzzy note, then another on a new pitch; breeds in the Olympics, winters in the lowlands | [Eastside Audubon](https://www.eastsideaudubon.org/corvid-crier/2019/5/1/horned-lark-la3ez) |
+| **Swainson's thrush** | Lowland forest, June to August | [The Daily World](https://thedailyworld.com/sports/grays-harbor-birds-swainsons-thrush-catharus-ustulatus) |
+| **Pacific (winter) wren** | A long warble from the understory | NPS, which calls it winter wren |
+| **Mosquitoes** | Heavy late June to July, mostly gone by late August | Region data |
+
+At the cabin the year turns too: varied thrushes in winter, Swainson's thrushes on summer evenings, frogs on spring nights (to check), elk in the fall.
+
+**Weather** comes from the zone states (7.5), and on the Hike of the Day from the real NWS forecast (9.10), so everyone hears the same day. **Rain depends on what's over your head,** and the pack knows: a soft hiss high above then heavy drips under the forest; close, crisp ticks at your ears under a hood; a drum, louder and rounder, under a hiking umbrella; and under a tent fly, silnylon pattering or a tarp snapping in gusts. The umbrella and the tarp are real catalog items, and the moss crowd will hear the difference. **Wind** is synthesized, grows with exposure, and drops in fog, where the varied thrush's single note carries. **Thunder is honest:** the picture flashes, and the sound comes 5 seconds per mile later, up to the roughly 10 miles at which thunder can be heard ([NWS](https://www.weather.gov/safety/lightning-science-thunder)), so a player who counts gets the true distance, and the card's words give it too. **Snow underfoot** is a firm crunch in the morning and slush and postholes in the afternoon, from the snow model (7.6).
+
+**Silence, and the hush.** Silence is the strongest sound we have, so it is spent carefully.
+
+- **The hush at the ♦.** When a choice with a red diamond is on screen, the Life layer fades out over two seconds, the bed drops, and your breath comes forward. After you choose, the world comes back over three seconds. **It happens with every ♦ and never otherwise,** so it never fakes danger (your call).
+- **Real quiet places stay quiet:** a still tarn at night, the alpine zone, deep snow.
+- **YOU PERISHED begins in silence:** everything cuts, then 0.8 seconds of nothing, then the dirge (13.2).
+- **An easter egg for M2, if you want it:** on the Hoh River Trail, *One Square Inch of Silence*, a small red stone Gordon Hempton placed in 2005 to stand for quiet in the park ([Wikipedia](https://en.wikipedia.org/wiki/One_Square_Inch_of_Silence)). There the mix drops to its quietest, and only a Look, in your words, explains.
+- **Real noise is your call.** University of Washington researchers recorded about 5,800 flight events at the coast and on the Hoh River Trail in 2017-18, 88% of them military ([UW News](https://www.washington.edu/news/2020/12/07/noise-pollution/)). A jet now and then would be true to the park, but it may not be what you want the game to say; the recommendation is not in M1a.
+
+### 13.6 Walking: the walk-on and the footsteps
+
+**The walk-on.** The trail moves by stops: you tap *Walk on* or swipe, and the next stop appears. That transition is where you hear the walk: **a sound montage of the segment you just walked,** squeezed into 2 to 6 seconds while the next picture draws in, its surfaces, water and events in order.
+
+```
+Walk on: Sol Duc Falls to Deer Lake
+(about 3 mi and 1,600 ft)
+
+0.0s  planks on the falls bridge,
+      the roar right under you
+0.6s  roots and duff; the roar behind
+1.2s  breath climbing; Canyon Creek
+      rising beside you, then falling
+2.4s  mud, two squelches
+2.9s  a blowdown: bark scrape, a thump
+3.6s  a snow patch crunch (early)
+4.2s  quiet lake air, a mosquito whine
+      (late June and July)
+```
+
+It never blocks (a tap on a choice lets it finish underneath), it follows the real segment, season and hour (a long walk can end in evening thrushes), and a 0.1-mile hop is only a few steps. **At a stop, the body idles:** every 8 to 20 seconds, quietly, a shifted foot, a pole tap or breath settling; at camp, the pack's thump, a buckle and a long breath out.
+
+**Surfaces,** from each segment's trail class, hazards and zone, the way Lonely Mountains' ground types work:
+
+| Surface | From the data | What it sounds like |
+|---|---|---|
+| Duff | `maintained`, forest | Soft, muffled, a needle crackle |
+| Packed dirt | `maintained`, open | A dry pat, a little grit |
+| Gravel | `road_walk`; washouts | A crunch with a slide |
+| Roots, rock steps | `primitive`; `steep_steps` | Knocks and hard clacks |
+| Scree, talus | `steep_scree` | A sliding hiss; plates clink |
+| Snow | `snowfield` | Morning crunch, afternoon slush; microspikes jingle |
+| Planks | `bridge`; boardwalk | Hollow wood |
+| Mud | `mud` | Suck and squelch |
+| Water | `stream_crossing`, `cold_water` | Splash, wade and roar |
+| Brush, heather | `brush`; `fragile_meadow` | Swishes against your legs |
+| Sand, cobble | Coast (M4) | A squeak; cobbles that roll |
+| Logs | `blowdown`; driftwood | A bark scrape, a thump down |
+
+**Wet feet keep squelching** until the body model says they're dry: on the drop to Hoh Lake, where the data warns that wet brush *"can soak shoes"*, all the way down. **How a step is made:** 6 to 8 recorded variants per surface, never the same twice in a row, with small random changes in pitch, gain and brightness; a heavier pack makes a lower step and adds pack creak; Tired and Spent loosen the rhythm and add the odd scuff; the catalog's footwear sets the step (boots heavy, trail runners quick, sandals slap, flip-flops a joke you can hear); poles strike every other step.
+
+**Running and the descent** come closest to Lonely Mountains: quicker, lighter steps, breath in a running rhythm and the vest's bounce; in the descent minigame the footfalls *are* the rhythm you tap to (17.10); and each split is a soft wooden *tok*, a brighter one on an FKT when you're ahead of the record. It is a click, not music, and the split line shows the same thing.
+
+### 13.7 The body, the gear and the flat lay
+
+**The body:** breath on climbs (by grade and tiredness), running, and the ♦ hush; a heartbeat in self-arrest and the cold ford only; chattering on the Cold chain (7.9); a small stomach growl when food runs short, Look-level comedy; a breath out and the bag's rustle at *Go to sleep*. **One idea to check first:** in real hypothermia shivering stops as it gets worse, but the source found is secondary ([Medical News Today](https://www.medicalnewstoday.com/articles/182197.php)), so it is checked against a primary medical source before the chattering is allowed to stop at the Cold chain's last warning (and the words would say so too).
+
+**The gear,** by catalog category with a few items of their own: poles' tip strikes and flick-lock clack; the pack's buckles, hip belt and frame creak; each stove its own (a canister stove's hiss and roar, an alcohol stove's almost-silent whump, a white-gas stove's pump strokes and jet); titanium pots ring and the cast-iron skillet thuds; tent, bag and jacket zippers each at their own pitch; an inflatable pad's crinkle every time you turn over; the bear can's twist and click; a filter's trickle; a lighter's strike; crampons' bite; a trowel digging a cathole, as Leave No Trace asks. **The portable speaker** is in the catalog: played at a lake it is a thin, tinny loop, and Leave No Trace counts it under principle 7. The game lets you, and lets the lake judge you.
+
+**The flat lay** (6.1) is the signature screen, and every item you lay on the deck lands with its material's sound: a soft flop for nylon, down and fleece; a bright ring for titanium; a clank for aluminum and steel; a hollow knock for hard plastic (the can, bottles); a crinkle for food bags; a whisper for paper (the map, the permit); a heavy thud for wood and cast iron. Shake the fuel canister and the slosh tells how full it is (the gauge does too). The share is a camera shutter.
+
+### 13.8 The minigames
+
+The minigames section owns their rules (17); this is their sound. All of it is short, tactile and dry, within a frame of the touch, never louder than the place. On the trail there is no music under them; at the cabin the theme keeps playing.
+
+| Minigame | What you hear |
+|---|---|
+| The bear can | A thump by size as each item lands, a zip on a merge that climbs a step in a chain, a crinkle, a crunch, the lid's slide and three clicks (17.7) |
+| The alpenglow shot | The wind easing, the evening's birds, the light changing in silence, then a soft shutter; no jingle for ★★★ (17.8) |
+| Huckleberries | A plink for each cluster, a pentatonic step higher each eighth of a quart, so a full cup plays a tune; a woof and a shaking bush if a bear is near (17.9) |
+| The descent | The footfalls are the rhythm (13.6, 17.10) |
+| Self-arrest | The hiss speeding up, the pick's scrape and bite, the heartbeat; then wind, or the slide going on (17.11) |
+| The ford | The roar by flow, cobbles clacking underfoot, the gasp at the cold, the surge rushing (17.12) |
+| The tent in the rain | The hiss of rain on ground until the fly goes on, then rain on nylon close overhead: the best sound in it (17.13) |
+| Razor clams | Surf, the lantern's hiss, the gun's *thwop*, the bucket's clink rising to fifteen, and the sneaker wave's roar two seconds early (17.14) |
+
+### 13.9 Where every sound comes from
+
+Decision 33: *"I won't have time to record anything anytime soon."* So Claude handles all of it, and only three kinds of source may ship: **CC0**; **US government public domain** with a written statement on the page, like the NPS libraries; and **synthesis**, our own code. Every file is logged (13.12). Your own recordings are welcome later and never needed.
+
+| Library | License | Verdict |
+|---|---|---|
+| **Freesound, CC0 filter** | Each sound's own license; the CC0 filter works on the site and in the API | **Yes,** per sound: most recordings come from here |
+| **NPS Rocky Mountain library** | Public domain, credit the NPS; it asks that its recordings not be played in the park | **Yes:** thrushes, Steller's jay, raven, pine squirrel, elk, wind, thunder, hail, a stream |
+| **NPS Yellowstone library** | Public domain; *"please credit the 'National Park Service'"* | **Yes:** the dipper, raven, elk, thunder |
+| **NPS sound gallery** | Public domain, with credit | **Yes,** case by case; no Olympic recordings |
+| **Kenney** | CC0, attribution not required | **Yes,** though our UI is synthesized |
+| **BBC Sound Effects** | Personal and educational use only, or a paid licence | **No** |
+| **Sonniss GDC bundles** | Royalty-free, not CC0; no raw redistribution | **No:** our public repo would hold raw files |
+| **Western Soundscape Archive** | CC BY-NC-ND 3.0, per its listing | **No** |
+
+Sources: [Freesound FAQ](https://freesound.org/help/faq/); [NPS Rocky Mountain](https://nps.gov/romo/learn/photosmultimedia/soundlibrary.htm); [NPS Yellowstone](https://www.nps.gov/yell/learn/photosmultimedia/soundlibrary.htm); [NPS sound gallery](https://www.nps.gov/subjects/sound/gallery.htm); [Kenney](https://kenney.nl/support); [BBC Sound Effects](https://sound-effects.bbcrewind.co.uk/licensing); [Sonniss](https://sonniss.com/gameaudiogdc); [University of Utah](https://collections.lib.utah.edu/details?id=1119324). Freesound's high-quality previews are public (one probed: 48 kHz stereo, about 190 kbps), so sessions use them and never need an account.
+
+**Honest stand-ins,** logged and credited as such (your call): hoary marmot whistles (Freesound CC0, from the Yukon) for the Olympic marmot; Rocky Mountain elk (NPS) for Roosevelt elk; the pine squirrel (NPS) for the Douglas squirrel. **The Pacific wren is the hardest:** a CC0 search finds none, so the recommendation is to synthesize it; one CC BY recording with credit would bend decision 33's rule, so that is yours to allow.
+
+**Synthesis covers everything continuous,** so nothing has to loop, and fills the gaps: wind (noise through a wandering band-pass, with gusts), rain (high-passed noise plus droplet clicks, shaped by what's overhead), a creek (narrow noise bands, each with its own swell), falls and surf (low-passed noise with slow swells, surf on the tide's timing), drip, fire, the tub's jets, thunder (a crack plus a rumble, delayed and low-passed by distance), the varied thrush (one buzzy sustained note, nearly a synthesizer already), the sooty grouse's low hoots, a mosquito's whine, and the UI's chunky voice. It is the approach Andy Farnell's *Designing Sound* (MIT Press, 2010) teaches: build the sound from its physics, as a process.
+
+**What a CC0 file must pass,** because a label is only as good as its uploader: a field recording with details and a recordist with a history; no voices, no background music, no church bells; no sound of a real brand you could name by ear; and listened to in full (as a spectrogram and a loudness trace, 13.11) before it is trimmed. **Wildlife calls stay quiet in the mix,** so nobody's phone calls a marmot in the park.
+
+**The pipeline:** `tools/audio.mjs` runs in a session, where ffmpeg is installed; CI never needs it. Fetch the source into the scratchpad; master it (trim, fade, de-click, high-pass, mono unless stereo matters, level-match) to a short FLAC excerpt; encode to AAC; log it with both files' SHA-256; and the build checks every hash against the log, so nothing ships unlogged.
+
+### 13.10 The iPhone: Safari's audio realities
+
+Your test phone is an iPhone 17, whose Action button can switch Silent Mode ([Apple](https://www.apple.com/iphone-17/specs/)).
+
+- **Unlock on the first tap,** on `touchend` or `click`, never `touchstart`, which can be the start of a scroll ([WebKit bug 149367](https://bugs.webkit.org/show_bug.cgi?id=149367)). In that handler, synchronously: set the session type, create or resume the context, play one silent frame. The first tap at the cabin is the natural door.
+- **Web Audio for everything, in the ambient session.** By default Web Audio on iOS is muted in Silent Mode while `<audio>` plays anyway ([WebKit bug 251532](https://bugs.webkit.org/show_bug.cgi?id=251532)). Safari supports `navigator.audioSession` from iOS 16.4 ([Can I Use](https://caniuse.com/mdn-api_navigator_audiosession)), and WebKit maps `"ambient"` to the system's ambient category ([DOMAudioSession.cpp](https://github.com/WebKit/WebKit/blob/main/Source/WebCore/Modules/audiosession/DOMAudioSession.cpp)), which mixes with other apps' audio and is silenced by the Silent switch and the lock ([Apple](https://developer.apple.com/documentation/avfaudio/avaudiosession/category-swift.struct/ambient)). So `navigator.audioSession.type = "ambient"` where it exists, and never `"playback"`, which would ignore Silent Mode and stop the player's music.
+- **Interruptions.** A call, the lock screen or another app can stop our audio, and the context goes `"interrupted"` and needs `resume()` ([MDN](https://developer.mozilla.org/en-US/docs/Web/API/BaseAudioContext/state)). Safari doesn't implement `audioSession.state` ([WebKit bug 283417](https://bugs.webkit.org/show_bug.cgi?id=283417)), and a context can claim to be running while its clock has stopped ([WebKit bug 263627](https://bugs.webkit.org/show_bug.cgi?id=263627)), so a watchdog checks that `currentTime` moves and, if not, suspends and resumes on the next tap, rebuilding the context as a last resort. When the page is hidden, everything suspends; when it is back, the scene fades in over a second.
+- **AAC in `.m4a` for everything.** Opus and Vorbis work in Safari only from iOS 18.4 ([Can I Use](https://caniuse.com/opus)), and players' phones may be older. Mono unless stereo matters; footsteps, gear and birds at 32 kHz and 64 kbps; texture grains at 24 kHz and 48 kbps (starting points, tuned by ear on your phone).
+- **Nothing depends on a gapless loop.** AAC files start with silent priming samples, commonly 2,112 ([Apple TN2258](https://developer.apple.com/library/archive/technotes/tn2258/_index.html)), and we found nothing on whether Safari trims them. So continuous sounds are synthesized by `dsp.js` on the phone, into buffers: each bed is a rendered 15 to 20 second mono buffer, looped sample-accurately with a crossfaded seam (gapless, because a synthesized buffer has no priming) and counted in the decoded budget below; recorded textures play through a grain player that crossfades random 4 to 8 second slices from inside the buffer; music is synthesized a bar ahead; and one-shots are packed into sprites that open with a one-sample sync click, so priming can't shift a cut.
+- **Memory.** Decoded audio is 32-bit float ([Web Audio API](https://www.w3.org/TR/webaudio/)), about 192 KB per mono second at 48 kHz, whatever the file's size. The budget is about 120 seconds decoded at once (roughly 23 MB), loaded by region and unloaded when you leave, which is why synthesis carries the long sounds.
+- **Offline and size.** M1a's audio is about 2 MB (footsteps 230 KB, the loop's birds and animals 880 KB, gear and body 360 KB, events and the cabin's places 320 KB, grains 180 KB: about 250 seconds), all precached with the app (E.7), inside the build's 5 MB. Later regions bring their own packs when you plan a trip there.
+- **Latency and battery.** Bluetooth adds an audible delay, which is why minigames judge against the picture (E.12). Sounds start on the tap. The context suspends when Sound is off, when the app is hidden, and after 30 seconds with nothing playing.
+
+### 13.11 The mix and the settings
+
+**Your own footsteps are the loudest steady thing.** The world sits under them, and music sits on top, at home only. Starting levels, all tuned on your phone:
+
+| Bus | Starting gain | Peaks |
+|---|---|---|
+| Body (steps, breath) | −10 dB | −9 dBFS |
+| Weather | −12 dB | Thunder to −3 dBFS |
+| Gear, events | −12 dB | −8 dBFS |
+| Water | −14 dB | Falls and fords louder |
+| Bed (air, wind) | −16 dB | Crest gusts louder |
+| Life | −18 dB | Kept low (13.9) |
+| UI | −20 dB | Quiet ticks |
+| Music | −6 dB | −3 dBFS |
+
+The master runs into a lookahead limiter with a ceiling of −1 dBFS, so nothing clips through a phone speaker. It is `dsp.js`'s own, run in an AudioWorklet (Safari from iOS 14.5, [Can I use](https://caniuse.com/mdn-api_audioworklet)), never a `DynamicsCompressorNode`, whose behavior differs from engine to engine, so the ceiling is the same in Node and on the phone. Loudness targets (our own): a trail scene around −24 LUFS, quiet and spacious; the cabin with music around −20; stings never louder than the cabin.
+
+**Ducking:** a ♦ on screen takes Life out, the bed down 6 dB and breath up 2 (13.5); YOU PERISHED stops everything; thunder ducks the rest 3 dB for a second and a half; the cabin's ambience sits 6 dB under its music, and a panel opening at the cabin ducks the music 4 dB. **Voice limits:** at most 6 Life voices, 2 step voices, 4 gear or event voices and 12 sources in all; the quietest and oldest drop first.
+
+**Speaker or headphones.** Phone speakers carry little bass, so every important sound has a mid-range part (thunder's crack, a step's click, the falls' hiss). Panning stays modest, and the same mix opens up on headphones; we can't tell which the player uses, so it works on both.
+
+**Settings:** **Sound** on or off, in the status line as in King's Quest, and **Music** on or off in the mailbox's settings, for players who want their own playlist under the park (12.18). Nothing else: Silent Mode does the rest. (The old M6 idea of a Tandy mode folds into your choice of the music's voice, 13.2.)
+
+**How Claude checks a mix with no ears.** `tools/listen.mjs` renders any scene in Node (a place, an hour, a month, the weather, a ♦ on or off) with the same `dsp.js` the phone runs, and writes a WAV, a **spectrogram PNG** Claude can look at, and a loudness and peak reading. The checks: no clipping, the targets above, a mid-range part in every important cue, the hush really hushing, and no two layers fighting in one band. The dirge and the stings render to the same bytes every time, as goldens. **Node's render is what the phone plays,** because the phone shapes nothing outside `dsp.js`: every bed, cue and score is rendered by `dsp.js`, and the native Web Audio nodes only play buffers and apply gains and pans. **As a check on the real output,** the debug menu's *Render 10 s of this scene* runs the same graph in an `OfflineAudioContext` on the phone and adds its peak, its loudness and a small spectrogram to the bug report. **Listen batches,** if you want them: a few short files in chat (the cabin theme, the soak, dawn at Deer Lake, rain on the tent), and you reply "yes" or "more X, less Y".
+
+### 13.12 The credits and license log
+
+Every shipped sound has an entry in `content/audio/credits.json`: its id, file, source, URL, title, author, license (`CC0-1.0`, NPS public domain, or `synth` with the recipe's name), the evidence and the date it was checked, whether it is a stand-in and for what, what was changed, both files' SHA-256, and what uses it. The Credits screen at the mailbox gets a Sounds part built from the log, with the libraries, the recordists' handles and *National Park Service*, as the NPS asks; CC0 needs no credit, but crediting is kind, and the words around the names are yours.
+
+| Rule | Catches |
+|---|---|
+| **A01** | A shipped sound with no log entry, or a license other than CC0, NPS public domain or synth |
+| **A02** | An entry missing its URL, author, evidence, check date or hashes |
+| **A03** | An encoded file whose hash doesn't match its entry |
+| **A04** | A source from a denied library (13.9) |
+| **A05** | Over budget: all audio over 2.5 MB, a file over 200 KB, or a scene set over 120 s decoded |
+| **A06** | A cue used but not in the bank; a bank sound nothing uses (a warning) |
+| **A07** | T05 for sound: the can and the lighter never play at the cabin, the car, the drive or a trailhead |
+| **A08** | A death cue reachable in the gentle mode; the lily's motif anywhere but its plate |
+| **A09** | A score not marked `original`, or `public domain` with the work, composer and year |
+
+### 13.13 What M1a's sound needs
+
+| Step | Work |
+|---|---|
+| **A1** · the core | The engine (unlock, session, interruptions), buses and limiter, the Sound toggle, `dsp.js` with its Node renderer and goldens, the UI ticks |
+| **A2** · the trail | Synthesized beds, the scape resolver, the loop's listening maps, the footsteps on ten surfaces, the walk-on |
+| **A3** · the sources | `tools/audio.mjs`, the license log and its lints, the loop's birds and animals, gear, the flat lay |
+| **A4** · danger | Thunder with true distance, fog, the hush at the ♦ |
+| **A5** · the end | The death cues and the dirge |
+| **A6** · home | The cabin's places and roof weather, the theme on the real clock, the soak, the finish |
+| **A7** · the mix | A pass on your phone, the budgets, a listen batch |
+
+The minigames bring their own sounds when they are built (17.16), and the daily sting lands with the Hike of the Day (T2). Where A1 to A7 sit among the sessions is in `BUILD_PLAN.md` 13.6.
 
 ---
 
@@ -3756,7 +4948,7 @@ None of the death cues (the sting, the dirge, the dust, the dice, the pencil and
 | Trip templates (presets and the ranger's loop fills) | ~16 (the 12 fills, 3.6) | ~40 | ~130-160 |
 | Generic archetype cards | 55 | 140 | 220 |
 | Place cards and patches | 30 | 80 | 300 |
-| Chain, fork, crisis, finale, epilogue cards | 20 | 40 | 80 |
+| Chain, fork, crisis, finale, aftermath cards | 20 | 40 | 80 |
 | **Total cards** | **~105** | **~260** | **~600** |
 | Larry moments, counted above (2.6) | 7, and the opener | 8 | 12 |
 | Choices (about 2.8 per card) | ~295 | ~730 | ~1,700 |
@@ -3768,6 +4960,9 @@ None of the death cues (the sting, the dirge, the dust, the dice, the pencil and
 | Tall plates | 3 | 6 | 12 |
 | Gear / food items in play | 60 / 37 | 100 / 62 | 217 / 88 |
 | Simulation assertions | 15 | 60 | 200 |
+| Minigames (17.16) | 3 in M1a; 5 with M1b (6 with clams) | 7, with the descent and the ford | 8 |
+| Sound: shipped audio (13.10) | ~2 MB, ~250 s | Measured per region pack | Measured |
+| Lines of English for you to approve (18.9) | ~2,150 for M1a | Measured by `text.mjs count` | Measured |
 | Data file size (gzip) | ~150 KB | ~400 KB | ~1 MB |
 
 ### 14.2 Coverage rules
@@ -3817,7 +5012,41 @@ None of the death cues (the sting, the dirge, the dust, the dice, the pencil and
 
 From the vertical slice, the High Divide loop either way round (M1a), to the full park. The order is your call (2026-10-08): the High Divide and Seven Lakes Basin loop first, then the rest of the Sol Duc side, then the Hoh and Olympus, then Royal Basin for v1.0. Each milestone ends with you playing it on your iPhone. A **session** below means one focused Claude Code working session of a few hours. The estimates are rough, and each milestone names what gets cut first if it runs long.
 
-**Where the build stands.** Session 1 shipped the start of M0 and M0.5: the app shell, the build and lint tools, and a title page with the chunky-pixel High Divide cover, at `fernforager.github.io/104-boyz`. Under the new direction (decision 22) its book words are retired: the title page becomes the cabin (2.2), the cover becomes the loading art and the Hike of the Day's picture on loop days (11.7), and its 13 live strings wait for your approval in the text system (decision 21). The Hike of the Day, FKT attempts, the minigames and the new sound join this roadmap as they are written in.
+**Where the build stands.** Session 1 shipped the start of M0 and M0.5: the app shell, the build and lint tools, and a title page with the chunky-pixel High Divide cover, at `ophiker.com`. Under the new direction (decision 22) its book words are retired: the title page becomes the cabin (2.2), the cover becomes the loading art (11.7), and of its 13 live strings, main keeps only the two your name approved, while the rest wait on preview for the text system's batches (decision 21, 18.11). The ways to play join it as six steps beside the milestones, T0 to T5 (below), and the minigames, the sound and the text system join the milestones themselves.
+
+**What lands where.** The new direction's pieces, beside the park's milestones. Session counts are rough. **Every M1a row is inside M1a's own count** (about 25 sessions, likely 25 to 30); every other row is on top of its milestone's, unless it says *inside*. `BUILD_PLAN.md` 1 and 8 count the same sessions one by one:
+
+| Piece | When | Sessions | See |
+|---|---|---|---|
+| The text system's core: ids, the build fill, the ledger, lints T10 to T14, the debug marks | M0, with the preview channel | Inside M0 | 18.10 |
+| The batch and screenshot tool; then the review page | M0.5's screenshots; the first batch over 40 lines | Inside them | 18.7, 18.8 |
+| Sound A1: the engine, unlock, Silent Mode, `dsp.js`, the UI ticks | M0.5, the look spike | Inside M0.5 | 13.13 |
+| The cabin home on the real clock; the flat lay and its share image | M1a | Inside M1a: about 4 to 6 | 2.2, 6.1, 11.11 |
+| Sound A2 to A7: the trail, the sources, danger, the death cues, home, the mix | M1a | Inside M1a: about 3 to 4 (an estimate) | 13.13 |
+| Minigames MG0 to MG3: the host, the bear can, the alpenglow shot, huckleberries | M1a | Inside M1a: about 4 | 17.16 |
+| FKT attempts (T1), with the technical descent | Right after M1a | 3, the descent included (the build plan's S29 to S31) | 9.11, 17.10 |
+| The Hike of the Day with today's real weather, and crew links (T2) | With M1b | 4 to 6 | 9.9, 9.10 |
+| Self-arrest, the tent in the rain, the can that remembers | M1b | 2 to 3 | 17.16 |
+| Lake Quinault's winter dailies (T3); the world board (T4) | Before the first winter; when you say go | 2 to 3 each | 9.9, 9.12 |
+| The ford | M2 | 1 | 17.12 |
+| Razor clams | M1b or M4, your call | 1 to 2 | 17.14 |
+
+### T0 to T5: the ways to play, beside the milestones
+
+The timed modes (1.3, 9.9 to 9.12) ride alongside the milestones as six steps. Each needs only what came before it, and the session counts are rough estimates, on top of the milestones' own.
+
+| Step | What | When | Needs from you |
+|---|---|---|---|
+| T0 | Groundwork: the second clock, the complete action log, the standard profile, the rules hash (E.12) | Inside M1a's engine sessions (about half a session) | Nothing |
+| T1 | The High Divide Loop FKT, ↺ and ↻, three styles; running; splits and ghosts; the technical descent; Steps 1 and 2 of the boards | Right after M1a (3 sessions, S29 to S31) | The words; the go |
+| T2 | The Hike of the Day, the morning job and the M1 library; crew links (Step 3) | With M1b and Lake Crescent's trails (4-6 sessions) | The go; the words |
+| T3 | Lake Quinault's four low trails, for winter dailies | Before the first winter of dailies (2-3 sessions) | A yes |
+| T4 | The world board (Step 4) | When you say go (2-3 sessions) | A Cloudflare account, two secrets, the privacy words |
+| T5 | More FKT routes as regions land; the Press Expedition crossing, ending at Lake Quinault | M2 on; the crossing in M5 (about 1 session a region) | Nothing new |
+
+- **T0 is cheap now and expensive later.** The integer clock and the complete action log cost almost nothing if the engine is written that way from M1a, and a rewrite if added after.
+- **The FKT can come first** because it needs no new places: it is the slice's own loop, run fast.
+- **The daily needs a library that covers its season,** and the morning job. Launched in summer, M1b's routes carry it; launched in winter, it waits for Lake Crescent's trails at least, and T3 makes the winter good (9.9).
 
 ### M0 and M0.5, side by side: foundations and the look
 
@@ -3825,28 +5054,33 @@ The look-and-feel spike (M0.5) is the biggest risk, and it needs only the pictur
 
 **M0: Foundations** (3-5 sessions)
 - Repo layout, the Pages workflow (one combined deploy for main and preview, E.9), the PWA shell with the offline stamp, the hidden debug menu with Copy bug report (E.11), and the error sheet.
+- **The text system's core** (18.10): every string an id in `content/text/`, the build fill, the ledger, lints T10 to T14 and the debug marks; Session 1's 13 live strings move in by id; main keeps the two approved ones and drops the rest, since a deletion adds no words, while preview shows them all as drafts (18.11).
 - Engine core: rng, expressions, templates, content loader and index, effects, phases with stub screens, saves.
 - Picture VM with 3 test pictures and headless PNG rendering; linter skeleton; harness skeleton with one bot.
-- **Exit:** a two-screen "hello trailhead" trip (the Sol Duc trailhead, naturally), served from `fernforager.github.io/104-boyz`, installs to the Home Screen and works offline; 1,000 trivial simulated trips run.
+- **Exit:** a two-screen "hello trailhead" trip (the Sol Duc trailhead, naturally), served from `ophiker.com`, installs to the Home Screen and works offline; 1,000 trivial simulated trips run.
 - **Cut first:** the debug menu's extras (keep Copy bug report: it is how you report bugs without a Mac).
 
 **M0.5: Look-and-feel spike** (2-3 sessions)
-- One composed scene and one hand-drawn scene in the custom 16-color palette and shape language (11.1), checked side by side against the option-B mockup; a full trail screen with the Sierra box and the pixel font; one decision with a Why sheet, a ♦ confirm and the compass roll; draw-in and palette cycling; a few beeps (next, Look, the printer). On a real iPhone SE and a Pro Max, including the SE's short-screen layout.
-- **Exit:** you confirm the pixels are chunky but crisp, the palette reads well on a phone indoors and out, the text is readable, the Sierra box makes every stop look like a Sierra game, and it feels like a King's Quest scene. Fix fonts, scaling and colors now.
+- One composed scene and one hand-drawn scene in the custom 16-color palette and shape language (11.1), checked side by side against the option-B mockup; a full trail screen with the Sierra box and the pixel font; one decision with a Why sheet, a ♦ confirm and the compass roll; draw-in and palette cycling; the sound engine's first step (A1, 13.13): the first tap opens the sound in the ambient session, with the UI ticks and the compass. On a real iPhone SE and a Pro Max, including the SE's short-screen layout.
+- **Exit:** you confirm the pixels are chunky but crisp, the palette reads well on a phone indoors and out, the text is readable, the Sierra box makes every stop look like a Sierra game, it feels like a King's Quest scene, and the sound starts on the first tap and goes quiet with Silent Mode. Fix fonts, scaling and colors now. The first batch of words, with screenshots, comes to you from here on (18.7).
 - **Cut first:** the hand-drawn scene (keep the composed one).
 
-### M1a: The High Divide loop, either way round: the vertical slice (14-20 sessions)
+### M1a: The High Divide loop, either way round: the vertical slice (about 25 sessions, likely 25 to 30)
 
 - **Scope:** the Sol Duc trailhead and the whole High Divide and Seven Lakes Basin loop (your call, 2026-10-08), clockwise or counterclockwise, as a day hike or one night or more, with layovers, on August and September dates. The ranger's fills stop at three nights; the planner's chips run to 6+, and a longer loop adds layovers or camps by hand. Every permitted camp on or just off the loop, with its real quota and a seeded quota roll (4.3): Sol Duc Falls, Canyon Creek #1-#3, Deer Lake, Potholes, Lunch, Round and Clear lakes, Heart Lake Junction, Heart Lake, Sol Duc Park, Lower Bridge Creek, Sol Duc Crossing, Rocky Creek, Appleton Junction, Sol Duc River #1-#4, and Hoh Lake down its side trail; and the *ask at the desk* request (a seeded roll, about 70% midweek and 40% on weekends, 4.3) for the WIC-only camps on or just off the loop that its trails reach: Bruce's Roost, Cat Basin and Hidden Lake (a lead call). Long Lake and Sol Duc Lake, reached only off trail, and the phone call for Lake Morgenroth wait for M1b.
 - **Every choice the player's (4.3):** the map table with the way round, each night's camp, layovers and the basin or the crest (3.1); a first trip's three questions and the twelve fills (3.6, B.1); the basin-or-crest fork card at both ways into the basin, with honest ETAs, weather, Legs, water and permit lines (7.4, 12.12); the side trips (Bogachiel Peak, Hoh Lake and back, the edge of Cat Basin, Round and Clear lakes, Mirror Lake) and the Mirror Lake and Clear Lake way trails; and *Change the plan* on the trail, with off-permit nights, full camps and the overdue clock (3.7).
-- **Home and the frame (2.2):** the cabin plate in late summer (August, the loop's month) with all four times of day, rain and fog, on the live clock (until the daily build exists, the weather comes from climatology); the door, shed, car, fire bowl, register post, mailbox, the tub and its soak, the guest book and the lockbox; the next-step button and the rail; the map table and *Print it*; the town run with the WIC, the general store and the gear shop (5.2); the flat lay and its share image (6.1, 6.10); the tailgate; the trail screen with splits against the plan (12.2); the stamp at the car, the drive home and the trip report with its share card (9.7). About 4 to 6 of this milestone's sessions are the frame's (an estimate): mostly the flat lay's stamps and the cabin's overlays.
+- **Home and the frame (2.2):** the cabin plate in late summer (August, the loop's month) with all four times of day, rain and fog, on the live clock (until the daily build exists, the weather comes from climatology); the door, shed, car, fire bowl, register post, mailbox, the tub and its soak, the guest book and the lockbox; the next-step button and the rail; the map table and *Print it*; the town run with the WIC, the general store and the gear shop (5.2); the flat lay and its share image (6.1, 6.10); the tailgate; the trail screen with splits against the plan (12.2); the stamp at the car, the drive home and the trip report with its share card (9.7). About 4 to 6 of this milestone's sessions are the frame's (an estimate, inside its count): mostly the flat lay's stamps and the cabin's overlays.
+- **The first three minigames (17):** the shared host, the card with Play and Auto, hands ranges on the buttons and the `mini` stream (MG0); **the bear can** from the flat lay, with its par bot (MG1, 17.7); **the alpenglow shot** on the crest, at Heart Lake Junction and on Bogachiel Peak, with its photo in the trip report (MG2, 17.8); **huckleberries** in the basin and on the crest, with the bear's tell (MG3, 17.9). About four sessions, inside M1a's count (the build plan's S13, S14, S17 and S20).
+- **Sound, A2 to A7 (13.13):** the loop's listening maps and the walk-on, the footsteps on ten surfaces, the loop's birds and animals from logged CC0 and NPS sources, thunder at its true distance and the hush at the ♦, the death cues and the dirge, the cabin theme on the real clock, the soak, the finish and a mix pass on your phone.
+- **Every word a draft with an id** (18): each session sends its batch, and a screen goes to main only when its words are yours (T14).
+- **Timed-mode groundwork (T0, E.12):** the engine keeps whole seconds, logs every action that can change a result, takes a standard profile, and stamps every run with its rules hash. It costs almost nothing now and a rewrite later, and it is what lets the first FKT board follow straight after this milestone.
 - Pack presets (the ranger's sensible kit and B.5's skimpy kit, from `rules/kits.json`: what the first trip's chalk outlines show on the deck, 3.6, and what the harness packs, F.2) plus free packing, Fill from the list (and, with `flags.larry`, the beer cooler), a one-screen drive from the cabin, **Old School** (the main game) with fatal shares on the buttons.
 - About 50 cards (showers, fog on the crest and on the Mirror Lake way trail, cold nights, the stone staircase, the dry crest, thunder, marmots, jays, a bear in the huckleberries, people, sunsets, the forks), 6 scenes, the endings including the Hard Way and GAME OVER, the trip report and Field Notes, the first 104 Boyz encounter cards (7.11), the Trail Register with the Boyz' placeholder memorial lines and the permit counter, the full wipe at the cabin, and the lockbox and the name-only guest book (12.3, 12.4). Sol Duc Falls gets the stay-on-trail mechanic, since the river above the falls is tagged `real_incident` (9.5, principle 3).
 - **The first Larry moments (2.6), your call:** the locals' quiz at first launch, skinny dipping in Heart Lake with the censor bar, the IPA from the general store's cooler, and the permit check, which is where a changed plan comes due. They are built behind `flags.larry`, which is on in every build, main and preview.
 - **The whole death sequence (12.17), since this is the first milestone where a hiker can die:** the death box and its Ranger's Note for the Divide's fatal moments (staying on the exposed crest in a thunderstorm, off trail in fog near a cliff, the bagless night and the Cold chain, skinny dipping included); *YOU PERISHED* with the `lightning`, `fog` and `cold` cause lines (and the *...of the dark.* and *...of skinny dipping.* variants), and the dirge; the remains sprite and the Leave No Trace dissolve, with its tap-to-skip and Reduce Motion cross-fade (11.10); the register-box stamp; the epitaph screen with typing, the dice and their first public-domain deck from `lore/quotes_public_domain.json` (9.5); the GAME OVER card with its Ranger's Note and route map; and the cabin at dusk, where the wipe follows it (12.25).
 - **Why the loop first:** your calls (*"Gotta be B only because I know that hike"*, then *"every choice needs to be made"*), and it suits a first milestone. You know it on foot, so you'll spot a wrong stop at once. Its trips run from a day to three nights or more; a two-night trip is the 20 to 30 minute trip (1.1). Every finished loop earns the tub (2.2). And it exercises early what the Hoh doesn't: a loop and its direction, a route that forks around a basin, tight quotas, way trails, fog navigation, a dry crest and thunderstorms. What it lacks (big fords, the ladder at dusk, glaciers, Ranger Jon) arrives with the Hoh in M2, over the Hoh Lake trail.
-- **Exit:** the first playable's rows in F.1 pass for the loop both ways round, with the basin and with the crest (all twelve of the ranger's fills, in August, with the sensible kit and the skimpy one; Appendix B), for the loop in a day with real gear, and for the first playable's trap, the loop in a day on day gear, with both policies; the fork card fires at the first way into the basin in each direction, and its ETAs match the engine's; every simulated death passes the fairness invariant (F.1); the death lints pass (every `hiker_dies` has a cause line, and every cause key has a full dice deck, F.3); the harness finds no crashes, dead ends or stuck states; **you play the loop on your phone both ways round, drop into the basin once and stay high once, change the plan once on the trail, share one flat lay, soak once, and lose one hiker on purpose, all the way from the death box through the wipe at the cabin to a new name in the guest book.**
-- **Cut first:** the Hoh Lake and Cat Basin side trips as day trips (their camps stay: decision 17 promises every permitted camp on or just off the loop), then plans of four nights or more (the chips stop at three until M1b), then the IPA and the permit check, then the trip report's share card (keep the flat lay's), the moon and the winter overlays. Never a direction, the basin or the crest, the fork, or the three-night fills, which B.2 is built on.
+- **Exit:** the first playable's rows in F.1 pass for the loop both ways round, with the basin and with the crest (all twelve of the ranger's fills, in August, with the sensible kit and the skimpy one; Appendix B), for the loop in a day with real gear, and for the first playable's trap, the loop in a day on day gear, with both policies; the fork card fires at the first way into the basin in each direction, and its ETAs match the engine's; every simulated death passes the fairness invariant (F.1); the death lints pass (every `hiker_dies` has a cause line, and every cause key has a full dice deck, F.3); the harness finds no crashes, dead ends or stuck states; each of the three minigames meets its pitch-perfect bar and its tuning targets (17.6 to 17.9); every shipped sound passes lints A01 to A09; **you play the loop on your phone both ways round, drop into the basin once and stay high once, change the plan once on the trail, pack the can, shoot the alpenglow from the crest, pick berries, share one flat lay, soak once, play once with the sound on and once on silent, and lose one hiker on purpose, all the way from the death box through the wipe at the cabin to a new name in the guest book.**
+- **Cut first:** the Hoh Lake and Cat Basin side trips as day trips (their camps stay: decision 17 promises every permitted camp on or just off the loop), then plans of four nights or more (the chips stop at three until M1b), then *Hike it again*, then the IPA and the permit check, then the trip report's share card (keep the flat lay's); and, if a full trip with the can isn't playable after the build plan's S20, its pre-agreed ladder moves blue hour, rain and fog on the cabin plate, the lockbox quiz, the cabin band's time-of-day versions and the desk requests to M1b, in that order (`BUILD_PLAN.md` 8.3); among the minigames, the bear's tell (keep the berry patch), the film camera and the photo gifts, and the can's special items except the tortilla liner. Never a direction, the basin or the crest, the fork, or the three-night fills, which B.2 is built on; and never a minigame's Auto, its hands range on the button, its determinism or its result line.
 - **What M1a shows and hides** (a lead call). Some screens already carry hooks for later milestones; in M1a they behave like this:
 
 | Hook | In M1a |
@@ -3857,20 +5091,22 @@ The look-and-feel spike (M0.5) is the biggest risk, and it needs only the pictur
 | Drive chips: The Huckleberry Skillet, The Steaming Fern Lodge | Hidden until M1b (B.3's pie and B.6's soak are M1b's) |
 | Second Growth's door on the town street | Hidden until M1b and its pre-roll; the general store's beer cooler is in |
 | The Bonfire Lily | Its weight is 0 everywhere, so no roll, no plate and no rumor until M1b (B.3's roll on Bogachiel Peak is M1b's) |
-| Walk out and Walk on, trip codes, the gear-list CSV | M1b |
+| Walk out (the known-ground summary, 3.4), trip codes, the gear-list CSV | M1b |
 | The boutique; the cabin's spring, autumn and winter; the real moon; the crew and the easter eggs; the other flat-lay backdrops | M1b |
-| The chalkboard (Hike of the Day) and the peak (FKT) | Looks only, until the modes arrive (decisions 23 to 25) |
-| Hike it again | Shown; it copies the printed permit (9.7) |
+| The chalkboard (Hike of the Day) and the peak (FKT) | Looks only in M1a. The peak opens with T1, right after M1a, and the chalkboard with T2, alongside M1b (above) |
+| Hike it again | Shown; it copies the printed permit (9.7). First on the build plan's cut ladder, so it may move to M1b (`BUILD_PLAN.md` 8.3) |
 | The WIC on the town run | Shown: the briefing, the loaner can and the three desk camps; there is no phone to call yet |
 | The gentle mode | No screen at all, but every `hiker_dies` carries its `modes.gentle` override from M1a, and the lint holds it (8.3, F.3) |
+| The minigames | The bear can, the alpenglow shot and huckleberries; the other five arrive with their milestones (17.16), and the clam gun on the shed is only a Look |
+| The crew at the cabin | M1b, with its fuller theme (13.2) |
 
 ### M1b: The whole Sol Duc side, and the call for Lake Morgenroth (8-12 sessions)
 
-- **Scope:** the rest of the Sol Duc file: its out-and-backs (the Deer Lake overnight, the day hike to Sol Duc Falls, Lunch Lake out and back, the river base camp, Hoh Lake from Sol Duc), Mink Lake and the Little Divide, and Appleton Pass, as the data allows, and longer trips that join them to the loop; June to October, with the calendar rule and the shoulder season (snow on the Divide in early July, mosquitoes); quota-heavy permits, with one scripted quota denial (Lunch Lake full on an August Saturday); and the last WIC-only camps, Long Lake and Sol Duc Lake, asked for at the WIC or by phone (the others are desk requests from M1a).
+- **Scope:** the rest of the Sol Duc file: its out-and-backs (the Deer Lake overnight, the day hike to Sol Duc Falls, Lunch Lake out and back, the river base camp, Hoh Lake from Sol Duc), Mink Lake and the Little Divide, and Appleton Pass, as the data allows, and longer trips that join them to the loop; June to October, with the calendar rule and the shoulder season (snow on the Divide in early July, mosquitoes); quota-heavy permits, with one scripted quota denial (Lunch Lake full on an August Saturday); and the last WIC-only camps, Long Lake and Sol Duc Lake, asked for at the WIC or by phone (the others are desk requests from M1a). **Lake Crescent's low trails** (Marymere Falls, the Spruce Railroad Trail, Mount Storm King to the end of the maintained trail and Pyramid Peak, all in the Sol Duc file) come with it as day hikes, for the Hike of the Day's library and its first winter (recommended, 9.9).
 - **Lake Morgenroth, off the menu (4.3):** the hidden phone call to the WIC (12.5), the way trail past Clear and Long lakes, and the hand-drawn signature scene, with the best IPA in the game (2.6). It is built from your GPS track and stories once you send them; until then from the research's straight-line estimates and art notes, with `{MORGENROTH_STORY_n}` placeholders that a release build refuses to ship (F.3).
 - **The rest of the loop's Larry moments (2.6):** the bold marmot, the thin tent wall at Lunch Lake, The Steaming Fern Lodge, and Second Growth's pre-roll with its ranger odds and its citation.
 - Off-trail navigation (the link down from Clear Lake to Long Lake, and the Morgenroth way trail), more 104 Boyz cards, including the rumor of a lake you have to call for (7.11).
-- About 105 cards in total, about 12 scenes and 3 plates; the Bonfire Lily at Bogachiel Peak, the basin and the crest (10.2); the hidden gentle mode run headless in the harness (each death outcome's rescue override, required and linted since M1a, now simulated too, with no UI, 9.4); share codes; Walk out; the nightly calibration job; the audio cues (13.2).
+- About 105 cards in total, about 12 scenes and 3 plates; the Bonfire Lily at Bogachiel Peak, the basin and the crest (10.2); the hidden gentle mode run headless in the harness (each death outcome's rescue override, required and linted since M1a, now simulated too, with no UI, 9.4); share codes; Walk out; the nightly calibration job. **Minigames:** self-arrest for the shoulder season's snow (with its one-time *Try a slide*, the `fall` key's snow line and its epitaph deck; snow school with Jon waits for M2, with Jon), the tent in the rain, and the can that remembers (17.11, 17.13, 17.7); razor clams too, if you choose M1b (17.14).
 - **Exit:** the Seven Lakes rows in F.1, in season and in the shoulder season, and the loop in a day with real gear (the "ambitious but equipped" row); story uniqueness at least 90% on 2-3 night templates; every coverage cell in the region has at least 32 notable cards; the ablation vector passes for map and compass, water capacity, bug kit, rain pants and the towel; return days average 3 to 6 stops; the device checklist passes; **you find the number, call the WIC, camp at Lake Morgenroth in the game and tell us what we got wrong, and you play three different Sol Duc trips and want a fourth.**
 - **Cut first:** Long Lake and Sol Duc Lake as camps (never Morgenroth or the call), then share codes, then Mink Lake and Appleton Pass.
 
@@ -3878,7 +5114,7 @@ The look-and-feel spike (M0.5) is the biggest risk, and it needs only the pictur
 
 - **Scope:** all 15 Hoh camps, day hikes, 1-5 nights with layovers, June to October; one scripted quota denial (Glacier Meadows full on a July Saturday); the first traverse (the Hoh to Sol Duc via Hoh Lake) with the car's location and the exit menu (3.7), and cross-region routing.
 - **Olympus, with Ranger Jon or alone (4.2):** booking Jon at planning, his lines (with `{JON_QUIRK}` until you send it), the glacier kit, glacier school and the `glacier` skill, Snow Dome and the summit; and for soloists the three crossing cards and the solo summit block.
-- The Hoh's fatal moments, each with its death box, cause line and dice tags: the ladder (`fall`), the waist-deep ford on the braids (`river`, 8.11) and the crevasse (`crevasse`). The Bonfire Lily at Glacier Meadows, the moraine and Snow Dome.
+- The Hoh's fatal moments, each with its death box, cause line and dice tags: the ladder (`fall`), the waist-deep ford on the braids (`river`, 8.11) and the crevasse (`crevasse`). The Bonfire Lily at Glacier Meadows, the moraine and Snow Dome. **The ford minigame** on the Hoh's braids (17.12).
 - About +100 cards (place patches, plus the crossings, Jon and glacier school), +10 scenes and +2 plates.
 - **Exit:** the Hoh rows in F.1, including your own example from day one (day gear to Glacier Meadows in one night, both policies, Appendix A), Olympus with Ranger Jon, the equipped solo summit and the literal summit on day gear; Jon's preset passes the validator and summits in 55-75% of equipped simulations; story uniqueness at least 90% on 3-4 night templates; **you play three different Hoh trips, one of them up Olympus, and want a fourth.**
 - **Cut first:** the Snow Dome high camp (keep Jon's summit day from Glacier Meadows), then the traverse.
@@ -3894,7 +5130,7 @@ The look-and-feel spike (M0.5) is the biggest risk, and it needs only the pictur
 ### M4: The Wilderness Coast (10-14 sessions)
 
 - **New system:** tides (the NOAA table, the tide booklet, the HUD, headland checks, overland rope ladders as alternate segments, river mouths at low tide). Beach camps, raccoons, fog, sneaker waves, the respectful petroglyph and island beats.
-- About +80 cards; a new biome set (beach, sea stacks, coast forest); surf cycling.
+- About +80 cards; a new biome set (beach, sea stacks, coast forest); surf cycling; the coast's soundscape (13.4). Razor clams at Mocrocks and a rare Kalaloch, if they didn't come in M1b (17.14).
 - **Cut first:** the Shi Shi end of the North Coast.
 
 ### M5: The rest of the park (25-40 sessions)
@@ -3908,10 +5144,10 @@ The look-and-feel spike (M0.5) is the biggest risk, and it needs only the pictur
 ### M6: Polish (6-10 sessions)
 
 - No companions: you hike solo, and the 104 Boyz stay cameos (1.2). The engine keeps its party support, but no milestone promises companions.
-- The deferred extras: the Pictures, Money (Shoestring), Units, Paper and Notebook settings; the Tandy sound mode; badges. (The old "trail of the day" is now the Hike of the Day, decision 23, and no longer waits for M6.)
+- The deferred extras: the Pictures, Money (Shoestring), Units, Paper and Notebook settings; badges. (The old Tandy sound mode folds into your choice of the music's voice, 13.2.) (The old "trail of the day" is now the Hike of the Day, decision 23, and no longer waits for M6.)
 - Accessibility pass, a tone review of every death box, *YOU PERISHED* line and epitaph dice deck written so far (each milestone brings its own: thunderstorms, fog and cold nights in M1, skinny dipping among them, the ladder, the river and the ice in M2, the tide in M4, cliffs in M5), a PG-13 pass over every Larry moment and every Boy's register line (cheeky, never explicit, never mean, never near a car, 2.6, 7.11), and a voice pass reading every line against the voice rules (2.3), with every line approved by you before it ships (decision 21).
 
-**In total:** about 45 to 65 sessions to v1.0 before the modes and minigames are added, and roughly 80 to 120 to the full park.
+**In total:** about 56 to 77 sessions to v1.0 for the park's milestones, now that M1a counts its own frame, minigames and sound (M0 and M0.5 about 5 to 8, M1a about 25 to 30, M1b 8 to 12, M2 10 to 15, M3 8 to 12), and roughly 90 to 130 to the full park. On top of those: the ways to play, about 11 to 15 sessions across T1 to T4 (T0 is inside M1a), plus about one per region for its FKT boards (T5); the later minigames, about 5 to 7 across their milestones (17.16); a little sound with each region's listening maps; and your reading time, about 55 ten-minute batches for M1a (18.9). The build plan counts the same sessions one by one (`BUILD_PLAN.md` 1).
 
 ---
 
@@ -3919,7 +5155,7 @@ The look-and-feel spike (M0.5) is the biggest risk, and it needs only the pictur
 
 | Risk | Mitigation |
 |---|---|
-| **Writing volume and voice drift.** Hundreds of stops, item notices and Look boxes must keep one quality voice, and every line needs your approval (decision 21). | A strict style guide and Authoring Brief; the shorter recommended voice (2.3), where many stops have no box at all; templates and pools; archetype + place patch; 20 transcripts per batch; the review site; a dedicated writing pass for the 24 signature places |
+| **Writing volume and voice drift.** Hundreds of stops, item notices and Look boxes must keep one quality voice, and every line needs your approval (decision 21): about 2,150 lines for M1a alone (18.9). | A strict style guide and Authoring Brief; the shorter recommended voice (2.3), where many stops have no box at all; templates and pools; archetype + place patch; 20 transcripts per batch; the review site; a dedicated writing pass for the 24 signature places |
 | **Procedural scenes look samey or muddy** at 160x168, or the custom palette's close tones (snow and paper cream, spruce and ink) blur on a small screen. | The M0.5 look-and-feel spike on real iPhones, indoors and in daylight; the option-B mockup as the reference; contrast figures in 11.9; gold kept for one thing; PNG previews Claude can see; a picture editor for hand-drawn scenes; biome bases reused, only landmarks drawn new |
 | **Odds feel unfair** (a 90% that fails; a 74% headland that dunks the pack). | Clear bands and fail tables; kind outcome text; Field Notes showing the causes; calibration gates; bots that only see shown information |
 | **Numbers feel like a spreadsheet.** | Odds live in a small pencil tag; the Why sheet is opt-in; Words mode; the compass roll only on ♦ choices; playtest Numbers vs. Words defaults |
@@ -3931,6 +5167,9 @@ The look-and-feel spike (M0.5) is the biggest risk, and it needs only the pictur
 | **iOS storage eviction** and the Safari/Home Screen split. | Install prompt before the first save; Export/Import codes; `storage.persist()` where available |
 | **Pixel-font readability** on small phones. | Device-pixel font sizes (11.9); the Plain font; the short-screen layout; a box budget linted at 375 x 667 (12.1) |
 | **Performance and battery** (cycling, draw-in, audio, look-ahead). | 8 fps cycling only when visible; Reduce Motion; one blit per frame; look-ahead in a Web Worker with a 50 ms budget (8.9) |
+| **Approving every line becomes the bottleneck** (decision 21), or an approved line changes without your seeing it. | Sessions never wait: they write drafts and send batches by screen, 25 to 40 lines at a time (18.7); a private review page once batches grow (18.8); a quiet stop needs no words, sound replaces flavor-only lines, and a pool is read as a set (18.9); the ledger freezes what you approve, so an edit falls back to draft and main keeps your words (18.4); only screens whose words are yours go to main (T14) |
+| **The minigames feel fiddly, or tip the odds unfairly.** | Eight only, each under a minute, one thumb and real (17.1); one rule for hands and dice, with the whole range on the button before you play (17.2); *Auto* at par for everyone (17.3); a pitch-perfect bar each must pass on your phone (17.6); a cap of about 10% of a daily's time between the worst and best hands (E.12); a minigame never kills on its own (17.2) |
+| **Sound on iOS misbehaves** (silent switch, interruptions, loops that click), **or a recording isn't really free to use.** | The ambient session, unlock on `touchend`, a watchdog for stalled contexts, and nothing that depends on a gapless loop (13.10); only CC0, NPS public domain or synthesized sources, each logged with its evidence and hashes and checked by lints A01 to A09 (13.9, 13.12); and nothing in the game needs sound, so a player on silent misses beauty, never facts (13.1) |
 | **Tone.** Death is now the default, and a deadpan line about drowning or hypothermia can feel flip to people who know real park accidents; rescue must stay gentle without trivializing SAR. | Deadpan and kind: any joke aims at weather, water, dark or gear, never at the player or the loss; never about real incidents, by name or by place: research lines that cite a real death are tagged `real_incident` at ingest, and no card at those sites or built from them can kill (9.5, F.3); no wildlife deaths; a real Ranger's Note on every death box; the *YOU PERISHED* lines and the epitaph dice decks follow the same rules and are linted, and no dealt public-domain line mentions a death, an injury or a named person (F.3); the skeleton is a tidy cartoon that turns to dust, never a wound; your review of each one |
 | **Permadeath feels unfair**, or too harsh for some players. | Only two fair paths to death, a fatal share on every deadly button (never hidden, worst case when blurred), a sure way out at every one (linted), sensible plans capped at 0.5% death and checked nightly (F.1), and a Trail Register that remembers every hiker. The full wipe makes a death cost more, so the fairness gates matter more, not less. If it still proves too harsh for someone, the hidden gentle mode is finished and tested, ready to release on your word (9.4). The Hike of the Day never kills a career: its deaths are DNFs on a fresh hiker (decision 25) |
 | **Save-scumming** through Export / Import, trip codes, parallel trips or errors (and, if it is ever released, gentle-mode scouting). | No restore anywhere; one living Open hiker per phone with one trip in progress, so there is no parallel trip; rolls keyed to content and mode, so a gentle trip could never preview an Old School trip's dice; a seed already in progress can't be opened twice; a code from a dead trip rolls new weather on your own phone; import refuses any trip save older than the hiker record's mark for that trip, refuses any hiker the register lists as dead, and never removes a Remembered entry; an error reopens the current autosave and never rolls back a choice (8.14, 9.8, E.6, E.11) |
@@ -3938,7 +5177,7 @@ The look-and-feel spike (M0.5) is the biggest risk, and it needs only the pictur
 | **Fictional business names collide with real ones,** or a store inspired by a real one reads as that store. | A deny-list check (lint T03) before shipping, which includes Swain's, Brown's Outdoor and MOSS; the three stores are drawn as types, not as the real storefronts (5.2, 12.7); a real name only with the store's permission |
 | **Real history and real people.** Robert L. Wood's books are in copyright; a misquoted 1890 line is a fabrication; Ranger Jon could read as a real park service. | No Wood sentence ships (only facts in our words, credited, 12.20); dice lines only from public-domain texts copied from a page image with its URL, never from the unverified pool (9.5, F.3); Jon is a fictional character with a fictional side job, and Credits say real rangers don't guide climbs; asking The Mountaineers Books for permission is your call |
 | **Teaching wrong backcountry facts** (the stylized trail-bug timing; design-only odds). | Label stylized numbers in Ranger's Notes; hard facts come from data through slots, so they change in one place |
-| **The repo is public** (decided: Pages deploys from it), so everything committed is visible, including your Lake Morgenroth track and stories when they arrive. The data already cites your Strava activity by link (`strava.com/activities/5761886000`, in `sol_duc_high_divide.json`). | Nothing secret goes in, and the game needs no keys; the GPS track itself is never committed, only a simplified line made from it (see *A quiet, fragile lake made famous* below), and the Strava link stays only if you say so (E.5, E.9, Still to come) |
+| **The repo is public** (decided: Pages deploys from it), so everything committed is visible, including your Lake Morgenroth track and stories when they arrive. The data cited your Strava activity by its link; that link has been replaced with *firsthand: game creator* until you say it may stay. | Nothing secret goes in, and the game needs no keys; the GPS track itself is never committed, only a simplified line made from it (see *A quiet, fragile lake made famous* below); the Strava link comes back only if you say so (E.5, E.9, Still to come) |
 | **Tone, the PG-13 part** (your call, 2.6). Beer, weed, a skinny dip and innuendo can tip into crude, read as encouraging drinking or illegal use on federal land, or end up next to driving. | Cheek, never explicit: the censor bar does the work (2.6); every consequence is honest and on screen (the ranger odds and the citation, the buzz, the cold water); overnight trips only, at camp, never on a day hike or the walk-out day, and no drink or joint on any drive, trailhead, car, tailgate or ending screen, or anywhere in the cabin scene, where the car is in frame (lint T05); 21+ at both counters; fictional brands (T03); one switch, `flags.larry`, for turning all of it off; your review of each moment on the review site (14.4) |
 | **The real WIC number on screen.** A player might call the real desk about a game, and iOS Safari turns phone-shaped text into a tappable Call link by default. | It is the WIC's public line, and the in-game call is only a screen: never a `tel:` link; the app shell carries `<meta name="format-detection" content="telephone=no">`, and the number is drawn only by the phone hotspot, with no callout or text selection, so a tap or long-press never offers Call, Copy or Add to Contacts (E.7). Lint T06 and a device check hold it (F.3, F.5). What a player would ask the real desk for, a WIC-only camp, is a real request it handles every day |
 | **Real friends, fictional deaths, in a public repo** (your call, 7.11). | First names or nicknames unless you confirm full names; each Boy sees his line and agrees before it ships, and the `{BOYZ_CONSENT}` line in Credits blocks a release until then (12.20); the lines are good-natured and never about a real person's life, looks or habits (7.11) |
@@ -3948,8 +5187,989 @@ The look-and-feel spike (M0.5) is the biggest risk, and it needs only the pictur
 | **The real clock makes the home feel wrong,** such as a dark cabin at lunch for a player in another time zone, or a forecast that fails to arrive. | Pacific time is a feature, said once in a Look; the homecoming shows the trip's own time first (2.2); a stale or missing forecast falls back on climatology (2.2, E.9) |
 | **Players misread the %.** | The button shows "made it", ♦ choices add the fail share in red (8.8), each odds form is explained the first time (8.7), and Words use the same number |
 | **Scope: M1 holds most of a game.** | M1 split into M1a and M1b, each with a session estimate and a cut list; Olympus, Jon and the glacier wait for M2 (15) |
+| **The morning job fails,** or NWS changes its API or blocks GitHub's runners, or GitHub puts the schedule to sleep after 60 quiet days. | The game never depends on the job, and a phone never computes a day: a standby calendar baked 45 days ahead (9.10); a data-only deploy that a red or slow build can't block; *live* as the commit point, with the standby day swapped in at 4:45, so a day never exists in two versions; nine runs a morning; shadow runs from T1 to measure NWS from GitHub's runners; the enable call after every run; an issue that emails you after two failed mornings; a recorded NWS response as a test fixture (E.12) |
+| **Node and Safari disagree,** so a crew link or a world-board time doesn't replay. | Plain arithmetic only, with the banned math functions as build-time tables; whole-second clocks; fixed-tick minigames; golden timed runs replayed in Safari by the self-check on your phone; every result pinned to its rules version (E.12) |
+| **Timed modes teach the wrong lessons:** racing on, never turning back, or chasing a real FKT on a real trail. | Turning back and rescue keep the streak (9.9); a death is a DNF on a fresh hiker; honest ankle and bonk odds on the buttons; cutting switchbacks or breaking a Leave No Trace rule disqualifies a run, as on the real FKT site; the game never shows a real athlete's name or time (9.11) |
+| **Cheating and scouting.** | Only replayed times count, so a modified game can't fake one; crews run on the honor system, as in Wordle; a public world board can be beaten by a script that searches the day, so before T4 it gets server-held dice or a softer board of percentiles (9.12) |
+| **The world board breaks GitHub's terms or a free plan's limits.** | Results are checked in the Worker, on the $5 Workers Paid plan, never in Actions; ranks come from histograms, not row counts; boards are cached at the edge; static boards on Pages take over when a limit trips (9.12) |
+| **A timed run and its rules come apart:** a deploy mid-day or mid-week, an app killed mid-attempt, or a phone whose clock is wrong. | Rules versions hash outcomes only and are released in the morning window; FKT weeks pin Monday's rules; attempts pin their engine in a cache the worker never deletes; *today* comes from the server's `Date` header; a small versioned engine API, tested against the previous version on every deploy (9.10, E.12) |
+| **Crew links open in Safari,** not in the installed app, so they can't reach its record. | A spoiler-guarded landing card in Safari with *Copy*, *Paste crew results* in the app, and results that are plain text blocks, so the link is optional; a device check through Messages (9.12, F.5) |
+| **Updates cost players' data and Pages' bandwidth.** Pages has a soft limit of 100 GB a month ([GitHub Docs](https://docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits)). | Content-hashed files, so an update downloads only what changed, with the audio as its own pack: about half a megabyte a typical update instead of 5 MB. Rough numbers: 5,000 installed phones updating weekly is about 10 GB a month that way, where whole-build downloads would be about 100 GB; the daily's files add about 3 GB. CI checks that a data-only deploy leaves the build id and `sw.js` unchanged (E.7) |
+| **A world board needs moderation and privacy care.** | Opt-in; handles only, behind a PG-13 filter with a reserved list; no email, name or location; reports open a GitHub issue; *Erase me*; nothing ships until you say go (9.12) |
 | **The first playable is a hike you know,** so small errors will jump out (a wrong lake, a way trail drawn where there isn't one). | That is the point of choosing it: your M1a and M1b reviews are the fidelity check, your GPS track replaces the straight-line estimates, and `uncertain_claims` are never stated as fact |
 | **The preview channel breaks the stable link or its saves.** | One combined deploy; storage and caches namespaced by channel; a CI test for shared names (E.7, E.9) |
+
+---
+
+## 17. The minigames
+
+*Decisions 29 and 30: few, under a minute, one thumb, real stakes, native to the park, and "addictive and pitch perfectly dialed in." The full draft, with every tuning table, is `design/drafts/minigames.md`; this section is the design. Every in-game word here (names, buttons, hints, result lines, wireframe text) is a DRAFT for you (decision 21), and the eight names are working titles. Numbers marked (design) are starting values for the harness to tune, not facts. Your calls on them are in [Still to come](#still-to-come-from-you).*
+
+**The short version.**
+
+- **Eight, and no more.** Each is a real thing people do in Olympic, under a minute, played with one thumb, and it changes the trip. The first playable gets three: **the bear can**, **the alpenglow shot** and **huckleberries** (decision 30).
+- **One rule for skill and odds** (17.2): your hands decide what hands control, the dice decide what nobody controls, and the button shows the whole range before you play.
+- **The bear can is Suika in a cutaway can.** Two of the same item zip into one bag; tortillas line the wall; you press the lid shut. Careless hands fit about 75% of the can, careful ones about 92%, and *Auto* fits 85%, which is the "usable" figure of 5.5.
+- **The alpenglow shot is fifty seconds of real light** on Mount Olympus from the High Divide. The photo becomes the trip report's cover and its share card.
+- **Huckleberries:** comb ripe berries with your thumb. The cup is the park's real quart.
+- **The other five:** the technical descent (rhythm taps on FKT runs), ice-axe self-arrest, the cold creek ford, pitching a tent in the rain, and razor clamming by lantern.
+- **Two can sit behind a ♦ that kills:** self-arrest, and the ford at waist depth, through 8.11's own fatal branch. Neither kills on its own: death is always the shown death roll on a ♦ the button already showed, *up to* its worst-hands fatal share (17.2, 17.11, 17.12). Decision 30 named only self-arrest as able to kill; the ford is the same rule reaching 8.11's existing ♦.
+- **Deterministic everywhere:** 120 ticks a second, integer units, every touch stamped and logged, so the daily and the FKT boards get identical minigames for everyone (17.4, E.12).
+- **Auto everywhere,** at par: never required, never shamed, never the best (17.3).
+- **What it costs:** about four sessions in M1a for the shared host and the first three; the rest arrive with their milestones (17.16).
+
+### 17.1 What all eight share
+
+| Minigame | Where | Your hands decide | It feeds |
+|---|---|---|---|
+| **The bear can** | The flat lay, before overnights | How much food fits | Food days, what stays behind |
+| **The alpenglow shot** | High camps and viewpoints at sunset | The photo | Spirits, the cover photo, the lily's whole-sunset term |
+| **Huckleberries** | Ripe patches, August and September | How much, how ripe | Food, spirits, time, the bear |
+| **The descent** | Technical downhills at speed | Flow and stumbles | Segment time, the ankle roll |
+| **Self-arrest** | Steep snow, after a slip | Where you stop | Injury, and on a ♦, death |
+| **The ford** | Knee-deep and deeper | Footwork and line | The ford roll, cold, time; and at waist depth, on a ♦, death |
+| **The tent in the rain** | Rainy camp arrivals | How wet the inside gets | The night, tomorrow's legs |
+| **Razor clams** | Night digs from the cabin | Clams and wet boots | The limit, warmth, the tide |
+
+**The brief, from your words:**
+
+- **Each is a real thing people do in Olympic.** Nothing is a puzzle invented for the screen.
+- **Each changes the trip,** in the simulation's own currencies: food days, wet gear, warmth, time, injury, and in two of them, death.
+- **Each has one verb you learn in three seconds:** drop, shoot, comb, step, tap, roll, fling, pull.
+- **None is ever required.** *Auto* plays every one at par.
+- **They are rare.** A sensible three-night trip meets the can once, a sunset or two, and one berry patch.
+
+**Touchstones, one idea each:**
+
+| Touchstone | What we take | Where |
+|---|---|---|
+| *Suika Game* | The drop, the jiggle, merges, the line at the top | The bear can |
+| *The Oregon Trail* | The hunt that feeds you, and a carry limit you can't argue with | Berries (the quart), clams (the first 15) |
+| *Lonely Mountains: Downhill* | Lines, flow, falls that teach; footsteps instead of music | The descent; all trail sound |
+| *Sword & Sworcery EP* | A quiet light-and-sound moment tied to the real sky | The alpenglow shot |
+| *King's Quest* | A death you walked into knowingly, told deadpan | Self-arrest, the deep ford |
+| *1000 Heroz* | Short daily trials everyone plays identically | Identical minigames in the daily |
+| A takoyaki game (yours) | Many small, well-timed touches, each with its own sound | Berries, clams |
+
+The Oregon Trail line is real: the game told hunters *"You collected 4,000 pounds of food, but you could only bring 100 pounds back"* ([explain xkcd](https://explainxkcd.com/623)). The park's quart and the state's first fifteen teach the same lesson, and they are true.
+
+### 17.2 The one rule: hands and dice
+
+**Your hands decide what hands control. The dice decide what nobody controls. The button shows the whole range before you play.**
+
+Each minigame names its two halves, the way the real activity does:
+
+| Minigame | Hands | Dice |
+|---|---|---|
+| The ford | Your line and your footwork | A rock rolling under a boot |
+| The descent | Flow, timing, braking | Whether a stumble turns an ankle |
+| Self-arrest | How fast you roll and dig in | The slip itself; the rocks below |
+| The other five | Everything | Nothing inside the minigame |
+
+**Three kinds of result.** A minigame turns its inputs into exactly one of these:
+
+1. **An input** to the simulation: liters packed, quarts picked, minutes spent, how damp the tent got. Five minigames work this way and roll no dice of their own (the can, the shot, the berries, the tent, the clams). Their inputs flow into later honest rolls (the night roll, the visitor roll), which show their numbers as they always have.
+2. **A modifier** on an honest roll, labeled in the Why sheet like any other row (DRAFT: `Your footwork +4`). It is capped, about the size of a pair of trekking poles: the ford −8 to +6, the descent −10 to +6.
+3. **A band** in a fail table the button already showed (self-arrest only): where you stop decides the rung, and a death still needs the shown death roll.
+
+**What the button shows.** A choice that opens a minigame carries a small pixel hand glyph, written `{hand}` here, and a **hands range**: the % at your worst hands to the % at your best.
+
+```
+[ Wade across  {hand}87-94%    (i) ]
+```
+
+- **The hand tells it apart from a knowledge range** (8.6), which means "you don't know yet." The hand means "it's up to you."
+- **A ♦ shows its fatal share at the worst-hands end,** marked *up to*, as a blurred ♦ already does (8.6). Playing badly can never be worse than the button said.
+- **With Auto on,** the button shows one exact number: the % at par hands.
+- **While you play, the number moves.** The modifier minigames show a live line under the picture (DRAFT: `made it 91% ▸ 93%`), so you watch your own hands move the odds without replacing them.
+- **Then the roll:** the compass on a ♦ (8.8), straight to the outcome otherwise.
+
+**The roll is fixed at the confirming tap,** keyed to content as every roll is (8.14), so quitting mid-minigame changes nothing, and a genuine second attempt is a new roll. The minigame's own seed is separate, so playing well never peeks at the roll.
+
+**Why this rule and not the other two:**
+
+- **Skill replacing the dice** would leave no honest % to show; the button would have to guess how good you are.
+- **Skill only setting inputs** is right for five of the eight, and the rule keeps it there. But a river or a snow slope really does hold luck no footwork removes, and pretending otherwise would teach the wrong lesson.
+- **Hidden skill effects** would break the game's one promise: the shown % is the real chance.
+
+**The ♦ and the linter.** A choice is ♦ when any branch can reach Serious (8.1); the linter checks that across the whole hands range, so a minigame that could reach Serious at its worst hands is always behind a ♦. **A minigame never kills on its own:** death is always a shown death roll on a ♦, so the two fair paths of 9.5 hold unchanged.
+
+**Worked example: 8.11's own ford, row 2.** Knee-deep, no poles, tent and pad strapped outside, a beginner's river skill: 85 − 6 + 2 = 81 clean. Footwork moves it from 73 to 87:
+
+| Hands | Clean | Shaky | Made it |
+|---|---|---|---|
+| Worst (−8) | 73 | 14 | 87% |
+| Auto (0) | 81 | 10 | 91%, 8.11's number |
+| Best (+6) | 87 | 7 | 94% |
+
+The button reads `{hand}87-94%`; with Auto on, `91%`. Words mode (8.7) gets its own phrases for a hands range, built on the same numbers, and they are yours to write.
+
+### 17.3 Auto, assists and access
+
+**Auto is par.** Each minigame has one fixed *Auto* (DRAFT): a script or a bot, tuned so its result sits near the median of first-week players in playtests, then frozen. It is never the best result, so it needs no mark on any board (E.12).
+
+- **In Open, Auto grows with the hiker** where a skill exists: self-arrest's Auto reacts faster at higher snow skill, the ford's steps better at higher river skill. That is 7.10's "better information, not better dice", applied to hands.
+- **In the daily and FKTs,** every hiker has the standard skills, so Auto is the same for everyone.
+- **A setting per minigame** (DRAFT): *Ask* (the default: the card with both buttons), *Play* or *Auto* (12.18).
+
+**Assists, in Open only** (DRAFT names): *Steady hands* (no camera blur), *Wide windows* (rhythm windows 50% wider) and *Slow water* (ford surges 30% slower). They are off in the timed modes, where Auto is the accessible path, so no board is ever won with an assist.
+
+**Rules every minigame keeps:**
+
+- **One thumb, in the lower half.** Everything is reachable in the bottom 45% of an iPhone 15. A *Left-handed* setting mirrors the HUD.
+- **Every target is at least 44 pt** (12.1). Picking a berry uses a fingertip cursor drawn above the thumb, so a small target never hides under it.
+- **Nothing depends on color alone.** Ripe berries are darker *and* carry a highlight pixel.
+- **Nothing depends on sound alone.** Every audio tell (the sneaker wave, the bear's woof) has a picture tell (13.1).
+- **Reduce Motion:** no shake, no parallax, no particle bursts (a one-frame palette flash instead). The motion that *is* the game (a falling item, the slide) stays, and Auto is offered first on the card.
+- **VoiceOver:** the card's buttons are real HTML, Auto is the playable path, the picture has alt text from its layers (11.9), and a live region reads key moments (DRAFT lines).
+- **A tap skips** every animation that isn't play (12.1).
+- **No haptics.** iOS Safari has no vibration API; a hidden-switch trick reportedly makes Safari tick but is fragile ([Ionic issue 29942](https://github.com/ionic-team/ionic-framework/issues/29942)), so nothing depends on it.
+
+### 17.4 Determinism and seeds
+
+E.12 sets the frame for every real-time moment in the engine. The minigames add these:
+
+- **Integer world units.** Positions, velocities and radii are whole numbers of 1/16 of a picture pixel, and every division is a `Math.trunc` at a fixed point in the code.
+- **`Math.sqrt` is allowed,** because IEEE 754 requires it to be correctly rounded, so Node and Safari agree bit for bit. Everything else (a tilted slope's sine, the light curve, the surge pattern) is an integer table built at build time.
+- **No `Math.random`, `Date` or `performance.now()` inside the core.** The UI reads the clock; the core sees only tick numbers.
+- **A fixed order for everything:** bodies by id, collision pairs by (lower id, higher id), and a merge keeps the lower id.
+- **The host loop** runs the core at exactly 120 ticks a second whatever the screen does, catches up at most 8 ticks a frame, and draws by interpolating. The same input stream gives the same result at 60 Hz, at 120 Hz and in Node. When the cap drops ticks, the clock re-anchors, and an input is logged at the tick it was actually applied (E.12).
+- **Inputs** are `[tick, kind, a, b]` integers. **Drags are sampled into the simulation at a fixed input rate,** one position every 4 ticks (30 a second), interpolated the same way live and in replay, and speed is judged over a fixed window, so a 60 Hz and a 120 Hz phone's touch rates never matter. Positions are delta- and varint-encoded, and each minigame has a log budget a test enforces (about 400 bytes compressed), so a crew link stays small.
+- **Where the log lives.** The input log is kept in memory; discrete actions (a drop, a tap, the lid) go to IndexedDB at once, move samples in batches about every 250 ms, and everything flushes on `visibilitychange` and `pagehide`. The synchronous `localStorage` snapshot of an attempt is written only at stop boundaries, never at touch rate (E.10). Closing the app mid-minigame pauses it; it resumes from the last saved tick with a one-second count-in, and no touch is undone. In the timed modes the pause itself is logged and buys no look ahead (E.12).
+- **Seeds** come from a new `mini` stream (E.8): `hash(seed, "mini", game, place, day, attempt)`.
+
+| Minigame | Seeded inside it | Key |
+|---|---|---|
+| The bear can | Nothing at all | — |
+| The alpenglow shot | Light curve, clouds, the gift | Place, date |
+| Huckleberries | Bushes, ripeness, the bear | Segment, day, patch |
+| The descent | The obstacle track | Segment, direction, conditions |
+| Self-arrest | The slide's start | The ♦'s roll key |
+| The ford | Surges, the spots' depths | Ford, day, attempt |
+| The tent | Gusts, the pads' features | Camp, day |
+| Razor clams | Shows, clams, waves | Beach, date |
+
+**The daily and the FKT windows** use the day's or the week's seed, so everyone meets the same bushes, light, surges, roots and waves; only the hands differ. Every result is pinned to its rules version like the rest of a timed run (E.12).
+
+### 17.5 Where they appear, and practice at the cabin
+
+| Minigame | Open | Hike of the Day | FKT |
+|---|---|---|---|
+| The bear can | Every overnight | Overnight dailies, before the clock | Multi-day routes |
+| The alpenglow shot | Sunsets, with a camera or phone | Overnights, in camp, off the clock | Never |
+| Huckleberries | In season | Yes, on the clock | Yes, as fuel |
+| The descent | At Push pace | At Push pace | At Run and Race |
+| Self-arrest | Snow ♦s | Snow ♦s | Snow ♦s |
+| The ford | Knee-deep or more | Yes | Yes |
+| The tent in the rain | Rainy camps | Overnights, off the clock | Multi-day routes |
+| Razor clams | Dig nights | A winter variant, if you want one | Never |
+
+**Budgets.** The Director keeps its budgets (8.4). A minigame it deals (the berries) counts as a real decision and comes at most once a day; a forced one (the ford at a ford, self-arrest after a slip, the can before leaving) doesn't count, like a forced card. A moving day meets at most two minigames besides the evening shot.
+
+**Practice lives at the cabin,** never touches a hiker and never posts anything:
+
+| Minigame | Where you practice |
+|---|---|
+| The bear can | The shed: any can, any menu, as often as you like |
+| The alpenglow shot | The porch, at the real dusk at Lake Quinault, on the peak above the trees (2.2) |
+| The tent in the rain | The lawn, when it is really raining at the lake |
+| Self-arrest | In M1b, a one-time *Try a slide* on safe snow; from M2, snow school with Jon, beside his glacier school (4.2) |
+| Razor clams | Its own outing, from the clam gun on the shed |
+| The others | None: the FKT window is the descent's practice, a ford is never done for fun, and berries need none |
+
+### 17.6 The shape of every minigame
+
+Every one has the same three beats, so learning one teaches the rest:
+
+1. **The card.** The place's picture, the verb in one line, the hands range, and two buttons, *Play* and *Auto* (Auto shows its exact result). The first time in a career a small ghost thumb loops the gesture once, with no words.
+2. **The play.** Under a minute, one thumb, no text needed. The HUD is one or two lines in the chrome font.
+3. **The result line.** One line of numbers that says what changed in the trip, then back to the trail. No score screen, and no stars except the photo's.
+
+```
+┌──────────────────────────────────────┐
+│ Day 3 · 2:40 pm · Hoh braids       ≡ │
+│ ┌──────────────────────────────────┐ │
+│ │ THE FORD: three gray channels,   │ │
+│ │ a gravel bar, the far bank       │ │
+│ └──────────────────────────────────┘ │
+│ (DRAFT) Knee-deep, fast, cold.       │
+│ [ Play          {hand}87-94%   (i) ] │
+│ [ Auto                         91% ] │
+│ [ Camp, cross at dawn        night ] │
+│ [ Turn back                   sure ] │
+└──────────────────────────────────────┘
+```
+
+*(The sure choices stay on the card. Choosing to play never takes them away.)*
+
+**Art, shared.** A minigame draws into the standard 160x168 picture or the tall 160x320 plate (11.2), in the sixteen colors. Physics runs in square units and sprites are pre-rasterized for the wide AGI pixel, so a round bag looks round. A sprite moves only in whole pixels; juice is a one-pixel overshoot, a one-frame palette flash, at most one pixel of shake. **No gold, ever:** not the cheese, not the sun, not the huckleberry candy (11.1).
+
+**Sound, shared** (13.8). On the trail, no music: the place and your own sounds. At the cabin, the cabin's music keeps playing under the can in the shed and under practice. Every action has a sound within a frame, synthesized or CC0 and logged (13.9), and nothing is louder than the place.
+
+**The pitch-perfect bar.** A minigame ships only when all of these hold on your phone:
+
+1. Feedback within one frame of the touch: a pixel and a sound.
+2. Learnable in three seconds from the ghost thumb, with no text.
+3. Under a minute at the median, never over 75 seconds.
+4. The result line names the trip's change in numbers.
+5. No hidden dice: anything random is visible, or on the button.
+6. Identical at 60 and 120 Hz, and in Node (a golden test).
+7. A tap skips anything that isn't play.
+8. Auto is on the card, never shamed.
+9. Reduce Motion, VoiceOver, one hand and sound off all work.
+10. Under 2 ms a frame on an iPhone 12, and paused when hidden.
+11. Five people who never saw it get it on the first try, and want a second.
+
+### 17.7 Packing the bear can (the first playable)
+
+*The signature: Suika's drop and merge, inside the thing every Olympic backpacker fights with the night before.*
+
+**What it is.** Every wilderness night in the park needs an approved hard-sided container for all food, trash and scented items ([NPS, Olympic food storage](https://www.nps.gov/olym/planyourvisit/wilderness-food-storage.htm)), and the can is already a real limit (5.5): rigid walls leave gaps, so about 85% of it is usable. **This minigame is where that 85% comes from.** You see the can side-on, cut away like a diagram, with your food waiting on the deck. One item at a time hangs over the rim under your thumb. Let go and it drops, rolls, settles and squishes. Two of the same item that touch zip into one bag. At the end you press the lid shut, or pull out what won't fit.
+
+**When and where.**
+
+- **The flat lay, before every overnight** (6.1). Tap the open can on the deck and the deck tilts into the cutaway. Close the lid and you are back on the deck with the can shut, and anything that didn't fit lying beside it, which is exactly what the share image shows (6.10).
+- **Repack freely until *Start walking*.** It is still the night before, so the can is the one minigame you can try again and again, like Suika. Only the last pack counts.
+- **Open:** every overnight. **Hike of the Day:** overnight dailies, before the clock starts. **FKTs:** multi-day routes only. Not on day hikes, which need no can (3).
+- **Later (M1b): the can remembers.** The pile is saved through the trip, the food you eat leaves holes, and the camp tile *Pack the can* (12.14) appears when something is outside it: overflow you carried, berries you saved, a Boy's trade, a crushed empty can. M1a packs once.
+
+```
+┌──────────────────────────────────────┐
+│ < Flat lay    THE CAN · WIC 10.1 L   │
+│ ┌──────────────────────────────────┐ │
+│ │ next ◉ chili mac 0.6 L    D3     │ │
+│ │ then ● oats  ● oats  ○ bars      │ │
+│ │               ◉                  │ │
+│ │               ┊                  │ │
+│ │      ╔════════┊═══════╗ rim      │ │
+│ │      ║        ┊       ║          │ │
+│ │      ║    ●   ┊  ◉    ║          │ │
+│ │      ║ ◉◉  ●●   ●  ●● ║          │ │
+│ │      ║▌◉ ●◉ ◉◉◉ ● ◉◉  ║          │ │
+│ │      ╚════════════════╝          │ │
+│ └──────────────────────────────────┘ │
+│ In 4.1 L · packed 86%                │
+│ To go 4.6 L · 13 items               │
+│ [ Auto the rest ]  [ Close the lid ] │
+└──────────────────────────────────────┘
+```
+
+*(The ▌ on the left wall is a tortilla liner; D3 is the item's day; the picture is the tall plate. Every word is a DRAFT.)*
+
+**Controls:** slide, lift, hold, tap. The hanging item follows your thumb's x one to one, with a dotted line to where it will first touch. Lift to drop; the next item appears at once, so a quick player drops while the pile still moves. *Close the lid* slides it on; if something sticks up, **hold the lid** to press for up to a second and a half. Tap an item above the rim to pull it out. *Auto the rest* drops the remaining items where par would.
+
+**The loop, on B.2's trip** (three nights, the standard 11.5 L can, about 6.0 L of food and 0.6 L of smellables, about 22 drops): the last day's food first, with the chili mac against the wall and two oatmeal packets zipping into one bag; the tortillas against the left wall at about 10 seconds, unrolling into a liner; bars into the gaps, where a bag of two meets another and zips to four; the smellables bag last, on top for tonight's toothbrush, three pixels over the rim; a hold on the lid, three clicks. About 37 seconds. Result line (DRAFT): `Fits: all 6.6 L · packed 88% · room for 1.9 L`.
+
+**The can's rules** (design values; full tables in the draft):
+
+- **Four cans, four shapes,** from the makers' outside dimensions at one scale. The real makers' names never appear in the game; the catalog names are generic.
+
+| In-game can | Liters | Height : width | Shaped like |
+|---|---|---|---|
+| Small | 7.2 | 0.95 | BearVault BV450, 8.7 x 8.3 in |
+| Classic, and the WIC loaner | 10.1 | 1.36 | Garcia, about 8.8 x 12 in |
+| Carbon (premium) | 10.6 | 1.11 | Bearikade Weekender, about 9 x 10 in |
+| Standard | 11.5 | 1.46 | BearVault BV500, 8.7 x 12.7 in |
+
+- **Items are round,** because real food goes in as soft bags. Each item's area is its catalog liters at the can's scale. Tiny items (coffee sticks, gels, drink mixes) arrive pre-bagged by kind, because nobody drops thirty coffee sticks one by one.
+- **The queue is always in the right order** (the catalog's own tip): the last day at the bottom, tonight's dinner on top, the biggest first within a day, the smellables bag last. Order is not a skill in v1; it is how the game teaches the real tip without a chore.
+- **Squish.** Zip bags and pouches shrink to 85% under weight, crushables as sold (chips, crackers, bagels) to 60%, and past 80% they are crushed: morale −1 for that item. Cans, fruit and the IPA are rigid, and the IPA clanks.
+- **Merges.** Two bodies of the same item that touch for a quarter second while slow become one zip bag at **90% of their combined area** (one bag instead of two wrappers, which is why real hikers repack), up to a one-liter quart bag. Merges chain, as in Suika.
+- **Tortillas line the wall:** a pack that lands touching a side wall unrolls into a strip with no gaps, the catalog's own tip and the hardcore crowd's favorite.
+- **The watermelon** (the catalog's trap) is as big as Suika's biggest fruit and never fits the small can.
+- **What stays behind** goes back to the deck, with three sure choices for each item or for all: *Leave it in the car*, *Carry it outside the can* (food that doesn't fit, each night, 6.3) or *Eat it now* (DRAFT).
+
+**What skill is:** reading where a round thing will rest; big first and small into the gaps; setting up merges; getting the tortillas against a wall before the pile does; knowing what to crush; and pulling out the right thing instead of crushing the wrong one.
+
+**What it feeds:**
+
+| Result | Goes into | Where it bites |
+|---|---|---|
+| Food in the can | Days of food (5.5) | Nowhere: that's the point |
+| Left in the car | Fewer calories on the trail | The running-short card (5.6) |
+| Carried outside | Food that doesn't fit, each night | The visitor roll (6.3); Leave No Trace −5 a night |
+| Eaten now | Today's calories | Over 800 kcal extra: heavy legs for an hour, x1.03 (design) |
+| Crushed food | Morale −1 for that item | Dinner and snack joy (5.6) |
+| The packed can | The flat lay's share image | Bragging |
+
+**Worked example: four nights, the WIC loaner, a typical menu** (8.7 L of food and smellables in a 10.1 L can):
+
+| Hands | Packed | Fits | Stays behind |
+|---|---|---|---|
+| Careless | 75% | 7.6 L | 1.1 L, about half a day's food |
+| Auto | 85% | 8.6 L | 0.1 L, one bar pouch |
+| Careful | 92% | 9.3 L | Nothing, and room for about the IPA |
+
+**Checked against the makers.** BearVault says its 11.5 L BV500 *"fits up to 7 days of food for one person"* ([BearVault BV500](https://www.bearvault.com/products/bv500)) and its 7.2 L BV450 *"about 3-4 days"* ([BV450](https://www.bearvault.com/products/bv450)). With the game's dense day (1.6 L) and near-best hands, the standard can holds about 6 days after a week's smellables, and the small can at par 3 to 3.5 dense days: just under the makers' claims, as a careful hiker's real pack is. **And 85% is honest in two dimensions:** random close packing of equal discs is about 0.84 to 0.86, and the densest packing about 0.907 ([arXiv 2404.02316](https://arxiv.org/pdf/2404.02316)), so par needs a little squish and 92% needs the soft bags to give, which real zip bags do.
+
+**Odds:** none inside the can. The shopping gauge (5.3) keeps showing the can at par, and its (i) adds one line (DRAFT: *careful packers fit about 0.7 L more; careless ones 1.0 L less*), precomputed at build time for each can and menu class, so the phone never runs a bot. Downstream rolls show their numbers as always.
+
+**Determinism:** none to seed. A pack is a pure function of the can, the queue and the input stream, so a shared flat lay is reproducible. **Par is a bot, not a number:** *Auto* tries positions 8 pixels apart for each item, simulates a second of each and takes the lowest resting point, in a worker, in about a second. **Auto is memoized:** it is a pure function of the can and the queue, so its result is cached by their hash. The harness and the morning job pack each menu once, not once per trip, and the daily's standard pantry makes its whole day one computation. Only the last pack before *Start walking* goes in the action log.
+
+**Access:** *Auto* packs the whole can; *Drop where it fits* (DRAFT) does one item. VoiceOver reads the next item, its liters and its day, with three buttons to drop it left, middle or right (DRAFT). Day marks are colored dots *and* places in the queue.
+
+**Art and sound.** Four cutaways (the standard can as a smoky translucent wall, the classic and loaner in ink, the carbon in a `diag` weave, the small one squat), the lid as its own stamp, round zip bags at nine sizes with a count digit for merged bags, the tortilla liner in four frames. The cheese is paper cream with a rust rind, never gold. A landing is a soft thump pitched by size, a merge a quick zip that climbs a step in a chain, a squish a crinkle, a crush a crunch, the lid a plastic slide and three ratchet clicks, all synthesized (13.8). The cabin's music plays softly under it, ducking during the press.
+
+**Tuning targets** (the harness's; the draft has the full table):
+
+| Target | Value | Measured by |
+|---|---|---|
+| Par (the Auto bot) | 85% ± 2, all four cans, dense to bulky menus | The harness |
+| Careless bot · careful bot | 75% ± 3 · 92% ± 2 | The harness |
+| Ceiling | 97%, never more | A search bot with the press |
+| First-time players · after ten packs | 80-86% · 88-92% | Playtests; your own packs |
+| Time, three nights | Median 35 s; 90th percentile under 60 s | Playtests |
+| Merges a pack | 2 to 6; a chain of three in about one pack in three | The harness |
+| B.2's plan; the watermelon | Fits at every skill; never fits the small can | Golden tests |
+| Speed | Under 0.5 ms a tick with 40 bodies on an iPhone 12 | Device |
+
+**The polish list, in short:** the item tracks the thumb with no lag; the dotted line always shows the first contact; drop to rest in under half a second; nothing at rest ever shimmers; a merge overshoots one pixel for three frames with one zip; the press feels heavy; what didn't fit flies back to the deck and lies beside the shut can, a small truthful joke in the share image; the first pack ever shows the ghost thumb twice.
+
+### 17.8 The alpenglow shot (the first playable)
+
+*Fifty seconds of real light on Mount Olympus, and one photo to keep.*
+
+**What it is.** On a clear evening at a high camp or a viewpoint, with a camera or a phone in the kit, the sunset becomes a shot. The light runs from the last sun on the peak, through the true alpenglow, to blue hour, about one game minute to each real second. You frame it, hold still and shoot, and your best photo becomes the trip's picture.
+
+**The light is real light.** The American Meteorological Society's glossary describes alpenglow in three phases: the peak's color in the low evening sun; then, a few minutes after sunset, the true alpenglow, purer and pinker; then a softer afterglow toward purple ([AMS Glossary](https://glossary.ametsoc.org/wiki/Alpenglow), read from a search summary because the page refused a direct fetch). Strictly, alpenglow is indirect light, seen only after sunset or before sunrise ([Wikipedia](https://en.wikipedia.org/wiki/Alpenglow)). The minigame plays the phases in order, and its one trick is learning their tell.
+
+**The geometry is real too.** From the High Divide, Mount Olympus is 7.8 miles away across the Hoh at a bearing of about 156°, computed from the region data's coordinates. In mid-August the sun sets at about 292°, behind your right shoulder as you face the peak, so the last light falls on the faces you are looking at.
+
+**Where and when.**
+
+| Place | Subject | Notes |
+|---|---|---|
+| The High Divide crest | Olympus across the Hoh | The first playable's great view |
+| Bogachiel Peak | Olympus, the basin below | B.3's sunset; a lily place (10.2) |
+| Heart Lake Junction camp | Olympus | The crest's one camp; carry water |
+| Hoh Lake, Heart Lake | Olympus; the ridge above the lake | The data asks for a pink-sky variant at Heart Lake |
+| Lunch Lake | The Bogachiel ridge and its snowfield | While the snow lasts |
+| The cabin's porch | The peak above the trees | Practice, at the real dusk at Lake Quinault |
+| Later | Glacier Meadows, Royal Basin, Hurricane Ridge, Lake Morgenroth | With their milestones |
+
+- **How it starts:** the evening's sunset choice (*Watch sunset* in camp, 12.14, or B.3's *Bogachiel Peak for sunset?*) with a camera or phone packed. Without one, the sunset plays as it always has: one screen and the lift in spirits.
+- **Weather decides if there is a shot.** Clear and partly cloudy evenings play it; overcast plays a gray, quiet version with no pink; rain and fog skip it.
+- **Open:** every such evening. **Hike of the Day:** overnights, in camp, off the clock. **FKTs:** never.
+
+**The light, phase by phase** (mid-August on Bogachiel Peak: sunset 8:29 pm, civil dusk 9:03, 7.2; the session runs from 15 minutes before sunset to civil dusk, about 49 seconds):
+
+| Real s | Clock | The light on Olympus | Exposure |
+|---|---|---|---|
+| 0-15 | 8:14-8:29 | Low warm sun on the west faces | Instant |
+| 15-21 | 8:29-8:35 | Sunset where you stand; the shadow climbs Olympus from the valley | Instant |
+| 21-26 | 8:35-8:40 | The summit goes cold and flat: **the lull, the tell** | 0.25 s |
+| 3 to 5 s inside 23-32 | 8:38-8:47 | **True alpenglow:** the pink comes back, purer | 0.25 s |
+| 32-40 | 8:47-8:55 | Afterglow, softer, toward purple | 0.5-1 s |
+| 40-49 | 8:55-9:03 | Blue hour: the snow goes glacier blue (11.4) | 2 s |
+
+**The tell is the skill:** the summit's last warm pixel goes out, the peak sits flat and cold for a few seconds, and then the pink comes back. Players who learn the lull stop shooting the sunset and wait.
+
+**Controls.** Drag on the picture to pan (the scene is twice the frame's width, with no inertia). Press and hold the shutter in the thumb zone: a small meter fills for the exposure, and moving your thumb while it fills blurs the photo, while lifting early underexposes it. Tap the lens chip for wide or 2x. Up to twelve shots a session with a digital camera or phone (design); with film, what's left on the roll.
+
+```
+┌──────────────────────────────────────┐
+│ Bogachiel Peak · 8:41 pm   shots 4   │
+│ ┌──────────────────────────────────┐ │
+│ │ ┌                              ┐ │ │
+│ │    OLYMPUS, its snow going pink  │ │
+│ │    above the shadowed Hoh        │ │
+│ │                                  │ │
+│ │  a subalpine fir, lower left     │ │
+│ │ └                              ┘ │ │
+│ └──────────────────────────────────┘ │
+│ ◀ drag to frame ▶       [ wide | 2x ]│
+│ light ▂▄▆                            │
+│                                      │
+│ [ Done ]                  ( ◉ hold ) │
+└──────────────────────────────────────┘
+```
+
+*(The light meter shows only the light now, never what's coming. Every word is a DRAFT.)*
+
+**The photo's score** (design): light 0-50 (by the level at mid-exposure, full alpenglow the most), frame 0-30 (the summit near a thirds point, something in the lower third, the summit not cut by the edge), sharp 0-20 (by blur, one pixel per 6 pt of thumb travel, halved by trekking poles or a rock to brace on), and a gift 0-10 (a seeded moment in frame: a marmot on the near rock, a raven, a bear on a far meadow, pink-lit clouds). 80 or more is ★★★, 60 ★★, 35 ★. The best shot of the session is picked for you, and a tap swaps it. Result line (DRAFT): `★★★ Olympus at alpenglow · spirits ♥ · back by headlamp`.
+
+**Cameras** are already in `gear_catalog.json`: the phone (wide only; about 2% of its battery a session, design), the compact and the DSLR (wide or 2x; the DSLR steadier at blue hour, and heavy), and the disposable film camera (27 shots for the whole trip and no preview). **Film is the purist's choice:** you see only the counter, and the prints arrive in the trip report like an envelope from the drugstore.
+
+**What it feeds:**
+
+| Result | Goes into | Notes |
+|---|---|---|
+| ★, ★★ or ★★★ | Spirits +1, +1 or +2 (design) | On top of the sunset's own lift (7.9) |
+| The photo | The trip report's cover, its share card, the fire bowl's album | 9.7, 2.2 |
+| Staying to the end | The Bonfire Lily's whole-sunset term (10.2) | *Done* before blue hour ends drops it |
+| Standing still at dusk | Warmth, through the heat balance (7.9) | A warm layer covers it |
+| A viewpoint away from camp | The walk back by headlamp, with its honest checks | As in B.3 |
+| Score | Nothing | A sunset's points come from being there, so a bad photo costs none |
+
+**The lily never appears in a photo,** and nothing in the minigame hints at it. It comes, when it comes, at the end of blue hour, after the shot is over (10.2). Gold never appears in the viewfinder.
+
+**Odds:** none inside the shot. **Determinism:** the light curve comes from the date's sunset and dusk, the zone's weather that evening and the `mini` seed (place, date). **A photo is about ten bytes** (place, date, tick, frame, lens, blur, exposure and gift), so the share image renders identically on any phone and a crew link can carry a photo without an image. On an overnight daily, everyone at the same camp gets the same light, which makes a photo-of-the-day board possible, if you want one.
+
+**Access:** *Auto* (DRAFT: *One good photo*) shoots once in the mostly-pink moment, centered and sharp, about 68, ★★, and never ★★★. *Steady hands* removes blur in Open. VoiceOver gets a live region for the light (DRAFT: *Sun on the summit. The shadow reaches the top. Pink comes back. Blue hour.*), a shutter button, and alt text for the photo.
+
+**Art and sound.** A 320-pixel panorama for each spot, built from the composed scene and its skyline (11.7). A new pseudo-color, `alpen` (11.5), resolves the subject's snow by light level through snow, paper cream, alpenglow pink and glacier blue with the ordered dithers, and a per-row mask moves the shadow line up the peak one row at a time. The low sun on snow is paper cream, never gold. No music: the wind easing, the place's evening birds, a far creek, the marmot's whistle when the gift is a marmot, two soft shutter clicks, the film's ratchet. **No jingle for ★★★:** the quiet is the reward (13.8).
+
+**Tuning targets:** a session of 45 to 55 seconds; full pink for 3 to 5 seconds, 3 to 10 seconds after the summit goes cold; clear evenings always reach full pink and overcast at most a speckle (golden tests); Auto about 68, never ★★★; first tries a median of about 55 with ★★★ about 1 in 10; after five evenings a median of about 75 with ★★★ about 4 in 10; a gift on about 1 evening in 4.
+
+### 17.9 Huckleberries (the first playable)
+
+*Comb a ripe bush with your thumb. The cup is the park's quart.*
+
+**What it is.** In late summer the High Divide and the Seven Lakes Basin are full of huckleberries and blueberries. You stop at a patch, comb ripe berries into your cup, eat some, save some, and go on, a little later and a little happier.
+
+**The rule is real.** Olympic's Superintendent's Compendium (updated January 21, 2026) lets visitors collect edible fruits and berries *"by hand for personal consumption,"* up to *"1 quart per person per day,"* but not *"within 200 feet of nature trails, special trails, and natural study areas"* ([NPS, Superintendent's Compendium](https://www.nps.gov/olym/learn/management/superintendent-s-compendium.htm), checked again for this revision). Everything else growing in the park stays put (which is why the flower press is a trap, 6.9). So **the cup is the quart:** when it's full, you're done for the day. And respectfully: big huckleberry is a sacred first food for many Northwest tribes ([USFS](https://www.fs.usda.gov/media/252929)), and the game picks berries only the way the park allows.
+
+**Where and when.** The region data's berry places and recent trip reports: the High Divide crest and the basin trail from past Deer Lake to after Heart Lake (a September 2025 report); between Heart Lake and Sol Duc Park, in waist-high bushes (August 2021); Sol Duc Park, Lunch Lake and Hoh Lake; later Lake of the Angels and other high meadows. **Never within 200 feet of a nature trail or special trail:** the compendium's list of those trails goes into `park_rules.json` before berries can be dealt near one.
+
+| Dates (normal snow year) | Ripe share (design) | What the reports say |
+|---|---|---|
+| Before Aug 1 | Under 10% | A few early bushes |
+| Aug 1-10 | 10-40% | Can look ripe and taste sour (2020) |
+| Aug 10-Sep 15 | 50-75% | The peak (2021, 2025) |
+| Sep 15-30 | About 60%, some shriveled | Leaves turn rust |
+| Oct 1-15 | 30-50%, then frost | "Tons of ripe huckleberries" (Oct 11, 2024) |
+
+A low snow year moves it about two weeks earlier and a high one two to three weeks later (7.6). The USFS says big huckleberry's ripening *"generally extends from late July to late September"* ([USFS](https://www.fs.usda.gov/media/252929)). The WTA reports are cited in the draft.
+
+**How it starts.** A trail moment the Director deals on a segment with a berry tag, in season, at most once a day (DRAFT: *the bushes here are heavy with berries*), with *Stop and pick* and *Keep walking*; and a camp tile at Lunch Lake and Heart Lake. Some patches first offer *Pick along the trail* (sure) or *Step into the meadow* (better bushes, Leave No Trace −2) (DRAFT): the meadows on the Divide are fragile, and the choice teaches it. **Open:** in season. **Hike of the Day:** yes, and the clock runs, so it is a real trade. **FKTs:** yes, as fuel.
+
+**Controls.** Drag your thumb through the bush: a small fingertip cursor floats about 36 pt above your thumb, and berries under it are picked. Slow, steady strokes pick; strokes faster than about 1.5 pixels a tick, measured over a fixed window of the sampled drag (17.4), knock berries off, and they're gone (design). Dragging through leaves shows the berries behind but knocks off about one cluster in four under them (design). Tap the cup to stop.
+
+```
+┌──────────────────────────────────────┐
+│ Above Sol Duc Park · Aug 22 · 1:10   │
+│ ┌──────────────────────────────────┐ │
+│ │  BUSHES: dark berries with a     │ │
+│ │  pale bloom, green ones, leaves  │ │
+│ │            ◇ fingertip           │ │
+│ │                                  │ │
+│ │        (your thumb, below)       │ │
+│ └──────────────────────────────────┘ │
+│ Cup ▓▓▓▓▓▓░░░░ 0.6 qt · +17 min      │
+│ ripe 92%                             │
+│                       [ That's it ]  │
+└──────────────────────────────────────┘
+```
+
+**The bush.** Each target is a cluster, 1/48 of a quart (design), about 3x3 pixels; about 70 clusters a screen across two or three bushes, the date setting the ripe share and leaves hiding about 30%. Ripe clusters are dark with a one-pixel pale bloom; unripe ones paler and smaller; shriveled ones small and brown. **Whatever you pick counts toward the quart,** ripe or not. With a pot or a zip bag in the pack, half of what you pick is saved for the next breakfast or dinner; without one, you eat it all now.
+
+**What skill is:** planning a stroke through ripe clusters that misses the green ones; speed control; working the leaves; and knowing when to stop, for the clock in a timed mode, or for the bear.
+
+**The bear.** Bears love these slopes in berry season: the region data logs 4 to 11 bears a trip in August 2026, and huckleberries are a major bear food (USFS).
+
+- **Dice:** whether a bear is in this patch, drawn when the patch opens: about 3% of patches in July and 8% in August and September (design).
+- **Hands:** what you do about it. The tell comes at a seeded moment: a bush at the edge shakes, a dark shape shows for three frames, a low woof. Stop within about three seconds (tap the cup; DRAFT: *Back away*) and it is a quiet Look at a bear in the berries, a lift in spirits. Keep picking and the region's **bear-in-the-berries** card fires, with its own honest odds.
+- **No harm by design.** No wildlife card has a fatal branch (9.5, principle 2). The worst the bear card does is cost time, or, with food outside a can, take it. The tell is never a jump scare, and never only a sound.
+
+**What it feeds:**
+
+| Result | Goes into | Notes |
+|---|---|---|
+| Berries eaten now | Calories | About 340-380 kcal a quart (design, from USDA blueberry figures) |
+| Berries saved | +1 morale at the next breakfast or dinner (DRAFT: huckleberry oatmeal) | Spoils in 2 days |
+| The trip's first berries; a full quart | Spirits +1 each | Sour early berries give none |
+| Unripe picks | Count toward the quart; spirits −1 past a quarter of the cup | — |
+| Time | 1 real second = 45 game seconds (design) | On the clock in timed modes |
+| The patch off the trail | Leave No Trace −2 | The trail-side patch is sure |
+| FKT fuel | The runner's carbohydrate store, at its hourly cap (7.9) | Grazing costs seconds |
+
+**In the daily,** a full quart costs about 25 game minutes and pays about 360 kcal: rarely worth it for the time, sometimes worth it for the legs, and exactly the kind of choice a board should reward thinking about.
+
+**Odds, determinism, access.** No dice in the picking; the bear's presence is a seeded fact you can read in time, and the bear card shows its own %. The `mini` seed (segment, day, patch) lays out the bushes, ripeness, hidden fruit and bear, so on a daily everyone combs the same bushes. *Auto* (DRAFT: *Graze a while*) picks half a quart at 85% ripe in 15 game minutes and always backs away from a bear; VoiceOver gets *Pick 10 minutes*, *Pick 20 minutes* and *Fill the quart* (DRAFT) at Auto's rate; *Tap to pick* is an Open assist.
+
+**Art and sound.** Bushes in forest and moss, with rust and brick leaves from mid-September (11.1); ripe huckleberry clusters in night navy with a glacier-blue bloom, blueberries in slate; the cup is your pot, mug or zip bag, filling a pixel at a time. **The plink:** each ripe cluster lands with its own note, and the pitch climbs one step of a pentatonic scale every eighth of a quart, so a full cup plays a little tune. That is the takoyaki feel: many small touches, each with its sound. A dry click for an unripe pick, a dull tick for a dropped one, a rustle through leaves, and under it the wind in the heather and a far marmot.
+
+**Tuning targets:** a session of 25 to 40 seconds; a full quart is 48 clusters, about 30 seconds for an expert; a first-timer about half a quart in 40 seconds at 75% ripe; Auto half a quart at 85% in 15 game minutes; the bear in 3% of July patches and 8% in August and September; the daily's trade about 25 game minutes for about 360 kcal.
+
+### 17.10 The technical descent
+
+*Roots and rocks coming at you, a tap for each, and the footsteps are the music.*
+
+On technical, steep downhill segments (the steep-descent term of 7.4, in your direction of travel) at Run or Race on an FKT attempt, and at Push pace in Open and the daily. On the first playable: Deer Lake down past Canyon Creek to Sol Duc Falls, the stone staircase out of the basin and the Bogachiel Peak spur; later the long drop to the Hoh, Appleton Pass and Hurricane Hill. **At most three a run,** the steepest; the rest resolve at Auto. The FKT window, with its unlimited tries, is the practice (9.11).
+
+**Controls and loop.** About 35 seconds a segment, whatever its length. The trail scrolls toward the hiker from above, like a map unrolling. **Tap** as each obstacle reaches the feet line (a foot over a root, onto a rock, down a step); **hold** to brake (the trail slows, the windows widen, the clock runs); **release** to let it run. Judging (design): *perfect* within 5 ticks (about 42 ms), *good* within 11, else a stumble; Race shrinks the windows 15%, and after dark the headlamp's pool shows only about 1.2 seconds ahead instead of 2. **Flow:** each perfect tap adds 2% speed, up to +12%; a stumble takes 8%; braking takes 25% while held.
+
+**What it feeds, and the odds.** Hands set the segment's time between x0.92 and x1.10 (Auto x1.00), and the stumbles set your hands on the segment's footing check: no stumbles +6, one +3, two 0, three −3, four −6, five or more −10. **The dice decide whether a stumble turns an ankle** (7.4). On the Deer Lake descent at Race (design numbers, matched to 9.11's "about 1 in 14" at par): worst hands 88% made it, Auto 93%, best 96%. A moderate sprain is Serious, so the pace chip is a ♦ and reads (DRAFT) `Race ♦ {hand}88-96%`; the roll lands at the bottom of the segment, with the compass.
+
+**Determinism and access.** The obstacle track comes from the segment's own profile, the direction, wet or dry, light or dark, and the window's seed, so everyone in a window runs the same roots. Taps are judged in ticks, never against the sound; a latency setting of up to 150 ms is allowed and logged, and the verifier rejects inputs no hand could make (E.12). *Auto* gives x1.00 and par hands; *Wide windows* (Open) makes them 50% wider; sound off still shows every obstacle ahead, and the feet line flashes on a perfect.
+
+**Art and sound.** The trail from above as a bark-brown ribbon through forest, roots as bark lines, rocks in slate, gravel as a `diag` dither, wet slabs as `hlines`; a new top-down hiker in the rust jacket; the headlamp's pool after dark. **Lonely Mountains style:** a footstep for each tap by surface (dirt, rock, root, gravel, wet slab), poles clicking, breath quickening with speed, the creek rising as you near it. When the flow is perfect, the footsteps fall into an even rhythm: that is the music (13.6).
+
+**Tuning:** 30 to 40 seconds a segment; about 1.6 obstacles a second at Run and 2.2 at Race; Auto x1.00 with 2 stumbles; a clean expert x0.93; a first try x1.04 with 3 to 4 stumbles; best to worst under 10% of a typical run (E.12). **Polish:** every tap has its footstep within a frame; you can always see the next rough patch before it matters; a stumble never feels random, because the obstacle was there.
+
+### 17.11 Ice-axe self-arrest
+
+*Three seconds on hard snow. One of the two minigames that can be the last thing a hiker does; the waist-deep ford is the other (17.12).*
+
+You slipped on steep snow and you are sliding, faster every tenth of a second, toward the rocks. Roll toward the pick, drive it in, put your weight on it, and stop. **The technique is real:** Ortovox's safety academy teaches the axe held across the body, one hand on the head and one on the shaft, rolling onto the stomach, pressing the pick in, toes in without crampons and knees bent with them, because a caught point *"can result in a somersault and injury,"* and it warns that falls happen on 30 to 35° slopes and that you should get into position *"as quickly as possible"* ([Ortovox](https://www.ortovox.com/uk/safety-academy-lab-ice/chapter-2/self-arrest-techniques)). Which way to roll was not confirmed on the pages read; the draft asks for a check against a course before it ships.
+
+**Where and when.**
+
+- **Only after a slip on a ♦.** Crossing steep snow is a choice with a sure way around (turn back, wait for softer afternoon snow, take another way). If its roll comes up *slide*, the minigame plays.
+- **Places:** the High Divide's early-season snowfields (the data's `snowfield_high_divide`: the rim, Bogachiel Peak, Heart Lake Junction) in the shoulder season (M1b); later Royal Basin, Grand Pass, Anderson Pass and Appleton Pass.
+- **Never a fatal band at a `real_incident` site** (9.5, principle 3): not on the Olympus climbing route, not on the shortcuts toward Boulder Lake. There the worst is a rescue. **On Jon's rope** a fall is held, with no minigame (4.2).
+- **Practice:** once, the first time a hiker with an axe stands on safe snow, a flavor choice (DRAFT: *Try a slide*, 15 minutes, Wet +1) on a slope with a clean runout; that is all M1b has. **Snow school with Jon** joins it in M2, with Jon's lines and his glacier school (4.2), so nothing in M1b needs Jon.
+
+**Controls.** The slide starts in one of four positions, drawn from the roll's effect stream (design: 40%, 30%, 20%, 10%): feet first on your front (hold: dig in); feet first on your back (swipe toward the pick, then hold); head first on your front (tap the snow beside you, then hold); head first on your back (tap, swipe, hold). **Hold** presses the pick in, and the braking builds over a third of a second. With crampons, a roll started above 5 m/s catches a point one time in two (design) and flips you head first; a clean, early roll keeps your knees bent for you.
+
+**The physics** (design values on a 30° slope; snow is hard before 10 am and soft after 1 pm, 7.6). With no arrest, hard snow reaches 12 m/s and 18 m in three seconds, soft snow 6 m/s and 9 m. Braking with the axe in, you stop at 7 m on hard snow if you're braking by 1.2 seconds (Auto at snow skill 1, from a back start), and at 28 m if you froze until 2.4 seconds; on soft snow, 2 m and 7 m. **So on hard morning snow with rocks 25 m below, a two-second freeze reaches the rocks, and the same freeze on soft afternoon snow is a scare.** The hour matters as much as the axe.
+
+| Stopped within | Rung | What happens |
+|---|---|---|
+| 8 m | 1, Uncomfortable | A scare and snow up the sleeves: Wet +1 |
+| The runout's first two thirds | 2, Trouble | Scrapes; a lost pole or glove |
+| The runout's last third | 2, Trouble | And a mild sprain |
+| The rocks | 3, Serious | Badly hurt, then the death roll |
+
+**The death roll after a slide into rocks is 20%** (design), a row in both of 9.5's tables. Its cause key is `fall`, whose snow variant arrives in M1b with its own epitaph deck, and its line under *YOU PERISHED* is yours to write. Where the runout is clean (a flat bench, a lake), the worst is Trouble, the crossing is a plain %, and the minigame is just a scare.
+
+**The odds.** Hands decide how fast you roll and dig in; the dice decide the slip, how you land and what the rocks do. The ♦ shows the slip exactly, and the fatal share at the worst hands, which means no arrest at all. Worked (design numbers): early July, 8 am, the steep snow below the rim, no traction, an ice axe and poles, snow skill 1: base 80, no traction −10, ice axe self-belay +10, poles +5, skill +2 = 87 clean, **94% made it**, 6% slide. Worst hands: every slide reaches the rocks, 6% x 100% x 20% = **1.2%**. At Auto, 1 slide in 8 reaches them: 0.15%, shown 0.2%.
+
+```
+[ Cross the snow ♦ 94%         (i) ]
+  6% slide · up to 1.2% fatal
+[ Wait for softer snow    3 h  sure ]
+[ Go around by the trail  +1.4 mi   ]
+```
+
+With Auto on, the second line reads `6% slide · 0.2% fatal`. **The ice axe's flat +25** (6.7) would become the self-belay's +10 on the slip plus the arrest after it; at Auto the two together are worth about what the +25 was (a tuning target, and your call).
+
+**Determinism and access.** The slip is the ♦'s roll, keyed at the confirming tap, and the start comes from that roll's effect stream, so everyone who slips in the same place on the same daily slides the same way. Auto's chance of reaching the rocks is computed exactly by running its script on every start. *Auto* reacts in 0.8 s at snow skill 1, 0.1 s faster a level, to 0.4 s. Reduce Motion never shakes or tilts the camera, and Auto is offered first.
+
+**Art and sound.** The tall plate as a slope scrolling past; the hiker in four sliding poses with the axe drawn large enough to read which side the pick is on; the rocks waiting at the bottom; a pick-scrape trail; a speed bar. The slide's hiss rising with speed, the pick's scrape falling in pitch as you slow, your breath and a heartbeat, then nothing but the wind. No music, and no sting unless it is the death sequence's own (13.2). **Tuning:** 2 to 6 seconds of sliding; on the reference slope (30°, hard snow, rocks at 25 m), novices stop short 70% of the time, regulars 95%, Auto 87.5%; on soft snow nearly everyone does; snow school teaches it in 3 or 4 slides.
+
+### 17.12 The cold creek ford
+
+*Step in the lulls between surges, before your feet go numb.*
+
+A knee-deep or deeper river, glacial gray or snowmelt clear, and cold. You pick your spot, unbuckle your hip belt, and cross one step at a time, each in a lull between surges, facing upstream with your poles. Wait too long for a lull and your feet go numb, and numb feet step badly. **The technique is real:** release the waist and sternum belts, face upstream, cross where the channel is widest or most braided, move one foot at a time with a pole upstream, and turn around or wait if the water is too high, cold or swift ([NPS, stream crossing safety](https://www.nps.gov/kaww/stream-crossing-safety.htm)).
+
+**Where and when.** The region data's fords: the Hoh's braids before Olympus Guard Station; the Queets at its trailhead, *"commonly waist deep in summer"* ([NPS, Queets River Trail](https://www.nps.gov/olym/planyourvisit/queets-river-trail.htm)); the Enchanted Valley washout and White Creek; the Elwha past Chicago Camp; Goodman and Falls creeks and the Ozette River mouth on the coast; Lena Creek, the West Fork Dosewallips and the Upper Duckabush. Knee-deep or more only: shallower fords stay told (7.7). **The High Divide loop has no fords** (its region data), so the ford arrives with the Hoh in M2. Open, the daily (on the clock) and FKTs; **no practice**, because fords aren't something to do for fun.
+
+**Before you step in,** three optional taps: **shoes** (boots, sandals or bare feet; flip-flops can wash away, per the catalog's `loss_in_current`); **the buckle** (unbuckling the hip belt is 7.7's +3, and the click is satisfying); and **the spot**, where a ford has more than one: a riffle over gravel, a smooth glide or a braid, each the ford's flow index ± 0.1 (seeded, design). You see how the water looks, not the number; *Scout upstream* (20 minutes, +5, 7.7) shows the numbers.
+
+**Controls.** **Tap to take a step,** best in a lull: surges come every 1.2 to 2.0 seconds as white bands sliding downstream, and the lulls last 0.5 to 0.9 seconds. **Hold to brace** through a surge: no wobble, but the cold keeps counting. Eight to twelve steps, 15 to 30 seconds. **Footwork** starts at 0: each clean step +1 (to +6), each step into a surge −2 (to −8). **Numb feet:** after 10 seconds in glacial water (15 in snowmelt or rain-fed creeks) the usable lulls shrink 10% a second (design), twice as fast barefoot; poles make the lulls feel 30% longer. The live line shows the made-it % moving with every step, and the roll comes at the far bank.
+
+```
+┌──────────────────────────────────────┐
+│ Hoh braids · knee-deep · glacial     │
+│ ┌──────────────────────────────────┐ │
+│ │ far bank ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒ │ │
+│ │ ≈≈≈ surge ≈≈≈▶       ≈≈≈≈▶       │ │
+│ │          o/  you, facing up      │ │
+│ │ ≈≈▶        ≈≈≈≈≈▶       ≈≈≈▶     │ │
+│ │ near bank ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒ │ │
+│ └──────────────────────────────────┘ │
+│ feet ▓▓▓▓▓░   step 4 of 9            │
+│ made it 91% ▸ 93%                    │
+│ tap: step · hold: brace              │
+└──────────────────────────────────────┘
+```
+
+**The odds,** worked from 8.11's ford with footwork from −8 to +6:
+
+| The ford | Clean at Auto | The button |
+|---|---|---|
+| Knee, no poles, two things outside | 81 | `{hand}87-94%`, Auto 91% |
+| Thigh, 3 pm, no poles, heavy, tired | 47 | `♦ {hand}64-77%`; swept is a rescue |
+| Waist, the same hiker | 12 | `♦ {hand}30-43%`, up to 2.1% fatal; Auto 1.9% |
+
+At waist depth the worst hands give 70% fail x 15% swept x the 20% death roll = 2.1%, and Auto gives 8.11's own 1.9%. *Camp, cross at dawn* sits under it, sure, as it always has.
+
+**What it feeds:** the roll's outcome goes to the ford's fail table (soaked, a dropped item, or swept above flow 1.5, 8.3); wet feet double foot wear (7.9) unless sandals and dry socks after; minutes in the water cost warmth; a fail may lose footwear by `loss_in_current`; and 1 real second is 20 game seconds (design). **Art and sound:** the river from above in teal and glacier blue with the river cycle (11.5), surges as white `hlines` bands, the hiker facing upstream; the roar louder with the flow index, muffled clacks of cobbles, a sharp breath at the first step in, the surge as a rising rush, no music. **Tuning:** Auto footwork 0; a clean expert +5 to +6; a first try −2 to 0; numbness bites after about 10 seconds in glacial water. A fail always shows as a slip on the last step, never as a sudden teleport.
+
+### 17.13 Pitching a tent in the rain
+
+*Stake the windward corner, fling the fly in a lull, and keep the inside dry.*
+
+You reach camp and it's raining. Every second the tent stands without its fly, the inside gets wetter, and a wet inside means a wet bag and a cold night. In dry weather *Make camp* stays one tap (12.14); in rain or real wind, the tent goes up by hand, from the camp tile *Rain pitch*. **The technique is real:** many double-wall tents can pitch the fly first; otherwise the inner goes up as fast as possible; avoid low spots, face the door away from the wind, keep wet things in the porch ([Advnture](https://advnture.com/how-to/pitch-a-tent-in-the-rain)).
+
+| Shelter (catalog) | Order | The inside |
+|---|---|---|
+| Trekking-pole tent | Fly first, then the inner from inside | Stays dry if the fly goes up clean |
+| Domes | Inner first, then the fly | Wet until the fly is on |
+| Tarp, poncho tarp | Stakes and a ridgeline | A roof, not a box: the wind decides the edges |
+| Bivies, tube tent, hammock | No minigame | One tap, as now |
+
+**Six steps, one gesture each, 25 to 40 seconds:** (1) tap a pad and drag toward where the door should face, reading the tells (standing water in a low spot, a dead snag overhead, a slope); (2) tap the windward corner first, which the rain's slant shows, or a gust lifts the tent and you grab it; (3) drag the poles along their path, or plant two trekking poles; (4) swipe the fly up and over in a lull, or grab it when it balloons; (5) tap each stake and line, where a slack line sags a row of pixels; (6) in, with anything wet left in the porch. While the inner is exposed it gets wetter every tick at the rain's rate (design).
+
+**What it feeds,** with no dice inside: an inside more than 30% damp makes the bag damp (60% of its warmth, 7.9); a slack pitch drips by morning; a door into the wind adds 10% damp; a low pad brings a night card, water under the floor at 2 am (spirits, wet gear); the snag pad brings one where the dead tree groans in the wind, spirits only, never harm (9.5); and the minutes cost evening light. The night roll uses these inputs and shows its honest % at bedtime, as always. **Open:** every such camp. **The daily:** overnights, in camp, off the clock, but the night it makes sets tomorrow's legs. **FKTs:** multi-day routes. **Practice:** the cabin's lawn, when it is really raining at Lake Quinault (2.2).
+
+**Art and sound.** Rain as `vlines` curtains slanted by the wind; each tent in four states; the sag row; puddle sheen as the rain-glint cycle (11.5). **The reward is a sound:** rain on bare ground is a hiss, and the moment the fly is on it becomes rain on nylon, a soft drumming close overhead (13.8). **Tuning:** Auto about 15% damp; a clean expert in a trekking-pole tent under 5%; a first try with a dome in heavy rain 30 to 45%. The rain's slant always tells you the wind, a gust shows half a second before it hits, and a grabbed tent never flies off screen.
+
+### 17.14 Razor clamming
+
+*A winter night, a minus tide, a lantern, and the first fifteen.*
+
+Razor clamming on the Washington coast happens on low tides, often at night in winter, with a lantern, a clam gun or shovel, and a bucket. You walk the wet sand looking for **shows**, the marks a clam leaves (a dimple, a doughnut or a keyhole), work the tube down around it with your thumb over the vent, and pull, quickly, because razor clams dig fast in soft wet sand ([Evergreen Coast](https://www.evergreencoastwa.com/razor-clamming/)). It is in your own account of 104: after a long day of hiking or razor clamming or work, Jon went home to his hot tub. This is the minigame that makes that night playable.
+
+**The real rules:**
+
+| Rule | Source |
+|---|---|
+| *"The daily limit is 15 clams per person"*, and *"all diggers must keep the first 15 clams they dig, regardless of size or condition,"* each digger's in a separate container | [WDFW, Sept. 30, 2025](https://wdfw.wa.gov/newsroom/news-release/wdfw-approves-seven-days-coastal-razor-clam-digs-beginning-oct-6), checked again for this revision |
+| Every digger 16 or older needs a license; evening digs are noon to midnight only | The same release |
+| Kalaloch, the park's razor clam beach, runs *"from the South Beach campground north to ONP Beach Trail 3"* | [WDFW rules](https://wdfw.wa.gov/fishing/shellfish/razorclams/rules_regs.html) |
+| Kalaloch was closed for 2025-26 for *"depressed populations of harvestable clams"*; the October 9-14, 2026 dig was postponed for domoic acid | WDFW, 2025 and 2026 |
+| Kalaloch was fully or partially closed in 16 of the 17 years to 2022; harvest on the rest of the park's coast is always closed | [NPS, 2022](https://www.nps.gov/olym/learn/news/razorclam2022.htm); [NPS, 2011](https://www.nps.gov/olym/learn/news/2011-razor-clam-harvest-suspended.htm) |
+| The Quinault Nation, the Hoh Tribe and the Quileute Tribe have fishing rights at Kalaloch | WDFW |
+
+**What the game does with that.**
+
+- **Kalaloch is rare:** it opens only in a seeded good clam year, about one season in six (design), which the cabin hears about. Rare is true to the record, and it makes the in-park dig special.
+- **The regular dig is at Mocrocks,** the WDFW beach from the Copalis River to the south boundary of the Quinault Indian Reservation: outside the park, and real. The game never sends anyone onto reservation beaches. **This bends a decision:** decision 29 asks for minigames *tied to a real ONP activity*, and decision 30 for ones *native to the ONP*. Clamming is a park activity at Kalaloch, but the regular dig is not in the park. The alternative is Kalaloch only, in its open years, which makes clams rare by the real record (your call, [still to come](#still-to-come-from-you)).
+- **The dig calendar** is built from the tide predictions the game already ships (7.8): an evening low below 0.0 ft from October to mid-March, a morning one from mid-March to May, minus a seeded toxin closure about one series in five (design). It is not a claim: the dig screen says, in your words, that real digs are announced by WDFW.
+- **The license** is a general store item. Without one, an officer's check is a ticket card (design), never a death.
+
+**Where and when.** **From the cabin:** the clam gun leaning on the shed (2.2) becomes the door on dig nights (DRAFT: *Dig tonight*), and the car drives to the beach. **Open:** a cabin outing between trips, with **no ♦ anywhere in a dig**, so the hiker can't die here. **Hike of the Day:** a winter variant on real minus-tide days, if you want one (DRAFT: *Dig of the Day*). **FKTs:** never.
+
+**Controls and loop.** Drag to walk the beach, and the lantern's pool of light moves with you and shows appear in it; tap a show to set the gun over it; hold to work the tube down while a depth gauge rises; release to pull the core, full if the tube went past the clam and empty if not; double-tap near the surf to pound the sand so nearby clams show. With a shovel it is faster, but a release at the wrong moment cuts the clam, and a cut clam still counts toward your fifteen. The tide window runs from an hour and a half before the low to an hour after, about 50 seconds: the car's lights go off, the lantern hisses, keyholes and dimples, thwop, the bucket clinks; toward the surf the shows are bigger, a run-up washes past your boots, and once or twice a night a deeper roar and a white line rising past the last one: you step back up the beach in time, or you don't.
+
+**What it feeds:** up to 15 clams, a clam feed by the fire bowl that night and a full heart for the next trip (spirits +1 at its start, design); the sneaker wave soaks you to the waist and knocks you down (Trouble), and the lantern drops for three seconds of dark; a winter night on the coast through the heat balance, which dry clothes in the car fix; a ticket card with no license. **The ocean is never a joke:** the line after a sneaker wave is a ranger's, about never turning your back on the ocean, in your words. Whether a winter dig lights the tub is your call, since it breaks the "big hike" rule of 2.2 but is Jon's own ritual in your words.
+
+**Odds, determinism, access.** No dice inside the dig and no ♦; the waves are seeded and visible. The `mini` seed (beach, date) places the shows, the clams' sizes and depths, and the waves, so on a Dig of the Day everyone walks the same beach. *Auto* digs at par: 12 clams, dry. The sneaker wave's white line is drawn two seconds early with sound off.
+
+**Art and sound.** The night beach as a radial pool of lantern light, paper cream into navy into ink; shows as 2 to 5 pixel sprites; the surf cycle (11.5). The surf bed, wind and the lantern's hiss; the gun's *thwop*, a clam's squirt, the bucket's clink rising a step per clam to fifteen; the sneaker wave's deeper roar two seconds before it arrives. No music on the beach; the cabin's comes back with the car. **Tuning:** about 50 seconds; 4 to 8 shows in the lantern's pool; a first-timer 8 to 10 clams; an expert the limit in about 40 seconds; Auto 12, dry; 1 or 2 sneaker waves a night.
+
+### 17.15 Engine, files and tests
+
+**The contract.** Every minigame's core is a pure module in `engine/mini/` with the same six functions:
+
+```js
+// engine/mini/<game>.js (pure)
+init(params)        // -> state
+step(state, input)  // one tick
+done(state)         // -> true or false
+result(state)       // -> the result
+par(params)         // -> Auto's result
+bounds(params)      // -> worst, best
+```
+
+- **`params`** are frozen from the trip at that moment (the can and the queue; the place, date and weather; the segment and pace; the slope and start). Nothing else reaches the core.
+- **`result`** is one of the three kinds of 17.2: an input (bear can, alpenglow, berries, tent, clams), a modifier (ford, descent) or a band (self-arrest).
+- **`bounds`** gives the button its hands range: for a modifier, the clamp; for a band, simulated with no input at all and with a perfect script.
+- **`run(params, log)`** in `core.js` replays an input stream to a result, for tests, the board's verifier and bug reports.
+
+| File | What it is |
+|---|---|
+| `web/js/engine/mini/core.js` | The tick, integer helpers, the input format, `run()` |
+| `web/js/engine/mini/*.js` | The eight cores |
+| `web/js/engine/mini/tables.js` | Build-time integer tables: light curves, slope sines, surges |
+| `web/js/ui/mini/host.js`, `card.js`, `*.js` | The 120 Hz loop and input capture; the card, live odds line and result line; one renderer each |
+| `web/js/gfx/round.js` | Round sprites pre-rasterized for the fat pixel |
+| `content/mini/*.json` | Each minigame's tuning values |
+| `sims/bots/mini/*.mjs` | Careless, par and careful bots for each |
+| `test/mini/*.test.mjs` | Golden streams and the checks below |
+
+**Changes elsewhere:** `rng.js` gains the `mini` stream (E.8); `odds.js` computes hands ranges and the worst-hands fatal share; `ui/choices.js` draws the hand glyph; the card lint checks ♦ across hands ranges (F.3); and the pack and food modules take the can's fit from the pack instead of the flat 85%.
+
+**Tests:** golden streams replay to identical results in Node and Safari (the replay self-check, E.12); 60 and 120 Hz give identical results; no bot ever beats `best` or falls below `worst`; par is stable; the verifier rejects taps closer than about 40 ms and frame-perfect patterns; the ♦ lint across hands ranges; the tuning targets run nightly as a report, not a gate (F.1); and `Math.random`, `Date`, `Math.sin`, `Math.exp` and the rest throw inside `engine/mini/`. **Budgets:** under 2 ms a frame on an iPhone 12, simulation and drawing together; at most one extra canvas, inside the limit of three (E.10); paused on `visibilitychange`.
+
+### 17.16 What ships when
+
+| Step | What | With | Sessions |
+|---|---|---|---|
+| MG0 | The host, the contract, hands ranges, the card, Auto, settings, the `mini` stream | M1a's odds and pack sessions | 1 |
+| MG1 | The bear can, its par bot, the flat lay's hook | M1a's store and pack session | 1 |
+| MG2 | The alpenglow shot, `alpen`, the photo in the trip report | M1a's crest session | 1 |
+| MG3 | Huckleberries and the bear's tell | M1a's content sessions | 1 |
+| M1b | Self-arrest with *Try a slide* (snow school with Jon in M2); the tent in the rain; the can remembers | M1b, with the shoulder season | 2 to 3 |
+| T1 | The technical descent | The first FKT, right after M1a | 1, inside T1's 3 |
+| M2 | The ford | The Hoh's braids | 1 |
+| Clams | Razor clams from the shed | M1b or M4, your call | 1 to 2 |
+
+**About four sessions in M1a,** inside its count (the build plan's S13, S14, S17 and S20, not its spare sessions); tuning the three happens inside M1a's harness and polish sessions. **Cut first, if M1a runs long:** the bear's tell (keep the berry patch), the film camera and the photo gifts, and the can's special items except the tortilla liner. **Never cut:** Auto, the hands range on the button, determinism, and the result line.
+
+---
+
+## 18. Every word yours: the text system
+
+*Decision 21: "I also want to personally decide on every single bit of English text that appears in the game that is original... including UI menus everything." The full draft is part two of `design/drafts/audio_text.md`. Every sample line below is a DRAFT. Your calls are in [Still to come](#still-to-come-from-you).*
+
+### 18.1 The promise
+
+**No original English reaches the live game without your approval, and nothing you approved changes without your seeing it.** Claude writes drafts so the work never stops, and every draft reaches you in context. Preview shows drafts, so you can play them; main shows only your words.
+
+- **Every original English string has an id and lives in `content/text/`, never in code:** buttons, boxes, alt text, aria labels, the manifest's name and the share text. A lint fails the build on English anywhere else (18.5).
+- **Status comes from a ledger.** When you approve a line, its exact words are frozen and hashed. Edit the line later and it is a draft again automatically, while main keeps shipping your frozen words until you approve the new ones (18.4).
+- **Batches come grouped by screen,** with a screenshot and a context note per line. They start in chat, and later move to a private review page where you tap Approve, Edit or Cut on your phone (18.7, 18.8).
+- **Sessions never wait on you.** They write drafts, send a batch and move on. Only a promotion to main needs the words on the promoted screens approved.
+
+### 18.2 What counts as ours
+
+| Class | What | Approval |
+|---|---|---|
+| **Ours** | Original English: buttons, boxes, Looks, alt text, aria labels, share text, the manifest, number and date formats, the words around credits | **Every line, by you** |
+| **Yours** | Lines you wrote yourself, like the Boyz' lines and register entries | Approved when you send them |
+| **Place** | Real place names from the NPS, USGS or WTA, each with its source | None needed; vetoable |
+| **Term** | Real-world names: species, the NWS, FKT, *Leave No Trace*, Apple's own labels like *Add to Home Screen* | None needed (recommended; decision 21 didn't name this class, so it's your call); vetoable |
+| **Quote** | Verbatim public-domain lines (the epitaph dice) and NWS forecast text, unaltered (9.10) | None needed; vetoable; the lint checks exactness. NWS text is the recommendation's reading of decision 21, and your call |
+| **Player** | Whatever a player types: a hiker's name, a handle, an epitaph | Never ours |
+| **Dev** | The hidden debug menu, the bug report, console messages | Exempt (recommended), or include them: your call |
+
+**Grey areas, decided by default, each overridable:**
+
+- **A sentence that contains a place name is ours.** The name isn't, but the sentence is.
+- **A label we made up for a place is ours,** like *the rim*. A name counts as *place* only if the gazetteer names its source.
+- **Templates are ours, and their fills are whatever they are.** A batch shows each template with three sample fills, so you approve what it actually produces.
+- **Your own words from the decisions** (*you perished*, *leave no trace*) are marked *your words* in a batch, and still need your tap, because context matters.
+- **Docs aren't the game.** The README, the design docs, the build log, commit messages and code comments are outside decision 21.
+
+### 18.3 Where the words live
+
+```
+content/text/
+  README.md      how it works
+  en/
+    app.json     name, icon, install
+    home.json    the cabin
+    plan.json    map table, permit
+    town.json    stores, the WIC
+    trail.json   trail screen, camp
+    report.json  trip report, share
+    death.json   the five screens
+    alt.json     pictures' alt text
+    fmt.json     months, units, am/pm
+    mini.json    the minigames
+    cards/       cards' lines
+    ...          pools, Looks, places
+  names/
+    places.json  gazetteer (generated)
+    terms.json   species, NWS, labels
+  approved.json  the ledger (18.4)
+  review/
+    B001.md      a batch, as sent
+    B001.answers.json
+```
+
+**Cards don't hold English.** A card refers to its lines by id (`@card.fog_waytrail.setup`), and the lines live in `content/text/en/cards/` beside the card's context, so the lint sees every word in one place. The death sequence's lines (`content/death/causes.json`, E.5) and the Look lines move under the same roof.
+
+**One line**, with words that are a draft:
+
+```json
+{
+ "home.next.plan_first": {
+  "text": "Plan your first trip",
+  "ctx": "Porch button, 1st launch",
+  "screen": "home",
+  "max": 26
+ }
+}
+```
+
+- **`text`** is the working words. It may hold variables in braces (`{camp}`) and one bit of markup, `*emphasis*`; no HTML. Plural forms are an object (`one`, `other`).
+- **`ctx`** is the note you see in a batch: where it shows, when, and what it has to do.
+- **`max`** is the character limit from the layout; lint T02 also measures the real font (F.3).
+- **There is no status field:** status comes from the ledger, so it can never be stale.
+
+**In code,** JS asks for words by id (`t('home.next.plan_first')`, or `tx(el, id, vars)`, which also marks the element for the debug overlay). HTML carries ids, not words (`data-t="title.begin"`), and **the build fills them in,** so the first paint already has its words and VoiceOver misses nothing. The manifest is generated at build from `app.name`, `app.short_name` and `app.description`. Text drawn into pictures (share images, the chalkboard) goes through `drawText(buf, id, ...)`, which blits the pixel font's build-time bitmap atlas into the picture's index buffer, never canvas `fillText` (6.10). Numbers, times and dates use our own small formatter built from approved tokens (`fmt.*`), never the phone's locale (E.12).
+
+### 18.4 Status: draft, approved, changed, cut
+
+**The ledger.** When you approve a line, the apply tool writes its exact words into `content/text/approved.json` with a SHA-256 hash (of the words after Unicode normalization), the batch and line it came from, the date and how you answered. Nothing is in it yet except the two lines decision 35 approved (18.11).
+
+| State | Means | Main ships |
+|---|---|---|
+| **Draft** | No approval on record | Nothing (the build stops, 18.6) |
+| **Approved** | The ledger's hash matches the working text | Your words |
+| **Changed** | Approved once, edited since | Your frozen words, until you approve the new ones |
+| **Cut** | You vetoed these exact words | Nothing, anywhere |
+
+**That is the whole trick.** Edit an approved line and it is no longer approved, with no field to forget; main keeps your words until you see the change, and preview shows the edit, marked.
+
+**Rules that protect it:**
+
+- **Only `tools/text.mjs apply` writes the ledger,** and every approval points to a batch answer that holds the same id, the same hash and your answer (lint T12).
+- **Claude never approves.** An approval exists only where your words do: a chat reply, a tap on the review page, or a line you wrote yourself.
+- **Auto-fixers skip approved lines.** A typography fix (curly quotes, spacing) is proposed in the next batch, never applied in silence.
+- **A rename keeps its approval** only when the words and the screen are the same. The same words on a new screen need a new tap, because you approve words in context.
+
+### 18.5 No English in code: the lints
+
+**T10 fails the build** on original English anywhere outside `content/text/`, scanned over `web/`, `content/` and the manifest:
+
+| Where | What T10 flags |
+|---|---|
+| **JS: sinks** | Any literal with a letter written to `textContent`, `innerText`, `innerHTML`, `title`, `alt`, `placeholder`, an aria label, `document.title`, `fillText`, `navigator.share`, `alert`, `confirm` or `prompt` |
+| **JS: shape** | Any other literal with two words, a capitalized word or sentence punctuation. Exempt: code-shaped strings (ids, selectors, URLs), console calls, `new Error(...)` messages, and lines tagged `// t-ok: <reason>` |
+| **HTML** | Any text node with letters outside `script` and `style`; `alt`, `title`, `aria-*`, `placeholder`; `<title>`; the description, `apple-mobile-web-app-title` and `application-name` metas, unless filled by `data-t` |
+| **CSS** | A `content:` value with a letter (glyphs like `"> "` pass) |
+| **Manifest** | `name`, `short_name` or `description` not given as an id |
+| **SVG, pictures** | Any `<text>` in an SVG; any future text op in a picture file that isn't an id |
+| **Content JSON** | A field the schema marks as text that isn't an `@id` |
+
+**The rest of the text rules:**
+
+| Rule | Catches |
+|---|---|
+| **T11** | An id used but not defined, or defined and never used |
+| **T12** | A ledger entry with no matching batch answer, or a hash that doesn't match |
+| **T13** | Variables that don't match the call; a placeholder like `{BOY_n}` outside the files allowed to hold one |
+| **T14** | The main gate (18.6) |
+| **T15** | A line over its `max`, on top of T02's measured fit |
+| **T16** | A *place* missing from the gazetteer; a *quote* that doesn't match its source exactly; a name you've cut that still appears |
+
+T02, T03 (no real businesses or people), T04 (no *Golden Glow*), T05 (never near a car), T06 (no phone links) and T07 (no book words) keep running over every line (F.3). An error's message is developer text: the error sheet shows one fixed, approved line and keeps the error itself inside the copied bug report (E.11).
+
+### 18.6 Builds: main ships approved words only
+
+**Main.** The build collects every id that main's scope can reach and takes each one's words from the ledger. **If any is a draft or cut, the main build fails** and lists them by screen: that is **T14, the main gate.** It never surprises anyone, because the promotion checklist runs the same report a session ahead, and a screen whose words aren't ready stays preview-only behind a scope switch rather than holding up everything else. **Approved-words-only changes may deploy to main at any time** (recommended): your own words going live isn't a feature promotion. The bundle is `text/en.json`, id to words and nothing else. v1.0 also fails on any placeholder left in shipped text (F.3).
+
+**Preview** shows the working words, drafts included, so you play what's coming; a missing id shows as `⟦id⟧` instead of crashing. **Debug mode marks them** (five taps on the build stamp, or `?debug=1`, E.11):
+
+```
+┌──────────────────────────────────────┐
+│ words: [marks on] [drafts only] [off]│
+│                                      │
+│  A draft line looks like this        │
+│  ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈ draft  │
+│  An edited, once-approved line       │
+│  ╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌ changed  │
+│  A line you cut, until rewritten     │
+│  ──────────────────────────── cut    │
+│  {BOY_2} placeholder shown in cyan   │
+│  ⟦home.look.dog⟧  missing            │
+└──────────────────────────────────────┘
+```
+
+**The line inspector.** In debug mode, a long press on any words opens a card with the id, its state, the context note, the length against its limit, and which batch it went out in. *Copy for chat* puts `home.next.plan_first: "…"` on the clipboard; paste it into a chat with your own words after it, and that is an edit, read like any batch answer.
+
+```
+┌──────────────────────────────────────┐
+│ home.next.plan_first       draft     │
+│ The big button on the porch.         │
+│ First launch only. Max 26, now 20.   │
+│ Sent in B004, no answer yet.         │
+│                                      │
+│ [ Copy for chat ]       [ Close ]    │
+└──────────────────────────────────────┘
+```
+
+*(The inspector's own labels are dev words, 18.2.)*
+
+### 18.7 Batches
+
+**A batch is every new or changed line from a session, grouped by screen,** with a screenshot of each screen (a numbered badge beside each line, taken on preview), and for each line its number, id, context note, length against its limit and the words; changed lines show the old words too; templates show three sample fills; a line no screenshot can reach (a rare death, a branch) gets a mock of its box; and a short "not ours" tail lists new place names, terms and quotes for a skim and a veto. **Size:** 25 to 40 lines, about ten minutes, sent at the end of each session (recommended). `tools/text.mjs batch` builds it as a phone-readable file in `content/text/review/`.
+
+**How it looks in chat** (a sample; every line's words are a draft):
+
+> **Batch 4 · The map table · 3 lines** (screenshot attached; the numbers match)
+>
+> **1** · `plan.ask.direction` · button, asked once before the route draws · max 22
+> (DRAFT) Which way round?
+>
+> **2** · `plan.ask.nights` · button row label · max 18
+> (DRAFT) How many nights?
+>
+> **3** · `plan.fill.pick` · template, under each suggested plan · max 34
+> (DRAFT) {nights} nights · {camps}
+> For example: *2 nights · Deer Lake, Lunch Lake*
+>
+> Reply any way you like: *all ok* · *ok but 2* · *2: your words* · *cut 3* · *later 1*
+
+**How answers are read:**
+
+| You say | What happens |
+|---|---|
+| **ok** (or *all ok*) | Approved: the words are frozen in the ledger |
+| **Your own words** | Replaced and approved in one step |
+| **cut** | Those exact words can never ship; a new draft comes later |
+| **later**, or nothing | Stays a draft, and comes back once in the next batch's *still open* tail |
+| **A note** ("too cute") | Stays a draft, gets rewritten, and comes back with your note quoted |
+
+Claude writes your answers into the batch's answers file, each line with its id, the hash you saw and your answer (with your words for that line only, never the whole message), and `text.mjs apply` updates the ledger. A line that changed after the batch went out isn't approved: it goes into the next batch instead.
+
+### 18.8 The review workflow, in three steps
+
+1. **Chat** (now, and through the early sessions): batches as in 18.7, at the end of each session. It needs nothing built, and it is how your decisions already work.
+2. **A private review page** (recommended once batches grow past about 40 lines, as the card sessions will): a private claude.ai artifact, a stack of cards sized for your phone, one per line, with its screenshot boxed, its context and its length measured in the game's own font, and **Approve**, **Edit**, **Cut** and **Later**. *Approve the rest of this screen* sits at the end of each screen's group, behind a confirm, for when you've read them all. Your taps are saved in the page's own small database, and the next session reads them, writes the answers file and runs `apply`: nothing to copy, nothing to send. A *Copy my answers* button always works as a fallback, giving a few lines of text to paste into chat. Nothing private goes on the page: it shows the same words the public repo already holds, plus your answers.
+3. **The inspector, any time** (18.6): flag a line mid-play on preview and paste it into chat. No batch needed.
+
+### 18.9 The count: how much there is to read
+
+`tools/text.mjs count` prints where things stand: lines and words by class, approved, draft, changed and cut, and how many main needs. **An honest estimate for M1a:**
+
+| Area | Lines, roughly |
+|---|---|
+| Screens: cabin, plan, permit, town, flat lay, trail, camp, report, settings | 350 |
+| Cards: setups, choices, outcomes (about 58 cards) | 800 |
+| Place text, Looks | 225 |
+| Pools: sky, quiet stops | 200 |
+| Item notices | 160 |
+| The WIC, the three stores | 120 |
+| Death, the register, Larry moments, the lockbox | 140 |
+| Alt text, formats, the minigames | 160 |
+| **Total** | **about 2,150** |
+
+**At ten seconds a line that is about six hours of reading,** or about 55 ten-minute batches, two or three a session across M1a. **Three ways to lighten it without breaking decision 21:**
+
+1. **Say less.** A quiet stop can have no box at all (2.3, 12.2); the scene and its sound carry it.
+2. **Let sound replace flavor-only lines** (recommended): where a pool line only describes a sound and carries no information, the sound replaces it (13.6), and the pool shrinks.
+3. **Read a pool as a set** (recommended): twelve sky lines on one card, read together, then one tap. You still see every line.
+
+### 18.10 How the build sessions change
+
+1. **Sessions write words as drafts,** with ids and context notes, as part of each feature, and never wait for an answer.
+2. **Step 0 of every session: apply any answers,** from chat or the review page, and commit the ledger.
+3. **The last step: send the batch,** beside the short *try this* note; the build log gets one more line (*Batch B00n, n lines*).
+4. **Preview always shows drafts,** and the debug marks show which.
+5. **Promotions to main add a text gate,** reported a session ahead; screens that aren't ready stay on preview.
+6. **Approved lines are left alone.** Claude doesn't polish them; if one must change (a layout made it too long), the new words go in the next batch, and main keeps yours meanwhile.
+7. **The text system comes early** (proposed): its core (the files, `t()`, the build fill, the ledger, T10 to T14, the debug marks) with the preview channel in M0, the batch and screenshot tool with the first screenshots, and the review page at the first batch over 40 lines (15).
+8. **The README stays outside.** A session that changes the game's words updates the README's description to match, but the README isn't game text.
+
+### 18.11 Session 1's live words, and how they move
+
+The live site (checked for the draft at build `20261008-4afb91b`, then rechecked in the repo after the name was set) carries 13 strings of original English, in `web/index.html` and `web/manifest.webmanifest`; `web/js/ui/shelf.js` holds none. Two are yours already (decision 35). **Seven carry the book frame** that decision 22 retires.
+
+| # | Id | Live words | On main from S2 |
+|---|---|---|---|
+| 1 | `app.name` | Olympic Peninsula Hiker | **Approved** (decision 35) |
+| 2 | `app.short_name` | OP Hiker (also the Home Screen title meta) | **Approved** (decision 35) |
+| 3 | `app.description` | A picture-book hiking trip on the Olympic Peninsula. | Off; a new line in B001 |
+| 4-5 | `title.name_small`, `title.name_big` | Olympic Peninsula / Hiker | Stays: your approved name over two lines |
+| 6 | `title.tagline` | a picture-book trip | Off |
+| 7 | `alt.cover_high_divide_dusk` | The High Divide at dusk... (the full description) | Off: the cover is decoration beside the name; B002 |
+| 8 | `title.start_label` | Bookshelf | Off: the section's label is `app.name` |
+| 9 | `title.begin` | Begin a new book | Hidden: it does nothing yet |
+| 10 | `title.begin_note` | The trail opens soon. | Hidden with the button |
+| 11 | `app.install` | Before your first book, tap Share, then Add to Home Screen. The Home Screen book keeps its own saves. | Hidden; a new line in B001 |
+| 12 | `title.build`, now `app.build` | Edition {build} | The bare code, with no word |
+| 13 | `app.upright` | This book reads best held upright. | A turn-the-phone glyph; a line in B001 |
+
+The CSS decorations (`~`, `>`, `-`) are glyphs, not English.
+
+**The rule: a deletion adds no words.** Decision 21 says release builds ship approved text only, and decision 22 names "picture-book" and the bookshelf for removal. Taking a line off main asks nothing of you, so the session that builds the text system (`BUILD_PLAN.md` S2) takes every unapproved line off main at once. **Main then shows your approved name, the cover and glyphs, and no other English.** Preview keeps every line, marked as a draft, until it is answered or retired. Nothing is grandfathered: there is no legacy list, and T07 has no exception for Session 1 (a plan call, `BUILD_PLAN.md` 9.2).
+
+**The move:**
+
+1. **Ids, word for word.** The session moves all 13 into `content/text/en/`, makes the shell and the manifest id-driven, and adds golden tests: preview's built page carries today's words, and main's carries only the approved name.
+2. **Off main.** Main's manifest and page have no description (both fields are optional); the section's aria-label is `app.name`; the cover's alt is empty, since the name beside it says what the page is; the stamp is the build code alone; sideways, a turn-the-phone glyph; and the button and the install note are hidden until their lines are yours. Share, then *Add to Home Screen*, still installs the game: those are Apple's own labels.
+3. **The title page's own lines retire unanswered.** The cabin replaces the title page in S7, so asking you to reword it would spend your time on a screen nobody will see.
+4. **Three batches replace the old Batch 1** (`BUILD_PLAN.md` 1.2 and 10.7). B000 records decision 35's two lines, with the decision as your answer. **B001, the app's frame** (about 10 lines, ready when you say the frame is set): the description, the install line, the upright line, the *works offline* stamp, the update note, the error sheet's line and buttons, the preview icon's name, and the bare build code for a look. **B002, the cabin** (about 30, from S7): the places' names, the porch rail, the next-step button, the name over the cabin, the cabin's alt text and the cover's, now the loading art. **B003, the lockbox and the guest book** (about 45, from S7): the locals' questions and answers, read as a set, and the one-life line.
+5. **On your answers,** approved lines enter the ledger, and the next deploy carries them to main (18.6). Once B002 and B003 are answered, the cabin replaces the title page on main, and the `title.*` ids retire; the ledger keeps their history, and the README's description is updated to match.
+
+**B001: the app's frame (a sample).** Each (DRAFT) is a placeholder for your words; "Now" is what preview shows.
+
+> **B001 · The app's frame · 10 lines** (screenshots attached; the numbers match)
+>
+> **1** · `app.description` · search results, share previews · Now: *A picture-book hiking trip on the Olympic Peninsula.* · (DRAFT) *A hiking game set in Olympic National Park.*
+>
+> **2** · `app.install` · shown in Safari, hidden once installed · Now: *Before your first book...* · (DRAFT) *Before your first trip, tap Share, then* **Add to Home Screen***. The Home Screen app keeps its own saves.*
+>
+> **3** · `app.upright` · when the phone is held sideways · Now: *This book reads best held upright.* · (DRAFT) *Best held upright.*
+>
+> **4** · `app.offline` · the stamp once the game is cached · (DRAFT) *Works offline*
+>
+> **5** · `app.update` · the mailbox, when a build arrives · (DRAFT) *An update has arrived. Open it?*
+>
+> **6-8** · `app.error.line`, `.copy`, `.reopen` · the error sheet · (DRAFT) *Something snagged.* · *Copy bug report* · *Reopen*
+>
+> **9** · `app.preview_name` · the preview icon's label · (DRAFT) *OP Hiker Preview*
+>
+> **10** · `app.build` · the stamp · `20261008-4afb91b`, the code alone: no words, shown for a look
+>
+> Not ours, for a skim: *Share*, *Add to Home Screen* (Apple's labels), *Olympic National Park*.
 
 ---
 
@@ -3964,10 +6184,10 @@ The look-and-feel spike (M0.5) is the biggest risk, and it needs only the pictur
 | Item | Value |
 |---|---|
 | Itinerary | Hoh trailhead to Glacier Meadows (17.4 mi, +4,292 / -683 ft), 1 night, out the same way. Sat Sep 25 to Sun Sep 26, 2027 |
-| The day before | Friday Sep 24 at the WIC: permit, loaner canister, briefing. Shopping and packing that evening |
+| The day before | Friday Sep 24: the permit printed at the cabin; the town run to Port Angeles for the WIC's loaner canister and briefing, and the shopping; the flat lay that evening |
 | Permit | Glacier Meadows (quota area; available in late September) |
 | Hiker | Robin, a few trips in (Appendix B's trip among them, 12.3): Regular fitness, 165 lb; footing 1, river 1 and glacier 0, the skills this trip checks (navigation 2 from earlier trips, which nothing here uses) |
-| Drive | Left Port Angeles Saturday at 8:15, Hoh trailhead 10:40, walking at 10:45. Legs: Fresh (92) |
+| Drive | Left the cabin Saturday at 9:10, Hoh trailhead 10:40 (about 1 h 30 by the Upper Hoh Road, which leaves US 101 south of Forks, 3.3), walking at 10:45. Legs: Fresh (92) |
 | Pack | `olympus_day_gear_one_night_TRAP` in the Ridge Runner Daypack 28. Worn: canvas sneakers, cotton tee, jeans, cotton socks, a cap. Carried: a cotton hoodie, the park brochure map, a phone at 80%, one 1-L bottle, the WIC loaner canister. **10.4 lb: Light** |
 | Food | 1,800 kcal in the canister: a sandwich, three bars, trail mix |
 | Missing, vs. the ranger's kit for High, September | Rain jacket and pants, a warm non-cotton layer, sleeping bag, pad, shelter, stove, water treatment, headlamp, a real map, first aid, knife, fire starter |
@@ -4346,7 +6566,7 @@ From `simulation.md` section 14, checked against `coast.json`. July 2027. **The 
 | Overland trails | Taylor Point (1.2 mi, ladders and ropes). Scott's Bluff (a short rope; its ladder washed out in spring 2026) |
 | Hiker | Regular; `coast` skill 1 (the HUD shows raw tide heights but doesn't compute windows) |
 | Pack | Weekender 50, standard canister (raccoons!), down bag inside **with a pack cover but no liner**, foam pad strapped on the bottom (one bulky outside item), poles, **tide table**, phone |
-| WIC | Skipped: own canister, permit printed at home, so no briefing |
+| WIC | Skipped: own canister, permit printed at the cabin, so no briefing |
 
 **The tide table** (La Push, the player's booklet; illustrative):
 
@@ -4727,7 +6947,7 @@ No line in the knowledge base suits a river death yet, so its dice deal from the
 ### E.1 Principles
 
 1. **Data first, engine small.** Every place, item, card, line and picture is data. The engine is an interpreter of roughly 6 to 8 thousand lines that knows nothing about the Hoh. Growing to the whole park is a content job, not an engine job (tides are the one genuinely new system).
-2. **Deterministic.** A trip is a pure function of `(build, seed, plan, profile snapshot, actions)`. The profile snapshot holds exactly the fields of the living hiker that the engine reads (skills, region memory, recently seen cards for novelty), and it travels with every save, bug report and trip code. That gives replays, share codes, exact bug reports, and a test harness that runs the real game.
+2. **Deterministic.** A trip is a pure function of `(build, seed, plan, profile snapshot, actions)`. The profile snapshot holds exactly the fields of the living hiker that the engine reads (skills, region memory, recently seen cards for novelty), and it travels with every save, bug report and trip code. That gives replays, share codes, exact bug reports, and a test harness that runs the real game. A timed attempt is a pure function of the rules version, the day's or the week's file, the standard profile and its actions, which is what lets a crew link or a world-board time be checked by replaying it (E.12).
 3. **The pack talks through tags; cards listen to tags** (6.5).
 4. **Honest odds come from the same code that rolls.**
 5. **Validate at the door.** With an AI writing most of the content, the linter and the simulation gates are the main quality tool.
@@ -4752,7 +6972,11 @@ No line in the knowledge base suits a river death yet, so its dice deal from the
  gfx/  picture VM ▸ composer ▸ palette
        remap and cycling ▸ canvas
  platform/ storage, service worker,
-       share, audio
+       share
+ audio/ engine ▸ dsp ▸ scape, steps,
+       music (13.3)
+ engine/mini/ eight pure cores,
+       one file each (17.15)
 ```
 
 ```
@@ -4881,6 +7105,16 @@ dist/data/build.<hash>.json + precache
 | `content/quiz/locals.json` | The first-launch quiz (2.6): about twelve Pacific Northwest questions, each with its answers, the right one, a source, and the lines for right and wrong (*"Welcome home."*, *"Nice try, tourist."*) |
 | `content/lore/quotes.json` | Built from `lore/quotes_public_domain.json`: the drawable epitaph lines with their credits and tags (9.5) |
 | `config/flags.json` | Build flags: `gentle` (false in every build you can install, 9.4), `larry` (true in every v1 build, main and preview, 2.6) and the build's channel |
+| `rules/standard.json` | The timed modes' standard hiker and runner, and the standard shed and pantry (1.3) |
+| `content/daily/library.json` | The Hike of the Day's routes: slot, kind, season and snow windows, road rules, splits, and weather anchors with their NWS cells (9.9, 9.10) |
+| `daily/YYYY/YYYY-MM-DD.json`, on the `daily` branch | One day's file, written once: number, route, start window, seed, rules hash, the NWS board and the drawn truth, par; listed with its hash in `daily/index.json` (9.10) |
+| `daily/standby.json`, on the `daily` branch | The next 45 standby days, each baked on climatology through a real day's steps and naming its rules; played only when a morning fails, then archived as that day (9.10) |
+| `content/fkt/routes.json` | Each FKT route: required waypoints in order, splits, support points, `stash_ok` places, directions (9.11) |
+| `fkt/YYYY-Www.json`, on the `daily` branch | A week's window: its date, seed, drawn weather and Jon's crew days (9.11) |
+| `content/text/en/*.json`, `content/text/approved.json`, `review/` | Every line of English by id, with its context note and length limit; the ledger of what you approved, with hashes; the batches and your answers (18.3, 18.4, 18.11) |
+| `content/text/names/places.json`, `terms.json` | The gazetteer of real place names (generated, each with its source) and the real-world terms, which need no approval but stay vetoable (18.2) |
+| `content/audio/` | The cue bank, the listening maps for each place, the scores as notes, the license log `credits.json`, the trimmed masters and the AAC files that ship (13.3, 13.12) |
+| `content/mini/*.json` | Each minigame's tuning values: the cans' shapes, the light curves, the ripeness table, the slope physics, the surges (17.15) |
 
 ### E.6 Saves, and iOS storage realities
 
@@ -4888,19 +7122,23 @@ dist/data/build.<hash>.json + precache
 
 | Key | Holds | Size |
 |---|---|---|
-| `oph.<channel>.device` (localStorage) | What outlives every hiker: settings, which odds forms you've seen, whether the locals' quiz was taken (2.6), the daily streak and personal bests, and **the Trail Register** (Best trips; Remembered entries; the Boyz' pre-filled lines; each dead hiker's id and their last trip's seed; the permit counter) | 10-40 KB |
+| `oph.<channel>.device` (localStorage) | What outlives every hiker: settings, which odds forms you've seen, whether the locals' quiz was taken (2.6), and **the Trail Register** (Best trips; Remembered entries; the Boyz' pre-filled lines; each dead hiker's id and their last trip's seed; the permit counter) | 10-40 KB |
 | `oph.<channel>.hiker` (localStorage) | The living hiker: id, name, skills, region memory, last pack, recently seen cards, career marks, and the trip-report index with each trip's seed and **latest stop number**. The wipe deletes it | 10-40 KB |
 | `oph.<channel>.trip` (localStorage) | The one Open trip in progress, rewritten after every stop. The wipe deletes it | 15-40 KB |
 | IndexedDB `oph-<channel>-reports` | The living hiker's trip reports: the rendered log and scene recipe ids, to read again. The wipe deletes it | 20-40 KB per trip; the oldest log text is pruned first if space runs short |
+| `oph.<channel>.timed` (localStorage) | Yours, not the hiker's: your handle, the daily calendar and streak, FKT bests and week bests, crew pins, and the world board's device key and opt-in (9.12). The wipe never touches it | 10-30 KB |
+| `oph.<channel>.attempt` (localStorage) | The one timed attempt in progress (a daily or an FKT run), written at stop boundaries only, never at touch rate (17.4) | 10-30 KB |
+| IndexedDB `oph-<channel>-attempt` | The attempt's pin (its rules hash and the day's or week's file), where the service worker can read it, and its minigame input log, batched (9.10, 17.4) | Under 30 KB |
+| IndexedDB `oph-<channel>-logs` | The action logs behind your ghosts and your crew's results (9.11, 9.12) | About 1 KB each |
 | `oph.<channel>.gentle.*`, IndexedDB `oph-<channel>-gentle` | The hidden gentle mode's hikers and trips (9.4). Never written while `flags.gentle` is off | none in v1 |
 
 - A save is a **snapshot plus the action log plus the profile snapshot** (E.1). Loads use the snapshot (migrated if the build changed); the action log replays only for tests and bug reports.
-- **One trip in progress:** one living Open hiker per phone, with at most one trip in progress (9.8). A trip code or *Hike it again* can't open a seed that is already in progress (9.7). A Hike of the Day attempt is saved apart from the Open hiker (decision 25).
+- **One trip in progress:** one living Open hiker per phone, with at most one trip in progress (9.8). A trip code or *Hike it again* can't open a seed that is already in progress (9.7). A timed attempt (a daily or an FKT run) is saved apart, in its own key, so an Open trip and a timed attempt can both be in progress; the app opens on the one played last (9.9, decision 25).
 - **Going back:** none. There is no restore ring and no manual bookmark; every stop overwrites the trip's one autosave, so nothing can quietly undo a choice. Reading a finished trip report is read-only.
 - **A death is saved at once.** The save written at the confirming tap already holds the outcome (8.14). If it is a death, that same write adds the memorial entry to the Trail Register and marks the hiker dead. The entry stores the name, the hiker's id, the trip's title, place, dates, score, permit number (or *day hike*) and seed, the cause key, the variant id and the rendered *YOU PERISHED* line, so a later build's `causes.json` can never reword it. From that write on, the trip opens only on its death-sequence screens, so closing the app on any of them, or anywhere after the tap, changes nothing. **The epitaph is the one later write:** signing adds the line, and for a dealt line its quote id, to the register entry and changes nothing else; once GAME OVER is shown it is fixed.
-- **The wipe** runs when the player taps the GAME OVER card's button (DRAFT: *Back to the cabin*, 12.17), and plays at the cabin at dusk (12.25). It deletes the hiker record, the trip save and the hiker's trip reports, and leaves the device record and its register alone. If the app dies halfway, the next launch finds a dead hiker with data left over and finishes the wipe before it shows anything. There is no undo, by design: *"Full wipe."*
+- **The wipe** runs when the player taps the GAME OVER card's button (DRAFT: *Back to the cabin*, 12.17), and plays at the cabin at dusk (12.25). It deletes the hiker record, the trip save and the hiker's trip reports, and leaves the device record, its register and every timed record alone. If the app dies halfway, the next launch finds a dead hiker with data left over and finishes the wipe before it shows anything. There is no undo, by design: *"Full wipe."*
 - **Trip reports survive updates.** An old action log can't replay after a new build (the old engine and content are gone from the cache), so each trip report keeps its rendered log and recipe ids instead, and redraws the pictures from recipes (an unknown recipe falls back to its biome base).
-- **iOS:** Safari may clear site storage after about 7 days without a visit, and **Home Screen apps keep separate storage from Safari**. So the cabin recommends installing *before* the first save (12.3), the game calls `navigator.storage.persist()` where available (never depending on it), and **Export / Import** turns the device record, the hiker and the trip into a code you can share to yourself. It is for moving phones and surviving eviction, not for undoing.
+- **iOS:** Safari may clear site storage after about 7 days without a visit, and **Home Screen apps keep separate storage from Safari**. So the cabin recommends installing *before* the first save (12.3), the game calls `navigator.storage.persist()` where available (never depending on it), and **Export / Import** turns the device record, the timed record, the hiker and the trip into a code you can share to yourself. It is for moving phones and surviving eviction, not for undoing.
   - **The hiker record holds each trip's latest stop number**, and Import refuses any trip save older than that record (offering to open it read-only, as a report), so an export from before a sprain, a lost item or a rescue can't be replayed with a different choice.
   - **Import never brings back the dead.** The register lists every dead hiker's id, and a hiker or trip save with a listed id is refused, so an export from before a death can't undo the wipe.
   - **A register import merges** with the one on the phone: it never removes a *Remembered* entry, and the permit counter keeps the higher number.
@@ -4908,40 +7146,45 @@ dist/data/build.<hash>.json + precache
 
 ### E.7 Offline at the trailhead (PWA)
 
-- `manifest.webmanifest`: name "Olympic Peninsula Hiker", short name "Hiker", standalone, portrait, black theme, 192/512/maskable icons; `apple-touch-icon` 180 px. The preview channel has its own manifest, name ("Hiker Preview") and icon.
+- `manifest.webmanifest`: name "Olympic Peninsula Hiker", short name "OP Hiker" (decision 35), standalone, portrait, black theme, 192/512/maskable icons; `apple-touch-icon` 180 px. The preview channel has its own manifest, name (DRAFT: "OP Hiker Preview") and icon.
 - **One service worker per channel.** Main's `sw.js` has scope `/104-boyz/`, which would also cover `/104-boyz/preview/`, so it passes every request under `preview/` straight through, and its navigation fallback never serves main's `index.html` for a preview URL. The preview worker is registered from `/104-boyz/preview/` with scope `./`.
-- Each worker precaches every file of its current build (under 5 MB) into `oph-<channel>-<hash>`, fetched with `cache: 'reload'` so GitHub Pages' 10-minute HTTP cache can't slip a stale file in. On activate it deletes only old caches with its own `oph-<channel>-` prefix, never the other channel's.
+- Each worker precaches every file of its current build (under 5 MB) into `oph-<channel>-<hash>`, fetched with `cache: 'reload'` so GitHub Pages' 10-minute HTTP cache can't slip a stale file in. **Only what changed is downloaded:** file names carry their content hash, so on install the new worker copies every entry whose hash is unchanged from the old cache and fetches only the rest, and the audio is its own pack with its own version, so a code update never re-downloads 2 MB of sound. On activate it deletes only old caches with its own `oph-<channel>-` prefix, never the other channel's, and **never a pin cache** (`oph-<channel>-pin-<hash>`) while an attempt's pin in IndexedDB names it (9.10).
+- **The daily's data is not the build.** `daily/standby.json`, the day files and the week files live in a separate data cache, refreshed when the phone fetches the index. A data-only deploy (9.10) leaves `version.json`'s build id and `sw.js` byte for byte as they were, and CI checks it, so the morning job never makes every phone download an update.
 - **Updates wait.** A new build installs in the background, and only the cabin shows it: the mailbox flag goes up, with one line inside (DRAFT: *"An update has arrived. Open it?"*). A trip is never swapped mid-stop. Session 1's "new edition" wording is retired.
 - A **"works offline" stamp** (DRAFT) appears on the cabin's mailbox once precaching finishes, teaching players to open the game at home before they lose signal on the Sol Duc Road or the Upper Hoh Road.
 - **No phone links, ever.** The app shell's `<head>` carries `<meta name="format-detection" content="telephone=no">`, so iOS Safari never turns phone-shaped text into a Call link. The WIC number is drawn only by the phone hotspot component (in the pixel font, with an `aria-label` VoiceOver reads), never as loose text, with `-webkit-touch-callout: none` and `user-select: none`, so a tap opens the game's own call screen and a long-press offers nothing. No screen has a `tel:` link (12.5, 16, lint T06).
-- All URLs are relative (the site lives at `https://fernforager.github.io/104-boyz/`). Top-level screens use `#` routes; trip screens use `history.replaceState`, so Back never rewinds a trip (12.1).
-- **One origin for the whole account.** Every Pages project under `fernforager.github.io` shares this origin, so an unrelated project there would share the same localStorage (about 5 MB) and Cache Storage. The `oph.` prefixes keep the game's keys apart, but the quota is shared.
+- All URLs are relative (the site lives at `https://ophiker.com/`). Top-level screens use `#` routes; trip screens use `history.replaceState`, so Back never rewinds a trip (12.1).
+- **Its own origin.** Since decision 36 the game lives at `https://ophiker.com`, an origin no other project shares, so its localStorage (about 5 MB) and Cache Storage are its own. The `oph.` prefixes stay, to keep the main and preview channels apart.
 
 ### E.8 Randomness
 
 A seeded `sfc32` generator, with every draw keyed by `hash(trip seed, stream, key)`. `Math.random` is banned in the engine (a unit test makes it throw). Keys are content (places, cards, days) and, for rolls and effects, the trip's mode, never running counters, so an optional stop never shifts a later roll (8.14). Weather stays keyed to the seed alone, so friends comparing a code see the same mountain and the same weather in either mode.
 
-**When the seed is drawn.** The trip seed is drawn when a plan is first saved at the map table (a Hike of the Day's comes with the day), so the planning draws use it too: a night's quota is `hash(trip seed, "permit", date, camp)`, and so are a desk request, the WIC's loaner canister and Ranger Jon's free dates. Within a trip the same night always gives the same answer, so going back to the map table can't re-roll a full camp; another date can come out differently, and so can another trip. A trip code carries its seed, so a friend's planning rolls what yours did (9.8). *Hike it again* copies the printed permit, so nothing on it is re-rolled, whichever weather the player picks (9.7).
+**When the seed is drawn.** The trip seed is drawn when a plan is first saved at the map table (a Hike of the Day's comes in the day's file, and an FKT attempt's in the week's, E.12), so the planning draws use it too: a night's quota is `hash(trip seed, "permit", date, camp)`, and so are a desk request, the WIC's loaner canister and Ranger Jon's free dates. Within a trip the same night always gives the same answer, so going back to the map table can't re-roll a full camp; another date can come out differently, and so can another trip. A trip code carries its seed, so a friend's planning rolls what yours did (9.8). *Hike it again* copies the printed permit, so nothing on it is re-rolled, whichever weather the player picks (9.7).
 
 | Stream | Keyed by | Used for |
 |---|---|---|
-| weather | day | The park-wide synoptic chain and zone weather, generated at the start |
+| weather | day | The park-wide synoptic chain and zone weather, generated at the start; on the Hike of the Day, read from the day's file instead (9.10) |
 | env | day, river or tide | River noise, fog persistence |
 | permit | calendar date, camp | Quota availability, WIC-only requests, the WIC's loaner canister, Ranger Jon's free dates (drawn at planning from the trip seed, above) |
 | director | node, slot, trip day | Which card fills a slot |
 | roll | mode, node, card, choice, trip day, attempts here | Outcome rolls (the mode keeps a gentle trip from scouting an Old School one, 8.14) |
 | effect | mode, node, card, outcome, op, trip day | Chances inside effects |
 | text | node, slot, trip day | Which wording; the order of a death's epitaph dice deck (keyed by the trip, 9.5) |
+| mini | minigame, place, day, attempt | Any chance inside a minigame: the light, the bushes, the surges, the shows (17.4) |
 | art | scene id | Prop placement (same on every trip) |
 | dust | trip, pixel | The Leave No Trace dissolve's order and drift (11.10); display only, it never touches an outcome |
 | lookahead | its own, per call | Look-ahead and Outlook runs, which resample hidden values (8.9) |
 
 ### E.9 Hosting and CI
 
-- **GitHub Pages from Actions, set up.** The repo `FernForager/104-boyz` is public, and its Pages source is set to GitHub Actions (decided 2026-10-08), so the game lives at `https://fernforager.github.io/104-boyz/` and the preview at `.../104-boyz/preview/`. Nothing in the repo is secret, and the game needs no keys ([Decisions made](#decisions-made)).
+- **GitHub Pages from Actions, set up.** The repo `FernForager/104-boyz` is public, and its Pages source is set to GitHub Actions (decided 2026-10-08), and since decision 36 the game lives at its own domain, `https://ophiker.com/` (DNS at Squarespace pointing to GitHub Pages; the old github.io project address forwards there), with the preview at `https://ophiker.com/preview/`. Nothing in the repo is secret, and the game needs no keys ([Decisions made](#decisions-made)). Step 4 of the leaderboards would add two secrets, kept in GitHub's settings, never in the repo (9.12).
 - **One deploy, two channels.** Pages publishes one artifact as the whole site, so a single workflow checks out `main` and `preview`, builds both, puts preview under `/preview/`, and uploads one combined artifact. (A job that uploaded only `/preview/` would replace the whole site and break your link.) You can keep a stable icon and a preview icon on your Home Screen.
 - **Everything is namespaced by channel:** `oph.main.*` and `oph.preview.*` keys, `oph-main-<hash>` and `oph-preview-<hash>` caches, separate save formats. A preview save migrated to a newer format can never touch the stable save. A CI test fails on any storage key or cache name without a channel prefix.
 - **On every push:** build ▸ lint ▸ type-check ▸ unit tests ▸ a 2,000-trip smoke test that checks only crashes, dead ends, stuck states and determinism (the same seed and actions give the same trip twice) ▸ deploy. No statistical gate runs per push, so deploys never fail at random.
+- **The morning job** (`daily.yml`, 9.10) runs every 10 minutes from 3:03 to 4:23 am Pacific until the day is live, pushes the day's file (and on Mondays the week's FKT windows) to the `daily` data branch, and deploys **data only**: the last good assembled site, kept as the single commit of an orphan `site` branch, with `daily/`, `fkt/` and `e/` overlaid. No app build runs, so a red or slow main never touches the daily. The full deploy still checks the `daily` branch out into `site/daily/`.
+- **The rules archive.** Each deploy that changes the rules hash also publishes a copy of the engine and its data at `/104-boyz/e/<hash>/`, kept 45 days or while anything open names it, carried forward from the live site rather than stored in git; and it attaches the same copy as a Release asset on its `rules-<hash>` tag, for good, so old days and old crew links still replay (E.12). The `daily` branch holds only day and week files.
+- **The world board, when you say go** (9.12): the Worker deploys from CI and checks results itself, on the Workers Paid plan; Actions only writes the nightly static top 100.
 - **Unit tests** check the roll-to-band mapping exactly: a seeded generator and a known p give known Great, Clean, Shaky and Fail bands, and a known fatal share gives exactly that many deaths. That is what "the shown % is the real chance" means in code.
 - **Nightly,** capped at 60 minutes: the stratified simulation matrix (F.2), statistical calibration (F.1), the coverage report and a balance diff, uploaded as artifacts. Auto-tuning runs only on demand.
 
@@ -4950,7 +7193,7 @@ A seeded `sfc32` generator, with every draw keyed by `hash(trip seed, stream, ke
 - Draw at 160x168 and scale with one `drawImage`. At most 3 live canvases; release old ones by setting `width = 0` (iOS caps canvas memory and fails silently).
 - Palette cycling at 8 fps touches only cycling pixels: well under a millisecond. Pause on `visibilitychange`, on static screens and under Reduce Motion.
 - Startup under 1.5 s from a cached load: one data JSON (about 1 MB raw at full park), a prebuilt card index, lazy expression compiling, preloaded fonts.
-- `localStorage` is synchronous: write right after the screen paints, under about 50 KB. Trip reports go to IndexedDB (E.6).
+- `localStorage` is synchronous: write right after the screen paints, under about 50 KB, and never at touch rate: a minigame's inputs go to IndexedDB in batches (17.4). Trip reports go to IndexedDB too (E.6).
 - The look-ahead and the Trip Outlook run in a Web Worker (8.9), so a screen never waits for them.
 - The Leave No Trace dissolve (11.10) composes its scene once and then redraws only about 150 remains pixels and their motes into a copy of the cached buffer, at 10 fps for about 7 seconds: one blit per frame, well under a millisecond. It stops on `visibilitychange` and resumes at its last frame; under Reduce Motion it is a one-second CSS cross-fade between two canvases.
 - Standalone mode has no back button (every screen has its own) and may be killed in the background (hence autosave every stop). No vibration API on iOS, so no haptics.
@@ -4963,6 +7206,66 @@ You test on your iPhone, and you have no Mac (your answer, 2026-10-08), so the t
 - **Copy bug report** is the button that matters. One tap copies a small JSON report to the clipboard: the build and channel, the iOS version and screen size, the seed, the plan, the action log, the profile snapshot, the current screen and the last error with its stack. Paste it into a GitHub issue, a note to yourself, or straight into a Claude session, and `tools/play.mjs --replay bug.json` reproduces the trip exactly. iOS lets a web page write to the clipboard only from a tap, which this is; if it still refuses, the report opens as selectable text with a *Share* button for the iOS share sheet.
 - **Note:** a field in the menu attaches your comment to the current screen, and it rides along in the next bug report.
 - Any uncaught error shows a short apology (DRAFT: *"Something snagged."*) with **Copy bug report** and *Reopen* (DRAFT), which re-renders the screen from the trip's current autosave and never rewinds. An error never rolls back a choice: the autosave written at the confirming tap stands (8.14). The game should never white-screen.
+
+### E.12 Determinism: what the timed modes ask of the engine
+
+The engine is deterministic by design (E.1, E.8): a pure `step(state, action)`, a seeded `sfc32` split into keyed streams, `Math.random` banned, and `BUILD_PLAN.md` 6.6's bans on the math functions engines may approximate (`exp`, `log`, `pow`, the trig functions and `**`) and on `Date`, `Intl` and locale compares. The timed modes and crew verification (9.12) lean on that harder, and add these requirements. **They cost almost nothing if the engine is written this way from M1a, and a rewrite if added later** (T0 in 15).
+
+**The engine**
+
+1. **One run is a pure function** of the rules version, the day's or the week's file, the standard profile and the action log. Nothing else may reach it: not the phone's clock, not the Open profile, not novelty.
+2. **The clock counts whole seconds** in the timed modes. Movement, waits and minigame results add whole seconds, rounded once, at defined points, the same way everywhere. The 15-minute tick still runs the body and the weather, pro rata over exact durations (7.1). (`BUILD_PLAN.md` 6.6 builds it this way from S8.)
+3. **Plain arithmetic only.** Addition, subtraction, multiplication, division and `Math.sqrt` are exactly rounded IEEE 754 operations, and JavaScript never fuses a multiply-add, so V8 (Node, in CI and the verifier) and JavaScriptCore (Safari, on your phone) agree bit for bit. Anything that needs `exp`, `log`, `pow` or trig, such as the Poisson chance of meeting at least one party, is a table built at build time.
+4. **Seeds come from files.** The daily's seed comes from the day's file, a week's from the week's file, and Open's from the plan's first save (E.8). Rolls keep their content keys, so an extra Look never changes a later roll.
+5. **The look-ahead never touches outcomes.** The Trip Outlook and the odds bars use their own stream, in a worker, and produce only numbers to show (8.9).
+6. **The text stream never touches outcomes,** so rewording a line (decision 21) never changes anybody's time.
+7. **Sorting** uses the standard stable sort with code-point comparisons, never locale order.
+8. **No Unicode tables.** Node's ICU and iOS's Unicode versions can differ, so the engine also bans what depends on them: `String.prototype.normalize`, `toLowerCase` and `toUpperCase` (an ASCII-only helper does the job for ids), RegExp `\p{…}` property escapes, and `Intl.Segmenter` with the rest of `Intl`. Everything the engine keys or hashes is an ASCII id; normalizing a handle happens in the UI and the Worker only, never in anything that feeds a seed or the rules hash.
+
+**The action log**
+
+Everything that can change a result is an action, and nothing else is:
+
+- the start time, what goes in the pack and on the outside straps;
+- every choice, pace change, fuel-plan change, *eat now*, refill and wait (with its length);
+- every minigame's input stream (below);
+- for an FKT attempt, the style, and the stash it uses (by the Open trip's id).
+
+The log's header names the mode, the day or the week, the rules version and the day file's hash. One **canonical form**, varint-packed and then compressed with the browser's `CompressionStream` (in Safari since 16.4, [Can I use](https://caniuse.com/mdn-api_compressionstream)), is what crew links, the world board and bug reports all carry. Its hash, with no-op actions stripped, is how identical copies are caught.
+
+**The minigames**
+
+The eight minigames (17) are where a real-time game meets a deterministic engine:
+
+1. **A fixed tick.** Each simulates at 120 ticks a second, whatever the screen's frame rate (60 or 120 Hz), and draws by interpolating between ticks. Drawing never feeds back into the simulation.
+2. **Inputs are logged at the tick they are applied.** A touch is stamped `max(tickOf(event.timeStamp − epoch), lastSimulatedTick + 1)`, so a touch that arrives after the simulation has already passed its moment (a busy main thread, a garbage collection) is logged at the tick live play actually used, and replay feeds the same integers at the same ticks. The epoch re-anchors whenever the 8-tick catch-up cap drops ticks (Low Power Mode, a long frame) and after every resume, so the simulation never falls behind wall time. At a minigame's start the host checks that `event.timeStamp` and `performance.now()` agree within a second; if they don't, it stamps with `performance.now()` read in the handler. The wall clock lives in the UI only; the simulation core lives in `engine/`.
+3. **Physics without trig.** The bear can's round items collide with `sqrt` only, in a fixed order, with a fixed number of solver steps. Anything that must rotate steps through a precomputed sine table.
+4. **Their own seeds.** Any randomness inside a minigame comes from a keyed `mini` stream (E.8).
+5. **Sound is decoration.** The descent's rhythm is judged against ticks, never against audio. A latency setting may shift the judging window by up to 150 ms, and it is recorded in the log.
+6. **A bounded effect.** In the timed modes, a minigame's result becomes seconds, an input, or a capped modifier on an honest roll (17.2): on a typical daily, the gap between the worst and the best hands is at most about 10% of the total time (F.1). Planning and choices decide the board; hands decide the margins.
+7. **Auto, for everyone.** Every minigame has an *Auto* button (DRAFT) that plays the median result, for VoiceOver users, for anyone who can't do rhythm taps, and for anyone in a hurry. It is never the best result, so it needs no mark on any board.
+8. **Human limits.** The verifier rejects input no hand could make: taps closer together than about 40 ms, or frame-perfect patterns through a whole descent.
+9. **Pauses are logged.** In the timed modes, each pause is an entry in the log; the track ahead is hidden while paused, and on resume the view (not the state) rewinds about a second before control returns, so a pause buys no free look at what's coming. A board entry whose minigames were paused shows a small mark.
+
+(The minigames themselves, with their integer units, input format and the six-function contract every core keeps, are in 17.4 and 17.15.)
+
+**Pinning the rules**
+
+- **A rules version is a hash of what decides outcomes:** the engine's code and the outcome data the timed modes can reach (the graph, the cards' logic by id, tuning, the standard profile), **never the words.** Every timed result, crew link and world-board entry names one.
+- **Approvals never move it.** Main's screens follow your approvals, but a timed route (a daily library entry, an FKT board) goes to main only when every card and place it can deal has approved words. So no approval batch changes what a timed route deals, and the hash stays put.
+- **A release cadence.** A main deploy that would change the rules hash is held, and the morning job releases it before it bakes, so a day never starts on one engine and finishes under a newer UI. Word-only and UI-only deploys go any time, and CI checks that they leave the rules hash unchanged. **Each FKT week runs on the rules live at Monday 5:00**; a mid-week hotfix is explicit and starts a new board segment for the rest of the week.
+- **The job bakes on what is live.** It reads the live `version.json`, checks out the tag `rules-<hash>`, and refuses to bake unless `/e/<hash>/` is live (9.10).
+- **Old versions stay reachable.** Each rules version is published at `/104-boyz/e/<hash>/` (a copy of `js/engine/` and its data, about 1.3 MB), carried forward from the live site at each deploy, for 45 days, or longer while any open day, week, standby day or pinned attempt names it. Relative imports keep working in the copy, so the UI can load an older engine for a pinned day or an old link. Each version is also kept for good as a GitHub Release asset on its `rules-<hash>` tag, outside git history, so the repo doesn't grow by a megabyte a version and the verifier can always fetch any of them.
+- **One small engine API.** An archived engine is driven through a versioned interface (`init`, `step`, `replay`), so a newer UI can play an older engine; every deploy tests the new UI against the previous rules version.
+- **Preview is practice.** Preview's engine runs ahead of main's, so on preview the daily and the FKTs are practice only: never posted, never crew-verified.
+
+**Tests**
+
+- **Golden runs:** a corpus of daily and FKT logs (bots, then your own runs once you play) replays to the same time and the same final state on every push.
+- **Both engines:** the replay self-check that `BUILD_PLAN.md` already plans (its S3), which replays golden runs in your phone's Safari and compares hashes with Node, gains the timed corpus. A difference between V8 and JavaScriptCore shows up on your phone, in a bug report, before it shows up on a board.
+- **Minigames:** recorded input streams replay to identical results, and a test runs each at 60 and 120 Hz frame rates and compares; a recorded session played live with injected 100 to 300 ms frame stalls, then replayed, gives the same final-state hash in Node and in the Safari self-check; and each minigame's input log stays under its byte budget (17.4).
+- **The morning job:** a recorded NWS response, kept as a fixture, converts to a known day file byte for byte, and each failure in 9.10 has a test.
+- **Calibration,** nightly over the archive: forecast rain and thunder against what the drawn truth produced (9.10, F.1).
 
 ---
 
@@ -5010,10 +7313,19 @@ From `simulation.md` 15 and `engine.md` 9.5, merged and recalibrated to the show
 - **Where outcomes come from:** about 70% planning, 20% trail choices, 10% luck (±10 each), measured with Sobol indices (first-order and total) over plan, choice policy and seed, since the three interact.
 - **Variety:** the measures in 8.12.
 
+**The timed modes** (9.9 to 9.11):
+- **The day's route passes the smoke test** before it is published: 2,000 runs with no crash, dead end or stuck state, deterministic, and sensible bots under the sensible-plan death cap above (0.5% a trip), or the job moves to the next candidate (9.9).
+- **The forecast stays honest:** across the daily archive, it rains in about 40% of the blocks forecast at 40%, and thunder comes at about its forecast share, checked nightly with the same binomial test as the odds calibration (9.10).
+- **FKT calibration,** on the High Divide Loop ↺ in fair weather: a well-paced standard runner finishes in 5 to 5½ hours; sensible runner bots finish at least 95% of the time; Race-everywhere bots bonk or roll an ankle in more than half their runs; and the gap between a sloppy and a perfect run is about an hour (9.11).
+- **Hands decide the margins:** on a typical daily, the gap between the worst and the best minigame play is at most about 10% of the total time, and *Auto* lands near the median (E.12).
+
+**The minigames** (17): each meets its tuning targets in the nightly report (a report, not a gate): the bear can's par bot at 85% ± 2 in all four cans, careless 75% and careful 92% (17.7); the alpenglow shot's Auto about 68 and never ★★★ (17.8); half a quart at 85% ripe for Auto in the berries (17.9); and for the modifier minigames, no bot ever beats `best` or falls below `worst`, so the hands range on the button is never wrong (17.15).
+
 ### F.2 The harness
 
 - `tools/sim.mjs` runs the **real engine** headless with bots. A trip is about 0.2-0.5 ms of computation, so 100,000 trips take under a minute on 8 workers.
 - **Bots only see what a player sees:** the shown %, the words, the ETAs and the look-ahead bars. If a sensible bot using shown information can't hit the targets, the information is insufficient, and that's a UI bug.
+- **Runner bots, for FKT attempts** (9.11): Pacer (Run, a gel every 30 minutes, Race only on the last descent) and Racer (Race everywhere, eating at the cap). The morning job's smoke test runs the usual mix on the day's file, and the Steady bot's median at each split is the day's par (9.9).
   - Cautious (safest option; turns back below 75% made-it; never takes a fatal share), Steady (best expected ending one step ahead, counting GAME OVER as the worst ending), Bold (fastest unless below 50% made-it; ignores fatal shares; never looks for or asks for help at camp, and toughs out every night ♦; F.1's "keeps pushing" rows mean this bot), Reckless (Bold without the 50% line: goes on at every ♦, which is exactly the look-ahead's and the Trip Outlook's *keep pushing* policy, 8.9; the two differ only where a ♦ falls below 50%, as in A.7), Random, Joy-seeker (every sunset, side trip and Larry moment, 2.6), Oracle (sees the rolls; an upper bound).
 - **The plan library:** all 150 classic trips (plus variants: ±1 night, an added layover, a reversed loop) x months x loadouts (sensible, ultralight-smart, overpacked, day-hike gear, cotton-and-hope, glacier kit, photographer) x start times. On the High Divide every loop runs both ways round and both over the top (the basin and the crest, B.1), and every plan also runs with the fork's other answer taken on the trail. **The trap plans live here only,** never in the ranger's list (4.5): the High Divide loop in a day on day gear (the first playable's trap), Glacier Meadows in 1 night on day gear, the literal summit on day gear, Enchanted Valley in a day. So do the solo summit plans, equipped and not, since the ranger's Olympus presets all include Ranger Jon.
 - **Stratified runs.** The full library is roughly 63,000 plans, too many to run deeply every night. Rare-event targets (deaths, rescues) run on about 20 representative plan classes at 50,000 runs each, with importance sampling where a rate is under 1%. Everything else runs 1,000 to 2,000 times per plan. The nightly job stops at 60 minutes.
@@ -5022,21 +7334,24 @@ From `simulation.md` 15 and `engine.md` 9.5, merged and recalibrated to the show
 - **Assertions from research:** each `what_goes_wrong_for_underprepared_hikers` line becomes a regression test, using the canonical trap kit (6.8) wherever it says day gear. A line tagged `real_incident` (one that cites a real death, such as the cross-country shortcuts toward Boulder Lake) may assert only non-fatal outcomes: the ranger card, the Leave No Trace cost, a rescue (9.5). Examples: *day-hike gear, one night at Glacier Meadows in September: trouble or worse ≥ 80%, rescue between 15% and 35%, death between 4% and 10% for the Bold bot and at most 0.1% for the Cautious bot*; *an under-shopped layover plan produces at least one rationing decision* (5.6); *Ranger Jon's Olympus preset passes the validator and summits in 55-75% of equipped runs*; *an equipped solo summit that goes on at every crossing ends at most 3% of trips in death*.
 - **Failure reports** name the cards and modifiers that most often appear in bad outcomes ("the ladder produced 41% of Serious outcomes in Hoh / September / sensible"), pointing straight at the knob.
 
-### F.3 The linter (about 45 rules)
+### F.3 The linter (about 60 rules)
 
 Errors block the deploy.
 - **References:** no duplicate or unknown ids anywhere.
 - **Park graph:** endpoints exist after the merge; every trailhead reaches a camp and every camp is reachable; elevation sanity; every place has a picture recipe; every preset routes and ends at a trailhead (or at its start, for a loop).
 - **Cards:** schema-valid; expressions type-check; every card can fire somewhere (reachability); no dead ends (a visible, enabled choice in every context); fuzzed odds stay in range; loops and chains terminate; route effects target reachable places; read flags are set somewhere.
-- **Fair deaths (Old School):** a `hiker_dies` outcome appears only in a ♦ choice's fail table or at the last step of a chain with at least two warning steps, tagged with the same danger, before it; every one carries a `modes.gentle` override; every context in which a choice shows a fatal share above 0 also offers a choice that is `sure` for life; no `hiker_dies` is reachable from a sure choice, a told routine check, a delayed payoff, an epilogue or any card tagged wildlife. **A Director draw can never kill by itself:** a card the Director can draw may hold a fatal-capable ♦ only if it names the foreshadow flag its danger needs (set by the forecast, a ranger's line, or a night card such as *the river talks louder*), some stop sets that flag, and the card offers a sure choice. No `hiker_dies` in any card placed at a site, or built from a hazard, tagged `real_incident` (9.5). Every death box has a Ranger's Note with a prevention and names no real incident.
+- **Fair deaths (Old School):** a `hiker_dies` outcome appears only in a ♦ choice's fail table or at the last step of a chain with at least two warning steps, tagged with the same danger, before it; every one carries a `modes.gentle` override; every context in which a choice shows a fatal share above 0 also offers a choice that is `sure` for life; no `hiker_dies` is reachable from a sure choice, a told routine check, a delayed payoff, an aftermath card or any card tagged wildlife. **A Director draw can never kill by itself:** a card the Director can draw may hold a fatal-capable ♦ only if it names the foreshadow flag its danger needs (set by the forecast, a ranger's line, or a night card such as *the river talks louder*), some stop sets that flag, and the card offers a sure choice. No `hiker_dies` in any card placed at a site, or built from a hazard, tagged `real_incident` (9.5). Every death box has a Ranger's Note with a prevention and names no real incident.
 - **The death sequence (Old School):** every `hiker_dies` names a `cause` key that exists in `content/death/causes.json` (E.5), and no cause key is tagged wildlife. Every key has a *YOU PERISHED* line for every variant it can reach (second person, starting *You have died of*, at most 40 characters), and a list of the quote tags its epitaph dice prefer. No cause line names a real incident, a real person, an animal or a place tagged `real_incident`. No screen of the death sequence, and none of its audio cues (13.2), is reachable in the hidden gentle mode. The review site prints every key's lines and the first lines its dice would deal, for your review (14.4).
 - **The epitaph dice (9.5):** every drawable line in `content/lore/quotes.json` comes from `lore/quotes_public_domain.json` with `verification: page_image_checked`, a public-domain reason, a source id and a URL, and its text matches the source record exactly; it is at most 40 characters as printed; its source is not a Robert L. Wood work (checked against the work ids in `lore/wood_bibliography.json`) and not the unverified secondary pool; no drawable line mentions a death, an injury or a named person; a line with a `caution` is dealt only for the causes it names; and every cause key can deal at least 8 distinct lines, its own tags first, then the general pool.
 - **One death rule, one hiker, the people (9.4, 9.8, 12.4):** with `flags.gentle` off, a UI test walks every v1 screen and fails on any mention of the gentle mode under either name, or of a second guest book, and a unit test checks that no gentle trip can write to the Trail Register or Best trips. The guest book asks for a name and nothing else. A wipe test kills a hiker, taps the GAME OVER card's button, and checks that storage holds nothing of them but their register entry, and that the cabin shows none of their career marks. A Hike of the Day death leaves the Open hiker's save untouched (decision 25). Every permit number matches `104-` and four digits, and Ranger Jon's badge reads 104 wherever it appears. A release build fails if a placeholder (`{BOY_n}`, `{BOY_n_QUIRK}`, `{BOYZ_CONSENT}`, `{JON_QUIRK}`, `{MORGENROTH_STORY_n}`) is left in shipped text; preview builds show them, so you can see where your words will go. Lake Morgenroth never appears in a preset, a fill, a first trip or the camp list, no ranger line names it, and only a request made on the WIC phone line can put it on a permit (4.3); the out-of-season *Phone the WIC* card never offers *Ask about a lake* (3.1). **T06, no phone links:** the built app shell carries the `format-detection` meta with `telephone=no`; no screen has a `tel:` link; and the WIC number reaches a screen only through the phone hotspot component, never as loose text in a box, a permit field or a Look line (E.7, 16).
 - **Larry moments (2.6):** every card tagged `larry` offers a sure choice; none holds a `hiker_dies` of its own (the skinny dip reaches death only through the Cold chain's last step, linted like any chain); no Director budget allows more than one dealt Larry card a day or two a trip (tiles the player starts are not dealt, 2.6, and neither is the off-permit ranger's forced roll, 3.7); with `flags.larry` off, none can be dealt. **T05, never near a car:** no card, line or picture that offers, shows or mentions a drink or cannabis may appear on a drive screen, a trailhead screen, the car, the tailgate (whose list never holds beer or the pre-roll, and whose flat lay draws the can closed), an ending stamp, the trip report (*What the pack taught* included) or anywhere in the cabin scene, where the car is in frame; and no line may tie either to driving. The day-hike lunch shelf in Forks has no cooler and no door to Second Growth. *Crack the IPA* and *Light it* are reachable only on an overnight trip, at a camp where the hiker sleeps that night or on a layover day's side trip from it, never on a day hike or on a day that ends at the car; the swim and the bold marmot only on an overnight trip, never on a day hike or the walk-out day (2.6); St. Peter's Gate's card only when the hiker's permit puts that night at Lake of the Angels or the Stone Ponds. Every brand is fictional and passes T03. The locals' quiz: every question has a source and exactly one right answer, and every answer leads on.
 - **The 104 Boyz' register lines (7.11):** each uses a name from `people/boyz.json`, follows the cause-line rules (at most 40 characters, *died of*), names no real incident or place where one happened, and carries a funny epitaph of at most 40 characters; none can be removed by an import.
+- **The timed modes (9.9 to 9.12):** every choice that disqualifies a run (a cut switchback, leaving the route, a skipped waypoint, an off-permit camp on a daily, a Leave No Trace break on an FKT run) says so on its button before the tap, and every support a style doesn't allow says the run will be reclassified; the standard profile reads nothing from the Open hiker (a unit test), and a timed death leaves the Open hiker's save untouched; no string names a real FKT athlete or time; NWS text appears only as fetched and credited, and every derived figure is labeled the game's estimate (9.10); the handle filter's reserved list holds Jon, Ranger, the Boyz' names, 104, NPS and the stores' real names.
+- **Sound (13.12):** A01 to A09: every shipped sound logged with a license from the allowed three and its hashes; no denied library; the audio budgets; no cue missing from the bank; no can or lighter sound at the cabin, the car, the drive or a trailhead; no death cue in the gentle mode; the lily's motif only on its plate; every score marked original or public domain.
+- **Minigames (17.2, 17.15):** a choice that opens a minigame is ♦ if any branch can reach Serious anywhere in its hands range, and its fatal share is shown at the worst-hands end; no `hiker_dies` inside a minigame of its own; `Math.random`, `Date`, `Math.sin`, `Math.exp` and the rest throw inside `engine/mini/`.
 - **Honest odds:** a choice without a roll can't show a %; every roll has labeled modifiers from shared sets where one exists; the ♦ and the fatal share are computed from fail tables and death rolls per context, never set by hand (8.1); no setting can hide a fatal share.
 - **Coverage:** every event tag in at least 3 cards; every catalog item maps to an event tag; every segment hazard tag in at least 1 card (14.2).
-- **Text (T02):** every box fits at 375 x 667 with three choices and at 393 x 852 with four, from measured font metrics; choice labels are 22 characters or fewer and fit at 375 pt. **T03:** no real private businesses or real people (every fictional name and brand is checked against a deny-list of real Peninsula businesses, breweries, shops, guide services and park staff; exceptions: Credits, the Ranger's Bookshelf, the credit under a dealt epitaph line, and the 104 Boyz' own names, 7.11). The deny-list includes Swain's, Brown's Outdoor and MOSS, the stores that inspire the three in town (5.2). No use of the name *Leisure Suit Larry* anywhere in the game (2.6). **T04: no *Golden Glow* text, names or phrases** outside Credits (10.1). **T07, no book frame:** no player-facing string uses the retired frame words (book, bookshelf, shelf of trips, chapter, page as a game noun, volume, back cover, picture-book, storybook, edition) or the old mode name; the exceptions are real things (the paperback, the Ranger's Bookshelf, the tide booklet's pages, *The Golden Glow*'s credit). **Approval (decision 21):** a release build ships only lines you have approved; drafts show only on preview. Also: no death words in the gentle mode's text (except "dead tree"); the voice you choose in 2.3, checked by the lint once chosen (until then, the recommended second person, present tense, with the exceptions by design: Look boxes, the first-person log, Ranger's Notes in plain second person, quoted dialogue, the *YOU PERISHED* lines, and epitaph lines, which are the player's own words or verbatim public-domain text and are checked only for length and exactness); no exclamation marks in a box; no line of dialogue spoken by an animal (2.3); readability grade 7 or below.
+- **Text (T02):** every box fits at 375 x 667 with three choices and at 393 x 852 with four, from measured font metrics; choice labels are 22 characters or fewer and fit at 375 pt. **T03:** no real private businesses or real people (every fictional name and brand is checked against a deny-list of real Peninsula businesses, breweries, shops, guide services and park staff; exceptions: Credits, the ranger's reading, the credit under a dealt epitaph line, and the 104 Boyz' own names, 7.11). The deny-list includes Swain's, Brown's Outdoor and MOSS, the stores that inspire the three in town (5.2). **T03 also checks short labels:** any string of four characters or fewer, an initial or an abbreviation that stands for a store or a brand (a tally like *B 11* or *M 3*) fails, so the stores' marks are drawn, never lettered (12.8). No use of the name *Leisure Suit Larry* anywhere in the game (2.6). **T04: no *Golden Glow* text, names or phrases** outside Credits (10.1). **T07, no book frame:** no player-facing string uses the retired frame words or the old mode name. It matches whole words, case-blind: *book*, *books*, *bookshelf*, *chapter*, *page*, *pages*, *volume*, *back cover*, *picture-book*, *storybook*, *edition* and the phrase *shelf of trips*. So *guidebook*, *notebook*, *sketchbook* and *booklet* never trip it, and neither does a real shelf (a store's, or the last-chance shelf in Forks). **The only exceptions are an explicit allowlist,** `content/text/t07_allow.json`, by text id or catalog id, each a real thing that is a book or has pages: the catalog's *Paperback Book* and *Town Book Bag 20* (its name and its flavor line), the cabin's guest book and its pages, the register's pages, the tide booklet's pages, the ranger's reading (12.20, a list of real books) and *The Golden Glow*'s credit. A new entry needs a reason in the file, and shows in the next batch. Nothing is grandfathered (18.11). **Approval (decision 21):** a release build ships only lines you have approved; drafts show only on preview. **T10 to T16** (18.5) keep every word of English in `content/text/`, check ids, variables, lengths, quotes and the ledger, and hold the main gate, T14 (18.6). Also: no death words in the gentle mode's text (except "dead tree"); the voice you choose in 2.3, checked by the lint once chosen (until then, the recommended second person, present tense, with the exceptions by design: Look boxes, the first-person log, Ranger's Notes in plain second person, quoted dialogue, the *YOU PERISHED* lines, and epitaph lines, which are the player's own words or verbatim public-domain text and are checked only for length and exactness); no exclamation marks in a box; no line of dialogue spoken by an animal (2.3); readability grade 7 or below.
 - **Economy:** every item is obtainable; every tag a card rewards is provided by some item; the sensible kit for every zone and month fits in some pack.
 - **Storage names:** every storage key and cache name carries a channel prefix (E.9).
 
@@ -5064,13 +7379,18 @@ Everything here is done on the phone itself. There is no Mac and no Web Inspecto
 - Rotate to landscape and back.
 - Lose one Old School hiker on purpose and play the whole death sequence: the dirge with the silent switch on and off, the Leave No Trace dissolve watched through and tapped to skip, then again with iOS Reduce Motion on (a cross-fade), a typed epitaph on the SE's keyboard (and on the next death, the dice tapped a few times, credits and all). Then *Back to the cabin* (DRAFT): the cabin at dusk, the trip reports and route signs go to dust, the guest book asks for a new name, and the Trail Register has the new line. Import an export from before the death, and see it refused (E.6).
 - Open the hidden debug menu (five taps on the version stamp), tap *Copy bug report*, and paste it into a GitHub issue from the phone; then force an error and copy the report from the error sheet (E.11).
-- Look for the gentle mode, under either name, and for the retired book words everywhere, and find them nowhere (9.4, T07).
+- Look for the gentle mode, under either name, and for the retired book words everywhere, and find them nowhere outside T07's allowlist (9.4, T07).
 - The cabin: open the game at dawn, midday, dusk and night, in rain and in clear weather, and check the scene matches Lake Quinault's real clock (Pacific time) and the forecast; tap every place and every rail button with VoiceOver on (2.2, 11.11).
 - Share the flat lay and a trip report from the share sheet, and press-and-hold-to-save the fallback image (6.10, 9.7).
-- Show first launch to someone who has never heard of the Boyz: nothing should need explaining (2.2).
+- Show first launch to someone from outside the Pacific Northwest who has never heard of the Boyz: nothing should need explaining, and the locals' quiz should read as a joke they're in on, not a test they failed (2.2, 2.6).
+- From T1: run one FKT attempt both ways round the loop, race your ghost, and share the card (9.11, 12.27). Then start an attempt, let a rules change deploy (on preview), swipe the app closed, turn on airplane mode, reopen and finish: the attempt runs on its pinned engine (9.10).
+- From T2: play one Hike of the Day start to finish and share its text and picture; send a crew link through Messages with the app installed, see Safari open its landing card, tap *Copy*, then *Paste crew results* in the app and see the result on the crew board, verified by replay; paste a result block straight from the group chat too; and in airplane mode, see the chalkboard say today's hike needs a signal while Open still plays (9.9, 9.10, 9.12).
 - First launch on a clean install: the locals' quiz, once; a wrong answer earns *"Nice try, tourist."* and lets you in. Lose a hiker and check it doesn't come back (2.6).
 - From M1b, when the number and the call arrive (in M1a, check instead that no screen shows the number, 15): find the WIC number on the permit, the itinerary's fine print and the counter card. Tap it and long-press it in the Safari tab and in the Home Screen app, and check that iOS offers no Call, Copy or Add to Contacts action and that nothing dials; then make the in-game call (12.5, E.7, 16).
 - Walk the loop both ways round and meet the fork at both ways into the basin (12.12).
+- **The minigames** (17): play each with one thumb, then with *Auto*, then with VoiceOver and with Reduce Motion; pack the can on a 60 Hz phone and a 120 Hz one and see the same result; close the app mid-minigame and come back to the same tick.
+- **The sound** (13): the first tap at the cabin opens it; Silent Mode on the Action button mutes it; your own music or podcast keeps playing under the park; a phone call mid-trail, then back, and the scene fades in again; the hush at a ♦; and the whole game played once on silent, with nothing missed.
+- **The words** (18): on preview, debug mode marks every draft and changed line; a long press opens the inspector, and *Copy for chat* pastes cleanly.
 
 ---
 
@@ -5078,7 +7398,7 @@ Everything here is done on the phone itself. There is no Mac and no Web Inspecto
 
 - **Park data:** `design/data/regions/{coast, elwha_hurricane, hoh_olympus, northeast_dose, sol_duc_high_divide, south_quinault_skok}.json` (the loop's camps, miles, quotas, junctions and the WIC's number all come from `sol_duc_high_divide.json`), `design/data/park_rules.json`, `design/data/gear_catalog.json`, `design/data/food_catalog.json`. Mileages, camps, quotas, conditions, drive times and tide gates cited here come from these files. They were fact-checked in parallel (`design/data/FACT_CHECK.md`, 2026-10-08); this document was updated to match, and the data files win any remaining disagreement.
 - **Proposals:** `design/proposals/storybook.md` (now historical: its book frame, narrator and title page are retired by decision 22), `design/proposals/simulation.md` (state, movement, weather, tides, body models, odds, consequences, worked examples A-C, balancing), `design/proposals/engine.md` (data model, card format, narration, combinatorics, runtime, stack, testing, authoring, milestones).
-- **The new direction's drafts** (2026-10-08, decisions 21 to 35): `design/drafts/frame_home.md` (the frame, the cabin, the stores, the flat lay, the voice: written into this document), `design/drafts/daily_fkt.md` (the ways to play), `design/drafts/minigames.md` (the eight minigames) and `design/drafts/audio_text.md` (sound and the text system). The last three are still being written in.
+- **The new direction's drafts** (2026-10-08, decisions 21 to 35): `design/drafts/frame_home.md` (the frame, the cabin, the stores, the flat lay, the voice: written into this document), `design/drafts/daily_fkt.md` (the ways to play: written into 1.3, 9.9 to 9.12 and E.12), `design/drafts/minigames.md` (the eight minigames: written into 17, E.8 and E.12) and `design/drafts/audio_text.md` (sound and the text system: written into 13 and 18).
 - **Firsthand:** your own trips to Lake Morgenroth (camped once, visited several times), which make its approach a primitive but findable way trail in the data. Your GPS track and stories are still to come (4.3). The cabin is drawn from your written description of Ranger Jon's old cabin, never from the photos, which stay out of the repo (11.11).
 - **Art-style inspiration:** *The Golden Glow* by Benjamin Flouw (Tundra Books, 2018), credited in the game's Credits (10.3). Nothing in this document or the game reproduces its text or illustrations.
 - **Art reference:** `design/art/style_options.png` (option B chosen: Sierra pixels in the custom palette) and the script that draws it, `design/art/style_mockup.py` (11.1).
@@ -5093,6 +7413,32 @@ Everything here is done on the phone itself. There is no Mac and no Web Inspecto
   - Bigleaf maples turn yellow in autumn ([WSU Extension](https://extension.wsu.edu/maplesyrup/bigleafmaple/)).
   - Published WTA trip reports carry Type of Hike, Trail Conditions, Road, Bugs and Snow ([example](https://www.wta.org/go-hiking/trip-reports/trip_report-2024-06-21.151916120349), seen in search results; wta.org refused a direct fetch).
   - Not confirmed: LighterPack's exact CSV header row (6.10).
+- **The ways to play's real-world facts** (checked 2026-10-08; the draft's full list is in `daily_fkt.md` section 9):
+  - The NWS API requires a User-Agent, gives forecasts on a grid of *"about 2.5km x 2.5km"*, and asks over-limit requests to retry after *"typically within 5 seconds"* ([weather.gov](https://www.weather.gov/documentation/services-web-api)). Called live: `/points` for the Sol Duc trailhead gives `SEW 81,94`; Quillayute's cell is `SEW 58,98` at 98 ft; Lake Quinault's center is `SEW 75,72` at 348 ft. NWS information is public domain, but may not be presented as official once modified ([NWS disclaimer](https://www.weather.gov/disclaimer)).
+  - GitHub Actions schedules run in UTC unless an IANA time zone is given, can be delayed at the start of every hour and dropped under heavy load, run at most every 5 minutes, and are disabled in a public repository after 60 days with no activity ([GitHub Docs](https://docs.github.com/en/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows)); Pages sites have a 1 GB limit ([GitHub Pages limits](https://docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits)).
+  - The FKT guidelines: the three styles, caches allowed when self-supported, pre-arranged spectating as support except at the start and finish, chance company not support, *"To get a self-supported FKT you must also beat the fastest unsupported time"*, elapsed time, loops in either direction, switchback cutting likely declined, no law, rule or policy broken, and gender categories ([FKT guidelines](https://fastestknowntime.com/guidelines)). The real High Divide Loop route: 17.6 mi and 5,300 ft from the Sol Duc Falls trailhead, unsupported times only, described as climbing toward Bogachiel Peak ([FKT](https://fastestknowntime.com/route/high-divide-loop-onp-wa)).
+  - 36 CFR 2.22(a)(2): no property left unattended longer than 24 hours unless a longer time is designated ([LII](https://www.law.cornell.edu/cfr/text/36/2.22)); Olympic: food, garbage and scented items secured *"24 hours a day"* in approved containers ([NPS](https://www.nps.gov/olym/planyourvisit/wilderness-regulations.htm)). Not yet checked: what Olympic's Superintendent's Compendium says about caches by private visitors.
+  - Running costs about 1 kcal per kg per km ([Wikipedia](https://en.wikipedia.org/wiki/Cost_of_transport)); carbohydrate up to 60 g an hour for two to three hours and up to 90 g of a 2:1 glucose-fructose mix past 2.5 hours ([GSSI](https://performancepartner.gatorade.com/content/resources/pdfs/science-of-carbohydrate-2024.pdf)); drink to keep water loss under 2% of body weight, with individual plans ([ACSM, 2007](https://pubmed.ncbi.nlm.nih.gov/17277604/)). The game's paces, burns, store, water rates and footing chances are design estimates.
+  - Cloudflare's free plan: 100,000 Worker requests a day and 10 ms of CPU per request; the paid plan 30 s by default and up to 5 minutes ([Workers limits](https://developers.cloudflare.com/workers/platform/limits/)); D1 free: 5 million rows read and 100,000 written a day, 5 GB ([D1 pricing](https://developers.cloudflare.com/d1/platform/pricing/)). The LDNOOBW word lists are CC BY 4.0 ([GitHub](https://github.com/LDNOOBW/List-of-Dirty-Naughty-Obscene-and-Otherwise-Bad-Words)); `CompressionStream` works in Safari from 16.4 ([Can I use](https://caniuse.com/mdn-api_compressionstream)).
+  - From the repo's data: every route's miles, climb, season and road notes (`sol_duc_high_divide.json`, `south_quinault_skok.json`), the Press Expedition route (`elwha_hurricane.json`), the weather chain's Quillayute cut-offs (`park_rules.json`) and `canister_small` at 33 oz (`gear_catalog.json`).
+- **The minigames' real-world facts** (checked 2026-10-08; the berry, clam and Lonely Mountains lines rechecked for this revision; the draft's full list is `minigames.md` section 13):
+  - Olympic's compendium: edible fruits and berries *"may be collected by hand for personal consumption,"* 1 quart per person per day, not within 200 feet of nature trails, special trails and natural study areas (updated January 21, 2026; [NPS](https://www.nps.gov/olym/learn/management/superintendent-s-compendium.htm)). Big huckleberry's ripening *"generally extends from late July to late September"*, a major bear food and a sacred first food ([USFS](https://www.fs.usda.gov/media/252929)).
+  - Razor clams: a limit of 15; *"all diggers must keep the first 15 clams they dig, regardless of size or condition"*; a separate container each; a license from 16; evening digs noon to midnight; Kalaloch closed for 2025-26 ([WDFW, Sept. 30, 2025](https://wdfw.wa.gov/newsroom/news-release/wdfw-approves-seven-days-coastal-razor-clam-digs-beginning-oct-6)); Kalaloch's bounds ([WDFW](https://wdfw.wa.gov/fishing/shellfish/razorclams/rules_regs.html)); closed or limited in 16 of 17 years to 2022 ([NPS](https://www.nps.gov/olym/learn/news/razorclam2022.htm)); harvest elsewhere on the park's coast always closed ([NPS, 2011](https://www.nps.gov/olym/learn/news/2011-razor-clam-harvest-suspended.htm)); the shows ([Evergreen Coast](https://www.evergreencoastwa.com/razor-clamming/)).
+  - Bear cans: BearVault's BV500 (11.5 L, *"up to 7 days"*) and BV450 (7.2 L, *"about 3-4 days"*) ([BearVault](https://www.bearvault.com/products/bv500)); Olympic requires approved containers in all wilderness ([NPS](https://www.nps.gov/olym/planyourvisit/wilderness-food-storage.htm)); random close packing of discs about 0.84 to 0.86, the hexagonal maximum about 0.907 ([arXiv 2404.02316](https://arxiv.org/pdf/2404.02316)).
+  - Alpenglow's three phases ([AMS Glossary](https://glossary.ametsoc.org/wiki/Alpenglow), from a search summary); self-arrest technique ([Ortovox](https://www.ortovox.com/uk/safety-academy-lab-ice/chapter-2/self-arrest-techniques)); stream crossing ([NPS](https://www.nps.gov/kaww/stream-crossing-safety.htm)) and the Queets ford ([NPS](https://www.nps.gov/olym/planyourvisit/queets-river-trail.htm)); a tent in the rain ([Advnture](https://advnture.com/how-to/pitch-a-tent-in-the-rain)); the Oregon Trail's 100-pound hunt ([explain xkcd](https://explainxkcd.com/623)). Not confirmed: which way to roll in self-arrest, and how fast a razor clam digs in numbers. The minigames' physics, odds and tuning numbers are design.
+- **Sound's real-world facts** (checked 2026-10-08; the draft's full list is `audio_text.md` section 27): Lonely Mountains: Downhill has *"no background music as you ride down the mountain"* ([Worthplaying](https://worthplaying.com/article/2017/11/10/news/106038-lonely-mountains-downhill-reaches-kickstarter-goal-gets-1-minute-demo/), rechecked); Leave No Trace principle 7 ([NPS](https://home.nps.gov/articles/leave-no-trace-seven-principles.htm)); the park's soundscape, its marmots and birds ([NPS](https://www.nps.gov/olym/learn/nature/soundscapes.htm)); thunder at about 5 seconds a mile ([NWS](https://www.weather.gov/safety/lightning-science-thunder)); the libraries' licenses (13.9); and Safari's audio behavior: `touchend` unlock, the ambient session, the interrupted state, Opus from iOS 18.4, AAC priming (13.10, each with its source). Not confirmed: what plays in Lonely Mountains' menus, and whether shivering stops as hypothermia deepens (a secondary source only).
+- **Checked on 2026-10-08 and 2026-10-09 for the review fixes:**
+  - The Upper Hoh Road leaves US 101 about 13 miles south of Forks and runs about 18.2 miles to the trailhead ([WTA, Hoh River](https://www.wta.org/go-hiking/hikes/hoh-river)); NPS gives the Hoh as *"under an hour from Forks"* ([NPS, Visiting the Hoh](https://www.nps.gov/olym/planyourvisit/visiting-the-hoh.htm)) and Quinault one hour from Forks, with no Quinault to Hoh figure ([NPS, Visiting Quinault](https://www.nps.gov/olym/planyourvisit/visiting-quinault.htm)). The cabin-to-Hoh time in 3.3 is our estimate from these.
+  - GitHub's terms for Actions: *"don't use Actions as a content delivery network or as part of a serverless application"* ([GitHub additional product terms](https://docs.github.com/en/site-policy/github-terms/github-terms-for-additional-products-and-features)).
+  - Workers: 10 ms of CPU per request and per Cron Trigger on the free plan; 30 s by default and up to 5 minutes per request on Workers Paid, and Cron Triggers up to 15 minutes at an hourly or longer interval; error 1027 past the free daily limit ([Workers limits](https://developers.cloudflare.com/workers/platform/limits/)).
+  - D1 counts rows scanned, not returned; the free plan allows 5 million rows read and 100,000 written a day, resetting at 00:00 UTC, after which queries fail; Workers Paid includes 25 billion rows read and 50 million written a month ([D1 pricing](https://developers.cloudflare.com/d1/platform/pricing/)).
+  - GitHub Pages: a soft bandwidth limit of 100 GB a month, sites up to 1 GB, deployments time out after 10 minutes ([GitHub Pages limits](https://docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits)).
+  - Scheduled workflows: delayed under load and sometimes dropped, at most every 5 minutes, default branch only, and disabled in a public repo after 60 days with no activity ([GitHub Docs](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows)); the *enable a workflow* endpoint is `PUT /repos/{owner}/{repo}/actions/workflows/{workflow_id}/enable` ([GitHub REST](https://docs.github.com/en/rest/actions/workflows)); [gh-workflow-immortality](https://github.com/PhrozenByte/gh-workflow-immortality) calls it to reset the inactivity counter and asks for a personal token, both claims its author's, unconfirmed by GitHub.
+  - NWS's web application firewall isn't managed by the API's developers and has blocked requests it took for an anonymous proxy ([weather-gov/api #435](https://github.com/weather-gov/api/discussions/435)).
+  - Links opened from another app open in Safari rather than an installed Home Screen web app, still on iOS 18.3, per user reports ([Glide community](https://community.glideapps.com/t/open-url-from-other-app-in-pwa/59048)); no Apple statement found either way for iOS 26.
+  - AudioWorklet in Safari from 14.1 and iOS Safari from 14.5 ([Can I use](https://caniuse.com/mdn-api_audioworklet)).
+  - On iOS 15, sharing a file and choosing *Save Image* left the share promise unresolved ([WebKit bug 234187](https://bugs.webkit.org/show_bug.cgi?id=234187), a duplicate of 231995).
+- **The text system** rests on the repo itself: the 13 live strings in `web/index.html` and `web/manifest.webmanifest`, rechecked after decision 35 renamed the Home Screen label (18.11).
 - **The Hamma Hamma** (Lake of the Angels, the Valley of Heaven, St. Peter's Gate): `design/data/regions/hamma_hamma.json`, new and not yet fact-checked. This document cites only St. Peter's Gate's and Lake of the Angels' elevations and mileages from it, and its rules on cannabis and alcohol (2.6, 4.1).
 - **History:** the knowledge base in `design/data/lore/`, still being written. Planned: `history.json` (facts, much of them after Robert L. Wood's books, retold in our own words and credited), `quotes_public_domain.json` (verbatim lines from public-domain texts: the Press Expedition's report of 1890 as reprinted in 1890 newspapers and *The Mountaineer* of 1907, Lt. Joseph P. O'Neil's report, Senate Doc. 59, 1896, and other pre-1931 accounts) and `LORE.md`. Written so far, as working drafts: `press_expedition.json`, `oneil_expeditions.json`, `other_history.json` and `wood_bibliography.json`. Wood's books are in copyright, so no sentence of his appears in this document or the game; the epitaph examples here are public-domain lines from those working files (9.5, 12.20).
 
@@ -5100,47 +7446,48 @@ Everything here is done on the phone itself. There is no Mac and no Web Inspecto
 
 ## Decisions made
 
-Every decision here is yours, made one at a time in conversation on 2026-10-08. They override anything older in this document or the proposals. Your own words are in quotes where you gave them. Decisions 21 to 35 came later the same day and set the new direction; where they change an earlier decision, the earlier one says so. (Decision 22 retired the book frame, so the summaries of 1 to 20 now use the game's own words, trip, stop and trip report; your quotes are unchanged.)
+Every decision here is yours, made one at a time in conversation on 2026-10-08. They override anything older in this document or the proposals. Your own words are in quotes where you gave them. Decisions 21 to 35 came later the same day and set the new direction; where they change an earlier decision, the earlier one says so. (Decision 22 retired the book frame, so the summaries of 1 to 20 now use the game's own words, trip, stop and trip report; your quotes are unchanged. Where 22 or a later decision changed an earlier entry, the entry says so and keeps the wording it was first recorded with, marked *First recorded*, so nothing of its history is lost.)
 
 - **The pitch:** *Oregon Trail* meets *King's Quest*, with a dash of *Leisure Suit Larry*, in the real Olympics. *"your line about plays like nails it"* (1); the dash of Larry is yours too (18). Broadened by 22 into a blend of its own.
-- **The homage, trimmed:** *"it feels like maybe you're overdoing the golden glow stuff"*, then *"Yes do all of that"*, and *"If anything it was the art style of the book I just love. Reminds me of Sierra also."* *The Golden Glow* survives only as the art style, the Bonfire Lily (a rare hidden find: sketch it or pick it, scored by Leave No Trace) and a credit line. No field guide, prologue, fox, helper animals or narrator for children; a deadpan Sierra voice for adults (no narrator character since 22); the hiker's terse log, now the record that becomes the trip report (2.3, 10).
+- **The homage, trimmed:** *"it feels like maybe you're overdoing the golden glow stuff"*, then *"Yes do all of that"*, and *"If anything it was the art style of the book I just love. Reminds me of Sierra also."* *The Golden Glow* survives only as the art style, the Bonfire Lily (a rare hidden find: sketch it or pick it, scored by Leave No Trace) and a credit line. No field guide, prologue, fox, helper animals or narrator for children; a deadpan Sierra voice for adults (no narrator character since 22); the hiker's terse log, now the record that becomes the trip report (2.3, 10). *Superseded in part by 22. First recorded:* "a deadpan Sierra narrator for adults; a terse trip log for flavor."
 - **The plant's name:** the Bonfire Lily (10.2).
 - **Art:** option B. *"I love B I love chunky pixels."* Sierra technique in a custom 16-color palette inspired by *The Golden Glow*'s flat, layered shapes; gold kept for the lily (11.1).
-- **1. Death:** *"For 1 I think it should actually be hard like if you die its game over old school."* Old School is the rule of Open play (23 to 25 add the Hike of the Day, where a death is a DNF). A death plays the sequence you described, *"the end screen should say you perished and then a little thing how like Oregon trail style and then it says leave no trace as your skeleton turns to dust"*, which you approved in five screens (*"Sounds good"*): the death box, YOU PERISHED, Leave No Trace, the epitaph, GAME OVER (9.5, 12.17). Your Olympus example ends in death about 1 trip in 15 for a hiker who keeps pushing, and never for one who turns back (A.6).
-- **2. After a death:** *"Full wipe."* Only the Trail Register survives (9.8). It now plays at the cabin, at dusk (2.2).
-- **3. The easy mode:** *"C but don't release that shelf yet hide it."* The no-death mode stays in the engine with its own hikers, hidden behind a flag in v1. Its old name, Storybook, is retired with the book (22); the internal key is `gentle` (9.4).
-- **4. The epitaph:** *"Write your own or tap random."* Up to 40 characters, or dice that deal public-domain lines from the early accounts of the park's first explorers, or skip. You asked for *"random Robert Wood sentence"*: Wood is the history's backbone, credited in Credits and on the Ranger's Bookshelf, but not quoted, because his books are in copyright (9.5, 12.20).
+- **1. Death:** *"For 1 I think it should actually be hard like if you die its game over old school."* Old School is the rule of Open play (23 to 25 add the Hike of the Day, where a death is a DNF). A death plays the sequence you described, *"the end screen should say you perished and then a little thing how like Oregon trail style and then it says leave no trace as your skeleton turns to dust"*, which you approved in five screens (*"Sounds good"*): the death box, YOU PERISHED, Leave No Trace, the epitaph, GAME OVER (9.5, 12.17). Your Olympus example ends in death about 1 trip in 15 for a hiker who keeps pushing, and never for one who turns back (A.6). *Superseded in part by 22 (the words) and 23 to 25 (the modes). First recorded:* "Old School is the only v1 mode", approved "in five pages", and the Olympus example ending "about 1 book in 15".
+- **2. After a death:** *"Full wipe."* Of the hiker, only the Trail Register line survives. What belongs to the player (settings, the odds forms seen, whether the lockbox was opened, the handle, timed results and bests, the chalkboard's tally marks and the race bibs) was never the hiker's, so the wipe leaves it alone (9.8, lead call 18). The wipe now plays at the cabin, at dusk (2.2; the setting is 34's). *First recorded:* "Only the Trail Register survives."
+- **3. The easy mode:** *"C but don't release that shelf yet hide it."* The no-death mode stays in the engine with its own hikers, hidden behind a flag in v1. Its old name, Storybook, is retired with the book (22); the internal key is `gentle` (9.4). *Superseded in part by 22. First recorded:* "Storybook stays in the engine with its own shelf, hidden behind a flag in v1."
+- **4. The epitaph:** *"Write your own or tap random."* Up to 40 characters, or dice that deal public-domain lines from the early accounts of the park's first explorers, or skip. You asked for *"random Robert Wood sentence"*: Wood is the history's backbone, credited in Credits and on the ranger's reading, but not quoted, because his books are in copyright (9.5, 12.20). *First recorded* "credited in the colophon"; 22 retired the word, and the shelf, first written in as *the Ranger's Bookshelf*, was renamed for the same reason.
 - **5. Death tone:** deadpan Sierra, dry but kind (2.3, 9.5).
-- **6. The hiker:** *"less is more."* A name, and every hiker starts the same (12.4). The name is signed in the cabin's guest book.
+- **6. The hiker:** *"less is more."* A name, and every hiker starts the same (12.4). The name is signed in the cabin's guest book (34's setting).
 - **7. The 104 Boyz:** cameos only. You hike solo; they are hikers you meet (a tip, a trade, a warning) and pre-filled entries in the Trail Register. No companions in v1 (7.11). Their register entries are fictional misadventure deaths with funny epitaphs (19). Since 34 they are easter eggs a stranger never needs (2.2).
 - **8. Odds:** *"A for sure."* A % on every risky choice, and the ♦ with its fatal share on deadly ones (8.1, 8.7).
 - **9. Animals:** they never talk (2.3, 7.11).
 - **10. Mount Olympus:** hire Ranger Jon, badge #104, the only guide, or go alone at your own risk, with honest fatal shares and turning back always offered (4.2).
 - **11. First playable:** *"Gotta be B only because I know that hike."* Seven Lakes Basin and the High Divide (4.3, 15, Appendix B). Sharpened by 17.
-- **12. Read to me:** cut. VoiceOver reads the real text (11.9, 13.1).
-- **13. Session length:** confirmed. About 20 to 30 minutes for a two-night trip (1.1).
+- **12. Read to me:** cut. VoiceOver reads the real text, and the game has no human voices at all (11.9, 13.1).
+- **13. Session length:** confirmed. About 20 to 30 minutes for a two-night trip (1.1). *First recorded* "a two-night book"; 22 retired the word.
 - **14. The 104 wink:** every permit number starts with 104, and Ranger Jon wears badge #104 (12.6).
 - **15. Park conditions:** confirmed. The real 2026 conditions by default, applied only on their dates, with Timeless one tap away (4.7).
 - **16. Bug reports:** *"A, no Mac."* Copy bug report in a hidden debug menu, and no Web Inspector anywhere in the plan (E.11, F.5).
-- **Hosting:** the repo `FernForager/104-boyz` is public, and GitHub Pages deploys it from GitHub Actions to `fernforager.github.io/104-boyz` (E.9).
-- **17. The first playable is the loop, and Morgenroth is off the menu:** *"Morgenroth shouldn't be the trip it's an off menu gotta call. The first one should just be High Divide and the 7 Lakes Basin loop either direction and option if drop into basin or stay high I mean every choice needs to be made ya know."* The vertical slice is the whole High Divide and Seven Lakes Basin loop from the Sol Duc trailhead, clockwise or counterclockwise, as a day or one to three nights or more, at any permitted camp on or just off it, with layovers. Every route choice is the player's, at the map table and on the trail: the way round, each night, the basin or the crest at a fork card with honest numbers, the side trips, and changing the plan with real permit consequences (3.1, 3.6, 3.7, 4.3, 12.12, 15, Appendix B). Lake Morgenroth is in no list, preset or fill; the only way to camp there is the hidden phone call to the WIC (360-565-3100). It stays the hand-drawn signature scene and your favorite spot, by a primitive but findable way trail, in M1b. Lake #8 stays unplannable (4.3, 12.5, B.7).
+- **Hosting:** the repo `FernForager/104-boyz` is public, and GitHub Pages deploys it from GitHub Actions; the first address was the project's github.io page, and since decision 36 the game lives at **ophiker.com** (E.9).
+- **36. The address: ophiker.com** (yours, bought 2026-10-09 through Squarespace Domains). DNS points the domain at GitHub Pages; the old github.io address forwards there; the Home Screen app, its saves and the preview channel live under `https://ophiker.com`. The alternatives checked and left free that day: *hiketheop.com*, *ophike.com*, *ophiker.net*, *olympicpeninsulahiker.com*.
+- **17. The first playable is the loop, and Morgenroth is off the menu:** *"Morgenroth shouldn't be the trip it's an off menu gotta call. The first one should just be High Divide and the 7 Lakes Basin loop either direction and option if drop into basin or stay high I mean every choice needs to be made ya know."* The vertical slice is the whole High Divide and Seven Lakes Basin loop from the Sol Duc trailhead, clockwise or counterclockwise, as a day or one to three nights or more, at any permitted camp on or just off it, with layovers. Every route choice is the player's, at the map table and on the trail (*first recorded* "at the desk and on the trail"; planning moved to the cabin's map table with 22 and 26): the way round, each night, the basin or the crest at a fork card with honest numbers, the side trips, and changing the plan with real permit consequences (3.1, 3.6, 3.7, 4.3, 12.12, 15, Appendix B). Lake Morgenroth is in no list, preset or fill; the only way to camp there is the hidden phone call to the WIC (360-565-3100). It stays the hand-drawn signature scene and your favorite spot, by a primitive but findable way trail, in M1b. Lake #8 stays unplannable (4.3, 12.5, B.7).
 - **18. Larry moments, PG-13, with beer and weed in:** *"I want it to have some leisure suit Larry in it too. like swimming naked in heart lake. Drinking a hazy ipa at morgrnroth. Smoking a doobie at st peters gate."* Asked how spicy: *"Pg 13 but beer and weed."* And on the Gate: *"St. Peter's gate connects the ridge above lake of the angles with whatever is on the other side stone ponds I think"*. A dash of *Leisure Suit Larry* in the pitch: cheeky innuendo and a pixel censor bar, nothing explicit, in the deadpan voice. Skinny dipping in Heart Lake (with an honest Old School path to *You have died of skinny dipping.* after two warnings), a hazy IPA at Lake Morgenroth, a doobie (Second Growth's pre-roll) at St. Peter's Gate (illegal on federal land: a ranger's honest odds and a citation, never a death), a locals' quiz at first launch (now the cabin's key lockbox), and four more on the loop. Overnight only, never on a day hike, the walk-out day or anywhere near a car (lint T05). `flags.larry` is on in every v1 build (1, 1.2, 2.6, 4.1).
-- **19. The Boyz in the Trail Register:** for decision 7 you answered *"A"*, the option where the Boyz are hikers you bump into on the trail, and *"their names are already in the trailhead register when you first open it, with epitaphs about their own (fictional) misadventures."* So the register comes pre-filled with one *Remembered* entry per Boy: a fictional misadventure death and a funny epitaph, good-natured and never mean, while you keep meeting the same Boyz alive on the trail, and the game never explains it. Their real names are still to come; the public game uses first names or nicknames unless you confirm full names (7.11, 9.8, 12.3).
+- **19. The Boyz in the Trail Register:** for decision 7 you answered *"A"*, the option where the Boyz are hikers you bump into on the trail, and *"their names are already in the trailhead register when you first open it, with epitaphs about their own (fictional) misadventures."* So the register comes pre-filled with one *Remembered* entry per Boy: a fictional misadventure death and a funny epitaph, good-natured and never mean, while you keep meeting the same Boyz alive on the trail, and the game never explains it (*first recorded* "the narrator never explains it"; 22 retired the narrator). Their real names are still to come; the public game uses first names or nicknames unless you confirm full names (7.11, 9.8, 12.3).
 - **20. Ranger Jon is one of the Boyz:** you confirmed it (2026-10-08). Jon plays himself as Ranger Jon, by first name only, like the other Boyz in this public repo; he sees his lines and agrees before release, like the rest (7.11, 12.20).
-- **21. Every line of original English is yours:** *"I also want to personally decide on every single bit of English text that appears in the game that is original... including UI menus everything."* All strings live in one text system with ids; each is a draft until you approve it; release builds ship approved text only. Not ours: real place names and verbatim public-domain quotes (still vetoable). Every example in this document is a draft (the note at the top, F.3). The text system's design is being written in.
-- **22. No book framing, no crutches:** *"I feel like leaning hard into the book theme isn't a great direction. I want this game to be great on its own merits. Like swords and sworcery... It's 1000 heroz it's suica game it's kings quest it's Oregon trail but it's also entirely its own blend."* The bookshelf, books, chapters, pages, volumes, back cover, "picture-book", the storybook narrator and the "Storybook" mode name are gone. The art, engine, permadeath, odds, park, Larry moments and Trail Register stay (1, 2.2, 2.3, 9, 12, Lead call 11). Session 1's title-page text waits for your approval under the new frame.
-- **23. Ways to play:** an open mode to plan any hike, and a **Hike of the Day**: the same route for everyone each day, with a time leaderboard. Each big route can also have an **FKT** (*"I love trail running and FKT culture. Each big route in the game could also have a fkt"*) (1, 9.4; rules being written in).
-- **24. The Hike of the Day is one shot:** *"One shot I love it."* One attempt per day; the score is the time, alive (a death is a DNF) (9.3).
-- **25. A daily death never touches the Open hiker:** you chose "A": each Hike of the Day uses a fresh hiker with standard skills; a death is a DNF on today's board and resets the daily streak; the Open hiker and career are untouched (9.3, 9.4).
+- **21. Every line of original English is yours:** *"I also want to personally decide on every single bit of English text that appears in the game that is original... including UI menus everything."* All strings live in one text system with ids; each is a draft until you approve it; release builds ship approved text only. Not ours: real place names and verbatim public-domain quotes (still vetoable). Every example in this document is a draft (the note at the top, F.3). The text system is section 18: every string has an id, the ledger freezes what you approve, and main ships approved words only. Decision 35 approved the first two lines (18.11).
+- **22. No book framing, no crutches:** *"I feel like leaning hard into the book theme isn't a great direction. I want this game to be great on its own merits. Like swords and sworcery... It's 1000 heroz it's suica game it's kings quest it's Oregon trail but it's also entirely its own blend."* The bookshelf, books, chapters, pages, volumes, back cover, "picture-book", the storybook narrator and the "Storybook" mode name are gone. The art, engine, permadeath, odds, park, Larry moments and Trail Register stay (1, 2.2, 2.3, 9, 12, Lead call 11). Session 1's title-page lines retire unanswered, and the ones the app's frame still needs come back reworded in B001 (18.11). *First recorded:* "Session 1's title-page text waits for your approval under the new frame."
+- **23. Ways to play:** an open mode to plan any hike, and a **Hike of the Day**: the same route for everyone each day, with a time leaderboard. Each big route can also have an **FKT** (*"I love trail running and FKT culture. Each big route in the game could also have a fkt"*) (1.3, 9.4, 9.9, 9.11).
+- **24. The Hike of the Day is one shot:** *"One shot I love it."* One attempt per day; the score is the time, alive (a death is a DNF) (9.3, 9.9).
+- **25. A daily death never touches the Open hiker:** you chose "A": each Hike of the Day uses a fresh hiker with standard skills; a death is a DNF on today's board and resets the daily streak; the Open hiker and career are untouched (1.3, 9.3, 9.4). FKT attempts follow the same rule (9.11).
 - **26. The frame is backpacking's own stuff, for both crowds:** *"I think a but for hardcore and the moss crowd you know both. Swains hikers and browns hikers. So like, you know how people will take a picture of all their stuff laid out before a trip to post on instagram? That's the best. I want that ethos."* The permit, the map, the pack, splits on the trail, a trip report at the end; the signature screen is the gear flat lay, and it is shareable. Real stores inspire the vibe; in-game businesses keep fictional names (3, 6.1, 6.10, 9.7).
 - **27. Three stores in Port Angeles:** *"Three stores, ones closely based on swains browns and moss."* A general store in the spirit of Swain's, a gear shop in the spirit of Brown's Outdoor and a boutique in the spirit of MOSS. In-game names are fictional and yours to write, unless a store gives permission to use its real name. Where you shop shows in your flat lay (5.2, 5.7, 6.1).
 - **What 104 means:** *"104 is a reference to hot tub temperature. After a long day of hiking or razor clamming or work Ranger Jon would always go home to his hot tub. On bro trips the hot tub is key. So 104 is a nod to sitting around after ONP adventures and telling stories in the hot tub."* (104 W 1st Street, MOSS's address, is a coincidence.)
-- **28. The hot tub as home base:** you chose *"A yes let's do it"*. **Revised by 34:** the tub is a reward after a big hike, not the home or the frame (2.2).
-- **29. A few pitch-perfect minigames:** *"Good games like the one we're making have addictive and pitch perfectly dialed in mini games here and there."* A handful only, each tied to a real ONP activity, quick, one-thumb, polished, with real stakes in the trip (being written in).
-- **30. The minigame list:** *"I'll take your advice here I like all of it."* Eight: packing the bear can (Suika-style, the signature), razor clamming, huckleberry picking, the alpenglow shot, the technical descent, ice-axe self-arrest (can kill), the cold creek ford, and pitching a tent in the rain. The Seven Lakes first playable gets the bear can, the alpenglow shot and huckleberries (being written in; their places: 6.1, 12.9, 12.14).
-- **31. The Hike of the Day uses today's real forecast:** *"a"*: each morning a scheduled build bakes the National Weather Service forecast for that day's route into the daily; winter weather pushes the daily to the coast and low trails. The same build bakes the cabin's weather (2.2).
-- **32. Sound like *Lonely Mountains: Downhill*:** *"I like how lonely mountains downhill did music honestly."* No music on the trail: the place and your own sounds carry it. Music only at home at the cabin and at a few key moments (13, being written in).
-- **33. Sound sources, no homework:** *"I won't have time to record anything anytime soon."* Claude handles all sound: public-domain (CC0) field recordings and synthesis, each source logged with its license. Your own recordings stay welcome but are never needed (13).
+- **28. The hot tub as home base:** you chose *"A yes let's do it"*. As first recorded: the main screen was to be Jon's hot tub at night (steam, stars, the thermometer at 104 degrees), where you pick the Hike of the Day, plan a trip or try an FKT; every trip would end in the tub with the story told and the Boyz reacting (lines you write); after a death the Boyz would tell your story in the tub, then the Trail Register. Razor clamming came up as a possible side activity (Kalaloch is in the park). **Revised by 34:** the tub is a reward after a big hike, not the home or the frame (2.2); the home is the cabin, and the places in its scene are the menus. Razor clamming became a minigame (17.14).
+- **29. A few pitch-perfect minigames:** *"Good games like the one we're making have addictive and pitch perfectly dialed in mini games here and there."* Your touchstone: a takoyaki-style cooking minigame, short, tactile and addictive. A handful only, each tied to a real ONP activity, quick, one-thumb, polished, with real stakes in the trip; razor clamming at Kalaloch was the first idea (17, 17.14).
+- **30. The minigame list:** *"I'll take your advice here I like all of it."* Eight: packing the bear can (Suika-style, the signature), razor clamming, huckleberry picking, the alpenglow shot, the technical descent, ice-axe self-arrest (can kill), the cold creek ford, and pitching a tent in the rain. Rules: few, under a minute, one thumb, real stakes, native to the ONP. The Seven Lakes first playable gets the bear can, the alpenglow shot and huckleberries (17: the one rule for skill and odds is 17.2, and the first three are 17.7 to 17.9).
+- **31. The Hike of the Day uses today's real forecast:** *"a"*: each morning a scheduled build bakes the National Weather Service forecast for that day's route into the daily; winter weather pushes the daily to the coast and low trails. The same build bakes the cabin's weather (2.2, 9.10). Until the coast arrives (M4), winter dailies go to Lake Crescent's and Lake Quinault's low trails (9.9).
+- **32. Sound like *Lonely Mountains: Downhill*:** *"I like how lonely mountains downhill did music honestly."* No music on the trail: the place itself (creek, wind, rain, birds) and your own sounds (footsteps on each surface, poles, pack, breathing on climbs) carry it. Music only at home (the hot tub when 32 was made; the cabin since 34) and at a few key moments: finishing, YOU PERISHED, the daily sting (13, 13.2).
+- **33. Sound sources, no homework:** *"I won't have time to record anything anytime soon."* Claude handles all sound: public-domain (CC0) field recordings and synthesis, each source logged with its license. Your own recordings stay welcome but are never needed (13.9, 13.12).
 - **34. Near-universal, and home is a ranger cabin (revises 28):** *"The hot tub emphasis may be too much. I am making this game for the 104 boyz but I want it to also be near universal if that makes sense. Hot tub is a reward after a big hike. In any case the home should be modeled after ranger jons old ranger cabin when he was stationed at lake quinault."* The Boyz and 104 are easter eggs that reward insiders and are never needed; the tub is a reward after a big hike; home is the old ranger cabin at Lake Quinault, drawn from your reference photos' description, which stay out of the public repo unless you say otherwise (2.2, 11.11).
 - **35. The name:** *"Olympic Peninsula Hiker. OP Hiker when needed like on phone screen under the app etc."* Full name *Olympic Peninsula Hiker*; short name *OP Hiker*, the Home Screen label and anywhere space is tight. This also approves those two strings (21).
 
@@ -5148,7 +7495,7 @@ Everything else in this document is a call you can overrule (1.2), but none of i
 
 ## Lead calls
 
-These are not your decisions. They are engineering calls the lead designer (Claude) made on 2026-10-08 to close the pre-build audit (`design/AUDIT_DOC.md`, whose Resolution lists every item), and later the same day to carry the new direction through the document (11 to 15). None changes a decision above, and each is yours to overrule.
+These are not your decisions. They are engineering calls the lead designer (Claude) made on 2026-10-08 to close the pre-build audit (`design/AUDIT_DOC.md`, whose Resolution lists every item), and later the same day to carry the new direction through the document (11 to 15), to write in the ways to play (16 to 22), and to write in the minigames, the sound and the text system (23 to 28). None changes a decision above, and each is yours to overrule.
 
 1. **M1a's camps:** the *ask at the desk* request (a seeded roll, about 70% midweek and 40% on weekends) is in M1a, for Bruce's Roost, Cat Basin and Hidden Lake; Long Lake and Sol Duc Lake (off trail) and the call for Morgenroth stay in M1b (4.3, 15).
 2. **Day hikes:** no permit; the score maximum is set at *Start walking*; a day-use trip-plan line at the trailhead drives the overdue clock; the register says *day hike*; day hikes never move the 104 counter (3.7, 9.6, 12.10).
@@ -5160,41 +7507,142 @@ These are not your decisions. They are engineering calls the lead designer (Clau
 8. **Seeds:** the trip seed is drawn when a plan is first saved and keys planning's draws too (`hash(seed, date, camp)` for quotas); *Hike it again* copies the printed permit (8.14, 9.7, E.8).
 9. **The smaller calls**, each the auditor's fix or the most cautious default: skills run 0 to 5; a day hike's turnaround points the shortest way to the car; the basin fork fires only on the way in; the swim and the bold marmot are overnight-only, the broadest reading of decision 18; one canonical tag list; pack presets are B.5's two kits; the conditions date is the conditions overlay's; the lily's layover bonus needs a second evening in the same place (2.6, 3.7, 4.7, 6.5, 7.4, 7.10, 10.2, 15).
 10. **The night model follows the catalog:** shelter and wet-clothing warmth come from each item's stats in `gear_catalog.json`, and the worked nights were recomputed, so Appendix A's bagless night now shows 6.3% fatal, not 6.1% (7.9, A.3).
-11. **The words that replace the book** (decision 22). A book is a **trip**; a page on the trail is a **stop**, and anywhere else a **screen**; chapters are **phases** (plan, town, flat lay, drive, the days, home); the back cover is the **trip report**; the memorial page is the **GAME OVER card**, with a black register mark (▌) for the old ribbon; the shelf of finished books is the hiker's **trip reports**, by the fire bowl; the endpaper map is the **park map** on the cabin's table; the colophon is **Credits**; the Journal tab is the **Log**; *Turn the page* is *Walk on* or *Next*; *Try this trip again* is *Hike it again*; *The End* is **Finished**; Page density is **Trail stops**; the Book font is the **Plain** font; the review book is the **review site**; "edition" is a **build**, and the edition date the **conditions date**. In code: `book_ends` becomes `hiker_dies` (clearer than "trip ends", since a turnaround ends a trip too), `storybook` becomes `gentle` (`flags.gentle`, `modes.gentle`), `narrator.js` becomes `voice.js`, `phases/shelf` and Session 1's `ui/shelf.js` become `phases/home` and `ui/home.js`, and the save keys follow (E.6). Every in-game word in that list is a draft for you (decision 21).
+11. **The words that replace the book** (decision 22). A book is a **trip**; a page on the trail is a **stop**, and anywhere else a **screen**; chapters are **phases** (plan, town, flat lay, drive, the days, home); the back cover is the **trip report**; the memorial page is the **GAME OVER card**, with a black register mark (▌) for the old ribbon; the shelf of finished books is the hiker's **trip reports**, by the fire bowl; the endpaper map is the **park map** on the cabin's table; the colophon is **Credits**; the Journal tab is the **Log**; *Turn the page* is *Walk on* or *Next*; *Try this trip again* is *Hike it again*; *The End* is **Finished**; Page density is **Trail stops**; the Book font is the **Plain** font; the review book is the **review site**; "edition" is a **build**, and the edition date the **conditions date**. In code: `book_ends` becomes `hiker_dies` (clearer than "trip ends", since a turnaround ends a trip too), `storybook` becomes `gentle` (`flags.gentle`, `modes.gentle`), `narrator.js` becomes `voice.js`, the card kind *epilogue* becomes *aftermath* (the schema's `kind` enum too), `phases/shelf` and Session 1's `ui/shelf.js` become `phases/home` and `ui/home.js`, and the save keys follow (E.6). Every in-game word in that list is a draft for you (decision 21).
 12. **Planning moves home** (decision 26): you plan at the cabin's map table and print the permit, as real Olympic hikers do; the WIC is an optional town stop for the briefing, the loaner can and the desk-only camps, and a plan with a desk request is issued there (3.1). The old ranger's favorite trips and checklist stay as things he left at the cabin.
 13. **The cabin's live scene** runs on Lake Quinault's real clock, season, NWS weather and moon, computed for the lake's center, never a building; the homecoming shows the trip's own time first (2.2).
 14. **Appendix D and the examples** were rewritten in the recommended voice, as drafts, so the recommendation can be judged; the older third-person examples left elsewhere are drafts of the same moments (2.3).
 15. **A new lint, T07,** fails any player-facing string that uses the retired book words, with exceptions for real things (F.3).
+16. **The timed modes use a standard hiker, shed and pantry,** with no shopping, and write nothing to the Open hiker; the one bridge is a stash your Open hiker places for a self-supported FKT (1.3, 9.11).
+17. **Every death plays the five screens, in every mode.** In a timed mode only the GAME OVER card changes (a DNF stamp), the cabin comes back on the real clock with nothing wiped, and the epitaph signs a tagged line in *Remembered* under your handle (9.4, 12.26). This settles what 2.2 left open, and replaces its earlier proposal of keeping daily DNFs on the chalkboard only, which stays your alternative.
+18. **Timed results belong to the player,** in their own storage key, so neither an Open death nor the wipe touches them, and the chalkboard's tally marks and the race bibs are yours, not the hiker's (2.2, E.6).
+19. **An integer-second clock and a complete action log from M1a** (T0), because they cost almost nothing now and a rewrite later (E.12).
+20. **The daily never depends on the morning job, and a phone never computes a day:** the job keeps a standby calendar 45 days ahead, baked on climatology through the same steps as a real day, and a phone whose index lists no live file for today at 5:00 am plays that date's standby entry, which the job then archives as the day (9.10). *First made as:* the phone computes the climatology day from the date, which no phone could do in time, since a day's route and par take thousands of bot runs.
+21. **No real FKT athlete's name or time** appears anywhere in the game: the game's times come from its own graph and runner (9.11).
+22. **Your handle** is asked once, the first time you play a timed mode, suggested from your Open hiker's name, and belongs to the phone (1.3).
+23. **New sections go after 16, not between:** the minigames are 17 and the text system 18, so no section number, link or cross-reference moved. The audio section keeps 13.1 for its rules and 13.2 for its cue list, so every older "(13.2)" still points at the right cue.
+24. **The minigames' engine:** integer world units, a fixed 120 Hz tick, `Math.sqrt` as the only math function, inputs logged at the tick they are applied (drags sampled at a fixed rate) and saved in batches, and a `mini` random stream, so a daily's minigames replay identically on every phone (17.4, E.12).
+25. **The sound engine:** Web Audio for everything, in Safari's ambient session; AAC in `.m4a`; nothing depends on a gapless loop (continuous sounds are synthesized, recordings play through a grain player, one-shots ride in sprites with a sync click); and sound picks its variations from its own stream, so it never touches an outcome (13.1, 13.10).
+26. **Every shipped sound is logged,** with its license and both files' hashes, and the build refuses one that isn't (lints A01 to A09, 13.12). Masters in the repo are short excerpts, never whole downloads.
+27. **Claude never approves a line.** Only the apply tool writes the ledger, and only from an answer of yours that names the line's id and the hash you saw (18.4).
+28. **The minigames, sound and text are written in at their recommendations** (17, 13, 18), so building can start; every one of those recommendations is listed for you in [Still to come](#still-to-come-from-you), and any can be overruled.
 
 ## Still to come from you
 
-- **The 104 Boyz' names and quirks.** First names or nicknames, since the repo is public, unless you tell us the friends are fine with full names. Their register entries are yours to write too, if you like, and so are their tub lines and guest-book signatures (`{BOY_n_TUB}`, `{BOY_n_GUESTBOOK}`, 2.2). Each Boy sees his entry and agrees before it ships; until all of them have, the line in Credits is `{BOYZ_CONSENT}` (12.20). Until then, `{BOY_1}`, `{BOY_1_QUIRK}` and so on, with placeholder entries (7.11).
-- **Ranger Jon's quirk.** Jon is one of the Boyz (decision 20), so his quirk can come with theirs, and his OK with theirs. Until then, `{JON_QUIRK}` (4.2).
-- **Your Lake Morgenroth GPS track (GPX) and stories.** The track replaces the way trail's straight-line estimates; the stories, and any photos, shape the hand-drawn scene. Until then, `{MORGENROTH_STORY_n}` (4.3, B.7). The data already cites your Strava activity *"Hike to camp at Morgenroth Lake"* (`strava.com/activities/5761886000`, on the Long Lake to Morgenroth segment of `sol_duc_high_divide.json`). If that's the track, export its GPX, and tell us whether the link may stay in the public repo, and whether you're comfortable publishing the route at all: the repo only ever holds a simplified line, never the raw track (16, E.5).
+Nothing here blocks the next session: each open call has a recommendation already written into this document, and the sessions build on it until you say otherwise. Words come to you in batches (18.7), never all at once.
+
+**Things only you can give:**
+
+- **The game's name: done** (decision 35: *Olympic Peninsula Hiker*, and *OP Hiker* where space is tight). Both lines are approved. The title page's other lines retire unanswered, since the cabin replaces it; the name over the cabin comes to you in B002 (18.11).
+- **The three stores' names** (`{STORE_GENERAL}`, `{STORE_GEAR}`, `{STORE_BOUTIQUE}`), and whether *Fernwood Mercantile* lives on as the general store and *Second Growth* stays next door (5.2). Real names only with a store's permission.
+- **Every line of English,** batch by batch (decision 21, 18). **B001, the app's frame** (about 10 lines), is ready to send when you say the new frame is set; **B002, the cabin** (about 30) and **B003, the lockbox and the guest book** (about 45) follow in S7. The title page's own lines retire unanswered (18.11). After those, two or three batches a session, about 55 in all for M1a (18.9).
+- **The 104 Boyz' names and quirks, and each one's OK.** First names or nicknames, since the repo is public, unless you tell us the friends are fine with full names. Their register entries, tub lines and guest-book signatures are yours to write too, if you like (`{BOY_n_TUB}`, `{BOY_n_GUESTBOOK}`, 2.2). Each Boy sees his entry and agrees before it ships; until all of them have, the line in Credits is `{BOYZ_CONSENT}`, and a release build refuses it (12.20, F.3). Until then, `{BOY_1}`, `{BOY_1_QUIRK}` and so on (7.11).
+- **Ranger Jon's quirk, and his OK.** Jon is one of the Boyz (decision 20), so both can come with theirs. Until then, `{JON_QUIRK}` (4.2).
+- **Your Lake Morgenroth GPS track (GPX) and stories.** The track replaces the way trail's straight-line estimates; the stories, and any photos, shape the hand-drawn scene. Until then, `{MORGENROTH_STORY_n}` (4.3, B.7). The data cited one of your Strava activities on the Long Lake to Morgenroth segment of `sol_duc_high_divide.json`; its link is now replaced with *firsthand: game creator* until you answer. If that activity is the track, export its GPX, and tell us whether the link may go back into the public repo, and whether you're comfortable publishing the route at all: the repo only ever holds a simplified line, never the raw track (16, E.5).
 - **Optional: your own locals' quiz questions.** The lockbox deals three from a pool of about twelve (2.6); a question only you and your friends would get right is welcome, as long as it has a true answer.
 - **Optional: Robert Wood.** Whether to ask The Mountaineers Books for written permission to quote his sentences. Until then he is credited, never quoted (9.5).
+- **Still open as a topic:** teaching new players beyond the first-launch minimum (2.2). The minigames' ghost thumb (17.6) and the first-time odds lines (8.7) are part of the answer; the rest waits for playtests.
 
-**From the new frame** (decisions 22, 26, 27 and 34; the full reasoning is in `design/drafts/frame_home.md`). Each has a recommendation already in this document, so building can start:
+**From the new frame** (decisions 22, 26, 27 and 34; the reasoning is in `design/drafts/frame_home.md`):
 
-1. **The replacement words** (Lead call 11): approve them, or mark the ones you'd change.
+1. **The replacement words** (Lead call 11): approve them, or mark the ones you'd change. One more joined them: the shelf of Robert Wood's books inside the cabin door, first written in as *the Ranger's Bookshelf*, is now **the ranger's reading** (a DRAFT name), so the game never reuses the word decision 22 retired (12.20). Keep that name, pick another, or keep *Bookshelf* as the one exception, since it is a shelf of real books?
 2. **Home on the real clock:** the cabin shows Lake Quinault's real season, light, weather and moon, except at the homecoming (2.2); or the game's own calendar?
-3. **What "big" means for the tub:** at least 8 trail hours walked, an Olympus summit or a finished FKT (2.2); or a different bar?
+3. **What "big" means for the tub:** at least 8 trail hours walked, an Olympus summit, or a new FKT personal best on a route of at least 8 trail hours, since tries are unlimited (2.2); or a different bar?
 4. **Who speaks:** A (you, now) for the moment and B (the log) for the record, with the Boyz heard only in their cameos and the tub (2.3); or A, B or C alone?
 5. **Planning at the cabin:** you print your own permit and the WIC is an optional town stop (3.1); or keep the WIC visit mandatory?
 6. **Where the epitaph is signed:** at the trailhead's register box, as approved, or at the cabin's register post (2.2, 12.17)?
-7. **The three stores' names** (`{STORE_GENERAL}`, `{STORE_GEAR}`, `{STORE_BOUTIQUE}`). Should *Fernwood Mercantile* live on as the general store, and *Second Growth* stay next door (5.2)?
-8. **Money:** Open trips with no budget, and a Hike of the Day with no shopping (5.2); or a wallet?
-9. **A smaller starting shed:** the ranger's sensible kit plus the traps, so the flat lay shows where you shop (5.1)?
-10. **Worn items** counted apart from the pack's weight and liters (6.1)?
-11. **The share images** carry the hiker's name and the game's address by default (6.10, 9.7)?
-12. **The locals' quiz becomes the cabin's key lockbox** (2.6, 12.3)?
-13. **The end of each night:** one closing line in the new voice, or the river's own sound (2.3)?
-14. **The hidden mode's internal name:** `gentle`, with a public name only if you ever ship it (9.4)?
-15. **When the crew is around:** summer Friday and Saturday evenings, the evening of a big homecoming, and dates you choose, `{BOYZ_DATES}` (2.2)?
-16. **The Bonfire Lily's gold sketch** in the cabin's gable window after a find (2.2)?
-17. **Drinks:** none anywhere in the cabin scene, since the car is in frame; in the soak, a can on the tub's edge, or nothing (2.2)?
-18. **Jon at the cabin:** always absent (his hat, badge #104 and initials), or sometimes with the crew (2.2)?
-19. **The cabin's reference photos** stay out of the public repo (decision 34 says unless you say otherwise): confirm, or tell us what may be committed (11.11).
-20. **Every line of English** (decision 21): the batches come to you screen by screen as the text system lands. Session 1's 13 live lines, including the retired book lines, are the first.
+7. **Money:** Open trips with no budget, and a Hike of the Day with no shopping (5.2); or a wallet?
+8. **A smaller starting shed:** the ranger's sensible kit plus the traps, so the flat lay shows where you shop (5.1)?
+9. **Worn items** counted apart from the pack's weight and liters (6.1)?
+10. **The share images** carry the hiker's name (it can be switched off) and the game's name, but no address, since the address says *104-boyz* to a stranger (6.10, 9.7)?
+11. **The locals' quiz, now that the game must be near-universal** (decision 34): keep it as the very first screen, as the cabin's key lockbox, where wrong answers still open it with *"Nice try, tourist."* (recommended, 2.6, 12.3); make it an optional Look on the lockbox; or move it after the first trip? Either way, first launch is tested on someone from outside the Pacific Northwest who has never heard of the Boyz (F.5).
+12. **The end of each night:** one closing line in the new voice, or the river's own sound (2.3)?
+13. **The hidden mode's internal name:** `gentle`, with a public name only if you ever ship it (9.4)?
+14. **When the crew is around:** summer Friday and Saturday evenings, the evening of a big homecoming, and dates you choose, `{BOYZ_DATES}` (2.2)?
+15. **The Bonfire Lily's gold sketch** in the cabin's gable window after a find (2.2)?
+16. **Drinks:** none anywhere in the cabin scene, since the car is in frame; in the soak, a can on the tub's edge, or nothing (2.2)?
+17. **Jon at the cabin:** always absent (his hat, badge #104 and initials), or sometimes with the crew (2.2)?
+18. **The cabin's reference photos and the words drawn from them.** The photos stay out of the public repo (decision 34 says unless you say otherwise): confirm, or tell us what may be committed (11.11). The written description is public too, so please also confirm two things: the crew-evening details it repeats from one photo (tents on the lawn, camp chairs, a cooler, a dog, friends on the porch, 2.2, 11.11), and that Jon is fine with the game tying him to his old ranger cabin at Lake Quinault, by first name only. Until you answer, nothing new from the photos goes in.
+19. **The game's address: done** (decision 36). The game lives at **ophiker.com**, so a crew link no longer shows *104-boyz*. The share images and the trip report's card still print only the game's name (2.2, 6.10); whether they now print `ophiker.com` too is yours to decide.
+20. **Credits' People line** (12.20, DRAFT) names no crew: *"Every person in this game is fictional, except a few friends of the game's maker, who play themselves by first name."* Keep it that way, so a stranger reading Credits never meets the word Boyz (recommended), or name the 104 Boyz there?
+21. **The boutique in M1a.** The first playable has two of the three stores; the boutique, the moss crowd's store, comes in M1b, so the flat lay you first play and share shows the Swain's and Brown's crowds only (`BUILD_PLAN.md` 1). Fine (recommended), or a small boutique shelf in M1a for about half a session?
 
-A release build won't ship with any of these placeholders left in, or with any line you haven't approved; preview builds show them, so you can see where your words will go (F.3).
+**From the ways to play** (decisions 23 to 25 and 31; the reasoning is in `design/drafts/daily_fkt.md`):
+
+1. **When a daily opens:** 5:00 am Pacific, after the morning forecast (recommended); midnight Pacific, baked the evening before from the afternoon forecast; or each player's local midnight, which breaks one board for the world (9.9).
+2. **The streak:** days you came home, so turning back and rescue keep it and a death or a missed day resets it (recommended); or days you finished (9.9).
+3. **Overnight dailies:** trail time, with the clock paused in camp (recommended); or the full elapsed time (9.9).
+4. **Weekends:** each weekend day its own one-night daily (recommended); or one overnight for the whole weekend (9.9).
+5. **Rule breaks** (a cut switchback, an off-permit camp, a missed waypoint, a Leave No Trace break): disqualified in both timed modes (recommended); or a time penalty (9.9, 9.11).
+6. **The winter library:** Lake Crescent's trails in M1b and Lake Quinault's four low trails before the first winter (recommended, 9.9, 15).
+7. **The ranger's veto:** only NWS warnings swap the day's route (recommended); or ordinary bad weather too (9.9).
+8. **Where timed-mode deaths go:** a tagged line in *Remembered*, epitaph and all (recommended, 9.4); or the chalkboard and the peak only, with no epitaph, as 2.2 first proposed.
+9. **The FKT runner:** Strong fitness (recommended); or the daily's Regular (7.3, 9.11).
+10. **FKT tries:** a weekly window with fixed conditions and unlimited tries (recommended); or one shot per date (9.11).
+11. **Later: career FKTs.** Should your Open hiker also be able to go for FKTs for keeps, with permadeath, on a board of their own?
+12. **Directions and the peak:** separate boards for ↺ and ↻ (recommended); Bogachiel Peak not required, with or without a mark for tagging it (9.11).
+13. **The real crown rule:** a self-supported best wears the crown only if it also beats the best unsupported time. Yes or no (9.11).
+14. **Backcountry stashes:** canister stashes at designated camps for up to 24 hours, once Olympic's compendium is checked (recommended); or trailheads only (9.11).
+15. **The world board:** go, or not yet; a Cloudflare account on the $5-a-month Workers Paid plan (the free plan's 10 ms of CPU can't replay a run, and GitHub's terms rule out using Actions as a server's compute, 9.12) and two GitHub secrets; and which PG-13 words handles may use (beer, IPA, *420*?).
+16. **The Bonfire Lily:** Open only (recommended); or in the timed modes too (9.9).
+17. **Crew ghosts in the daily:** off by default (recommended); or on (9.11).
+18. **Easter eggs:** daily #104 with every Boy on the trail; par named *Jon's pace*; the Boyz setting the first ghosts, with their consent; the 1:04 wink. Any, all or none (9.9, 9.11).
+19. **The words:** the share card, par's name, the DNF card's lines, the handle prompt, the board's wording on a fallback day, the privacy note, and every (DRAFT) label in 9.9 to 9.12, 12.26 and 12.27.
+20. **A pacer, later?** The real FKT rules let a supported runner have a pacer who carries water and food, but decision 7 says no companions in v1, so supported runs use crew at support points only (9.11). Keep it that way (recommended), or make a pacer the one exception to decision 7 after v1, which would also change 7.11 and decision 7's summary?
+21. **The world board's honesty, before T4.** The engine and the day's dice are public, so a script could search a daily for its best valid time. Recommended, if you want a global time board: **server-held dice**, where the Worker deals each stop's roll as you play and records one attempt per device. Otherwise a **softer world board** of percentiles and *beat par* counts, with absolute times kept to crew boards (9.12).
+
+**From the minigames** (decisions 29 and 30; section 17; the reasoning is in `design/drafts/minigames.md`):
+
+1. **The one rule:** hands decide what hands control, dice decide the rest, and the button shows the whole range first (recommended, 17.2); or skill only ever sets inputs; or skill replaces the dice.
+2. **A ♦ that opens a minigame** shows its fatal share at the worst hands, marked *up to* (recommended); or the share at Auto (17.2).
+3. **Auto at par:** near the median of first-week players, then frozen, available to everyone and unmarked on boards (recommended, 17.3, E.12).
+4. **The live odds line** while you play: on (recommended) or off (17.2).
+5. **The bear can's order** always comes right, with no *Set aside* in v1, and repacking is free until *Start walking*, the daily included (recommended, 17.7).
+6. **Merges save 10%,** one bag instead of two wrappers (recommended); or merges save nothing: strictly honest, much less fun (17.7).
+7. **The can remembers** its contents through the trip from M1b (recommended); or you pack it once (17.7).
+8. **Photos earn no score** (recommended); and a photo-of-the-day board on overnight dailies: yes or not yet (17.8).
+9. **Alpenglow practice** only at the real dusk at Lake Quinault (recommended); or any time (17.5).
+10. **The film camera** hides its photos until the trip report (recommended, 17.8).
+11. **The cup is the park's quart,** and stepping into the meadow costs Leave No Trace −2 (recommended, 17.9).
+12. **A Larry option:** with the munchies (2.6), the berries go in your mouth and the cup never fills. In or out.
+13. **Self-arrest's death roll:** 20% for a slide into rocks, and its snow line under YOU PERISHED, which is yours to write (17.11).
+14. **The ice axe:** 6.7's flat +25 becomes self-belay +10 plus the arrest (recommended, 17.11).
+15. **Self-arrest's practice:** a one-time *Try a slide* on safe snow from M1b, and snow school with Jon from M2, when Jon and his glacier school arrive (recommended, 17.11).
+16. **The ford:** you choose a spot and play the footwork, with no practice anywhere (recommended, 17.12). At waist depth its ♦ can kill through 8.11's own death roll, which decision 30 didn't name (it named only self-arrest): keep it (recommended, 17), or cap the ford minigame at thigh depth so a waist-deep ford stays a plain roll.
+17. **Clams:** Kalaloch rare and Mocrocks the regular beach, from the clam gun on the shed (recommended). The regular dig is outside the park, which bends decision 30's *native to the ONP* and decision 29's *a real ONP activity*; the alternative is Kalaloch only, in its open years. And when: M1b or M4 (17.14, 17.16).
+18. **The tub after a winter night dig:** it breaks the "big hike" rule (2.2), but it is Jon's own ritual in your words. Yes or no (17.14).
+19. **A *Dig of the Day*** as a winter daily on real minus tides: yes or not yet (17.14).
+20. **Easter eggs, with the Boyz' consent:** Jon's line on a career's 104th clam; badge #104 catching the alpenglow in a porch photo; the permit number on a sticker on the can's lid in the share image. Any, all or none.
+21. **Haptics:** none (recommended); or the fragile iOS switch trick behind a setting (17.3).
+22. **The words:** the eight names, their cards, the result lines and every (DRAFT) in section 17.
+
+**From sound** (decisions 32 and 33; section 13; the reasoning is in `design/drafts/audio_text.md`):
+
+1. **The music's voice:** the chunky "cabin band" of synth voices, played from code (recommended, 13.2); CC0 instrument samples; or the strict one-voice PC speaker.
+2. **Music you carried in:** the harmonica and the ukulele at camp, the only music on the trail (recommended yes, 13.2).
+3. **The drive:** road, rain and wipers only (recommended); or a car radio (13.4).
+4. **The hush:** the world quiets with every red diamond, and never otherwise (recommended yes, 13.5).
+5. **Real jet noise** over the coast and the Hoh, as the UW study measured: not in M1a, and ask again at M2 (recommended, 13.5).
+6. **Honest stand-ins,** logged and credited: the hoary marmot, Rocky Mountain elk and the pine squirrel for the park's own (recommended yes, 13.9).
+7. **The Pacific wren:** synthesize it (recommended); or allow one CC BY recording with credit, which would bend decision 33's rule (13.9).
+8. **Listen batches** for the music and the key cues, optional to answer (recommended yes, 13.11).
+9. **Settings:** a Sound switch and a Music switch, nothing more (recommended, 13.11).
+10. **No human voices,** not even crowd murmur, and wildlife calls kept quiet in the mix (recommended, 13.1, 13.9).
+11. **One Square Inch of Silence** as an M2 easter egg on the Hoh River Trail: a Look, in your words, and the quietest mix (recommended yes, 13.5).
+12. **The lily motif:** the one band cue on the trail, five rising notes on the Bonfire Lily's plate (recommended, 13.2); or silence and the place only. Decision 32 named three key moments for music, and this would be a fourth.
+
+**From the text system** (decision 21; section 18):
+
+1. **Status from the ledger,** computed, never stored in the text files (recommended, 18.4).
+2. **Session 1's unapproved lines leave main in S2** (recommended, 18.11): a deletion adds no words, so main shows only your approved name, the cover and glyphs until B001 to B003 are answered; nothing is grandfathered. Or keep them on main, frozen, until they're answered.
+3. **Dev words exempt:** the hidden debug menu and the bug report's labels need no approval (recommended); or include them (18.2).
+4. **Batches** of 25 to 40 lines, at the end of each session (recommended, 18.7).
+5. **The review page:** a private claude.ai artifact with a copy-my-answers fallback (recommended, 18.8); or chat throughout.
+6. **A pool read as a set,** one tap after you've read every line (recommended yes, 18.9).
+7. **Sound replaces flavor-only lines** in the text pools, so there is less to read (recommended yes, 18.9).
+8. **The game's own number and date formats,** approved once as tokens, rather than the phone's (recommended, 18.3).
+9. **The line inspector** on preview: long press, copy for chat (recommended yes, 18.6).
+10. **Approved words may go to main** at any deploy, not only at promotions (recommended yes, 18.6).
+11. **When to send B001, the app's frame:** when you say the new frame is set; B002 and B003, the cabin's front door, follow in S7 (18.11).
+12. **Real terms and NWS text:** decision 21 carved out real place names and verbatim public-domain quotes. 18.2 also treats real-world terms (species, *the National Weather Service*, *FKT*, *Leave No Trace*, Apple's labels like *Add to Home Screen*) and NWS forecast text, shown verbatim, as needing no approval, while staying yours to veto: each new one appears in a batch's *not ours* tail. Recommended: no approval, vetoable; or approve each like your own lines.
+
+A release build won't ship with any of these placeholders left in, or with any line you haven't approved; preview builds show them, so you can see where your words will go (18.6, F.3).

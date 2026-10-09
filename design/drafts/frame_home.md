@@ -1,5 +1,7 @@
 # The new frame, home and screens
 
+> **Superseded where `GAME_DESIGN.md` differs** (2026-10-08). This draft keeps its reasoning and tables for reference; the design doc wins every disagreement, and decisions 21 to 35 now live in its *Decisions made* (`PENDING_DECISIONS.md` is retired). Retired terms here: *Storybook* is now the hidden `gentle` mode; *Begin a new book* is now *Plan a trip*, and the trip seed is drawn at a plan's first save; the clipboard and the shed's chalkboard are now the chalkboard by the steps (the Hike of the Day) and the peak (FKTs); the pacer is out of v1 (decision 7); the cover is loading art only; and Batch 1 is replaced by B001 to B003 (doc 18.11).
+
 *A draft for the creator, written 2026-10-08, for the new direction (decisions 21 to 34 in `design/PENDING_DECISIONS.md`, which override `GAME_DESIGN.md` wherever they disagree). Nothing here is decided until you say so.*
 
 *All the words in this draft are placeholders for yours (decision 21). That covers every word inside a wireframe, and every line marked (DRAFT). Real Port Angeles stores inspire the three shops. Their in-game names stay `{STORE_GENERAL}`, `{STORE_GEAR}` and `{STORE_BOUTIQUE}` until you name them. Jon appears by first name only, and the other Boyz as `{BOY_n}`. Numbers in the wireframes are illustrative unless a section of the design doc is cited.*

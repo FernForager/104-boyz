@@ -1,5 +1,7 @@
 # Sound, and every word yours
 
+> **Superseded where `GAME_DESIGN.md` differs** (2026-10-08). This draft keeps its reasoning and tables for reference; the design doc wins every disagreement, and decisions 21 to 35 now live in its *Decisions made* (`PENDING_DECISIONS.md` is retired). Retired terms here: *Storybook* is now the hidden `gentle` mode; *Begin a new book* is now *Plan a trip*, and the trip seed is drawn at a plan's first save; the clipboard and the shed's chalkboard are now the chalkboard by the steps (the Hike of the Day) and the peak (FKTs); the pacer is out of v1 (decision 7); the cover is loading art only; and Batch 1 is replaced by B001 to B003 (doc 18.11).
+
 *A draft for the creator, written 2026-10-08 for the new direction. It follows decisions 21 to 34 in `design/PENDING_DECISIONS.md`, which override `GAME_DESIGN.md` wherever they disagree. Nothing here is decided until you say so. The calls you need to make are collected in [section 26](#26-decisions-for-you).*
 
 *Every piece of in-game English in this file is a placeholder for your words (decision 21). Short lines are marked (DRAFT), and every wireframe and sample batch is a draft as a whole. The Boyz appear only as `{BOY_n}`, and Jon only by his first name. The other drafts own the frame and home (`frame_home.md`) and the modes (`daily_fkt.md`). This one owns what you hear, and how every word reaches you for approval.*
