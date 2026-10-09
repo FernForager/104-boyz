@@ -5330,7 +5330,8 @@
     "sol_duc_hot_springs_resort",
     "sol_duc_campground"
    ],
-   "game_effect": "none: an open status"
+   "game_effect": "none: an open status",
+   "effect": "open"
   },
   {
    "note": "Lake Crescent area open (Barnes Point, Marymere Falls and Moments in Time trailheads). Storm King Ranger Station closed for the season. Fairholme Campground closed. Lake Crescent lodge open.",
@@ -5344,7 +5345,8 @@
     "marymere_falls_trailhead",
     "barnes_point_lodge"
    ],
-   "game_effect": "none in M1a: an open status"
+   "game_effect": "none in M1a: an open status",
+   "effect": "open"
   },
   {
    "note": "Spruce Railroad Trail open from both trailheads (Lyre River/East Beach Road and North Shore Picnic Area/Camp David Jr. Road).",
@@ -5358,7 +5360,8 @@
     "spruce_railroad_lyre_river_trailhead",
     "spruce_railroad_camp_david_jr_trailhead"
    ],
-   "game_effect": "none in M1a: an open status"
+   "game_effect": "none in M1a: an open status",
+   "effect": "open"
   },
   {
    "note": "Stage 2 fire restrictions: all campfires prohibited parkwide since Aug 7, 2026; reaffirmed Aug 26, 2026. No lifting notice found as of Oct 7, 2026 (in past years bans lifted mid-September).",
@@ -5372,6 +5375,7 @@
     "all_wilderness_camps"
    ],
    "game_effect": "No campfires anywhere, below 3,500 ft included. The end date is the USFS order's; no NPS end was found, so the ban is treated as ended inside the park after Oct 1, and the ranger says so (GAME_DESIGN 4.6).",
+   "effect": "fire_ban",
    "moved_from": "six camp notes and the campfire_ban hazard's season and idea (2026-10-08)"
   },
   {
@@ -5385,7 +5389,8 @@
    "applies_to": [
     "sourdough_mountain_junction"
    ],
-   "game_effect": "none: an event, kept as history (no closures)"
+   "game_effect": "none: an event, kept as history (no closures)",
+   "effect": "history"
   },
   {
    "note": "US 101 Hoh River Bridge (south of Forks) full 24-hour closures Sept 24-29, Oct 1-6 and Oct 8-13, 2026 for emergency floor-beam repairs; detour about 4 hours via Hood Canal; single-lane alternating traffic between windows.",
@@ -5412,7 +5417,8 @@
    "applies_to": [
     "hoh_lake_trail_junction"
    ],
-   "game_effect": "On a window's dates, a Hoh-side exit or shuttle takes the 4-hour Hood Canal detour; between windows, single-lane traffic (hazard road_and_bridge_logistics)."
+   "game_effect": "On a window's dates, a Hoh-side exit or shuttle takes the 4-hour Hood Canal detour; between windows, single-lane traffic (hazard road_and_bridge_logistics).",
+   "effect": "news"
   },
   {
    "note": "Seven Lakes Basin/High Divide online reservation season ends Oct 15, 2026; Oct 7 snapshot showed Lunch Lake and Heart Lake with no group slots left for that night.",
@@ -5427,7 +5433,8 @@
     "heart_lake",
     "heart_lake_junction"
    ],
-   "game_effect": "For trips before Oct 15, 2026 only: Lunch Lake and Heart Lake full on the snapshot nights."
+   "game_effect": "For trips before Oct 15, 2026 only: Lunch Lake and Heart Lake full on the snapshot nights.",
+   "effect": "full_snapshot"
   },
   {
    "note": "High Divide loop trail reported in excellent condition through summer 2026 with almost no blowdown; no snow on the trail by mid-June 2026 (low-snow year).",
@@ -5441,6 +5448,7 @@
     "sol_duc_high_divide"
    ],
    "game_effect": "2026 is a low snow year (snow-free by mid-June). Applies to 2026 dates only; 2027 trips draw their snow year (7.6).",
+   "effect": "snow_year",
    "moved_from": "the snow_free_typical text of 34 segments and the snowfield_high_divide hazard's season (2026-10-08)"
   },
   {
@@ -5458,6 +5466,7 @@
     "sol_duc_falls->hidden_lake_junction"
    ],
    "game_effect": "Raises the blowdown hazard's weight on these segments, told as \"last we heard\" after the last-confirmed date (4.7). The Deer Lake Trail log has a hiker-made bypass on climber's left.",
+   "effect": "blowdown",
    "moved_from": "notes on segments sol_duc_falls->hidden_lake_junction and sol_duc_falls->sol_duc_river_1 (2026-10-08)"
   },
   {
@@ -5476,6 +5485,7 @@
     "washout"
    ],
    "game_effect": "A footing card on the stone staircase, told as \"last we heard\". It persists until the overlay is updated, because a slide stays until a crew fixes the tread.",
+   "effect": "hazard",
    "moved_from": "hazard lunch_lake_landslide and the notes and washout tag of segment seven_lakes_basin->round_lake_junction (2026-10-08)",
    "hazard_card": {
     "id": "lunch_lake_landslide",
@@ -5505,6 +5515,7 @@
     "hoh_lake"
    ],
    "game_effect": "Before Oct 15, 2026 only: the ranger mentions it, and Hoh Lake water needs treating (as always) or carrying in. Not applied to 2027 trips.",
+   "effect": "news",
    "moved_from": "hoh_lake camp.water and the hoh_lake_trail_heat hazard (2026-10-08)"
   },
   {
@@ -5518,7 +5529,8 @@
    "applies_to": [
     "appleton_pass"
    ],
-   "game_effect": "none: a past weather event, kept as evidence for late-September cold"
+   "game_effect": "none: a past weather event, kept as evidence for late-September cold",
+   "effect": "history"
   },
   {
    "note": "Rangers frequently checked permits and bear canisters on the loop in summer 2026 and asked campers without permits to leave.",
@@ -5531,7 +5543,8 @@
    "applies_to": [
     "sol_duc_high_divide"
    ],
-   "game_effect": "Evidence for m1a_play_inputs.ranger_presence (rangers patrol the loop and check permits and canisters)."
+   "game_effect": "Evidence for m1a_play_inputs.ranger_presence (rangers patrol the loop and check permits and canisters).",
+   "effect": "staffing"
   },
   {
    "note": "Bogachiel River Trail (beyond the Little Divide junction, Bogachiel region) severely overgrown with large new blowdowns between Fifteenmile and the ridge (June 2026).",
@@ -5544,7 +5557,8 @@
    "applies_to": [
     "little_divide"
    ],
-   "game_effect": "Outside M1a: brush and blowdown on the Bogachiel River Trail beyond the Little Divide."
+   "game_effect": "Outside M1a: brush and blowdown on the Bogachiel River Trail beyond the Little Divide.",
+   "effect": "blowdown"
   },
   {
    "note": "Over Appleton Pass on the Boulder Creek side (Elwha region): Olympic Hot Springs Road washed out (walk/bike from Madison Falls); a bridge above the upper Boulder Creek falls was damaged but passable in June 2026.",
@@ -5557,7 +5571,8 @@
    "applies_to": [
     "appleton_pass"
    ],
-   "game_effect": "Outside M1a: the Olympic Hot Springs Road walk from Madison Falls; the damaged bridge is passable."
+   "game_effect": "Outside M1a: the Olympic Hot Springs Road walk from Madison Falls; the damaged bridge is passable.",
+   "effect": "news"
   },
   {
    "note": "Port Angeles WIC open daily 9 AM-5 PM (bear canister loans); Quinault station closed for the season.",
@@ -5570,7 +5585,8 @@
    "applies_to": [
     "port_angeles_wic"
    ],
-   "game_effect": "WIC hours for the canister loan; summer hours are the default for 2027 trips."
+   "game_effect": "WIC hours for the canister loan; summer hours are the default for 2027 trips.",
+   "effect": "staffing"
   },
   {
    "note": "NPS Sol Duc brochure page: Eagle Ranger Station not regularly staffed (page dated April 2025; 2026 staffing unknown).",
@@ -5584,7 +5600,8 @@
    "applies_to": [
     "eagle_ranger_station"
    ],
-   "game_effect": "No ranger to ride out with at Eagle; told as \"last we heard\"."
+   "game_effect": "No ranger to ride out with at Eagle; told as \"last we heard\".",
+   "effect": "staffing"
   },
   {
    "note": "Spruce Railroad Trail was closed by rockfall near the Daley-Rankin Tunnel in December 2023 (pre-2025 info; superseded by the Oct 2026 open status).",
@@ -5597,7 +5614,8 @@
    "applies_to": [
     "spruce_railroad_lyre_river_trailhead"
    ],
-   "game_effect": "none: superseded by the open status"
+   "game_effect": "none: superseded by the open status",
+   "effect": "superseded"
   }
  ],
  "uncertain_claims": [
@@ -5705,6 +5723,7 @@
   "adds_hazards": "Hazard tags the entry adds to its segments while it applies.",
   "hazard_card": "A hazard that is itself dated news, moved here from hazards[].",
   "moved_from": "Permanent fields the news was taken out of, so it can't show on a 2027 trip (M1A_DATA_CHECK item 18).",
+  "effect": "The game's reading of game_effect, as one word (added 2026-10-09, BUILD_PLAN S4): open (an open status, no effect), fire_ban (no campfires while it applies), road_closure (the road is shut on the dates in windows, or from from to until), full_snapshot (camps full on a dated permit snapshot), hazard (adds_hazards to its segments while it applies, with its hazard_card), blowdown (raises the blowdown hazard's weight where it applies), snow_year (the year's snow), news (the ranger tells it; no rule changes), staffing (who is at a station or desk, and when), history (a past event, kept as evidence), superseded (replaced by a later entry). game_effect stays as the research's note.",
   "added": "2026-10-08"
  },
  "m1a_play_inputs": {

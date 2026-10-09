@@ -21,8 +21,9 @@ export function entry(words, batch = 'B009', line = 1) {
  * @param {Record<string, string>} [o.swap] preview's swap
  * @param {Record<string, string>} [o.allow] T07's allowlist
  * @param {Record<string, any>} [o.answers] batch -> answers file
+ * @param {{places?: Record<string, any>, not_places?: Record<string, any>, terms?: Record<string, any>}} [o.names] the gazetteer and the terms, by bare id (S4)
  */
-export function fakeText({ lines = {}, approved = {}, cut = {}, off = {}, screens = ['app', 'title'], mainScreens, swap, allow = {}, answers = {} } = {}) {
+export function fakeText({ lines = {}, approved = {}, cut = {}, off = {}, screens = ['app', 'title'], mainScreens, swap, allow = {}, answers = {}, names = {} } = {}) {
   const map = new Map();
   for (const [id, l] of Object.entries(lines)) {
     const area = id.split('.')[0];
@@ -42,6 +43,11 @@ export function fakeText({ lines = {}, approved = {}, cut = {}, off = {}, screen
     allow: { ids: allow },
     answers: new Map(Object.entries(answers).map(([b, data]) => [b, { file: `content/text/review/${b}.answers.json`, src: JSON.stringify(data, null, 1), data }])),
     problems: [],
+    names: {
+      places: new Map(Object.entries(names.places || {}).map(([id, x]) => [`place.${id}`, { ...x, id: `place.${id}`, file: 'content/text/names/places.json' }])),
+      notPlaces: new Map(Object.entries(names.not_places || {}).map(([id, x]) => [`place.${id}`, { ...x, id: `place.${id}`, file: 'content/text/names/places.json' }])),
+      terms: new Map(Object.entries(names.terms || {}).map(([id, x]) => [`term.${id}`, { ...x, id: `term.${id}`, file: 'content/text/names/terms.json' }])),
+    },
   };
 }
 

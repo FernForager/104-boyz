@@ -594,7 +594,8 @@ test("main's built page has data-screens=\"app debug title\" and never loads ui/
   const mainHtml = readOut('main', 'index.html');
   const previewHtml = readOut('preview', 'index.html');
   assert.equal(screensOf(mainHtml), 'app debug title');
-  assert.equal(screensOf(previewHtml), 'app debug guestbook title trail');
+  // S4: preview's screens gain the map (#map, ui/map.js; map.test.mjs checks its gate).
+  assert.equal(screensOf(previewHtml), 'app debug guestbook map title trail');
   assert.deepEqual(GAME_SCREENS, ['guestbook', 'trail']);
   assert.equal(opensGame(shell({ screens: 'app debug title' }).doc), false);
   assert.equal(opensGame(shell({ screens: 'app debug guestbook title' }).doc), false, 'both screens, or no game');

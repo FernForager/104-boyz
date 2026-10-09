@@ -115,8 +115,21 @@ test('preview carries the working words, Session 1 marked as drafts', () => {
   const m = JSON.parse(manifest);
   assert.deepEqual([m.name, m.short_name, m.description], ['OP Preview', 'OP Preview', 'A backpacking adventure']);
   const words = JSON.parse(read('text/en.json'));
-  assert.equal(Object.keys(words).length, 36);
-  assert.deepEqual(JSON.parse(read('text/marks.json')), {
+  // S4 (track B) adds the lockbox quiz's 50 drafts (content/text/en/first.json), which wait for S7's screen;
+  // S4 (track C) adds the map's 25 place names from the gazetteer (not ours) and dev.map.
+  assert.equal(Object.keys(words).length, 112);
+  const places = Object.keys(words).filter((k) => k.startsWith('place.'));
+  assert.equal(places.length, 25, 'the trailhead and the 24 camps the map labels');
+  assert.equal(words['place.lunch_lake'], 'Lunch Lake');
+  assert.equal(words['dev.map'], 'Map');
+  const lockbox = Object.keys(words).filter((k) => k.startsWith('first.lockbox.'));
+  assert.equal(lockbox.length, 50);
+  const marks = JSON.parse(read('text/marks.json'));
+  for (const k of lockbox) {
+    assert.equal(marks[k], 'draft', k);
+    delete marks[k];
+  }
+  assert.deepEqual(marks, {
     'alt.cover_high_divide_dusk': 'draft',
     'first.guestbook.one_life': 'draft',
     'first.guestbook.prompt': 'draft',

@@ -1,0 +1,7 @@
+{
+ "$comment": "Real-world terms a line carries (GAME_DESIGN 18.2; BUILD_PLAN 10.2, S4): species, NWS words and the like. Not ours, no approval, vetoable; each with its source. Terms arrive with the screens that show them: S4's are the two the lockbox's quiz names.",
+ "terms": {
+  "canada_jay": { "text": "Canada jay", "kind": "species", "source": "https://en.wikipedia.org/wiki/Canada_jay" },
+  "geoduck": { "text": "geoduck", "kind": "species", "source": "https://en.wikipedia.org/wiki/Geoduck" }
+ }
+}

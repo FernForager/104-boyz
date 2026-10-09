@@ -1,5 +1,305 @@
 {
- "$comment": "A new hiker's first screens (GAME_DESIGN 3.6, 12.4): the guest book, plain in S3; S7 puts it on the cabin's porch table, after the lockbox. Drafts until B003 is answered; preview only.",
+ "$comment": "A new hiker's first screens (GAME_DESIGN 3.6, 2.6, 12.3, 12.4): the lockbox's locals' quiz (S4 drafts its 50 lines with content/quiz/locals.json: the twelve questions and their answers verbatim from design/data/quiz_locals.json, and the two replies from GAME_DESIGN 2.6; they wait for the lockbox screen, S7) and the guest book, plain in S3; S7 puts it on the cabin's porch table, after the lockbox. Drafts until B003 is answered; preview only.",
+ "first.lockbox.q_sequim.ask": {
+  "text": "How do you say SEQUIM?",
+  "ctx": "The lockbox's quiz, question 1 of the pool of twelve (three are dealt): one screen, the question above three answer buttons (GAME_DESIGN 2.6, 12.3). Words from quiz_locals.json, verbatim; source: Wikipedia",
+  "screen": "lockbox",
+  "max": 60
+ },
+ "first.lockbox.q_sequim.a0": {
+  "text": "See-kwim",
+  "ctx": "The lockbox's quiz: answer 1 of 3 to \"How do you say SEQUIM?\", a button; a wrong one (quiz_locals.json, verbatim; F.3's 22-character choice cap)",
+  "screen": "lockbox",
+  "max": 22
+ },
+ "first.lockbox.q_sequim.a1": {
+  "text": "Skwim",
+  "ctx": "The lockbox's quiz: answer 2 of 3 to \"How do you say SEQUIM?\", a button; the right one (quiz_locals.json, verbatim; F.3's 22-character choice cap)",
+  "screen": "lockbox",
+  "max": 22
+ },
+ "first.lockbox.q_sequim.a2": {
+  "text": "Seh-kwim",
+  "ctx": "The lockbox's quiz: answer 3 of 3 to \"How do you say SEQUIM?\", a button; a wrong one (quiz_locals.json, verbatim; F.3's 22-character choice cap)",
+  "screen": "lockbox",
+  "max": 22
+ },
+ "first.lockbox.q_sunny_sequim.ask": {
+  "text": "Why do locals call it Sunny Sequim?",
+  "ctx": "The lockbox's quiz, question 2 of the pool of twelve (three are dealt): one screen, the question above three answer buttons (GAME_DESIGN 2.6, 12.3). Words from quiz_locals.json, verbatim; source: Wikipedia",
+  "screen": "lockbox",
+  "max": 60
+ },
+ "first.lockbox.q_sunny_sequim.a0": {
+  "text": "The rain shadow",
+  "ctx": "The lockbox's quiz: answer 1 of 3 to \"Why do locals call it Sunny Sequim?\", a button; the right one (quiz_locals.json, verbatim; F.3's 22-character choice cap)",
+  "screen": "lockbox",
+  "max": 22
+ },
+ "first.lockbox.q_sunny_sequim.a1": {
+  "text": "It faces south",
+  "ctx": "The lockbox's quiz: answer 2 of 3 to \"Why do locals call it Sunny Sequim?\", a button; a wrong one (quiz_locals.json, verbatim; F.3's 22-character choice cap)",
+  "screen": "lockbox",
+  "max": 22
+ },
+ "first.lockbox.q_sunny_sequim.a2": {
+  "text": "A joke: it pours",
+  "ctx": "The lockbox's quiz: answer 3 of 3 to \"Why do locals call it Sunny Sequim?\", a button; a wrong one (quiz_locals.json, verbatim; F.3's 22-character choice cap)",
+  "screen": "lockbox",
+  "max": 22
+ },
+ "first.lockbox.q_sunbreak.ask": {
+  "text": "What is a SUNBREAK?",
+  "ctx": "The lockbox's quiz, question 3 of the pool of twelve (three are dealt): one screen, the question above three answer buttons (GAME_DESIGN 2.6, 12.3). Words from quiz_locals.json, verbatim; source: Wikipedia",
+  "screen": "lockbox",
+  "max": 60
+ },
+ "first.lockbox.q_sunbreak.a0": {
+  "text": "A day off for sun",
+  "ctx": "The lockbox's quiz: answer 1 of 3 to \"What is a SUNBREAK?\", a button; a wrong one (quiz_locals.json, verbatim; F.3's 22-character choice cap)",
+  "screen": "lockbox",
+  "max": 22
+ },
+ "first.lockbox.q_sunbreak.a1": {
+  "text": "Sun between showers",
+  "ctx": "The lockbox's quiz: answer 2 of 3 to \"What is a SUNBREAK?\", a button; the right one (quiz_locals.json, verbatim; F.3's 22-character choice cap)",
+  "screen": "lockbox",
+  "max": 22
+ },
+ "first.lockbox.q_sunbreak.a2": {
+  "text": "Summer's first sun",
+  "ctx": "The lockbox's quiz: answer 3 of 3 to \"What is a SUNBREAK?\", a button; a wrong one (quiz_locals.json, verbatim; F.3's 22-character choice cap)",
+  "screen": "lockbox",
+  "max": 22
+ },
+ "first.lockbox.q_hoh.ask": {
+  "text": "HOH, as in the rain forest, rhymes with:",
+  "ctx": "The lockbox's quiz, question 4 of the pool of twelve (three are dealt): one screen, the question above three answer buttons (GAME_DESIGN 2.6, 12.3). Words from quiz_locals.json, verbatim; source: NPS",
+  "screen": "lockbox",
+  "max": 60
+ },
+ "first.lockbox.q_hoh.a0": {
+  "text": "Go",
+  "ctx": "The lockbox's quiz: answer 1 of 3 to \"HOH, as in the rain forest, rhymes with:\", a button; the right one (quiz_locals.json, verbatim; F.3's 22-character choice cap)",
+  "screen": "lockbox",
+  "max": 22
+ },
+ "first.lockbox.q_hoh.a1": {
+  "text": "Cow",
+  "ctx": "The lockbox's quiz: answer 2 of 3 to \"HOH, as in the rain forest, rhymes with:\", a button; a wrong one (quiz_locals.json, verbatim; F.3's 22-character choice cap)",
+  "screen": "lockbox",
+  "max": 22
+ },
+ "first.lockbox.q_hoh.a2": {
+  "text": "Hah",
+  "ctx": "The lockbox's quiz: answer 3 of 3 to \"HOH, as in the rain forest, rhymes with:\", a button; a wrong one (quiz_locals.json, verbatim; F.3's 22-character choice cap)",
+  "screen": "lockbox",
+  "max": 22
+ },
+ "first.lockbox.q_camp_robber.ask": {
+  "text": "What do hikers call a Canada jay?",
+  "ctx": "The lockbox's quiz, question 5 of the pool of twelve (three are dealt): one screen, the question above three answer buttons (GAME_DESIGN 2.6, 12.3). Words from quiz_locals.json, verbatim; source: Wikipedia",
+  "screen": "lockbox",
+  "max": 60
+ },
+ "first.lockbox.q_camp_robber.a0": {
+  "text": "A trail chicken",
+  "ctx": "The lockbox's quiz: answer 1 of 3 to \"What do hikers call a Canada jay?\", a button; a wrong one (quiz_locals.json, verbatim; F.3's 22-character choice cap)",
+  "screen": "lockbox",
+  "max": 22
+ },
+ "first.lockbox.q_camp_robber.a1": {
+  "text": "A camp robber",
+  "ctx": "The lockbox's quiz: answer 2 of 3 to \"What do hikers call a Canada jay?\", a button; the right one (quiz_locals.json, verbatim; F.3's 22-character choice cap)",
+  "screen": "lockbox",
+  "max": 22
+ },
+ "first.lockbox.q_camp_robber.a2": {
+  "text": "A blue bandit",
+  "ctx": "The lockbox's quiz: answer 3 of 3 to \"What do hikers call a Canada jay?\", a button; a wrong one (quiz_locals.json, verbatim; F.3's 22-character choice cap)",
+  "screen": "lockbox",
+  "max": 22
+ },
+ "first.lockbox.q_puyallup.ask": {
+  "text": "How do you say PUYALLUP?",
+  "ctx": "The lockbox's quiz, question 6 of the pool of twelve (three are dealt): one screen, the question above three answer buttons (GAME_DESIGN 2.6, 12.3). Words from quiz_locals.json, verbatim; source: Wikipedia",
+  "screen": "lockbox",
+  "max": 60
+ },
+ "first.lockbox.q_puyallup.a0": {
+  "text": "Poy-uh-lup",
+  "ctx": "The lockbox's quiz: answer 1 of 3 to \"How do you say PUYALLUP?\", a button; a wrong one (quiz_locals.json, verbatim; F.3's 22-character choice cap)",
+  "screen": "lockbox",
+  "max": 22
+ },
+ "first.lockbox.q_puyallup.a1": {
+  "text": "Pew-AL-up",
+  "ctx": "The lockbox's quiz: answer 2 of 3 to \"How do you say PUYALLUP?\", a button; the right one (quiz_locals.json, verbatim; F.3's 22-character choice cap)",
+  "screen": "lockbox",
+  "max": 22
+ },
+ "first.lockbox.q_puyallup.a2": {
+  "text": "Pooh-YA-lup",
+  "ctx": "The lockbox's quiz: answer 3 of 3 to \"How do you say PUYALLUP?\", a button; a wrong one (quiz_locals.json, verbatim; F.3's 22-character choice cap)",
+  "screen": "lockbox",
+  "max": 22
+ },
+ "first.lockbox.q_geoduck.ask": {
+  "text": "A GEODUCK is:",
+  "ctx": "The lockbox's quiz, question 7 of the pool of twelve (three are dealt): one screen, the question above three answer buttons (GAME_DESIGN 2.6, 12.3). Words from quiz_locals.json, verbatim; source: Wikipedia",
+  "screen": "lockbox",
+  "max": 60
+ },
+ "first.lockbox.q_geoduck.a0": {
+  "text": "A coast-only duck",
+  "ctx": "The lockbox's quiz: answer 1 of 3 to \"A GEODUCK is:\", a button; a wrong one (quiz_locals.json, verbatim; F.3's 22-character choice cap)",
+  "screen": "lockbox",
+  "max": 22
+ },
+ "first.lockbox.q_geoduck.a1": {
+  "text": "A very large clam",
+  "ctx": "The lockbox's quiz: answer 2 of 3 to \"A GEODUCK is:\", a button; the right one (quiz_locals.json, verbatim; F.3's 22-character choice cap)",
+  "screen": "lockbox",
+  "max": 22
+ },
+ "first.lockbox.q_geoduck.a2": {
+  "text": "A rock formation",
+  "ctx": "The lockbox's quiz: answer 3 of 3 to \"A GEODUCK is:\", a button; a wrong one (quiz_locals.json, verbatim; F.3's 22-character choice cap)",
+  "screen": "lockbox",
+  "max": 22
+ },
+ "first.lockbox.q_mountain_out.ask": {
+  "text": "\"The mountain is out\" means:",
+  "ctx": "The lockbox's quiz, question 8 of the pool of twelve (three are dealt): one screen, the question above three answer buttons (GAME_DESIGN 2.6, 12.3). Words from quiz_locals.json, verbatim; source: NASA Earth Observatory",
+  "screen": "lockbox",
+  "max": 60
+ },
+ "first.lockbox.q_mountain_out.a0": {
+  "text": "Rainier is visible",
+  "ctx": "The lockbox's quiz: answer 1 of 3 to \"\"The mountain is out\" means:\", a button; the right one (quiz_locals.json, verbatim; F.3's 22-character choice cap)",
+  "screen": "lockbox",
+  "max": 22
+ },
+ "first.lockbox.q_mountain_out.a1": {
+  "text": "A volcano warning",
+  "ctx": "The lockbox's quiz: answer 2 of 3 to \"\"The mountain is out\" means:\", a button; a wrong one (quiz_locals.json, verbatim; F.3's 22-character choice cap)",
+  "screen": "lockbox",
+  "max": 22
+ },
+ "first.lockbox.q_mountain_out.a2": {
+  "text": "The trails are open",
+  "ctx": "The lockbox's quiz: answer 3 of 3 to \"\"The mountain is out\" means:\", a button; a wrong one (quiz_locals.json, verbatim; F.3's 22-character choice cap)",
+  "screen": "lockbox",
+  "max": 22
+ },
+ "first.lockbox.q_dosewallips.ask": {
+  "text": "How do you say DOSEWALLIPS?",
+  "ctx": "The lockbox's quiz, question 9 of the pool of twelve (three are dealt): one screen, the question above three answer buttons (GAME_DESIGN 2.6, 12.3). Words from quiz_locals.json, verbatim; source: Wikipedia",
+  "screen": "lockbox",
+  "max": 60
+ },
+ "first.lockbox.q_dosewallips.a0": {
+  "text": "DOSE-wal-lips",
+  "ctx": "The lockbox's quiz: answer 1 of 3 to \"How do you say DOSEWALLIPS?\", a button; a wrong one (quiz_locals.json, verbatim; F.3's 22-character choice cap)",
+  "screen": "lockbox",
+  "max": 22
+ },
+ "first.lockbox.q_dosewallips.a1": {
+  "text": "Doh-see-WAW-lips",
+  "ctx": "The lockbox's quiz: answer 2 of 3 to \"How do you say DOSEWALLIPS?\", a button; the right one (quiz_locals.json, verbatim; F.3's 22-character choice cap)",
+  "screen": "lockbox",
+  "max": 22
+ },
+ "first.lockbox.q_dosewallips.a2": {
+  "text": "Doze-WALL-ups",
+  "ctx": "The lockbox's quiz: answer 3 of 3 to \"How do you say DOSEWALLIPS?\", a button; a wrong one (quiz_locals.json, verbatim; F.3's 22-character choice cap)",
+  "screen": "lockbox",
+  "max": 22
+ },
+ "first.lockbox.q_rain_forest.ask": {
+  "text": "Which valley is NOT one of Olympic's rain forests?",
+  "ctx": "The lockbox's quiz, question 10 of the pool of twelve (three are dealt): one screen, the question above three answer buttons (GAME_DESIGN 2.6, 12.3). Words from quiz_locals.json, verbatim; source: NPS",
+  "screen": "lockbox",
+  "max": 60
+ },
+ "first.lockbox.q_rain_forest.a0": {
+  "text": "The Hoh",
+  "ctx": "The lockbox's quiz: answer 1 of 3 to \"Which valley is NOT one of Olympic's rain forests?\", a button; a wrong one (quiz_locals.json, verbatim; F.3's 22-character choice cap)",
+  "screen": "lockbox",
+  "max": 22
+ },
+ "first.lockbox.q_rain_forest.a1": {
+  "text": "The Queets",
+  "ctx": "The lockbox's quiz: answer 2 of 3 to \"Which valley is NOT one of Olympic's rain forests?\", a button; a wrong one (quiz_locals.json, verbatim; F.3's 22-character choice cap)",
+  "screen": "lockbox",
+  "max": 22
+ },
+ "first.lockbox.q_rain_forest.a2": {
+  "text": "The Elwha",
+  "ctx": "The lockbox's quiz: answer 3 of 3 to \"Which valley is NOT one of Olympic's rain forests?\", a button; the right one (quiz_locals.json, verbatim; F.3's 22-character choice cap)",
+  "screen": "lockbox",
+  "max": 22
+ },
+ "first.lockbox.q_jojos.ask": {
+  "text": "You order JOJOS. What arrives?",
+  "ctx": "The lockbox's quiz, question 11 of the pool of twelve (three are dealt): one screen, the question above three answer buttons (GAME_DESIGN 2.6, 12.3). Words from quiz_locals.json, verbatim; source: Wikipedia",
+  "screen": "lockbox",
+  "max": 60
+ },
+ "first.lockbox.q_jojos.a0": {
+  "text": "Potato wedges",
+  "ctx": "The lockbox's quiz: answer 1 of 3 to \"You order JOJOS. What arrives?\", a button; the right one (quiz_locals.json, verbatim; F.3's 22-character choice cap)",
+  "screen": "lockbox",
+  "max": 22
+ },
+ "first.lockbox.q_jojos.a1": {
+  "text": "Donut holes",
+  "ctx": "The lockbox's quiz: answer 2 of 3 to \"You order JOJOS. What arrives?\", a button; a wrong one (quiz_locals.json, verbatim; F.3's 22-character choice cap)",
+  "screen": "lockbox",
+  "max": 22
+ },
+ "first.lockbox.q_jojos.a2": {
+  "text": "Clam fritters",
+  "ctx": "The lockbox's quiz: answer 3 of 3 to \"You order JOJOS. What arrives?\", a button; a wrong one (quiz_locals.json, verbatim; F.3's 22-character choice cap)",
+  "screen": "lockbox",
+  "max": 22
+ },
+ "first.lockbox.q_potato_bug.ask": {
+  "text": "What's a POTATO BUG?",
+  "ctx": "The lockbox's quiz, question 12 of the pool of twelve (three are dealt): one screen, the question above three answer buttons (GAME_DESIGN 2.6, 12.3). Words from quiz_locals.json, verbatim; source: Wikipedia",
+  "screen": "lockbox",
+  "max": 60
+ },
+ "first.lockbox.q_potato_bug.a0": {
+  "text": "A potato beetle",
+  "ctx": "The lockbox's quiz: answer 1 of 3 to \"What's a POTATO BUG?\", a button; a wrong one (quiz_locals.json, verbatim; F.3's 22-character choice cap)",
+  "screen": "lockbox",
+  "max": 22
+ },
+ "first.lockbox.q_potato_bug.a1": {
+  "text": "A woodlouse",
+  "ctx": "The lockbox's quiz: answer 2 of 3 to \"What's a POTATO BUG?\", a button; the right one (quiz_locals.json, verbatim; F.3's 22-character choice cap)",
+  "screen": "lockbox",
+  "max": 22
+ },
+ "first.lockbox.q_potato_bug.a2": {
+  "text": "A slug",
+  "ctx": "The lockbox's quiz: answer 3 of 3 to \"What's a POTATO BUG?\", a button; a wrong one (quiz_locals.json, verbatim; F.3's 22-character choice cap)",
+  "screen": "lockbox",
+  "max": 22
+ },
+ "first.lockbox.right": {
+  "text": "Welcome home.",
+  "ctx": "The lockbox: the reply to a right answer (GAME_DESIGN 2.6, E.5, verbatim)",
+  "screen": "lockbox",
+  "max": 40
+ },
+ "first.lockbox.wrong": {
+  "text": "Nice try, tourist.",
+  "ctx": "The lockbox: the reply to a wrong answer; everyone gets in anyway (GAME_DESIGN 2.6, E.5, verbatim)",
+  "screen": "lockbox",
+  "max": 40
+ },
  "first.guestbook.prompt": {
   "text": "Sign the guest book.",
   "ctx": "A new hiker's first screen: the box above the name field, and the field's name for VoiceOver (plain in S3; on the cabin's porch table from S7)",

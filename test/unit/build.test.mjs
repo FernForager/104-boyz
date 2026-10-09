@@ -2,10 +2,11 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { inflateSync } from 'node:zlib';
-import { cpSync, mkdtempSync, mkdirSync, readFileSync, readdirSync, rmSync, statSync, writeFileSync } from 'node:fs';
+import { cpSync, existsSync, mkdtempSync, mkdirSync, readFileSync, readdirSync, rmSync, statSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join, relative, sep } from 'node:path';
-import { compileArt, makeIcons, buildInfo, build, buildAll, checkSize, stampWorker, precachePaths, makeData, ICONS, MAX_BYTES, SW_STAMP } from '../../tools/build.mjs';
+import { compileArt, makeIcons, buildInfo, build, buildAll, checkSize, stampWorker, precachePaths, makeData, ingestGate, ICONS, MAX_BYTES, SW_STAMP } from '../../tools/build.mjs';
+import { listFiles, INPUTS, TOOLS } from '../../tools/ingest.mjs';
 import { ROOT } from '../../tools/pics.mjs';
 import { readText, channelScreens } from '../../tools/text.mjs';
 import { rulesHash } from '../../tools/rules.mjs';
@@ -234,9 +235,12 @@ test("the data step: each channel's rules.json is canonical and scoped to its sc
     assert.equal(rulesSrc, `${canon(rules)}\n`, 'canonical JSON and a final newline');
     assert.equal(rules.format, 1);
     assert.equal(voice.format, 1);
-    assert.deepEqual(Object.keys(rules), ['format', 'plans', 'profile', 'standard', 'stops']);
-    assert.ok(!rulesSrc.includes('trail.'), 'no line id in the outcome data (call 1)');
     const screens = channelScreens(text, channel);
+    // S4: main's rules keys are exactly S3's; preview adds the park when its screens include the map.
+    assert.deepEqual(Object.keys(rules), channel === 'preview' && screens.includes('map') ? ['format', 'park', 'plans', 'profile', 'standard', 'stops'] : ['format', 'plans', 'profile', 'standard', 'stops']);
+    assert.equal(readdirSync(join(out, 'data')).includes('map.json'), channel === 'preview' && screens.includes('map'), 'data/map.json exactly when the channel has the map');
+    if (channel === 'main') assert.deepEqual(Object.keys(rules), ['format', 'plans', 'profile', 'standard', 'stops'], "main's keys don't move");
+    assert.ok(!rulesSrc.includes('trail.'), 'no line id in the outcome data (call 1)');
     assert.deepEqual(Object.keys(rules.plans), screens.includes('trail') ? ['sample'] : [], `${channel}: the sample plan exactly when the channel has the trail screen`);
     assert.deepEqual(Object.keys(rules.stops), Object.keys(voice.stops));
     if (channel === 'main') {
@@ -276,4 +280,110 @@ test('the data step on a preview whose scope has the trail screen carries the sa
   const stopsFile = join(root, 'content', 'stops', 'sol_duc_trailhead.json');
   writeFileSync(stopsFile, readFileSync(stopsFile, 'utf8').replace('"next": "trail_mouth"', '"next": "nowhere"'));
   assert.throws(() => makeData({ root, channel: 'preview' }), /content\/stops\/sol_duc_trailhead\.json:8: R01 stop "lot": next "nowhere" is not a stop in set "sol_duc_trailhead"/);
+});
+
+/** A copy of the repo whose preview has the map, with a gazetteer stub for the labels a test copy lacks. */
+function mapTree(t) {
+  const root = mkdtempSync(join(tmpdir(), 'oph-data-map-'));
+  t.after(() => rmSync(root, { recursive: true, force: true }));
+  for (const d of ['web', 'config', 'content', 'schemas']) cpSync(join(ROOT, d), join(root, d), { recursive: true });
+  const scopeFile = join(root, 'content', 'scope', 'm1a.json');
+  const scope = JSON.parse(readFileSync(scopeFile, 'utf8'));
+  scope.screens = [...new Set([...scope.screens, 'map'])].sort();
+  writeFileSync(scopeFile, JSON.stringify(scope, null, 1));
+  const gaz = join(root, 'content', 'text', 'names', 'places.json');
+  const have = existsSync(gaz) ? JSON.parse(readFileSync(gaz, 'utf8')) : { places: {}, not_places: {} };
+  for (const id of ['sol_duc_trailhead', ...scope.park.camps, ...scope.park.desk]) have.places[id] = have.places[id] || { text: id, kind: 'camp', region: 'sol_duc_high_divide', source: 'https://www.nps.gov/olym/' };
+  mkdirSync(join(root, 'content', 'text', 'names'), { recursive: true });
+  writeFileSync(gaz, JSON.stringify(have, null, 1));
+  return { root, scope };
+}
+
+test('the data step with the map screen (S4): preview carries rules.park and data/map.json; main carries neither', (t) => {
+  const { root, scope } = mapTree(t);
+  const preview = makeData({ root, channel: 'preview' });
+  assert.deepEqual(Object.keys(preview.rules), ['format', 'park', 'plans', 'profile', 'standard', 'stops']);
+  assert.deepEqual(Object.keys(preview.files).sort(), ['map.json', 'rules.json', 'voice.json']);
+  const park = preview.rules.park;
+  assert.equal(Object.keys(park.nodes).length, 47);
+  assert.equal(Object.keys(park.segs).length, 44);
+  assert.ok(!preview.files['rules.json'].includes('map_xy') && !preview.files['rules.json'].includes('place.'), 'display data stays out of the rules');
+  const map = JSON.parse(preview.files['map.json']);
+  assert.equal(preview.files['map.json'], `${canon(map)}\n`);
+  assert.equal(map.format, 1);
+  assert.deepEqual(map.bounds, [1, 0, 58, 53]);
+  const labelled = Object.entries(map.nodes).filter(([, n]) => n.label);
+  assert.equal(labelled.length, 25, 'the trailhead and the 24 camps');
+  assert.deepEqual(labelled.map(([id]) => id).sort(), ['sol_duc_trailhead', ...scope.park.camps, ...scope.park.desk].sort());
+  for (const [id, n] of labelled) assert.equal(n.label, `place.${id}`);
+  const kinds = {};
+  for (const n of Object.values(map.nodes)) kinds[n.kind] = (kinds[n.kind] || 0) + 1;
+  assert.deepEqual(kinds, { camp: 21, desk: 3, group: 3, junction: 11, lake: 6, peak: 1, trailhead: 1 });
+  assert.ok(!map.nodes.lake_8, 'a footnote with no position is not drawn');
+  assert.equal(Object.keys(map.segs).length, 49);
+  assert.equal(Object.values(map.segs).filter((x) => x.map_only).length, 5);
+  const main = makeData({ root, channel: 'main' });
+  assert.deepEqual(Object.keys(main.rules), ['format', 'plans', 'profile', 'standard', 'stops']);
+  assert.deepEqual(Object.keys(main.files).sort(), ['rules.json', 'voice.json'], 'main gets no data/map.json');
+  // A label the gazetteer lacks fails the build (T16).
+  const gaz = join(root, 'content', 'text', 'names', 'places.json');
+  const g = JSON.parse(readFileSync(gaz, 'utf8'));
+  delete g.places.lunch_lake;
+  writeFileSync(gaz, JSON.stringify(g, null, 1));
+  assert.throws(() => makeData({ root, channel: 'preview' }), /the map's labels must be places in the gazetteer .*place\.lunch_lake/);
+});
+
+/** Main's words as S3 shipped them: the 13 app lines and the six dev lines its menu shows. */
+const MAIN_S3_IDS = ['app.build', 'app.description', 'app.error.copy', 'app.error.line', 'app.error.reopen', 'app.install', 'app.name', 'app.offline', 'app.preview_name', 'app.short_name', 'app.update', 'app.update.restart', 'app.upright', 'dev.check.differs', 'dev.check.match', 'dev.check.running', 'dev.close', 'dev.note', 'dev.throw'];
+
+test("main stays put in S4: its screens, its words, its data and its files; the map is preview's (SPEC C2)", (t) => {
+  const tmp = mkdtempSync(join(tmpdir(), 'oph-main-s4-'));
+  t.after(() => rmSync(tmp, { recursive: true, force: true }));
+  const out = {};
+  for (const channel of ['main', 'preview']) {
+    out[channel] = join(tmp, channel);
+    build({ out: out[channel], channel, quiet: true });
+  }
+  const read = (channel, f) => readFileSync(join(out[channel], f), 'utf8');
+  const screens = (channel) => /<html[^>]*\sdata-screens="([^"]*)"/.exec(read(channel, 'index.html'))[1];
+  assert.equal(screens('main'), 'app debug title');
+  assert.equal(screens('preview'), 'app debug guestbook map title trail');
+  // Main's words: S3's ids exactly, each approved line in the ledger's words.
+  const words = JSON.parse(read('main', 'text/en.json'));
+  assert.deepEqual(Object.keys(words).sort(), MAIN_S3_IDS);
+  assert.ok(!Object.keys(words).some((k) => /^(?:place|term|first\.lockbox)\./.test(k) || k === 'dev.map'), 'no place, term, quiz or map words');
+  const ledger = JSON.parse(readFileSync(join(ROOT, 'content', 'text', 'approved.json'), 'utf8')).lines;
+  for (const [id, w] of Object.entries(words)) if (ledger[id]) assert.equal(w, ledger[id].text, `${id}: the approved words`);
+  assert.ok(!existsSync(join(out.main, 'text', 'marks.json')), 'main marks nothing');
+  // Main's data: S3's two files and keys; no map.
+  assert.deepEqual(readdirSync(join(out.main, 'data')).sort(), ['rules.json', 'voice.json']);
+  assert.deepEqual(Object.keys(JSON.parse(read('main', 'data/rules.json'))), ['format', 'plans', 'profile', 'standard', 'stops']);
+  assert.deepEqual(readdirSync(join(out.preview, 'data')).sort(), ['map.json', 'rules.json', 'voice.json']);
+  // Main's files: the same as preview's but for the map's data and preview's marks; the map's module ships on both (web/ is copied as is) and main never imports it (map.test.mjs).
+  const files = (channel) => Object.keys(snapshot(out[channel]));
+  assert.deepEqual(files('preview').filter((f) => !files('main').includes(f)), ['data/map.json', 'text/marks.json']);
+  assert.deepEqual(files('main').filter((f) => !files('preview').includes(f)), []);
+  assert.ok(files('main').includes('js/ui/map.js'));
+});
+
+test("the build's step 0: generated content that doesn't match its lock is refused (run npm run ingest)", (t) => {
+  assert.deepEqual(ingestGate(ROOT), { checked: true }, 'the repo holds its lock');
+  const root = mkdtempSync(join(tmpdir(), 'oph-gate-'));
+  t.after(() => rmSync(root, { recursive: true, force: true }));
+  for (const d of ['web', 'config', 'content', 'schemas']) cpSync(join(ROOT, d), join(root, d), { recursive: true });
+  assert.deepEqual(ingestGate(root), { checked: false }, 'a copy without the research skips the check');
+  for (const f of [...listFiles(ROOT, INPUTS), ...listFiles(ROOT, TOOLS)]) {
+    mkdirSync(join(root, f, '..'), { recursive: true });
+    cpSync(join(ROOT, f), join(root, f));
+  }
+  assert.deepEqual(ingestGate(root), { checked: true });
+  const region = join(root, 'content', 'park', 'regions', 'sol_duc_high_divide.json');
+  writeFileSync(region, readFileSync(region, 'utf8').replace('"elev_ft": 4450', '"elev_ft": 4451'));
+  assert.throws(() => ingestGate(root), /out of date \(run npm run ingest\):\n {2}content\/park\/regions\/sol_duc_high_divide\.json was edited/);
+  const gha = process.env.GITHUB_ACTIONS;
+  delete process.env.GITHUB_ACTIONS;
+  t.after(() => {
+    if (gha !== undefined) process.env.GITHUB_ACTIONS = gha;
+  });
+  assert.throws(() => build({ root, channel: 'main', out: join(root, 'dist', 'main'), quiet: true }), /run npm run ingest/);
 });

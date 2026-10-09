@@ -1,0 +1,27 @@
+{
+ "$comment": "content/park/vocab/zones.json: GAME_DESIGN 7.5's weather zones, the elevation bands, and each region's low and high zone (BUILD_PLAN S4).",
+ "type": "object",
+ "required": ["zones", "bands", "regions", "cabin"],
+ "additionalProperties": false,
+ "properties": {
+  "$comment": { "type": "string" },
+  "zones": { "type": "array", "items": { "$ref": "#/$defs/zone" } },
+  "bands": {
+   "type": "object",
+   "required": ["high_ft", "alpine_ft"],
+   "additionalProperties": false,
+   "properties": { "high_ft": { "type": "integer", "minimum": 0 }, "alpine_ft": { "type": "integer", "minimum": 0 } }
+  },
+  "regions": {
+   "type": "object",
+   "additionalProperties": {
+    "type": "object",
+    "required": ["low", "high", "doc"],
+    "additionalProperties": false,
+    "properties": { "low": { "$ref": "#/$defs/zone" }, "high": { "$ref": "#/$defs/zone" }, "provisional": { "const": true }, "doc": { "type": "string", "minLength": 1 } }
+   }
+  },
+  "cabin": { "$ref": "#/$defs/zone" }
+ },
+ "$defs": { "zone": { "enum": ["coast", "west_valleys", "north_mid", "high", "east_high", "alpine"] } }
+}

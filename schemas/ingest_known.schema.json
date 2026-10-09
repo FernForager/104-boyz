@@ -1,0 +1,11 @@
+{
+ "$comment": "content/park/ingest_known.json: acknowledged ingest (IG) and graph-lint (G) warnings, keyed \"<code>:<where>\" (a trailing * covers every where it begins), each with its why: a doc reference and the milestone that fixes it (BUILD_PLAN S4). A key that acknowledges nothing is a stale warning in ingest or the lint.",
+ "type": "object",
+ "properties": { "$comment": { "type": "string" } },
+ "additionalProperties": {
+  "type": "object",
+  "required": ["why"],
+  "additionalProperties": false,
+  "properties": { "why": { "type": "string", "minLength": 10 } }
+ }
+}

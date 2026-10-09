@@ -2,8 +2,10 @@
 // 2.5, 2.8). Five quick taps on the build stamp, or ?debug=1 at launch, open
 // it; nothing marks it, and it lasts until reload. It shows the bug report
 // exactly as it would be copied, a note field that rides in the next report,
-// Copy bug report, on preview the words' marks (18.6), and a button that
-// throws a test error so the error sheet can be checked on the phone (F.5).
+// Copy bug report, on preview the words' marks (18.6) and, on a build with
+// the map screen, a button that opens the pencil map at #map (S4), and a
+// button that throws a test error so the error sheet can be checked on the
+// phone (F.5).
 // Nothing in it can change a trip, and the gentle flag is not in it (9.4).
 // It is built here when it first opens, so none of it is in the built page;
 // its labels are dev words (decision 64), and Copy bug report is approved.
@@ -59,6 +61,10 @@ const MARKS = [
 const HEAD_ID = 'debug-head';
 const NOTE_ID = 'debug-note';
 const MARKS_ID = 'debug-marks';
+/** The pencil map's screen (content/scope/m1a.json; BUILD_PLAN S4), on preview only. */
+export const MAP_SCREEN = 'map';
+/** The address that opens it (main.js; the menu's Map button sets it). */
+export const MAP_HASH = '#map';
 
 let note = '';
 let debugOn = false;
@@ -107,6 +113,19 @@ export function debugRequested(search) {
   } catch {
     return false;
   }
+}
+
+/**
+ * Pure: does this build carry the pencil map (BUILD_PLAN S4)? True when
+ * <html data-screens> (stamped by the build from the scope file) lists the
+ * map; main's lists app, debug and title, so main never imports ui/map.js.
+ * It lives here, and ui/map.js re-exports it, so main.js and the menu can
+ * ask without loading the map (the same gate as home.js's opensGame).
+ * @param {Document} doc
+ */
+export function opensMap(doc) {
+  const screens = String(doc.documentElement.getAttribute('data-screens') || '').split(/\s+/);
+  return screens.includes(MAP_SCREEN);
 }
 
 /** True once the menu has opened, until reload. */
@@ -465,6 +484,19 @@ function buildMenu(doc) {
       marks.push([mode, b]);
     }
     sheet.appendChild(group);
+  }
+
+  // The pencil map, where the build has it (preview, S4): the installed app
+  // has no address bar, so this sets #map, and main.js opens the map.
+  if (opensMap(doc)) {
+    const mapButton = h(doc, 'button', { class: ['box', 'choice', 'debug-map'], type: 'button' });
+    tx(mapButton, 'dev.map');
+    mapButton.addEventListener('click', () => {
+      closeMenu();
+      const win = doc.defaultView;
+      if (win) win.location.hash = MAP_HASH.slice(1);
+    });
+    sheet.appendChild(mapButton);
   }
 
   const throwIt = h(doc, 'button', { class: ['box', 'choice', 'debug-throw'], type: 'button' });

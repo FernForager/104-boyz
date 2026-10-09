@@ -263,7 +263,8 @@ test("rollOf is the engine's own roll: E.8's order, the set as the node and the 
 
 test('the engine API exports the S3 contract, versioned (BUILD_PLAN 14.2)', () => {
   assert.equal(api.API, 1);
-  assert.deepEqual(Object.keys(api).sort(), ['API', 'EngineError', 'dispatch', 'fromBase64url', 'fromSaves', 'identity', 'isEngineError', 'loadContent', 'newSession', 'pack', 'phaseOf', 'replay', 'reportState', 'screenOf', 'toBase64url', 'toSaves', 'tripHash', 'unpack']);
+  // S4 adds the router and the base pace (buildGraph, route, distAlong, baseSeconds, withBreaks); no S3 signature changed, so API stays 1.
+  assert.deepEqual(Object.keys(api).sort(), ['API', 'EngineError', 'baseSeconds', 'buildGraph', 'dispatch', 'distAlong', 'fromBase64url', 'fromSaves', 'identity', 'isEngineError', 'loadContent', 'newSession', 'pack', 'phaseOf', 'replay', 'reportState', 'route', 'screenOf', 'toBase64url', 'toSaves', 'tripHash', 'unpack', 'withBreaks']);
   for (const [k, v] of Object.entries(api)) if (k !== 'API') assert.equal(typeof v, 'function', k);
   const e = new api.EngineError('refused', 'x');
   assert.ok(api.isEngineError(e) && e.code === 'refused' && e instanceof Error);

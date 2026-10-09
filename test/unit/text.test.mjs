@@ -21,6 +21,11 @@ import {
   json1,
   CLASSES,
   ID_RE,
+  readNames,
+  nameOf,
+  hasId,
+  checkMainBuild,
+  SHIPPABLE,
 } from '../../tools/text.mjs';
 import { runTextLint } from '../../tools/textlint.mjs';
 import { renderParts, setBundle, tx, t, lineState, setMarks } from '../../web/js/text.js';
@@ -234,24 +239,50 @@ test('states: approved, changed (main keeps the frozen words), cut, draft, no wo
   assert.equal(hasWords('— {n} —'), false);
 });
 
+test('B003, filed not sent, holds the guest book and every lockbox draft once, in order, each hash its draft as filed (S3, S4)', () => {
+  const md = read('content', 'text', 'review', 'B003.md');
+  const rows = [...md.matchAll(/^\| (\d+) \| `([^`]+)` \| ([0-9a-f]{8}) \| (.+) \| (none|[^|]+) \| ([^|]+) \|$/gm)].map((m) => ({ n: Number(m[1]), id: m[2], hash: m[3], where: m[4], live: m[5], draft: m[6] }));
+  const first = JSON.parse(read('content', 'text', 'en', 'first.json'));
+  const lockbox = Object.keys(first).filter((k) => k.startsWith('first.lockbox.'));
+  assert.equal(lockbox.length, 50);
+  assert.deepEqual(rows.map((r) => r.n), Array.from({ length: 53 }, (_, i) => i + 1), 'lines 1 to 53');
+  assert.deepEqual(rows.map((r) => r.id), ['first.guestbook.prompt', 'first.guestbook.one_life', 'first.guestbook.sign', ...lockbox], "in first.json's order");
+  for (const r of rows) {
+    assert.equal(r.hash, fnv1a(r.draft), `${r.id}: the hash is the draft's`);
+    assert.equal(r.draft, first[r.id].text, `${r.id}: filed as drafted`);
+    assert.equal(r.live, 'none', `${r.id}: nothing live`);
+    assert.match(r.where, new RegExp(`\\(max ${first[r.id].max}\\)$`), `${r.id}: its max`);
+  }
+  // Every right answer is marked, and only those: the quiz file's own.
+  const quiz = JSON.parse(read('content', 'quiz', 'locals.json'));
+  const right = new Set(quiz.questions.map((q) => q.answers[q.right].slice(1)));
+  for (const r of rows.filter((x) => /\.a\d$/.test(x.id))) assert.equal(r.where.includes('**the right one**'), right.has(r.id), r.id);
+  assert.match(md, /\*\*Not sent:\*\* S7 builds the lockbox and sends B003 whole/);
+  // The not-ours tail names every place and term the lines carry.
+  const tail = md.slice(md.indexOf('Not ours'));
+  for (const name of ['Sequim', 'Hoh', 'Puyallup', 'Rainier', 'Dosewallips', 'Olympic', 'the Queets', 'the Elwha', 'Canada jay', 'geoduck']) assert.ok(tail.includes(`*${name}*`), name);
+});
+
 test('count: where things stand', () => {
   const text = readText(ROOT);
   const lint = runTextLint(ROOT);
   const t07 = lint.issues.filter((i) => i.code === 'T07' && i.level === 'warn').map((i) => i.id).sort();
   const c = countText(text, { t07 });
   // S3 adds six drafts (the guest book's three, the trail's three) and the
-  // self-check's three dev lines (BUILD_PLAN S3; SPEC D19).
-  assert.equal(c.lines, 36);
+  // self-check's three dev lines (BUILD_PLAN S3; SPEC D19). S4 (track B)
+  // adds the lockbox quiz's 50 drafts, waiting for S7's lockbox screen; S4
+  // (track C) adds dev.map, the menu's way to the pencil map, preview only.
+  assert.equal(c.lines, 87);
   assert.equal(c.files, 7);
-  assert.deepEqual(c.ours, { total: 26, approved: 14, draft: 11, changed: 0, cut: 0, nowords: 1 });
-  assert.equal(c.dev, 10);
+  assert.deepEqual(c.ours, { total: 76, approved: 14, draft: 61, changed: 0, cut: 0, nowords: 1 });
+  assert.equal(c.dev, 11);
   // The 13 app lines, and the debug menu's six dev lines main keeps
   // (dev.note, dev.close, dev.throw and the three dev.check lines; the marks
-  // are preview's alone).
+  // are preview's alone, and so is dev.map, S4).
   assert.equal(c.main.reach.length, 19);
   assert.deepEqual(c.main.screens, ['app', 'debug', 'title']);
   assert.deepEqual(c.main.needs, []);
-  assert.equal(c.main.off.length, 9);
+  assert.equal(c.main.off.length, 10);
   assert.deepEqual(c.t07, ['title.begin', 'title.start_label', 'title.tagline']);
   assert.deepEqual(c.unapplied, []);
   // The words (18.9): the 14 approved lines hold 58, the bare build code none.
@@ -263,10 +294,10 @@ test('count: where things stand', () => {
   assert.equal(c.words.ours.total, c.words.ours.approved + c.words.ours.draft + c.words.ours.changed + c.words.ours.cut);
   assert.ok(c.words.ours.draft > 0 && c.words.dev > 0);
   const out = formatCount(c);
-  assert.match(out, /^text: 36 lines in 7 files\n {2}ours {2}26: approved 14, draft 11, changed 0, cut 0, no words 1\n {8}words \d+: approved 58, draft \d+, changed 0, cut 0\n {2}dev {4}10: exempt \(decision 64\); words \d+/);
+  assert.match(out, /^text: 87 lines in 7 files\n {2}ours {2}76: approved 14, draft 61, changed 0, cut 0, no words 1\n {8}words \d+: approved 58, draft \d+, changed 0, cut 0\n {2}dev {4}11: exempt \(decision 64\); words \d+/);
   assert.match(out, /credits 2 \(approved 2; waiting for its screen\)/);
-  assert.match(out, /debug 10 \(dev 10\)/);
-  assert.match(out, /main: carries app, debug, title; reaches 19 lines, all shippable; needs 0; off main 9/);
+  assert.match(out, /debug 11 \(dev 11\)/);
+  assert.match(out, /main: carries app, debug, title; reaches 19 lines, all shippable; needs 0; off main 10/);
   assert.match(out, /answers not yet applied: none$/);
 });
 
@@ -426,4 +457,60 @@ test('the ledger only ever comes from apply: no hand-written entry slips past T1
   assert.ok(existsSync(join(ROOT, 'content', 'text', 'approved.json')));
   const lint = runTextLint(ROOT);
   assert.deepEqual(lint.issues.filter((i) => i.code === 'T12'), []);
+});
+
+// ---- The names: the gazetteer and the terms (S4) -------------------------
+
+test('the names are read from content/text/names, as place.<id> and term.<id>, apart from the lines', () => {
+  const names = readNames(ROOT);
+  assert.deepEqual(names.problems, []);
+  assert.equal(names.places.get('place.lunch_lake').text, 'Lunch Lake');
+  assert.equal(names.places.get('place.port_angeles').file, 'content/text/names/places_extra.json');
+  assert.equal(names.notPlaces.get('place.hidden_lake_junction').why, 'descriptive');
+  assert.equal(names.terms.get('term.geoduck').text, 'geoduck');
+  const text = readText(ROOT);
+  assert.ok(!text.lines.has('place.lunch_lake'), 'names are not lines: they need no approval and no screen');
+  assert.ok(hasId(text, 'place.lunch_lake') && hasId(text, 'term.canada_jay') && !hasId(text, 'place.hidden_lake_junction'));
+  assert.equal(nameOf(text, 'place.hidden_lake_junction'), null, 'a not_place is no name a screen may show');
+});
+
+test("a name's state: place or term, both shippable; cut when the creator vetoed its words", () => {
+  const names = { places: { lunch_lake: { text: 'Lunch Lake', kind: 'camp', source: 'https://x.org/' } }, terms: { geoduck: { text: 'geoduck', kind: 'species', source: 'https://x.org/' } } };
+  const text = fakeText({ lines: { 'app.a': 'A' }, names });
+  assert.deepEqual([stateOf('place.lunch_lake', text), stateOf('term.geoduck', text), stateOf('place.nowhere', text)], ['place', 'term', 'missing']);
+  assert.ok(SHIPPABLE.has('place') && SHIPPABLE.has('term'));
+  const cut = fakeText({ lines: { 'app.a': 'A' }, names, cut: { 'place.lunch_lake': [entry('Lunch Lake')] } });
+  assert.equal(stateOf('place.lunch_lake', cut), 'cut');
+  const other = fakeText({ lines: { 'app.a': 'A' }, names, cut: { 'place.lunch_lake': [entry('Lunch Lake!')] } });
+  assert.equal(stateOf('place.lunch_lake', other), 'place', 'a cut of other words leaves these alone');
+});
+
+test("the bundle carries the places a channel's data names; main's names none; a cut name ships nowhere", () => {
+  const names = { places: { lunch_lake: { text: 'Lunch Lake', kind: 'camp', source: 'https://x.org/' }, deer_lake: { text: 'Deer Lake', kind: 'camp', source: 'https://x.org/' } } };
+  const text = fakeText({ lines: { 'app.name': 'N', 'app.short_name': 'S' }, approved: { 'app.name': 'N', 'app.short_name': 'S' }, names, cut: { 'place.deer_lake': [entry('Deer Lake')] } });
+  const preview = bundle(text, 'preview', [], ['place.lunch_lake', 'place.deer_lake'])['en.json'];
+  assert.equal(preview['place.lunch_lake'], 'Lunch Lake');
+  assert.ok(!('place.deer_lake' in preview), 'cut');
+  assert.throws(() => bundle(text, 'preview', [], ['place.nowhere']), /place\.nowhere is no place or term/);
+  const main = bundle(text, 'main', ['app.name'])['en.json'];
+  assert.deepEqual(Object.keys(main), ['app.name']);
+  // Main's gate takes a place at the gazetteer's words, and refuses other words.
+  const issues = (v) => checkMainBuild({ html: page(''), manifest: JSON.stringify({ name: 'N', short_name: 'S', description: 'D' }), words: { 'place.lunch_lake': v }, text, build: 'b', reach: [] }).filter((i) => i.file === 'text/en.json');
+  assert.deepEqual(issues('Lunch Lake'), []);
+  assert.equal(issues('Lunch Lake!').length, 1);
+});
+
+test("the repo: main's built bundle has no place or term; apply takes a cut on a place, and nothing else", (t) => {
+  const text = readText(ROOT);
+  const reach = countText(text).main.reach;
+  assert.ok(!reach.some((id) => /^(place|term)\./.test(id)));
+  const tmp = mkdtempSync(join(tmpdir(), 'oph-names-'));
+  t.after(() => rmSync(tmp, { recursive: true, force: true }));
+  cpSync(join(ROOT, 'content'), join(tmp, 'content'), { recursive: true });
+  const review = (b, lines) => writeFileSync(join(tmp, 'content', 'text', 'review', `${b}.answers.json`), json1({ batch: b, answered: '2026-11-01', via: 'test', lines }));
+  review('B095', { 'place.lunch_lake': { hash: fnv1a('Lunch Lake'), verdict: 'approve' } });
+  assert.match(applyBatch(tmp, 'B095').errors.join('\n'), /place\.lunch_lake is a place or a term, not ours: it takes only cut, later or a note/);
+  review('B096', { 'place.lunch_lake': { hash: fnv1a('Lunch Lake'), verdict: 'cut' } });
+  assert.deepEqual(applyBatch(tmp, 'B096').results.map((x) => x.result), ['cut']);
+  assert.equal(stateOf('place.lunch_lake', readText(tmp)), 'cut');
 });

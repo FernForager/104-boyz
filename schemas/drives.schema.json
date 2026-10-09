@@ -1,0 +1,57 @@
+{
+ "$comment": "content/drive/routes.json: the drives from the cabin (BUILD_PLAN 2.6, S4; GAME_DESIGN 2.2, 3.3). Places and roads by id; whole minutes; every estimate has its evidence. tools/content.mjs checks that each place is in the gazetteer and each road in the dated conditions (R01).",
+ "type": "object",
+ "required": ["origin", "routes", "roads", "later"],
+ "additionalProperties": false,
+ "properties": {
+  "$comment": { "type": "string" },
+  "origin": { "const": "cabin" },
+  "routes": {
+   "type": "object",
+   "additionalProperties": {
+    "type": "object",
+    "required": ["to", "through", "minutes", "trip_time"],
+    "additionalProperties": false,
+    "properties": {
+     "to": { "$ref": "#/$defs/id" },
+     "through": { "type": "array", "items": { "$ref": "#/$defs/id" } },
+     "legs": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/leg" } },
+     "minutes": { "type": "integer", "minimum": 1 },
+     "trip_time": { "type": "boolean" },
+     "estimate": { "const": true },
+     "evidence": { "$ref": "#/$defs/words" },
+     "source": { "$ref": "#/$defs/url" }
+    }
+   }
+  },
+  "roads": {
+   "type": "object",
+   "additionalProperties": {
+    "type": "object",
+    "required": ["on", "doc"],
+    "additionalProperties": false,
+    "properties": { "on": { "$ref": "#/$defs/id" }, "doc": { "$ref": "#/$defs/words" } }
+   }
+  },
+  "later": {
+   "type": "object",
+   "additionalProperties": {
+    "type": "object",
+    "required": ["minutes", "from", "evidence"],
+    "additionalProperties": false,
+    "properties": { "minutes": { "type": "integer", "minimum": 1 }, "estimate": { "const": true }, "from": { "type": "string", "pattern": "^M[0-9]+[a-z]?$" }, "evidence": { "$ref": "#/$defs/words" } }
+   }
+  }
+ },
+ "$defs": {
+  "id": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+  "url": { "type": "string", "pattern": "^https?://\\S+$" },
+  "words": { "type": "string", "minLength": 1 },
+  "leg": {
+   "type": "object",
+   "required": ["to", "minutes", "estimate", "evidence"],
+   "additionalProperties": false,
+   "properties": { "to": { "$ref": "#/$defs/id" }, "minutes": { "type": "integer", "minimum": 1 }, "estimate": { "const": true }, "evidence": { "$ref": "#/$defs/words" }, "source": { "$ref": "#/$defs/url" } }
+  }
+ }
+}

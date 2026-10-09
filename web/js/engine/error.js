@@ -12,9 +12,11 @@
 //   expr     an expression that can't be evaluated (divide by zero, a p
 //            outside 0..1, a math function out of its domain)
 //   state    a broken invariant
+//   route    a route that can't be made on the park graph (a point the
+//            graph lacks, or a leg with no way through; S4)
 
 /** The codes, frozen. */
-export const CODES = Object.freeze(['refused', 'invalid', 'unbuilt', 'format', 'rules', 'expr', 'state']);
+export const CODES = Object.freeze(['refused', 'invalid', 'unbuilt', 'format', 'rules', 'expr', 'state', 'route']);
 
 /** An engine refusal: `code` is one of CODES; `detail` is optional data (a column, an index). */
 export class EngineError extends Error {

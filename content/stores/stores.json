@@ -1,0 +1,97 @@
+{
+ "$comment": "The stores' shelves by catalog id (GAME_DESIGN 5.7, 5.2, 5.3; BUILD_PLAN 11.3), transcribed from 5.7 shelf by shelf, in its order. A shelf entry sells the item's standard version, or the tiers it names ('standard' is the top-level version). foods names a food shelf by the catalog's sold_at, minus and plus ids. switch keeps an item off its shelf until that scope switch is on. Names are placeholders until the creator's (S11); shelf labels are S11's lines. tools/ingest/catalogs.mjs derives each item-tier's origin from these shelves and checks every id and tier (IG17).",
+ "stores": {
+  "general": {
+   "placeholder": "STORE_GENERAL",
+   "kind": "bombproof",
+   "look": { "outline": 2, "outline_slot": 10 },
+   "shelves": [
+    { "id": "packs", "items": [{ "id": "external_frame_70" }, { "id": "daypack_20" }, { "id": "weekender_50" }] },
+    { "id": "shelter", "items": [{ "id": "tent_2p_dome", "tiers": ["cheap"] }, { "id": "tent_3p_dome" }, { "id": "tube_tent_plastic" }, { "id": "space_blanket" }, { "id": "tent_footprint" }, { "id": "tarp_canvas" }] },
+    { "id": "sleep", "items": [{ "id": "bag_synth_45" }, { "id": "bag_synth_30" }, { "id": "bag_synth_20" }, { "id": "bag_flannel_rectangle" }, { "id": "pad_foam_ccf" }, { "id": "pad_foam_torso" }, { "id": "pad_self_inflating" }, { "id": "pad_inflatable", "tiers": ["cheap"] }, { "id": "liner_fleece" }] },
+    { "id": "clothes", "items": [
+     { "id": "tee_cotton" }, { "id": "jeans_denim" }, { "id": "hoodie_cotton" }, { "id": "socks_cotton" }, { "id": "socks_wool_hiking" }, { "id": "sweater_wool_vintage" }, { "id": "fleece_jacket" },
+     { "id": "base_top_synthetic" }, { "id": "base_bottom_synthetic" }, { "id": "pants_convertible" }, { "id": "beanie_wool" }, { "id": "gloves_liner" }, { "id": "bandana_cotton" }, { "id": "ball_cap" },
+     { "id": "flannel_cotton" }, { "id": "wool_pants_surplus" }, { "id": "blanket_wool", "switch": "wool_blanket" }
+    ] },
+    { "id": "rain", "items": [{ "id": "rain_jacket", "tiers": ["cheap"] }, { "id": "rain_pants", "tiers": ["cheap"] }, { "id": "poncho", "tiers": ["standard", "cheap"] }, { "id": "pack_liner_compactor" }, { "id": "zip_bags_gallon" }] },
+    { "id": "feet", "items": [{ "id": "boots_leather" }, { "id": "sneakers_canvas" }, { "id": "flip_flops" }, { "id": "camp_shoes_foam" }] },
+    { "id": "kitchen", "items": [
+     { "id": "stove_canister", "tiers": ["cheap"] }, { "id": "fuel_canister_110" }, { "id": "fuel_canister_230" }, { "id": "fuel_canister_450" }, { "id": "pot_aluminum_1_3l" }, { "id": "skillet_cast_iron" },
+     { "id": "mug_insulated" }, { "id": "cold_soak_jar" }, { "id": "lighter_mini" }, { "id": "matches_storm" }, { "id": "firestarter_cubes" }, { "id": "camp_soap_scrubber" }
+    ] },
+    { "id": "water", "items": [{ "id": "bottle_disposable_1l" }, { "id": "bottle_hard_1l" }, { "id": "water_bag_3l" }, { "id": "tablets_chlorine_dioxide" }] },
+    { "id": "tackle_tools", "items": [
+     { "id": "fishing_rod_spinning" }, { "id": "tide_table" }, { "id": "knife_folding" }, { "id": "multitool" }, { "id": "hatchet" }, { "id": "paracord_50ft" }, { "id": "duct_tape_roll" }, { "id": "whistle" },
+     { "id": "trekking_poles", "tiers": ["cheap"] }, { "id": "traction_chains" }
+    ] },
+    { "id": "light_nav", "items": [{ "id": "headlamp", "tiers": ["cheap"] }, { "id": "flashlight_big" }, { "id": "batteries_spare_aaa" }, { "id": "compass_button" }, { "id": "watch_basic" }, { "id": "map_park_brochure" }] },
+    { "id": "sundries", "items": [
+     { "id": "first_aid_basic" }, { "id": "sunscreen" }, { "id": "lip_balm_spf" }, { "id": "bug_repellent" }, { "id": "hand_sanitizer" }, { "id": "toiletry_kit" }, { "id": "wet_wipes" }, { "id": "deodorant" },
+     { "id": "toilet_paper_kit" }, { "id": "hand_warmers" }
+    ] },
+    { "id": "fun", "items": [{ "id": "playing_cards" }, { "id": "flying_disc" }, { "id": "harmonica" }, { "id": "melodica" }, { "id": "camera_disposable_film" }, { "id": "speaker_portable" }, { "id": "camp_chair_ultralight", "tiers": ["cheap"] }] },
+    { "id": "food", "foods": { "sold_at": "grocery", "minus": ["beer_hazy_ipa_16oz"], "plus": ["smoked_salmon"] } }
+   ],
+   "cooler": { "items": ["beer_hazy_ipa_16oz"], "overnight_only": true, "id_check": true, "switch": "beer_cooler" },
+   "deferred": { "shellfish_license": "GAME_DESIGN 5.7 puts it at the counter for razor clams (17.14), which arrive in M1b or M4; its fee is unresearched, so it waits for them (the spec's call 12)" }
+  },
+  "gear": {
+   "placeholder": "STORE_GEAR",
+   "kind": "light",
+   "look": { "outline": 1, "outline_slot": 0 },
+   "scale": true,
+   "shelves": [
+    { "id": "packs", "items": [{ "id": "daypack_28" }, { "id": "fastpack_35" }, { "id": "weekender_50" }, { "id": "ultralight_55" }, { "id": "trekker_65" }, { "id": "expedition_80" }] },
+    { "id": "shelter", "items": [
+     { "id": "tent_1p_trekking_pole", "tiers": ["standard", "premium"] }, { "id": "tent_2p_dome", "tiers": ["standard", "premium"] }, { "id": "tent_4season" }, { "id": "tarp_flat" }, { "id": "bivy_sack" },
+     { "id": "emergency_bivy" }, { "id": "hammock_system" }, { "id": "stakes_sand_snow" }
+    ] },
+    { "id": "sleep", "items": [
+     { "id": "bag_down_30", "tiers": ["cheap", "standard", "premium"] }, { "id": "bag_down_20", "tiers": ["cheap", "standard", "premium"] }, { "id": "bag_down_0" }, { "id": "quilt_down_30" }, { "id": "quilt_down_20" },
+     { "id": "pad_inflatable", "tiers": ["standard", "premium"] }, { "id": "pillow_inflatable" }, { "id": "liner_silk" }, { "id": "compression_sack" }
+    ] },
+    { "id": "clothes", "items": [
+     { "id": "tee_synthetic" }, { "id": "tee_merino" }, { "id": "base_top_merino" }, { "id": "base_bottom_merino" }, { "id": "pants_hiking" }, { "id": "shorts_hiking" }, { "id": "underwear_synthetic" },
+     { "id": "socks_liner" }, { "id": "socks_waterproof" }, { "id": "booties_down" }, { "id": "fleece_grid_hoody" }, { "id": "puffy_down", "tiers": ["cheap", "standard", "premium"] }, { "id": "puffy_synthetic" },
+     { "id": "vest_down" }, { "id": "pants_down" }, { "id": "wind_shell" }, { "id": "balaclava" }, { "id": "gloves_insulated" }, { "id": "neck_gaiter" }, { "id": "sun_hoody" }
+    ] },
+    { "id": "rain", "items": [
+     { "id": "rain_jacket", "tiers": ["standard", "premium"] }, { "id": "rain_pants", "tiers": ["standard", "premium"] }, { "id": "poncho_tarp" }, { "id": "umbrella_trekking" }, { "id": "pack_cover" },
+     { "id": "pack_liner_drybag" }, { "id": "dry_bag_small" }, { "id": "dry_bag_large" }
+    ] },
+    { "id": "feet", "items": [{ "id": "trail_runners" }, { "id": "boots_mid_waterproof" }, { "id": "boots_mountaineering", "rent_only": true }, { "id": "sandals_sport" }, { "id": "gaiters_low" }, { "id": "gaiters_tall" }] },
+    { "id": "kitchen", "items": [
+     { "id": "stove_canister", "tiers": ["standard", "premium"] }, { "id": "stove_integrated" }, { "id": "stove_alcohol" }, { "id": "stove_white_gas" }, { "id": "fuel_canister_110" }, { "id": "fuel_canister_230" },
+     { "id": "fuel_canister_450" }, { "id": "fuel_alcohol" }, { "id": "fuel_white_gas" }, { "id": "pot_titanium_750" }, { "id": "spork_titanium" }, { "id": "windscreen" }, { "id": "coffee_pour_over" }
+    ] },
+    { "id": "water", "items": [{ "id": "filter_squeeze" }, { "id": "filter_pump" }, { "id": "filter_gravity" }, { "id": "purifier_uv" }, { "id": "tablets_chlorine_dioxide" }, { "id": "drops_chlorine_dioxide" }, { "id": "bladder_2l" }] },
+    { "id": "nav_power", "items": [
+     { "id": "map_topo_park" }, { "id": "map_coast_strip" }, { "id": "compass_baseplate" }, { "id": "gps_handheld" }, { "id": "app_offline_maps" }, { "id": "power_bank_10k" }, { "id": "power_bank_20k" },
+     { "id": "satellite_messenger" }, { "id": "watch_altimeter" }, { "id": "guidebook_olympics" }, { "id": "solar_panel_small" }
+    ] },
+    { "id": "safety_repair", "items": [
+     { "id": "first_aid_complete" }, { "id": "blister_kit" }, { "id": "meds_kit" }, { "id": "splint_moldable" }, { "id": "repair_kit_basic" }, { "id": "pad_patch_kit" }, { "id": "repair_tape" }, { "id": "pole_splint" },
+     { "id": "seam_sealer" }, { "id": "signal_mirror" }, { "id": "bear_spray" }
+    ] },
+    { "id": "snow_glacier", "items": [
+     { "id": "trekking_poles", "tiers": ["standard", "premium"] }, { "id": "crampons_steel" }, { "id": "crampons_aluminum" }, { "id": "ice_axe", "tiers": ["standard", "premium"] }, { "id": "snowshoes" },
+     { "id": "helmet_climbing" }, { "id": "harness_alpine" }, { "id": "rope_glacier_30m" }, { "id": "crevasse_rescue_kit" }, { "id": "avalanche_kit" }
+    ] },
+    { "id": "food_storage", "items": [{ "id": "canister_standard", "tiers": ["standard", "premium"] }, { "id": "canister_small" }, { "id": "canister_classic" }, { "id": "odor_proof_bags" }, { "id": "bear_sack_soft" }, { "id": "hang_kit" }] },
+    { "id": "camp", "items": [{ "id": "trowel" }, { "id": "wag_bags" }, { "id": "sit_pad" }, { "id": "camp_chair_ultralight" }, { "id": "pack_towel" }, { "id": "earplugs_eyemask" }, { "id": "bug_headnet" }, { "id": "permethrin_treatment" }] },
+    { "id": "toys", "items": [{ "id": "fishing_kit_fly" }, { "id": "binoculars" }, { "id": "camera_compact" }, { "id": "camera_dslr" }, { "id": "planisphere" }, { "id": "drone_mini" }] },
+    { "id": "food", "foods": { "sold_at": "outfitter" } }
+   ],
+   "rentals": { "items": "stats.rent_usd_per_day", "glacier_sets_summer_weekend": [2, 3] }
+  },
+  "boutique": { "placeholder": "STORE_BOUTIQUE", "from": "M1b" },
+  "second_growth": { "from": "M1b", "items": ["pre_roll"] }
+ },
+ "desk": { "loans": ["canister_wic_loaner"], "issues": ["permit_wilderness"] },
+ "jobs": {
+  "drive_in": { "placeholder": "JOB_DRIVEIN" },
+  "gastropub": { "placeholder": "JOB_GASTROPUB", "from": "M1b" },
+  "bookstore": { "placeholder": "JOB_BOOKSTORE", "from": "M1b" }
+ }
+}

@@ -1,0 +1,198 @@
+{
+ "$comment": "The lockbox's locals' quiz (GAME_DESIGN 2.6, 2.2, 12.3, E.5; BUILD_PLAN 3.4), written once from design/data/quiz_locals.json, in its order; the creator's own questions may replace these one for one. Words by id in content/text/en/first.json; ships with the lockbox screen (S7). deal: three a first launch. rules: no two pronunciation questions in a row while another kind is left; everyone gets in, right or wrong; never again on this phone (2.6, 12.3). right is the index of the one true answer, and each question names its source (F.3).",
+ "deal": 3,
+ "rules": {
+  "no_two_pronunciations_in_a_row": true,
+  "everyone_gets_in": true,
+  "never_again": true
+ },
+ "right": "@first.lockbox.right",
+ "wrong": "@first.lockbox.wrong",
+ "questions": [
+  {
+   "id": "q_sequim",
+   "ask": "@first.lockbox.q_sequim.ask",
+   "answers": [
+    "@first.lockbox.q_sequim.a0",
+    "@first.lockbox.q_sequim.a1",
+    "@first.lockbox.q_sequim.a2"
+   ],
+   "right": 1,
+   "pronunciation": true,
+   "indigenous_name": true,
+   "source": {
+    "url": "https://en.wikipedia.org/wiki/Sequim,_Washington",
+    "publisher": "Wikipedia"
+   }
+  },
+  {
+   "id": "q_sunny_sequim",
+   "ask": "@first.lockbox.q_sunny_sequim.ask",
+   "answers": [
+    "@first.lockbox.q_sunny_sequim.a0",
+    "@first.lockbox.q_sunny_sequim.a1",
+    "@first.lockbox.q_sunny_sequim.a2"
+   ],
+   "right": 0,
+   "pronunciation": false,
+   "source": {
+    "url": "https://en.wikipedia.org/wiki/Sequim,_Washington",
+    "publisher": "Wikipedia"
+   }
+  },
+  {
+   "id": "q_sunbreak",
+   "ask": "@first.lockbox.q_sunbreak.ask",
+   "answers": [
+    "@first.lockbox.q_sunbreak.a0",
+    "@first.lockbox.q_sunbreak.a1",
+    "@first.lockbox.q_sunbreak.a2"
+   ],
+   "right": 1,
+   "pronunciation": false,
+   "source": {
+    "url": "https://en.wikipedia.org/wiki/Pacific_Northwest_English",
+    "publisher": "Wikipedia"
+   }
+  },
+  {
+   "id": "q_hoh",
+   "ask": "@first.lockbox.q_hoh.ask",
+   "answers": [
+    "@first.lockbox.q_hoh.a0",
+    "@first.lockbox.q_hoh.a1",
+    "@first.lockbox.q_hoh.a2"
+   ],
+   "right": 0,
+   "pronunciation": true,
+   "indigenous_name": true,
+   "source": {
+    "url": "https://www.nps.gov/olym/planyourvisit/visiting-the-hoh.htm",
+    "publisher": "NPS"
+   }
+  },
+  {
+   "id": "q_camp_robber",
+   "ask": "@first.lockbox.q_camp_robber.ask",
+   "answers": [
+    "@first.lockbox.q_camp_robber.a0",
+    "@first.lockbox.q_camp_robber.a1",
+    "@first.lockbox.q_camp_robber.a2"
+   ],
+   "right": 1,
+   "pronunciation": false,
+   "source": {
+    "url": "https://en.wikipedia.org/wiki/Canada_jay",
+    "publisher": "Wikipedia"
+   }
+  },
+  {
+   "id": "q_puyallup",
+   "ask": "@first.lockbox.q_puyallup.ask",
+   "answers": [
+    "@first.lockbox.q_puyallup.a0",
+    "@first.lockbox.q_puyallup.a1",
+    "@first.lockbox.q_puyallup.a2"
+   ],
+   "right": 1,
+   "pronunciation": true,
+   "indigenous_name": true,
+   "source": {
+    "url": "https://en.wikipedia.org/wiki/Puyallup,_Washington",
+    "publisher": "Wikipedia"
+   }
+  },
+  {
+   "id": "q_geoduck",
+   "ask": "@first.lockbox.q_geoduck.ask",
+   "answers": [
+    "@first.lockbox.q_geoduck.a0",
+    "@first.lockbox.q_geoduck.a1",
+    "@first.lockbox.q_geoduck.a2"
+   ],
+   "right": 1,
+   "pronunciation": false,
+   "indigenous_name": true,
+   "source": {
+    "url": "https://en.wikipedia.org/wiki/Geoduck",
+    "publisher": "Wikipedia"
+   }
+  },
+  {
+   "id": "q_mountain_out",
+   "ask": "@first.lockbox.q_mountain_out.ask",
+   "answers": [
+    "@first.lockbox.q_mountain_out.a0",
+    "@first.lockbox.q_mountain_out.a1",
+    "@first.lockbox.q_mountain_out.a2"
+   ],
+   "right": 0,
+   "pronunciation": false,
+   "source": {
+    "url": "https://science.nasa.gov/earth/earth-observatory/mount-rainier-145548/",
+    "publisher": "NASA Earth Observatory"
+   }
+  },
+  {
+   "id": "q_dosewallips",
+   "ask": "@first.lockbox.q_dosewallips.ask",
+   "answers": [
+    "@first.lockbox.q_dosewallips.a0",
+    "@first.lockbox.q_dosewallips.a1",
+    "@first.lockbox.q_dosewallips.a2"
+   ],
+   "right": 1,
+   "pronunciation": true,
+   "indigenous_name": true,
+   "source": {
+    "url": "https://en.wikipedia.org/wiki/Dosewallips_River",
+    "publisher": "Wikipedia"
+   }
+  },
+  {
+   "id": "q_rain_forest",
+   "ask": "@first.lockbox.q_rain_forest.ask",
+   "answers": [
+    "@first.lockbox.q_rain_forest.a0",
+    "@first.lockbox.q_rain_forest.a1",
+    "@first.lockbox.q_rain_forest.a2"
+   ],
+   "right": 2,
+   "pronunciation": false,
+   "source": {
+    "url": "https://www.nps.gov/olym/learn/nature/temperate-rain-forests.htm",
+    "publisher": "NPS"
+   }
+  },
+  {
+   "id": "q_jojos",
+   "ask": "@first.lockbox.q_jojos.ask",
+   "answers": [
+    "@first.lockbox.q_jojos.a0",
+    "@first.lockbox.q_jojos.a1",
+    "@first.lockbox.q_jojos.a2"
+   ],
+   "right": 0,
+   "pronunciation": false,
+   "source": {
+    "url": "https://en.wikipedia.org/wiki/Pacific_Northwest_English",
+    "publisher": "Wikipedia"
+   }
+  },
+  {
+   "id": "q_potato_bug",
+   "ask": "@first.lockbox.q_potato_bug.ask",
+   "answers": [
+    "@first.lockbox.q_potato_bug.a0",
+    "@first.lockbox.q_potato_bug.a1",
+    "@first.lockbox.q_potato_bug.a2"
+   ],
+   "right": 1,
+   "pronunciation": false,
+   "source": {
+    "url": "https://en.wikipedia.org/wiki/Pacific_Northwest_English",
+    "publisher": "Wikipedia"
+   }
+  }
+ ]
+}

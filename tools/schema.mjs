@@ -3,9 +3,9 @@
 //
 // The keywords content schemas use, and no more: type (string, number,
 // integer, boolean, object, array, null, or a list of them), properties,
-// required, additionalProperties (false or a schema), items, enum, const,
-// pattern, minimum, maximum, minLength, maxLength (in code points), oneOf,
-// and $ref within the file ("#/$defs/name", any JSON pointer). Plus three
+// required, additionalProperties (false or a schema), items, minItems,
+// maxItems, enum, const, pattern, minimum, maximum, minLength, maxLength
+// (in code points), oneOf, and $ref within the file ("#/$defs/name", any JSON pointer). Plus three
 // of ours, which it reports as annotations on the values they mark:
 //   "x-text": true              the value is an "@id" (a line in content/text)
 //   "x-expr": "bool" | "number" an expression, compiled and type-checked
@@ -16,7 +16,7 @@
 export const KEYWORDS = new Set([
   '$schema', '$id', '$comment', '$defs', 'definitions', 'title', 'description',
   'type', 'properties', 'required', 'additionalProperties', 'items', 'enum', 'const', 'pattern',
-  'minimum', 'maximum', 'minLength', 'maxLength', 'oneOf', '$ref',
+  'minimum', 'maximum', 'minLength', 'maxLength', 'minItems', 'maxItems', 'oneOf', '$ref',
   'x-text', 'x-expr', 'x-voice',
 ]);
 
@@ -115,7 +115,11 @@ export function validate(schema, value) {
         else if (s.additionalProperties && typeof s.additionalProperties === 'object') sub(s.additionalProperties, val, child(path, k));
       }
     }
-    if (Array.isArray(v) && own(s, 'items')) v.forEach((x, i) => sub(s.items, x, child(path, i)));
+    if (Array.isArray(v)) {
+      if (own(s, 'minItems') && v.length < s.minItems) err(`has ${v.length} item${v.length === 1 ? '' : 's'}, fewer than ${s.minItems}`);
+      if (own(s, 'maxItems') && v.length > s.maxItems) err(`has ${v.length} items, more than ${s.maxItems}`);
+      if (own(s, 'items')) v.forEach((x, i) => sub(s.items, x, child(path, i)));
+    }
     if (own(s, 'oneOf')) {
       const results = s.oneOf.map((o) => run(o, v, path));
       const ok = results.filter((r) => r.errors.length === 0);

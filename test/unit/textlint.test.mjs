@@ -22,6 +22,9 @@ import {
   lintT12,
   lintT13,
   lintT14,
+  lintT16,
+  namesIn,
+  mapLabels,
   runTextLint,
   T07_PREVIEW,
 } from '../../tools/textlint.mjs';
@@ -215,7 +218,8 @@ test('T11: ids used are defined, and lines on built screens are used', () => {
   assert.deepEqual(msgs, [
     "web/index.html:1 data-t uses app.gone, which isn't defined in content/text",
     "web/js/a.js:1 t() asks for nope.x, which isn't defined in content/text",
-    'web/js/a.js:3 tx() needs a literal id, or the line ends // t-ids: <every id it can be> (or @content)',
+    // S4: a call that shows a place by a computed id may end // t-ids: @places instead.
+    'web/js/a.js:3 tx() needs a literal id, or the line ends // t-ids: <every id it can be> (or @content, or @places)',
     'content/text/en/app.json:1 app.unused is defined and never used',
   ]);
   assert.deepEqual(r.infos, ['credits.later: waiting for screen credits']);
@@ -363,4 +367,78 @@ test('the repo passes the text lints, with only the three T07 warnings', () => {
     issues.map((i) => `${i.level} ${i.code} ${i.id || ''}`),
     ['warn T07 title.tagline', 'warn T07 title.start_label', 'warn T07 title.begin'],
   );
+});
+
+// ---- T16: the gazetteer, the quotes, cut words (S4) -----------------------
+
+const GAZ = {
+  places: { lunch_lake: { text: 'Lunch Lake', kind: 'camp', source: 'https://www.recreation.gov/x' }, hidden_lake: { text: 'Hidden Lake', kind: 'lake', source: 'https://www.recreation.gov/x' }, mount_rainier: { text: 'Mount Rainier', kind: 'mountain', forms: ['Rainier'], source: 'https://science.nasa.gov/x' }, unsourced: { text: 'Somewhere', kind: 'lake' } },
+  not_places: { hidden_lake_junction: { text: 'Hidden Lake Way Trail junction', why: 'descriptive' }, blue_glacier: { text: 'Blue Glacier', why: 'no_source' } },
+  terms: { geoduck: { text: 'geoduck', kind: 'species', source: 'https://en.wikipedia.org/wiki/Geoduck' } },
+};
+
+test('T16: every place a build or a content file names is a sourced place in the gazetteer, not cut', () => {
+  const text = fakeText({ lines: { 'trail.a': 'Walk on.' }, names: GAZ });
+  assert.deepEqual(lintT16(text, { labels: ['place.lunch_lake', 'place.hidden_lake'] }), []);
+  const issues = lintT16(text, {
+    labels: ['place.nowhere'],
+    uses: { calls: [{ fn: 't', id: 'place.hidden_lake_junction', literal: true, file: 'web/js/m.js', line: 3 }], tids: [{ ids: ['term.geoduck', 'term.nope'], file: 'web/js/m.js', line: 4 }], html: [], content: [{ id: 'place.unsourced', file: 'content/stops/s.json', line: 5 }] },
+  });
+  assert.deepEqual(issues.map((i) => `${i.code} ${i.file}:${i.line} ${i.msg}`), [
+    "T16 data/map.json:1 the map's label place.nowhere, which isn't in the gazetteer (content/text/names/)",
+    'T16 content/stops/s.json:5 content refers to place.unsourced, which has no source',
+    'T16 web/js/m.js:3 t() asks for place.hidden_lake_junction, "Hidden Lake Way Trail junction", which isn\'t a place: a label we made up is ours (18.2)',
+    "T16 web/js/m.js:4 // t-ids: lists term.nope, which isn't in the gazetteer (content/text/names/)",
+  ]);
+  const cut = fakeText({ names: GAZ, cut: { 'place.lunch_lake': [entry('Lunch Lake')] } });
+  assert.match(lintT16(cut, { labels: ['place.lunch_lake'] })[0].msg, /whose words the creator cut/);
+});
+
+test('T16: no line names a not_place (descriptive, or unsourced); longest names first, whole words', () => {
+  const text = fakeText({
+    lines: { 'trail.a': 'Past the Hidden Lake Way Trail junction.', 'trail.b': 'Down to Hidden Lake and Lunch Lake.', 'trail.c': 'Rainier is out.', 'trail.d': 'The Blue Glacier gleams.', 'trail.e': 'Hidden Lakesides', 'dev.x': { text: 'Hidden Lake Way Trail junction', class: 'dev', screen: 'debug' } },
+    names: GAZ,
+  });
+  const issues = lintT16(text);
+  assert.deepEqual(issues.map((i) => i.msg.split(':')[0]), ['trail.a', 'trail.d'], 'dev lines are exempt; a place and its forms are fine');
+  assert.match(issues[0].msg, /"Hidden Lake Way Trail junction" is a descriptive label \(ours\), not a place/);
+  assert.match(issues[1].msg, /"Blue Glacier" is a name with no source/);
+  const all = [{ name: 'Hidden Lake Way Trail junction', id: 'a', place: false }, { name: 'Hidden Lake', id: 'b', place: true }];
+  assert.deepEqual(namesIn('the Hidden Lake Way Trail junction', all).map((n) => n.id), ['a'], 'the longer name wins, and the shorter inside it is not found again');
+  assert.deepEqual(namesIn('Hidden Lakes', all), [], 'whole words only');
+  assert.deepEqual(namesIn('hidden lake', all), [], 'case-sensitive');
+});
+
+test('T16: a quote must be its public-domain record exactly, from a page-image-checked record with a reason and a URL', () => {
+  const text = fakeText({ names: GAZ });
+  const quoteSource = {
+    quotes: [
+      { id: 'q1', text: 'Probably named on account of the velocity of winds there at times.', verification: 'page_image_checked', public_domain_reason: 'Published in 1923.', url: 'https://archive.org/details/x' },
+      { id: 'q2', text: 'A line.', verification: 'official_text_layer_checked', public_domain_reason: 'A government report.', url: 'https://example.gov/x' },
+    ],
+  };
+  assert.deepEqual(lintT16(text, { quotes: { quotes: [{ id: 'q1', text: 'Probably named on account of the velocity of winds there at times.' }] }, quoteSource }), []);
+  const bad = lintT16(text, { quotes: { quotes: [{ id: 'q1', text: 'Probably named for the winds.' }, { id: 'q2', text: 'A line.' }, { id: 'q9', text: 'Who?' }] }, quoteSource }).map((i) => i.msg);
+  assert.deepEqual(bad, ["quote q1 isn't its record's words exactly", 'quote q2\'s record is official_text_layer_checked, not page_image_checked', 'quote q9 has no record in design/data/lore/quotes_public_domain.json']);
+});
+
+test('T16: cut words appear in no other line and no names file', () => {
+  const text = fakeText({
+    lines: { 'trail.a': 'Sunbreak!', 'trail.b': 'A sunbreak over the lake.', 'trail.c': 'Another Sunbreak! today.' },
+    names: { ...GAZ, terms: { sunbreak: { text: 'Sunbreak!', kind: 'term', source: 'https://en.wikipedia.org/x' } } },
+    cut: { 'trail.a': [entry('Sunbreak!')] },
+  });
+  const issues = lintT16(text).map((i) => `${i.file} ${i.msg}`);
+  assert.deepEqual(issues, ['content/text/en/trail.json trail.c: holds "Sunbreak!", words the creator cut (trail.a)', 'content/text/names/terms.json term.sunbreak: "Sunbreak!" holds "Sunbreak!", words the creator cut (trail.a)']);
+});
+
+test("T16 on the repo: the map's 25 labels are sourced places, and nothing else fails", () => {
+  const labels = mapLabels(ROOT);
+  assert.equal(labels.length, 25, 'the trailhead and the 24 camps');
+  const lint = runTextLint(ROOT);
+  assert.deepEqual(lint.issues.filter((i) => i.code === 'T16'), []);
+  // A call that shows a place by a computed id ends // t-ids: @places, and T11 takes it.
+  const text = fakeText({ lines: { 'app.name': 'N', 'app.short_name': 'S', 'app.description': 'D', 'app.preview_name': 'P' }, names: GAZ });
+  const r = lintT11(text, uses({ 'web/js/map.js': "tx(li, 'place.' + id); // t-ids: @places\nt('place.lunch_lake');\n" }));
+  assert.deepEqual(r.issues, []);
 });

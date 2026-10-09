@@ -1,0 +1,15 @@
+{
+ "$comment": "The weather zones and the elevation bands (GAME_DESIGN 7.5; BUILD_PLAN 2.6, S4). A node's zone is alpine at alpine_ft and up, its region's high zone at high_ft and up, and its region's low zone below. Only Sol Duc's row is settled for M1a; the other regions' rows are provisional, each settled in its milestone. The cabin sits in west_valleys.",
+ "zones": ["coast", "west_valleys", "north_mid", "high", "east_high", "alpine"],
+ "bands": { "high_ft": 4000, "alpine_ft": 6000 },
+ "regions": {
+  "coast": { "low": "coast", "high": "coast", "provisional": true, "doc": "GAME_DESIGN 7.5: the coast; settled in M4" },
+  "elwha_hurricane": { "low": "north_mid", "high": "high", "provisional": true, "doc": "GAME_DESIGN 7.5: north mid (the Elwha), High above 4,000 ft; settled in its milestone (M4-M5)" },
+  "hamma_hamma": { "low": "east_high", "high": "east_high", "provisional": true, "doc": "GAME_DESIGN 7.5: the southeast's rain shadow, read as east high; settled in M5" },
+  "hoh_olympus": { "low": "west_valleys", "high": "high", "provisional": true, "doc": "GAME_DESIGN 7.5: west valleys (the Hoh), High above 4,000 ft, alpine on the glaciers; settled in M2" },
+  "northeast_dose": { "low": "east_high", "high": "east_high", "provisional": true, "doc": "GAME_DESIGN 7.5: east high, the rain shadow (Royal Basin, the Dosewallips); settled in M3" },
+  "sol_duc_high_divide": { "low": "north_mid", "high": "high", "doc": "GAME_DESIGN 7.5: north mid (Sol Duc) below 4,000 ft, High from 4,000" },
+  "south_quinault_skok": { "low": "west_valleys", "high": "high", "provisional": true, "doc": "GAME_DESIGN 7.5: west valleys (the Quinault), High above 4,000 ft; settled in its milestone (T3, M5)" }
+ },
+ "cabin": "west_valleys"
+}

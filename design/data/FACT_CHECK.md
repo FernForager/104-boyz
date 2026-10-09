@@ -316,3 +316,67 @@ The catalog now holds 219 items, up from 217.
 1. **The loaner can's weekend availability** (R4): settled. The game's desk always has one (Lead call 33); the real WIC occasionally runs out over exceptionally busy weekends, and how often is not published.
 2. **Instrument weights** (R7) are typical values, not one model's.
 3. **Kalaloch's next dig** (R2): none is scheduled; the tentative 2026-27 schedule lists only the four southern beaches.
+
+---
+
+## 2026-10-09: the data build (BUILD_PLAN S4)
+
+**Changed:** 2026-10-09, in the build session that ingests the data (S4). Every change below is at the source (BUILD_PLAN 3.5): the research stays the truth, and `tools/ingest.mjs` only checks it. All three files still parse as valid JSON, and every number this section adds is either sourced or `estimate: true` with its evidence beside it. Nothing here edits GAME_DESIGN.
+
+### S4-1. The 2026 conditions gain `effect`
+
+Each of the 18 entries of `sol_duc_high_divide.json` `conditions_2026` gains `effect`, the game's one-word reading of its `game_effect` (which stays, as the research's note); `conditions_2026_fields` gains `effect`'s definition. `content/park/conditions/2026.json` carries them.
+
+| # | Entry (`applies_to`, from) | `effect` |
+|---|---|---|
+| 1 | Sol Duc area open (`sol_duc_trailhead`..., 2026-03-24) | `open` |
+| 2 | Lake Crescent area open (`marymere_falls_trailhead`..., 2026-10-04) | `open` |
+| 3 | Spruce Railroad Trail open (2026-10-04) | `open` |
+| 4 | Stage 2 fire restrictions (`all_wilderness_camps`, 2026-08-07 to 10-01) | `fire_ban` |
+| 5 | Sourdough Mountain Fire, extinguished (2026-08-10) | `history` |
+| 6 | US 101 Hoh River Bridge closures (`hoh_lake_trail_junction`, its three windows) | `news` (a Hoh-side exit takes the detour on those dates; the closure itself is structured once, from `park_rules.json`, on `us101_hoh_river_bridge` with its hours) |
+| 7 | Seven Lakes Basin reservations snapshot (Lunch Lake, Heart Lake, 2026-10-07) | `full_snapshot` |
+| 8 | Loop in excellent condition, low-snow year (`sol_duc_high_divide`) | `snow_year` |
+| 9 | Sol Duc River and Deer Lake trails' downed trees | `blowdown` |
+| 10 | Landslide above Lunch Lake (`seven_lakes_basin->round_lake_junction`, its hazard card) | `hazard` |
+| 11 | Dead bear in Hoh Lake (before Oct 15, 2026) | `news` |
+| 12 | Cold snap at Appleton Pass, Sept 25-26 | `history` |
+| 13 | Rangers checking permits and canisters on the loop | `staffing` |
+| 14 | Bogachiel River Trail overgrown, new blowdown (`little_divide`) | `blowdown` |
+| 15 | Olympic Hot Springs Road washed out, the bridge passable (`appleton_pass`) | `news` (the road walk itself is structured from `park_rules.json`) |
+| 16 | Port Angeles WIC hours | `staffing` |
+| 17 | Eagle Ranger Station not regularly staffed (stale) | `staffing` |
+| 18 | Spruce Railroad Trail rockfall, 2023 | `superseded` |
+
+### S4-2. Basic or nice, on every catalog item (Lead call 29; GAME_DESIGN 5.8)
+
+Every item, pack and tier in `gear_catalog.json` and every food in `food_catalog.json` gains `basic: true` (free) or `false` (nice, at its `price_usd`), and each catalog's `notes` gains the rule. Set by hand, item by item: an item-tier is basic when it is the plain, serviceable version of an essential (it meets a row of the ranger's checklist or the worn outfit in `content/rules/kits.json`, is a pack, or is the basic stove's fuel) and the plainest version of that thing on an M1a shelf; every trap the general store sells is basic too; everything else is nice. Foods: everything sold at the grocery is basic except the beer.
+
+- **Basic, at the general store (59):** packs `external_frame_70`, `daypack_20`; `tent_2p_dome` (cheap tier), `tarp_canvas`, `space_blanket`, `tube_tent_plastic`; `bag_synth_45`, `_30`, `_20`, `pad_foam_ccf`, `pad_foam_torso`, `bag_flannel_rectangle`; `socks_wool_hiking`, `sweater_wool_vintage`, `fleece_jacket`, `base_top_synthetic`, `base_bottom_synthetic`, `pants_convertible`, `wool_pants_surplus`, `beanie_wool`, `ball_cap`, `tee_cotton`, `jeans_denim`, `hoodie_cotton`, `socks_cotton`; the cheap tiers of `rain_jacket`, `rain_pants` and `poncho`, `pack_liner_compactor`; `boots_leather`, `sneakers_canvas`; `stove_canister` (cheap tier), the three fuel canisters, `pot_aluminum_1_3l`, `lighter_mini`, `matches_storm`, `firestarter_cubes`, `skillet_cast_iron`; `bottle_disposable_1l`, `bottle_hard_1l`, `water_bag_3l`, `tablets_chlorine_dioxide`; `knife_folding`, `whistle`, `hatchet`, `duct_tape_roll`; `headlamp` (cheap tier), `flashlight_big`, `map_park_brochure`; `first_aid_basic`, `sunscreen`, `lip_balm_spf`, `bug_repellent`, `toilet_paper_kit`, `deodorant`; `speaker_portable` and `camp_chair_ultralight`'s cheap car chair.
+- **Basic, at the gear shop:** `map_topo_park`, `compass_baseplate`, `trowel` (GAME_DESIGN 5.7 puts no full map, real compass or trowel at the general store).
+- **Basic, at the desk:** `canister_wic_loaner` (Lead call 33), `permit_wilderness` (its fees shown, not paid). **Basic, the hiker's own:** `phone`.
+- **Basic foods:** the 73 grocery foods but the beer.
+- **Nice:** everything else, among them `weekender_50`, every standard and premium tier above a sold cheap one, the instruments, the freeze-dried meals, the beer, the pre-roll and `smoked_salmon`.
+
+### S4-3. The general store's new items (GAME_DESIGN 5.7)
+
+Each is `estimate: true` with `evidence` for every number; its `name` is a draft for S11's batch, never shipped from here; no `flavor` until S12a.
+
+| Item | Weight · price (5.7) | The rest, and where it comes from | Basic |
+|---|---|---|---|
+| `tarp_canvas` | 64 oz · $49 | 4.8 L (scaled by weight from `tarp_flat`); `tarp_flat`'s stats with `wind_rating` 2 (5.2: it shrugs off wind); tags `shelter_tarp`, `needs_poles`, `heavy`, `bulky`, `bombproof` | yes |
+| `flannel_cotton` | 12 oz · $29 | 2.1 L and its cotton stats from `hoodie_cotton`, scaled by weight; insulating, cotton, not tagged `trap` (6.9's eighteen stay eighteen) | no: cotton meets no need |
+| `wool_pants_surplus` | 24 oz · $35 | 1.8 L (`jeans_denim`); insulation from `base_bottom_merino`, wet warmth and drying from `sweater_wool_vintage`; covers legs | yes |
+| `blanket_wool` (plain) | 64 oz · $59 | 11.4 L (scaled from `sweater_wool_vintage`); warmth bonus from `liner_fleece`; off the shelf until the `wool_blanket` switch (M1b) | no |
+| `smoked_salmon` (food) | 3 oz · $9 | **100 kcal from USDA FoodData Central** [173687](https://fdc.nal.usda.gov/food-details/173687/nutrients), *Fish, salmon, chinook, smoked* (SR Legacy 15077): 117 kcal per 100 g, and 3 oz is 85 g; 0.14 L (scaled from `tuna_pouch`); morale 3 and smelly (5.7); `sold_at` `boutique`, and the general store's shelf adds it as a treat | no |
+
+`shellfish_license` waits for clams (M1b or M4): its fee is unresearched. The gear catalog holds 223 items and the food catalog 89.
+
+### S4-4. Tags and stats
+
+- **`bombproof` and `style`** join `tag_glossary` (GAME_DESIGN 5.2, 5.7). `bombproof` replaces `unbreakable` (same meaning) on `pad_foam_ccf` and `pad_foam_torso`, and is on `tarp_canvas`; `style` has no M1a item yet (the boutique's, S35a).
+- **The four socks** (`socks_wool_hiking`, `socks_liner`, `socks_waterproof`, `socks_cotton`) gain `stats.covers: ["feet"]`, a completeness fix the checklist's worn socks need reads.
+
+### S4-5. Read, not changed
+
+Ingest reads and reports, without editing: the retired `journal_points` (5 items) and `journal_points_bonus` (7 items) are dropped from the generated catalog; `field_guide` reads as `id_book` and `sketchbook` as `luxury` (E.4); stat values that are words stay here. The sun tables reproduce R3's fourteen sunrises to the second and all 96 of `daylight_loop_2027`'s values to the minute. The ingest report (`content/park/ingest_report.md`) lists every fix, estimate and doubt.

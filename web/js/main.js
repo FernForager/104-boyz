@@ -11,12 +11,17 @@
 // takes the page, back on the autosaved screen. Main's page never imports it.
 // About a second after the first paint, the replay self-check runs on both
 // channels (ui/selfcheck.js); its result rides in every bug report.
+//
+// On a build whose <html data-screens> lists the map (preview, from S4),
+// #map opens the pencil map of the loop over whatever shows (ui/map.js), at
+// launch and at every change of the address's hash, and any other hash
+// closes it. Main's page never lists the map, so it never imports it.
 
 import { installErrors, showError } from './ui/errors.js';
 import { loadText } from './text.js';
 import { startWorker } from './platform/sw-client.js';
 import { persist, storageFacts } from './platform/storage.js';
-import { initDebug, copyReport } from './ui/debug.js';
+import { initDebug, copyReport, opensMap, MAP_HASH } from './ui/debug.js';
 import { runCheck } from './ui/selfcheck.js';
 
 /** How long after the first paint the self-check starts (ms): after the cover's draw-in. */
@@ -37,6 +42,19 @@ import('./ui/home.js')
     return title;
   })
   .catch(showError);
+if (opensMap(document)) {
+  let mapLoaded = false;
+  const route = () => {
+    const want = location.hash === MAP_HASH;
+    if (!want && !mapLoaded) return;
+    mapLoaded = true;
+    import('./ui/map.js')
+      .then(({ showMap, hideMap }) => (want ? showMap(document, { words }) : hideMap(document)))
+      .catch(showError);
+  };
+  window.addEventListener('hashchange', route);
+  route();
+}
 // Ask for lasting storage after the first paint, and never wait on it (E.6).
 requestAnimationFrame(() => setTimeout(() => persist().then(() => storageFacts()), 0));
 requestAnimationFrame(() => setTimeout(() => runCheck(), CHECK_AFTER_MS));

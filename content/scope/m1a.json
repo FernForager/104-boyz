@@ -1,10 +1,11 @@
 {
- "$comment": "What this milestone ships (BUILD_PLAN 3.6, 10.6). S2 writes the screens, the main block and the channel swap; S3 adds the guest book and the trail (preview only: main.screens keeps them off main); S4 adds the shows-and-hides switches. screens: the screens this build has (a line on another screen waits for it: T11). main.screens: the screens the main channel carries. main.off: lines on those screens that main leaves out, each with its reason; the fill removes them, and T14 holds every other line main reaches to the ledger. channels: per-channel id swaps for the fill.",
- "screens": ["app", "debug", "guestbook", "title", "trail"],
+ "$comment": "What this milestone ships (BUILD_PLAN 3.4, 3.6, 10.6; GAME_DESIGN 3.6, 15). S2 writes the screens, the main block and the channel swap; S3 adds the guest book and the trail (preview only: main.screens keeps them off main); S4 adds ships, park, first_trip, months, stores, jobs and switches, and the map (preview only). screens: the screens this build has (a line on another screen waits for it: T11). main.screens: the screens the main channel carries. main.off: lines on those screens that main leaves out, each with its reason; the fill removes them, and T14 holds every other line main reaches to the ledger. channels: per-channel id swaps for the fill. ships: each data section ships to a channel only when one of its listed screens is in that channel's screens; everything is compiled, validated and linted on every build, shipped or not. park: the M1a slice of the park graph, whose lists lint G08 checks. switches: the shows-and-hides, each naming its doc; tools/scope.mjs holds their registry, and R01 checks each against it.",
+ "screens": ["app", "debug", "guestbook", "map", "title", "trail"],
  "main": {
   "screens": ["app", "debug", "title"],
   "off": {
    "alt.cover_high_divide_dusk": "Unapproved (decision 64): on main the cover is decoration beside the name; B002 brings it back as the loading art's",
+   "dev.map": "Preview only: the pencil map at #map is preview's check view (BUILD_PLAN S4)",
    "dev.marks": "Preview only: main has no drafts to mark",
    "dev.marks.drafts": "Preview only",
    "dev.marks.off": "Preview only",
@@ -17,5 +18,85 @@
  },
  "channels": {
   "preview": { "swap": { "app.short_name": "app.preview_name" } }
+ },
+ "ships": {
+  "park": ["map"],
+  "conditions": [],
+  "permits": [],
+  "daylight": [],
+  "climate": [],
+  "sun": [],
+  "kits": [],
+  "quiz": [],
+  "items": [],
+  "foods": [],
+  "stores": [],
+  "drives": []
+ },
+ "park": {
+  "play": ["sol_duc_high_divide"],
+  "nodes": [
+   "sol_duc_trailhead", "sol_duc_falls", "sol_duc_falls_camp", "hidden_lake_junction", "hidden_lake", "canyon_creek_1", "canyon_creek_2", "canyon_creek_3",
+   "deer_lake", "potholes", "seven_lakes_basin", "round_lake_junction", "round_lake", "lunch_lake", "clear_lake", "mirror_lake",
+   "mirror_lake_way_trail_junction", "long_lake", "sol_duc_lake", "morgenroth_lake", "no_name_lake", "y_lake", "lake_8", "bogachiel_peak_west_junction",
+   "high_divide", "bogachiel_peak_junction", "bogachiel_peak", "hoh_lake", "c_b_flats_group_site", "hoh_lake_trail_junction", "heart_lake_junction", "heart_lake",
+   "bruces_roost", "cat_basin_cutoff_junction", "swimming_bear_lake_junction", "cat_basin", "sol_duc_park", "lower_bridge_creek", "sol_duc_crossing", "horse_head_stock_camp",
+   "seven_mile_group_camp", "rocky_creek", "appleton_junction", "sol_duc_river_4", "sol_duc_river_3", "sol_duc_river_2", "sol_duc_river_1"
+  ],
+  "map_only": ["clear_lake->long_lake", "long_lake->sol_duc_lake", "long_lake->morgenroth_lake", "morgenroth_lake->y_lake", "morgenroth_lake->no_name_lake"],
+  "camps": [
+   "sol_duc_falls_camp", "canyon_creek_1", "canyon_creek_2", "canyon_creek_3", "deer_lake", "potholes", "round_lake", "lunch_lake", "clear_lake", "hoh_lake", "heart_lake_junction",
+   "heart_lake", "sol_duc_park", "lower_bridge_creek", "sol_duc_crossing", "rocky_creek", "appleton_junction", "sol_duc_river_4", "sol_duc_river_3", "sol_duc_river_2", "sol_duc_river_1"
+  ],
+  "desk": ["bruces_roost", "cat_basin", "hidden_lake"],
+  "never": ["c_b_flats_group_site", "horse_head_stock_camp", "seven_mile_group_camp"],
+  "pencil_rows": ["long_lake", "sol_duc_lake"],
+  "map_looks": ["long_lake", "sol_duc_lake", "morgenroth_lake", "no_name_lake", "y_lake", "mirror_lake"],
+  "footnotes": ["lake_8"],
+  "phone_only_m1b": ["morgenroth_lake"],
+  "doc": "BUILD_PLAN 3.4; GAME_DESIGN 4.3, 4.6: camps in loop order counterclockwise; never are the group and stock sites a solo hiker is never offered"
+ },
+ "first_trip": {
+  "trailhead": "sol_duc_trailhead",
+  "loop": "high_divide",
+  "questions": ["way_round", "how_long", "up_high"],
+  "lengths": ["day", 1, 2, 3],
+  "fills": 12,
+  "never": ["morgenroth_lake"],
+  "doc": "GAME_DESIGN 3.6, B.1"
+ },
+ "months": [8, 9],
+ "stores": { "open": ["general", "gear"], "desk": true, "later": { "boutique": "M1b", "second_growth": "M1b" } },
+ "jobs": { "open": ["drive_in"], "later": { "gastropub": "M1b", "bookstore": "M1b" } },
+ "switches": {
+  "wic_phone": { "on": false, "until": "M1b", "doc": "BUILD_PLAN 3.6; GAME_DESIGN 4.3: the cabin's wall phone is only a Look" },
+  "drive_chip.huckleberry_skillet": { "on": false, "until": "M1b", "doc": "BUILD_PLAN 3.6" },
+  "drive_chip.steaming_fern_lodge": { "on": false, "until": "M1b", "doc": "BUILD_PLAN 3.6" },
+  "door.second_growth": { "on": false, "until": "M1b", "doc": "BUILD_PLAN 3.6" },
+  "door.boutique": { "on": false, "until": "M1b", "doc": "BUILD_PLAN 3.6; decision 48" },
+  "door.dish_pit": { "on": false, "until": "M1b", "doc": "BUILD_PLAN 3.6" },
+  "door.bookstore": { "on": false, "until": "M1b", "doc": "BUILD_PLAN 3.6" },
+  "door.drive_in": { "on": true, "doc": "BUILD_PLAN 3.6; Lead call 32" },
+  "beer_cooler": { "on": true, "overnight_only": true, "doc": "BUILD_PLAN 3.6; GAME_DESIGN 5.3" },
+  "bonfire_lily_weight": { "value": 0, "until": "M1b", "doc": "BUILD_PLAN 3.6" },
+  "walk_out": { "on": false, "until": "M1b", "doc": "BUILD_PLAN 3.6" },
+  "trip_codes": { "on": false, "until": "M1b", "doc": "BUILD_PLAN 3.6" },
+  "gear_csv": { "on": false, "until": "M1b", "doc": "BUILD_PLAN 3.6, 11.4" },
+  "cabin_seasons": { "value": ["summer"], "until": "M1b (S37)", "doc": "BUILD_PLAN 3.6" },
+  "real_moon": { "on": false, "until": "M1b (S37)", "doc": "BUILD_PLAN 3.6" },
+  "crew": { "on": false, "until": "M1b (S37)", "doc": "BUILD_PLAN 3.6" },
+  "wool_blanket": { "on": false, "until": "M1b (S37)", "doc": "BUILD_PLAN 3.6; the general store's blanket_wool stays off its shelf until then" },
+  "easter_eggs": { "on": false, "until": "the Boyz' yes", "doc": "BUILD_PLAN 3.6; decision 54" },
+  "chalkboard": { "value": "look", "doc": "BUILD_PLAN 3.6: the chalkboard opens with T2 on preview, T4 on main" },
+  "peak": { "value": "look", "doc": "BUILD_PLAN 3.6: the peak opens with T1" },
+  "hike_it_again": { "on": true, "cut_ladder": 1, "doc": "BUILD_PLAN 3.6, 8.3" },
+  "wic_on_town_run": { "value": "every_overnight", "doc": "BUILD_PLAN 3.6; decision 40; Lead call 33" },
+  "money": { "wallet": true, "basic_and_nice": true, "doc": "BUILD_PLAN 3.6; Lead call 29" },
+  "gentle": { "value": "no_screen", "doc": "BUILD_PLAN 3.6: every hiker_dies carries modes.gentle, linted from S24a" },
+  "minigames": { "value": ["bear_can", "alpenglow", "huckleberries", "burgers"], "doc": "BUILD_PLAN 3.6" },
+  "clam_shovel": { "value": "look", "doc": "BUILD_PLAN 3.6; decision 61" },
+  "settings": { "value": ["odds", "text", "trail_stops", "sound", "music", "minigames", "park", "export", "import", "credits", "ranger_reading"], "doc": "BUILD_PLAN 3.6" },
+  "sound": { "value": ["places", "footsteps", "animals", "gear", "flat_lay", "thunder", "hush", "death_cues", "cabin_band", "camp_tunes", "minigames", "drive_in"], "doc": "BUILD_PLAN 3.6" },
+  "last_chance_shelf": { "on": false, "doc": "GAME_DESIGN 3.3, 5.3; not on BUILD_PLAN 3.6's M1a list, so hidden until a session builds it" }
  }
 }

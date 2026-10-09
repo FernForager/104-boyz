@@ -25,7 +25,7 @@
 // on any error. Infos are notes (a stop set's words still to come). compileSources() does the same for files given in memory (the engine
 // fixture, tests).
 
-import { existsSync, readFileSync, readdirSync } from 'node:fs';
+import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { validate } from './schema.mjs';
@@ -33,14 +33,71 @@ import { parse, check } from '../web/js/engine/expr.js';
 import { PHASES } from '../web/js/engine/phases/index.js';
 import { canon } from '../web/js/engine/canon.js';
 import { ROOT } from './pics.mjs';
-import { readText } from './text.mjs';
+import { readText, hasId } from './text.mjs';
+import { checkScope, ships } from './scope.mjs';
+import { compilePark, mapData } from './park.mjs';
+import { B_SECTIONS } from './sections.mjs';
 
-/** The folders compiled, and the schema each file in them takes. */
-export const FOLDERS = Object.freeze({
-  rules: (name) => `${name}.schema.json`,
-  trips: () => 'plans.schema.json',
-  stops: () => 'stops.schema.json',
-});
+/**
+ * The files compiled, by path under content/, and the schema each takes
+ * (BUILD_PLAN 2.6, 2.7; S4): the first pattern a file's path matches names
+ * its schema, as a file name or from the match. A JSON file under one of
+ * DIRS that no pattern matches, or whose schema is missing, is J01.
+ * tools/textlint.mjs reads the same table for T10.
+ * @type {readonly {pattern: RegExp, schema: string | ((m: RegExpExecArray) => string), owner: string}[]}
+ */
+export const FOLDERS = Object.freeze([
+  { pattern: /^rules\/([a-z][a-z0-9_]*)\.json$/, schema: (m) => `${m[1]}.schema.json`, owner: 'S3; S4 movement (A), kits (B)' },
+  { pattern: /^trips\/[^/]+\.json$/, schema: 'plans.schema.json', owner: 'S3' },
+  { pattern: /^stops\/[^/]+\.json$/, schema: 'stops.schema.json', owner: 'S3' },
+  { pattern: /^park\/regions\/[^/]+\.json$/, schema: 'park_region.schema.json', owner: 'S4 A (generated)' },
+  { pattern: /^park\/overlays\/park\.json$/, schema: 'park_points.schema.json', owner: 'S4 A' },
+  { pattern: /^park\/overlays\/[^/]+\.json$/, schema: 'park_overlay.schema.json', owner: 'S4 A' },
+  { pattern: /^park\/vocab\/hazards\.json$/, schema: 'hazards.schema.json', owner: 'S4 A' },
+  { pattern: /^park\/vocab\/zones\.json$/, schema: 'zones.schema.json', owner: 'S4 A' },
+  { pattern: /^park\/ingest_known\.json$/, schema: 'ingest_known.schema.json', owner: 'S4 A' },
+  { pattern: /^park\/ingest_lock\.json$/, schema: 'ingest_lock.schema.json', owner: 'S4 A (generated)' },
+  { pattern: /^park\/conditions\/[^/]+\.json$/, schema: 'conditions.schema.json', owner: 'S4 B (generated)' },
+  { pattern: /^park\/permits\.json$/, schema: 'permits.schema.json', owner: 'S4 B (generated)' },
+  { pattern: /^data\/climate\.json$/, schema: 'climate.schema.json', owner: 'S4 B (generated)' },
+  { pattern: /^data\/(?:daylight|quinault_sun)\.json$/, schema: 'sun.schema.json', owner: 'S4 B (generated)' },
+  { pattern: /^gear\/items\.json$/, schema: 'gear_items.schema.json', owner: 'S4 B (generated)' },
+  { pattern: /^gear\/look_rules\.json$/, schema: 'look_rules.schema.json', owner: 'S4 B' },
+  { pattern: /^food\/items\.json$/, schema: 'food_items.schema.json', owner: 'S4 B (generated)' },
+  { pattern: /^stores\/stores\.json$/, schema: 'stores.schema.json', owner: 'S4 B' },
+  { pattern: /^drive\/routes\.json$/, schema: 'drives.schema.json', owner: 'S4 B' },
+  { pattern: /^quiz\/locals\.json$/, schema: 'quiz.schema.json', owner: 'S4 B' },
+  { pattern: /^scope\/[a-z][a-z0-9_]*\.json$/, schema: 'scope.schema.json', owner: 'S4 A' },
+]);
+
+/**
+ * The data sections (tools/scope.mjs SECTIONS), each compiled from the
+ * validated files: ({files: Map<path, {data, src}>, scope, add}) => the
+ * section's rules data, or null when its sources aren't here. add(file,
+ * line, code, msg) reports a problem. Track B registers its own here.
+ * @type {Record<string, (ctx: {files: Map<string, {data: any, src: string}>, scope: any, add: (file: string, line: number, code: string, msg: string) => void}) => any>}
+ */
+export const SECTION_COMPILERS = {
+  park: compilePark,
+  ...B_SECTIONS,
+};
+
+/** The folders under content/ whose JSON files are compiled (walked recursively); content/text/ and content/art/ have their own readers. */
+export const DIRS = Object.freeze(['rules', 'trips', 'stops', 'park', 'data', 'gear', 'food', 'stores', 'drive', 'quiz', 'scope']);
+
+/**
+ * The schema a content file takes, by its path under content/
+ * ("park/regions/coast.json"), or null when no pattern matches.
+ * @param {string} rel
+ * @returns {string | null}
+ */
+export function schemaFor(rel) {
+  for (const f of FOLDERS) {
+    const m = f.pattern.exec(rel);
+    if (m) return typeof f.schema === 'string' ? f.schema : f.schema(m);
+  }
+  return null;
+}
 
 /** @typedef {{file: string, line: number, code: string, msg: string, level?: 'error' | 'warn'}} Problem */
 /** @typedef {{file: string, folder: string, name: string, src: string}} Source */
@@ -121,20 +178,29 @@ export function lineOfPath(src, path) {
   }
 }
 
-/** Every content source under root/content/{rules,trips,stops}, sorted. */
+/**
+ * Every content source under root/content/<DIRS>, walked recursively, as
+ * {file, folder: the path of its folder under content/ ("park/regions"),
+ * name: its base name, src}, sorted by path in code-unit order.
+ * @param {string} [root]
+ */
 export function readSources(root = ROOT) {
   /** @type {Source[]} */
   const out = [];
-  for (const folder of Object.keys(FOLDERS)) {
-    const dir = join(root, 'content', folder);
-    if (!existsSync(dir)) continue;
-    for (const n of readdirSync(dir).sort()) {
-      if (!n.endsWith('.json')) continue;
-      out.push({ file: `content/${folder}/${n}`, folder, name: n.slice(0, -5), src: readFileSync(join(dir, n), 'utf8') });
+  const walk = (folder) => {
+    const dir = join(root, 'content', ...folder.split('/'));
+    if (!existsSync(dir)) return;
+    for (const n of readdirSync(dir).sort(byCode)) {
+      const p = join(dir, n);
+      if (statSync(p).isDirectory()) walk(`${folder}/${n}`);
+      else if (n.endsWith('.json')) out.push({ file: `content/${folder}/${n}`, folder, name: n.slice(0, -5), src: readFileSync(p, 'utf8') });
     }
-  }
+  };
+  for (const folder of DIRS) walk(folder);
   return out;
 }
+
+const byCode = (a, b) => (a < b ? -1 : a > b ? 1 : 0);
 
 /** Every schema under root/schemas, by file name, and vars.json. */
 export function readSchemas(root = ROOT) {
@@ -157,11 +223,14 @@ export function boxSlots(box) {
 
 /**
  * Compile sources given in memory.
- * @param {{sources: Source[], schemas: Record<string, any>, screens: string[], defined?: ((id: string) => boolean) | null}} o
+ * @param {{sources: Source[], schemas: Record<string, any>, screens: string[], defined?: ((id: string) => boolean) | null, sections?: 'ships' | 'all'}} o
  *   defined: is a line id defined (null: don't check text refs)
- * @returns {{rules: any, voice: any, problems: Problem[], infos: string[]}}
+ *   sections: 'ships' puts a data section in rules.json only when the
+ *   screens meet its ships list (the build); 'all' puts every compiled one
+ *   in (tests, goldens and the lint)
+ * @returns {{rules: any, voice: any, problems: Problem[], infos: string[], sections: Record<string, any>, map: any}}
  */
-export function compileSources({ sources, schemas, screens, defined = null }) {
+export function compileSources({ sources, schemas, screens, defined = null, sections = 'ships' }) {
   /** @type {Problem[]} */
   const problems = [];
   /** @type {string[]} */
@@ -179,10 +248,12 @@ export function compileSources({ sources, schemas, screens, defined = null }) {
 
   /** Files that failed validation, so their absence doesn't cascade into more problems. */
   const broken = new Set();
+  /** Every file that validated, by path: its data (no $comment) and its source. */
+  /** @type {Map<string, {data: any, src: string}>} */
+  const valid = new Map();
   for (const s of sources) {
     const at = (path) => lineOfPath(s.src, path);
-    const pick = FOLDERS[s.folder];
-    const schemaName = pick ? pick(s.name) : null;
+    const schemaName = schemaFor(`${s.folder}/${s.name}.json`);
     const schema = schemaName ? schemas[schemaName] : null;
     if (!schema) {
       add(s.file, 1, 'J01', `no schema for it (schemas/${schemaName || '?'})`);
@@ -227,6 +298,7 @@ export function compileSources({ sources, schemas, screens, defined = null }) {
     // A file whose expressions failed is still registered, so nothing cascades
     // from it; its problems already stop the build.
     const { $comment, ...body } = data;
+    valid.set(s.file, { data: body, src: s.src });
     if (s.folder === 'rules' && s.name === 'profile') profile = body;
     else if (s.folder === 'rules' && s.name === 'standard') standard = body;
     else if (s.folder === 'trips') {
@@ -290,8 +362,25 @@ export function compileSources({ sources, schemas, screens, defined = null }) {
     else if (screens.includes(data.screen) && !screens.includes(set.data.screen)) add(file, lineOfPath(src, 'screen'), 'R01', `plan "${id}" is on screen ${data.screen}, but its set is on ${set.data.screen}, which this build doesn't have`);
   }
 
+  // The scope file (R01): its switches and sections against tools/scope.mjs.
+  const scopeFile = [...valid.keys()].find((f) => /^content\/scope\/[^/]+\.json$/.test(f));
+  const scope = scopeFile ? /** @type {{data: any, src: string}} */ (valid.get(scopeFile)).data : null;
+  if (scopeFile && scope) for (const p of checkScope(scope)) add(scopeFile, lineOfPath(/** @type {{data: any, src: string}} */ (valid.get(scopeFile)).src, p.path), 'R01', `${p.path}: ${p.msg}`);
+
+  // The data sections (S4): each compiled whenever its sources are here, and
+  // in rules.json only when the channel's screens meet its ships list (or
+  // sections is 'all', for tests and lints).
+  /** @type {Record<string, any>} */
+  const compiled = {};
+  for (const [name, compile] of Object.entries(SECTION_COMPILERS)) {
+    const out = compile({ files: valid, scope, add });
+    if (out !== null && out !== undefined) compiled[name] = out;
+  }
+
   // Scope and split.
+  /** @type {any} */
   const rules = { format: 1, profile, standard, plans: {}, stops: {} };
+  for (const name of Object.keys(compiled).sort()) if (sections === 'all' || ships(scope, name, screens)) rules[name] = compiled[name];
   const voice = { format: 1, stops: {} };
   for (const id of [...plans.keys()].sort()) {
     const p = plans.get(id).data;
@@ -326,7 +415,9 @@ export function compileSources({ sources, schemas, screens, defined = null }) {
   const text = canon(rules);
   if (text.includes('"@')) add('tools/content.mjs', 1, 'J01', 'an x-voice value reached rules.json; it belongs in voice.json');
   problems.sort((a, b) => (a.file < b.file ? -1 : a.file > b.file ? 1 : a.line - b.line));
-  return { rules: JSON.parse(text), voice, problems, infos };
+  // The pencil map's display data (data/map.json), for a channel with the map screen.
+  const map = screens.includes('map') || sections === 'all' ? mapData({ files: valid, scope }) : null;
+  return { rules: JSON.parse(text), voice, problems, infos, sections: compiled, map };
 }
 
 /** Set a value at a schema path ("stops[1].choices[0].roll.p"). */
@@ -344,16 +435,16 @@ function setPath(obj, path, value) {
  *   defined: how to tell a defined line (default: content/text, read with tools/text.mjs)
  * @returns {{rules: any, voice: any, problems: Problem[], infos: string[]}}
  */
-export function compileContent({ root = ROOT, screens, checkText = true, defined }) {
+export function compileContent({ root = ROOT, screens, checkText = true, defined, sections = 'ships' }) {
   let isDefined = null;
   if (checkText) isDefined = defined || textLines(root);
-  return compileSources({ sources: readSources(root), schemas: readSchemas(root), screens, defined: isDefined });
+  return compileSources({ sources: readSources(root), schemas: readSchemas(root), screens, defined: isDefined, sections });
 }
 
-/** Is a line id defined in root/content/text/en (tools/text.mjs)? */
+/** Is a line id defined in root/content/text/en, or a place or term in content/text/names (tools/text.mjs)? */
 function textLines(root) {
-  const { lines } = readText(root, { strict: false });
-  return (id) => lines.has(id);
+  const text = readText(root, { strict: false });
+  return (id) => hasId(text, id);
 }
 
 const isMain = process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href;

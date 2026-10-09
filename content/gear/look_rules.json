@@ -1,0 +1,49 @@
+{
+ "$comment": "How each gear item looks in the flat lay, before S12a's stamps (GAME_DESIGN 6.1, 11.1; BUILD_PLAN 11.3, 11.4). Ingest derives every item's look (a palette pair, light then dark, and a dither) from these rules: an item's pair from by_id, else its category's; its dither from dither_by_id, else the first of its tags in dither_by_tag, else flat. The outline is the store's (content/stores/stores.json), never here. Slots are content/art/palette.json's; gold (slot 7) is the Bonfire Lily's only and never appears (11.1). 6.1's dithers: brick for wool, diag for canvas, hlines for ripstop shells and puffies, checker for fleece. The rain jacket is rust, the jacket the hiker wears on the trail (11.6). The report lists the items still on a category default for S12a.",
+ "by_category": {
+  "pack": [9, 10],
+  "shelter": [13, 12],
+  "sleep": [2, 1],
+  "clothing": [14, 13],
+  "rain": [15, 11],
+  "footwear": [10, 0],
+  "cook": [3, 2],
+  "water": [3, 15],
+  "nav": [5, 10],
+  "light": [4, 2],
+  "first_aid": [6, 9],
+  "repair": [14, 10],
+  "sun": [5, 6],
+  "food_storage": [2, 0],
+  "traction": [3, 2],
+  "climbing": [8, 9],
+  "tool": [10, 0],
+  "comfort": [14, 12],
+  "luxury": [6, 9],
+  "art": [5, 6]
+ },
+ "by_id": {
+  "rain_jacket": [8, 9]
+ },
+ "dither_by_id": {
+  "tarp_canvas": "diag",
+  "daypack_20": "diag",
+  "sneakers_canvas": "diag",
+  "rain_jacket": "hlines",
+  "rain_pants": "hlines",
+  "wind_shell": "hlines",
+  "puffy_down": "hlines",
+  "puffy_synthetic": "hlines",
+  "vest_down": "hlines",
+  "pants_down": "hlines",
+  "fleece_jacket": "checker",
+  "fleece_grid_hoody": "checker",
+  "liner_fleece": "checker"
+ },
+ "dither_by_tag": {
+  "wool": "brick",
+  "cotton_canvas": "diag"
+ },
+ "dithers": ["flat", "brick", "diag", "hlines", "checker"],
+ "never_slots": [7]
+}

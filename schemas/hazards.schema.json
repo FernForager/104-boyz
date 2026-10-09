@@ -1,0 +1,20 @@
+{
+ "$comment": "content/park/vocab/hazards.json: the canonical hazard tags and the research's words each takes (GAME_DESIGN E.4; BUILD_PLAN S4). tools/ingest.mjs maps every segment's words through it (IG06); a word on two lists is an error there.",
+ "type": "object",
+ "required": ["tags", "not_hazards"],
+ "additionalProperties": false,
+ "properties": {
+  "$comment": { "type": "string" },
+  "tags": { "type": "object", "additionalProperties": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/id" } } },
+  "not_hazards": {
+   "type": "object",
+   "additionalProperties": {
+    "oneOf": [
+     { "type": "object", "required": ["as", "effect", "doc"], "additionalProperties": false, "properties": { "as": { "const": "status" }, "effect": { "enum": ["closure", "maybe_closed"] }, "doc": { "type": "string", "minLength": 1 } } },
+     { "type": "object", "required": ["as", "field", "doc"], "additionalProperties": false, "properties": { "as": { "const": "field" }, "field": { "enum": ["no_camping"] }, "doc": { "type": "string", "minLength": 1 } } }
+    ]
+   }
+  }
+ },
+ "$defs": { "id": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" } }
+}

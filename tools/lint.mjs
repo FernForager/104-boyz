@@ -29,6 +29,10 @@
 //   T07, T10-T14 the words: no book frame, no English outside
 //       content/text/, ids defined and used, the ledger, variables, and
 //       the main gate (tools/textlint.mjs; doc 18.5)
+//   T16 the gazetteer: every place a screen can show is a sourced place
+//       in content/text/names/, no line names a descriptive label as a
+//       place, quotes are their records' words exactly, cut words ship
+//       nowhere (tools/textlint.mjs; S4, doc 18.2, 18.5)
 //   U01 URLs stay relative: the same build is served at / and at /preview/
 // Code:
 //   E01 the picture VM and the palette stay pure: no Math.random, no Date,
@@ -46,11 +50,24 @@
 //       or caches, and no string starting oph. or oph- appears in web/
 //       outside storage.js and sw.js, so every key and cache name carries
 //       its channel and main and preview never share a save
-// Content (content/rules, trips, stops; tools/content.mjs compiles them):
+// The park graph (tools/graphlint.mjs; BUILD_PLAN S4): inside the M1a scope
+// every finding is an error; outside it, one content/park/ingest_known.json
+// doesn't acknowledge is.
+//   G01 references resolve (segment ends, hazards, presets, crossings,
+//       traffic, overlays, the scope, conditions)
+//   G02 every trailhead reaches a camp, every camp a trailhead
+//   G03 elevation sanity (gain - loss against the endpoints, 100 ft)
+//   G04 a shared id whose research records disagree by more than 100 ft
+//   G06 presets route and end at a trailhead; no phone-only camp named
+//   G07 the Bogachiel Peak spur, and no route through a spur node
+//   G08 the M1a scope's lists, map-only links, camps and loop gates
+// Content (content/**: tools/content.mjs compiles it):
 //   J01 every content file has a schema and validates against it
 //   R01 references: next, then, pass and fail name a stop in their set; a
 //       plan's start.set exists and its phase is built; ids unique; every
-//       "@id" in a file the build ships is a line
+//       "@id" in a file the build ships is a line; the scope file's
+//       switches and sections against tools/scope.mjs; the park's scope
+//       ids (the build's rules.park)
 //   X01 every x-expr parses and type-checks against schemas/vars.json (a
 //       divisor whose range includes 0 is a warning)
 
@@ -62,6 +79,7 @@ import { ROOT, loadPicSources, loadPalette } from './pics.mjs';
 import { runTextLint, scanJs } from './textlint.mjs';
 import { compileContent } from './content.mjs';
 import { readText, channelScreens } from './text.mjs';
+import { lintGraph } from './graphlint.mjs';
 
 const GOLD_SLOT = 7;
 const GLOW = 19;
@@ -111,6 +129,7 @@ export const RULES = Object.freeze([
   rule('T12', 'text', 'GAME_DESIGN 18.5; BUILD_PLAN 10.4', 'the ledger: an entry with no answer, or a bad hash'),
   rule('T13', 'text', 'GAME_DESIGN 18.5; BUILD_PLAN 10.5', "variables that don't match; a placeholder where none may be"),
   rule('T14', 'text', 'GAME_DESIGN 18.6; BUILD_PLAN 10.6', 'the main gate: main ships approved words only'),
+  rule('T16', 'text', 'GAME_DESIGN 18.2, 18.5; BUILD_PLAN 10.5, S4', 'a place missing from the gazetteer; an inexact quote; cut words'),
   rule('U01', 'urls', 'BUILD_PLAN 6.1', 'URLs stay relative: one build is served at / and at /preview/'),
   rule('E01', 'code', 'BUILD_PLAN 4.2', 'the picture VM and the palette stay pure'),
   rule('E02', 'code', 'BUILD_PLAN 6.6; GAME_DESIGN E.12', 'the engine is deterministic: the bans'),
@@ -119,8 +138,14 @@ export const RULES = Object.freeze([
   rule('J01', 'content', 'BUILD_PLAN 2.7, S3; GAME_DESIGN F.3', 'every content file has a schema and validates against it'),
   rule('R01', 'content', 'GAME_DESIGN F.3', "next, then, pass, fail, a plan's start and its phase name what exists; ids unique; @ids are lines"),
   rule('X01', 'content', 'GAME_DESIGN F.3, 8.3; BUILD_PLAN S3', 'every expression parses and type-checks against schemas/vars.json'),
-  rule('G', 'park graph', 'GAME_DESIGN F.3; BUILD_PLAN S4', 'endpoints, reachability, elevation sanity, picture recipes, presets', 'S4'),
-  rule('T16', 'text', 'BUILD_PLAN 10.5', 'a place missing from the gazetteer; an inexact quote; cut words', 'S4'),
+  rule('G01', 'park graph', 'GAME_DESIGN F.3; BUILD_PLAN S4', 'references: segment ends, hazards, presets, crossings, traffic, overlays, the scope and conditions resolve'),
+  rule('G02', 'park graph', 'GAME_DESIGN F.3', 'every trailhead reaches a camp and every camp a trailhead, over routable segments'),
+  rule('G03', 'park graph', 'GAME_DESIGN F.3, E.4', "elevation sanity: gain - loss meets the endpoints within 100 ft; no null elevation in the scope"),
+  rule('G04', 'park graph', 'GAME_DESIGN E.4', 'a shared id whose records disagree by more than 100 ft'),
+  rule('G05', 'park graph', 'GAME_DESIGN F.3; BUILD_PLAN S5', 'every place has a picture recipe (with content/art/recipes.json)', 'S5'),
+  rule('G06', 'park graph', 'GAME_DESIGN F.3, 4.3', 'presets route and end at a trailhead; nothing names a phone-only camp'),
+  rule('G07', 'park graph', 'M1A_DATA_CHECK item 1', "Bogachiel Peak is a spur, and no route between the plannable camps passes through one"),
+  rule('G08', 'park graph', 'BUILD_PLAN 3.4; GAME_DESIGN 4.3, 4.6', "the M1a scope: real ids, the map-only links, no group or stock site plannable, every camp's fields, the loop's gates and forks"),
   rule('T15', 'text', 'BUILD_PLAN 10.5', "a line over its max", 'S5'),
   rule('T02', 'text', 'GAME_DESIGN F.3; BUILD_PLAN 10.5', 'measured fit at 375 x 667 and 393 x 852', 'S6'),
   rule(null, 'cards', 'GAME_DESIGN F.3', 'reachability, no dead ends, fuzzed odds, chains end, flags set', 'S9'),
@@ -541,6 +566,7 @@ export function runLint(root = ROOT) {
     issues.push(...lintEngineImports(rel(f), code, root));
   }
   issues.push(...lintContent(root));
+  issues.push(...lintGraph(root));
   issues.push(...runTextLint(root).issues);
   return issues;
 }

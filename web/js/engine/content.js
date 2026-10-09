@@ -7,7 +7,10 @@
 // choice labels), so a word-only change can never move the rules hash
 // (E.12). loadContent freezes both, builds the id lookups, and compiles an
 // expression the first time it runs (E.10: lazy compiling), caching the
-// closure by the syntax tree's identity. The cache is not state.
+// closure by the syntax tree's identity. The cache is not state. From S4 a
+// build may ship the park section (rules.park, the M1a slice of the graph,
+// when a screen that shows it is in the channel); park() hands it to
+// graph.js's buildGraph, or is null.
 
 import { EngineError } from './error.js';
 import { deepFreeze } from './canon.js';
@@ -28,6 +31,7 @@ export const RULES_HASH_RE = /^[0-9a-f]{12}$/;
  * @property {(set: string, id: string) => any} stop a stop, or null
  * @property {(set: string, stop: string) => any} voice a stop's display data ({box, labels}), or null
  * @property {(ast: any[]) => import('./expr.js').Compiled} expr the compiled closure for a syntax tree
+ * @property {() => import('./graph.js').Park | null} park the park section (rules.park, S4), or null when the build ships none
  */
 
 const own = (/** @type {any} */ o, /** @type {string} */ k) => o !== null && typeof o === 'object' && Object.prototype.hasOwnProperty.call(o, k);
@@ -58,6 +62,11 @@ export function loadContent({ rules, voice, rulesHash }) {
   for (const p of Object.values(plans)) {
     if (!stops.has(p.start && p.start.set)) throw new EngineError('format', 'content: a plan starts at a set the rules lack');
   }
+  const park = own(rules, 'park') ? rules.park : null;
+  if (own(rules, 'park')) {
+    const ok = park && park.format === 1 && park.nodes && typeof park.nodes === 'object' && park.segs && typeof park.segs === 'object' && park.loops && typeof park.loops === 'object' && park.movement && typeof park.movement === 'object';
+    if (!ok) throw new EngineError('format', 'content: rules.park is not a park, format 1');
+  }
   const planIds = Object.keys(plans).sort((a, b) => (a < b ? -1 : a > b ? 1 : 0));
   const vstops = (voice.stops || {});
   /** @type {Map<any, import('./expr.js').Compiled>} */
@@ -75,6 +84,7 @@ export function loadContent({ rules, voice, rulesHash }) {
       return (byId && byId.get(id)) || null;
     },
     voice: (/** @type {string} */ set, /** @type {string} */ stop) => (own(vstops, set) && own(vstops[set], stop) ? vstops[set][stop] : null),
+    park: () => park,
     expr: (/** @type {any[]} */ ast) => {
       let f = cache.get(ast);
       if (!f) {

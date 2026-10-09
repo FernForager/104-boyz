@@ -7,7 +7,7 @@ import { cpSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:f
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { validate } from '../../tools/schema.mjs';
-import { compileContent, compileSources, readSchemas, readSources, jsonLines, lineOfPath, boxSlots } from '../../tools/content.mjs';
+import { compileContent, compileSources, readSchemas, readSources, jsonLines, lineOfPath, boxSlots, schemaFor, FOLDERS } from '../../tools/content.mjs';
 import { ROOT } from '../../tools/pics.mjs';
 import { loadContent } from '../../web/js/engine/content.js';
 import { canon } from '../../web/js/engine/canon.js';
@@ -52,11 +52,41 @@ test('the schema validator: the keywords content uses, and our three annotations
   assert.throws(() => validate({ $ref: 'other.json#/x' }, 1), /not within the file/);
 });
 
-test("each schema accepts the repo's content files", () => {
+test("each schema accepts the repo's content files, read at any depth (S4: content/park/...)", () => {
   const files = readSources(ROOT);
-  assert.deepEqual(files.map((f) => f.file), ['content/rules/profile.json', 'content/rules/standard.json', 'content/trips/sample.json', 'content/stops/sol_duc_trailhead.json']);
+  const names = files.map((f) => f.file);
+  for (const f of ['content/rules/profile.json', 'content/rules/standard.json', 'content/trips/sample.json', 'content/stops/sol_duc_trailhead.json']) assert.ok(names.includes(f), f);
+  for (const f of ['content/rules/movement.json', 'content/park/regions/sol_duc_high_divide.json', 'content/park/overlays/sol_duc_high_divide.json', 'content/park/overlays/park.json', 'content/park/vocab/hazards.json', 'content/park/vocab/zones.json', 'content/park/ingest_known.json', 'content/park/ingest_lock.json', 'content/scope/m1a.json']) assert.ok(names.includes(f), `S4: ${f}`);
+  assert.equal(files.find((f) => f.file === 'content/park/regions/coast.json').folder, 'park/regions', 'a nested file keeps its folder path');
+  assert.ok(!names.some((f) => f.startsWith('content/text/') || f.startsWith('content/art/') || !f.endsWith('.json')), 'the words, the art and the report have their own readers');
+  for (const f of files) assert.ok(schemaFor(f.file.slice('content/'.length)), `${f.file} has a schema pattern`);
   const { problems } = compileContent({ screens: ['app', 'debug', 'guestbook', 'title', 'trail'], checkText: false });
   assert.deepEqual(problems, []);
+});
+
+test('the path table: each content path names its schema, nested folders included, and an unmatched file is J01', () => {
+  assert.equal(schemaFor('rules/profile.json'), 'profile.schema.json');
+  assert.equal(schemaFor('rules/movement.json'), 'movement.schema.json');
+  assert.equal(schemaFor('park/regions/coast.json'), 'park_region.schema.json');
+  assert.equal(schemaFor('park/overlays/park.json'), 'park_points.schema.json', 'the points file before the region overlays');
+  assert.equal(schemaFor('park/overlays/sol_duc_high_divide.json'), 'park_overlay.schema.json');
+  assert.equal(schemaFor('park/conditions/2026.json'), 'conditions.schema.json');
+  assert.equal(schemaFor('data/quinault_sun.json'), 'sun.schema.json');
+  assert.equal(schemaFor('scope/m1a.json'), 'scope.schema.json');
+  assert.equal(schemaFor('park/regions/deeper/x.json'), null);
+  for (const f of FOLDERS) assert.ok(f.owner, String(f.pattern));
+  const stray = compileSources({ sources: [...rulesSources(), source('park/stray', 'x', { a: 1 })], schemas, screens: [] }).problems;
+  assert.deepEqual(codes(stray), ['content/park/stray/x.json:1: J01']);
+  assert.match(stray[0].msg, /no schema for it/);
+});
+
+test('minItems and maxItems (S4: the quiz takes exactly three answers)', () => {
+  const s = { type: 'array', minItems: 3, maxItems: 3, items: { type: 'string' } };
+  assert.deepEqual(validate(s, ['a', 'b', 'c']).errors, []);
+  assert.match(validate(s, ['a', 'b']).errors[0].msg, /has 2 items, fewer than 3/);
+  assert.match(validate(s, ['a']).errors[0].msg, /has 1 item, fewer than 3/);
+  assert.match(validate(s, ['a', 'b', 'c', 'd']).errors[0].msg, /has 4 items, more than 3/);
+  assert.deepEqual(validate({ minItems: 1 }, 'not an array').errors, [], 'only arrays are counted');
 });
 
 test('each schema rejects planted errors, with the file and the line (J01)', () => {

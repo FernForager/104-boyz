@@ -1,0 +1,16 @@
+{
+ "$comment": "Real places a screen shows that aren't nodes of the park graph (GAME_DESIGN 18.2; BUILD_PLAN 10.2, S4): not ours, no approval, vetoable. Each source is a URL already in the repo's data (the quiz's sources in design/data/quiz_locals.json, the region files', park_rules.json's, and the NPS Visiting Quinault page GAME_DESIGN 2.2 and 3.3 cite). forms: the other ways a line may write the name. tools/text.mjs reads this file with the generated places.json; ingest checks that no id here is also a node's.",
+ "places": {
+  "puyallup": { "text": "Puyallup", "kind": "town", "source": "https://en.wikipedia.org/wiki/Puyallup,_Washington" },
+  "dosewallips": { "text": "Dosewallips", "kind": "river", "source": "https://en.wikipedia.org/wiki/Dosewallips_River" },
+  "hoh": { "text": "Hoh", "kind": "valley", "source": "https://www.nps.gov/olym/planyourvisit/visiting-the-hoh.htm" },
+  "queets": { "text": "Queets", "kind": "valley", "source": "https://www.nps.gov/olym/learn/nature/temperate-rain-forests.htm" },
+  "elwha": { "text": "Elwha", "kind": "valley", "source": "https://www.nps.gov/olym/planyourvisit/visiting-the-elwha.htm" },
+  "mount_rainier": { "text": "Mount Rainier", "kind": "mountain", "forms": ["Rainier"], "source": "https://science.nasa.gov/earth/earth-observatory/mount-rainier-145548/" },
+  "olympic_national_park": { "text": "Olympic National Park", "kind": "park", "forms": ["Olympic"], "source": "https://www.nps.gov/olym/learn/nature/temperate-rain-forests.htm" },
+  "port_angeles": { "text": "Port Angeles", "kind": "town", "source": "https://www.nps.gov/olym/planyourvisit/visiting-quinault.htm" },
+  "lake_quinault": { "text": "Lake Quinault", "kind": "lake", "source": "https://www.nps.gov/olym/planyourvisit/visiting-quinault.htm" },
+  "lake_crescent": { "text": "Lake Crescent", "kind": "lake", "source": "https://www.nps.gov/olym/planyourvisit/lake-crescent-area-brochure.htm" },
+  "us_101": { "text": "US 101", "kind": "road", "source": "https://www.nps.gov/olym/planyourvisit/highway-101-closure-at-hoh-river-bridge.htm" }
+ }
+}

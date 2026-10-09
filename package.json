@@ -9,6 +9,7 @@
   },
   "scripts": {
     "build": "node tools/build.mjs",
+    "ingest": "node tools/ingest.mjs",
     "lint": "node tools/lint.mjs",
     "test": "node --test \"test/unit/*.test.mjs\"",
     "render": "node tools/render-pics.mjs",

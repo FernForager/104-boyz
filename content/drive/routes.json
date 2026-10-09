@@ -1,0 +1,31 @@
+{
+ "$comment": "The drives from the cabin (GAME_DESIGN 2.2, 3.2, 3.3; BUILD_PLAN 2.6). Places by id (each a place in the gazetteer, content/text/names/), roads by id (roads, which the dated conditions name: content/park/conditions/2026.json applies them by date); the scenes and their words are S15a's. minutes are whole minutes of driving, each leg an estimate with its evidence. trip_time: whether the drive costs the trip's clock (the departure-morning drive sets Day 1's start, 3.3; the town run costs no trip time, 2.2, so its minutes only pace its scenes).",
+ "origin": "cabin",
+ "routes": {
+  "town": {
+   "to": "port_angeles",
+   "through": ["lake_quinault", "us_101", "us101_hoh_river_bridge", "forks", "lake_crescent"],
+   "minutes": 180,
+   "trip_time": false,
+   "estimate": true,
+   "evidence": "GAME_DESIGN 2.2 and 3.3: Port Angeles is about three hours from Quinault by road (NPS, Visiting Quinault)",
+   "source": "https://www.nps.gov/olym/planyourvisit/visiting-quinault.htm"
+  },
+  "sol_duc": {
+   "to": "sol_duc_trailhead",
+   "through": ["lake_quinault", "us_101", "us101_hoh_river_bridge", "forks"],
+   "legs": [
+    { "to": "forks", "minutes": 60, "estimate": true, "evidence": "GAME_DESIGN 2.2 and 3.3: Forks is about one hour from Quinault (NPS, Visiting Quinault)", "source": "https://www.nps.gov/olym/planyourvisit/visiting-quinault.htm" },
+    { "to": "sol_duc_trailhead", "minutes": 69, "estimate": true, "evidence": "design/data/regions/sol_duc_high_divide.json trailheads: drive_minutes_from.forks, a routing estimate (OSRM)" }
+   ],
+   "minutes": 129,
+   "trip_time": true
+  }
+ },
+ "roads": {
+  "us101_hoh_river_bridge": { "on": "us_101", "doc": "park_rules.json current_conditions.roads: the US 101 Hoh River Bridge, south of Forks, which every drive from the cabin to Forks and beyond crosses (GAME_DESIGN 3.3: closed, it cuts the cabin off from Forks)" }
+ },
+ "later": {
+  "hoh": { "minutes": 90, "estimate": true, "from": "M2", "evidence": "GAME_DESIGN 3.3: about 1 hour 30, an estimate to measure from the road data before M2" }
+ }
+}

@@ -3,6 +3,14 @@
 // dist/<channel>/ from web/, the art and the words, and assembles site/, the
 // folder GitHub Pages deploys.
 //
+//   0. The ingest check (BUILD_PLAN 6.5, S4): the generated content
+//      (content/park/regions/ and the rest tools/ingest.mjs writes) must
+//      match its lock, content/park/ingest_lock.json: the inputs, the
+//      ingest tools and the outputs hash as the lock says, or the build
+//      refuses with "run npm run ingest". It only hashes; the full re-run
+//      is test/unit/ingest.test.mjs's. A tree without the research
+//      (design/data/regions/, as the tests' partial copies are) can't
+//      re-run ingest, so it skips the check.
 //   1. Compile every picture (.pic text) into op arrays, and check that
 //      each one runs: art/art.json holds the palette, the pictures and the
 //      stamps, so the phone fetches one small file and runs the same
@@ -11,7 +19,12 @@
 //   2b. The data (BUILD_PLAN S3): content/rules, trips and stops compiled
 //      for the channel's screens (tools/content.mjs) into data/rules.json
 //      (the outcome data, canonical JSON) and data/voice.json (the line
-//      ids each stop shows); the build refuses on any error. Then the
+//      ids each stop shows); the build refuses on any error. A data
+//      section (S4: the park) joins rules.json when the channel's screens
+//      meet its ships list in the scope file; a channel with the map
+//      screen also gets data/map.json, the pencil map's display data (not
+//      rules-hashed), and the build refuses a map label that isn't a place
+//      in the gazetteer (content/text/names/places.json; T16). Then the
 //      rules hash over js/engine/ and data/rules.json (tools/rules.mjs),
 //      which version.json and <html data-rules> carry.
 //   2c. The self-check corpus (BUILD_PLAN S3, D11): selfcheck.json, the
@@ -32,7 +45,9 @@
 //      channel, the commit, the rules hash and the channel's screens
 //      stamped on <html>; the manifest is made from its ids;
 //      text/en.json is the channel's bundle (and on preview text/marks.json,
-//      each unapproved line's state). Main ships the ledger's words only:
+//      each unapproved line's state), with the gazetteer's words for the
+//      places its data shows (S4: the map's labels; content/text/names/,
+//      not ours). Main ships the ledger's words only:
 //      its gate (T14) runs before the fill and again over what was built,
 //      and the build fails on any word that isn't approved.
 //   6. The worker's lists (GAME_DESIGN E.7): precache.json names every
@@ -56,7 +71,7 @@
 // build id from git, not from the time of the build. In GitHub Actions a
 // missing git id is an error, so the live site never shows "dev".
 
-import { cpSync, mkdirSync, readFileSync, readdirSync, rmSync, statSync, writeFileSync } from 'node:fs';
+import { cpSync, existsSync, mkdirSync, readFileSync, readdirSync, rmSync, statSync, writeFileSync } from 'node:fs';
 import { join, relative, sep } from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
@@ -70,6 +85,7 @@ import { assemble } from './assemble-site.mjs';
 import { compileContent } from './content.mjs';
 import { selfcheckCorpus } from './goldens.mjs';
 import { rulesHash } from './rules.mjs';
+import { checkLock } from './ingest.mjs';
 import { canon } from '../web/js/engine/canon.js';
 
 export const MAX_BYTES = 5 * 1024 * 1024;
@@ -250,19 +266,51 @@ export function stampWorker(src, { channel, build: id, files }) {
 export function makeData({ root = ROOT, channel }) {
   if (!CHANNELS.includes(channel)) throw new Error(`build: no channel "${channel}" (main or preview)`);
   const screens = channelScreens(readText(root), channel);
-  const { rules, voice, problems: all } = compileContent({ root, screens });
+  const { rules, voice, map, problems: all } = compileContent({ root, screens });
   const problems = all.filter((p) => p.level !== 'warn');
   if (problems.length) throw new Error(`build: the content has ${problems.length} problem${problems.length === 1 ? '' : 's'}:\n  ${problems.map((p) => `${p.file}:${p.line}: ${p.code} ${p.msg}`).join('\n  ')}`);
-  return { screens, rules, voice, files: { 'rules.json': `${canon(rules)}\n`, 'voice.json': JSON.stringify(voice) } };
+  /** @type {Record<string, string>} */
+  const files = { 'rules.json': `${canon(rules)}\n`, 'voice.json': JSON.stringify(voice) };
+  if (map) {
+    const places = gazetteerPlaces(root);
+    const missing = Object.values(map.nodes)
+      .map((n) => n.label)
+      .filter((l) => l && !places.has(l.slice('place.'.length)));
+    if (missing.length) throw new Error(`build: the map's labels must be places in the gazetteer (content/text/names/places.json; T16): ${missing.join(', ')}`);
+    files['map.json'] = `${canon(map)}\n`;
+  }
+  return { screens, rules, voice, map, files };
+}
+
+/** The gazetteer's place ids (content/text/names/places.json), or none when it isn't there yet. */
+export function gazetteerPlaces(root = ROOT) {
+  const p = join(root, 'content', 'text', 'names', 'places.json');
+  if (!existsSync(p)) return new Set();
+  const data = JSON.parse(readFileSync(p, 'utf8'));
+  return new Set(Object.keys((data && data.places) || {}));
+}
+
+/**
+ * Step 0: refuse a tree whose generated content doesn't match its lock.
+ * @param {string} root
+ */
+export function ingestGate(root = ROOT) {
+  if (!existsSync(join(root, 'design', 'data', 'regions'))) return { checked: false };
+  const { ok, problems } = checkLock({ root });
+  if (!ok) throw new Error(`build: the generated content is out of date (run npm run ingest):\n  ${problems.slice(0, 12).join('\n  ')}${problems.length > 12 ? `\n  ... and ${problems.length - 12} more` : ''}`);
+  return { checked: true };
 }
 
 /**
  * The words for a channel: the filled shell, the manifest and the bundles.
  * Main's gate (T14) runs first, over every line main reaches, and then over
- * what was made, so a draft can never reach main.
+ * what was made, so a draft can never reach main. names: the place.<id> and
+ * term.<id> ids the channel's data shows (S4: the map's labels), whose
+ * words the bundle adds from the gazetteer.
+ * @param {{root?: string, channel: string, build: string, commit?: string | null, rules?: string, names?: string[]}} o
  * @returns {{html: string, manifest: string, files: Record<string, string>}}
  */
-export function makeWords({ root = ROOT, channel, build: id, commit = null, rules = 'dev' }) {
+export function makeWords({ root = ROOT, channel, build: id, commit = null, rules = 'dev', names = [] }) {
   const text = readText(root);
   const html = readFileSync(join(root, 'web', 'index.html'), 'utf8');
   const manifestSrc = readFileSync(join(root, 'web', 'manifest.webmanifest'), 'utf8');
@@ -273,7 +321,7 @@ export function makeWords({ root = ROOT, channel, build: id, commit = null, rule
   }
   const page = fillPage(html, { channel, text, build: id, commit, rules });
   const manifest = makeManifest(manifestSrc, { channel, text });
-  const files = Object.fromEntries(Object.entries(bundle(text, channel, reach)).map(([f, o]) => [f, json1(o)]));
+  const files = Object.fromEntries(Object.entries(bundle(text, channel, reach, names)).map(([f, o]) => [f, json1(o)]));
   if (channel === 'main') {
     const issues = checkMainBuild({ html: page, manifest, words: JSON.parse(files['en.json']), text, build: id, reach });
     if (issues.length) throw new Error(`build: main's words fail the gate:\n  ${issues.map((i) => `${i.file}:${i.line}: ${i.code} ${i.msg}`).join('\n  ')}`);
@@ -292,6 +340,8 @@ export function makeWords({ root = ROOT, channel, build: id, commit = null, rule
 export function build({ root = ROOT, channel = process.env.CHANNEL || 'main', out = join(root, 'dist', channel), quiet = false } = {}) {
   if (!CHANNELS.includes(channel)) throw new Error(`build: no channel "${channel}" (main or preview)`);
   const log = quiet ? () => {} : (...a) => console.log(...a);
+  // 0. The ingest check.
+  ingestGate(root);
   rmSync(out, { recursive: true, force: true });
 
   // 1. Pictures.
@@ -317,7 +367,9 @@ export function build({ root = ROOT, channel = process.env.CHANNEL || 'main', ou
   // 5. The words, and the build id.
   const info = buildInfo(root);
   if (info.id === 'dev' && process.env.GITHUB_ACTIONS === 'true') throw new Error('build: no git build id in GitHub Actions (is git on the runner?)');
-  const words = makeWords({ root, channel, build: info.id, commit: info.commit, rules });
+  // The places and terms the channel's data names (S4: the map's labels) join its words.
+  const names = data.map ? [...new Set(Object.values(data.map.nodes).map((n) => n.label).filter(Boolean))].sort() : [];
+  const words = makeWords({ root, channel, build: info.id, commit: info.commit, rules, names });
   writeFileSync(join(out, 'index.html'), words.html);
   writeFileSync(join(out, 'manifest.webmanifest'), words.manifest);
   mkdirSync(join(out, 'text'), { recursive: true });
@@ -343,7 +395,7 @@ export function build({ root = ROOT, channel = process.env.CHANNEL || 'main', ou
   const name = out.startsWith(root + sep) ? relative(root, out).split(sep).join('/') : out;
   log(`build: ${info.id} (${channel}), ${files.length} files, ${(total / 1024).toFixed(1)} KB -> ${name}/`);
   log(`  art.json ${(statSync(join(out, 'art', 'art.json')).size / 1024).toFixed(1)} KB: ${Object.keys(art.pics).length} picture(s), ${Object.keys(art.stamps).length} stamp(s)`);
-  log(`  rules ${rules}: ${Object.keys(data.rules.plans).length} plan(s), ${Object.keys(data.rules.stops).length} stop set(s) for screens ${data.screens.join(' ')}`);
+  log(`  rules ${rules}: ${Object.keys(data.rules.plans).length} plan(s), ${Object.keys(data.rules.stops).length} stop set(s)${data.rules.park ? `, the park (${Object.keys(data.rules.park.nodes).length} places, ${Object.keys(data.rules.park.segs).length} segments)` : ''} for screens ${data.screens.join(' ')}`);
   log(`  selfcheck.json ${(statSync(join(out, 'selfcheck.json')).size / 1024).toFixed(1)} KB: ${corpus.trips.length} golden trips, ${Object.keys(corpus.expect).length} groups`);
   return { info, version, total, files: files.length, out, rules };
 }

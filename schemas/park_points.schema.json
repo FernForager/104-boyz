@@ -1,0 +1,25 @@
+{
+ "$comment": "content/park/overlays/park.json: points the park needs that are not trail nodes (BUILD_PLAN 3.4, 3.5; GAME_DESIGN 2.2, 7.2). The cabin is the lake's center only, never a building (decision 46).",
+ "type": "object",
+ "required": ["cabin", "daylight_point"],
+ "additionalProperties": false,
+ "properties": {
+  "$comment": { "type": "string" },
+  "cabin": {
+   "type": "object",
+   "required": ["lat", "lon", "zone", "source"],
+   "additionalProperties": false,
+   "properties": { "lat": { "$ref": "#/$defs/lat" }, "lon": { "$ref": "#/$defs/lon" }, "zone": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" }, "source": { "type": "string", "minLength": 1 } }
+  },
+  "daylight_point": {
+   "type": "object",
+   "required": ["lat", "lon", "source"],
+   "additionalProperties": false,
+   "properties": { "lat": { "$ref": "#/$defs/lat" }, "lon": { "$ref": "#/$defs/lon" }, "source": { "type": "string", "minLength": 1 } }
+  }
+ },
+ "$defs": {
+  "lat": { "type": "number", "minimum": 46, "maximum": 49 },
+  "lon": { "type": "number", "minimum": -125, "maximum": -122 }
+ }
+}

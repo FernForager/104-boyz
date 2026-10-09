@@ -1,0 +1,29 @@
+{
+ "$comment": "content/rules/movement.json: a Regular hiker's base pace (GAME_DESIGN 7.4; BUILD_PLAN S4). Whole numbers only, so web/js/engine/movement.js times a segment exactly. Rules-hashed through rules.park.",
+ "type": "object",
+ "required": ["regular", "steep", "class_milli", "breaks_milli"],
+ "additionalProperties": false,
+ "properties": {
+  "$comment": { "type": "string" },
+  "regular": {
+   "type": "object",
+   "required": ["flat_mph10", "climb_ft_h"],
+   "additionalProperties": false,
+   "properties": {
+    "flat_mph10": { "type": "integer", "minimum": 1, "maximum": 100 },
+    "climb_ft_h": { "type": "integer", "minimum": 1, "maximum": 10000 }
+   }
+  },
+  "steep": {
+   "type": "object",
+   "required": ["ft_per_mi", "ft_h"],
+   "additionalProperties": false,
+   "properties": {
+    "ft_per_mi": { "type": "integer", "minimum": 1, "maximum": 5000 },
+    "ft_h": { "type": "integer", "minimum": 1, "maximum": 10000 }
+   }
+  },
+  "class_milli": { "type": "object", "additionalProperties": { "type": "integer", "minimum": 1, "maximum": 10000 } },
+  "breaks_milli": { "type": "integer", "minimum": 1000, "maximum": 3000 }
+ }
+}

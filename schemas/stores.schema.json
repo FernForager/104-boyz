@@ -1,0 +1,89 @@
+{
+ "$comment": "content/stores/stores.json: the stores' shelves by catalog id, the desk, the jobs (BUILD_PLAN 11.3, S4; GAME_DESIGN 5.2, 5.3, 5.7, 5.8). Placeholders are names only (STORE_GENERAL), never lines. A shelf entry sells the standard version, or the tiers it names; switch keeps it off until that scope switch is on. tools/ingest/catalogs.mjs checks every id and tier (IG17).",
+ "type": "object",
+ "required": ["stores", "desk", "jobs"],
+ "additionalProperties": false,
+ "properties": {
+  "$comment": { "type": "string" },
+  "stores": {
+   "type": "object",
+   "additionalProperties": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+     "placeholder": { "$ref": "#/$defs/placeholder" },
+     "kind": { "enum": ["bombproof", "light", "style"] },
+     "look": { "type": "object", "required": ["outline", "outline_slot"], "additionalProperties": false, "properties": { "outline": { "type": "integer", "minimum": 1, "maximum": 2 }, "outline_slot": { "type": "integer", "minimum": 0, "maximum": 15 } } },
+     "scale": { "type": "boolean" },
+     "shelves": { "type": "array", "items": { "$ref": "#/$defs/shelf" } },
+     "cooler": {
+      "type": "object",
+      "required": ["items", "overnight_only", "id_check", "switch"],
+      "additionalProperties": false,
+      "properties": { "items": { "$ref": "#/$defs/ids" }, "overnight_only": { "type": "boolean" }, "id_check": { "type": "boolean" }, "switch": { "$ref": "#/$defs/switch" } }
+     },
+     "rentals": {
+      "type": "object",
+      "required": ["items", "glacier_sets_summer_weekend"],
+      "additionalProperties": false,
+      "properties": { "items": { "const": "stats.rent_usd_per_day" }, "glacier_sets_summer_weekend": { "type": "array", "minItems": 2, "maxItems": 2, "items": { "type": "integer", "minimum": 0 } } }
+     },
+     "deferred": { "type": "object", "additionalProperties": { "type": "string", "minLength": 1 } },
+     "from": { "$ref": "#/$defs/milestone" },
+     "items": { "$ref": "#/$defs/ids" }
+    }
+   }
+  },
+  "desk": {
+   "type": "object",
+   "required": ["loans", "issues"],
+   "additionalProperties": false,
+   "properties": { "loans": { "$ref": "#/$defs/ids" }, "issues": { "$ref": "#/$defs/ids" } }
+  },
+  "jobs": {
+   "type": "object",
+   "additionalProperties": {
+    "type": "object",
+    "required": ["placeholder"],
+    "additionalProperties": false,
+    "properties": { "placeholder": { "$ref": "#/$defs/placeholder" }, "from": { "$ref": "#/$defs/milestone" } }
+   }
+  }
+ },
+ "$defs": {
+  "id": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+  "ids": { "type": "array", "items": { "$ref": "#/$defs/id" } },
+  "switch": { "type": "string", "pattern": "^[a-z][a-z0-9_.]*$" },
+  "placeholder": { "type": "string", "pattern": "^[A-Z][A-Z0-9_]*$" },
+  "milestone": { "type": "string", "pattern": "^M[0-9]+[a-z]?$" },
+  "shelf": {
+   "type": "object",
+   "required": ["id"],
+   "additionalProperties": false,
+   "properties": {
+    "id": { "$ref": "#/$defs/id" },
+    "items": {
+     "type": "array",
+     "minItems": 1,
+     "items": {
+      "type": "object",
+      "required": ["id"],
+      "additionalProperties": false,
+      "properties": {
+       "id": { "$ref": "#/$defs/id" },
+       "tiers": { "type": "array", "minItems": 1, "items": { "enum": ["cheap", "standard", "premium"] } },
+       "switch": { "$ref": "#/$defs/switch" },
+       "rent_only": { "const": true }
+      }
+     }
+    },
+    "foods": {
+     "type": "object",
+     "required": ["sold_at"],
+     "additionalProperties": false,
+     "properties": { "sold_at": { "$ref": "#/$defs/id" }, "minus": { "$ref": "#/$defs/ids" }, "plus": { "$ref": "#/$defs/ids" } }
+    }
+   }
+  }
+ }
+}

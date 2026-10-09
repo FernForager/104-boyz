@@ -1,0 +1,134 @@
+{
+ "$comment": "The ranger's checklist and sensible kit (GAME_DESIGN 6.1, 3.6, 5.8), the two pack presets (B.5; Lead call 9) and the test kits (BUILD_PLAN 2.6, 3.5). A need is met by an item-tier that carries its tags (any_tags: one of them; all_tags: every one; not_tags: none) and, with covers, whose stats.covers names that body zone; with ten, whose ten_essentials is that slot; with fuel_for, a fuel the row's stove takes (fuels: the stove's needs_* tag to the fuel's tag). trip limits a need to overnight or day trips, months to those months; with not_traps, a trap never meets a need. The needs read the catalog's own TEN_ESSENTIALS and tags (gear_catalog.json notes) and what its sensible overnight kit, summer_3_nights_seven_lakes, carries for the loop. worn is this session's reading of the empty shed (decision 42): a new hiker owns nothing, so the outfit and the shoes are bought too. Items are ids, with :tier for a cheap or premium version (the standard version otherwise). tools/ingest/catalogs.mjs checks that every need has a free basic at an open counter (IG16, the basics guarantee).",
+ "checklist": {
+  "rows": ["shelter", "sleep", "rain", "warmth", "kitchen", "water", "light", "navigation", "first_aid", "extras"],
+  "needs": {
+   "shelter": [
+    { "id": "shelter", "trip": "overnight", "any_tags": ["shelter_tent", "shelter_tarp", "shelter_bivy", "shelter_hammock"] },
+    { "id": "emergency", "trip": "day", "any_tags": ["emergency_shelter", "shelter_tent", "shelter_tarp", "shelter_bivy"] }
+   ],
+   "sleep": [
+    { "id": "bag", "trip": "overnight", "any_tags": ["sleep_bag", "sleep_quilt"] },
+    { "id": "pad", "trip": "overnight", "any_tags": ["sleep_pad"] }
+   ],
+   "rain": [
+    { "id": "top", "any_tags": ["rain_top"] },
+    { "id": "bottom", "trip": "overnight", "any_tags": ["rain_bottom"] }
+   ],
+   "warmth": [
+    { "id": "layer", "all_tags": ["insulating"], "not_tags": ["cotton"], "ten": "extra_clothes", "covers": "torso" },
+    { "id": "hat", "all_tags": ["insulating"], "covers": "head" }
+   ],
+   "kitchen": [
+    { "id": "stove", "trip": "overnight", "any_tags": ["stove"] },
+    { "id": "fuel", "trip": "overnight", "fuel_for": "stove" },
+    { "id": "fire", "any_tags": ["fire_starter"] },
+    { "id": "pot", "trip": "overnight", "any_tags": ["pot", "pot_included"] }
+   ],
+   "water": [
+    { "id": "treat", "any_tags": ["water_treat_chem", "water_treat_filter", "water_treat_uv"] },
+    { "id": "carry", "any_tags": ["water_container"] }
+   ],
+   "light": [{ "id": "headlamp", "any_tags": ["light_headlamp"] }],
+   "navigation": [
+    { "id": "map", "any_tags": ["nav_map"] },
+    { "id": "compass", "any_tags": ["nav_compass"] }
+   ],
+   "first_aid": [{ "id": "kit", "any_tags": ["first_aid_1", "first_aid_2"] }],
+   "extras": [
+    { "id": "sun", "any_tags": ["sun_screen", "sun_hat", "sun_glasses", "sun_clothing"] },
+    { "id": "knife", "any_tags": ["knife"] },
+    { "id": "signal", "any_tags": ["signal"] },
+    { "id": "trowel", "trip": "overnight", "any_tags": ["trowel"] },
+    { "id": "toilet_paper", "trip": "overnight", "any_tags": ["toilet_paper"] },
+    { "id": "pack_liner", "trip": "overnight", "any_tags": ["waterproofing_liner"] },
+    { "id": "bug", "months": [7, 8], "any_tags": ["bug"] }
+   ]
+  },
+  "worn": [
+   { "id": "footwear", "any_tags": ["footwear_hiking"] },
+   { "id": "socks", "covers": "feet", "not_tags": ["cotton"] },
+   { "id": "top", "covers": "torso", "not_tags": ["cotton"] },
+   { "id": "bottom", "covers": "legs", "not_tags": ["cotton"] }
+  ],
+  "canister": { "id": "canister", "trip": "overnight", "any_tags": ["canister"], "all_tags": ["park_approved"] },
+  "fuels": { "needs_fuel_canister": "fuel_canister", "needs_alcohol_fuel": "fuel_alcohol", "needs_white_gas": "fuel_liquid" },
+  "not_traps": true
+ },
+ "ranger": {
+  "high": { "8": "checklist", "9": "checklist" },
+  "north_mid": { "8": "checklist", "9": "checklist" },
+  "doc": "GAME_DESIGN 6.1, E.5: the ranger's sensible kit by zone and month. M1a's zones (the loop's north_mid and high) and months (August and September) all read the one checklist, from the catalog's sensible kits; other zones and months come with their milestones"
+ },
+ "presets": {
+  "b5_sensible": {
+   "pack": "weekender_50",
+   "worn": ["trail_runners", "tee_synthetic", "pants_hiking", "socks_wool_hiking", "sun_hat", "sunglasses", "whistle", "watch_basic"],
+   "carried": [
+    "tent_1p_trekking_pole", "trekking_poles", "bag_down_30", "pad_inflatable", "canister_standard", "stove_canister", "pot_titanium_750", "fuel_canister_110", "lighter_mini", "spork_titanium",
+    "filter_squeeze", "tablets_chlorine_dioxide", "bottle_disposable_1l", "bottle_disposable_1l", "rain_jacket", "rain_pants", "puffy_down", "base_top_merino", "base_bottom_synthetic", "beanie_wool",
+    "socks_wool_hiking", "underwear_synthetic", "headlamp", "map_topo_park", "compass_baseplate", "phone", "first_aid_basic", "blister_kit", "repair_kit_basic", "pad_patch_kit",
+    "sunscreen", "bug_headnet", "bug_repellent", "trowel", "toilet_paper_kit", "pack_liner_compactor", "dry_bag_small", "permit_wilderness", "toiletry_kit", "hand_sanitizer",
+    "book_paperback", "camp_chair_ultralight", "camera_compact"
+   ],
+   "food": { "kcal_per_day": 3000, "distinct_dinners": true },
+   "from_kit": "summer_3_nights_seven_lakes",
+   "doc": "GAME_DESIGN B.2, B.5: the catalog's summer_3_nights_seven_lakes kit, with a paperback for the sketchbook and pencils, plus a camp chair and a small camera; standard tiers. The food stays a rule here; S12 freezes B.2's menu and the fit golden (BUILD_PLAN 7.4)"
+  },
+  "b5_skimpy": {
+   "from": "b5_sensible",
+   "minus": ["trekking_poles", "rain_pants", "map_topo_park", "puffy_down"],
+   "doc": "GAME_DESIGN B.5: no poles, rain pants, map or puffy"
+  }
+ },
+ "test_kits": {
+  "day_hike_sensible": {
+   "pack": "daypack_28",
+   "nights": 0,
+   "worn": ["trail_runners", "tee_synthetic", "pants_hiking", "socks_wool_hiking", "sun_hat", "sunglasses", "whistle"],
+   "carried": ["rain_jacket", "fleece_jacket", "beanie_wool", "map_topo_park", "compass_baseplate", "phone", "headlamp", "first_aid_basic", "blister_kit", "knife_folding", "lighter_mini", "emergency_bivy", "sunscreen", "filter_squeeze", "bottle_disposable_1l", "bottle_disposable_1l", "toilet_paper_kit", "trowel"]
+  },
+  "summer_3_nights_seven_lakes": {
+   "pack": "weekender_50",
+   "nights": 3,
+   "worn": ["trail_runners", "tee_synthetic", "pants_hiking", "socks_wool_hiking", "sun_hat", "sunglasses", "whistle", "watch_basic"],
+   "carried": [
+    "tent_1p_trekking_pole", "trekking_poles", "bag_down_30", "pad_inflatable", "canister_standard", "stove_canister", "pot_titanium_750", "fuel_canister_110", "lighter_mini", "spork_titanium",
+    "filter_squeeze", "tablets_chlorine_dioxide", "bottle_disposable_1l", "bottle_disposable_1l", "rain_jacket", "rain_pants", "puffy_down", "base_top_merino", "base_bottom_synthetic", "beanie_wool",
+    "socks_wool_hiking", "underwear_synthetic", "headlamp", "map_topo_park", "compass_baseplate", "phone", "first_aid_basic", "blister_kit", "repair_kit_basic", "pad_patch_kit",
+    "sunscreen", "bug_headnet", "bug_repellent", "trowel", "toilet_paper_kit", "pack_liner_compactor", "dry_bag_small", "permit_wilderness", "toiletry_kit", "hand_sanitizer",
+    "sketchbook_pocket", "pencils_graphite"
+   ]
+  },
+  "olympus_blue_glacier_5_nights": {
+   "pack": "expedition_80",
+   "nights": 5,
+   "worn": ["trail_runners", "tee_synthetic", "pants_hiking", "socks_wool_hiking", "sun_hat", "glacier_glasses", "whistle", "watch_altimeter"],
+   "carried": [
+    "tent_2p_dome", "trekking_poles", "bag_down_20", "pad_inflatable", "canister_standard", "stove_canister", "pot_titanium_750", "fuel_canister_230", "lighter_mini", "spork_titanium",
+    "filter_squeeze", "tablets_chlorine_dioxide", "bottle_disposable_1l", "bottle_disposable_1l", "rain_jacket", "rain_pants", "puffy_down", "fleece_grid_hoody", "base_top_merino", "base_bottom_synthetic",
+    "beanie_wool", "gloves_liner", "gloves_insulated", "socks_wool_hiking", "underwear_synthetic", "gaiters_tall", "boots_mountaineering", "crampons_steel", "ice_axe", "helmet_climbing",
+    "harness_alpine", "rope_glacier_30m", "headlamp", "batteries_spare_aaa", "map_topo_park", "compass_baseplate", "phone", "satellite_messenger", "first_aid_complete", "blister_kit",
+    "repair_kit_basic", "sunscreen", "lip_balm_spf", "wag_bags", "toilet_paper_kit", "pack_liner_compactor", "dry_bag_small", "permit_wilderness", "toiletry_kit"
+   ]
+  },
+  "olympus_day_gear_one_night_TRAP": {
+   "pack": "daypack_28",
+   "nights": 1,
+   "worn": ["sneakers_canvas", "tee_cotton", "jeans_denim", "socks_cotton", "ball_cap"],
+   "carried": ["hoodie_cotton", "map_park_brochure", "phone", "bottle_disposable_1l", "canister_wic_loaner"]
+  },
+  "loop_in_a_day_3l": {
+   "pack": "daypack_28",
+   "nights": 0,
+   "worn": ["trail_runners", "tee_synthetic", "shorts_hiking", "socks_wool_hiking", "sun_hat", "sunglasses", "whistle", "watch_basic", "phone"],
+   "carried": ["rain_jacket", "fleece_jacket", "beanie_wool", "map_topo_park", "compass_baseplate", "headlamp", "batteries_spare_aaa", "first_aid_basic", "blister_kit", "knife_folding", "lighter_mini", "emergency_bivy", "sunscreen", "bug_repellent", "filter_squeeze", "bladder_2l", "bottle_disposable_1l", "trekking_poles", "toilet_paper_kit", "trowel"]
+  },
+  "day_gear_TRAP_no_canister": {
+   "pack": "daypack_28",
+   "nights": 0,
+   "worn": ["sneakers_canvas", "tee_cotton", "jeans_denim", "socks_cotton", "ball_cap"],
+   "carried": ["hoodie_cotton", "map_park_brochure", "phone", "bottle_disposable_1l"]
+  }
+ }
+}

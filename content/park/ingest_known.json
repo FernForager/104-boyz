@@ -1,0 +1,150 @@
+{
+ "$comment": "Acknowledged ingest and graph-lint warnings (BUILD_PLAN S4; GAME_DESIGN E.4): \"<code>:<where>\" keys, a key ending in * covering every where it begins, each with its why (a doc reference and the milestone that fixes it). Errors can't be acknowledged, and nothing inside the M1a scope is a warning. An acknowledgement that matches nothing is itself a warning, so this file can't rot. Milestones by region (GAME_DESIGN 4.5, 15; BUILD_PLAN 3.4): hoh_olympus M2, northeast_dose M3 (Royal Basin), coast M4, elwha_hurricane M4-M5, hamma_hamma M5, south_quinault_skok T3 (its four low trails) and M5, and sol_duc_high_divide's ground off the loop (Lake Crescent, Mink Lake, Appleton Pass, the Little Divide) M1b.",
+ "IG01:hamma_hamma/*": {
+  "why": "GAME_DESIGN E.4: hamma_hamma.json is new and hasn't been through FACT_CHECK.md; four camps give their sites as text, read as the first number there, an estimate. Its milestone (M5) counts them."
+ },
+ "IG04:elwha_hurricane/*": {
+  "why": "GAME_DESIGN E.4: off-trail links with no measured distance (the Bailey Range traverse and its exits, Mount Angeles, Lake Lillian), expected; they stay hand-checked and out of routing until the region's milestone (M4-M5)."
+ },
+ "IG04:hamma_hamma/*": {
+  "why": "GAME_DESIGN E.4: off-trail links with no measured distance (the Stone Ponds, Great Stone Arrow Pass, Mount Skokomish); hamma_hamma.json is new; out of routing until M5."
+ },
+ "IG04:northeast_dose/*": {
+  "why": "GAME_DESIGN E.4: Upper Royal Basin's climbing approaches (Mount Deception, the Royal Glacier) have no measured distance; out of routing until M3."
+ },
+ "IG04:south_quinault_skok/*": {
+  "why": "GAME_DESIGN E.4: two off-trail links (Lake Ben, Lake Success) have no measured distance; out of routing until M5."
+ },
+ "IG05:coast/*": {
+  "why": "GAME_DESIGN E.4: three coast places (campgrounds and an island) have no elevation and no trail neighbor to interpolate from; outside M1a; the coast's overlay pins them in M4."
+ },
+ "IG05:hamma_hamma/*": {
+  "why": "GAME_DESIGN E.4: fifteen unofficial Hamma Hamma places have null coordinates and five no elevation with no neighbor to take one from; hamma_hamma.json is new; its overlay places them in M5."
+ },
+ "IG05:sol_duc_high_divide/barnes_point_lodge": {
+  "why": "GAME_DESIGN E.4: a Lake Crescent amenity with no elevation and no trail; off the loop; its overlay pins it with Lake Crescent's trails in M1b."
+ },
+ "IG05:sol_duc_high_divide/eagle_ranger_station": {
+  "why": "GAME_DESIGN E.4: a ranger station with no elevation and no trail segment; off the loop (M1b)."
+ },
+ "IG08:elwha_hurricane/*": {
+  "why": "GAME_DESIGN E.4: snow phrases with no dates (\"most of the year below 2,000 ft\", the Hurricane Hill Road's opening) don't parse; the overlay supplies windows in the region's milestone (M4-M5)."
+ },
+ "IG08:hamma_hamma/*": {
+  "why": "GAME_DESIGN E.4: snow phrases with no dates don't parse; the overlay supplies windows in M5."
+ },
+ "IG08:hoh_olympus/*": {
+  "why": "GAME_DESIGN E.4: two low Bogachiel segments say only \"most of the year\"; the overlay supplies windows in M2."
+ },
+ "IG08:northeast_dose/*": {
+  "why": "GAME_DESIGN E.4: snow phrases with no dates (the Gray Wolf's \"most of the year\", Upper Royal Basin's ice) don't parse; the overlay supplies windows in M3."
+ },
+ "IG08:sol_duc_high_divide/*": {
+  "why": "GAME_DESIGN E.4: three Lake Crescent and Aurora Ridge segments off the loop say only \"most of the year\"; the overlay supplies windows with Lake Crescent's trails in M1b. Every loop segment parses."
+ },
+ "IG08:south_quinault_skok/*": {
+  "why": "GAME_DESIGN E.4: snow phrases that give a snow season rather than a snow-free one (\"snow lingers into early summer\", \"snow-covered through late July\") don't parse; the overlay supplies windows in M5."
+ },
+ "IG09:coast/*": {
+  "why": "GAME_DESIGN E.4: typed itinerary miles that differ from the graph, and day hikes whose turnaround is only in words; the coast's presets are fixed and pinned in M4."
+ },
+ "IG09:elwha_hurricane/*": {
+  "why": "GAME_DESIGN E.4 lists the Elwha's null days and shortfalls (hurricane_ridge_elwha_grand_valley_loop, the Bailey Range); with side trips whose turnaround is only in words, they are fixed and pinned in M4-M5."
+ },
+ "IG09:hamma_hamma/*": {
+  "why": "GAME_DESIGN E.4: three Hamma Hamma trips have null days; fixed in M5."
+ },
+ "IG09:hoh_olympus/*": {
+  "why": "GAME_DESIGN E.4: typed miles that differ from the graph and side trips from Glacier Meadows and Elk Lake whose turnaround is only in words; the Hoh's presets are fixed and pinned in M2."
+ },
+ "IG09:northeast_dose/*": {
+  "why": "GAME_DESIGN E.4: typed miles against the graph and side trips with no turnaround pin; fixed in M3."
+ },
+ "IG09:sol_duc_high_divide/*": {
+  "why": "GAME_DESIGN E.4: Sol Duc presets off the loop (the Little Divide loop, Lake Crescent and Aurora Ridge day hikes) differ from the graph or name their turnaround only in words; fixed in M1b. Every loop preset matches its typed miles (the overlay pins four turnarounds)."
+ },
+ "IG09:south_quinault_skok/*": {
+  "why": "GAME_DESIGN E.4 lists quinault_to_elwha_traverse's three null days and two small shortfalls; with side trips whose turnaround is only in words, fixed in M5."
+ },
+ "IG10:coast/*": {
+  "why": "GAME_DESIGN E.4: presets that don't end at a trailhead (pnt_coastal_finale) or whose only day goes back to the start with no turnaround pin are rejected and listed; the coast's milestone (M4) pins or fixes them."
+ },
+ "IG10:elwha_hurricane/*": {
+  "why": "GAME_DESIGN E.4: rejected presets (the Bailey Range's unroutable off-trail days, traverses that end at a pass, day hikes with no turnaround pin); fixed in M4-M5."
+ },
+ "IG10:hamma_hamma/*": {
+  "why": "GAME_DESIGN E.4: rejected presets (off-trail days that don't route, a cabin base camp that doesn't end at a trailhead); fixed in M5."
+ },
+ "IG10:hoh_olympus/*": {
+  "why": "GAME_DESIGN E.4: day hikes whose turnaround is only in words are rejected and listed; pinned in M2."
+ },
+ "IG10:northeast_dose/*": {
+  "why": "GAME_DESIGN E.4 lists dose_to_quinault_traverse (ends at enchanted_valley) and dose_to_elwha_traverse (ends at elkhorn); fixed in M3."
+ },
+ "IG10:sol_duc_high_divide/*": {
+  "why": "GAME_DESIGN E.4: day hikes off the loop (Lake Crescent, Mink Lake, Aurora) whose turnaround is only in words are rejected and listed; pinned in M1b. No loop preset is rejected."
+ },
+ "IG10:south_quinault_skok/*": {
+  "why": "GAME_DESIGN E.4: day hikes whose turnaround is only in words are rejected and listed; pinned in T3 (the four low trails) and M5."
+ },
+ "IG13:coast/conditions_2026": {
+  "why": "GAME_DESIGN 4.7, E.4: the coast's 2026 entries have only a note, a date and a source; kept as inert news until the coast's milestone (M4) structures them (from, until or persists, applies_to, effect), as Sol Duc's are."
+ },
+ "IG13:elwha_hurricane/conditions_2026": {
+  "why": "GAME_DESIGN 4.7, E.4: the Elwha's 2026 entries have only a note, a date and a source; inert news until its milestone (M4-M5) structures them. The Olympic Hot Springs Road walk is structured already, from park_rules.json."
+ },
+ "IG13:hamma_hamma/conditions_2026": {
+  "why": "GAME_DESIGN 4.7, E.4: the Hamma Hamma's 2026 entries have only a note, a date and a source; inert news until M5 structures them."
+ },
+ "IG13:hoh_olympus/conditions_2026": {
+  "why": "GAME_DESIGN 4.7, E.4: the Hoh's 2026 entries have only a note, a date and a source; inert news until M2 structures them. The US 101 Hoh River Bridge is structured already, from park_rules.json."
+ },
+ "IG13:northeast_dose/conditions_2026": {
+  "why": "GAME_DESIGN 4.7, E.4: the northeast's 2026 entries have only a note, a date and a source; inert news until M3 structures them. The Dosewallips washout is structured already, from park_rules.json."
+ },
+ "IG13:south_quinault_skok/conditions_2026": {
+  "why": "GAME_DESIGN 4.7, E.4: the south's 2026 entries have only a note, a date and a source; inert news until T3 and M5 structure them. Its trail closures (Staircase, Six Ridge) are structured already, as the statuses moved off their segments."
+ },
+ "G02:coast/*": {
+  "why": "GAME_DESIGN F.3: Ruby Beach and Beach 4 are short paths from the highway to the beach, with no camp on them; the coast's milestone (M4) settles them."
+ },
+ "G02:elwha_hurricane/*": {
+  "why": "GAME_DESIGN E.4: the Bailey Range's camps and Lake Lillian hang on off-trail links with no measured distance (IG04), so they are out of routing until their milestone (M4-M5) measures them."
+ },
+ "G02:hamma_hamma/hagen_lakes": {
+  "why": "GAME_DESIGN E.4: Hagen Lakes hangs on an off-trail link with no measured distance (IG04); hamma_hamma.json is new; M5."
+ },
+ "G02:northeast_dose/gray_wolf_river_trailhead": {
+  "why": "GAME_DESIGN F.3: the Lower Gray Wolf Trail from this trailhead runs 4.2 mi to the former bridge site, where it ends, with no camp on it (the research's notes); M3 settles it."
+ },
+ "G02:sol_duc_high_divide/olympic_discovery_trail_fairholme_trailhead": {
+  "why": "Lake Crescent's day trails (BUILD_PLAN 3.4: M1b) reach no camp; off the loop."
+ },
+ "G02:sol_duc_high_divide/pyramid_peak_trailhead": {
+  "why": "Lake Crescent's day trails (BUILD_PLAN 3.4: M1b) reach no camp; off the loop."
+ },
+ "G02:sol_duc_high_divide/spruce_railroad_camp_david_jr_trailhead": {
+  "why": "Lake Crescent's day trails (BUILD_PLAN 3.4: M1b) reach no camp; off the loop."
+ },
+ "G02:sol_duc_high_divide/spruce_railroad_lyre_river_trailhead": {
+  "why": "Lake Crescent's day trails (BUILD_PLAN 3.4: M1b) reach no camp; off the loop."
+ },
+ "G02:south_quinault_skok/*": {
+  "why": "GAME_DESIGN E.4: Lake Success hangs on an off-trail link with no measured distance, and the Quinault Rain Forest Nature Trail is a boardwalk loop with no camp on it; T3 and M5."
+ },
+ "G03:coast/*": {
+  "why": "GAME_DESIGN E.4 (14 segments miss on 2026-10-09: coast 5): five headland and beach segments are typed level (0 and 0 ft) between points at different elevations; the coast's overlay sets them in M4."
+ },
+ "G03:hamma_hamma/*": {
+  "why": "GAME_DESIGN E.4 (hamma 2): the Putvin headwall's two segments miss their endpoints by about 250 ft; hamma_hamma.json hasn't been through FACT_CHECK.md; M5."
+ },
+ "G03:hoh_olympus/*": {
+  "why": "GAME_DESIGN E.4 (hoh 3): three segments miss their endpoints by 104 to 113 ft; fixed in M2."
+ },
+ "G03:sol_duc_high_divide/aurora_creek_trailhead->aurora_creek_junction": {
+  "why": "GAME_DESIGN E.4: the Aurora Creek trail's climb (+3,220 ft) is 340 ft short of its endpoints; Lake Crescent's trails are M1b, off the loop."
+ },
+ "G03:south_quinault_skok/*": {
+  "why": "GAME_DESIGN E.4 (south 3): three climbs miss their endpoints by 110 to 175 ft; fixed in M5."
+ }
+}

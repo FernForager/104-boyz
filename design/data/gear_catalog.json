@@ -1,5 +1,5 @@
 {
- "notes": "Gear catalog for Olympic Peninsula Hiker (design data, 2026-10). UNITS: weight_oz is ounces (16 oz = 1 lb; 1 L of water = 35.2 oz). volume_l is packed liters: stuffed size for soft goods, OUTSIDE size for rigid items (canisters, pots), and for 'worn' items the volume they take if carried instead. price_usd is the 2026 shelf price at an ordinary outfitter, before any in-game store multiplier (the last-chance store on the drive can mark up). CARRY: 'inside' must ride inside the pack; 'outside_strappable' may go inside or on an outside strap, tool loop or side pocket (outside = exposed to rain and snags, simulation.md 6.3); 'worn' is on the body by default and counts toward skin-out weight but not pack weight or pack volume. TEN_ESSENTIALS uses the modern ten (navigation, headlamp, sun, first_aid, knife = knife plus repair kit, fire, shelter, extra_food, extra_water, extra_clothes); the planner's checklist lights up a slot when any carried item fills it. TIERS: top-level fields are the standard version; each tier entry overrides name, weight, volume, price and any stats it lists, and may add or remove tags. Items without tiers come in one version. TAGS are what the event engine reads (simulation.md 6.6): the packing code turns item tags and stats into derived trip tags, for example rain_top + rain_bottom, insulation:N = sum of stats.insulation, sleep:T from stats.temp_rating_f, padR from stats.r_value, shelter:tent/tarp/bivy/hammock/none from shelter_* tags, water_treat:*, water_capL from stats.liters, nav:* from nav_* tags, canister:L from stats.capacity_l. Every tag is defined in tag_glossary; key stats in stat_glossary. TRAPS: items tagged 'trap' are real mistakes people make (cotton, canned food lives in the food catalog, hang kits, drones). The store shows their true weight and the notes are honest, so a trap is a choice, never a trick. RULES baked into notes reflect the 2026 region data in design/data/regions: approved hard-sided bear canisters are required for every wilderness overnight, soft bear sacks are not on the approved list, hanging food is not acceptable, campfires are prohibited above 3,500 ft and were under a park-wide Stage 2 ban from August 2026, drones and plant collecting are prohibited, and no state fishing license is needed inside the park. NAMES: all product names are generic or fictional; '-class' size references (BV500-class etc.) appear only in notes as the sizes backpackers know, never as products for sale. Weights, volumes and prices are typical values sanity-checked against 2025-2026 retail listings and reviews, rounded for play.",
+ "notes": "Gear catalog for Olympic Peninsula Hiker (design data, 2026-10). UNITS: weight_oz is ounces (16 oz = 1 lb; 1 L of water = 35.2 oz). volume_l is packed liters: stuffed size for soft goods, OUTSIDE size for rigid items (canisters, pots), and for 'worn' items the volume they take if carried instead. price_usd is the 2026 shelf price at an ordinary outfitter, before any in-game store multiplier (the last-chance store on the drive can mark up). CARRY: 'inside' must ride inside the pack; 'outside_strappable' may go inside or on an outside strap, tool loop or side pocket (outside = exposed to rain and snags, simulation.md 6.3); 'worn' is on the body by default and counts toward skin-out weight but not pack weight or pack volume. TEN_ESSENTIALS uses the modern ten (navigation, headlamp, sun, first_aid, knife = knife plus repair kit, fire, shelter, extra_food, extra_water, extra_clothes); the planner's checklist lights up a slot when any carried item fills it. TIERS: top-level fields are the standard version; each tier entry overrides name, weight, volume, price and any stats it lists, and may add or remove tags. Items without tiers come in one version. TAGS are what the event engine reads (simulation.md 6.6): the packing code turns item tags and stats into derived trip tags, for example rain_top + rain_bottom, insulation:N = sum of stats.insulation, sleep:T from stats.temp_rating_f, padR from stats.r_value, shelter:tent/tarp/bivy/hammock/none from shelter_* tags, water_treat:*, water_capL from stats.liters, nav:* from nav_* tags, canister:L from stats.capacity_l. Every tag is defined in tag_glossary; key stats in stat_glossary. TRAPS: items tagged 'trap' are real mistakes people make (cotton, canned food lives in the food catalog, hang kits, drones). The store shows their true weight and the notes are honest, so a trap is a choice, never a trick. RULES baked into notes reflect the 2026 region data in design/data/regions: approved hard-sided bear canisters are required for every wilderness overnight, soft bear sacks are not on the approved list, hanging food is not acceptable, campfires are prohibited above 3,500 ft and were under a park-wide Stage 2 ban from August 2026, drones and plant collecting are prohibited, and no state fishing license is needed inside the park. NAMES: all product names are generic or fictional; '-class' size references (BV500-class etc.) appear only in notes as the sizes backpackers know, never as products for sale. Weights, volumes and prices are typical values sanity-checked against 2025-2026 retail listings and reviews, rounded for play. BASIC OR NICE (added 2026-10-09; GAME_DESIGN 5.8, Lead call 29): every item, pack and tier carries basic. An item-tier is basic, and free, when it is the plain, serviceable version of an essential: it meets a row of the ranger's checklist or the worn outfit (content/rules/kits.json), is a pack, or is the basic stove's fuel, and it is the plainest version of that thing on an M1a shelf (the cheap tier where one is sold; the general store's where both stores sell it). Every trap the general store sells is basic too, so the flat lay still teaches (5.8, decision 42). Everything else is nice, at its price_usd: the standard and premium tiers above a cheap one, light and technical gear, joy and fun items, the instruments. The flags are set by hand, item by item; tools/ingest/catalogs.mjs checks the rule's hard edges (IG15) and fails a catalog with no free basic for a checklist row, a pack or the basic stove's fuel (IG16). NEW ITEMS (2026-10-09): tarp_canvas, flannel_cotton, wool_pants_surplus and blanket_wool, the general store's from GAME_DESIGN 5.7, each estimate: true with its evidence by field; 223 items now. The socks carry stats.covers feet, and bombproof replaces unbreakable.",
  "packs": [
   {
    "id": "daypack_20",
@@ -8,6 +8,7 @@
    "weight_oz": 14,
    "comfortable_max_load_lb": 10,
    "price_usd": 39,
+   "basic": true,
    "frame": "none",
    "hipbelt": "none",
    "outside_slots": {
@@ -37,6 +38,7 @@
    "weight_oz": 26,
    "comfortable_max_load_lb": 18,
    "price_usd": 129,
+   "basic": false,
    "frame": "framesheet",
    "hipbelt": "webbing",
    "outside_slots": {
@@ -63,6 +65,7 @@
    "weight_oz": 29,
    "comfortable_max_load_lb": 22,
    "price_usd": 179,
+   "basic": false,
    "frame": "framesheet",
    "hipbelt": "padded",
    "outside_slots": {
@@ -89,6 +92,7 @@
    "weight_oz": 42,
    "comfortable_max_load_lb": 32,
    "price_usd": 239,
+   "basic": false,
    "frame": "internal",
    "hipbelt": "padded",
    "outside_slots": {
@@ -114,6 +118,7 @@
    "weight_oz": 31,
    "comfortable_max_load_lb": 30,
    "price_usd": 299,
+   "basic": false,
    "frame": "framesheet",
    "hipbelt": "padded",
    "outside_slots": {
@@ -141,6 +146,7 @@
    "weight_oz": 70,
    "comfortable_max_load_lb": 42,
    "price_usd": 319,
+   "basic": false,
    "frame": "internal",
    "hipbelt": "padded",
    "outside_slots": {
@@ -168,6 +174,7 @@
    "weight_oz": 88,
    "comfortable_max_load_lb": 55,
    "price_usd": 399,
+   "basic": false,
    "frame": "internal",
    "hipbelt": "heavy",
    "outside_slots": {
@@ -197,6 +204,7 @@
    "weight_oz": 80,
    "comfortable_max_load_lb": 45,
    "price_usd": 35,
+   "basic": true,
    "frame": "external",
    "hipbelt": "padded",
    "outside_slots": {
@@ -230,6 +238,7 @@
    "volume_l": 5.5,
    "carry": "outside_strappable",
    "price_usd": 349,
+   "basic": false,
    "ten_essentials": "shelter",
    "tags": [
     "shelter_tent",
@@ -255,6 +264,7 @@
      "weight_oz": 92,
      "volume_l": 7.5,
      "price_usd": 139,
+     "basic": true,
      "stats": {
       "rain_rating": 1,
       "wind_rating": 1,
@@ -271,6 +281,7 @@
      "weight_oz": 44,
      "volume_l": 3.8,
      "price_usd": 529,
+     "basic": false,
      "stats": {
       "rain_rating": 2,
       "wind_rating": 1,
@@ -294,6 +305,7 @@
    "volume_l": 2.5,
    "carry": "outside_strappable",
    "price_usd": 299,
+   "basic": false,
    "ten_essentials": "shelter",
    "tags": [
     "shelter_tent",
@@ -319,6 +331,7 @@
      "weight_oz": 18,
      "volume_l": 2.2,
      "price_usd": 649,
+     "basic": false,
      "stats": {
       "condensation": 3
      },
@@ -339,6 +352,7 @@
    "volume_l": 7.5,
    "carry": "outside_strappable",
    "price_usd": 399,
+   "basic": false,
    "ten_essentials": "shelter",
    "tags": [
     "shelter_tent",
@@ -368,6 +382,7 @@
    "volume_l": 8.0,
    "carry": "outside_strappable",
    "price_usd": 749,
+   "basic": false,
    "ten_essentials": "shelter",
    "tags": [
     "shelter_tent",
@@ -398,6 +413,7 @@
    "volume_l": 1.2,
    "carry": "inside",
    "price_usd": 129,
+   "basic": false,
    "ten_essentials": "shelter",
    "tags": [
     "shelter_tarp",
@@ -421,6 +437,45 @@
    "flavor": "It is only a square of fabric, but in the right hands it becomes a roof, a porch, or a rainy-day kitchen."
   },
   {
+   "id": "tarp_canvas",
+   "name": "Canvas Tarp 8 x 10",
+   "category": "shelter",
+   "weight_oz": 64,
+   "volume_l": 4.8,
+   "carry": "outside_strappable",
+   "price_usd": 49,
+   "basic": true,
+   "ten_essentials": "shelter",
+   "tags": [
+    "shelter_tarp",
+    "needs_poles",
+    "heavy",
+    "bulky",
+    "bombproof"
+   ],
+   "stats": {
+    "capacity_people": 2,
+    "freestanding": false,
+    "rain_rating": 1,
+    "wind_rating": 2,
+    "condensation": 0,
+    "warmth_bonus_f": 2,
+    "setup_min": 12,
+    "bug_proof": false,
+    "skill_needed": "campcraft"
+   },
+   "estimate": true,
+   "evidence": {
+    "weight_oz": "GAME_DESIGN 5.7 new items table: 64 oz",
+    "price_usd": "GAME_DESIGN 5.7 new items table: $49",
+    "volume_l": "scaled by weight from tarp_flat (16 oz, 1.2 L): 64 / 16 x 1.2",
+    "carry": "tent_2p_dome: a heavy shelter that may ride on the outside straps",
+    "stats": "tarp_flat's stats, with wind_rating 2 (GAME_DESIGN 5.2: the canvas tarp shrugs off wind that tears a fragile tent)",
+    "tags": "GAME_DESIGN 5.2, 5.7: bombproof (never fails from wear), heavy"
+   },
+   "real_world_notes": "New for the general store (GAME_DESIGN 5.7, added 2026-10-09). Every number is an estimate: weight and price from GAME_DESIGN 5.7's table, the packed volume scaled by weight from tarp_flat, and tarp_flat's stats with a sturdier wind rating, since 5.2 says the canvas tarp shrugs off wind that tears a fragile tent. Bombproof: it never fails from wear."
+  },
+  {
    "id": "bivy_sack",
    "name": "Waterproof Bivy Sack",
    "category": "shelter",
@@ -428,6 +483,7 @@
    "volume_l": 1.5,
    "carry": "inside",
    "price_usd": 219,
+   "basic": false,
    "ten_essentials": "shelter",
    "tags": [
     "shelter_bivy",
@@ -454,6 +510,7 @@
    "volume_l": 0.3,
    "carry": "inside",
    "price_usd": 45,
+   "basic": false,
    "ten_essentials": "shelter",
    "tags": [
     "emergency_shelter",
@@ -476,6 +533,7 @@
    "volume_l": 0.1,
    "carry": "inside",
    "price_usd": 5,
+   "basic": true,
    "ten_essentials": "shelter",
    "tags": [
     "emergency_shelter",
@@ -497,6 +555,7 @@
    "volume_l": 1.5,
    "carry": "inside",
    "price_usd": 15,
+   "basic": true,
    "ten_essentials": "shelter",
    "tags": [
     "shelter_tarp",
@@ -522,6 +581,7 @@
    "volume_l": 3.5,
    "carry": "inside",
    "price_usd": 249,
+   "basic": false,
    "ten_essentials": "shelter",
    "tags": [
     "shelter_hammock",
@@ -548,6 +608,7 @@
    "volume_l": 0.5,
    "carry": "inside",
    "price_usd": 59,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "shelter_accessory"
@@ -566,6 +627,7 @@
    "volume_l": 0.4,
    "carry": "inside",
    "price_usd": 34,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "shelter_accessory",
@@ -585,6 +647,7 @@
    "volume_l": 7.0,
    "carry": "inside",
    "price_usd": 349,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "sleep_bag",
@@ -607,6 +670,7 @@
      "weight_oz": 42,
      "volume_l": 9.5,
      "price_usd": 199,
+     "basic": false,
      "stats": {
       "fill": "down_650",
       "compressed_volume_l": 6.5
@@ -618,6 +682,7 @@
      "weight_oz": 24,
      "volume_l": 5.0,
      "price_usd": 499,
+     "basic": false,
      "stats": {
       "fill": "down_900_treated",
       "wet_warmth_retained": 0.4,
@@ -639,6 +704,7 @@
    "volume_l": 9.0,
    "carry": "inside",
    "price_usd": 429,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "sleep_bag",
@@ -661,6 +727,7 @@
      "weight_oz": 52,
      "volume_l": 12.0,
      "price_usd": 249,
+     "basic": false,
      "stats": {
       "fill": "down_650",
       "compressed_volume_l": 8.0
@@ -672,6 +739,7 @@
      "weight_oz": 30,
      "volume_l": 6.5,
      "price_usd": 589,
+     "basic": false,
      "stats": {
       "fill": "down_900_treated",
       "wet_warmth_retained": 0.4,
@@ -693,6 +761,7 @@
    "volume_l": 15.0,
    "carry": "inside",
    "price_usd": 649,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "sleep_bag",
@@ -721,6 +790,7 @@
    "volume_l": 12.0,
    "carry": "inside",
    "price_usd": 169,
+   "basic": true,
    "ten_essentials": null,
    "tags": [
     "sleep_bag",
@@ -747,6 +817,7 @@
    "volume_l": 15.0,
    "carry": "inside",
    "price_usd": 199,
+   "basic": true,
    "ten_essentials": null,
    "tags": [
     "sleep_bag",
@@ -774,6 +845,7 @@
    "volume_l": 7.0,
    "carry": "inside",
    "price_usd": 89,
+   "basic": true,
    "ten_essentials": null,
    "tags": [
     "sleep_bag",
@@ -799,6 +871,7 @@
    "volume_l": 28.0,
    "carry": "outside_strappable",
    "price_usd": 49,
+   "basic": true,
    "ten_essentials": null,
    "tags": [
     "sleep_bag",
@@ -826,6 +899,7 @@
    "volume_l": 5.0,
    "carry": "inside",
    "price_usd": 299,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "sleep_quilt",
@@ -854,6 +928,7 @@
    "volume_l": 6.0,
    "carry": "inside",
    "price_usd": 349,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "sleep_quilt",
@@ -882,6 +957,7 @@
    "volume_l": 0.3,
    "carry": "inside",
    "price_usd": 69,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "sleep_accessory",
@@ -902,6 +978,7 @@
    "volume_l": 1.8,
    "carry": "inside",
    "price_usd": 45,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "sleep_accessory",
@@ -922,6 +999,7 @@
    "volume_l": 0.2,
    "carry": "inside",
    "price_usd": 32,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "sleep_accessory",
@@ -941,11 +1019,12 @@
    "volume_l": 10.0,
    "carry": "outside_strappable",
    "price_usd": 55,
+   "basic": true,
    "ten_essentials": null,
    "tags": [
     "sleep_pad",
     "foam",
-    "unbreakable",
+    "bombproof",
     "bulky"
    ],
    "stats": {
@@ -964,11 +1043,12 @@
    "volume_l": 3.5,
    "carry": "outside_strappable",
    "price_usd": 29,
+   "basic": true,
    "ten_essentials": null,
    "tags": [
     "sleep_pad",
     "foam",
-    "unbreakable",
+    "bombproof",
     "ultralight"
    ],
    "stats": {
@@ -988,6 +1068,7 @@
    "volume_l": 1.5,
    "carry": "inside",
    "price_usd": 179,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "sleep_pad",
@@ -1007,6 +1088,7 @@
      "weight_oz": 22,
      "volume_l": 2.0,
      "price_usd": 69,
+     "basic": false,
      "stats": {
       "r_value": 1.5,
       "pad_type": "air"
@@ -1021,6 +1103,7 @@
      "weight_oz": 18,
      "volume_l": 1.6,
      "price_usd": 239,
+     "basic": false,
      "stats": {
       "r_value": 7.0
      },
@@ -1040,6 +1123,7 @@
    "volume_l": 4.0,
    "carry": "outside_strappable",
    "price_usd": 109,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "sleep_pad",
@@ -1063,6 +1147,7 @@
    "volume_l": 0.2,
    "carry": "inside",
    "price_usd": 39,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "camp_comfort",
@@ -1082,6 +1167,7 @@
    "volume_l": 0.6,
    "carry": "worn",
    "price_usd": 12,
+   "basic": true,
    "ten_essentials": null,
    "tags": [
     "cotton",
@@ -1108,6 +1194,7 @@
    "volume_l": 1.8,
    "carry": "worn",
    "price_usd": 45,
+   "basic": true,
    "ten_essentials": null,
    "tags": [
     "cotton",
@@ -1135,6 +1222,7 @@
    "volume_l": 3.5,
    "carry": "inside",
    "price_usd": 35,
+   "basic": true,
    "ten_essentials": "extra_clothes",
    "tags": [
     "cotton",
@@ -1156,6 +1244,40 @@
    "flavor": "A cuddly old sweatshirt that turns heavy and gray as soon as the fog finds it."
   },
   {
+   "id": "flannel_cotton",
+   "name": "Flannel Shirt (cotton)",
+   "category": "clothing",
+   "weight_oz": 12,
+   "volume_l": 2.1,
+   "carry": "worn",
+   "price_usd": 29,
+   "basic": false,
+   "ten_essentials": null,
+   "tags": [
+    "cotton",
+    "insulating",
+    "slow_drying"
+   ],
+   "stats": {
+    "insulation": 3,
+    "covers": [
+     "torso"
+    ],
+    "wet_warmth_retained": 0.05,
+    "dry_time_h": 20
+   },
+   "estimate": true,
+   "evidence": {
+    "weight_oz": "GAME_DESIGN 5.7 new items table: 12 oz",
+    "price_usd": "GAME_DESIGN 5.7 new items table: $29",
+    "volume_l": "scaled by weight from hoodie_cotton (20 oz, 3.5 L): 12 / 20 x 3.5",
+    "carry": "tee_cotton: a shirt, worn",
+    "stats": "hoodie_cotton's cotton stats (wet_warmth_retained 0.05, dry_time_h 20), and insulation scaled by weight from its 6 (12 / 20 x 6, rounded down)",
+    "tags": "GAME_DESIGN 5.7: the flannel look, cotton inside: a soft trap by its stats, not tagged trap (6.9 keeps eighteen)"
+   },
+   "real_world_notes": "New for the general store (GAME_DESIGN 5.7, added 2026-10-09): the flannel look with cotton inside, a soft trap by its stats though not tagged trap, so 6.9's eighteen stay eighteen. Every number is an estimate: weight and price from 5.7's table, the rest from hoodie_cotton, scaled by weight."
+  },
+  {
    "id": "tee_synthetic",
    "name": "Synthetic Hiking Tee",
    "category": "clothing",
@@ -1163,6 +1285,7 @@
    "volume_l": 0.4,
    "carry": "worn",
    "price_usd": 35,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "base_layer",
@@ -1189,6 +1312,7 @@
    "volume_l": 0.4,
    "carry": "worn",
    "price_usd": 75,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "base_layer",
@@ -1215,6 +1339,7 @@
    "volume_l": 0.6,
    "carry": "inside",
    "price_usd": 45,
+   "basic": true,
    "ten_essentials": "extra_clothes",
    "tags": [
     "base_layer",
@@ -1241,6 +1366,7 @@
    "volume_l": 0.7,
    "carry": "inside",
    "price_usd": 99,
+   "basic": false,
    "ten_essentials": "extra_clothes",
    "tags": [
     "base_layer",
@@ -1268,6 +1394,7 @@
    "volume_l": 0.5,
    "carry": "inside",
    "price_usd": 40,
+   "basic": true,
    "ten_essentials": "extra_clothes",
    "tags": [
     "base_layer",
@@ -1294,6 +1421,7 @@
    "volume_l": 0.6,
    "carry": "inside",
    "price_usd": 95,
+   "basic": false,
    "ten_essentials": "extra_clothes",
    "tags": [
     "base_layer",
@@ -1320,6 +1448,7 @@
    "volume_l": 0.9,
    "carry": "worn",
    "price_usd": 79,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "quick_dry",
@@ -1346,6 +1475,7 @@
    "volume_l": 0.4,
    "carry": "worn",
    "price_usd": 55,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "quick_dry",
@@ -1368,6 +1498,7 @@
    "volume_l": 1.0,
    "carry": "worn",
    "price_usd": 75,
+   "basic": true,
    "ten_essentials": null,
    "tags": [
     "quick_dry",
@@ -1387,6 +1518,41 @@
    "flavor": "Trousers in the morning and shorts by noon, with a zip in between."
   },
   {
+   "id": "wool_pants_surplus",
+   "name": "Surplus Wool Pants",
+   "category": "clothing",
+   "weight_oz": 24,
+   "volume_l": 1.8,
+   "carry": "worn",
+   "price_usd": 35,
+   "basic": true,
+   "ten_essentials": null,
+   "tags": [
+    "wool",
+    "insulating",
+    "warm_when_wet",
+    "heavy"
+   ],
+   "stats": {
+    "insulation": 2,
+    "covers": [
+     "legs"
+    ],
+    "wet_warmth_retained": 0.6,
+    "dry_time_h": 12
+   },
+   "estimate": true,
+   "evidence": {
+    "weight_oz": "GAME_DESIGN 5.7 new items table: 24 oz",
+    "price_usd": "GAME_DESIGN 5.7 new items table: $35",
+    "volume_l": "jeans_denim, the same weight of trousers: 24 oz, 1.8 L",
+    "carry": "jeans_denim and pants_convertible: trousers, worn",
+    "stats": "insulation from base_bottom_merino (2, the catalog's wool legwear); wet_warmth_retained and dry_time_h from sweater_wool_vintage (0.6, 12 h), the catalog's heavy wool",
+    "tags": "GAME_DESIGN 5.7: surplus wool, heavy, warm when wet"
+   },
+   "real_world_notes": "New for the general store (GAME_DESIGN 5.7, added 2026-10-09): surplus wool trousers, heavy and warm when wet. Every number is an estimate: weight and price from 5.7's table, the volume from jeans_denim, the warmth from the catalog's wool items."
+  },
+  {
    "id": "underwear_synthetic",
    "name": "Synthetic Underwear (2 pairs)",
    "category": "clothing",
@@ -1394,6 +1560,7 @@
    "volume_l": 0.3,
    "carry": "inside",
    "price_usd": 30,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "base_layer",
@@ -1415,6 +1582,7 @@
    "volume_l": 0.5,
    "carry": "inside",
    "price_usd": 9,
+   "basic": true,
    "ten_essentials": null,
    "tags": [
     "cotton",
@@ -1425,7 +1593,10 @@
    "stats": {
     "pairs": 3,
     "blister_risk": 3,
-    "wet_warmth_retained": 0.0
+    "wet_warmth_retained": 0.0,
+    "covers": [
+     "feet"
+    ]
    },
    "real_world_notes": "Wet cotton socks bunch, rub and soften skin; the fastest way to blisters on a long descent.",
    "flavor": "Bright white socks that slump and squish as soon as your boots get damp."
@@ -1438,6 +1609,7 @@
    "volume_l": 0.4,
    "carry": "worn",
    "price_usd": 48,
+   "basic": true,
    "ten_essentials": "extra_clothes",
    "tags": [
     "wool",
@@ -1447,7 +1619,10 @@
    "stats": {
     "pairs": 2,
     "blister_risk": 1,
-    "wet_warmth_retained": 0.5
+    "wet_warmth_retained": 0.5,
+    "covers": [
+     "feet"
+    ]
    },
    "real_world_notes": "Two pairs minimum, plus a dedicated dry pair for sleeping. Wool stays warm when damp and resists blisters.",
    "flavor": "Thick wool socks that hug your feet like a pair of friendly sheep."
@@ -1460,6 +1635,7 @@
    "volume_l": 0.1,
    "carry": "inside",
    "price_usd": 28,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "synthetic",
@@ -1468,7 +1644,10 @@
    ],
    "stats": {
     "pairs": 2,
-    "blister_risk": -1
+    "blister_risk": -1,
+    "covers": [
+     "feet"
+    ]
    },
    "real_world_notes": "Worn under hiking socks to reduce friction. Some hikers swear by them, others never use them.",
    "flavor": "Two thin socks that slide against each other, so your skin doesn't have to."
@@ -1481,6 +1660,7 @@
    "volume_l": 0.3,
    "carry": "inside",
    "price_usd": 49,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "waterproof",
@@ -1488,7 +1668,10 @@
    ],
    "stats": {
     "pairs": 1,
-    "blister_risk": 1
+    "blister_risk": 1,
+    "covers": [
+     "feet"
+    ]
    },
    "real_world_notes": "Keep feet warm and dry-ish in trail runners on wet trails and snow. Sweaty in warm weather; overtopped by deep fords.",
    "flavor": "Socks with a secret raincoat inside them."
@@ -1501,6 +1684,7 @@
    "volume_l": 1.2,
    "carry": "inside",
    "price_usd": 69,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "insulating",
@@ -1527,6 +1711,7 @@
    "volume_l": 2.5,
    "carry": "inside",
    "price_usd": 69,
+   "basic": true,
    "ten_essentials": "extra_clothes",
    "tags": [
     "insulating",
@@ -1554,6 +1739,7 @@
    "volume_l": 2.0,
    "carry": "inside",
    "price_usd": 129,
+   "basic": false,
    "ten_essentials": "extra_clothes",
    "tags": [
     "insulating",
@@ -1581,6 +1767,7 @@
    "volume_l": 2.5,
    "carry": "inside",
    "price_usd": 279,
+   "basic": false,
    "ten_essentials": "extra_clothes",
    "tags": [
     "insulating",
@@ -1603,6 +1790,7 @@
      "weight_oz": 16,
      "volume_l": 3.5,
      "price_usd": 149,
+     "basic": false,
      "stats": {
       "insulation": 15
      }
@@ -1613,6 +1801,7 @@
      "weight_oz": 19,
      "volume_l": 5.0,
      "price_usd": 449,
+     "basic": false,
      "stats": {
       "insulation": 28,
       "covers": [
@@ -1636,6 +1825,7 @@
    "volume_l": 3.5,
    "carry": "inside",
    "price_usd": 199,
+   "basic": false,
    "ten_essentials": "extra_clothes",
    "tags": [
     "insulating",
@@ -1661,6 +1851,7 @@
    "volume_l": 1.5,
    "carry": "inside",
    "price_usd": 179,
+   "basic": false,
    "ten_essentials": "extra_clothes",
    "tags": [
     "insulating",
@@ -1686,6 +1877,7 @@
    "volume_l": 2.0,
    "carry": "inside",
    "price_usd": 199,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "insulating",
@@ -1712,6 +1904,7 @@
    "volume_l": 0.3,
    "carry": "inside",
    "price_usd": 99,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "wind_top",
@@ -1738,6 +1931,7 @@
    "volume_l": 5.0,
    "carry": "inside",
    "price_usd": 25,
+   "basic": true,
    "ten_essentials": "extra_clothes",
    "tags": [
     "insulating",
@@ -1766,6 +1960,7 @@
    "volume_l": 0.2,
    "carry": "inside",
    "price_usd": 29,
+   "basic": true,
    "ten_essentials": "extra_clothes",
    "tags": [
     "insulating",
@@ -1790,6 +1985,7 @@
    "volume_l": 0.1,
    "carry": "inside",
    "price_usd": 25,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "insulating",
@@ -1814,6 +2010,7 @@
    "volume_l": 0.1,
    "carry": "inside",
    "price_usd": 25,
+   "basic": false,
    "ten_essentials": "extra_clothes",
    "tags": [
     "insulating",
@@ -1837,6 +2034,7 @@
    "volume_l": 0.5,
    "carry": "inside",
    "price_usd": 79,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "insulating",
@@ -1861,6 +2059,7 @@
    "volume_l": 0.1,
    "carry": "worn",
    "price_usd": 22,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "versatile",
@@ -1885,6 +2084,7 @@
    "volume_l": 0.1,
    "carry": "worn",
    "price_usd": 6,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "cotton",
@@ -1911,6 +2111,7 @@
    "volume_l": 1.0,
    "carry": "inside",
    "price_usd": 179,
+   "basic": false,
    "ten_essentials": "extra_clothes",
    "tags": [
     "rain_top",
@@ -1935,6 +2136,7 @@
      "weight_oz": 12,
      "volume_l": 1.0,
      "price_usd": 79,
+     "basic": true,
      "stats": {
       "rain_rating": 1,
       "breathability": 1
@@ -1947,6 +2149,7 @@
      "weight_oz": 13,
      "volume_l": 1.1,
      "price_usd": 349,
+     "basic": false,
      "stats": {
       "rain_rating": 3,
       "breathability": 3
@@ -1967,6 +2170,7 @@
    "volume_l": 0.8,
    "carry": "inside",
    "price_usd": 129,
+   "basic": false,
    "ten_essentials": "extra_clothes",
    "tags": [
     "rain_bottom",
@@ -1988,6 +2192,7 @@
      "weight_oz": 10,
      "volume_l": 0.9,
      "price_usd": 49,
+     "basic": true,
      "stats": {
       "rain_rating": 1,
       "breathability": 0
@@ -1999,6 +2204,7 @@
      "weight_oz": 11,
      "volume_l": 1.0,
      "price_usd": 229,
+     "basic": false,
      "stats": {
       "rain_rating": 3,
       "breathability": 2
@@ -2019,6 +2225,7 @@
    "volume_l": 1.0,
    "carry": "inside",
    "price_usd": 45,
+   "basic": false,
    "ten_essentials": "extra_clothes",
    "tags": [
     "poncho",
@@ -2043,6 +2250,7 @@
      "weight_oz": 2,
      "volume_l": 0.1,
      "price_usd": 3,
+     "basic": true,
      "stats": {
       "rain_rating": 1,
       "durability": 0
@@ -2064,6 +2272,7 @@
    "volume_l": 0.8,
    "carry": "inside",
    "price_usd": 99,
+   "basic": false,
    "ten_essentials": "shelter",
    "tags": [
     "poncho",
@@ -2090,6 +2299,7 @@
    "volume_l": 0.5,
    "carry": "outside_strappable",
    "price_usd": 49,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "umbrella",
@@ -2112,6 +2322,7 @@
    "volume_l": 0.3,
    "carry": "inside",
    "price_usd": 35,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "waterproofing_cover"
@@ -2130,6 +2341,7 @@
    "volume_l": 0.0,
    "carry": "inside",
    "price_usd": 2,
+   "basic": true,
    "ten_essentials": null,
    "tags": [
     "waterproofing_liner",
@@ -2150,6 +2362,7 @@
    "volume_l": 0.0,
    "carry": "inside",
    "price_usd": 45,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "waterproofing_liner"
@@ -2169,6 +2382,7 @@
    "volume_l": 0.1,
    "carry": "inside",
    "price_usd": 19,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "waterproofing_item"
@@ -2187,6 +2401,7 @@
    "volume_l": 0.2,
    "carry": "inside",
    "price_usd": 29,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "waterproofing_item"
@@ -2205,6 +2420,7 @@
    "volume_l": 0.1,
    "carry": "inside",
    "price_usd": 4,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "waterproofing_item",
@@ -2225,6 +2441,7 @@
    "volume_l": 4.0,
    "carry": "worn",
    "price_usd": 149,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "footwear_hiking",
@@ -2251,6 +2468,7 @@
    "volume_l": 6.0,
    "carry": "worn",
    "price_usd": 219,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "footwear_hiking",
@@ -2276,6 +2494,7 @@
    "volume_l": 7.0,
    "carry": "worn",
    "price_usd": 299,
+   "basic": true,
    "ten_essentials": null,
    "tags": [
     "footwear_hiking",
@@ -2303,6 +2522,7 @@
    "volume_l": 9.0,
    "carry": "worn",
    "price_usd": 449,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "footwear_mountaineering",
@@ -2333,6 +2553,7 @@
    "volume_l": 5.0,
    "carry": "worn",
    "price_usd": 45,
+   "basic": true,
    "ten_essentials": null,
    "tags": [
     "footwear_casual",
@@ -2358,6 +2579,7 @@
    "volume_l": 2.5,
    "carry": "outside_strappable",
    "price_usd": 99,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "camp_shoes",
@@ -2380,6 +2602,7 @@
    "volume_l": 3.0,
    "carry": "outside_strappable",
    "price_usd": 45,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "camp_shoes",
@@ -2402,6 +2625,7 @@
    "volume_l": 1.0,
    "carry": "outside_strappable",
    "price_usd": 10,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "camp_shoes",
@@ -2424,6 +2648,7 @@
    "volume_l": 0.1,
    "carry": "worn",
    "price_usd": 29,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "gaiters",
@@ -2447,6 +2672,7 @@
    "volume_l": 0.6,
    "carry": "inside",
    "price_usd": 69,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "gaiters",
@@ -2474,6 +2700,7 @@
    "volume_l": 0.3,
    "carry": "inside",
    "price_usd": 59,
+   "basic": false,
    "ten_essentials": "fire",
    "tags": [
     "stove",
@@ -2496,6 +2723,7 @@
      "weight_oz": 4,
      "volume_l": 0.3,
      "price_usd": 25,
+     "basic": true,
      "stats": {
       "boil_min_per_l": 5,
       "fuel_g_per_l_boil": 17,
@@ -2509,6 +2737,7 @@
      "weight_oz": 3.4,
      "volume_l": 0.3,
      "price_usd": 89,
+     "basic": false,
      "stats": {
       "boil_min_per_l": 3.5,
       "fuel_g_per_l_boil": 12,
@@ -2527,6 +2756,7 @@
    "volume_l": 1.3,
    "carry": "inside",
    "price_usd": 169,
+   "basic": false,
    "ten_essentials": "fire",
    "tags": [
     "stove",
@@ -2554,6 +2784,7 @@
    "volume_l": 0.2,
    "carry": "inside",
    "price_usd": 20,
+   "basic": false,
    "ten_essentials": "fire",
    "tags": [
     "stove",
@@ -2579,6 +2810,7 @@
    "volume_l": 1.0,
    "carry": "inside",
    "price_usd": 159,
+   "basic": false,
    "ten_essentials": "fire",
    "tags": [
     "stove",
@@ -2606,6 +2838,7 @@
    "volume_l": 0.5,
    "carry": "inside",
    "price_usd": 7,
+   "basic": true,
    "ten_essentials": null,
    "tags": [
     "fuel",
@@ -2628,6 +2861,7 @@
    "volume_l": 1.0,
    "carry": "inside",
    "price_usd": 9,
+   "basic": true,
    "ten_essentials": null,
    "tags": [
     "fuel",
@@ -2650,6 +2884,7 @@
    "volume_l": 2.0,
    "carry": "inside",
    "price_usd": 13,
+   "basic": true,
    "ten_essentials": null,
    "tags": [
     "fuel",
@@ -2673,6 +2908,7 @@
    "volume_l": 0.3,
    "carry": "inside",
    "price_usd": 6,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "fuel",
@@ -2693,6 +2929,7 @@
    "volume_l": 0.7,
    "carry": "inside",
    "price_usd": 32,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "fuel",
@@ -2714,6 +2951,7 @@
    "volume_l": 0.8,
    "carry": "inside",
    "price_usd": 49,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "pot",
@@ -2738,6 +2976,7 @@
    "volume_l": 1.4,
    "carry": "inside",
    "price_usd": 39,
+   "basic": true,
    "ten_essentials": null,
    "tags": [
     "pot",
@@ -2762,6 +3001,7 @@
    "volume_l": 2.5,
    "carry": "outside_strappable",
    "price_usd": 35,
+   "basic": true,
    "ten_essentials": null,
    "tags": [
     "pot",
@@ -2784,6 +3024,7 @@
    "volume_l": 0.0,
    "carry": "inside",
    "price_usd": 12,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "utensil",
@@ -2803,6 +3044,7 @@
    "volume_l": 0.5,
    "carry": "outside_strappable",
    "price_usd": 25,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "mug",
@@ -2824,6 +3066,7 @@
    "volume_l": 0.0,
    "carry": "inside",
    "price_usd": 2,
+   "basic": true,
    "ten_essentials": "fire",
    "tags": [
     "fire_starter"
@@ -2843,6 +3086,7 @@
    "volume_l": 0.1,
    "carry": "inside",
    "price_usd": 9,
+   "basic": true,
    "ten_essentials": "fire",
    "tags": [
     "fire_starter",
@@ -2863,6 +3107,7 @@
    "volume_l": 0.1,
    "carry": "inside",
    "price_usd": 6,
+   "basic": true,
    "ten_essentials": "fire",
    "tags": [
     "fire_starter",
@@ -2882,6 +3127,7 @@
    "volume_l": 0.1,
    "carry": "inside",
    "price_usd": 14,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "stove_accessory"
@@ -2900,6 +3146,7 @@
    "volume_l": 0.7,
    "carry": "inside",
    "price_usd": 3,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "cold_soak",
@@ -2920,6 +3167,7 @@
    "volume_l": 0.1,
    "carry": "inside",
    "price_usd": 18,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "luxury",
@@ -2943,6 +3191,7 @@
    "volume_l": 0.1,
    "carry": "inside",
    "price_usd": 7,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "hygiene",
@@ -2962,6 +3211,7 @@
    "volume_l": 0.3,
    "carry": "inside",
    "price_usd": 45,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "water_treat_filter",
@@ -2988,6 +3238,7 @@
    "volume_l": 0.8,
    "carry": "inside",
    "price_usd": 99,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "water_treat_filter",
@@ -3013,6 +3264,7 @@
    "volume_l": 1.0,
    "carry": "inside",
    "price_usd": 119,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "water_treat_filter",
@@ -3038,6 +3290,7 @@
    "volume_l": 0.2,
    "carry": "inside",
    "price_usd": 99,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "water_treat_uv",
@@ -3065,6 +3318,7 @@
    "volume_l": 0.05,
    "carry": "inside",
    "price_usd": 15,
+   "basic": true,
    "ten_essentials": null,
    "tags": [
     "water_treat_chem",
@@ -3093,6 +3347,7 @@
    "volume_l": 0.1,
    "carry": "inside",
    "price_usd": 15,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "water_treat_chem"
@@ -3117,6 +3372,7 @@
    "volume_l": 0.0,
    "carry": "outside_strappable",
    "price_usd": 2,
+   "basic": true,
    "ten_essentials": "extra_water",
    "tags": [
     "water_container",
@@ -3138,6 +3394,7 @@
    "volume_l": 1.1,
    "carry": "outside_strappable",
    "price_usd": 18,
+   "basic": true,
    "ten_essentials": "extra_water",
    "tags": [
     "water_container",
@@ -3160,6 +3417,7 @@
    "volume_l": 1.0,
    "carry": "outside_strappable",
    "price_usd": 35,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "water_container",
@@ -3181,6 +3439,7 @@
    "volume_l": 0.3,
    "carry": "inside",
    "price_usd": 39,
+   "basic": false,
    "ten_essentials": "extra_water",
    "tags": [
     "water_container",
@@ -3201,6 +3460,7 @@
    "volume_l": 0.1,
    "carry": "inside",
    "price_usd": 20,
+   "basic": true,
    "ten_essentials": "extra_water",
    "tags": [
     "water_container",
@@ -3221,6 +3481,7 @@
    "volume_l": 0.2,
    "carry": "inside",
    "price_usd": 15,
+   "basic": true,
    "ten_essentials": "navigation",
    "tags": [
     "nav_map",
@@ -3241,6 +3502,7 @@
    "volume_l": 0.1,
    "carry": "inside",
    "price_usd": 0,
+   "basic": true,
    "ten_essentials": null,
    "tags": [
     "nav_map_poor",
@@ -3261,6 +3523,7 @@
    "volume_l": 0.1,
    "carry": "inside",
    "price_usd": 15,
+   "basic": false,
    "ten_essentials": "navigation",
    "tags": [
     "nav_map",
@@ -3286,6 +3549,7 @@
    "volume_l": 0.02,
    "carry": "inside",
    "price_usd": 2,
+   "basic": false,
    "ten_essentials": "navigation",
    "tags": [
     "tide_table",
@@ -3306,6 +3570,7 @@
    "volume_l": 0.05,
    "carry": "inside",
    "price_usd": 39,
+   "basic": true,
    "ten_essentials": "navigation",
    "tags": [
     "nav_compass"
@@ -3325,6 +3590,7 @@
    "volume_l": 0.0,
    "carry": "inside",
    "price_usd": 5,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "nav_compass_poor"
@@ -3343,6 +3609,7 @@
    "volume_l": 0.3,
    "carry": "inside",
    "price_usd": 299,
+   "basic": false,
    "ten_essentials": "navigation",
    "tags": [
     "nav_gps",
@@ -3364,6 +3631,7 @@
    "volume_l": 0.1,
    "carry": "worn",
    "price_usd": 0,
+   "basic": true,
    "ten_essentials": null,
    "tags": [
     "phone",
@@ -3391,6 +3659,7 @@
    "volume_l": 0.0,
    "carry": "inside",
    "price_usd": 40,
+   "basic": false,
    "ten_essentials": "navigation",
    "tags": [
     "nav_gps_if_maps"
@@ -3410,6 +3679,7 @@
    "volume_l": 0.2,
    "carry": "inside",
    "price_usd": 35,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "battery_bank",
@@ -3430,6 +3700,7 @@
    "volume_l": 0.3,
    "carry": "inside",
    "price_usd": 55,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "battery_bank",
@@ -3451,6 +3722,7 @@
    "volume_l": 0.1,
    "carry": "worn",
    "price_usd": 349,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "messenger",
@@ -3474,6 +3746,7 @@
    "volume_l": 0.0,
    "carry": "worn",
    "price_usd": 199,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "time_source",
@@ -3495,6 +3768,7 @@
    "volume_l": 0.0,
    "carry": "worn",
    "price_usd": 25,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "time_source"
@@ -3514,6 +3788,7 @@
    "volume_l": 0.6,
    "carry": "inside",
    "price_usd": 25,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "guidebook",
@@ -3534,6 +3809,7 @@
    "volume_l": 0.1,
    "carry": "inside",
    "price_usd": 39,
+   "basic": false,
    "ten_essentials": "headlamp",
    "tags": [
     "light_headlamp",
@@ -3552,6 +3828,7 @@
      "weight_oz": 2.5,
      "volume_l": 0.1,
      "price_usd": 15,
+     "basic": true,
      "stats": {
       "lumens": 100,
       "battery_h_low": 20,
@@ -3564,6 +3841,7 @@
      "weight_oz": 2.7,
      "volume_l": 0.1,
      "price_usd": 69,
+     "basic": false,
      "stats": {
       "lumens": 450,
       "battery_h_low": 50,
@@ -3585,6 +3863,7 @@
    "volume_l": 0.0,
    "carry": "inside",
    "price_usd": 6,
+   "basic": false,
    "ten_essentials": "headlamp",
    "tags": [
     "battery_spare"
@@ -3604,6 +3883,7 @@
    "volume_l": 1.0,
    "carry": "inside",
    "price_usd": 20,
+   "basic": true,
    "ten_essentials": null,
    "tags": [
     "light_flashlight",
@@ -3626,6 +3906,7 @@
    "volume_l": 0.3,
    "carry": "inside",
    "price_usd": 25,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "light_lantern",
@@ -3649,6 +3930,7 @@
    "volume_l": 0.5,
    "carry": "inside",
    "price_usd": 25,
+   "basic": true,
    "ten_essentials": "first_aid",
    "tags": [
     "first_aid_1"
@@ -3675,6 +3957,7 @@
    "volume_l": 1.2,
    "carry": "inside",
    "price_usd": 60,
+   "basic": false,
    "ten_essentials": "first_aid",
    "tags": [
     "first_aid_2"
@@ -3703,6 +3986,7 @@
    "volume_l": 0.1,
    "carry": "inside",
    "price_usd": 14,
+   "basic": false,
    "ten_essentials": "first_aid",
    "tags": [
     "blister_kit"
@@ -3726,6 +4010,7 @@
    "volume_l": 0.1,
    "carry": "inside",
    "price_usd": 15,
+   "basic": false,
    "ten_essentials": "first_aid",
    "tags": [
     "meds"
@@ -3749,6 +4034,7 @@
    "volume_l": 0.3,
    "carry": "inside",
    "price_usd": 20,
+   "basic": false,
    "ten_essentials": "first_aid",
    "tags": [
     "splint"
@@ -3767,6 +4053,7 @@
    "volume_l": 0.06,
    "carry": "inside",
    "price_usd": 4,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "hygiene",
@@ -3786,6 +4073,7 @@
    "volume_l": 0.1,
    "carry": "inside",
    "price_usd": 6,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "hygiene",
@@ -3805,6 +4093,7 @@
    "volume_l": 0.1,
    "carry": "inside",
    "price_usd": 12,
+   "basic": false,
    "ten_essentials": "knife",
    "tags": [
     "repair_kit"
@@ -3830,6 +4119,7 @@
    "volume_l": 0.0,
    "carry": "inside",
    "price_usd": 8,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "repair_kit",
@@ -3849,6 +4139,7 @@
    "volume_l": 0.0,
    "carry": "inside",
    "price_usd": 7,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "repair_kit",
@@ -3868,6 +4159,7 @@
    "volume_l": 0.0,
    "carry": "inside",
    "price_usd": 6,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "repair_kit",
@@ -3885,6 +4177,7 @@
    "volume_l": 0.4,
    "carry": "inside",
    "price_usd": 8,
+   "basic": true,
    "ten_essentials": null,
    "tags": [
     "repair_kit",
@@ -3903,6 +4196,7 @@
    "volume_l": 0.05,
    "carry": "inside",
    "price_usd": 9,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "repair_kit"
@@ -3921,6 +4215,7 @@
    "volume_l": 0.1,
    "carry": "inside",
    "price_usd": 12,
+   "basic": true,
    "ten_essentials": "sun",
    "tags": [
     "sun_screen",
@@ -3940,6 +4235,7 @@
    "volume_l": 0.1,
    "carry": "worn",
    "price_usd": 25,
+   "basic": false,
    "ten_essentials": "sun",
    "tags": [
     "sun_glasses"
@@ -3958,6 +4254,7 @@
    "volume_l": 0.2,
    "carry": "worn",
    "price_usd": 79,
+   "basic": false,
    "ten_essentials": "sun",
    "tags": [
     "sun_glasses",
@@ -3978,6 +4275,7 @@
    "volume_l": 0.4,
    "carry": "worn",
    "price_usd": 39,
+   "basic": false,
    "ten_essentials": "sun",
    "tags": [
     "sun_hat",
@@ -3997,6 +4295,7 @@
    "volume_l": 0.3,
    "carry": "worn",
    "price_usd": 25,
+   "basic": true,
    "ten_essentials": "sun",
    "tags": [
     "sun_hat"
@@ -4015,6 +4314,7 @@
    "volume_l": 0.5,
    "carry": "worn",
    "price_usd": 65,
+   "basic": false,
    "ten_essentials": "sun",
    "tags": [
     "sun_clothing",
@@ -4040,6 +4340,7 @@
    "volume_l": 0.0,
    "carry": "inside",
    "price_usd": 4,
+   "basic": true,
    "ten_essentials": "sun",
    "tags": [
     "sun_screen",
@@ -4059,6 +4360,7 @@
    "volume_l": 12.4,
    "carry": "inside",
    "price_usd": 95,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "bear_resistant",
@@ -4081,6 +4383,7 @@
      "weight_oz": 31,
      "volume_l": 11.2,
      "price_usd": 329,
+     "basic": false,
      "stats": {
       "capacity_l": 10.6,
       "usable_l": 9.0,
@@ -4105,6 +4408,7 @@
    "volume_l": 8.1,
    "carry": "inside",
    "price_usd": 85,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "bear_resistant",
@@ -4130,6 +4434,7 @@
    "volume_l": 12.0,
    "carry": "inside",
    "price_usd": 80,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "bear_resistant",
@@ -4157,6 +4462,7 @@
    "volume_l": 12.0,
    "carry": "inside",
    "price_usd": 0,
+   "basic": true,
    "ten_essentials": null,
    "tags": [
     "bear_resistant",
@@ -4185,6 +4491,7 @@
    "volume_l": 0.5,
    "carry": "inside",
    "price_usd": 99,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "bear_resistant_soft",
@@ -4208,6 +4515,7 @@
    "volume_l": 0.0,
    "carry": "inside",
    "price_usd": 15,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "odor_barrier",
@@ -4227,6 +4535,7 @@
    "volume_l": 0.4,
    "carry": "inside",
    "price_usd": 25,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "hang",
@@ -4247,6 +4556,7 @@
    "volume_l": 0.6,
    "carry": "outside_strappable",
    "price_usd": 99,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "poles",
@@ -4265,6 +4575,7 @@
      "weight_oz": 22,
      "volume_l": 0.7,
      "price_usd": 39,
+     "basic": false,
      "stats": {
       "ford_bonus": 8
      },
@@ -4276,6 +4587,7 @@
      "weight_oz": 11,
      "volume_l": 0.5,
      "price_usd": 189,
+     "basic": false,
      "stats": {
       "ford_bonus": 10
      },
@@ -4297,6 +4609,7 @@
    "volume_l": 0.6,
    "carry": "inside",
    "price_usd": 79,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "traction",
@@ -4318,6 +4631,7 @@
    "volume_l": 1.5,
    "carry": "outside_strappable",
    "price_usd": 199,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "traction",
@@ -4344,6 +4658,7 @@
    "volume_l": 1.2,
    "carry": "outside_strappable",
    "price_usd": 169,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "traction",
@@ -4366,6 +4681,7 @@
    "volume_l": 1.5,
    "carry": "outside_strappable",
    "price_usd": 109,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "ice_axe",
@@ -4384,6 +4700,7 @@
      "weight_oz": 12,
      "volume_l": 1.3,
      "price_usd": 139,
+     "basic": false,
      "stats": {
       "self_arrest": true,
       "hard_ice": false
@@ -4404,6 +4721,7 @@
    "volume_l": 6.0,
    "carry": "outside_strappable",
    "price_usd": 229,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "traction_snow",
@@ -4426,6 +4744,7 @@
    "volume_l": 4.5,
    "carry": "outside_strappable",
    "price_usd": 79,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "helmet",
@@ -4448,6 +4767,7 @@
    "volume_l": 0.8,
    "carry": "inside",
    "price_usd": 79,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "harness",
@@ -4467,6 +4787,7 @@
    "volume_l": 4.0,
    "carry": "outside_strappable",
    "price_usd": 199,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "rope",
@@ -4491,6 +4812,7 @@
    "volume_l": 2.5,
    "carry": "outside_strappable",
    "price_usd": 249,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "glacier_travel",
@@ -4520,6 +4842,7 @@
    "volume_l": 3.0,
    "carry": "inside",
    "price_usd": 499,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "avalanche_gear",
@@ -4541,6 +4864,7 @@
    "volume_l": 0.0,
    "carry": "inside",
    "price_usd": 14,
+   "basic": true,
    "ten_essentials": null,
    "tags": [
     "permit",
@@ -4564,6 +4888,7 @@
    "volume_l": 0.05,
    "carry": "inside",
    "price_usd": 35,
+   "basic": true,
    "ten_essentials": "knife",
    "tags": [
     "knife"
@@ -4582,6 +4907,7 @@
    "volume_l": 0.1,
    "carry": "inside",
    "price_usd": 99,
+   "basic": false,
    "ten_essentials": "knife",
    "tags": [
     "knife",
@@ -4608,6 +4934,7 @@
    "volume_l": 0.8,
    "carry": "outside_strappable",
    "price_usd": 35,
+   "basic": true,
    "ten_essentials": null,
    "tags": [
     "hatchet",
@@ -4626,6 +4953,7 @@
    "volume_l": 0.0,
    "carry": "inside",
    "price_usd": 20,
+   "basic": true,
    "ten_essentials": null,
    "tags": [
     "trowel",
@@ -4646,6 +4974,7 @@
    "volume_l": 0.2,
    "carry": "inside",
    "price_usd": 4,
+   "basic": true,
    "ten_essentials": null,
    "tags": [
     "toilet_paper",
@@ -4665,6 +4994,7 @@
    "volume_l": 0.3,
    "carry": "inside",
    "price_usd": 7,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "wag_bag",
@@ -4685,6 +5015,7 @@
    "volume_l": 0.0,
    "carry": "worn",
    "price_usd": 6,
+   "basic": true,
    "ten_essentials": null,
    "tags": [
     "signal"
@@ -4703,6 +5034,7 @@
    "volume_l": 0.0,
    "carry": "inside",
    "price_usd": 12,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "signal"
@@ -4722,6 +5054,7 @@
    "volume_l": 0.2,
    "carry": "inside",
    "price_usd": 10,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "cord",
@@ -4741,6 +5074,7 @@
    "volume_l": 0.4,
    "carry": "outside_strappable",
    "price_usd": 50,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "bear_spray",
@@ -4760,6 +5094,7 @@
    "volume_l": 0.3,
    "carry": "outside_strappable",
    "price_usd": 69,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "solar",
@@ -4781,6 +5116,7 @@
    "volume_l": 0.1,
    "carry": "inside",
    "price_usd": 10,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "bug"
@@ -4799,6 +5135,7 @@
    "volume_l": 0.1,
    "carry": "inside",
    "price_usd": 12,
+   "basic": true,
    "ten_essentials": null,
    "tags": [
     "bug",
@@ -4819,6 +5156,7 @@
    "volume_l": 0.0,
    "carry": "inside",
    "price_usd": 18,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "bug",
@@ -4839,6 +5177,7 @@
    "volume_l": 0.5,
    "carry": "outside_strappable",
    "price_usd": 15,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "sit_pad",
@@ -4859,6 +5198,7 @@
    "volume_l": 2.5,
    "carry": "inside",
    "price_usd": 149,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "chair",
@@ -4876,6 +5216,7 @@
      "weight_oz": 96,
      "volume_l": 15.0,
      "price_usd": 25,
+     "basic": true,
      "stats": {
       "joy": 3,
       "joy_layover": 6
@@ -4899,6 +5240,7 @@
    "volume_l": 0.2,
    "carry": "inside",
    "price_usd": 20,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "towel",
@@ -4918,6 +5260,7 @@
    "volume_l": 0.0,
    "carry": "inside",
    "price_usd": 8,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "sleep_aid"
@@ -4936,6 +5279,7 @@
    "volume_l": 0.1,
    "carry": "inside",
    "price_usd": 6,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "warmer",
@@ -4949,6 +5293,39 @@
    "flavor": "Little packets that grow warm when you shake them, like a pocket-sized campfire."
   },
   {
+   "id": "blanket_wool",
+   "name": "Wool Blanket",
+   "category": "comfort",
+   "weight_oz": 64,
+   "volume_l": 11.4,
+   "carry": "outside_strappable",
+   "price_usd": 59,
+   "basic": false,
+   "ten_essentials": null,
+   "tags": [
+    "wool",
+    "insulating",
+    "warm_when_wet",
+    "heavy",
+    "bulky",
+    "camp_comfort"
+   ],
+   "stats": {
+    "warmth_bonus_f": 8,
+    "wet_warmth_retained": 0.6
+   },
+   "estimate": true,
+   "evidence": {
+    "weight_oz": "GAME_DESIGN 5.7 new items table: 64 oz (the plain version)",
+    "price_usd": "GAME_DESIGN 5.7 new items table: $59 (the plain version; the boutique's patterned one, $189, waits for S35a)",
+    "volume_l": "scaled by weight from sweater_wool_vintage (28 oz, 5 L): 64 / 28 x 5",
+    "carry": "bag_flannel_rectangle: a bulky camp blanket that may ride on the outside straps",
+    "stats": "warmth_bonus_f from liner_fleece (8), the catalog's other layer over a sleeping bag; wet_warmth_retained from sweater_wool_vintage (0.6)",
+    "tags": "GAME_DESIGN 5.7: warmth at camp, heavy"
+   },
+   "real_world_notes": "New for the general store (GAME_DESIGN 5.7, added 2026-10-09): warmth at camp, heavy, and a flat-lay backdrop once owned (6.1). Off the shelf until the wool_blanket switch turns on (BUILD_PLAN 3.6, M1b). Every number is an estimate: weight and price from 5.7's table (the plain version), the rest from sweater_wool_vintage and liner_fleece."
+  },
+  {
    "id": "wet_wipes",
    "name": "Unscented Wet Wipes (pack out)",
    "category": "comfort",
@@ -4956,6 +5333,7 @@
    "volume_l": 0.2,
    "carry": "inside",
    "price_usd": 5,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "hygiene",
@@ -4976,6 +5354,7 @@
    "volume_l": 0.1,
    "carry": "inside",
    "price_usd": 6,
+   "basic": true,
    "ten_essentials": null,
    "tags": [
     "hygiene",
@@ -4994,6 +5373,7 @@
    "volume_l": 0.6,
    "carry": "inside",
    "price_usd": 15,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "luxury",
@@ -5015,6 +5395,7 @@
    "volume_l": 0.1,
    "carry": "inside",
    "price_usd": 35,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "luxury",
@@ -5036,6 +5417,7 @@
    "volume_l": 6.0,
    "carry": "outside_strappable",
    "price_usd": 59,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "luxury",
@@ -5060,6 +5442,7 @@
    "volume_l": 5.5,
    "carry": "outside_strappable",
    "price_usd": 59,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "luxury",
@@ -5084,6 +5467,7 @@
    "volume_l": 70.0,
    "carry": "outside_strappable",
    "price_usd": 1399,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "luxury",
@@ -5108,6 +5492,7 @@
    "volume_l": 0.1,
    "carry": "inside",
    "price_usd": 5,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "luxury",
@@ -5129,6 +5514,7 @@
    "volume_l": 0.3,
    "carry": "outside_strappable",
    "price_usd": 12,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "luxury",
@@ -5149,6 +5535,7 @@
    "volume_l": 0.5,
    "carry": "inside",
    "price_usd": 159,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "luxury",
@@ -5170,6 +5557,7 @@
    "volume_l": 0.8,
    "carry": "outside_strappable",
    "price_usd": 49,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "luxury",
@@ -5191,6 +5579,7 @@
    "volume_l": 0.8,
    "carry": "inside",
    "price_usd": 129,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "binoculars",
@@ -5212,6 +5601,7 @@
    "volume_l": 0.3,
    "carry": "inside",
    "price_usd": 299,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "camera",
@@ -5236,6 +5626,7 @@
    "volume_l": 3.5,
    "carry": "inside",
    "price_usd": 1099,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "camera",
@@ -5261,6 +5652,7 @@
    "volume_l": 0.3,
    "carry": "inside",
    "price_usd": 20,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "camera",
@@ -5284,6 +5676,7 @@
    "volume_l": 0.1,
    "carry": "inside",
    "price_usd": 15,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "luxury",
@@ -5304,6 +5697,7 @@
    "volume_l": 0.3,
    "carry": "inside",
    "price_usd": 49,
+   "basic": true,
    "ten_essentials": null,
    "tags": [
     "luxury",
@@ -5330,6 +5724,7 @@
    "volume_l": 1.0,
    "carry": "inside",
    "price_usd": 399,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "drone",
@@ -5354,6 +5749,7 @@
    "volume_l": 1.0,
    "carry": "inside",
    "price_usd": 29,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "flower_press",
@@ -5374,6 +5770,7 @@
    "volume_l": 0.3,
    "carry": "inside",
    "price_usd": 18,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "sketchbook",
@@ -5394,6 +5791,7 @@
    "volume_l": 0.1,
    "carry": "inside",
    "price_usd": 12,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "drawing_tools"
@@ -5412,6 +5810,7 @@
    "volume_l": 0.2,
    "carry": "inside",
    "price_usd": 25,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "drawing_tools"
@@ -5430,6 +5829,7 @@
    "volume_l": 0.2,
    "carry": "inside",
    "price_usd": 45,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "drawing_tools"
@@ -5448,6 +5848,7 @@
    "volume_l": 0.2,
    "carry": "inside",
    "price_usd": 15,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "journal",
@@ -5467,6 +5868,7 @@
    "volume_l": 0.5,
    "carry": "inside",
    "price_usd": 22,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "field_guide",
@@ -5490,6 +5892,7 @@
    "volume_l": 0.4,
    "carry": "inside",
    "price_usd": 20,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "field_guide",
@@ -5515,6 +5918,7 @@
    "volume_l": 0.5,
    "carry": "inside",
    "price_usd": 25,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "field_guide",
@@ -5538,6 +5942,7 @@
    "volume_l": 0.3,
    "carry": "inside",
    "price_usd": 18,
+   "basic": false,
    "ten_essentials": null,
    "tags": [
     "field_guide",
@@ -5940,6 +6345,7 @@
   "blister_kit": "Counts as blister_kit.",
   "blister_prevention": "Lowers blister chance.",
   "blister_risk": "Raises blister chance.",
+  "bombproof": "Never fails from wear: the general store's heavy, plain gear, such as the canvas tarp and the foam pads (GAME_DESIGN 5.2, 5.7; replaces unbreakable, 2026-10-09).",
   "breathable": "Lets sweat vapor escape.",
   "brush_protection": "Protects legs from brush, nettles and devil's club.",
   "bug": "Counts as bug protection.",
@@ -6106,6 +6512,7 @@
   "stove_alcohol": "Burns denatured alcohol.",
   "stove_canister": "Burns isobutane canisters.",
   "stove_liquid": "Burns white gas; reliable in cold.",
+  "style": "The look, with little or no effect on the trail: the boutique's style items (GAME_DESIGN 5.2, 5.7; added 2026-10-09, no M1a item carries it yet).",
   "sun_clothing": "Sun-protective clothing.",
   "sun_glasses": "Eye protection from sun and snow glare.",
   "sun_hat": "Sun hat.",
@@ -6122,7 +6529,6 @@
   "trowel": "Counts as trowel (catholes).",
   "ultralight": "Unusually light for its job; often less durable.",
   "umbrella": "Umbrella: great in calm rain, useless in wind.",
-  "unbreakable": "Cannot fail in normal use.",
   "utensil": "Eating utensil.",
   "ventilated_back": "Mesh back panel; less sweaty in heat.",
   "versatile": "Has several uses; event cards may offer it as an alternative.",

@@ -63,7 +63,8 @@ test('package.json names OP Hiker, has no book words, and its scripts are the RE
   assert.equal(lock.packages['node_modules/typescript'].version, pkg.devDependencies.typescript, 'the lockfile pins the same');
   assert.deepEqual(Object.keys(lock.packages).sort(), ['', 'node_modules/typescript'], 'and nothing else');
   const scripts = Object.keys(pkg.scripts).sort();
-  assert.deepEqual(scripts, ['build', 'ci', 'lint', 'play', 'render', 'serve', 'sim:smoke', 'test', 'text:apply', 'text:check', 'text:count', 'typecheck']);
+  // S4 adds ingest (BUILD_PLAN 3.2).
+  assert.deepEqual(scripts, ['build', 'ci', 'ingest', 'lint', 'play', 'render', 'serve', 'sim:smoke', 'test', 'text:apply', 'text:check', 'text:count', 'typecheck']);
   // BUILD_PLAN 6.5: ci runs the five checks, in that order.
   assert.equal(pkg.scripts.ci, 'npm run build && npm run lint && npm run typecheck && npm run test && npm run sim:smoke');
   assert.equal(pkg.scripts['sim:smoke'], 'node tools/sim.mjs --smoke 1000');

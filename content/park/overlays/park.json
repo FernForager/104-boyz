@@ -1,0 +1,5 @@
+{
+ "$comment": "Points the park needs that are not trail nodes (BUILD_PLAN 3.4, 3.5; GAME_DESIGN 2.2, 7.2). The cabin is generic: only the lake's center is ever recorded, never a building's position (decision 46).",
+ "cabin": { "lat": 47.47, "lon": -123.86, "zone": "west_valleys", "source": "design/data/FACT_CHECK.md R3: Lake Quinault's center, the point the cabin's sky and the daily's opening use" },
+ "daylight_point": { "lat": 47.97, "lon": -123.83, "source": "park_rules.json climate.m1a_weather_inputs.daylight_loop_2027.location" }
+}

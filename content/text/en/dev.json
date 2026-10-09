@@ -59,5 +59,11 @@
   "ctx": "The debug menu: some group's hash differs from Node's; the report says which",
   "screen": "debug",
   "class": "dev"
+ },
+ "dev.map": {
+  "text": "Map",
+  "ctx": "The debug menu, preview only: opens the pencil map of the loop at #map, a check view (BUILD_PLAN S4)",
+  "screen": "debug",
+  "class": "dev"
  }
 }

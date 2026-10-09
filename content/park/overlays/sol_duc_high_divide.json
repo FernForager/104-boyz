@@ -1,0 +1,25 @@
+{
+ "$comment": "Hand patches only where the research is silent (BUILD_PLAN 2.6, 3.4; GAME_DESIGN 4.3, 7.4, E.5). The research's own M1a estimates (m1a_play_inputs) are copied by ingest from the source into the generated region file; they are not repeated here. loops: the High Divide loop's direction gates (the first segment out of the falls each way, which the camp table's miles ban for the other direction) and its pins over the top. forks: the basin-or-crest fork's junctions, each with the segment that leads down into the basin. presets: turnaround pins for the research's out-and-back days, which name their turnaround only in words (each with its evidence). nodes and segments: field patches by id (none yet).",
+ "loops": {
+  "high_divide": {
+   "trailhead": "sol_duc_trailhead",
+   "ccw_first": "sol_duc_falls->hidden_lake_junction",
+   "cw_first": "sol_duc_falls->sol_duc_river_1",
+   "crest_via": "high_divide",
+   "basin_via": "lunch_lake",
+   "doc": "GAME_DESIGN 4.3: counterclockwise is Deer Lake first, clockwise the river first"
+  }
+ },
+ "forks": {
+  "seven_lakes_basin": { "kind": "basin_or_crest", "dir": "ccw", "way_in": "seven_lakes_basin->round_lake_junction", "doc": "GAME_DESIGN 7.4: the rim junction going counterclockwise" },
+  "mirror_lake_way_trail_junction": { "kind": "basin_or_crest", "dir": "cw", "way_in": "mirror_lake->mirror_lake_way_trail_junction", "doc": "GAME_DESIGN 7.4: the Mirror Lake way-trail junction going clockwise" }
+ },
+ "presets": {
+  "sol_duc_falls_walk": { "days": { "1": { "via": ["sol_duc_falls"], "doc": "The research names the turnaround in the trip's name, Sol Duc Falls; its 1.6 mi and +260 ft are the falls and back" } } },
+  "deer_lake_day": { "days": { "1": { "via": ["deer_lake"], "doc": "The research names the turnaround in the trip's name, Deer Lake; its 7.4 mi and +1,950 ft are the lake and back (GAME_DESIGN 4.3: 3.7 each way)" } } },
+  "bogachiel_peak_day": { "days": { "1": { "via": ["deer_lake", "bogachiel_peak_junction", "bogachiel_peak"], "doc": "The trip's name: Bogachiel Peak via Deer Lake; its 16.2 mi and +4,320 ft are the east spur both ways, the spur the research marks preferred_path (GAME_DESIGN B.1: the east spur is the better path)" } } },
+  "sol_duc_river_basecamp": { "days": { "2": { "via": ["heart_lake_junction"], "doc": "The research's day 2: a light-pack climb to Heart Lake and the High Divide crest; its 8.4 mi and +2,340 ft are Sol Duc River #4 to Heart Lake Junction and back" } } }
+ },
+ "nodes": {},
+ "segments": {}
+}

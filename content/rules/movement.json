@@ -1,0 +1,17 @@
+{
+ "$comment": "A Regular hiker's base pace (GAME_DESIGN 7.4; BUILD_PLAN S4): flat speed in tenths of a mile an hour, the climb rate, the steep-descent threshold and rate, each trail class's distance factor in thousandths, and the breaks factor in thousandths. Rules-hashed (in rules.park). S8 adds fitness, load, dark and the rest.",
+ "regular": { "flat_mph10": 24, "climb_ft_h": 1300 },
+ "steep": { "ft_per_mi": 400, "ft_h": 2000 },
+ "class_milli": {
+  "road_walk": 850,
+  "maintained": 1000,
+  "primitive": 1250,
+  "way_trail": 1400,
+  "off_trail": 1900,
+  "snow": 1800,
+  "beach_sand": 1300,
+  "beach_cobble": 1700,
+  "coast_overland": 1800
+ },
+ "breaks_milli": 1120
+}

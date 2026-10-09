@@ -10,6 +10,13 @@
 //   T12 the ledger matches the answers files, entry by entry
 //   T13 {variables} match their calls; {PLACEHOLDERS} only where allowed
 //   T14 the main gate: every line main reaches is approved words
+//   T16 the gazetteer (S4; GAME_DESIGN 18.5): every place a build or a
+//       content file names (place.<id>: the map's labels, content refs,
+//       code and // t-ids: lists) is a sourced place, not cut, and every
+//       term.<id> a term; no ours line names a not_place (a descriptive
+//       label, or a name with no source); every quote in
+//       content/lore/quotes.json is its public-domain record's words
+//       exactly; cut words appear in no other line and no names file
 //
 // Content refers to lines too (S3): a string "@<id>" in a content file
 // (content/**/*.json outside content/text/ and content/art/) is a use (T11),
@@ -17,20 +24,25 @@
 // passes such a line no {variables} yet (T13). Code that shows a line the
 // content names ends its tx() or t() line `// t-ids: @content`: its ids are
 // the content's refs, which T11 and the smoke run's template check cover.
+// Code that shows a place by a computed id ends it `// t-ids: @places`:
+// the ids are the build's place.<id> labels, which T16 checks.
 //
 // Each issue is {file, line, code, msg, level}, level 'error' or 'warn'.
 // What isn't a problem but is worth knowing (a line waiting for its screen,
 // an off-main line now approved) comes back as `infos`.
 
-import { readFileSync, readdirSync, statSync } from 'node:fs';
+import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
 import { join, relative, sep, extname } from 'node:path';
 import { ROOT } from './pics.mjs';
 import { parseHtml, walk, getAttr, textOf } from './html.mjs';
 import { validate } from './schema.mjs';
-import { FOLDERS, readSchemas, lineOfPath } from './content.mjs';
+import { schemaFor, readSchemas, lineOfPath } from './content.mjs';
+import { mapData } from './park.mjs';
 import {
   readText,
   stateOf,
+  nameOf,
+  hasId,
   forms,
   wordsString,
   wordsHash,
@@ -66,6 +78,11 @@ const VAR_RE = /^[a-z][a-z0-9_]*$/;
 export const CONTENT_REF_RE = /^@([a-z][a-z0-9_]*(?:\.[a-z0-9_]+)+)$/;
 /** The `// t-ids:` entry for a call whose ids come from content refs. */
 export const CONTENT_TIDS = '@content';
+/** The `// t-ids:` entry for a call that shows a place by a computed id (the build's place.<id> labels, T16). */
+export const PLACES_TIDS = '@places';
+/** The public-domain quotes T16 holds content/lore/quotes.json to (S24a writes the file). */
+export const QUOTES_FILE = 'content/lore/quotes.json';
+export const QUOTES_SOURCE = 'design/data/lore/quotes_public_domain.json';
 const T10_EXT = new Set(['.html', '.js', '.css', '.svg', '.webmanifest']);
 const KEYWORDS = new Set(['return', 'typeof', 'instanceof', 'in', 'of', 'new', 'delete', 'void', 'throw', 'case', 'do', 'else', 'yield', 'await']);
 const LETTER = /\p{L}/u;
@@ -621,16 +638,15 @@ export function contentRefs({ file, src, data }) {
 
 /**
  * T10 over the content the build compiles: each file against its schema
- * (by folder, as tools/content.mjs reads them).
+ * (by path, at any depth, through tools/content.mjs's FOLDERS table).
  * @returns {Issue[]}
  */
 export function lintContentText(root = ROOT, files = contentFiles(root)) {
   const schemas = readSchemas(root);
   const out = [];
   for (const f of files) {
-    const [, folder, name] = /^content\/([a-z]+)\/([^/]+)\.json$/.exec(f.file) || [];
-    if (!folder || !Object.prototype.hasOwnProperty.call(FOLDERS, folder)) continue;
-    const schema = schemas[FOLDERS[folder](name)];
+    const name = f.file.startsWith('content/') ? schemaFor(f.file.slice('content/'.length)) : null;
+    const schema = name ? schemas[name] : null;
     if (schema) out.push(...lintTextFields(f.file, f.data, schema, f.src));
   }
   return out;
@@ -769,6 +785,7 @@ export function lintT11(text, uses) {
   const used = new Set();
   const need = (id, file, line, what) => {
     if (defined(text, id)) used.add(id);
+    else if (hasId(text, id)) return; // a place or a term: T16 checks it
     else issues.push({ file, line, code: 'T11', msg: `${what} ${id}, which isn't defined in content/text` });
   };
   for (const id of [...MANIFEST_IDS, ...PLACEHOLDER_IDS]) need(id, 'tools/text.mjs', 1, 'the generated files use');
@@ -776,10 +793,10 @@ export function lintT11(text, uses) {
   for (const u of uses.manifest) need(u.id, u.file, u.line, 'the manifest uses');
   for (const u of uses.content || []) need(u.id, u.file, u.line, 'content refers to');
   for (const l of uses.literals) if (defined(text, l.value)) used.add(l.value);
-  for (const t of uses.tids) for (const id of t.ids) if (id !== CONTENT_TIDS) need(id, t.file, t.line, '// t-ids: lists');
+  for (const t of uses.tids) for (const id of t.ids) if (id !== CONTENT_TIDS && id !== PLACES_TIDS) need(id, t.file, t.line, '// t-ids: lists');
   for (const c of uses.calls) {
     if (c.literal) need(c.id, c.file, c.line, `${c.fn}() asks for`);
-    else if (!c.tids) issues.push({ file: c.file, line: c.line, code: 'T11', msg: `${c.fn}() needs a literal id, or the line ends // t-ids: <every id it can be> (or ${CONTENT_TIDS})` });
+    else if (!c.tids) issues.push({ file: c.file, line: c.line, code: 'T11', msg: `${c.fn}() needs a literal id, or the line ends // t-ids: <every id it can be> (or ${CONTENT_TIDS}, or ${PLACES_TIDS})` });
   }
   for (const [id, line] of text.lines) {
     if (used.has(id)) continue;
@@ -906,6 +923,150 @@ export function lintT14(text, reach) {
   return { issues, infos };
 }
 
+/** Escape a string for a RegExp. */
+const reEscape = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+/**
+ * Where names occur in words: whole words, case-sensitive, longest first,
+ * so "Hidden Lake Way Trail junction" is found before "Hidden Lake" and
+ * the shorter name inside it isn't found again.
+ * @param {string} words
+ * @param {{name: string, id: string, place: boolean}[]} names sorted longest first
+ * @returns {{name: string, id: string, place: boolean}[]}
+ */
+export function namesIn(words, names) {
+  let rest = words;
+  const out = [];
+  for (const n of names) {
+    const re = new RegExp(`(?<![\\p{L}\\p{N}])${reEscape(n.name)}(?![\\p{L}\\p{N}])`, 'gu');
+    let hit = false;
+    rest = rest.replace(re, (m) => {
+      hit = true;
+      return ' '.repeat(m.length);
+    });
+    if (hit) out.push(n);
+  }
+  return out;
+}
+
+/**
+ * The map's labels (place.<id>), as the build makes data/map.json
+ * (tools/park.mjs mapData over the generated regions and the scope file).
+ * @param {string} [root]
+ * @returns {string[]}
+ */
+export function mapLabels(root = ROOT) {
+  const files = new Map();
+  const add = (rel) => {
+    const p = join(root, rel);
+    if (!existsSync(p)) return;
+    const src = readFileSync(p, 'utf8');
+    files.set(rel, { data: JSON.parse(src), src });
+  };
+  add('content/scope/m1a.json');
+  const dir = join(root, 'content', 'park', 'regions');
+  if (existsSync(dir)) for (const n of readdirSync(dir).sort()) if (n.endsWith('.json')) add(`content/park/regions/${n}`);
+  const scope = files.has('content/scope/m1a.json') ? files.get('content/scope/m1a.json').data : null;
+  let map = null;
+  try {
+    map = mapData({ files, scope });
+  } catch {
+    map = null; // J01 and R01 report a broken park
+  }
+  if (!map) return [];
+  return [...new Set(Object.values(map.nodes).map((n) => n.label).filter(Boolean))].sort();
+}
+
+/**
+ * T16 (BUILD_PLAN 10.5; GAME_DESIGN 18.5): the gazetteer, the quotes and
+ * cut words.
+ * @param {any} text readText()'s result
+ * @param {{uses?: any, labels?: string[], quotes?: any, quotesSrc?: string, quoteSource?: any}} [o]
+ *   uses: collectUses()'s, with content refs; labels: the map's place ids;
+ *   drives: content/drive/routes.json, whose bare ids are places; quotes:
+ *   content/lore/quotes.json, when it exists; quoteSource: the
+ *   public-domain records it is held to
+ * @returns {Issue[]}
+ */
+export function lintT16(text, { uses = { calls: [], tids: [], html: [], content: [] }, labels = [], drives = null, quotes = null, quotesSrc = '', quoteSource = null } = {}) {
+  /** @type {Issue[]} */
+  const out = [];
+  const names = text.names || { places: new Map(), notPlaces: new Map(), terms: new Map() };
+  // 1. Every place or term a build or a content file names.
+  const named = [];
+  for (const id of labels) named.push({ id, file: 'data/map.json', line: 1, what: "the map's label" });
+  for (const u of uses.content || []) named.push({ id: u.id, file: u.file, line: u.line, what: 'content refers to' });
+  for (const u of uses.html || []) named.push({ id: u.id, file: u.file, line: u.line, what: `${u.how} uses` });
+  for (const c of uses.calls || []) if (c.literal) named.push({ id: c.id, file: c.file, line: c.line, what: `${c.fn}() asks for` });
+  for (const t of uses.tids || []) for (const id of t.ids) named.push({ id, file: t.file, line: t.line, what: '// t-ids: lists' });
+  // The drives name places by bare id (a road is its roads' own).
+  if (drives) {
+    const roads = new Set(Object.keys(drives.roads || {}));
+    for (const [rid, r] of Object.entries(drives.routes || {})) {
+      for (const id of [r.to, ...(r.through || []), ...(r.legs || []).map((l) => l.to)]) if (!roads.has(id)) named.push({ id: `place.${id}`, file: 'content/drive/routes.json', line: 1, what: `routes.${rid} names` });
+    }
+    for (const [rid, r] of Object.entries(drives.roads || {})) named.push({ id: `place.${r.on}`, file: 'content/drive/routes.json', line: 1, what: `roads.${rid} is on` });
+  }
+  for (const n of named) {
+    if (!/^(place|term)\./.test(n.id)) continue;
+    const bad = (msg) => out.push({ file: n.file, line: n.line, code: 'T16', msg: `${n.what} ${n.id}, ${msg}` });
+    const isPlace = n.id.startsWith('place.');
+    const x = isPlace ? names.places.get(n.id) : names.terms.get(n.id);
+    if (!x) {
+      if (isPlace && names.notPlaces.has(n.id)) bad(`"${names.notPlaces.get(n.id).text}", which isn't a place: ${names.notPlaces.get(n.id).why === 'descriptive' ? 'a label we made up is ours (18.2)' : 'it has no source'}`);
+      else bad(`which isn't in the gazetteer (content/text/names/)`);
+    } else if (typeof x.source !== 'string' || !/^https?:\/\//.test(x.source)) bad('which has no source');
+    else if (stateOf(n.id, text) === 'cut') bad('whose words the creator cut');
+  }
+  // No ours line names a not_place; its place names are all in the gazetteer.
+  const all = [];
+  for (const [id, x] of names.places) for (const name of [x.text, ...(x.forms || [])]) all.push({ name, id, place: true });
+  for (const [id, x] of names.notPlaces) all.push({ name: x.text, id, place: false });
+  all.sort((a, b) => b.name.length - a.name.length || (a.name < b.name ? -1 : a.name > b.name ? 1 : 0));
+  for (const [id, line] of text.lines) {
+    if (line.class !== 'ours') continue;
+    for (const f of forms(line.text)) {
+      for (const hit of namesIn(f, all)) {
+        if (!hit.place) out.push({ file: line.file, line: line.line, code: 'T16', msg: `${id}: "${hit.name}" is ${names.notPlaces.get(hit.id).why === 'descriptive' ? 'a descriptive label (ours), not a place' : 'a name with no source'} (${hit.id}): make the words ours, or source the place` });
+      }
+    }
+  }
+  // 2. Quotes, exactly their public-domain records.
+  if (quotes) {
+    const recs = new Map((((quoteSource && quoteSource.quotes) || [])).map((r) => [r.id, r]));
+    const list = Array.isArray(quotes.quotes) ? quotes.quotes : [];
+    list.forEach((q, i) => {
+      const at = { file: QUOTES_FILE, line: quotesSrc ? lineOfPath(quotesSrc, `quotes[${i}]`) : 1, code: 'T16' };
+      const r = recs.get(q && q.id);
+      if (!r) return out.push({ ...at, msg: `quote ${q && q.id} has no record in ${QUOTES_SOURCE}` });
+      if (typeof q.text !== 'string' || q.text.normalize('NFC') !== String(r.text).normalize('NFC')) out.push({ ...at, msg: `quote ${q.id} isn't its record's words exactly` });
+      if (r.verification !== 'page_image_checked') out.push({ ...at, msg: `quote ${q.id}'s record is ${r.verification}, not page_image_checked` });
+      if (typeof r.public_domain_reason !== 'string' || !r.public_domain_reason.trim()) out.push({ ...at, msg: `quote ${q.id}'s record has no public-domain reason` });
+      if (typeof r.url !== 'string' || !/^https?:\/\//.test(r.url)) out.push({ ...at, msg: `quote ${q.id}'s record has no URL` });
+      return undefined;
+    });
+  }
+  // 3. Cut words appear in no other line and no names file.
+  for (const [cid, list] of Object.entries((text.ledger && text.ledger.cut) || {})) {
+    for (const e of list) {
+      const w = typeof e.text === 'string' ? e.text.trim() : null;
+      if (!w) continue;
+      const re = new RegExp(`(?<![\\p{L}\\p{N}])${reEscape(w)}(?![\\p{L}\\p{N}])`, 'u');
+      for (const [id, line] of text.lines) {
+        if (id === cid || stateOf(id, text) === 'cut') continue;
+        if (forms(line.text).some((f) => re.test(f))) out.push({ file: line.file, line: line.line, code: 'T16', msg: `${id}: holds "${w}", words the creator cut (${cid})` });
+      }
+      for (const m of [names.places, names.notPlaces, names.terms]) {
+        for (const [id, x] of m) {
+          if (id === cid) continue;
+          if ([x.text, ...(x.forms || [])].some((t) => re.test(t))) out.push({ file: x.file, line: 1, code: 'T16', msg: `${id}: "${x.text}" holds "${w}", words the creator cut (${cid})` });
+        }
+      }
+    }
+  }
+  return out;
+}
+
 /**
  * Main's built words, made in memory from the working tree (the fill, the
  * manifest and the bundle) and checked as the build checks them.
@@ -960,6 +1121,27 @@ export function runTextLint(root = ROOT, { main = false } = {}) {
   infos.push(...t11.infos);
   issues.push(...lintT12(text));
   issues.push(...lintT13(text, uses));
+  const quotesPath = join(root, QUOTES_FILE);
+  let quotes = null;
+  let quotesSrc = '';
+  let quoteSource = null;
+  if (existsSync(quotesPath)) {
+    quotesSrc = readFileSync(quotesPath, 'utf8');
+    try {
+      quotes = JSON.parse(quotesSrc);
+      quoteSource = JSON.parse(readFileSync(join(root, QUOTES_SOURCE), 'utf8'));
+    } catch (e) {
+      issues.push({ file: QUOTES_FILE, line: 1, code: 'T16', msg: `can't read the quotes or their records: ${e.message}` });
+    }
+  }
+  const drivesPath = join(root, 'content', 'drive', 'routes.json');
+  let drives = null;
+  try {
+    drives = existsSync(drivesPath) ? JSON.parse(readFileSync(drivesPath, 'utf8')) : null;
+  } catch {
+    drives = null; // J01 reports it
+  }
+  issues.push(...lintT16(text, { uses, labels: mapLabels(root), drives, quotes, quotesSrc, quoteSource }));
   const t14 = lintT14(text, reach);
   issues.push(...t14.issues);
   infos.push(...t14.infos);

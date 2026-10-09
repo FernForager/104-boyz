@@ -1,0 +1,102 @@
+{
+ "$comment": "content/scope/*.json: what a milestone ships (BUILD_PLAN 3.4, 3.6, 10.6; S4). The screens, the main block and the channel swaps (S2, S3); ships, the park slice, the first trip, the months, the stores, the jobs and the switches (S4). tools/scope.mjs holds the switches' registry and the data sections ships may name; R01 checks the file against both, and lint G08 checks the park lists against the park.",
+ "type": "object",
+ "required": ["screens", "main", "channels", "ships", "park", "first_trip", "months", "stores", "jobs", "switches"],
+ "additionalProperties": false,
+ "properties": {
+  "$comment": { "type": "string" },
+  "screens": { "$ref": "#/$defs/ids" },
+  "main": {
+   "type": "object",
+   "required": ["screens", "off"],
+   "additionalProperties": false,
+   "properties": {
+    "screens": { "$ref": "#/$defs/ids" },
+    "off": { "type": "object", "additionalProperties": { "type": "string", "minLength": 1 } }
+   }
+  },
+  "channels": {
+   "type": "object",
+   "additionalProperties": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": { "swap": { "type": "object", "additionalProperties": { "$ref": "#/$defs/line_id" } } }
+   }
+  },
+  "ships": { "type": "object", "additionalProperties": { "$ref": "#/$defs/ids" } },
+  "park": {
+   "type": "object",
+   "required": ["play", "nodes", "map_only", "camps", "desk", "never", "pencil_rows", "map_looks", "footnotes", "phone_only_m1b", "doc"],
+   "additionalProperties": false,
+   "properties": {
+    "play": { "$ref": "#/$defs/ids" },
+    "nodes": { "$ref": "#/$defs/ids" },
+    "map_only": { "type": "array", "items": { "$ref": "#/$defs/seg_id" } },
+    "camps": { "$ref": "#/$defs/ids" },
+    "desk": { "$ref": "#/$defs/ids" },
+    "never": { "$ref": "#/$defs/ids" },
+    "pencil_rows": { "$ref": "#/$defs/ids" },
+    "map_looks": { "$ref": "#/$defs/ids" },
+    "footnotes": { "$ref": "#/$defs/ids" },
+    "phone_only_m1b": { "$ref": "#/$defs/ids" },
+    "doc": { "$ref": "#/$defs/doc" }
+   }
+  },
+  "first_trip": {
+   "type": "object",
+   "required": ["trailhead", "loop", "questions", "lengths", "fills", "never", "doc"],
+   "additionalProperties": false,
+   "properties": {
+    "trailhead": { "$ref": "#/$defs/id" },
+    "loop": { "$ref": "#/$defs/id" },
+    "questions": { "$ref": "#/$defs/ids" },
+    "lengths": { "type": "array", "minItems": 1, "items": { "oneOf": [{ "const": "day" }, { "type": "integer", "minimum": 1, "maximum": 9 }] } },
+    "fills": { "type": "integer", "minimum": 1 },
+    "never": { "$ref": "#/$defs/ids" },
+    "doc": { "$ref": "#/$defs/doc" }
+   }
+  },
+  "months": { "type": "array", "minItems": 1, "maxItems": 12, "items": { "type": "integer", "minimum": 1, "maximum": 12 } },
+  "stores": {
+   "type": "object",
+   "required": ["open", "desk", "later"],
+   "additionalProperties": false,
+   "properties": {
+    "open": { "$ref": "#/$defs/ids" },
+    "desk": { "type": "boolean" },
+    "later": { "$ref": "#/$defs/later" }
+   }
+  },
+  "jobs": {
+   "type": "object",
+   "required": ["open", "later"],
+   "additionalProperties": false,
+   "properties": {
+    "open": { "$ref": "#/$defs/ids" },
+    "later": { "$ref": "#/$defs/later" }
+   }
+  },
+  "switches": {
+   "type": "object",
+   "additionalProperties": {
+    "$comment": "A switch: on (a boolean) or value, its doc, and until when it waits; its other keys are its registry entry's extras (tools/scope.mjs).",
+    "type": "object",
+    "required": ["doc"],
+    "properties": {
+     "on": { "type": "boolean" },
+     "value": { "type": ["string", "integer", "array"] },
+     "until": { "type": "string", "minLength": 1 },
+     "doc": { "$ref": "#/$defs/doc" }
+    }
+   }
+  }
+ },
+ "$defs": {
+  "id": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+  "ids": { "type": "array", "items": { "$ref": "#/$defs/id" } },
+  "seg_id": { "type": "string", "pattern": "^[a-z][a-z0-9_]*->[a-z][a-z0-9_]*$" },
+  "line_id": { "type": "string", "pattern": "^[a-z][a-z0-9_]*(\\.[a-z0-9_]+)+$" },
+  "doc": { "type": "string", "minLength": 1 },
+  "later": { "type": "object", "additionalProperties": { "type": "string", "minLength": 1 } }
+ }
+}

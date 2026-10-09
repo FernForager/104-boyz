@@ -510,7 +510,10 @@ textarea.report {
   color: var(--c2);
 }
 
+/* The note keeps its rows: the menu scrolls rather than squeeze it (the
+   preview menu's Map button, S4, made it shrink). */
 .debug-note {
+  flex: none;
   width: 100%;
   font: 16px/1.3 var(--font-pixel);
   color: var(--ink);
@@ -556,3 +559,119 @@ html[data-marks="on"] [data-t-state="changed"] { text-decoration: underline dash
 html[data-marks="on"] [data-t-state="cut"] { text-decoration: line-through var(--c9); }
 html[data-marks="on"] .t-ph { color: var(--c3); }
 html[data-marks] [data-t-state="missing"] { outline: 1px dashed var(--c6); }
+
+/* ---- The pencil map at #map (preview only; built by ui/map.js, S4) ----- */
+
+/* A full-screen sheet over whatever shows, under an error but over the
+   debug menu. The picture is the loop at whole device pixels; the badges
+   sit over it, placed by ui/map.js; the legend below scrolls with it. */
+.map-sheet {
+  position: fixed;
+  inset: 0;
+  z-index: 15;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: var(--safe-top) max(8px, var(--safe-right)) calc(16px + var(--safe-bottom)) max(8px, var(--safe-left));
+  background: var(--page);
+}
+
+.map-head {
+  flex: none;
+  align-self: stretch;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.map-close {
+  width: var(--target);
+  height: var(--target);
+  padding: 0;
+  font-size: 28px;
+  line-height: 1;
+  color: var(--c4);
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+.map-figure {
+  flex: none;
+  position: relative;
+  line-height: 0;
+  -webkit-touch-callout: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.map-badges {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* A badge: a number in a snow chip with an ink edge, 16 x 13 CSS px
+   (BADGE_CSS in ui/map.js; the layout keeps them off the marks). */
+.map-badge {
+  position: absolute;
+  width: 16px;
+  height: 13px;
+  font-size: 11px;
+  line-height: 11px;
+  text-align: center;
+  color: var(--ink);
+  background: var(--c4);
+  border: 1px solid var(--c0);
+}
+
+.map-badge[data-kind="trailhead"] { color: var(--c4); background: var(--c0); }
+
+.map-legend {
+  flex: none;
+  width: 100%;
+  max-width: 440px;
+  margin: 0;
+  padding: 10px 12px;
+  list-style: none;
+  font-size: 16px;
+  line-height: 1.25;
+  color: var(--ink);
+  background: var(--paper);
+  border: 4px double var(--box-border);
+}
+
+.map-row {
+  display: grid;
+  grid-template-columns: 1.6em 12px 1fr auto;
+  align-items: center;
+  column-gap: 8px;
+  padding: 3px 0;
+}
+
+.map-n { text-align: right; color: var(--c2); }
+
+/* The mark the picture draws, so a row and its place read alike. */
+.map-key {
+  width: 12px;
+  height: 12px;
+  background: var(--c9);
+  border: 2px solid var(--c0);
+}
+
+.map-row[data-kind="desk"] .map-key { background: var(--paper); border-color: var(--c9); }
+.map-row[data-kind="trailhead"] .map-key { background: var(--c0); }
+
+.map-mi {
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 13px;
+  white-space: nowrap;
+  color: var(--c2);
+}
+
+@media (orientation: landscape) and (max-height: 540px) {
+  .map-sheet { display: none; }
+}

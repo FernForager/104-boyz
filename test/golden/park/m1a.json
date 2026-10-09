@@ -1,0 +1,84 @@
+{
+ "$comment": "The M1a park goldens (BUILD_PLAN 6.6, 7.4, S4; GAME_DESIGN F.4: the doc's numbers are the goldens). Distances in tenths of a mile (mi10), gain and loss in feet. Each route is its points in order: the start, any via pins, the end; a layover is null. test/unit/graph.test.mjs routes each on the compiled park (rules.park) with web/js/engine/graph.js. S10's content/trips/sol_duc.json will carry the fills as content; then the test reads them from there and this file keeps only the numbers.",
+ "loop": "high_divide",
+ "trailhead": "sol_duc_trailhead",
+ "loops": [
+  { "id": "ccw_crest", "points": ["sol_duc_trailhead", "deer_lake", "high_divide", "heart_lake", "sol_duc_trailhead"], "mi10": 184, "gain": 4400, "loss": 4410, "doc": "GAME_DESIGN 4.3, B.1: 18.4 by the crest" },
+  { "id": "cw_crest", "points": ["sol_duc_trailhead", "sol_duc_park", "heart_lake", "high_divide", "deer_lake", "sol_duc_trailhead"], "mi10": 184, "gain": 4410, "loss": 4400, "doc": "GAME_DESIGN 4.3, B.1: 18.4 by the crest" },
+  { "id": "ccw_basin", "points": ["sol_duc_trailhead", "deer_lake", "lunch_lake", "heart_lake", "sol_duc_trailhead"], "mi10": 187, "gain": 4420, "loss": 4430, "doc": "GAME_DESIGN 4.3, B.1: 18.7 through the basin" },
+  { "id": "cw_basin", "points": ["sol_duc_trailhead", "sol_duc_park", "lunch_lake", "deer_lake", "sol_duc_trailhead"], "mi10": 187, "gain": 4430, "loss": 4420, "doc": "GAME_DESIGN 4.3, B.1: 18.7 through the basin" }
+ ],
+ "camps": {
+  "doc": "GAME_DESIGN 4.3's camp tables: the mile along the loop from the trailhead, counterclockwise and clockwise (distAlong)",
+  "mi10": {
+   "sol_duc_falls_camp": [10, 10],
+   "hidden_lake": [23, 175],
+   "canyon_creek_1": [19, 165],
+   "canyon_creek_2": [25, 159],
+   "canyon_creek_3": [30, 154],
+   "deer_lake": [37, 147],
+   "potholes": [47, 137],
+   "round_lake": [76, 115],
+   "lunch_lake": [78, 109],
+   "clear_lake": [81, 112],
+   "hoh_lake": [90, 118],
+   "heart_lake_junction": [99, 85],
+   "bruces_roost": [106, 89],
+   "cat_basin": [118, 96],
+   "heart_lake": [103, 81],
+   "sol_duc_park": [113, 71],
+   "lower_bridge_creek": [119, 65],
+   "sol_duc_crossing": [128, 56],
+   "rocky_creek": [134, 50],
+   "appleton_junction": [135, 49],
+   "sol_duc_river_4": [141, 43],
+   "sol_duc_river_3": [145, 39],
+   "sol_duc_river_2": [152, 32],
+   "sol_duc_river_1": [160, 24]
+  },
+  "bogachiel_peak": { "ccw": 78, "cw": 105, "ccw_east_spur": 81, "doc": "GAME_DESIGN 4.3: 7.8 counterclockwise by the short, ledgy west route; 8.1 by the better east spur; 10.5 clockwise" }
+ },
+ "fills": [
+  { "id": "ccw_1_basin", "days": [{ "points": ["sol_duc_trailhead", "deer_lake", "lunch_lake"], "mi10": 78, "gain": 3300, "loss": 830 }, { "points": ["lunch_lake", "heart_lake", "sol_duc_trailhead"], "mi10": 109, "gain": 1120, "loss": 3600 }], "mi10": 187, "doc": "GAME_DESIGN B.1: Lunch Lake (7.8, then 10.9)" },
+  { "id": "ccw_1_crest", "days": [{ "points": ["sol_duc_trailhead", "deer_lake", "high_divide", "heart_lake"], "mi10": 103, "gain": 4150, "loss": 1350 }, { "points": ["heart_lake", "sol_duc_trailhead"], "mi10": 81, "gain": 250, "loss": 3060 }], "mi10": 184, "doc": "GAME_DESIGN B.1, B.6: Heart Lake (10.3, then 8.1)" },
+  { "id": "ccw_2_basin", "days": [{ "points": ["sol_duc_trailhead", "lunch_lake"], "mi10": 78, "gain": 3300, "loss": 830 }, { "points": ["lunch_lake", "seven_lakes_basin", "bogachiel_peak", "heart_lake"], "mi10": 45, "gain": 1600, "loss": 1270 }, { "points": ["heart_lake", "sol_duc_trailhead"], "mi10": 81, "gain": 250, "loss": 3060 }], "mi10": 204, "doc": "GAME_DESIGN B.1: Lunch Lake, Heart Lake, the research's classic: day 2 by the staircase and Bogachiel Peak (4.5), 20.4" },
+  { "id": "ccw_2_crest", "days": [{ "points": ["sol_duc_trailhead", "deer_lake"], "mi10": 37, "gain": 1760, "loss": 190 }, { "points": ["deer_lake", "high_divide", "heart_lake"], "mi10": 66, "gain": 2390, "loss": 1160 }, { "points": ["heart_lake", "sol_duc_trailhead"], "mi10": 81, "gain": 250, "loss": 3060 }], "mi10": 184, "doc": "GAME_DESIGN B.1: Deer Lake, Heart Lake" },
+  { "id": "ccw_3_basin", "days": [{ "points": ["sol_duc_trailhead", "deer_lake"], "mi10": 37, "gain": 1760, "loss": 190 }, { "points": ["deer_lake", "lunch_lake"], "mi10": 41, "gain": 1540, "loss": 640 }, null, { "points": ["lunch_lake", "heart_lake", "sol_duc_trailhead"], "mi10": 109, "gain": 1120, "loss": 3600 }], "mi10": 187, "doc": "GAME_DESIGN B.1: Deer Lake, Lunch Lake x2" },
+  { "id": "ccw_3_crest", "days": [{ "points": ["sol_duc_trailhead", "deer_lake"], "mi10": 37, "gain": 1760, "loss": 190 }, { "points": ["deer_lake", "high_divide", "heart_lake"], "mi10": 66, "gain": 2390, "loss": 1160 }, null, { "points": ["heart_lake", "sol_duc_trailhead"], "mi10": 81, "gain": 250, "loss": 3060 }], "mi10": 184, "doc": "GAME_DESIGN B.1: Deer Lake, Heart Lake x2" },
+  { "id": "cw_1_basin", "days": [{ "points": ["sol_duc_trailhead", "sol_duc_park", "lunch_lake"], "mi10": 109, "gain": 3600, "loss": 1120 }, { "points": ["lunch_lake", "deer_lake", "sol_duc_trailhead"], "mi10": 78, "gain": 830, "loss": 3300 }], "mi10": 187, "doc": "GAME_DESIGN B.1: Lunch Lake (10.9, then 7.8)" },
+  { "id": "cw_1_crest", "days": [{ "points": ["sol_duc_trailhead", "heart_lake"], "mi10": 81, "gain": 3060, "loss": 250 }, { "points": ["heart_lake", "high_divide", "deer_lake", "sol_duc_trailhead"], "mi10": 103, "gain": 1350, "loss": 4150 }], "mi10": 184, "doc": "GAME_DESIGN B.1: Heart Lake (8.1, then 10.3)" },
+  { "id": "cw_2_basin", "days": [{ "points": ["sol_duc_trailhead", "sol_duc_park"], "mi10": 71, "gain": 2470, "loss": 250 }, { "points": ["sol_duc_park", "lunch_lake"], "mi10": 38, "gain": 1130, "loss": 870 }, { "points": ["lunch_lake", "deer_lake", "sol_duc_trailhead"], "mi10": 78, "gain": 830, "loss": 3300 }], "mi10": 187, "doc": "GAME_DESIGN B.1: Sol Duc Park, Lunch Lake" },
+  { "id": "cw_2_crest", "days": [{ "points": ["sol_duc_trailhead", "heart_lake"], "mi10": 81, "gain": 3060, "loss": 250 }, { "points": ["heart_lake", "high_divide", "deer_lake"], "mi10": 66, "gain": 1160, "loss": 2390 }, { "points": ["deer_lake", "sol_duc_trailhead"], "mi10": 37, "gain": 190, "loss": 1760 }], "mi10": 184, "doc": "GAME_DESIGN B.1: Heart Lake, Deer Lake" },
+  { "id": "cw_3_basin", "days": [{ "points": ["sol_duc_trailhead", "sol_duc_park"], "mi10": 71, "gain": 2470, "loss": 250 }, { "points": ["sol_duc_park", "lunch_lake"], "mi10": 38, "gain": 1130, "loss": 870 }, null, { "points": ["lunch_lake", "deer_lake", "sol_duc_trailhead"], "mi10": 78, "gain": 830, "loss": 3300 }], "mi10": 187, "doc": "GAME_DESIGN B.1, B.2: Sol Duc Park, Lunch Lake x2" },
+  { "id": "cw_3_crest", "days": [{ "points": ["sol_duc_trailhead", "heart_lake"], "mi10": 81, "gain": 3060, "loss": 250 }, null, { "points": ["heart_lake", "high_divide", "deer_lake"], "mi10": 66, "gain": 1160, "loss": 2390 }, { "points": ["deer_lake", "sol_duc_trailhead"], "mi10": 37, "gain": 190, "loss": 1760 }], "mi10": 184, "doc": "GAME_DESIGN B.1: Heart Lake x2, Deer Lake" }
+ ],
+ "b1_miles": [
+  { "id": "crest_lunch_by_staircase", "points": ["sol_duc_trailhead", "deer_lake", "lunch_lake", "seven_lakes_basin", "high_divide", "heart_lake", "sol_duc_trailhead"], "mi10": 202, "gain": 5050, "loss": 5060, "doc": "GAME_DESIGN B.1, 7.4: the crest, with Lunch Lake down and back by the staircase, 20.2" },
+  { "id": "crest_lunch_by_mirror_lake", "points": ["sol_duc_trailhead", "deer_lake", "mirror_lake_way_trail_junction", "lunch_lake", "mirror_lake_way_trail_junction", "heart_lake", "sol_duc_trailhead"], "mi10": 206, "gain": 4930, "loss": 4940, "doc": "GAME_DESIGN B.1, 7.4: the crest, with Lunch Lake down and back by the Mirror Lake way trail, 20.6" }
+ ],
+ "side_trips": [
+  { "id": "bogachiel_peak_east", "points": ["bogachiel_peak_junction", "bogachiel_peak", "bogachiel_peak_junction"], "mi10": 2, "gain": 100, "doc": "GAME_DESIGN B.1: 0.2 mi, +100 to 150 ft; the east spur is the better path" },
+  { "id": "bogachiel_peak_west", "points": ["bogachiel_peak_west_junction", "bogachiel_peak", "bogachiel_peak_west_junction"], "mi10": 2, "gain": 150, "doc": "GAME_DESIGN B.1: the west route is ledgy" },
+  { "id": "hoh_lake", "points": ["high_divide", "hoh_lake", "high_divide"], "mi10": 24, "gain": 730, "doc": "GAME_DESIGN B.1: 2.4 mi, 670 ft back up (and 60 ft on the way down)" },
+  { "id": "cat_basin_edge", "points": ["heart_lake_junction", "cat_basin", "heart_lake_junction"], "mi10": 40, "gain": 570, "doc": "GAME_DESIGN B.1, B.6: 4.0 mi" },
+  { "id": "heart_lake", "points": ["heart_lake_junction", "heart_lake", "heart_lake_junction"], "mi10": 8, "gain": 300, "doc": "GAME_DESIGN B.1: 0.8 mi, 300 ft back up" },
+  { "id": "round_lake", "points": ["lunch_lake", "round_lake", "lunch_lake"], "mi10": 12, "gain": 210, "doc": "GAME_DESIGN B.1: 1.2 mi" },
+  { "id": "clear_lake", "points": ["lunch_lake", "clear_lake", "lunch_lake"], "mi10": 6, "gain": 225, "doc": "GAME_DESIGN B.1: 0.6 mi; Clear Lake is 225 ft down a way trail" },
+  { "id": "mirror_lake", "points": ["mirror_lake_way_trail_junction", "mirror_lake", "mirror_lake_way_trail_junction"], "mi10": 12, "gain": 160, "doc": "GAME_DESIGN B.1: 1.2 mi, 160 ft back up" }
+ ],
+ "m1b": [
+  { "id": "morgenroth_visit", "points": ["lunch_lake", "morgenroth_lake", "lunch_lake"], "mi10": 24, "doc": "GAME_DESIGN 4.3, B.1: Lake Morgenroth from Lunch Lake, 2.4 mi there and back, over the map-only links (checked on the unscoped graph; M1b)" }
+ ],
+ "spot_checks": [
+  { "id": "rim_to_trailhead", "points": ["seven_lakes_basin", "deer_lake", "sol_duc_trailhead"], "mi10": 69, "gain": 280, "loss": 3200, "steep": 740, "hours_with_breaks_10": 39, "doc": "GAME_DESIGN 7.4, B.6: 6.9 mi, +280 / -3,200 ft, about 740 ft steep, about 3.9 h with breaks" },
+  { "id": "trailhead_to_rim_ccw", "points": ["sol_duc_trailhead", "deer_lake", "seven_lakes_basin"], "mi10": 69, "gain": 3200, "doc": "GAME_DESIGN 4.3: about 3,200 ft in 6.9 mi to the rim" },
+  { "id": "trailhead_to_crest_cw", "points": ["sol_duc_trailhead", "sol_duc_park", "heart_lake_junction"], "mi10": 85, "gain": 3360, "doc": "GAME_DESIGN 4.3: about 3,350 ft in 8.5 mi to the crest" },
+  { "id": "b2_day2", "points": ["sol_duc_park", "lunch_lake"], "mi10": 38, "gain": 1130, "loss": 870, "doc": "GAME_DESIGN B.2: 3.8 mi, +1,130 / -870" },
+  { "id": "b2_day4", "points": ["lunch_lake", "deer_lake", "sol_duc_trailhead"], "mi10": 78, "gain": 830, "loss": 3300, "doc": "GAME_DESIGN B.2: 7.8 mi, +830 / -3,300" },
+  { "id": "b6_day1", "points": ["sol_duc_trailhead", "deer_lake", "high_divide", "heart_lake"], "mi10": 103, "gain": 4150, "doc": "GAME_DESIGN B.6: 10.3 mi, +4,150" },
+  { "id": "cw_day1_lunch", "points": ["sol_duc_trailhead", "sol_duc_park", "lunch_lake"], "mi10": 109, "gain": 3600, "doc": "GAME_DESIGN B.1: clockwise to Lunch Lake, 10.9 mi, +3,600" }
+ ],
+ "spur_rule": { "points": ["lunch_lake", "seven_lakes_basin", "bogachiel_peak", "heart_lake"], "with": 45, "without": 42, "loop_with": 204, "loop_without": 201, "doc": "M1A_DATA_CHECK item 1: without the spur rule the counterclockwise two-night basin day 2 comes out 4.2 and the loop 20.1" },
+ "distance_not_time": { "to": "cat_basin", "dir": "ccw", "dist_along": 118, "route": 119, "doc": "GAME_DESIGN 4.3: Cat Basin counterclockwise is 11.8 by distance (by Heart Lake); by time the router goes by Bruce's Roost, 11.9" },
+ "counts": { "nodes": 47, "segments": 49, "map_only": 5, "routable": 44, "plannable_camps": 24, "quota_camps": 21, "desk_camps": 3, "never": 3, "doc": "BUILD_PLAN 3.4 (47 segments there; 49 with the two Hoh Lake Trail shares, doubt D3); GAME_DESIGN 4.3" }
+}
