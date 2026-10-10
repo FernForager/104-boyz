@@ -92,8 +92,17 @@ export const PLAIN_CHOICE_ROWS = 1;
 export const PLAIN_CHOICE_CHROME_FP = 10;
 /** A chrome row: the 8x14 font's cell. */
 export const CHROME_ROW_FP = 14;
-/** The column's side margins (pt): the column is max(picture, viewport - 32). */
+/** The column's side margins (pt): the column is max(picture and its keyline, viewport - 32). */
 export const SIDE_PT = 32;
+/**
+ * The picture's mat (S6, lead call 2): a keyline this many font pixels
+ * wide, slate (frame.css), round a block as wide as the column, and ink
+ * between it and the picture. Every edge (the status line, the keyline,
+ * the caption, the box, the choices) is the column's, on every phone, and
+ * the picture's edge never meets the page, at any hour (a night sky's top
+ * is ink, as the page is), with no rule on the art.
+ */
+export const KEYLINE_FP = 1;
 /** The hiker on every composed trail picture (S5: idle at the trail spot). */
 const SPRITES = Object.freeze([['hiker', 'idle', 'trail_spot']]);
 const HOUR_KEY = 'hour';
@@ -133,7 +142,8 @@ export function frameLayout({ width, height, dpr, safeTop = 0, safeBottom = 0, u
   // The box's row less its gaps: the box itself, border and padding in.
   const gaps = 2 * BOX_GAP_FP * fp;
   const minBox = MIN_BOX_LINES * line + BOX_CHROME_FP * fp + gaps;
-  const maxCssHeight = room - STATUS_PT - caption - STRIP_PT - choicesOf(LAYOUT_CHOICES) - toolbar - minBox;
+  const keyline = KEYLINE_FP * fp;
+  const maxCssHeight = room - STATUS_PT - 2 * keyline - caption - STRIP_PT - choicesOf(LAYOUT_CHOICES) - toolbar - minBox;
   const shape = pickPixelShape({ cssWidth: width, screenHeight: height, dpr, picWidth: PIC.width, picHeight: PIC.height, maxCssHeight });
   const picture = {
     width: Math.ceil((PIC.width * shape.sx) / dpr - 1e-6),
@@ -141,7 +151,7 @@ export function frameLayout({ width, height, dpr, safeTop = 0, safeBottom = 0, u
   };
   const rows = {
     status: STATUS_PT,
-    picture: picture.height,
+    picture: picture.height + 2 * keyline,
     caption,
     strip: STRIP_PT,
     box: 0,
@@ -150,10 +160,13 @@ export function frameLayout({ width, height, dpr, safeTop = 0, safeBottom = 0, u
   };
   rows.box = room - rows.status - rows.picture - rows.caption - rows.strip - rows.choices - rows.toolbar;
   const box = Math.max(0, rows.box - gaps);
-  const column = Math.max(picture.width, width - SIDE_PT);
-  // Left edges on whole CSS pixels (so on whole device pixels): the column
-  // centered, and the picture (and the strip) centered in it.
+  const column = Math.max(picture.width + 2 * keyline, width - SIDE_PT);
+  // The column's left edge on a whole CSS pixel, centered; inside its
+  // keyline, the mat each side in whole device pixels (none where the
+  // keyline hugs the picture), so the picture (and the strip under it)
+  // starts on a whole device pixel too.
   const colX = Math.max(0, Math.floor((width - column) / 2));
+  const mat = Math.floor(((column - 2 * keyline - picture.width) / 2) * dpr + 1e-6) / dpr;
   return {
     short,
     fp,
@@ -161,7 +174,9 @@ export function frameLayout({ width, height, dpr, safeTop = 0, safeBottom = 0, u
     picture,
     maxCssHeight,
     column,
-    x: { column: colX, picture: colX + Math.floor((column - picture.width) / 2) },
+    keyline,
+    mat,
+    x: { column: colX, picture: colX + keyline + mat },
     rows,
     box,
     // Whole lines only: the box clips the next one (S6's ▾ continues it).
@@ -556,7 +571,8 @@ function screenHeight(win) {
 
 /**
  * The frame's layout on this screen, with its CSS numbers set on host:
- * --col (the column), --col-x and --pic-x (their left edges). Null
+ * --col (the column), --col-x and --pic-x (their left edges) and --mat
+ * (the ink between the picture's keyline and the picture). Null
  * without a window.
  * @param {HTMLElement} host
  * @param {(Window & typeof globalThis) | null} win
@@ -568,6 +584,7 @@ function measure(host, win, choices) {
   host.style.setProperty('--col', `${l.column}px`);
   host.style.setProperty('--col-x', `${l.x.column}px`);
   host.style.setProperty('--pic-x', `${l.x.picture}px`);
+  host.style.setProperty('--mat', `${l.mat}px`);
   return l;
 }
 

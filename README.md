@@ -116,7 +116,7 @@ npm run text:batch -- B00n # a batch for review in out/review/B00n/ (add --shots
 | `schemas/` | A JSON Schema for each content folder, `vars.json`, every variable an expression may read, and `tags.json`, the one list of event tags |
 | `content/art/` | `palette.json`, and the pictures as `.pic` text programs: `pics/plates/` (160x320), `pics/scenes/` (160x168), `pics/stamps/` |
 | `config/flags.json` | Build flags; the build stamps the channel in |
-| `tools/` | `build`, `assemble-site`, `preview`, `ingest` and `ingest/`, `sun`, `lint`, `textlint` and `graphlint`, `text`, `content`, `sections`, `park`, `scope`, `schema` and `rules` (the data build and its hash), `goldens`, `play`, `sim`, `typecheck`, `render-pics`, `serve`, the PNG encoder and a small HTML parser |
+| `tools/` | `build`, `assemble-site`, `preview`, `ingest` and `ingest/`, `sun`, `lint`, `textlint` and `graphlint`, `text`, `content`, `sections`, `park`, `scope`, `schema` and `rules` (the data build and its hash), `goldens`, `play`, `sim`, `typecheck`, `render-pics` (and its light report: night is night at every place), `color` (contrast, OKLab and decision 68's lift), `serve`, the PNG encoder and a small HTML parser |
 | `sims/` | The harness's bots: they see only the screen |
 | `test/unit/` | Unit tests |
 | `test/golden/`, `test/fixtures/` | The engine goldens and their frozen fixture build; the park's goldens (the design doc's miles); frozen bug-report replays |

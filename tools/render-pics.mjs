@@ -23,16 +23,24 @@
 // every stamp on one sheet; and <out>/pics/stamps.<hour>.7x4.png: every
 // stamp on the sky's glacier blue at the iPhone's pixel shape, as the
 // trail shows it.
+//
+// With every place drawn, it also writes <out>/pics/light.txt and prints
+// its summary (BUILD_PLAN S6; decision 68): each drawable place's mean
+// OKLab lightness at each hour and its night sky's, and the tables' slot
+// pairs that must read, checked as test/unit/palette.test.mjs checks them
+// (lightProblems, readProblems), so a new place, or a new table, is
+// judged at every hour with no one looking.
 
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { renderPic, composite, hashBytes, TRANSPARENT } from '../web/js/gfx/picvm.js';
-import { makePalette, resolve } from '../web/js/gfx/palette.js';
+import { makePalette, resolve, NAMES } from '../web/js/gfx/palette.js';
 import { buildTimeline, frameAt } from '../web/js/gfx/drawin.js';
 import { compose, drawable, HOURS, TRAIL_SPRITES } from '../web/js/gfx/compose.js';
 import { slotsToPNG } from './png.mjs';
 import { ROOT, loadArt, loadPalette } from './pics.mjs';
+import { oklab, chroma, contrastRatio } from './color.mjs';
 
 const SHAPES = [
   ['4x', 4, 4],
@@ -71,6 +79,144 @@ export function composeHashes(art = loadArt()) {
 /** The golden file as written. */
 export function goldenBody(hashes = composeHashes()) {
   return `${JSON.stringify({ $comment: 'The composer\'s golden (BUILD_PLAN S5; test/unit/compose.test.mjs): the FNV hash of each place\'s composited picture at each hour, with the trail\'s hiker. Rewritten only on purpose: node tools/render-pics.mjs --update, then look at the renders and review the diff.', places: hashes }, null, 1)}\n`;
+}
+
+/**
+ * Night is night (decision 68): a night sky's mean OKLab lightness is at
+ * most this, so the lift never turns night into dusk...
+ */
+export const NIGHT_SKY_MAX_L = 0.47;
+/** ...and its mean OKLab chroma at least this, so it is blue, not grey (ink alone is 0.022). */
+export const NIGHT_SKY_MIN_C = 0.035;
+/** The scene reads: the least contrast (WCAG's ratio) a READ_PAIRS pair keeps at an hour. */
+export const READS = 1.3;
+/**
+ * The slot pairs, by their day slots, that keep READS at every hour and are
+ * never the same slot (decision 68's re-tune): [a, b, what]. The lake is
+ * glacier blue, which is also the lake cycle's (16) first slot.
+ */
+export const READ_PAIRS = Object.freeze([
+  Object.freeze([12, 13, "a conifer's lit side (forest) against the meadow (moss)"]),
+  Object.freeze([3, 13, 'the lake (glacier blue) against its shore (moss)']),
+  Object.freeze([3, 14, 'the lake (glacier blue) against its shore (sage)']),
+  Object.freeze([5, 13, 'the trail (paper cream) against the meadow (moss)']),
+]);
+/**
+ * The one pair the day table can't hold to READS: the sixteen as drawn put
+ * glacier blue and sage 1.03 apart (1.04 in option B), apart by hue alone.
+ * The day table is the identity, so no re-tune can move it; the pair stays
+ * apart in slot by day, and keeps READS at every other hour.
+ */
+export const DAY_HUE_ONLY = Object.freeze([3, 14]);
+
+/**
+ * How light a rendered picture is at an hour: the mean OKLab lightness of
+ * all its pixels (the cycles at frame 0, the stars included), and its
+ * sky's (the sky layer's pixels that show, its lights, the stars, left
+ * out: the table never touches a light) mean lightness and chroma.
+ * @param {{width: number, height: number, layers: Uint8Array[]}} r renderPic()'s
+ * @param {import('../web/js/gfx/palette.js').Palette} pal
+ * @param {string} hour
+ * @returns {{L: number, skyL: number, skyC: number, sky: number}} sky is the sky's pixel count (NaN means for no sky)
+ */
+export function lightOf(r, pal, hour) {
+  const slots = resolve(composite(r), r.width, pal, { remap: hour, frame: 0 });
+  const lab = pal.colors.map((h) => oklab(h)[0]);
+  const ch = pal.colors.map(chroma);
+  const [sky, ...over] = r.layers;
+  let L = 0;
+  let sL = 0;
+  let sC = 0;
+  let n = 0;
+  for (let p = 0; p < slots.length; p++) {
+    L += lab[slots[p]];
+    const v = sky[p];
+    if (v === TRANSPARENT || over.some((layer) => layer[p] !== TRANSPARENT)) continue;
+    if (v >= 16 && pal.cycles[v] && pal.cycles[v].light) continue;
+    sL += lab[slots[p]];
+    sC += ch[slots[p]];
+    n++;
+  }
+  return { L: L / slots.length, skyL: sL / n, skyC: sC / n, sky: n };
+}
+
+/**
+ * Every drawable place's light at every hour, composed as the trail shows
+ * it (with the hiker).
+ * @param {{pics: any, stamps: any, recipes: any}} [art]
+ * @param {import('../web/js/gfx/palette.js').Palette} [pal]
+ * @returns {{id: string, hours: Record<string, {L: number, skyL: number, skyC: number, sky: number}>}[]}
+ */
+export function placeLights(art = loadArt(), pal = makePalette(loadPalette())) {
+  const bundle = { pics: art.pics, stamps: art.stamps, recipes: art.recipes };
+  const ids = art.recipes ? Object.keys(art.recipes.places).filter((p) => drawable(p, bundle)).sort() : [];
+  return ids.map((id) => {
+    /** @type {Record<string, {L: number, skyL: number, skyC: number, sky: number}>} */
+    const hours = {};
+    for (const hour of HOURS) {
+      const c = compose(id, bundle, { hour, sprites: TRAIL_SPRITES });
+      hours[hour] = lightOf(renderPic(c.ops, { width: c.width, height: c.height, stamps: art.stamps }), pal, hour);
+    }
+    return { id, hours };
+  });
+}
+
+/**
+ * Night is night, and not grey (decision 68): for each place, its mean
+ * lightness falls strictly through day, dusk, blue hour and night, and its
+ * night sky is dark enough and blue enough.
+ * @param {ReturnType<typeof placeLights>} lights
+ * @returns {string[]} one line a problem
+ */
+export function lightProblems(lights) {
+  const out = [];
+  for (const { id, hours } of lights) {
+    for (let k = 1; k < HOURS.length; k++) {
+      const a = hours[HOURS[k - 1]].L;
+      const b = hours[HOURS[k]].L;
+      if (!(b < a)) out.push(`${id}: ${HOURS[k]} (${b.toFixed(3)}) is no darker than ${HOURS[k - 1]} (${a.toFixed(3)})`);
+    }
+    const night = hours.night;
+    if (!(night.skyL <= NIGHT_SKY_MAX_L)) out.push(`${id}: the night sky's lightness ${night.skyL.toFixed(3)} is over ${NIGHT_SKY_MAX_L} (dusk, not night)`);
+    if (!(night.skyC >= NIGHT_SKY_MIN_C)) out.push(`${id}: the night sky's chroma ${night.skyC.toFixed(3)} is under ${NIGHT_SKY_MIN_C} (grey, not night)`);
+  }
+  return out;
+}
+
+/**
+ * The scene reads (decision 68): at every hour, each READ_PAIRS pair is
+ * two slots at least READS apart (DAY_HUE_ONLY by day: two slots).
+ * @param {Readonly<Record<string, readonly number[]>>} remaps
+ * @param {readonly string[]} colors the sixteen
+ * @returns {string[]} one line a problem
+ */
+export function readProblems(remaps, colors) {
+  const out = [];
+  for (const hour of HOURS) {
+    const map = remaps[hour];
+    for (const [a, b, what] of READ_PAIRS) {
+      const x = map[a];
+      const y = map[b];
+      const ratio = contrastRatio(colors[x], colors[y]);
+      const hueOnly = hour === 'day' && a === DAY_HUE_ONLY[0] && b === DAY_HUE_ONLY[1];
+      if (x === y) out.push(`${hour}: ${what} are both ${NAMES[x]}`);
+      else if (ratio < READS && !hueOnly) out.push(`${hour}: ${what}, ${NAMES[x]} against ${NAMES[y]}, ${ratio.toFixed(2)} apart, under ${READS}`);
+    }
+  }
+  return out;
+}
+
+/**
+ * The light report, as text: a row a place, then the problems.
+ * @param {ReturnType<typeof placeLights>} lights
+ * @param {string[]} problems
+ */
+export function lightText(lights, problems) {
+  const w = Math.max(...lights.map((l) => l.id.length), 5);
+  const head = `${'place'.padEnd(w)}  ${HOURS.map((h) => h.padStart(5)).join('  ')}  night sky L  night sky C`;
+  const rows = lights.map(({ id, hours }) => `${id.padEnd(w)}  ${HOURS.map((h) => hours[h].L.toFixed(3)).join('  ')}  ${hours.night.skyL.toFixed(3).padStart(11)}  ${hours.night.skyC.toFixed(3).padStart(11)}`);
+  const tail = problems.length ? ['', ...problems] : ['', `every place: day > dusk > blue > night; night skies at most L ${NIGHT_SKY_MAX_L} and at least C ${NIGHT_SKY_MIN_C}; every pair reads at every hour`];
+  return `${[head, ...rows, ...tail].join('\n')}\n`;
 }
 
 function parseArgs(argv) {
@@ -273,7 +419,16 @@ export function renderAll(opts) {
       written.push(sfile);
     }
   }
-  return { written, pictures: ids, places, stamps: stampTiles.map((t) => t.id) };
+  /** @type {string[] | null} */
+  let light = null;
+  if (!opts.ids.length && opts.palette === 'all') {
+    const lights = placeLights(art, pal);
+    light = [...lightProblems(lights), ...readProblems(pal.remaps, pal.colors)];
+    const file = join(dir, 'light.txt');
+    writeFileSync(file, lightText(lights, light));
+    written.push(file);
+  }
+  return { written, pictures: ids, places, stamps: stampTiles.map((t) => t.id), light };
 }
 
 const isMain = process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href;
@@ -301,9 +456,10 @@ if (isMain) {
     process.exit(same ? 0 : 1);
   }
   try {
-    const { written, pictures, places, stamps } = renderAll(opts);
-    console.log(`render: ${pictures.length} picture(s), ${places.length} composed place(s), ${stamps.length} stamp(s) -> ${written.length} PNG(s)`);
+    const { written, pictures, places, stamps, light } = renderAll(opts);
+    console.log(`render: ${pictures.length} picture(s), ${places.length} composed place(s), ${stamps.length} stamp(s) -> ${written.filter((f) => f.endsWith('.png')).length} PNG(s)`);
     for (const f of written) console.log(`  ${f.replace(ROOT + '/', '')}`);
+    if (light) console.log(light.length ? `render: the light report has ${light.length} problem(s):\n  ${light.join('\n  ')}` : 'render: light.txt: night is night at every place, and every pair reads at every hour');
   } catch (e) {
     console.error(`render: ${e.message}`);
     process.exit(1);

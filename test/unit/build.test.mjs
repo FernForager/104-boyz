@@ -83,7 +83,8 @@ test('the icons are the right sizes, opaque, and drawn from the cover; preview h
   }
   preview.forEach(({ file, png }, k) => {
     assert.ok(!png.equals(main[k].png), `preview's ${file} differs from main's`);
-    assert.ok(pixels(png).has('63,127,122'), `preview's ${file} has the teal band`);
+    // Re-pinned in S6: palette A's teal, #4a8a85 (decision 68; option B's was 63,127,122).
+    assert.ok(pixels(png).has('74,138,133'), `preview's ${file} has the teal band`);
   });
   assert.throws(() => makeIcons(art, 'beta'), /no channel "beta"/);
 });

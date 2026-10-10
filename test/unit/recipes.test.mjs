@@ -158,7 +158,7 @@ const ridgeWithoutLight = (f = (/** @type {string} */ t) => t) => {
   return plantSource('base_lake_basin', 'bases', baseWithoutLight(base.text), plantSource('skyline_deer_lake_ridge', 'stamps', f(ridgeWithoutBand(ridgeWithoutKnobs(ridge.text)))));
 };
 
-test("P14: a skyline that melts into its sky fails it, at the hours it melts: S5's first Deer Lake ridge, teal under glacier blue, both slate at dusk and blue hour", () => {
+test("P14: a skyline that melts into its sky fails it, at the hours it melts: S5's first Deer Lake ridge, teal under glacier blue, both slate at dusk", () => {
   const ridge = SOURCES.find((x) => x.id === 'skyline_deer_lake_ridge');
   const base = SOURCES.find((x) => x.id === 'base_lake_basin');
   assert.match(ridge.text, /^C 2 {2}L -1,-12 /m, 'the ridge is slate now');
@@ -169,7 +169,8 @@ test("P14: a skyline that melts into its sky fails it, at the hours it melts: S5
   assert.notEqual(teal(ridge.text), ridge.text);
   const issues = lintCompositions(INFO, ridgeWithoutLight(teal));
   const melts = issues.filter((i) => /deer_lake .*its skyline melts into the sky/.test(i.msg));
-  assert.deepEqual([...new Set(melts.map((i) => /at (\w+) \(/.exec(i.msg)[1]))], ['dusk', 'blue'], 'by day and at night it stands');
+  // Re-pinned in S6: blue hour sends glacier blue to night navy (decision 68's re-tune), which stands off teal's slate, so only dusk melts.
+  assert.deepEqual([...new Set(melts.map((i) => /at (\w+) \(/.exec(i.msg)[1]))], ['dusk'], 'by day, at blue hour and at night it stands');
   assert.match(melts[0].msg, /for \d+ columns \(x \d+ to \d+\): slot 15 against 3, the same slot at this hour/);
   assert.ok(Number(/for (\d+) columns/.exec(melts[0].msg)[1]) >= 40, 'the crest between its outcrops');
 });
@@ -209,7 +210,8 @@ test("skylineMelts: under a skyline's own light (a band whose top is a dithered 
   });
   for (const hour of ['day', 'dusk', 'blue', 'night']) assert.deepEqual(skylineMelts(pic(2), hour), [], `slate in its light, ${hour}`);
   assert.deepEqual(skylineMelts(pic(15), 'night'), [{ into: 'its own light', xs: [...Array(W).keys()], slots: [15, 4] }], "teal on the band's slate at night");
-  assert.deepEqual(skylineMelts(pic(13), 'night'), [{ into: 'its own light', xs: [...Array(W).keys()], slots: [13, 4], faint: '1.09' }], "moss's forest on the band's slate at night: apart in slot, too faint in value, as against the sky");
+  // Re-pinned in S6: palette A's forest against its slate, 1.06 (decision 68; option B's were 1.09).
+  assert.deepEqual(skylineMelts(pic(13), 'night'), [{ into: 'its own light', xs: [...Array(W).keys()], slots: [13, 4], faint: '1.06' }], "moss's forest on the band's slate at night: apart in slot, too faint in value, as against the sky");
   assert.deepEqual(skylineMelts(pic(15, false), 'night'), [], 'a solid top is the skyline itself, against the sky alone');
 });
 
@@ -251,12 +253,13 @@ test('skylineMelts: against the sky, slots apart but too close in value for MELT
     ],
   });
   assert.equal(FAINT, 1.5);
-  assert.equal(contrast(0, 1).toFixed(2), '1.28', 'ink and night navy');
-  assert.equal(contrast(1, 2).toFixed(2), '1.81', 'night navy and slate');
+  // Re-pinned in S6: palette A's darks sit closer (decision 68; option B's were 1.28 and 1.81).
+  assert.equal(contrast(0, 1).toFixed(2), '1.25', 'ink and night navy');
+  assert.equal(contrast(1, 2).toFixed(2), '1.63', 'night navy and slate');
   assert.equal(contrast(4, 4), 1);
-  // A slate ridge under a glacier-blue sky: apart by day, at dusk and at blue hour; at night ink against navy.
-  for (const hour of ['day', 'dusk', 'blue']) assert.deepEqual(skylineMelts(pic(() => 3, 2), hour), [], hour);
-  assert.deepEqual(skylineMelts(pic(() => 3, 2), 'night'), [{ into: 'the sky', xs: [...Array(W).keys()], slots: [2, 3], faint: '1.28' }], 'faint at night');
+  // A slate ridge under a glacier-blue sky: apart by day and at dusk; at blue hour and at night ink against navy (S6: blue hour's sky is night navy).
+  for (const hour of ['day', 'dusk']) assert.deepEqual(skylineMelts(pic(() => 3, 2), hour), [], hour);
+  for (const hour of ['blue', 'night']) assert.deepEqual(skylineMelts(pic(() => 3, 2), hour), [{ into: 'the sky', xs: [...Array(W).keys()], slots: [2, 3], faint: '1.25' }], `faint at ${hour}`);
   // The same ridge under the horizon's light (snow by day, slate at night) stands at every hour.
   for (const hour of ['day', 'dusk', 'blue', 'night']) assert.deepEqual(skylineMelts(pic(() => 4, 2), hour), [], `under the light, ${hour}`);
   // A short faint run is no melt; a dither whose other color stands apart shows the edge.
@@ -265,16 +268,17 @@ test('skylineMelts: against the sky, slots apart but too close in value for MELT
   // A same-slot melt is a melt, not faint, and is reported once.
   assert.deepEqual(skylineMelts(pic(() => 3, 15), 'dusk'), [{ into: 'the sky', xs: [...Array(W).keys()], slots: [15, 3] }]);
   // A seam whose columns are each lost, one way or the other, is one run: a slate ridge under the day skies' slate and glacier-blue checker at night, ink on ink, then ink on navy.
-  assert.deepEqual(skylineMelts(pic((x) => (x % 2 ? 3 : 2), 2), 'night'), [{ into: 'the sky', xs: [...Array(W).keys()], slots: [2, 2], faint: '1.28', same: W / 2 }]);
+  assert.deepEqual(skylineMelts(pic((x) => (x % 2 ? 3 : 2), 2), 'night'), [{ into: 'the sky', xs: [...Array(W).keys()], slots: [2, 2], faint: '1.25', same: W / 2 }]);
   assert.deepEqual(skylineMelts(pic((x) => (x < MELT_RUN - 1 ? 3 : 2), 2), 'night').map((m) => m.xs.length), [W], 'faint, then the same slot: one run');
   assert.deepEqual(skylineMelts(pic((x) => (x % 2 ? 4 : 2), 2), 'night'), [], "a seam whose other color is truly apart (the snow's slate) shows the edge");
 });
 
-test("P14: S5's second Deer Lake ridge, slate under glacier blue with no horizon light, is too faint against its sky at night", () => {
+test("P14: S5's second Deer Lake ridge, slate under glacier blue with no horizon light, is too faint against its sky at blue hour and at night", () => {
   const issues = lintCompositions(INFO, ridgeWithoutLight());
   const faint = issues.filter((i) => /deer_lake .*its skyline is too faint against the sky/.test(i.msg));
-  assert.deepEqual([...new Set(faint.map((i) => /at (\w+) \(/.exec(i.msg)[1]))], ['night'], 'by day, at dusk and at blue hour it stands; at night it is ink against navy');
-  assert.match(faint[0].msg, /slot 2 against 3, a contrast of 1\.28 at this hour, under 1\.5 \(doc 11\.1: value, not just hue\)/);
+  // Re-pinned in S6: blue hour's sky is night navy now and its slate ink, as at night (decision 68's re-tune); palette A's ink and navy are 1.25 apart (option B's 1.28).
+  assert.deepEqual([...new Set(faint.map((i) => /at (\w+) \(/.exec(i.msg)[1]))], ['blue', 'night'], 'by day and at dusk it stands; at blue hour and at night it is ink against navy');
+  assert.match(faint[0].msg, /slot 2 against 3, a contrast of 1\.25 at this hour, under 1\.5 \(doc 11\.1: value, not just hue\)/);
   assert.ok(!issues.some((i) => /deer_lake .*melts into the sky/.test(i.msg)), 'apart in slot at every hour');
 });
 

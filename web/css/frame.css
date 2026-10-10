@@ -5,7 +5,9 @@
    --pic-x from frameLayout(), its space check:
 
      header.status-line      22 pt, snow, the chrome font
-     figure.frame-picture    the picture at whole device pixels
+     figure.frame-picture    the picture at whole device pixels, in its
+                             mat: a 1-fp slate keyline as wide as the
+                             column, ink between it and the picture (S6)
      p.frame-caption         two chrome rows (40 pt on 3x, 42 on 2x)
      div.frame-strip         24 pt: the profile and the mile
      div.game-box            the rest (1fr), top-aligned, 2 fp clear of
@@ -166,10 +168,19 @@
 
 /* ---- The picture, the caption, the strip ---------------------------- */
 
+/* The mat (S6, lead call 2): a block as wide as the column, so its edges
+   are the status line's, the caption's, the box's and the choices'; a
+   1-font-pixel slate keyline (2:1 on the page's ink), so a night sky's ink
+   top never melts into the page; and ink between the keyline and the
+   picture (--mat each side, whole device pixels, from frameLayout: about
+   10 pt on the SE and the 13 mini, none where the keyline hugs it). */
 .frame-picture {
   grid-area: picture;
-  width: auto;
-  margin: 0 0 0 var(--pic-x);
+  box-sizing: border-box;
+  margin: 0 0 0 var(--col-x);
+  padding: 0 0 0 var(--mat, 0px);
+  border: calc(1 * var(--fp)) solid var(--c2);
+  background: var(--c0);
   line-height: 0;
   -webkit-touch-callout: none;
   user-select: none;

@@ -76,7 +76,8 @@ test('the spectrogram: 64 bands by 20 ms frames, 4 px a cell, in the palette, an
   const rgb = paletteRGB();
   assert.equal(rgb.length, 16);
   assert.deepEqual([...cs[1][1]], rgb.flat(), 'the palette is the game\'s 16 colors');
-  assert.deepEqual(rgb[7], [0xe8, 0xb3, 0x3a], 'slot 7 is bonfire gold');
+  // Re-pinned in S6: palette A's bonfire gold, #ebb53d (decision 68; option B's was #e8b33a).
+  assert.deepEqual(rgb[7], [0xeb, 0xb5, 0x3d], 'slot 7 is bonfire gold');
   const raw = inflateSync(cs[2][1]);
   const used = new Set();
   for (let y = 0; y < sg.height; y++) for (let x = 0; x < sg.width; x++) used.add(raw[y * (sg.width + 1) + 1 + x]);

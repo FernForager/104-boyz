@@ -1,5 +1,5 @@
 {
- "$comment": "What this milestone ships (BUILD_PLAN 3.4, 3.6, 10.6; GAME_DESIGN 3.6, 15). S2 writes the screens, the main block and the channel swap; S3 adds the guest book and the trail (preview only: main.screens keeps them off main); S4 adds ships, park, first_trip, months, stores, jobs and switches, and the map (preview only). screens: the screens this build has (a line on another screen waits for it: T11). main.screens: the screens the main channel carries. main.off: lines on those screens that main leaves out, each with its reason; the fill removes them, and T14 holds every other line main reaches to the ledger. channels: per-channel id swaps for the fill. ships: each data section ships to a channel only when one of its listed screens is in that channel's screens; everything is compiled, validated and linted on every build, shipped or not. park: the M1a slice of the park graph, whose lists lint G08 checks. switches: the shows-and-hides, each naming its doc; tools/scope.mjs holds their registry, and R01 checks each against it.",
+ "$comment": "What this milestone ships (BUILD_PLAN 3.4, 3.6, 10.6; GAME_DESIGN 3.6, 15). S2 writes the screens, the main block and the channel swap; S3 adds the guest book and the trail (preview only: main.screens keeps them off main); S4 adds ships, park, first_trip, months, stores, jobs and switches, and the map (preview only). S6 ships the park and the odds with the trail too (the fork's walks and its Why sheets). screens: the screens this build has (a line on another screen waits for it: T11). main.screens: the screens the main channel carries. main.off: lines on those screens that main leaves out, each with its reason; the fill removes them, and T14 holds every other line main reaches to the ledger. channels: per-channel id swaps for the fill. ships: each data section ships to a channel only when one of its listed screens is in that channel's screens; everything is compiled, validated and linted on every build, shipped or not. park: the M1a slice of the park graph, whose lists lint G08 checks. switches: the shows-and-hides, each naming its doc; tools/scope.mjs holds their registry, and R01 checks each against it.",
  "screens": ["app", "debug", "guestbook", "map", "title", "trail"],
  "main": {
   "screens": ["app", "debug", "title"],
@@ -36,7 +36,8 @@
   "preview": { "swap": { "app.short_name": "app.preview_name" } }
  },
  "ships": {
-  "park": ["map"],
+  "park": ["map", "trail"],
+  "odds": ["trail"],
   "conditions": [],
   "permits": [],
   "daylight": [],

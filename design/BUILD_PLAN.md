@@ -1,6 +1,6 @@
 # Build plan: Olympic Peninsula Hiker
 
-*Written 2026-10-08. Revised the same day, after Session 1 shipped, for the new direction: decisions 21 to 35 (no book frame; home is Ranger Jon's old ranger cabin at Lake Quinault; three ways to play; eight minigames; sound like* Lonely Mountains: Downhill*; every word yours). Revised again on 2026-10-09 for your rapid-fire answers, decisions 41 to 65, and Lead calls 29 to 43: money and three town jobs, an empty shed, the daily at sunrise with the world board and server-held dice, and your calls on the minigames, the sound and the words; and for how we work, decision 66 (1); and after Session 4, for decision 67 (a new hiker arrives in town clothes), Lead calls 44 to 46 and the ingest's doc corrections. It builds on `GAME_DESIGN.md`, mainly 2.2, 3, 5, 6, 9.7 to 9.12, 11.11, 12, 13, 15, 17, 18 and Appendices E and F, and on the four drafts in `design/drafts/`.*
+*Written 2026-10-08. Revised the same day, after Session 1 shipped, for the new direction: decisions 21 to 35 (no book frame; home is Ranger Jon's old ranger cabin at Lake Quinault; three ways to play; eight minigames; sound like* Lonely Mountains: Downhill*; every word yours). Revised again on 2026-10-09 for your rapid-fire answers, decisions 41 to 65, and Lead calls 29 to 43: money and three town jobs, an empty shed, the daily at sunrise with the world board and server-held dice, and your calls on the minigames, the sound and the words; and for how we work, decision 66 (1); and after Session 4, for decision 67 (a new hiker arrives in town clothes), Lead calls 44 to 46 and the ingest's doc corrections; and on 2026-10-10, after Session 5, for decisions 68 (a lighter palette) and 69 (art that scales to the whole park). It builds on `GAME_DESIGN.md`, mainly 2.2, 3, 5, 6, 9.7 to 9.12, 11.11, 12, 13, 15, 17, 18 and Appendices E and F, and on the four drafts in `design/drafts/`.*
 
 *Sections 1 to 9 keep their old numbers, so older links still land (the doc points at 6.1, 6.6 and S3; the README at 4.2). The new direction's own parts are 10 to 14: the text system, home and the frame, the minigames, the sound and the timed modes. Risks moved to 15.*
 
@@ -496,26 +496,26 @@ The scope file holds each switch, and the lint checks it. This is doc 15's table
 
 ### 4.1 The palette (option B, from the mockup)
 
-Fixed at every hour. Dusk, blue hour and night are remaps inside these sixteen (doc 11.1, 11.4). Shipped in Session 1.
+Fixed at every hour. Dusk, blue hour and night are remaps inside these sixteen (doc 11.1, 11.4). Shipped in Session 1, and lifted a few shades lighter in S6 (doc decision 68): each color's OKLab lightness L becomes L + 0.18 × (1 − L)², hue and chroma kept, so the darks lift most and snow and paper cream barely move. The table shows the lifted sixteen; option B's first hexes are in doc 11.1, as first recorded.
 
 | # | Name | Hex | Use |
 |---|---|---|---|
-| 0 | Ink | `#1b1f2a` | Outlines, text, night |
-| 1 | Night navy | `#24324a` | Dusk sky, deep water |
-| 2 | Slate | `#3f5a7a` | Day sky top, far ridges |
-| 3 | Glacier blue | `#8fb3c9` | Sky, lakes, the cabin's chairs |
+| 0 | Ink | `#343945` | Outlines, text, night |
+| 1 | Night navy | `#394862` | Dusk sky, deep water |
+| 2 | Slate | `#4d698a` | Day sky top, far ridges |
+| 3 | Glacier blue | `#93b7cd` | Sky, lakes, the cabin's chairs |
 | 4 | Snow | `#f2efe6` | Snow, message box |
-| 5 | Paper cream | `#e8d9b5` | Paper, trails, stars, chalk |
-| 6 | Alpenglow pink | `#e09a8a` | Dusk sky, heather, the peak at dawn |
-| 7 | Bonfire gold | `#e8b33a` | The lily only |
-| 8 | Rust | `#c4602d` | Hiker's jacket, the fire bowl |
-| 9 | Brick | `#8a3b2a` | Box border, pack, ♦, cedar siding |
-| 10 | Bark | `#5a3d2b` | Trunks, logs, bear, siding |
-| 11 | Spruce | `#1f3b33` | Conifer shadow sides, the roof |
-| 12 | Forest | `#2f5b45` | Conifers, the tub's shade |
-| 13 | Moss | `#6b8a4a` | Meadow, moss, the tub |
-| 14 | Sage | `#a7b88a` | Sunlit meadow, gravel, autumn maples |
-| 15 | Teal | `#3f7f7a` | Rivers, hazy mid ridges, tub water |
+| 5 | Paper cream | `#e9dab6` | Paper, trails, stars, chalk |
+| 6 | Alpenglow pink | `#e49d8d` | Dusk sky, heather, the peak at dawn |
+| 7 | Bonfire gold | `#ebb53d` | The lily only |
+| 8 | Rust | `#ce6937` | Hiker's jacket, the fire bowl |
+| 9 | Brick | `#9b4a39` | Box border, pack, ♦, cedar siding |
+| 10 | Bark | `#6d4f3d` | Trunks, logs, bear, siding |
+| 11 | Spruce | `#345148` | Conifer shadow sides, the roof |
+| 12 | Forest | `#3f6c55` | Conifers, the tub's shade |
+| 13 | Moss | `#749353` | Meadow, moss, the tub |
+| 14 | Sage | `#aabb8d` | Sunlit meadow, gravel, autumn maples |
+| 15 | Teal | `#4a8a85` | Rivers, hazy mid ridges, tub water |
 
 M1a uses no gold at all: the lily and its gable-window sketch arrive in M1b. The picture lint fails color 7 anywhere but the lily's own files.
 
@@ -582,6 +582,8 @@ Gone with the book: *The End: a book on a dashboard*, the pack spread (the flat 
 
 The drive from the cabin is one composed road screen on a route already driven, and two to five composed road scenes the first time (doc 3.3).
 
+**The art scales to the whole park** (doc decision 69): the composer has to reach every place at the hand-drawn plates' quality, not just the loop. A separate prototype is exploring real skylines from public-domain USGS elevation data, real water shapes from USGS hydrography, kits for each vegetation zone and the hand-drawn hero plates as style anchors. The composer's design (doc 11.7) and this section are updated once the prototype is judged; until then the M1a set above stands.
+
 ### 4.5 Every loop place, and its recipe
 
 | Place | Base | Far and features |
@@ -615,13 +617,13 @@ The drive from the cabin is one composed road screen on a route already driven, 
 
 ### 4.7 Palette tables and cycles
 
-- **Remaps** in `art/palette.json`: day, dusk (also dawn, at the cabin), blue hour, night, overcast, storm, a two-frame lightning flash, and the drained death-box table.
+- **Remaps** in `art/palette.json`: day, dusk (also dawn, at the cabin), blue hour, night, overcast, storm, a two-frame lightning flash, and the drained death-box table. S6 re-tunes dusk, blue hour and night by eye on the renders for decision 68's lighter sixteen, so night stays clearly night, never grey, while the trees, the lake, the trail and the ridges read (doc 11.4).
 - **Cycles in M1a:** lake (16), falls (17), river (18), fire (20: the stove and the fire bowl), stars (22), rain glint (23), lamp (24: windows, lanterns, the antenna light), dust (25, renderer only), **steam (26)** off the lit tub, and **alpen (27)** for the alpenglow shot's light.
 - **Lights** (lamp, stars, fire, steam, dust) resolve after the remap, so they stay bright at night.
 
 ### 4.8 How art gets made and checked
 
-1. Write the `.pic`. For the cabin, from doc 11.11's written brief only: no photo is traced, copied or committed.
+1. Write the `.pic`. For the cabin, from doc 11.11's written brief only: no photo is traced, copied or committed. Public-domain photos of the park (NPS, USGS, CC0) may be used as reference for the trail's scenes, kept private and never committed (doc decision 69).
 2. `npm run render` draws it to PNGs in every palette and a contact sheet, at the phones' own pixel shapes (7x4 on 3x phones, 4x2 on the SE) and at square 4x.
 3. The agent opens the PNGs and critiques them beside panel B of `design/art/style_options.png`.
 4. The picture lint runs: unknown stamps, out-of-bounds points, a fill over 60% of a non-sky layer, deep stamps, hotspots off the canvas, gold, and on the cabin, any hit area under 44 x 44 pt on any device row of doc 11.2's table (the SE's 4x2 is the worst: 22 columns by 44 rows).
@@ -1083,7 +1085,8 @@ Reported nightly, not gated (doc F.1):
 
 **S6 · The look, part 2**
 - **Build:** one decision end to end (odds tag, Why sheet, ♦ confirm, compass roll, outcome, strip); Look boxes and hotspots; the ▾ continuation; the T02 fit lint with measured fonts; Reduce Motion; VoiceOver labels and alt text by id.
-- **You see:** a sample fork at the rim with a % and a ♦ to tap through.
+- **Build, the palette** (doc decision 68): the lifted sixteen in `palette.json`, `palette.js` and `tokens.css`, kept equal by test; the dusk, blue-hour and night tables re-tuned by eye on the renders, so night stays night; bonfire gold still for the lily only; S1's cover, the title page and the icons checked in the new colors, and text contrast WCAG AA wherever it was. Deer Lake and the rim are not redrawn beyond what the palette needs, while the skyline prototype runs (doc decision 69; 4.4).
+- **You see:** a sample fork at the rim with a % and a ♦ to tap through, and every picture a few shades lighter, with night still night.
 - **Done when:** you confirm it feels like a Sierra game (the M0.5 exit). **Main is promoted** with what its words allow: the machinery, with B001's lines, there since S2. The sample stops stay on preview, and their words join the batches after the cabin's, so the first thing you read is the front door.
 - **The floor:** one decision end to end, with its Why sheet and the compass roll; T02's measured fonts can slip to S8.
 
@@ -1320,6 +1323,7 @@ Reported nightly, not gated (doc F.1):
 |---|---|---|
 | Your answers to each batch | Each promotion | What reaches main; nothing that gets built |
 | Your verdict on the look | S5-S6 | The cabin plate and art in volume |
+| Your verdict on the skyline prototype (doc decision 69) | When it's ready | Nothing built: the composer's design (doc 11.7; 4.4) is updated once it's judged |
 | Your own quiz questions (optional) | S7 | Nothing: the lockbox has twelve |
 | The three stores' names | S11 | Nothing: `{STORE_GENERAL}` and the others until then |
 | Your verdict on the share images' default: the hiker's name, *OP Hiker* and *ophiker.com* (decision 44) | S12b, on a real one | Nothing: the default until then |
@@ -1333,7 +1337,7 @@ Reported nightly, not gated (doc F.1):
 | Ranger Jon's quirk; his OK on appearing in the game and on its tying him to his old ranger cabin | The quirk by M2; the OK by S28's promotion | Credits' People line on main until then (5.7) |
 | Your playtests | S28, S31, S46, S48 | The milestone exits |
 
-The GPX never enters the repo. A session reads it outside the repo and commits only a simplified line, its distance, gain and trail class (doc E.5). Send it in a Claude chat, never attached to a GitHub issue: issues on a public repo are public. The same goes for the cabin's reference photos: they stay out of the repo, and the art comes from the written brief (doc 11.11).
+The GPX never enters the repo. A session reads it outside the repo and commits only a simplified line, its distance, gain and trail class (doc E.5). Send it in a Claude chat, never attached to a GitHub issue: issues on a public repo are public. The same goes for the cabin's reference photos: they stay out of the repo, and the art comes from the written brief (doc 11.11). Public-domain photos of the park used as art reference (NPS, USGS, CC0) stay private too, and are never committed (doc decision 69).
 
 The clam photo is the same: the dig's result screen is drawn from a description of its composition, and the photo stays private (decision 61).
 

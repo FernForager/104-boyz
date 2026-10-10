@@ -15,7 +15,7 @@ import { createUnlock, setAmbient, UNLOCK_EVENTS } from '../../web/js/audio/unlo
 import { createEngine, registerAudioDev, renderVars, variationRandom, SOUND_KEY, VOICE_MAX, BUS_VOICE_MAX, WATCH_MS, IDLE_MS, RAMPS, WORKLET_NAME } from '../../web/js/audio/engine.js';
 import { BUSES, FALLBACK_DB, dbToGain, makeRandom, renderCue } from '../../web/js/audio/dsp.js';
 import { buildReport, audioField, provideAudio, devRegistry, REPORT_VERSION } from '../../web/js/ui/debug.js';
-import { setBundle } from '../../web/js/text.js';
+import { setBundle, NBSP } from '../../web/js/text.js';
 import { loadAudio, cueHashes, shippedBank, readGolden } from '../../tools/listen.mjs';
 import { build } from '../../tools/build.mjs';
 import { ROOT } from '../../tools/pics.mjs';
@@ -626,7 +626,8 @@ test("Render 10 s of this scene: ui_demo through the graph in an offline context
   const running = action.run({ doc: null, close() {}, out });
   assert.equal(out.textContent, '…', 'at once, while it renders');
   await running;
-  assert.equal(out.textContent, `Sound: peak ${res.truePeakDb.toFixed(1)} dBFS · ${res.lufsSMax.toFixed(1)} LUFS · dsp match`);
+  // S6: a line's " · " binds to what follows with a no-break space (text.js), so a row never ends on the dot.
+  assert.equal(out.textContent, `Sound: peak ${res.truePeakDb.toFixed(1)} dBFS ·${NBSP}${res.lufsSMax.toFixed(1)} LUFS ·${NBSP}dsp match`);
   assert.equal(out.getAttribute('data-t'), 'dev.audio.result');
   assert.deepEqual(renderVars(res3), { peak: res3.truePeakDb.toFixed(1), lufs: res3.lufsSMax.toFixed(1), dsp: 'differs (ui.open#2)' });
   assert.deepEqual(renderVars(null), { peak: '-', lufs: '-', dsp: 'error' });

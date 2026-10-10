@@ -2,18 +2,39 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { PALETTE, REMAPS, CYCLES, makePalette, resolve, hasCycles } from '../../web/js/gfx/palette.js';
+import { PALETTE, REMAPS, CYCLES, makePalette, resolve, hasCycles, hexToRgb } from '../../web/js/gfx/palette.js';
 import { ROOT } from '../../tools/pics.mjs';
+import { lift, oklab, contrastRatio } from '../../tools/color.mjs';
+import { placeLights, lightProblems, readProblems, READS, READ_PAIRS, DAY_HUE_ONLY, NIGHT_SKY_MAX_L, NIGHT_SKY_MIN_C } from '../../tools/render-pics.mjs';
+import { drawable } from '../../web/js/gfx/compose.js';
+import { loadArt } from '../../tools/pics.mjs';
 
-// Option B of design/art/style_mockup.py, copied by hand as a fixed point.
+const LOADED = loadArt();
+
+// Option B of design/art/style_mockup.py, copied by hand as a fixed point:
+// shipped from S1 to S5, and the first hexes GAME_DESIGN 11.1 records.
 const OPTION_B = [
   '#1b1f2a', '#24324a', '#3f5a7a', '#8fb3c9', '#f2efe6', '#e8d9b5', '#e09a8a', '#e8b33a',
   '#c4602d', '#8a3b2a', '#5a3d2b', '#1f3b33', '#2f5b45', '#6b8a4a', '#a7b88a', '#3f7f7a',
 ];
 
-test('the palette is the option-B sixteen, in slot order', () => {
-  assert.deepEqual([...PALETTE], OPTION_B);
-  // ...and the mockup script itself still says so.
+// Palette A, the creator's sixteen (decision 68, 2026-10-10), copied by hand
+// from the decision as a second fixed point.
+const PALETTE_A = [
+  '#343945', '#394862', '#4d698a', '#93b7cd', '#f2efe6', '#e9dab6', '#e49d8d', '#ebb53d',
+  '#ce6937', '#9b4a39', '#6d4f3d', '#345148', '#3f6c55', '#749353', '#aabb8d', '#4a8a85',
+];
+
+test("palette A: option B's sixteen lifted (decision 68), in slot order", () => {
+  assert.deepEqual([...PALETTE], PALETTE_A);
+  // The rule reproduces every hex: L' = L + 0.18 x (1 - L)^2 in OKLab, a and b kept.
+  assert.deepEqual(OPTION_B.map(lift), PALETTE_A, "each is option B's color lifted by decision 68's rule");
+  // The darks lift most; snow doesn't move, and paper cream barely.
+  const dL = OPTION_B.map((h, i) => oklab(PALETTE_A[i])[0] - oklab(h)[0]);
+  assert.equal(PALETTE_A[4], OPTION_B[4], 'snow is unchanged');
+  assert.ok(dL[0] > 0.1 && dL[0] === Math.max(...dL), 'ink lifts most');
+  assert.ok(dL[5] < 0.01, 'paper cream barely moves');
+  // ...and the mockup script still records option B, the art decision.
   const py = readFileSync(join(ROOT, 'design', 'art', 'style_mockup.py'), 'utf8');
   const m = /^BOOK = \[([^\]]+)\]/m.exec(py);
   assert.ok(m, 'style_mockup.py has its BOOK list');
@@ -21,18 +42,33 @@ test('the palette is the option-B sixteen, in slot order', () => {
   assert.deepEqual(book, OPTION_B);
 });
 
-test('palette.json, palette.js and tokens.css agree', () => {
+test('palette.json, palette.js and tokens.css agree (and the scrim is ink)', () => {
   const json = JSON.parse(readFileSync(join(ROOT, 'content', 'art', 'palette.json'), 'utf8'));
-  assert.deepEqual(json.colors.map((c) => c.hex), OPTION_B);
+  assert.deepEqual(json.colors.map((c) => c.hex), PALETTE_A);
   assert.deepEqual(json.colors.map((c) => c.slot), [...Array(16).keys()]);
+  assert.match(json.$comment, /decision 68/, "palette.json's comment names decision 68");
   assert.deepEqual(json.remaps, JSON.parse(JSON.stringify(REMAPS)));
   assert.deepEqual(json.cycles, JSON.parse(JSON.stringify(CYCLES)));
   const css = readFileSync(join(ROOT, 'web', 'css', 'tokens.css'), 'utf8');
   for (let i = 0; i < 16; i++) {
     const m = new RegExp(`--c${i}:\\s*(#[0-9a-f]{6})`).exec(css);
     assert.ok(m, `tokens.css has --c${i}`);
-    assert.equal(m[1], OPTION_B[i], `--c${i}`);
+    assert.equal(m[1], PALETTE_A[i], `--c${i}`);
   }
+  // The scrim (S6): slot 0 at 72%, as a token, since a color can't be var() inside rgb() with an alpha.
+  const scrim = /--scrim:\s*rgb\((\d+) (\d+) (\d+) \/ 0\.72\);/.exec(css);
+  assert.ok(scrim, 'tokens.css has --scrim');
+  assert.deepEqual(scrim.slice(1, 4).map(Number), hexToRgb(PALETTE_A[0]), 'the scrim is ink');
+  assert.match(readFileSync(join(ROOT, 'web', 'css', 'game.css'), 'utf8'), /\.scrim \{[^}]*background: var\(--scrim\);/);
+});
+
+test("the shell's theme-color, the manifest's two colors and the display's edge are slot 0 (ink), so a palette change can't miss them", () => {
+  const html = readFileSync(join(ROOT, 'web', 'index.html'), 'utf8');
+  assert.equal(/<meta name="theme-color" content="(#[0-9a-f]{6})">/.exec(html)?.[1], PALETTE[0]);
+  const manifest = JSON.parse(readFileSync(join(ROOT, 'web', 'manifest.webmanifest'), 'utf8'));
+  assert.equal(manifest.background_color, PALETTE[0]);
+  assert.equal(manifest.theme_color, PALETTE[0]);
+  assert.match(readFileSync(join(ROOT, 'web', 'js', 'gfx', 'display.js'), 'utf8'), /export function createDisplay\(canvas, width, height, edge = PALETTE\[0\]\)/);
 });
 
 test('day is the identity; dusk follows the doc 11.4 key slots', () => {
@@ -51,14 +87,17 @@ test('day is the identity; dusk follows the doc 11.4 key slots', () => {
   }
 });
 
-test('S5: the four hours (day, dusk, blue, night), in palette.js and palette.json alike, with the doc 11.4 key slots', () => {
+test('S5: the four hours (day, dusk, blue, night), in palette.js and palette.json alike, with the doc 11.4 key slots (as S6 re-tuned them)', () => {
   assert.deepEqual(Object.keys(REMAPS), ['day', 'dusk', 'blue', 'night']);
   const json = JSON.parse(readFileSync(join(ROOT, 'content', 'art', 'palette.json'), 'utf8'));
   assert.deepEqual(Object.keys(json.remaps), ['day', 'dusk', 'blue', 'night']);
   // Doc 11.4's table: by the day slot, the dusk, blue-hour and night slots.
+  // Re-pinned in S6 (decision 68's re-tune): blue hour's slate and glacier blue
+  // go down one more step, as at night (S5's were night navy and slate), so its
+  // sky is night navy over the last light and its lake reads against the meadow.
   const KEYS = {
-    2: [1, 1, 0], // slate: the upper sky
-    3: [2, 2, 1], // glacier blue: sky, lakes
+    2: [1, 0, 0], // slate: the upper sky
+    3: [2, 1, 1], // glacier blue: sky, lakes
     4: [6, 3, 2], // snow: snow, the horizon
     12: [11, 11, 11], // forest: spruce at night too, so a fir keeps its lit side against the night sky
   };
@@ -74,9 +113,13 @@ test('S5: the four hours (day, dusk, blue, night), in palette.js and palette.jso
   }
   // Night sinks into the blues: nothing but gold resolves brighter than slate,
   // so the stars (a light: paper cream, snow, glacier blue) are the brightest.
+  // S6: but paper cream, the trail, which goes to teal so it reads on the night
+  // meadow (forest at 1.06 from slate; 1.51 from teal): the one pale thing left
+  // on the ground, and still under every star.
   const bright = (slot) => PALETTE[slot].slice(1).match(/../g).reduce((a, h) => a + parseInt(h, 16), 0);
-  for (let s = 0; s < 16; s++) if (s !== 7) assert.ok(bright(REMAPS.night[s]) <= bright(2), `night ${s} -> ${REMAPS.night[s]}`);
-  for (const star of CYCLES[22].slots) assert.ok(bright(star) > bright(2));
+  for (let s = 0; s < 16; s++) if (s !== 7 && s !== 5) assert.ok(bright(REMAPS.night[s]) <= bright(2), `night ${s} -> ${REMAPS.night[s]}`);
+  assert.equal(REMAPS.night[5], 15, 'the trail is teal at night');
+  for (const star of CYCLES[22].slots) assert.ok(bright(star) > bright(2) && bright(star) > bright(REMAPS.night[5]), `star ${star} outshines the ground`);
   // A lake glint at night is still visible: its cycle passes through more than one slot.
   assert.ok(new Set(CYCLES[16].slots.map((s) => REMAPS.night[s])).size > 1);
 });
@@ -124,4 +167,77 @@ test('makePalette reads palette.json the same as the built-in tables', () => {
   assert.deepEqual(a.rgb, b.rgb);
   const src = new Uint8Array([0, 4, 12, 22, 16, 255]);
   for (const remap of ['day', 'dusk', 'blue', 'night']) assert.deepEqual(resolve(src, 6, a, { remap, frame: 5 }), resolve(src, 6, b, { remap, frame: 5 }));
+});
+
+// S6 (decision 68): the tables, judged over every drawable place, so the
+// 500 to 600 places of decision 69 are judged at every hour as they arrive.
+
+/** S5's tables, as they stood before S6's re-tune. */
+const S5_TABLES = Object.freeze({
+  day: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+  dusk: [0, 1, 1, 2, 6, 6, 9, 7, 9, 10, 10, 0, 11, 12, 13, 2],
+  blue: [0, 1, 1, 2, 3, 2, 2, 7, 9, 10, 0, 0, 11, 12, 13, 2],
+  night: [0, 0, 0, 1, 2, 2, 1, 7, 9, 10, 0, 0, 11, 12, 12, 2],
+});
+
+test('S6: night is night and not grey, at every drawable place: its lightness falls through day, dusk, blue hour and night, and its night sky is dark and blue', () => {
+  const lights = placeLights();
+  const places = Object.keys(LOADED.recipes.places).filter((p) => drawable(p, { pics: LOADED.pics, stamps: LOADED.stamps, recipes: LOADED.recipes }));
+  assert.equal(lights.length, places.length, 'every drawable place');
+  assert.ok(lights.length >= 28, 'the loop: 28 places today');
+  assert.deepEqual(lightProblems(lights), []);
+  for (const { id, hours } of lights) {
+    assert.ok(hours.night.sky > 0, `${id} shows some sky`);
+    assert.ok(hours.night.skyL <= NIGHT_SKY_MAX_L && hours.night.skyC >= NIGHT_SKY_MIN_C, id);
+  }
+  assert.equal(NIGHT_SKY_MAX_L, 0.47);
+  assert.equal(NIGHT_SKY_MIN_C, 0.035);
+  // Lighter than S5, as the creator asked (decision 68): Deer Lake's night is brighter, and still night.
+  const deer = lights.find((l) => l.id === 'deer_lake').hours;
+  assert.ok(deer.night.L > 0.4 && deer.night.L < deer.blue.L, `Deer Lake at night: ${deer.night.L.toFixed(3)}`);
+  // The checks bite: a night that is the day table is no night; a night sky of ink alone is grey.
+  const pal = makePalette();
+  const asDay = lightProblems(placeLights(LOADED, { ...pal, remaps: { ...pal.remaps, night: [...REMAPS.day] } }));
+  assert.ok(asDay.some((p) => /^deer_lake: night \(\d\.\d+\) is no darker than blue/.test(p)) && asDay.some((p) => /night sky's lightness .* is over 0\.47/.test(p)), asDay.join('\n'));
+  const inkSky = [...REMAPS.night];
+  inkSky[3] = 0;
+  const grey = lightProblems(placeLights(LOADED, { ...pal, remaps: { ...pal.remaps, night: inkSky } }));
+  assert.ok(grey.some((p) => /^deer_lake: the night sky's chroma 0\.02\d is under 0\.035 \(grey, not night\)/.test(p)), grey.join('\n'));
+});
+
+test('S6: the scene reads at every hour: a conifer against the meadow, the lake against its shore, the trail against the meadow, at least 1.3 apart and never one slot', () => {
+  assert.equal(READS, 1.3);
+  assert.deepEqual(READ_PAIRS.map(([a, b]) => [a, b]), [[12, 13], [3, 13], [3, 14], [5, 13]]);
+  assert.equal(CYCLES[16].slots[0], 3, "the lake cycle's first slot is the lake's glacier blue");
+  assert.deepEqual(readProblems(REMAPS, PALETTE), []);
+  // By day the sixteen as drawn keep the lake and the sage apart by hue alone; no table can move day.
+  assert.deepEqual([...DAY_HUE_ONLY], [3, 14]);
+  assert.equal(contrastRatio(PALETTE[3], PALETTE[14]).toFixed(2), '1.03');
+  // Why S6 re-tuned: S5's tables, in palette A's sixteen, lose the lake and the trail in the meadow after sunset.
+  assert.deepEqual(readProblems(S5_TABLES, PALETTE), [
+    'dusk: the lake (glacier blue) against its shore (moss), slate against forest, 1.06 apart, under 1.3',
+    'blue: the lake (glacier blue) against its shore (moss), slate against forest, 1.06 apart, under 1.3',
+    'blue: the trail (paper cream) against the meadow (moss), slate against forest, 1.06 apart, under 1.3',
+    'night: the trail (paper cream) against the meadow (moss), slate against forest, 1.06 apart, under 1.3',
+  ]);
+  // Never the same slot: a table that sends the trail to the meadow's slot fails, at that hour.
+  const same = { ...REMAPS, night: REMAPS.night.map((to, from) => (from === 5 ? REMAPS.night[13] : to)) };
+  assert.deepEqual(readProblems(same, PALETTE), ['night: the trail (paper cream) against the meadow (moss) are both forest']);
+});
+
+test('S6: the re-tune, slot by slot against S5 (palette.json records each, and why)', () => {
+  const moved = [];
+  for (const hour of ['dusk', 'blue', 'night']) REMAPS[hour].forEach((to, from) => to !== S5_TABLES[hour][from] && moved.push(`${hour} ${from}: ${S5_TABLES[hour][from]} -> ${to}`));
+  assert.deepEqual(moved, [
+    'dusk 13: 12 -> 15', // moss: teal, not forest (1.06 from the lake's slate)
+    'blue 1: 1 -> 0', // night navy: ink, as at night
+    'blue 2: 1 -> 0', // slate: ink, as at night (a key slot)
+    'blue 3: 2 -> 1', // glacier blue: night navy, as at night (a key slot)
+    'blue 5: 2 -> 15', // paper cream: teal, the trail, as at night
+    'blue 6: 2 -> 1', // alpenglow pink: night navy, as at night
+    'blue 14: 13 -> 12', // sage: forest, as at night
+    'night 5: 2 -> 15', // paper cream: teal, the trail
+  ]);
+  const json = JSON.parse(readFileSync(join(ROOT, 'content', 'art', 'palette.json'), 'utf8'));
+  for (const what of ['teal', 'night navy', 'key slot']) assert.match(json.$comment, new RegExp(what), `palette.json's comment says ${what}`);
 });

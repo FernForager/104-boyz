@@ -4,7 +4,7 @@ import { cpSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:f
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { parsePic } from '../../web/js/gfx/picvm.js';
-import { lintPicture, lintPictures, lintPalette, lintText, lintShell, lintPure, lintUrls, lintEngine, lintEngineImports, lintContent, runLint, isError, RULES, activeCodes, codeRanges, formatRules } from '../../tools/lint.mjs';
+import { lintPicture, lintPictures, lintPalette, lintText, lintShell, lintPure, lintUrls, lintEngine, lintEngineImports, lintContent, lintColors, colorOf, PALETTE_HOMES, runLint, isError, RULES, activeCodes, codeRanges, formatRules } from '../../tools/lint.mjs';
 import { ROOT } from '../../tools/pics.mjs';
 
 const plate = (text, id = 'test_plate') => ({ id, kind: 'plates', rel: `plates/${id}.pic`, parsed: parsePic(text), width: 160, height: 320 });
@@ -227,7 +227,8 @@ test('the registry lists every rule once, with its family, doc and status; the s
   // S5 (track B) turns on the composer's lints, P13 and P14, and G05 with content/art/recipes.json.
   // S5 (track C) turns on E04: the sound's synthesis (audio/dsp.js) keeps E02's bans.
   // S5 (track D) turns on T15: a line over its max, each {var} at its width (content/text/vars.json).
-  assert.equal(codeRanges(activeCodes()), 'P01-P14, T04, T06, T07, T10-T16, U01, E01-E04, S01, J01, R01, X01, G01-G08');
+  // S6 (track A) turns on P16: a color literal outside the palette's homes; P15 (hotspots, Looks, alt parts) lands with track C.
+  assert.equal(codeRanges(activeCodes()), 'P01-P14, P16, T04, T06, T07, T10-T16, U01, E01-E04, S01, J01, R01, X01, G01-G08');
   assert.equal(codeRanges(['A01', 'A02', 'B01', 'A04']), 'A01, A02, B01, A04', 'a range is three or more in a row');
   // The park graph's last rule, G05, landed in S5.
   assert.ok(RULES.filter((r) => r.family === 'park graph').every((r) => r.status === 'active'));
@@ -242,8 +243,43 @@ test('the registry lists every rule once, with its family, doc and status; the s
   assert.match(text, /^E04 +active +code/m);
   assert.match(text, /^T15 +active +text/m);
   assert.match(text, /^T02 +lands S6 +text/m);
-  // 41 since S5 turned on P13, P14, G05, E04 and T15 (36 since S4 turned T16 on, 35 with the graph lints).
-  assert.match(text, /^lint: 41 rules active, \d+ waiting for their sessions$/m);
+  assert.match(text, /^P15 +lands S6 +pictures/m);
+  assert.match(text, /^P16 +active +palette/m);
+  // 42 since S6 turned on P16 (41 since S5 turned on P13, P14, G05, E04 and T15; 36 since S4 turned T16 on, 35 with the graph lints).
+  assert.match(text, /^lint: 42 rules active, \d+ waiting for their sessions$/m);
+});
+
+test("P16: a color literal outside the palette's homes fails unless it is a palette color (decision 68: a palette change is one edit)", () => {
+  const codes = (issues) => issues.map((i) => `${i.line}:${i.code}`);
+  // Option B's ink, S5's scrim and a stray hex: the literals S6 found.
+  const css = '/* #1b1f2a in a comment */\n#bad, #fade:hover, #c0ffee .x {\n  color: #bad;\n  background: rgb(27 31 42 / 0.72);\n}\n.ok { border: 1px solid var(--c0); fill: #343945; background: rgb(52 57 69 / 0.72); }\n@media (min-width: 1px) { #cafe { color: rgba(52, 57, 69, .5); outline-color: #345; } }\n';
+  assert.deepEqual(codes(lintColors('web/css/game.css', css)), ['3:P16', '4:P16', '7:P16'], 'the stray hex, the old scrim and a short hex that is no palette color; never a selector or a comment');
+  assert.deepEqual(codes(lintColors('web/index.html', '<!-- #1b1f2a -->\n<meta name="theme-color" content="#1b1f2a">\n<p>&#8212;</p><a href="#map">')), ['2:P16']);
+  assert.deepEqual(codes(lintColors('web/index.html', '<meta name="theme-color" content="#343945">')), [], "ink is a palette color");
+  assert.deepEqual(codes(lintColors('web/manifest.webmanifest', '{"background_color": "#343945",\n "theme_color": "#1b1f2a"}')), ['2:P16']);
+  // A module: its strings only, upper case too, and a color built in code is no literal the lint can check.
+  const js = "// '#1b1f2a' in a comment\nconst a = '#1B1F2A';\nconst b = '#343945cc', d = '#frame';\nconst c = `rgb(${r} ${g} ${b})`;\n";
+  assert.deepEqual(codes(lintColors('web/js/ui/x.js', js)), ['2:P16', '4:P16']);
+  assert.match(lintColors('web/js/ui/x.js', js)[1].msg, /built in code/);
+  // The homes may write anything; they are what the palette test holds.
+  assert.deepEqual(PALETTE_HOMES, ['web/css/tokens.css', 'web/js/gfx/palette.js']);
+  for (const home of PALETTE_HOMES) assert.deepEqual(lintColors(home, "a { color: #123456; } const x = '#123456';"), []);
+  // colorOf reads the forms CSS writes.
+  assert.deepEqual(colorOf('#345'), [0x33, 0x44, 0x55]);
+  assert.deepEqual(colorOf('#343945cc'), [52, 57, 69]);
+  assert.deepEqual(colorOf('rgb(52 57 69 / 0.72)'), [52, 57, 69]);
+  assert.deepEqual(colorOf('rgba(52, 57, 69, 0.5)'), [52, 57, 69]);
+  assert.deepEqual(colorOf('rgb(100% 0% 50%)'), [255, 0, 128]);
+  assert.equal(colorOf('rgb(var(--x))'), null);
+});
+
+test("P16 in the repo: S5's scrim literal, planted back in game.css, fails the lint; the repo's own web/ passes", (t) => {
+  const tmp = lintCopy(t, 'p16');
+  const file = join(tmp, 'web', 'css', 'game.css');
+  writeFileSync(file, readFileSync(file, 'utf8').replace('background: var(--scrim);', 'background: rgb(27 31 42 / 0.72);'));
+  const p16 = runLint(tmp).filter((i) => i.code === 'P16');
+  assert.deepEqual(p16.map((i) => i.file), ['web/css/game.css']);
+  assert.match(p16[0].msg, /rgb\(27 31 42 \/ 0\.72\) is no palette color/);
 });
 
 test('every active code has a failing case and a passing one in the unit tests', () => {

@@ -20,8 +20,15 @@
 //      `screens`; the profile and standard rules always.
 //   5. Split the outcome data (rules: logic, expressions as trees; the rules
 //      hash covers it) from the display data (voice: each stop's line ids,
-//      choice labels and view; it doesn't), so a word-only change can never
-//      move the rules hash (E.12).
+//      choice labels and view, and from S6 a rolled choice's fail word and
+//      its Why sheet's "if it goes badly" line, and the odds' row labels; it
+//      doesn't), so a word-only change can never move the rules hash (E.12).
+//   S6 adds the odds (content/rules/odds.json, the section `odds`) and its
+//   checks (R01): every rolled choice names a base and skills the odds know,
+//   and stops of its own set; every walk and route is one the router can
+//   make; an outcome stop's view stands where its walk ends; and the fair
+//   death rules (fairDeath: GAME_DESIGN 9.5, 8.3; S9's fair-death lint
+//   replaces them).
 // Problems are lint issues ({file, line, code, msg}, and level 'warn' for
 // a warning: a divisor whose declared range includes 0); the build refuses
 // on any error. Infos are notes (a stop set's words still to come). compileSources() does the same for files given in memory (the engine
@@ -38,7 +45,8 @@ import { ROOT } from './pics.mjs';
 import { readText, hasId } from './text.mjs';
 import { checkScope, ships } from './scope.mjs';
 import { compilePark, mapData } from './park.mjs';
-import { B_SECTIONS } from './sections.mjs';
+import { B_SECTIONS, stripWords } from './sections.mjs';
+import { buildGraph, route } from '../web/js/engine/graph.js';
 
 /**
  * The files compiled, by path under content/, and the schema each takes
@@ -81,8 +89,116 @@ export const FOLDERS = Object.freeze([
  */
 export const SECTION_COMPILERS = {
   park: compilePark,
+  odds: compileOdds,
   ...B_SECTIONS,
 };
+
+/** The odds' file (S6). */
+export const ODDS_FILE = 'content/rules/odds.json';
+
+/**
+ * The odds section (S6): content/rules/odds.json's numbers, its words
+ * (docs) and its row labels (display data: oddsVoice) dropped, or null when
+ * the file isn't here. Its clamp must run low to high.
+ * @param {{files: Map<string, {data: any, src: string}>, add: (file: string, line: number, code: string, msg: string) => void}} ctx
+ */
+export function compileOdds({ files, add }) {
+  const f = files.get(ODDS_FILE);
+  if (!f) return null;
+  const d = f.data;
+  if (!(d.clamp[0] < d.clamp[1])) add(ODDS_FILE, lineOfPath(f.src, 'clamp'), 'R01', `clamp [${d.clamp.join(', ')}] must run low to high`);
+  /** @type {Record<string, {base: number}>} */
+  const bases = {};
+  for (const id of Object.keys(d.bases).sort(byCode)) bases[id] = { base: d.bases[id].base };
+  return stripWords({ format: 1, clamp: d.clamp, shaky_cap: d.shaky_cap, great_below: d.great_below, routine_at: d.routine_at, skill_per_level: d.skill_per_level, bases });
+}
+
+/**
+ * The odds' display data (voice.json's odds): each base's and each skill's
+ * Why-sheet row label, by id, or null when the file isn't here.
+ * @param {Map<string, {data: any, src: string}>} files
+ */
+export function oddsVoice(files) {
+  const f = files.get(ODDS_FILE);
+  if (!f) return null;
+  const labels = (/** @type {Record<string, {label: string}>} */ o) => Object.fromEntries(Object.keys(o).sort(byCode).map((k) => [k, lineId(o[k].label)]));
+  return { bases: labels(f.data.bases), skills: labels(f.data.skills) };
+}
+
+/** The stops a choice can go to: then, a roll's pass and fail, and its odds' every band, fail and death. */
+export function choiceTargets(c) {
+  const out = [];
+  if (c.then !== undefined) out.push(c.then);
+  if (c.roll) out.push(c.roll.pass, c.roll.fail);
+  if (c.odds) {
+    out.push(c.odds.clean, c.odds.shaky);
+    for (const f of c.odds.fail) {
+      out.push(f.to);
+      if (f.death) out.push(f.death.to, f.death.gentle);
+    }
+  }
+  return out;
+}
+
+/**
+ * The fair-death rules over one stop set (GAME_DESIGN 9.5, 8.3; S6's check,
+ * which S9's fair-death lint replaces): a choice that needs a danger named
+ * (needs: X) is reached only through a stop that names it first
+ * (foreshadow: X) on every way there; a choice whose odds can kill sits
+ * beside a sure choice, needs its danger named, and kills only from a
+ * fail entry at rung 3 or more (so the choice is a diamond, 8.1); a death
+ * goes to a death stop, and its gentle mode to one that isn't.
+ * @param {any} set a stop set's data
+ * @returns {{path: string, msg: string}[]}
+ */
+export function fairDeath(set) {
+  const out = [];
+  const byId = new Map(set.stops.map((/** @type {any} */ st) => [st.id, st]));
+  /** The stops each stop leads to. */
+  const next = (/** @type {any} */ st) => [...(st.next ? [st.next] : []), ...(st.choices || []).flatMap(choiceTargets)].filter((id) => byId.has(id));
+  // Every danger named on every way to a stop, before it: IN(s) = the meet
+  // of OUT over the ways in, OUT(s) = IN(s) and its own foreshadow.
+  /** @type {Map<string, Set<string> | null>} null: not reached yet (the top) */
+  const into = new Map(set.stops.map((/** @type {any} */ st) => [st.id, null]));
+  into.set(set.first, new Set());
+  for (let changed = true; changed; ) {
+    changed = false;
+    for (const st of set.stops) {
+      const at = into.get(st.id);
+      if (!at) continue;
+      const outs = new Set(at);
+      if (st.foreshadow) outs.add(st.foreshadow);
+      for (const to of next(st)) {
+        const had = into.get(to);
+        const meet = had ? new Set([...had].filter((x) => outs.has(x))) : new Set(outs);
+        if (!had || meet.size !== had.size) {
+          into.set(to, meet);
+          changed = true;
+        }
+      }
+    }
+  }
+  set.stops.forEach((/** @type {any} */ st, /** @type {number} */ i) => {
+    const named = into.get(st.id);
+    (st.choices || []).forEach((/** @type {any} */ c, /** @type {number} */ k) => {
+      const path = `stops[${i}].choices[${k}]`;
+      if (c.needs && named && !named.has(c.needs)) out.push({ path: `${path}.needs`, msg: `stop "${st.id}": choice "${c.id}" needs "${c.needs}" named first, and a way to it passes no stop with foreshadow "${c.needs}" (9.5)` });
+      const deadly = c.odds ? c.odds.fail.filter((/** @type {any} */ f) => f.death) : [];
+      if (!deadly.length) return;
+      if (!c.needs) out.push({ path, msg: `stop "${st.id}": choice "${c.id}" can kill, so it needs the danger it names foreshadowed (needs; 9.5, 8.3)` });
+      if (!(st.choices || []).some((/** @type {any} */ x) => x.tag === 'sure')) out.push({ path, msg: `stop "${st.id}": choice "${c.id}" can kill, and no choice beside it is sure (9.5)` });
+      for (const f of deadly) {
+        if (f.rung < 3) out.push({ path: `${path}.odds.fail`, msg: `stop "${st.id}": choice "${c.id}" kills from a fail at rung ${f.rung}; only a diamond can kill (rung 3 or more, 8.1)` });
+        const dead = byId.get(f.death.to);
+        const gentle = byId.get(f.death.gentle);
+        if (dead && dead.outcome !== 'death') out.push({ path: `${path}.odds.fail`, msg: `stop "${st.id}": choice "${c.id}"'s death goes to "${f.death.to}", which is not a death stop (outcome: "death")` });
+        if (gentle && gentle.outcome === 'death') out.push({ path: `${path}.odds.fail`, msg: `stop "${st.id}": choice "${c.id}"'s gentle mode goes to "${f.death.gentle}", a death stop: the gentle mode never kills (9.4)` });
+      }
+    });
+    if (st.outcome === 'death' && !Object.prototype.hasOwnProperty.call(st, 'next')) out.push({ path: `stops[${i}]`, msg: `death stop "${st.id}" needs next (its one button ends the set, 9.5)` });
+  });
+  return out;
+}
 
 /** The folders under content/ whose JSON files are compiled (walked recursively); content/text/ and content/art/ have their own readers. */
 export const DIRS = Object.freeze(['rules', 'trips', 'stops', 'park', 'data', 'gear', 'food', 'stores', 'drive', 'quiz', 'scope']);
@@ -358,8 +474,27 @@ export function compileSources({ sources, schemas, screens, defined = null, sect
           need(c.roll.pass, `choices.${c.id}.roll.pass`);
           need(c.roll.fail, `choices.${c.id}.roll.fail`);
         }
+        if (c.odds) {
+          need(c.odds.clean, `choices.${c.id}.odds.clean`);
+          need(c.odds.shaky, `choices.${c.id}.odds.shaky`);
+          c.odds.fail.forEach((f, k) => {
+            need(f.to, `choices.${c.id}.odds.fail[${k}].to`);
+            if (f.death) {
+              need(f.death.to, `choices.${c.id}.odds.fail[${k}].death.to`);
+              need(f.death.gentle, `choices.${c.id}.odds.fail[${k}].death.gentle`);
+            }
+          });
+        }
       });
+      // An outcome stop (S6) stands where its walk ends, and ends the set.
+      if (st.outcome) {
+        if (!st.walk) add(file, lineOfPath(src, `stops[${i}]`), 'R01', `outcome stop "${st.id}" needs the walk that brought you there`);
+        else if (st.view && st.view.node !== st.walk.to) add(file, lineOfPath(src, `stops[${i}].view.node`), 'R01', `outcome stop "${st.id}": its view stands at "${st.view.node}", but its walk ends at "${st.walk.to}"`);
+        if (st.next !== null) add(file, lineOfPath(src, `stops[${i}]`), 'R01', `outcome stop "${st.id}" ends the set (next: null)`);
+      } else if (st.add_s !== undefined) add(file, lineOfPath(src, `stops[${i}].add_s`), 'R01', `stop "${st.id}": add_s is an outcome's time (outcome)`);
+      if (st.walk && st.choices) add(file, lineOfPath(src, `stops[${i}].walk`), 'R01', `stop "${st.id}" has choices: a walk is Walk on's, or an outcome's`);
     });
+    for (const p of fairDeath(data)) add(file, lineOfPath(src, p.path), 'R01', p.msg);
   }
   for (const [id, { data, file, src }] of plans) {
     const set = sets.get(data.start.set);
@@ -402,6 +537,53 @@ export function compileSources({ sources, schemas, screens, defined = null, sect
     if (out !== null && out !== undefined) compiled[name] = out;
   }
 
+  // The odds' names and the router's walks (S6): a rolled choice's base and
+  // skills are the odds', and every walk and route is one the router makes.
+  const odds = compiled.odds || null;
+  const oddsWords = oddsVoice(valid);
+  /** @type {import('../web/js/engine/graph.js').Graph | null} */
+  let graph = null;
+  try {
+    graph = compiled.park ? buildGraph(compiled.park) : null;
+  } catch {
+    graph = null; // the park's own lints report it
+  }
+  for (const [id, { data, file, src }] of sets) {
+    data.stops.forEach((st, i) => {
+      const walks = [];
+      if (st.walk) walks.push([st.walk, `stops[${i}].walk`]);
+      (st.choices || []).forEach((c, k) => {
+        const at = (/** @type {string} */ p) => lineOfPath(src, `stops[${i}].choices[${k}].${p}`);
+        if (c.route) walks.push([c.route, `stops[${i}].choices[${k}].route`]);
+        if (!c.odds) return;
+        if (!odds || !oddsWords) {
+          add(file, at('odds'), 'R01', `stop "${st.id}": choice "${c.id}" has odds, and there is no ${ODDS_FILE}`);
+          return;
+        }
+        if (!Object.prototype.hasOwnProperty.call(odds.bases, c.odds.base)) add(file, at('odds.base'), 'R01', `stop "${st.id}": choice "${c.id}": "${c.odds.base}" is not a base in ${ODDS_FILE}`);
+        c.odds.mods.forEach((m, n) => {
+          if (!Object.prototype.hasOwnProperty.call(oddsWords.skills, m.skill)) add(file, at(`odds.mods[${n}]`), 'R01', `stop "${st.id}": choice "${c.id}": the skill "${m.skill}" has no row in ${ODDS_FILE}'s skills`);
+          else if (profile && !profile.skills.includes(m.skill)) add(file, at(`odds.mods[${n}]`), 'R01', `stop "${st.id}": choice "${c.id}": "${m.skill}" is not one of the profile's skills`);
+        });
+      });
+      if (!graph) {
+        if (walks.length && screens.includes(data.screen)) infos.push(`${file}: set ${id}'s walks wait for the park to check against`);
+        return;
+      }
+      for (const [w, path] of walks) {
+        const tries = [[w.from, ...(w.via || []), w.to]];
+        if (w.exposed_to) tries.push([w.from, ...(w.via || []), w.exposed_to]);
+        for (const pts of tries) {
+          try {
+            route(graph, pts);
+          } catch (e) {
+            add(file, lineOfPath(src, path), 'R01', `stop "${st.id}": the router can't walk ${pts.join(' > ')}: ${e.message}`);
+          }
+        }
+      }
+    });
+  }
+
   // Scope and split.
   /** @type {any} */
   const rules = { format: 1, profile, standard, plans: {}, stops: {} };
@@ -419,11 +601,15 @@ export function compileSources({ sources, schemas, screens, defined = null, sect
       phase: s.phase,
       first: s.first,
       stops: s.stops.map((st) => {
-        if (!st.choices) return { id: st.id, next: st.next };
+        // A stop's logic (S6): its walk, an outcome's severity and extra time, and the danger it names.
+        const more = {};
+        for (const k of ['walk', 'add_s', 'outcome', 'foreshadow']) if (st[k] !== undefined) more[k] = st[k];
+        if (!st.choices) return { id: st.id, next: st.next, ...more };
         return {
           id: st.id,
+          ...more,
           choices: st.choices.map((c) => {
-            const { label, ...logic } = c;
+            const { label, fail_word, badly, ...logic } = c;
             return logic;
           }),
         };
@@ -432,10 +618,24 @@ export function compileSources({ sources, schemas, screens, defined = null, sect
     voice.stops[id] = {};
     for (const st of s.stops) {
       const labels = {};
-      for (const c of st.choices || []) labels[c.id] = lineId(c.label);
-      voice.stops[id][st.id] = st.view ? { box: boxSlots(st.box), labels, view: st.view } : { box: boxSlots(st.box), labels };
+      /** @type {Record<string, string>} */
+      const failWords = {};
+      /** @type {Record<string, string>} */
+      const badly = {};
+      for (const c of st.choices || []) {
+        labels[c.id] = lineId(c.label);
+        if (c.fail_word) failWords[c.id] = lineId(c.fail_word);
+        if (c.badly) badly[c.id] = lineId(c.badly);
+      }
+      /** @type {any} */
+      const v = st.view ? { box: boxSlots(st.box), labels, view: st.view } : { box: boxSlots(st.box), labels };
+      if (Object.keys(failWords).length) v.fail_words = failWords;
+      if (Object.keys(badly).length) v.badly = badly;
+      voice.stops[id][st.id] = v;
     }
   }
+  // The odds' row labels go with the odds (S6).
+  if (rules.odds && oddsWords) voice.odds = oddsWords;
   // x-voice values (every "@id", and a stop's view) are display data: none may reach the rules.
   const text = canon(rules);
   if (text.includes('"@')) add('tools/content.mjs', 1, 'J01', 'an x-voice value reached rules.json; it belongs in voice.json');

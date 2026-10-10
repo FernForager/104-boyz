@@ -43,6 +43,14 @@
 //       hour: each column the same slot, or, against the sky or the light,
 //       a slot too close in value (a contrast under FAINT: by value, not
 //       just hue) (skylineMelts)
+//   P16 a color literal outside the palette's homes (BUILD_PLAN 4.1, S6;
+//       decision 68): in web/, a #rgb, #rrggbb (or with alpha), rgb() or
+//       rgba() literal anywhere but web/css/tokens.css and
+//       web/js/gfx/palette.js that is no palette color, so the next
+//       palette change is one edit and can't miss a copy (a literal equal
+//       to a palette color is allowed, at any alpha; the shell's
+//       theme-color and the manifest's colors are held to slot 0 by
+//       palette.test.mjs)
 // Text (web/ and content/):
 //   T04 no "Golden Glow" (the book is inspiration only, doc 10.1)
 //   T06 no phone links (tel:), and the shell carries the format-detection
@@ -116,6 +124,7 @@ import { compileContent, lineOfPath } from './content.mjs';
 import { readText, channelScreens } from './text.mjs';
 import { lintGraph } from './graphlint.mjs';
 import { loadAudio } from './listen.mjs';
+import { luminance } from './color.mjs';
 
 const GOLD_SLOT = 7;
 const GLOW = 19;
@@ -159,6 +168,8 @@ export const RULES = Object.freeze([
   rule('P12', 'palette', 'BUILD_PLAN 4.7; GAME_DESIGN 11.4', 'a palette remap or cycle that makes bonfire gold'),
   rule('P13', 'pictures', 'BUILD_PLAN 4.4, 4.5, S5; GAME_DESIGN 11.7', "the composer's recipes resolve: bases, anchors, layers, slots, skylines, stamps, landmarks never flipped"),
   rule('P14', 'pictures', 'BUILD_PLAN 4.8, S5; GAME_DESIGN 11.1, 11.7, 11.8', 'every drawable place composes at every hour and lints like a drawn picture, its skyline apart from its sky and the light behind its crest (in value too) and from its mid band'),
+  rule('P15', 'pictures', 'BUILD_PLAN S6; GAME_DESIGN 11.8, 11.9', "every hotspot kind of a drawable place is in hotspots.json, every looked kind has its lines, and every part has its alt line", 'S6'),
+  rule('P16', 'palette', 'BUILD_PLAN 4.1, S6; GAME_DESIGN 11.1', "a color literal in web/ outside the palette's homes (tokens.css, palette.js) that is no palette color"),
   rule('T04', 'text', 'GAME_DESIGN 10.1, F.3', 'no "Golden Glow" in shipped text'),
   rule('T06', 'text', 'GAME_DESIGN E.7, F.3', 'no phone links, and the shell carries the format-detection meta'),
   rule('T07', 'text', 'GAME_DESIGN F.3; BUILD_PLAN 10.5', 'no book words in player-facing text, outside the allowlist'),
@@ -528,19 +539,13 @@ export const MELT_RUN = 4;
 /**
  * P14: a skyline is too faint against the sky where the two slots'
  * contrast ratio stays under this for MELT_RUN columns in a row: by value,
- * not just hue (ink against night navy, 1.28, is too faint; night navy
- * against slate, 1.81, is not).
+ * not just hue (in palette A, ink against night navy, 1.25, is too faint;
+ * night navy against slate, 1.63, is not).
  */
 export const FAINT = 1.5;
 
 /** Each palette slot's relative luminance (sRGB, as WCAG 2 counts it). */
-const LUMINANCE = PALETTE.map((hex) => {
-  const [r, g, b] = hexToRgb(hex).map((c) => {
-    const v = c / 255;
-    return v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4;
-  });
-  return 0.2126 * r + 0.7152 * g + 0.0722 * b;
-});
+const LUMINANCE = PALETTE.map(luminance);
 
 /**
  * The contrast ratio of two palette slots (1 for the same, 21 at most).
@@ -926,6 +931,89 @@ export function lintStorage(file, code) {
   return out;
 }
 
+/** P16: the palette's homes, the only files that may write a color by hand. */
+export const PALETTE_HOMES = Object.freeze(['web/css/tokens.css', 'web/js/gfx/palette.js']);
+/** A hex color: #rgb, #rgba, #rrggbb or #rrggbbaa, not part of a word, an entity or an id. */
+const HEX_COLOR = /(?<![\w&#])#([0-9a-f]{8}|[0-9a-f]{6}|[0-9a-f]{3,4})(?![\w-])/gi;
+/** An rgb() or rgba() color, with whatever it holds. */
+const RGB_COLOR = /(?<![\w-])rgba?\(([^)]*)\)?/gi;
+
+/**
+ * A color literal's red, green and blue, or null when it isn't one the
+ * lint can read (an rgb() built from variables or expressions).
+ * @param {string} lit '#...' or 'rgb(...)'
+ * @returns {number[] | null}
+ */
+export function colorOf(lit) {
+  if (lit[0] === '#') {
+    let h = lit.slice(1);
+    if (h.length <= 4) h = h.split('').map((c) => c + c).join('');
+    return [0, 2, 4].map((k) => parseInt(h.slice(k, k + 2), 16));
+  }
+  const m = /^rgba?\((.*)\)$/i.exec(lit.trim());
+  if (!m) return null;
+  const parts = m[1].trim().split(/\s*[,/]\s*|\s+/).filter(Boolean);
+  if (parts.length < 3) return null;
+  const rgb = [];
+  for (const p of parts.slice(0, 3)) {
+    const n = /^(\d+(?:\.\d+)?)(%?)$/.exec(p);
+    if (!n) return null;
+    rgb.push(n[2] ? Math.round((Number(n[1]) * 255) / 100) : Number(n[1]));
+  }
+  return rgb;
+}
+
+/**
+ * P16 over one file under web/: every color literal outside the palette's
+ * homes is a palette color (any alpha), so a palette change is one edit.
+ * In a module only its strings are read, in a stylesheet only its
+ * declarations' values (a selector or a comment is no color), and in a
+ * page or the manifest everything but comments.
+ * @param {string} file the repo-relative path
+ * @param {string} text
+ * @param {readonly string[]} [palette] the sixteen, '#rrggbb'
+ * @returns {Issue[]}
+ */
+export function lintColors(file, text, palette = PALETTE) {
+  /** @type {Issue[]} */
+  const out = [];
+  if (PALETTE_HOMES.includes(file)) return out;
+  const ext = extname(file);
+  const ok = new Set(palette.map((h) => hexToRgb(h).join(',')));
+  /** @type {{line: number, text: string}[]} */
+  const spans = [];
+  if (ext === '.js' || ext === '.mjs') {
+    for (const lit of scanJs(text).literals) spans.push({ line: lit.line, text: lit.chunks.join('${}') });
+  } else if (ext === '.css') {
+    // Declarations only (a statement ending in ; or }, after its first colon), so an id selector is never read as a color.
+    const bare = text.replace(/\/\*[\s\S]*?\*\//g, (m) => m.replace(/[^\n]/g, ' '));
+    let start = 0;
+    for (let i = 0; i <= bare.length; i++) {
+      const ch = bare[i];
+      if (i < bare.length && ch !== '{' && ch !== '}' && ch !== ';') continue;
+      const colon = bare.indexOf(':', start);
+      if (ch !== '{' && colon >= 0 && colon < i) {
+        const head = bare.slice(0, colon + 1).split('\n').length;
+        bare.slice(colon + 1, i).split('\n').forEach((row, k) => spans.push({ line: head + k, text: row }));
+      }
+      start = i + 1;
+    }
+  } else {
+    const bare = text.replace(/<!--[\s\S]*?-->/g, (m) => m.replace(/[^\n]/g, ' '));
+    bare.split('\n').forEach((row, i) => spans.push({ line: i + 1, text: row }));
+  }
+  for (const { line, text: t } of spans) {
+    const found = [...t.matchAll(HEX_COLOR)].map((m) => m[0]).concat([...t.matchAll(RGB_COLOR)].map((m) => m[0]));
+    for (const lit of found) {
+      const rgb = colorOf(lit);
+      if (rgb && ok.has(rgb.join(','))) continue;
+      const why = rgb ? 'is no palette color' : 'is built in code';
+      out.push({ file, line, code: 'P16', msg: `the color ${lit} ${why}: name a token (web/css/tokens.css) or a slot (gfx/palette.js), so a palette change is one edit (decision 68)` });
+    }
+  }
+  return out;
+}
+
 function walk(dir) {
   const out = [];
   let names = [];
@@ -973,6 +1061,7 @@ export function runLint(root = ROOT) {
       issues.push(...lintText(rel(f), text));
       if (dir === 'web') issues.push(...lintUrls(rel(f), text));
       if (dir === 'web' && extname(f) === '.js') issues.push(...lintStorage(rel(f), text));
+      if (dir === 'web' && ['.css', '.js', '.html', '.webmanifest'].includes(extname(f))) issues.push(...lintColors(rel(f), text));
     }
   }
   const shell = join(root, 'web', 'index.html');

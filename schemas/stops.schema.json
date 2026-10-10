@@ -1,5 +1,5 @@
 {
- "$comment": "content/stops/*.json: a stop set (BUILD_PLAN S3; S9's cards and S15a's tailgate replace it). A stop has next (a stop in the set, or null for the set's end) or choices. A choice has then or a roll. box, label and view are display data (voice.json); the rest is logic (rules.json).",
+ "$comment": "content/stops/*.json: a stop set (BUILD_PLAN S3; S9's cards and S15a's tailgate replace it). A stop has next (a stop in the set, or null for the set's end) or choices. A choice has then, a roll (S3: a p expression) or odds (S6: a base and labeled modifiers, priced by web/js/engine/odds.js; GAME_DESIGN 8.5, 8.8). box, label, view, fail_word and badly are display data (voice.json); the rest is logic (rules.json). From S6 a stop may walk (the clock moves by the router's time with 7.4's breaks: on Walk on, or on entering an outcome stop), foreshadow a danger a later choice needs (9.5), and be an outcome (its severity, 12.13; a death ends the set and the hiker).",
  "type": "object",
  "required": ["id", "screen", "phase", "first", "stops"],
  "additionalProperties": false,
@@ -44,7 +44,11 @@
     "box": { "$ref": "#/$defs/box" },
     "view": { "$ref": "#/$defs/view" },
     "next": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/id" }] },
-    "choices": { "type": "array", "items": { "$ref": "#/$defs/choice" } }
+    "choices": { "type": "array", "items": { "$ref": "#/$defs/choice" } },
+    "walk": { "$ref": "#/$defs/walk" },
+    "add_s": { "type": "integer", "minimum": 0, "maximum": 86400 },
+    "foreshadow": { "$ref": "#/$defs/id" },
+    "outcome": { "enum": ["good", "mishap", "serious", "death"] }
    },
    "oneOf": [{ "required": ["next"] }, { "required": ["choices"] }]
   },
@@ -58,6 +62,12 @@
     "show_if": { "type": "string", "x-expr": "bool" },
     "effects": { "type": "array", "items": { "$ref": "#/$defs/effect" } },
     "then": { "$ref": "#/$defs/id" },
+    "tag": { "const": "sure" },
+    "needs": { "$ref": "#/$defs/id" },
+    "odds": { "$ref": "#/$defs/odds" },
+    "route": { "$ref": "#/$defs/route" },
+    "fail_word": { "$ref": "#/$defs/line" },
+    "badly": { "$ref": "#/$defs/line" },
     "roll": {
      "type": "object",
      "required": ["p", "pass", "fail"],
@@ -69,7 +79,64 @@
      }
     }
    },
-   "oneOf": [{ "required": ["then"] }, { "required": ["roll"] }]
+   "oneOf": [{ "required": ["then"] }, { "required": ["roll"] }, { "required": ["odds"] }]
+  },
+  "walk": {
+   "$comment": "A walk the router times (engine/graph.js route, engine/movement.js withBreaks; GAME_DESIGN 7.4): from, through each via in order, to. On a stop with next it is Walk on's; on an outcome stop it is taken on entering it.",
+   "type": "object",
+   "required": ["from", "to"],
+   "additionalProperties": false,
+   "properties": {
+    "from": { "$ref": "#/$defs/id" },
+    "via": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/id" } },
+    "to": { "$ref": "#/$defs/id" }
+   }
+  },
+  "route": {
+   "$comment": "Where a rolled choice goes, for its Why sheet (12.11): the router's arrival there, and, with exposed_to, until when the same way stays on the open crest.",
+   "type": "object",
+   "required": ["from", "to"],
+   "additionalProperties": false,
+   "properties": {
+    "from": { "$ref": "#/$defs/id" },
+    "via": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/id" } },
+    "to": { "$ref": "#/$defs/id" },
+    "exposed_to": { "$ref": "#/$defs/id" }
+   }
+  },
+  "odds": {
+   "$comment": "A rolled choice (GAME_DESIGN 8.5, 8.8): base names a base in content/rules/odds.json, mods its labeled modifiers (a skill, at the hiker's level), clean and shaky the stops its two made-it bands go to, and fail its weighted fail table: each entry a stop, a weight and its rung on 9.1's ladder (one at rung 3 or more makes the choice a diamond: computed, never authored, 8.1), with at most one death roll (9.5: permille of that entry's fails, the stop it goes to, its cause key, and the gentle mode's stop instead).",
+   "type": "object",
+   "required": ["base", "mods", "clean", "shaky", "fail"],
+   "additionalProperties": false,
+   "properties": {
+    "base": { "$ref": "#/$defs/id" },
+    "mods": { "type": "array", "items": { "type": "object", "required": ["skill"], "additionalProperties": false, "properties": { "skill": { "$ref": "#/$defs/id" } } } },
+    "clean": { "$ref": "#/$defs/id" },
+    "shaky": { "$ref": "#/$defs/id" },
+    "fail": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/fail" } }
+   }
+  },
+  "fail": {
+   "type": "object",
+   "required": ["to", "w", "rung"],
+   "additionalProperties": false,
+   "properties": {
+    "to": { "$ref": "#/$defs/id" },
+    "w": { "type": "integer", "minimum": 1, "maximum": 10000 },
+    "rung": { "type": "integer", "minimum": 0, "maximum": 5 },
+    "death": {
+     "type": "object",
+     "required": ["permille", "to", "cause", "gentle"],
+     "additionalProperties": false,
+     "properties": {
+      "permille": { "type": "integer", "minimum": 1, "maximum": 1000 },
+      "to": { "$ref": "#/$defs/id" },
+      "cause": { "$ref": "#/$defs/id" },
+      "gentle": { "$ref": "#/$defs/id" }
+     }
+    }
+   }
   },
   "effect": {
    "oneOf": [

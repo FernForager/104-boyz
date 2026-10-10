@@ -14,7 +14,7 @@ import { fakeDocument } from './textfix.mjs';
 import { installInspector, lineAt, lineInfo, chatText, attrLine, PRESS_MS, MOVE_PX, SWALLOW_MS } from '../../web/js/ui/inspect.js';
 import { openDebug, loadInspector } from '../../web/js/ui/debug.js';
 import { runCheck, resetCheck } from '../../web/js/ui/selfcheck.js';
-import { setBundle, tx } from '../../web/js/text.js';
+import { setBundle, tx, NBSP } from '../../web/js/text.js';
 import { setChannel } from '../../web/js/platform/storage.js';
 
 const TEXT = readText(ROOT);
@@ -195,7 +195,7 @@ test('a 500 ms press on a line opens the card with its id, state, length and bat
   assert.ok(sheet, 'open');
   assert.equal(sheet.getAttribute('role'), 'dialog');
   assert.equal(sheet.querySelector('.inspect-id').textContent, `${RIM} · be25b08f`);
-  assert.equal(sheet.querySelector('.inspect-line').textContent, 'draft · 106 of 140 · B004 #7');
+  assert.equal(sheet.querySelector('.inspect-line').textContent, `draft ·${NBSP}106 of 140 ·${NBSP}B004 #7`, 'its separators bound to what follows (S6)');
   assert.equal(sheet.querySelector('.inspect-line').getAttribute('data-t'), 'dev.inspect.line');
   assert.equal(sheet.querySelector('.inspect-ctx').textContent, TEXT.lines.get(RIM).ctx);
   assert.equal(sheet.querySelector('.inspect-words').textContent, `"${RIM_WORDS}"`);

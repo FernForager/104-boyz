@@ -24,6 +24,11 @@
 // and <out>/<set>/manifest.json (the engine and its version, the sizes,
 // the build id, the files).
 //
+// --set s6: main's title page at / (decision 68's lighter cover; main has
+// no debug mode, so no menu to close), and palette A's Deer Lake and rim at
+// all four hours, the picture in its mat (S6 track A). S6's later tracks
+// add their own scenarios to it.
+//
 // --batch B004 (and tools/text.mjs batch --shots, through shootBatch): each
 // screen the batch's lines are on is shot in its scenarios, in order; each
 // scenario reads every [data-t] and [data-t-aria] element's box, numbers
@@ -80,7 +85,11 @@ export const SCENE_HOURS = Object.freeze(['day', 'dusk', 'blue', 'night']);
  * @property {string[]} [steps] taps after it settles: menu (≡), sound (Sound:on), pic:<id> and hour:<h> (the #frame pickers)
  * @property {string[]} [sizes] only these sizes (default: all)
  * @property {Record<string, unknown>} [store] preview's saved choices to start with (name -> value), e.g. {text: 'plain'}
+ * @property {string} [page] the page to open, if not PAGE: '/' is main's title page (S6)
  */
+
+/** The page a scenario opens. @param {Scenario} sc */
+export const pageOf = (sc) => sc.page ?? PAGE;
 
 /** @param {string} stop @param {string} hour */
 const stopHash = (stop, hour) => `#stop=${SET}.${stop}&hour=${hour}`;
@@ -95,6 +104,11 @@ export const SETS = Object.freeze({
     { name: 'high_divide_dusk', screen: 'trail', hash: '#frame', steps: ['pic:high_divide', 'hour:dusk'] },
     { name: 'menu_fold', screen: 'trail', hash: stopHash('deer_lake', 'day'), steps: ['menu'], sizes: ['se'] },
     { name: 'plain_text', screen: 'trail', hash: stopHash('deer_lake', 'day'), store: { text: 'plain' } },
+  ]),
+  s6: Object.freeze([
+    { name: 'title_main', screen: 'title', hash: '', page: '/' },
+    ...SCENE_HOURS.map((h) => ({ name: `deer_lake_${h}`, screen: 'trail', hash: stopHash('deer_lake', h) })),
+    ...SCENE_HOURS.map((h) => ({ name: `rim_${h}`, screen: 'trail', hash: stopHash('rim', h) })),
   ]),
 });
 
@@ -296,11 +310,15 @@ async function openPage(browser, size, sc) {
  * @param {Scenario} sc
  */
 async function settle(page, base, sc) {
-  await page.goto(`${base}${PAGE}${sc.hash}`, { waitUntil: 'load' });
-  // ?debug=1 opens the debug menu; close it (Escape, as its own handler does).
-  await page.waitForSelector('.scrim.debug:not([hidden])', { timeout: 5000 }).catch(() => null);
-  await page.keyboard.press('Escape');
-  const ready = sc.hash === '#frame' ? '#frame-sheet .status-line' : sc.hash ? '.frame .status-line' : '#gb-name, .frame .status-line';
+  const at = pageOf(sc);
+  await page.goto(`${base}${at}${sc.hash}`, { waitUntil: 'load' });
+  if (at.includes('debug=1')) {
+    // ?debug=1 opens the debug menu; close it (Escape, as its own handler does).
+    await page.waitForSelector('.scrim.debug:not([hidden])', { timeout: 5000 }).catch(() => null);
+    await page.keyboard.press('Escape');
+  }
+  // The title page is ready when its cover has drawn in; the game's screens when their frame or the guest book shows.
+  const ready = sc.screen === 'title' ? '.plate:not(.drawing)' : sc.hash === '#frame' ? '#frame-sheet .status-line' : sc.hash ? '.frame .status-line' : '#gb-name, .frame .status-line';
   await page.waitForSelector(ready, { timeout: 15000 });
   await page.evaluate(() => document.fonts.ready.then(() => undefined));
   await page.waitForTimeout(400);

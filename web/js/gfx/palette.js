@@ -8,24 +8,29 @@
 // content/art/palette.json carries the same tables as data; a unit test
 // keeps the two identical.
 
-/** Option B of design/art/style_mockup.py, in slot order. */
+/**
+ * Option B of design/art/style_mockup.py, lifted by decision 68, in slot
+ * order: each color's OKLab lightness L becomes L + 0.18 x (1 - L)^2, its
+ * hue and chroma kept, so the darks lift most and snow and paper cream
+ * barely move (GAME_DESIGN 11.1 keeps option B's first hexes).
+ */
 export const PALETTE = Object.freeze([
-  '#1b1f2a', // 0 ink
-  '#24324a', // 1 night navy
-  '#3f5a7a', // 2 slate
-  '#8fb3c9', // 3 glacier blue
+  '#343945', // 0 ink
+  '#394862', // 1 night navy
+  '#4d698a', // 2 slate
+  '#93b7cd', // 3 glacier blue
   '#f2efe6', // 4 snow
-  '#e8d9b5', // 5 paper cream
-  '#e09a8a', // 6 alpenglow pink
-  '#e8b33a', // 7 bonfire gold (the lily only)
-  '#c4602d', // 8 rust
-  '#8a3b2a', // 9 brick
-  '#5a3d2b', // 10 bark
-  '#1f3b33', // 11 spruce
-  '#2f5b45', // 12 forest
-  '#6b8a4a', // 13 moss
-  '#a7b88a', // 14 sage
-  '#3f7f7a', // 15 teal
+  '#e9dab6', // 5 paper cream
+  '#e49d8d', // 6 alpenglow pink
+  '#ebb53d', // 7 bonfire gold (the lily only)
+  '#ce6937', // 8 rust
+  '#9b4a39', // 9 brick
+  '#6d4f3d', // 10 bark
+  '#345148', // 11 spruce
+  '#3f6c55', // 12 forest
+  '#749353', // 13 moss
+  '#aabb8d', // 14 sage
+  '#4a8a85', // 15 teal
 ]);
 
 export const NAMES = Object.freeze([
@@ -39,27 +44,35 @@ export const NAMES = Object.freeze([
  * navy, glacier blue to slate, snow to alpenglow pink, forest to spruce)
  * and darkens the rest by about one step; spruce goes to ink, so a
  * conifer keeps its two sides (ink in shade, spruce in the light) and
- * stands darker than the meadow, which goes to forest. Blue hour keeps its
- * key slots (slate to night navy, glacier blue to slate, snow to glacier
- * blue, forest to spruce) and cools the rest: the pinks and creams go to
- * slate, the greens a step down, spruce to ink as at dusk. Night keeps its
- * key slots (slate to ink, glacier blue to night navy, snow to slate,
- * forest to spruce) and sinks the rest to slate or darker, so the stars (a
- * light) are the brightest pixels: spruce to ink and forest to spruce, so
- * the trees (ink and spruce) stand darker than the meadow (forest) and
- * keep their lit side against the night sky (navy), where a navy side
- * would vanish and leave half a tree; teal to slate, so
- * the haze at a ridge's foot stays apart from the ink ridge above it and
- * the treeline in front; and the hiker's jacket brick on a bark pack, so
- * the two stay apart. A ridge stays apart from its sky by the horizon's
- * light it stands in (snow by day: pink, glacier blue and slate after),
- * which the pictures draw. Gold only ever maps to itself (lint P12).
+ * stands darker than the meadow, which goes to teal (S6: in decision 68's
+ * lighter sixteen, forest sits 1.06 from the lake's slate; teal is 1.42),
+ * its sunlit patches to moss. Blue hour is a step down from dusk, as at
+ * night: slate to ink and glacier blue to night navy (S6 moved these two
+ * key slots from night navy and slate), so its sky is night navy over the
+ * last light, snow to glacier blue, and its lake night navy below a forest
+ * meadow; forest to spruce as at dusk. Night keeps its key slots (slate to
+ * ink, glacier blue to night navy, snow to slate, forest to spruce) and
+ * sinks the rest to slate or darker, so the stars (a light) are the
+ * brightest pixels: spruce to ink and forest to spruce, so the trees (ink
+ * and spruce) stand darker than the meadow (forest) and keep their lit
+ * side against the night sky (navy), where a navy side would vanish and
+ * leave half a tree; teal to slate, so the haze at a ridge's foot stays
+ * apart from the ink ridge above it and the treeline in front; and the
+ * hiker's jacket brick on a bark pack, so the two stay apart. At blue hour
+ * and night the trail (paper cream) is teal, the one pale thing left on
+ * the ground, so it reads on the forest meadow (slate would sit at 1.06).
+ * A ridge stays apart from its sky by the horizon's light it stands in
+ * (snow by day: pink, glacier blue and slate after), which the pictures
+ * draw. Gold only ever maps to itself (lint P12). test/unit/palette.test.mjs
+ * holds the tables to their checks over every drawable place: night is
+ * night and not grey, and the lake, the trail and the trees read at every
+ * hour.
  */
 export const REMAPS = Object.freeze({
   day: Object.freeze([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]),
-  dusk: Object.freeze([0, 1, 1, 2, 6, 6, 9, 7, 9, 10, 10, 0, 11, 12, 13, 2]),
-  blue: Object.freeze([0, 1, 1, 2, 3, 2, 2, 7, 9, 10, 0, 0, 11, 12, 13, 2]),
-  night: Object.freeze([0, 0, 0, 1, 2, 2, 1, 7, 9, 10, 0, 0, 11, 12, 12, 2]),
+  dusk: Object.freeze([0, 1, 1, 2, 6, 6, 9, 7, 9, 10, 10, 0, 11, 15, 13, 2]),
+  blue: Object.freeze([0, 0, 0, 1, 3, 15, 1, 7, 9, 10, 0, 0, 11, 12, 12, 2]),
+  night: Object.freeze([0, 0, 0, 1, 2, 15, 1, 7, 9, 10, 0, 0, 11, 12, 12, 2]),
 });
 
 /**

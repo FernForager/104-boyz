@@ -9,7 +9,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { ROOT } from '../../tools/pics.mjs';
-import { SIZES, SIZE_ORDER, SETS, SCREEN_SCENARIOS, SCENE_HOURS, PAGE, PLAYWRIGHT_VERSION, BATCH_SIZE_NAME, shotName, pickSizes, safeCss, batchScenarios, claimBadges, missingMessage, launch, main } from '../../tools/shots.mjs';
+import { SIZES, SIZE_ORDER, SETS, SCREEN_SCENARIOS, SCENE_HOURS, PAGE, pageOf, PLAYWRIGHT_VERSION, BATCH_SIZE_NAME, shotName, pickSizes, safeCss, batchScenarios, claimBadges, missingMessage, launch, main } from '../../tools/shots.mjs';
 import { devRoute } from '../../web/js/ui/app.js';
 import { frameLayout, HOURS } from '../../web/js/ui/frame.js';
 import { keyName, setChannel } from '../../web/js/platform/storage.js';
@@ -87,6 +87,23 @@ test("the S5 set: Deer Lake and the rim at day, dusk and night, the #frame fixtu
   const src = readFileSync(join(ROOT, 'tools', 'shots.mjs'), 'utf8');
   assert.ok(src.includes('localStorage.setItem(`oph.preview.${k}`'), "the shots write preview's names");
   assert.ok(src.includes("store: { marks: 'off', ...(sc.store || {}) }"), 'the debug marks off, so the words show as a player sees them');
+});
+
+test("the S6 set (track A): main's title page at /, and palette A's Deer Lake and rim at all four hours; every stop route is one the game opens", () => {
+  const s6 = SETS.s6;
+  const names = s6.map((s) => s.name);
+  assert.deepEqual(names.slice(0, 9), ['title_main', 'deer_lake_day', 'deer_lake_dusk', 'deer_lake_blue', 'deer_lake_night', 'rim_day', 'rim_dusk', 'rim_blue', 'rim_night']);
+  assert.equal(new Set(names).size, s6.length, 'names are unique');
+  const title = s6[0];
+  assert.deepEqual([title.page, title.hash, title.screen, pageOf(title)], ['/', '', 'title', '/'], "main's own page, no debug mode");
+  const text = readText(ROOT);
+  assert.ok(text.scope.main.screens.includes('title'), "the title is one of main's screens");
+  for (const s of s6.slice(1, 9)) {
+    assert.equal(pageOf(s), PAGE, `${s.name}: preview, in debug mode`);
+    const r = devRoute({ hash: s.hash, debug: true, trail: true });
+    assert.ok(r && r.stop && ['deer_lake', 'rim'].includes(r.stop.id) && HOURS.includes(r.hour), `${s.name}: ${s.hash}`);
+  }
+  assert.deepEqual([...new Set(s6.slice(1, 9).map((s) => devRoute({ hash: s.hash, debug: true, trail: true }).hour))], [...HOURS], 'every hour');
 });
 
 test("a batch's scenarios and badges: each screen's scenarios in order, each line badged once where it first shows, numbered by its place in the batch", () => {
