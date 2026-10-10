@@ -1330,7 +1330,7 @@ Reported nightly, not gated (doc F.1):
 |---|---|---|
 | Your answers to each batch | Each promotion | What reaches main; nothing that gets built |
 | Your verdict on the look | S5-S6 | The cabin plate and art in volume |
-| Your verdict on the skyline prototype (doc decision 69) | When it's ready | Nothing built: the composer's design (doc 11.7; 4.4) is updated once it's judged |
+| Your verdict on the skyline prototype (doc decision 69) | Answered 2026-10-10: the hybrid (doc decision 70) | The composer's design (doc 11.7; 4.4) is rewritten for it in its build session; three smaller calls (the rim's view, approving cameras, Olympus's height) are in the doc's Still to come |
 | Your own quiz questions (optional) | S7 | Nothing: the lockbox has twelve |
 | The three stores' names | S11 | Nothing: `{STORE_GENERAL}` and the others until then |
 | Your verdict on the share images' default: the hiker's name, *OP Hiker* and *ophiker.com* (decision 44) | S12b, on a real one | Nothing: the default until then |
