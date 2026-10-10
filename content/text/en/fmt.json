@@ -1,5 +1,5 @@
 {
- "$comment": "Number formats (GAME_DESIGN 18.3, E.12; decision 64): the tokens web/js/fmt.js words a number with its unit by, each approved once, so a height or a mile reads the same on every phone and never in its locale. fmt.js fills the number (ASCII digits, a comma every three, a point before tenths); web/js/text.js shows a format's spaces as no-break spaces, so the number never breaks from its unit. S5 has two, both the trail frame's; times, dates and am/pm join with their sessions. Drafts until B004 is answered; preview only.",
+ "$comment": "Number formats (GAME_DESIGN 18.3, E.12; decision 64): the tokens web/js/fmt.js words a number with its unit by, each approved once, so a height or a mile reads the same on every phone and never in its locale. fmt.js fills the number (ASCII digits, a comma every three, a point before tenths); web/js/text.js shows a format's spaces as no-break spaces, so the number never breaks from its unit. S5 has two, both the trail frame's; S6 adds a percentage (and one under the least shown), a distance in miles, a clock time in the morning and in the afternoon, and a span of minutes, for the odds, the Why sheet and an outcome's pencil rows; dates join with their sessions. Drafts until B004 is answered; preview only.",
  "fmt.ft": {
   "text": "{ft} ft",
   "ctx": "A height in feet: the trail caption's elevation, 4,900 ft (12.2). Never broken across a row",
@@ -9,6 +9,42 @@
  "fmt.mile_marker": {
   "text": "mi {mi}",
   "ctx": "The strip's mile marker: how far along today's route you are, mi 6.9 (12.2). Never broken across a row",
+  "screen": "trail",
+  "max": 8
+ },
+ "fmt.pct": {
+  "text": "{pct}%",
+  "ctx": "A percentage: an odds tag's made-it (65%), a fail or fatal share, a Why-sheet figure (8.1). Never broken across a row",
+  "screen": "trail",
+  "max": 6
+ },
+ "fmt.pct_under": {
+  "text": "<{pct}%",
+  "ctx": "A share under the least a tag shows: <0.1% fatal, never 0 (8.1)",
+  "screen": "trail",
+  "max": 7
+ },
+ "fmt.mi": {
+  "text": "{mi} mi",
+  "ctx": "A distance in miles, one decimal: 3.4 mi (the Why sheet's route, 12.11)",
+  "screen": "trail",
+  "max": 8
+ },
+ "fmt.clock_am": {
+  "text": "{h}:{mm} am",
+  "ctx": "A morning clock time, to the nearest minute: 11:05 am",
+  "screen": "trail",
+  "max": 8
+ },
+ "fmt.clock_pm": {
+  "text": "{h}:{mm} pm",
+  "ctx": "An afternoon clock time, to the nearest minute: 4:26 pm (noon is 12:00 pm)",
+  "screen": "trail",
+  "max": 8
+ },
+ "fmt.min": {
+  "text": "{m} min",
+  "ctx": "A span of minutes: 20 min (an outcome's pencil row, Time +20 min)",
   "screen": "trail",
   "max": 8
  }

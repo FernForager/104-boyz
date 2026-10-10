@@ -13,7 +13,25 @@
   "state": { "width": 8, "samples": ["draft", "approved", "changed"], "$comment": "A line's state in the line inspector: draft, approved, changed, cut, nowords, dev, place or term, approved the longest (ui/inspect.js; dev words)" },
   "len": { "width": 3, "samples": ["7", "41", "106"], "$comment": "A line's length in the line inspector (measure): no line's max reaches 1,000" },
   "max": { "width": 3, "samples": ["8", "44", "140"], "$comment": "A line's max in the line inspector: three digits, as len" },
-  "batch": { "width": 8, "samples": ["B004 #5", "B001 #11", "B004 #14"], "$comment": "A line's batch and its number there in the line inspector, B004 #14, or dev.inspect.none's words (8 code points)" }
+  "batch": { "width": 8, "samples": ["B004 #5", "B001 #11", "B004 #14"], "$comment": "A line's batch and its number there in the line inspector, B004 #14, or dev.inspect.none's words (8 code points)" },
+  "pct": { "width": 5, "samples": ["65", "0.7", "15.25"], "$comment": "A percentage's number in fmt.pct and fmt.pct_under (web/js/fmt.js pct): a whole number from 10, one decimal under it, and a Why sheet's exact product at up to two more (8.1, 8.8: 15.25 at C.2's headland, 0.675 at the crevasse)" },
+  "share": { "width": 6, "samples": ["35%", "0.7%", "<0.1%"], "$comment": "A share as fmt.pct or fmt.pct_under words it, on a diamond's second line: a fail share up to 70%, a fatal share rounded up (8.1), 16% or <0.1% the widest shown; 6 holds an exact 15.25%" },
+  "what": { "width": 6, "samples": ["hit", "fall", "swept"], "$comment": "A card's fail word on a diamond's second line (its line's max is 6)" },
+  "choice": { "width": 22, "samples": ["Stay high", "Through the basin", "Turn back to the car"], "$comment": "A choice's label, in the confirm (8.1: 22 characters or fewer)" },
+  "clean": { "width": 3, "samples": ["40", "90", "5"], "$comment": "The clean band in points, 5 to 97 (8.5)" },
+  "shaky": { "width": 3, "samples": ["25", "5", "0"], "$comment": "The shaky band in points, 0 to 25 (8.8)" },
+  "fail": { "width": 3, "samples": ["35", "5", "70"], "$comment": "The fail band in points, 1 to 70 (8.8: p is at least 5)" },
+  "band": { "width": 12, "samples": ["clean", "100%", "the black"], "$comment": "A band's name in the compass's spoken result (trail.band.*, the black the widest at 9; their max 12), or the fatal band's share of the fails as fmt.pct words it in the Why sheet's arithmetic (100%)" },
+  "death": { "width": 6, "samples": ["2%", "50%", "0.1%"], "$comment": "A death roll as fmt.pct words it, 0.1% to 100% (9.5: 2% on an exposed crest)" },
+  "exact": { "width": 8, "samples": ["0.70%", "0.21%", "15.25%"], "$comment": "The exact fatal share as fmt.pct words it, two decimals at least (8.8: 0.21%), up to 0.675% (web/js/fmt.js exactPct)" },
+  "fatal": { "width": 6, "samples": ["0.7%", "<0.1%", "16%"], "$comment": "The fatal share as shown, rounded up (8.1): fmt.pct or fmt.pct_under" },
+  "time": { "width": 8, "samples": ["4:26 pm", "11:05 am", "12:59 pm"], "$comment": "A clock time as fmt.clock_am or fmt.clock_pm words it: 12:59 pm the widest" },
+  "dist": { "width": 7, "samples": ["3.4 mi", "0.9 mi", "12.4 mi"], "$comment": "A distance as fmt.mi words it: under 100 miles a day" },
+  "level": { "width": 1, "samples": ["1", "2", "5"], "$comment": "A skill's level, 0 to 5 (schemas/vars.json skill.*)" },
+  "h": { "width": 2, "samples": ["4", "11", "12"], "$comment": "A clock time's hour, 1 to 12 (fmt.clock_am, fmt.clock_pm)" },
+  "mm": { "width": 2, "samples": ["05", "26", "59"], "$comment": "A clock time's minutes, two digits" },
+  "m": { "width": 3, "samples": ["20", "10", "120"], "$comment": "A span's minutes (fmt.min): an outcome's extra time, under 1,000" },
+  "delta": { "width": 7, "samples": ["20 min", "10 min", "120 min"], "$comment": "A span as fmt.min words it, in a pencil row" }
  },
  "placeholders": {}
 }

@@ -80,7 +80,9 @@ test("a byte in the engine, a stop's next, a plan's start or the standard profil
   assert.notEqual(hashOf(root), base, "a stop's next");
   writeFileSync(stops, s);
   const plan = join(root, 'content', 'trips', 'sample.json');
-  writeFileSync(plan, readFileSync(plan, 'utf8').replace('"s": 30600', '"s": 30660'));
+  // S6: the sample leaves Deer Lake at 11:05 am (s 39900; it was 8:30, 30600).
+  assert.match(readFileSync(plan, 'utf8'), /"s": 39900/);
+  writeFileSync(plan, readFileSync(plan, 'utf8').replace('"s": 39900', '"s": 39960'));
   const moved = hashOf(root);
   assert.notEqual(moved, base, "a plan's start time");
   const std = join(root, 'content', 'rules', 'standard.json');

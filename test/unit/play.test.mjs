@@ -192,11 +192,15 @@ test('a sample trip reads as a transcript: the guest book, both stops in words, 
   const b = playTrip({ dist, seed: 'K7QM2Q9F', bot: 'first' });
   assert.equal(a.hash, b.hash, 'the same seed, the same trip');
   assert.equal(a.ended, true);
-  assert.deepEqual(a.steps.map((s) => s.action), [null, 'sign', 'start sample K7QM2Q9F', 'next', 'next']);
-  assert.deepEqual(a.steps.map((s) => s.screen.phase), ['guestbook', 'home', 'trailhead', 'trailhead', 'home']);
+  // Re-pinned in S6: the rim walks on to the fork, where the first bot takes the first choice (Stay high, the
+  // diamond); with this seed the storm hits close (high_struck), and that outcome's Walk on ends the trip.
+  assert.deepEqual(a.steps.map((s) => s.action), [null, 'sign', 'start sample K7QM2Q9F', 'next', 'next', 'choose high', 'next']);
+  assert.deepEqual(a.steps.map((s) => s.screen.phase), ['guestbook', 'home', 'trailhead', 'trailhead', 'trailhead', 'trailhead', 'home']);
   const text = transcriptText(a.steps);
   assert.match(text, /\[trailhead deer_lake_rim\.deer_lake, stop 1\]/);
   assert.match(text, /\[trailhead deer_lake_rim\.rim, stop 2\]/);
+  assert.match(text, /\[trailhead deer_lake_rim\.fork, stop 3\]/);
+  assert.match(text, /\[trailhead deer_lake_rim\.high_struck, stop 4\]/);
   assert.match(text, /\(a name field\)/);
   assert.ok(!text.includes('⟦trail.'), 'every trail line in words');
   assert.equal(playTrip({ dist, seed: 'K7QM2Q9F', bot: 'random' }).ended, true);

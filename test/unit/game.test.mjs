@@ -126,13 +126,23 @@ const tap = (doc, sel, now) => {
   now.pass();
   doc.querySelector(sel).click();
 };
+/** The choice button whose label is a line (S6: the fork's three). */
+const choiceBy = (doc, id) => doc.querySelectorAll('.game-choices .choice').find((b) => b.querySelector('.choice-label') && b.querySelector('.choice-label').getAttribute('data-t') === id);
+const tapLine = (doc, id, now) => {
+  now.pass();
+  choiceBy(doc, id).click();
+};
+/** Let the compass's promise (no canvas here: it resolves at once) hand over to the outcome. */
+const settled = async () => {
+  for (let i = 0; i < 4; i++) await Promise.resolve();
+};
 
 /** Start the game on a shell with the device's storage; deterministic seeds and ids. */
 async function start(o = {}) {
   const page = shell(o);
   const now = o.now || clock();
   let n = 0;
-  const game = await startGame(page.doc, { fetchFn, now, seed: o.seed || (() => ['K7QM2Q9F', '5S45JTGZ', '00000006'][n++ % 3]), hikerId: () => 'h00000001', title: o.title });
+  const game = await startGame(page.doc, { fetchFn, now, seed: o.seed || (() => ['K7QM2Q9F', '5S45JTGZ', '00000006'][n++ % 3]), hikerId: o.hikerId || (() => 'h00000001'), title: o.title, ...(o.sound ? { sound: o.sound } : {}) });
   return { ...page, game, now };
 }
 
@@ -365,6 +375,11 @@ test('resume: closing the app on a stop and opening it again shows the same stop
   assert.deepEqual(boxIds(again.doc), ['trail.deer_lake_rim.rim']);
   assert.deepEqual(again.game.session().state, before.state, 'the same state');
   assert.deepEqual(again.game.session().log, before.log, 'and the same log, which goes on');
+  // S6: the rim walks on to the fork (re-pinned: S5's rim ended the trip); its sure way back ends it.
+  tap(again.doc, '.game-choices .choice', again.now);
+  assert.deepEqual(boxIds(again.doc), ['trail.odds.intro.fatal', 'trail.deer_lake_rim.fork'], "the fork, with the first fatal share's intro");
+  tapLine(again.doc, 'trail.deer_lake_rim.fork.car', again.now);
+  assert.equal(again.game.session().state.trip.stop, 'car_out');
   tap(again.doc, '.game-choices .choice', again.now);
   assert.deepEqual(again.game.session().state.hiker.trips, 1);
 });
@@ -383,12 +398,15 @@ test('closing the guest book before Sign brings back an empty guest book; closin
   assert.equal(fresh.game.session().state.trip.seed, 'Q5Z2K8M1', 'home starts a new trip with a new seed');
 });
 
-test('after the second stop, Walk on ends the sample trip and a new one starts at the first stop, with a new seed and log', async (t) => {
+test('after the fork, the sure way back ends the sample trip and a new one starts at the first stop, with a new seed and log', async (t) => {
+  // Re-pinned in S6: the sample walks on from the rim to the fork; Back to the car, sure, then Walk on, ends it.
   device(t);
   const { doc, game, now } = await start();
   sign(doc, now);
   const firstSeed = game.session().state.trip.seed;
   tap(doc, '.game-choices .choice', now);
+  tap(doc, '.game-choices .choice', now);
+  tapLine(doc, 'trail.deer_lake_rim.fork.car', now);
   tap(doc, '.game-choices .choice', now);
   const s = game.session();
   assert.deepEqual(boxIds(doc), ['trail.deer_lake_rim.deer_lake']);
@@ -396,6 +414,196 @@ test('after the second stop, Walk on ends the sample trip and a new one starts a
   assert.equal(s.state.trip.n, 1);
   assert.deepEqual(s.log.actions, [], 'a fresh log');
   assert.equal(s.state.hiker.trips, 1);
+});
+
+// ---- S6: the fork, end to end ------------------------------------------------
+
+/** A sound that records what it plays. */
+function recSound() {
+  const played = [];
+  return { played, play: (c) => played.push(c), isOn: () => true, setOn() {}, report: () => null };
+}
+
+/** Sign and walk to the fork. */
+function toFork(doc, now) {
+  sign(doc, now);
+  tap(doc, '.game-choices .choice', now);
+  tap(doc, '.game-choices .choice', now);
+}
+
+test("the fork end to end (S6): the diamond's confirm, Yes, the compass, the outcome and its cue; the save at the tap already holds the outcome, and reopened it shows the outcome directly", async (t) => {
+  const ls = device(t);
+  const sound = recSound();
+  const { doc, game, now } = await start({ sound });
+  toFork(doc, now);
+  assert.deepEqual(boxIds(doc), ['trail.odds.intro.fatal', 'trail.deer_lake_rim.fork']);
+  // One tap on the diamond: the confirm, and nothing taken.
+  tapLine(doc, 'trail.deer_lake_rim.fork.high', now);
+  assert.equal(game.session().state.trip.stop, 'fork');
+  assert.ok(doc.querySelector('.choice-confirm'));
+  // Yes: the step, the saves, then the compass (no canvas here: at once), then the outcome.
+  now.pass();
+  doc.querySelector('.confirm-yes').click();
+  assert.equal(game.session().state.trip.stop, 'high_struck', 'K7QM2Q9F: lightning hits close');
+  const saved = JSON.parse(ls.getItem('oph.preview.trip'));
+  assert.equal(saved.snapshot.stop, 'high_struck', 'the save at the confirming tap holds the outcome (8.14)');
+  assert.deepEqual(saved.snapshot.rolled, { stop: 'fork', c: 'high', band: 'fail' });
+  await settled();
+  assert.deepEqual(boxIds(doc), ['trail.deer_lake_rim.fork.high.struck']);
+  assert.ok(doc.querySelector('.outcome-notes'));
+  assert.equal(sound.played[sound.played.length - 1], 'ui.serious', 'the outcome plays its cue after the compass');
+  // Reopened (the app closed mid-spin, or after): the outcome, at once, and no cue.
+  const sound2 = recSound();
+  const again = await start({ sound: sound2 });
+  assert.deepEqual(boxIds(again.doc), ['trail.deer_lake_rim.fork.high.struck']);
+  assert.ok(!sound2.played.includes('ui.serious'), 'a restored save shows the outcome directly');
+  tap(again.doc, '.game-choices .choice', again.now);
+  assert.equal(again.game.session().state.hiker.trips, 1, 'Walk on ends the trip');
+});
+
+test("a double tap on the diamond takes nothing (12.1): its second tap lands where Yes now is, inside the guard the confirm restarted", async (t) => {
+  device(t);
+  const { doc, game, now } = await start();
+  toFork(doc, now);
+  const at = game.session().state.trip.n;
+  tapLine(doc, 'trail.deer_lake_rim.fork.high', now);
+  assert.ok(doc.querySelector('.choice-confirm'), 'the first tap opens the confirm');
+  now.pass(120);
+  doc.querySelector('.confirm-yes').click();
+  assert.equal(game.session().state.trip.stop, 'fork', 'the second tap of the double tap is dropped');
+  assert.equal(game.session().state.trip.n, at, 'nothing was dispatched');
+  assert.ok(doc.querySelector('.choice-confirm'), 'the confirm stays open');
+  // A deliberate Yes, once the guard has passed, takes it.
+  now.pass();
+  doc.querySelector('.confirm-yes').click();
+  assert.equal(game.session().state.trip.stop, 'high_struck');
+});
+
+/**
+ * Give the game's page a phone with canvases from here on (the frame then
+ * draws its picture, and the diamond's Yes plays the compass on it), with
+ * Reduce Motion on so nothing waits on a frame. The art comes from the
+ * preview build. Undone after the test.
+ * @returns {{art: any}}
+ */
+function canvasPhone(t, doc) {
+  // A 2D context that draws nothing: every method a no-op, and image data to fill.
+  const ctx2d = new Proxy({ createImageData: (w, h) => ({ data: new Uint8ClampedArray(w * h * 4) }) }, { get: (o, k) => (k in o ? o[k] : () => {}), set: () => true });
+  const make = doc.createElement;
+  doc.createElement = (tag) => {
+    const el = make(tag);
+    el.getBoundingClientRect = () => ({ left: 0, top: 0, right: 0, bottom: 0, width: 0, height: 0 });
+    if (tag === 'canvas') el.getContext = () => ctx2d;
+    return el;
+  };
+  const win = {
+    innerWidth: 402,
+    innerHeight: 778,
+    devicePixelRatio: 3,
+    screen: { width: 402, height: 874 },
+    addEventListener() {},
+    removeEventListener() {},
+    getComputedStyle: () => ({ getPropertyValue: () => '', lineHeight: 'normal', paddingTop: '0', paddingBottom: '0' }),
+  };
+  doc.defaultView = win;
+  const had = {};
+  for (const k of ['document', 'window', 'matchMedia', 'requestAnimationFrame', 'cancelAnimationFrame']) had[k] = Object.getOwnPropertyDescriptor(globalThis, k);
+  const set = (k, v) => Object.defineProperty(globalThis, k, { configurable: true, writable: true, value: v });
+  set('document', doc);
+  set('window', win);
+  set('matchMedia', () => ({ matches: true, addEventListener() {}, removeEventListener() {} }));
+  set('requestAnimationFrame', () => 0);
+  set('cancelAnimationFrame', () => {});
+  t.after(() => {
+    doc.createElement = make;
+    for (const [k, d] of Object.entries(had)) {
+      if (d) Object.defineProperty(globalThis, k, d);
+      else delete globalThis[k];
+    }
+  });
+}
+
+/** fetch() for the preview build's data/ folder and its art/art.json. */
+async function fetchArt(url) {
+  if (basename(url.pathname) !== 'art.json') return fetchFn(url);
+  const body = readOut('preview', join('art', 'art.json'));
+  return { ok: true, status: 200, json: async () => JSON.parse(body) };
+}
+
+test("after the compass, the outcome's choices take taps again: the compass's inert mark goes with the fork's frame (the outcome's Walk on, its picture's Look)", async (t) => {
+  device(t);
+  const page = shell();
+  const now = clock();
+  let n = 0;
+  const game = await startGame(page.doc, { fetchFn: fetchArt, now, seed: () => ['K7QM2Q9F', '5S45JTGZ', '00000006'][n++ % 3], hikerId: () => 'h00000001', sound: recSound() });
+  const { doc } = page;
+  sign(doc, now);
+  tap(doc, '.game-choices .choice', now);
+  canvasPhone(t, doc);
+  tap(doc, '.game-choices .choice', now);
+  assert.equal(game.session().state.trip.stop, 'fork');
+  const host = doc.querySelector('.game-screen');
+  assert.ok(host.querySelector('canvas.picture').getContext, 'the fork drawn on a canvas');
+  tapLine(doc, 'trail.deer_lake_rim.fork.high', now);
+  now.pass();
+  doc.querySelector('.confirm-yes').click();
+  assert.equal(game.session().state.trip.stop, 'high_struck');
+  assert.ok(host.hasAttribute('data-compass'), 'the compass plays: the box and the choices are inert');
+  assert.deepEqual(boxIds(doc), ['trail.odds.intro.fatal', 'trail.deer_lake_rim.fork'], 'the fork stays under the compass');
+  // At rest (Reduce Motion), a tap goes on to the outcome.
+  host.dispatchEvent({ type: 'click' });
+  await settled();
+  assert.deepEqual(boxIds(doc), ['trail.deer_lake_rim.fork.high.struck']);
+  assert.equal(host.hasAttribute('data-compass'), false, "the outcome's choices and picture are live");
+  doc.querySelector('.frame-picture').dispatchEvent({ type: 'click' });
+  assert.ok(doc.querySelector('.look-box'), "a tap on the outcome's picture shows its Look");
+  tap(doc, '.game-choices .choice', now);
+  assert.equal(game.session().state.hiker.trips, 1, 'Walk on ends the trip');
+});
+
+test('a % choice goes straight to its outcome (8.8): no confirm, no compass; the outcome plays its cue', async (t) => {
+  device(t);
+  const sound = recSound();
+  const { doc, game, now } = await start({ sound });
+  toFork(doc, now);
+  tapLine(doc, 'trail.deer_lake_rim.fork.basin', now);
+  assert.equal(doc.querySelector('.choice-confirm'), null);
+  assert.equal(game.session().state.trip.stop, 'basin_shaky');
+  assert.deepEqual(boxIds(doc), ['trail.deer_lake_rim.fork.basin.shaky'], 'drawn at once');
+  assert.deepEqual(sound.played.slice(-2), ['ui.tick', 'ui.mishap']);
+});
+
+test("a death (S6's stand-in): the death box's Next ends the trip and the hiker; the saves keep no hiker; the guest book signs a new one; the odds intros already seen stay seen", async (t) => {
+  const ls = device(t);
+  let ids = 0;
+  const { doc, game, now } = await start({ seed: () => 'D000000Z', hikerId: () => `h0000000${++ids}` });
+  toFork(doc, now);
+  tapLine(doc, 'trail.deer_lake_rim.fork.high', now);
+  now.pass();
+  doc.querySelector('.confirm-yes').click();
+  await settled();
+  assert.equal(game.session().state.trip.stop, 'high_fatal');
+  assert.deepEqual(boxIds(doc), ['trail.deer_lake_rim.fork.high.fatal']);
+  const next = doc.querySelector('.game-choices .choice .choice-label');
+  assert.deepEqual([next.getAttribute('data-t'), next.textContent], ['trail.next', 'Next']);
+  assert.equal(JSON.parse(ls.getItem('oph.preview.hiker')).name, 'Robin', 'until Next, the hiker is there to see it');
+  tap(doc, '.game-choices .choice', now);
+  assert.equal(doc.getElementById('app').getAttribute('data-screen'), 'guestbook');
+  assert.equal(game.session().state.hiker, null);
+  assert.equal(ls.getItem('oph.preview.hiker'), 'null', 'the stored hiker goes too');
+  assert.equal(JSON.parse(ls.getItem('oph.preview.trip')).snapshot.end, 'sample');
+  // Closing the app now reopens on the guest book, never the dead hiker.
+  const reopened = await start({ seed: () => 'D000000Z', hikerId: () => 'h00000009' });
+  assert.equal(reopened.doc.getElementById('app').getAttribute('data-screen'), 'guestbook');
+  // A new hiker signs and starts fresh at Deer Lake; the phone's odds intros stay seen (9.8: the player's, not the hiker's).
+  sign(doc, now, 'Sam');
+  assert.equal(game.session().state.hiker.name, 'Sam');
+  assert.equal(game.session().state.trip.stop, 'deer_lake');
+  assert.equal(game.session().state.hiker.trips, 0);
+  assert.deepEqual(JSON.parse(ls.getItem('oph.preview.odds_seen')), ['fatal']);
+  tap(doc, '.game-choices .choice', now);
+  tap(doc, '.game-choices .choice', now);
+  assert.deepEqual(boxIds(doc), ['trail.odds.intro.diamond', 'trail.deer_lake_rim.fork'], 'the next intro, not the first again');
 });
 
 test('a double tap is dropped, and a stale tap the engine refuses is ignored', async (t) => {

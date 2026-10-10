@@ -9,7 +9,9 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { ROOT } from '../../tools/pics.mjs';
-import { SIZES, SIZE_ORDER, SETS, SCREEN_SCENARIOS, SCENE_HOURS, PAGE, PLAYWRIGHT_VERSION, BATCH_SIZE_NAME, shotName, pickSizes, safeCss, batchScenarios, claimBadges, missingMessage, launch, main } from '../../tools/shots.mjs';
+import { SIZES, SIZE_ORDER, SETS, SCREEN_SCENARIOS, SCENE_HOURS, PAGE, pageOf, PLAYWRIGHT_VERSION, BATCH_SIZE_NAME, OUTCOMES, shotName, pickSizes, safeCss, batchScenarios, claimBadges, missingMessage, launch, main } from '../../tools/shots.mjs';
+import { INTRO_FORMS } from '../../web/js/ui/choices.js';
+import { FIXTURES } from '../../web/js/ui/frame.js';
 import { devRoute } from '../../web/js/ui/app.js';
 import { frameLayout, HOURS } from '../../web/js/ui/frame.js';
 import { keyName, setChannel } from '../../web/js/platform/storage.js';
@@ -53,7 +55,11 @@ test("the S5 set: Deer Lake and the rim at day, dusk and night, the #frame fixtu
   assert.equal(new Set(s5.map((s) => s.name)).size, s5.length, 'names are unique');
   const text = readText(ROOT);
   const recipes = JSON.parse(readFileSync(join(ROOT, 'content', 'art', 'recipes.json'), 'utf8'));
-  for (const s of [...s5, ...Object.values(SCREEN_SCENARIOS).flat()]) {
+  // The batches' S5 scenarios: the trail's first five and the guest book (S6's follow them; their own test is below).
+  const s5batch = [...SCREEN_SCENARIOS.trail.slice(0, 5), ...SCREEN_SCENARIOS.guestbook];
+  assert.deepEqual(s5batch.map((s) => s.name), ['deer_lake', 'rim', 'sound_off', 'menu', 'frame_fixture', 'guestbook']);
+  assert.deepEqual(Object.keys(SCREEN_SCENARIOS), ['trail', 'guestbook']);
+  for (const s of [...s5, ...s5batch]) {
     assert.ok(text.scope.screens.includes(s.screen), `${s.name}: ${s.screen} is a preview screen`);
     if (!s.hash) continue;
     // The game opens it only in debug mode, on a build with the trail.
@@ -89,6 +95,87 @@ test("the S5 set: Deer Lake and the rim at day, dusk and night, the #frame fixtu
   assert.ok(src.includes("store: { marks: 'off', ...(sc.store || {}) }"), 'the debug marks off, so the words show as a player sees them');
 });
 
+test("the S6 set (track A): main's title page at /, and palette A's Deer Lake and rim at all four hours; every stop route is one the game opens", () => {
+  const s6 = SETS.s6;
+  const names = s6.map((s) => s.name);
+  assert.deepEqual(names.slice(0, 9), ['title_main', 'deer_lake_day', 'deer_lake_dusk', 'deer_lake_blue', 'deer_lake_night', 'rim_day', 'rim_dusk', 'rim_blue', 'rim_night']);
+  assert.equal(new Set(names).size, s6.length, 'names are unique');
+  const title = s6[0];
+  assert.deepEqual([title.page, title.hash, title.screen, pageOf(title)], ['/', '', 'title', '/'], "main's own page, no debug mode");
+  const text = readText(ROOT);
+  assert.ok(text.scope.main.screens.includes('title'), "the title is one of main's screens");
+  for (const s of s6.slice(1, 9)) {
+    assert.equal(pageOf(s), PAGE, `${s.name}: preview, in debug mode`);
+    const r = devRoute({ hash: s.hash, debug: true, trail: true });
+    assert.ok(r && r.stop && ['deer_lake', 'rim'].includes(r.stop.id) && HOURS.includes(r.hour), `${s.name}: ${s.hash}`);
+  }
+  assert.deepEqual([...new Set(s6.slice(1, 9).map((s) => devRoute({ hash: s.hash, debug: true, trail: true }).hour))], [...HOURS], 'every hour');
+  // Track C: the fork's states, each outcome, the Looks, Plain and the four-choice fixture, each a route the game
+  // opens (a stop of the sample set, or #frame) and steps the harness knows.
+  assert.deepEqual(names.slice(9), ['fork_day', 'fork_night', 'fork_more', 'fork_confirm', 'why_high', 'why_basin', 'compass_rest', ...OUTCOMES.map((o) => `outcome_${o}`), 'look_privy', 'look_lunch_lake', 'look_alt', 'fork_plain', 'frame_four']);
+  const stops = JSON.parse(readFileSync(join(ROOT, 'content', 'stops', 'deer_lake_rim.json'), 'utf8')).stops;
+  assert.deepEqual(stops.filter((st) => st.outcome).map((st) => st.id), [...OUTCOMES], 'every outcome stop of the sample set');
+  const kinds = JSON.parse(readFileSync(join(ROOT, 'content', 'art', 'hotspots.json'), 'utf8')).kinds;
+  for (const s of s6.slice(9)) {
+    const r = devRoute({ hash: s.hash, debug: true, trail: true });
+    assert.ok(r, `${s.name}: ${s.hash} is a dev route`);
+    if (r.stop) assert.ok(stops.some((st) => st.id === r.stop.id), `${s.name}: a stop of the set`);
+    for (const step of s.steps || []) {
+      if (step.startsWith('look:')) assert.equal(kinds[step.slice(5)].look, true, `${s.name}: ${step} is a looked kind`);
+      else if (step.startsWith('fixture:')) assert.ok(FIXTURES.includes(step.slice(8)), step);
+      else assert.ok(/^(choice|info):\d$/.test(step) || ['yes', 'alt'].includes(step), step);
+    }
+    if (s.store && s.store.odds_seen) assert.deepEqual(s.store.odds_seen, [...INTRO_FORMS], `${s.name}: every intro seen`);
+  }
+  assert.deepEqual(s6.find((s) => s.name === 'fork_more').store, undefined, 'the SE with its fatal intro: it continues (▾)');
+  assert.equal(s6.find((s) => s.name === 'compass_rest').quick, true, 'shot at once, before the outcome');
+  const src = readFileSync(join(ROOT, 'tools', 'shots.mjs'), 'utf8');
+  for (const sel of ["'.scenes-fixtures button'", "'.frame .choice'", "'.frame .choice-info'", "'.confirm-yes'", '`.look[data-kind="${kind}"]`']) assert.ok(src.includes(sel), `the harness taps ${sel}`);
+});
+
+test("S6's batch scenarios (track D): the fork with each odds intro in its turn, the confirm, both Why sheets, the compass, every outcome, every looked kind where it is drawn and the alt Look at every hour, each a route the game opens", () => {
+  const s6 = SCREEN_SCENARIOS.trail.slice(5);
+  const looked = Object.entries(JSON.parse(readFileSync(join(ROOT, 'content', 'art', 'hotspots.json'), 'utf8')).kinds)
+    .filter(([, k]) => /** @type {any} */ (k).look)
+    .map(([kind]) => kind);
+  assert.deepEqual(s6.map((s) => s.name), [
+    ...INTRO_FORMS.map((f) => `fork_intro_${f}`),
+    'fork_confirm',
+    'why_high',
+    'why_basin',
+    'compass_rest',
+    ...OUTCOMES.map((o) => `outcome_${o}`),
+    ...looked.map((k) => `look_${k}`),
+    'alt_rim',
+    'alt_deer_lake',
+    'alt_dusk',
+    'alt_blue',
+    'alt_night',
+  ], 'every looked kind of hotspots.json has its scenario');
+  assert.equal(new Set(SCREEN_SCENARIOS.trail.map((s) => s.name)).size, SCREEN_SCENARIOS.trail.length, 'names are unique');
+  // Each intro shot has seen exactly the forms before it (one intro a stop, the most serious unseen first).
+  INTRO_FORMS.forEach((f, k) => assert.deepEqual(s6[k].store, { odds_seen: INTRO_FORMS.slice(0, k) }, f));
+  const stops = JSON.parse(readFileSync(join(ROOT, 'content', 'stops', 'deer_lake_rim.json'), 'utf8')).stops;
+  const kinds = JSON.parse(readFileSync(join(ROOT, 'content', 'art', 'hotspots.json'), 'utf8')).kinds;
+  for (const s of s6) {
+    assert.equal(s.screen, 'trail', s.name);
+    assert.equal(pageOf(s), PAGE, `${s.name}: preview, in debug mode`);
+    assert.equal(devRoute({ hash: s.hash, debug: false, trail: true }), null, `${s.name}: nothing without debug mode`);
+    const r = devRoute({ hash: s.hash, debug: true, trail: true });
+    assert.ok(r && r.stop && r.stop.set === 'deer_lake_rim' && stops.some((st) => st.id === r.stop.id), `${s.name}: a stop of the sample set`);
+    assert.ok(HOURS.includes(r.hour), `${s.name}: the hour ${r.hour}`);
+    for (const step of s.steps || []) {
+      if (step.startsWith('look:')) assert.equal(kinds[step.slice(5)].look, true, `${s.name}: ${step} is a looked kind`);
+      else assert.ok(/^(choice|info):\d$/.test(step) || ['yes', 'alt'].includes(step), step);
+    }
+  }
+  assert.deepEqual(s6.filter((s) => s.name.startsWith('alt_')).map((s) => devRoute({ hash: s.hash, debug: true, trail: true }).hour), ['day', 'day', 'dusk', 'blue', 'night'], "the alt Look's every hour line");
+  assert.equal(s6.find((s) => s.name === 'compass_rest').quick, true, 'shot at once, before the outcome');
+  // The batches meet the trail's scenarios in this order: S5's five, then S6's.
+  const b005 = batchLines(readText(ROOT), 'B005').lines;
+  assert.deepEqual(batchScenarios(b005).map((s) => s.name), SCREEN_SCENARIOS.trail.map((s) => s.name));
+});
+
 test("a batch's scenarios and badges: each screen's scenarios in order, each line badged once where it first shows, numbered by its place in the batch", () => {
   const lines = [
     { n: 1, id: 'trail.walk_on', screen: 'trail' },
@@ -100,7 +187,8 @@ test("a batch's scenarios and badges: each screen's scenarios in order, each lin
   const scs = batchScenarios(lines);
   assert.deepEqual(
     scs.map((s) => `${s.screen}:${s.name}`),
-    ['trail:deer_lake', 'trail:rim', 'trail:sound_off', 'trail:menu', 'trail:frame_fixture', 'guestbook:guestbook'],
+    // S6 (track D): the fork's scenarios follow S5's five on the trail.
+    ['trail:deer_lake', 'trail:rim', 'trail:sound_off', 'trail:menu', 'trail:frame_fixture', ...SCREEN_SCENARIOS.trail.slice(5).map((s) => `trail:${s.name}`), 'guestbook:guestbook'],
     'a screen with no scenario (credits) has none: its lines get mocks',
   );
   const claimed = new Set();

@@ -1,0 +1,28 @@
+{
+ "$comment": "content/art/hotspots.json: the Look hotspots by kind (BUILD_PLAN S6; GAME_DESIGN 12.1, 11.8). A kind is looked (its lines look.<kind> and look.name.<kind>) or silent (a tap there shows the picture's alt text), with its reason. Read by tools/looks.mjs for lint P15 (J01: this schema) and by tools/build.mjs compileArt, which ships {kind: looked}.",
+ "type": "object",
+ "required": ["kinds"],
+ "additionalProperties": false,
+ "properties": {
+  "$comment": { "type": "string" },
+  "kinds": {
+   "type": "object",
+   "additionalProperties": {
+    "oneOf": [
+     {
+      "type": "object",
+      "required": ["look"],
+      "additionalProperties": false,
+      "properties": { "look": { "const": true }, "doc": { "type": "string", "minLength": 1 } }
+     },
+     {
+      "type": "object",
+      "required": ["look", "why"],
+      "additionalProperties": false,
+      "properties": { "look": { "const": false }, "why": { "type": "string", "minLength": 1 } }
+     }
+    ]
+   }
+  }
+ }
+}

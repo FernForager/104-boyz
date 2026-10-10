@@ -1,8 +1,14 @@
 {
- "$comment": "The trail's stops (GAME_DESIGN 12.1, 12.2): S3's two sample stops at the Sol Duc trailhead and the button between stops; S5's sample stops at Deer Lake and the rim, and the trail frame's chrome (the status line, the caption, the toolbar, the (i) square; the strip's mile is a number format, fmt.mile_marker). S15a's tailgate and S9's cards replace the sample stops. Drafts until B004 is answered; preview only.",
+ "$comment": "The trail's stops (GAME_DESIGN 12.1, 12.2): S3's two sample stops at the Sol Duc trailhead and the button between stops; S5's sample stops at Deer Lake and the rim, and the trail frame's chrome (the status line, the caption, the toolbar, the (i) square; the strip's mile is a number format, fmt.mile_marker); S6's sample fork at the rim, its outcomes, and the odds' words: the tags, the confirm, the intros (8.7), the Why sheet (12.11), the compass's spoken result (8.8), the outcome's ornaments and pencil rows (12.13). S15a's tailgate and S9's cards replace the sample stops. Drafts until B004 and B005 are answered; preview only.",
  "trail.walk_on": {
   "text": "Walk on",
   "ctx": "Every trail stop's button to the next stop (GAME_DESIGN 12.1)",
+  "screen": "trail",
+  "max": 22
+ },
+ "trail.next": {
+  "text": "Next",
+  "ctx": "The death box's one button, in place of Walk on (GAME_DESIGN 9.5, 12.17: DRAFT Next); from S24a it leads to YOU PERISHED, and in S6's stand-in to the guest book",
   "screen": "trail",
   "max": 22
  },
@@ -19,8 +25,8 @@
   "max": 140
  },
  "trail.deer_lake_rim.deer_lake": {
-  "text": "You come out of the trees at a still lake ringed with firs. It is the last sure water before the crest.",
-  "ctx": "S5's sample stop at Deer Lake, the first lake on the climb to the High Divide (GAME_DESIGN 4.3: the last sure water before the dry crest)",
+  "text": "A still lake ringed with firs: the last sure water before the crest. Clouds are building over the Divide.",
+  "ctx": "S5's sample stop at Deer Lake, the first lake on the climb to the High Divide (GAME_DESIGN 4.3: the last sure water before the dry crest); from S6 it also names the storm the fork's diamond prices (9.5: a danger that can kill is named at an earlier stop)",
   "screen": "trail",
   "max": 140
  },
@@ -77,5 +83,311 @@
   "ctx": "The (i) square's spoken name: it opens the Why sheet behind a choice's odds (12.1, 12.11)",
   "screen": "trail",
   "max": 12
+ },
+ "trail.look.group": {
+  "text": "Look",
+  "ctx": "VoiceOver's name for the picture's Look buttons, as a group (12.1, 12.2: tap the picture to Look)",
+  "screen": "trail",
+  "max": 12
+ },
+ "trail.box.more": {
+  "text": "More",
+  "ctx": "The spoken name of the box's continuation mark, in its corner when its words go on in a second box (12.1: never a scroll)",
+  "screen": "trail",
+  "max": 8
+ },
+ "trail.deer_lake_rim.fork": {
+  "text": "Thunder rolls along the Divide, early. The stone staircase drops into the basin; the crest runs on, open to the sky.",
+  "ctx": "S6's sample fork at the rim of the Seven Lakes Basin: the storm has come early (GAME_DESIGN B.6, 12.12), and the three choices are below",
+  "screen": "trail",
+  "max": 140
+ },
+ "trail.deer_lake_rim.fork.high": {
+  "text": "Stay high",
+  "ctx": "The fork's diamond: on along the open crest past Bogachiel Peak to Heart Lake, in the storm (B.6). Fits the SE with its tag",
+  "screen": "trail",
+  "max": 22
+ },
+ "trail.deer_lake_rim.fork.basin": {
+  "text": "Through the basin",
+  "ctx": "The fork's %: down the stone staircase into the basin, to Lunch Lake (B.3)",
+  "screen": "trail",
+  "max": 22
+ },
+ "trail.deer_lake_rim.fork.car": {
+  "text": "Back to the car",
+  "ctx": "The fork's sure choice: back down the way you came, to the Sol Duc trailhead (6.9 mi)",
+  "screen": "trail",
+  "max": 22
+ },
+ "trail.deer_lake_rim.fork.high.fail": {
+  "text": "hit",
+  "ctx": "The diamond's fail word on its second line, in red: 35% hit (lightning hits close). Must fit the SE's line (T02c)",
+  "screen": "trail",
+  "max": 6
+ },
+ "trail.deer_lake_rim.fork.high.badly": {
+  "text": "If it goes badly: lightning hits close, on the highest ground for miles.",
+  "ctx": "Why sheet: what the fail band means for Stay high (12.11, 8.7)",
+  "screen": "trail",
+  "max": 100
+ },
+ "trail.deer_lake_rim.fork.basin.badly": {
+  "text": "If it goes badly: a slip on the stairs. A bruise, at worst a turned ankle.",
+  "ctx": "Why sheet: what the fail band means for the staircase",
+  "screen": "trail",
+  "max": 100
+ },
+ "trail.deer_lake_rim.fork.high.clean": {
+  "text": "The storm walks off north along the ridges and leaves you the crest. You come down to Heart Lake with your hair still on end.",
+  "ctx": "Outcome: Stay high, clean (good): Heart Lake about 4:26 pm (12.13)",
+  "screen": "trail",
+  "max": 140
+ },
+ "trail.deer_lake_rim.fork.high.shaky": {
+  "text": "You spend twenty long minutes crouched in the krummholz while the sky argues with itself. Then it moves on, and so do you.",
+  "ctx": "Outcome: Stay high, shaky (a mishap, +20 min): Heart Lake about 4:46 pm",
+  "screen": "trail",
+  "max": 140
+ },
+ "trail.deer_lake_rim.fork.high.struck": {
+  "text": "Lightning hits the ridge a stone's throw away. You come to on the trail, ears ringing, and go down off the crest.",
+  "ctx": "Outcome: Stay high, fail, survived (Serious): on the crest at the High Divide junction",
+  "screen": "trail",
+  "max": 140
+ },
+ "trail.deer_lake_rim.fork.high.fatal": {
+  "text": "The Divide is the tallest thing for some distance. This afternoon the storm comes to see the view as well.",
+  "ctx": "S6's stand-in death box (S24a builds the five screens; Appendix D 18b): its one button is Next, and a new hiker signs the guest book",
+  "screen": "trail",
+  "max": 140
+ },
+ "trail.deer_lake_rim.fork.basin.clean": {
+  "text": "You go down the stone staircase as the first drops fall and sit out the thunder at Lunch Lake, with a jay for company.",
+  "ctx": "Outcome: the basin, clean (good): Lunch Lake about 2:31 pm",
+  "screen": "trail",
+  "max": 140
+ },
+ "trail.deer_lake_rim.fork.basin.shaky": {
+  "text": "A boot skates on a wet step and you sit down hard. Nothing breaks but your dignity, which was never waterproof.",
+  "ctx": "Outcome: the basin, shaky (a mishap, +10 min)",
+  "screen": "trail",
+  "max": 140
+ },
+ "trail.deer_lake_rim.fork.basin.slip": {
+  "text": "You slide three steps on the seat of your pants. Finding your hat takes longer than the fall did.",
+  "ctx": "Outcome: the basin, fail, a slip (rung 1, +15 min)",
+  "screen": "trail",
+  "max": 140
+ },
+ "trail.deer_lake_rim.fork.basin.sprain": {
+  "text": "Your ankle rolls on the last step. You limp down to Lunch Lake to wait out the storm, and the ankle.",
+  "ctx": "Outcome: the basin, fail, a turned ankle (rung 2, +30 min)",
+  "screen": "trail",
+  "max": 140
+ },
+ "trail.deer_lake_rim.fork.car.out": {
+  "text": "You turn your back on the storm and take the long way down. The thunder follows you as far as Deer Lake, then loses interest.",
+  "ctx": "Outcome: back to the car (sure, good): the Sol Duc trailhead about 5:42 pm",
+  "screen": "trail",
+  "max": 140
+ },
+ "trail.odds.sure": {
+  "text": "sure",
+  "ctx": "A sure choice's tag, on the right of its button: no roll, nothing here can hurt the hiker (8.1)",
+  "screen": "trail",
+  "max": 8
+ },
+ "trail.odds.fail": {
+  "text": "{share} {what}",
+  "ctx": "A diamond's fail share on its second line, in red: {share} is the share (fmt.pct), {what} the card's fail word (35% hit; 8.1, 12.2)",
+  "screen": "trail",
+  "max": 14
+ },
+ "trail.odds.fatal": {
+  "text": "{share} fatal",
+  "ctx": "The fatal share, in red, after the fail share (0.7% fatal; 8.1, 8.7): rounded up, toward danger, and never 0",
+  "screen": "trail",
+  "max": 12
+ },
+ "trail.odds.diamond": {
+  "text": "Critical",
+  "ctx": "The red diamond's spoken name (VoiceOver), read with a diamond choice's label and odds (8.1)",
+  "screen": "trail",
+  "max": 12
+ },
+ "trail.confirm.ask": {
+  "text": "{choice}?",
+  "ctx": "A diamond's confirm, in place of its button, when it can't kill: {choice} is its label (12.1)",
+  "screen": "trail",
+  "max": 24
+ },
+ "trail.confirm.fatal": {
+  "text": "This could be fatal.",
+  "ctx": "A diamond's confirm when it carries a fatal share (12.1, 8.7)",
+  "screen": "trail",
+  "max": 24
+ },
+ "trail.confirm.yes": {
+  "text": "Yes",
+  "ctx": "The confirm's yes: the diamond is taken, and the compass spins (12.1, 8.8)",
+  "screen": "trail",
+  "max": 6
+ },
+ "trail.confirm.no": {
+  "text": "Not yet",
+  "ctx": "The confirm's way back: the button comes back as it was (12.1)",
+  "screen": "trail",
+  "max": 8
+ },
+ "trail.odds.intro.pct": {
+  "text": "The number is the chance this goes all right. The (i) shows the arithmetic.",
+  "ctx": "The first % a player ever sees, one dry line before the box (8.7); the phone remembers it was shown",
+  "screen": "trail",
+  "max": 100
+ },
+ "trail.odds.intro.diamond": {
+  "text": "A red diamond: this one could go badly wrong. The red number says how often.",
+  "ctx": "The first diamond (8.7)",
+  "screen": "trail",
+  "max": 100
+ },
+ "trail.odds.intro.fatal": {
+  "text": "'Fatal' means your hiker would die here, for good. There is always another way: look for 'sure'.",
+  "ctx": "The first fatal share; the sure choice beside it is outlined (8.7)",
+  "screen": "trail",
+  "max": 110
+ },
+ "trail.odds.intro.sure": {
+  "text": "'Sure' means nothing here can hurt you. It may cost time, or the trip.",
+  "ctx": "The first sure tag (8.7 names it and gives no draft)",
+  "screen": "trail",
+  "max": 100
+ },
+ "trail.why.title": {
+  "text": "Why these odds",
+  "ctx": "The Why sheet's title (12.11): the bottom sheet behind a choice's (i), or a long press on it",
+  "screen": "trail",
+  "max": 20
+ },
+ "trail.why.clean": {
+  "text": "Clean",
+  "ctx": "The Why sheet's clean-chance row: p, the base and its modifiers, clamped 5 to 97 (8.5)",
+  "screen": "trail",
+  "max": 16
+ },
+ "trail.why.made": {
+  "text": "You make it",
+  "ctx": "The Why sheet's made-it row: clean plus shaky, the number on the button (8.8)",
+  "screen": "trail",
+  "max": 16
+ },
+ "trail.why.bands": {
+  "text": "clean {clean} · shaky {shaky} · fail {fail}",
+  "ctx": "The three-band bar's legend (8.8): the bands' widths in points",
+  "screen": "trail",
+  "max": 48
+ },
+ "trail.why.fatal": {
+  "text": "Fatal: {fail} x {band} x {death} = {exact}, shown {fatal}",
+  "ctx": "The fatal share's arithmetic (8.8): the fail share, the fatal band's share of the fails, the death roll, the exact product, and as shown, rounded up",
+  "screen": "trail",
+  "max": 64
+ },
+ "trail.why.route": {
+  "text": "{place} about {time}, {dist}",
+  "ctx": "Where a choice goes and when, from the router (7.4 with breaks): Heart Lake about 4:26 pm, 3.4 mi",
+  "screen": "trail",
+  "max": 48
+ },
+ "trail.why.exposed": {
+  "text": "On the open crest until about {time}",
+  "ctx": "How long a choice's way stays on the open crest (B.6: about 2:00 to 4:10)",
+  "screen": "trail",
+  "max": 44
+ },
+ "trail.why.close": {
+  "text": "Close",
+  "ctx": "The Why sheet's button (12.11)",
+  "screen": "trail",
+  "max": 8
+ },
+ "trail.why.crest_storm": {
+  "text": "Open crest, thunderstorm",
+  "ctx": "A Why-sheet row: the base for staying on an exposed crest in a thunderstorm (content/rules/odds.json, B.6, 9.5)",
+  "screen": "trail",
+  "max": 28
+ },
+ "trail.why.staircase": {
+  "text": "The stone staircase, dry",
+  "ctx": "A Why-sheet row: the base for the stone staircase on dry rock (B.3)",
+  "screen": "trail",
+  "max": 28
+ },
+ "trail.why.skill_footing": {
+  "text": "Footing skill (level {level})",
+  "ctx": "A Why-sheet row: the footing skill's modifier at the hiker's level, +2 a level (8.5; 12.11's River skill (level 1))",
+  "screen": "trail",
+  "max": 28
+ },
+ "trail.compass.landed": {
+  "text": "The needle stops in {band}.",
+  "ctx": "The compass's result, spoken (a live region; the needle rests inside the band, never on the roll, 8.8): {band} is a band's name",
+  "screen": "trail",
+  "max": 40
+ },
+ "trail.band.clean": {
+  "text": "clean",
+  "ctx": "A band's name: the compass's moss band, and the legend's (8.8)",
+  "screen": "trail",
+  "max": 8
+ },
+ "trail.band.shaky": {
+  "text": "shaky",
+  "ctx": "A band's name: the compass's pink band (made it, at a small cost)",
+  "screen": "trail",
+  "max": 8
+ },
+ "trail.band.fail": {
+  "text": "fail",
+  "ctx": "A band's name: the compass's brick band (it goes badly)",
+  "screen": "trail",
+  "max": 8
+ },
+ "trail.band.fatal": {
+  "text": "the black",
+  "ctx": "The fatal sliver at the far end of the brick band, spoken (8.8)",
+  "screen": "trail",
+  "max": 12
+ },
+ "trail.outcome.good": {
+  "text": "Good",
+  "ctx": "The green fern ornament's spoken name, under an outcome's box (12.13)",
+  "screen": "trail",
+  "max": 10
+ },
+ "trail.outcome.mishap": {
+  "text": "A mishap",
+  "ctx": "The brown twig ornament's spoken name (12.13: a mishap or setback)",
+  "screen": "trail",
+  "max": 10
+ },
+ "trail.outcome.serious": {
+  "text": "Serious",
+  "ctx": "The red diamond ornament's spoken name (12.13: serious or trip-ending)",
+  "screen": "trail",
+  "max": 10
+ },
+ "trail.pencil.arrive": {
+  "text": "{place} at {time}",
+  "ctx": "A pencil row under an outcome's box (12.13): where you got to, and when",
+  "screen": "trail",
+  "max": 36
+ },
+ "trail.pencil.time": {
+  "text": "Time +{delta}",
+  "ctx": "A pencil row: the time a band cost (12.13's Time -30m)",
+  "screen": "trail",
+  "max": 16
  }
 }

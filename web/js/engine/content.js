@@ -10,11 +10,16 @@
 // closure by the syntax tree's identity. The cache is not state. From S4 a
 // build may ship the park section (rules.park, the M1a slice of the graph,
 // when a screen that shows it is in the channel); park() hands it to
-// graph.js's buildGraph, or is null.
+// graph.js's buildGraph, or is null. From S6 a build with the trail ships
+// the park (the router times its walks: graph() builds its graph once, a
+// closure cache like the expressions', never state) and the odds
+// (rules.odds, content/rules/odds.json; odds() hands them over, and
+// oddsVoice() their row labels from voice.json).
 
 import { EngineError } from './error.js';
 import { deepFreeze } from './canon.js';
 import { compile } from './expr.js';
+import { buildGraph } from './graph.js';
 
 /** The rules hash: 12 lowercase hex (tools/rules.mjs). */
 export const RULES_HASH_RE = /^[0-9a-f]{12}$/;
@@ -32,6 +37,9 @@ export const RULES_HASH_RE = /^[0-9a-f]{12}$/;
  * @property {(set: string, stop: string) => any} voice a stop's display data ({box, labels}), or null
  * @property {(ast: any[]) => import('./expr.js').Compiled} expr the compiled closure for a syntax tree
  * @property {() => import('./graph.js').Park | null} park the park section (rules.park, S4), or null when the build ships none
+ * @property {() => import('./graph.js').Graph | null} graph the park's graph, built once (S6), or null with no park
+ * @property {() => import('./odds.js').OddsConstants | null} odds the odds section (rules.odds, S6), or null
+ * @property {() => import('./odds.js').OddsLabels | null} oddsVoice the odds' row labels (voice.odds, S6), or null
  */
 
 const own = (/** @type {any} */ o, /** @type {string} */ k) => o !== null && typeof o === 'object' && Object.prototype.hasOwnProperty.call(o, k);
@@ -67,6 +75,14 @@ export function loadContent({ rules, voice, rulesHash }) {
     const ok = park && park.format === 1 && park.nodes && typeof park.nodes === 'object' && park.segs && typeof park.segs === 'object' && park.loops && typeof park.loops === 'object' && park.movement && typeof park.movement === 'object';
     if (!ok) throw new EngineError('format', 'content: rules.park is not a park, format 1');
   }
+  const odds = own(rules, 'odds') ? rules.odds : null;
+  if (own(rules, 'odds')) {
+    const ok = odds && odds.format === 1 && Array.isArray(odds.clamp) && odds.clamp.length === 2 && odds.bases && typeof odds.bases === 'object' && Number.isSafeInteger(odds.shaky_cap) && Number.isSafeInteger(odds.skill_per_level);
+    if (!ok) throw new EngineError('format', 'content: rules.odds is not the odds, format 1');
+  }
+  const oddsVoice = own(voice, 'odds') ? voice.odds : null;
+  /** @type {import('./graph.js').Graph | null} */
+  let graph = null;
   const planIds = Object.keys(plans).sort((a, b) => (a < b ? -1 : a > b ? 1 : 0));
   const vstops = (voice.stops || {});
   /** @type {Map<any, import('./expr.js').Compiled>} */
@@ -85,6 +101,12 @@ export function loadContent({ rules, voice, rulesHash }) {
     },
     voice: (/** @type {string} */ set, /** @type {string} */ stop) => (own(vstops, set) && own(vstops[set], stop) ? vstops[set][stop] : null),
     park: () => park,
+    graph: () => {
+      if (!graph && park) graph = buildGraph(park);
+      return graph;
+    },
+    odds: () => odds,
+    oddsVoice: () => oddsVoice,
     expr: (/** @type {any[]} */ ast) => {
       let f = cache.get(ast);
       if (!f) {

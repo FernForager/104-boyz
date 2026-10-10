@@ -24,6 +24,14 @@
 // and <out>/<set>/manifest.json (the engine and its version, the sizes,
 // the build id, the files).
 //
+// --set s6: main's title page at / (decision 68's lighter cover; main has
+// no debug mode, so no menu to close), and palette A's Deer Lake and rim at
+// all four hours, the picture in its mat (S6 track A); then (track C) the
+// fork by day and at night, on the SE with its first intro continuing (▾),
+// its confirm, the Why sheet for each roll, the compass at rest, each
+// outcome (on the 17), a Look and the alt Look, the fork in Plain, and the
+// #frame view's four-choice fixture.
+//
 // --batch B004 (and tools/text.mjs batch --shots, through shootBatch): each
 // screen the batch's lines are on is shot in its scenarios, in order; each
 // scenario reads every [data-t] and [data-t-aria] element's box, numbers
@@ -46,6 +54,8 @@ import { existsSync, mkdirSync, rmSync, writeFileSync } from 'node:fs';
 import { join, relative } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { ROOT } from './pics.mjs';
+import { INTRO_FORMS } from '../web/js/ui/choices.js';
+import { FIXTURES } from '../web/js/ui/frame.js';
 
 /** The Playwright release the sessions and shots.yml use. */
 export const PLAYWRIGHT_VERSION = '1.56.1';
@@ -77,13 +87,24 @@ export const SCENE_HOURS = Object.freeze(['day', 'dusk', 'blue', 'night']);
  * @property {string} name a file name's part
  * @property {string} screen the screen it shows (a line's screen, for batches)
  * @property {string} hash the dev route: #stop=..., #frame, or '' for the game's own first screen
- * @property {string[]} [steps] taps after it settles: menu (≡), sound (Sound:on), pic:<id> and hour:<h> (the #frame pickers)
+ * @property {string[]} [steps] taps after it settles: menu (≡), sound (Sound:on), pic:<id>, hour:<h> and
+ *   fixture:<id> (the #frame pickers); S6: choice:<n> and info:<n> (the nth choice, the nth (i)), yes (the
+ *   confirm's), look:<kind> (a Look button), alt (the picture off every Look)
+ * @property {boolean} [quick] shoot at once after the last step (the compass rests 600 ms before the outcome)
  * @property {string[]} [sizes] only these sizes (default: all)
  * @property {Record<string, unknown>} [store] preview's saved choices to start with (name -> value), e.g. {text: 'plain'}
+ * @property {string} [page] the page to open, if not PAGE: '/' is main's title page (S6)
  */
+
+/** The page a scenario opens. @param {Scenario} sc */
+export const pageOf = (sc) => sc.page ?? PAGE;
 
 /** @param {string} stop @param {string} hour */
 const stopHash = (stop, hour) => `#stop=${SET}.${stop}&hour=${hour}`;
+/** Every odds form a player can have been introduced to: a shot with them all seen shows no intro. */
+export const ODDS_FORMS = INTRO_FORMS;
+/** The sample fork's outcome stops (content/stops/deer_lake_rim.json). */
+export const OUTCOMES = Object.freeze(['high_clean', 'high_shaky', 'high_struck', 'high_fatal', 'basin_clean', 'basin_shaky', 'basin_slip', 'basin_sprain', 'car_out']);
 
 /** The named sets. @type {Readonly<Record<string, readonly Scenario[]>>} */
 export const SETS = Object.freeze({
@@ -95,6 +116,27 @@ export const SETS = Object.freeze({
     { name: 'high_divide_dusk', screen: 'trail', hash: '#frame', steps: ['pic:high_divide', 'hour:dusk'] },
     { name: 'menu_fold', screen: 'trail', hash: stopHash('deer_lake', 'day'), steps: ['menu'], sizes: ['se'] },
     { name: 'plain_text', screen: 'trail', hash: stopHash('deer_lake', 'day'), store: { text: 'plain' } },
+  ]),
+  s6: Object.freeze([
+    { name: 'title_main', screen: 'title', hash: '', page: '/' },
+    ...SCENE_HOURS.map((h) => ({ name: `deer_lake_${h}`, screen: 'trail', hash: stopHash('deer_lake', h) })),
+    ...SCENE_HOURS.map((h) => ({ name: `rim_${h}`, screen: 'trail', hash: stopHash('rim', h) })),
+    // Track C (and the fork's states): the fork with its intros seen, by day and at night; on the SE with its
+    // first intro, the fatal one, so its box continues (▾); the confirm; the Why sheet for each roll; the
+    // compass at rest (Reduce Motion is on here); each outcome; a Look, the alt Look; the fork in Plain; the
+    // check view's four-choice fixture (the 15's budget), its box continuing.
+    ...['day', 'night'].map((h) => ({ name: `fork_${h}`, screen: 'trail', hash: stopHash('fork', h), store: { odds_seen: ODDS_FORMS } })),
+    { name: 'fork_more', screen: 'trail', hash: stopHash('fork', 'day'), sizes: ['se'] },
+    { name: 'fork_confirm', screen: 'trail', hash: stopHash('fork', 'day'), store: { odds_seen: ODDS_FORMS }, steps: ['choice:0'] },
+    { name: 'why_high', screen: 'trail', hash: stopHash('fork', 'day'), store: { odds_seen: ODDS_FORMS }, steps: ['info:0'] },
+    { name: 'why_basin', screen: 'trail', hash: stopHash('fork', 'day'), store: { odds_seen: ODDS_FORMS }, steps: ['info:1'] },
+    { name: 'compass_rest', screen: 'trail', hash: stopHash('fork', 'day'), store: { odds_seen: ODDS_FORMS }, steps: ['choice:0', 'yes'], quick: true },
+    ...OUTCOMES.map((o) => ({ name: `outcome_${o}`, screen: 'trail', hash: stopHash(o, 'day'), sizes: ['17'] })),
+    { name: 'look_privy', screen: 'trail', hash: stopHash('deer_lake', 'day'), steps: ['look:privy'] },
+    { name: 'look_lunch_lake', screen: 'trail', hash: stopHash('rim', 'day'), steps: ['look:lunch_lake'] },
+    { name: 'look_alt', screen: 'trail', hash: stopHash('deer_lake', 'night'), steps: ['alt'] },
+    { name: 'fork_plain', screen: 'trail', hash: stopHash('fork', 'day'), store: { odds_seen: ODDS_FORMS, text: 'plain' } },
+    { name: 'frame_four', screen: 'trail', hash: '#frame', steps: ['fixture:four'] },
   ]),
 });
 
@@ -111,6 +153,29 @@ export const SCREEN_SCENARIOS = Object.freeze({
     { name: 'sound_off', screen: 'trail', hash: stopHash('deer_lake', 'day'), steps: ['sound'] },
     { name: 'menu', screen: 'trail', hash: stopHash('deer_lake', 'day'), steps: ['menu'] },
     { name: 'frame_fixture', screen: 'trail', hash: '#frame' },
+    // S6 (track D): the fork and what follows it, so a batch shows the fork's lines where a player meets them
+    // rather than as mocks: the fork with each odds intro in its turn (one a stop, the most serious unseen
+    // first, so each shot has seen the ones before it), the confirm, each Why sheet, the compass at rest,
+    // every outcome, each looked kind's Look where it is drawn, and the picture's alt Look at each hour.
+    ...INTRO_FORMS.map((f, k) => ({ name: `fork_intro_${f}`, screen: 'trail', hash: stopHash('fork', 'day'), store: { odds_seen: INTRO_FORMS.slice(0, k) } })),
+    { name: 'fork_confirm', screen: 'trail', hash: stopHash('fork', 'day'), store: { odds_seen: INTRO_FORMS }, steps: ['choice:0'] },
+    { name: 'why_high', screen: 'trail', hash: stopHash('fork', 'day'), store: { odds_seen: INTRO_FORMS }, steps: ['info:0'] },
+    { name: 'why_basin', screen: 'trail', hash: stopHash('fork', 'day'), store: { odds_seen: INTRO_FORMS }, steps: ['info:1'] },
+    { name: 'compass_rest', screen: 'trail', hash: stopHash('fork', 'day'), store: { odds_seen: INTRO_FORMS }, steps: ['choice:0', 'yes'], quick: true },
+    ...OUTCOMES.map((o) => ({ name: `outcome_${o}`, screen: 'trail', hash: stopHash(o, 'day') })),
+    ...[
+      ['deer_lake', 'lake'],
+      ['deer_lake', 'ridge'],
+      ['deer_lake', 'privy'],
+      ['deer_lake', 'hiker'],
+      ['rim', 'basin'],
+      ['rim', 'lunch_lake'],
+      ['rim', 'staircase'],
+      ['rim', 'bogachiel_peak'],
+      ['rim', 'sign'],
+    ].map(([stop, kind]) => ({ name: `look_${kind}`, screen: 'trail', hash: stopHash(stop, 'day'), steps: [`look:${kind}`] })),
+    ...['rim', 'deer_lake'].map((stop) => ({ name: `alt_${stop}`, screen: 'trail', hash: stopHash(stop, 'day'), steps: ['alt'] })),
+    ...SCENE_HOURS.slice(1).map((h) => ({ name: `alt_${h}`, screen: 'trail', hash: stopHash('deer_lake', h), steps: ['alt'] })),
   ]),
   guestbook: Object.freeze([{ name: 'guestbook', screen: 'guestbook', hash: '' }]),
 });
@@ -296,20 +361,35 @@ async function openPage(browser, size, sc) {
  * @param {Scenario} sc
  */
 async function settle(page, base, sc) {
-  await page.goto(`${base}${PAGE}${sc.hash}`, { waitUntil: 'load' });
-  // ?debug=1 opens the debug menu; close it (Escape, as its own handler does).
-  await page.waitForSelector('.scrim.debug:not([hidden])', { timeout: 5000 }).catch(() => null);
-  await page.keyboard.press('Escape');
-  const ready = sc.hash === '#frame' ? '#frame-sheet .status-line' : sc.hash ? '.frame .status-line' : '#gb-name, .frame .status-line';
+  const at = pageOf(sc);
+  await page.goto(`${base}${at}${sc.hash}`, { waitUntil: 'load' });
+  if (at.includes('debug=1')) {
+    // ?debug=1 opens the debug menu; close it (Escape, as its own handler does).
+    await page.waitForSelector('.scrim.debug:not([hidden])', { timeout: 5000 }).catch(() => null);
+    await page.keyboard.press('Escape');
+  }
+  // The title page is ready when its cover has drawn in; the game's screens when their frame or the guest book shows.
+  const ready = sc.screen === 'title' ? '.plate:not(.drawing)' : sc.hash === '#frame' ? '#frame-sheet .status-line' : sc.hash ? '.frame .status-line' : '#gb-name, .frame .status-line';
   await page.waitForSelector(ready, { timeout: 15000 });
   await page.evaluate(() => document.fonts.ready.then(() => undefined));
   await page.waitForTimeout(400);
-  for (const step of sc.steps || []) {
+  const steps = sc.steps || [];
+  for (const [k, step] of steps.entries()) {
     if (step === 'menu') await page.click('.status-menu');
     else if (step === 'sound') await page.click('.status-sound');
     else if (step.startsWith('pic:')) await page.locator('.scenes-pics button', { hasText: new RegExp(`^${step.slice(4)}$`) }).click();
     else if (step.startsWith('hour:')) await page.locator('.scenes-hours button').nth(SCENE_HOURS.indexOf(step.slice(5))).click();
-    else throw new Error(`shots: no step "${step}"`);
+    else if (step.startsWith('fixture:')) await page.locator('.scenes-fixtures button').nth(FIXTURES.indexOf(step.slice(8))).click();
+    else if (step.startsWith('choice:')) await page.locator('.frame .choice').nth(Number(step.slice(7))).click();
+    else if (step.startsWith('info:')) await page.locator('.frame .choice-info').nth(Number(step.slice(5))).click();
+    else if (step === 'yes') await page.click('.confirm-yes');
+    else if (step.startsWith('look:')) await tapLook(page, step.slice(5));
+    else if (step === 'alt') {
+      // The picture's top left corner: sky, off every Look.
+      const r = await page.locator('.frame canvas.picture').boundingBox();
+      await page.mouse.click(r.x + 2, r.y + 2);
+    } else throw new Error(`shots: no step "${step}"`);
+    if (sc.quick && k === steps.length - 1) return;
     await page.waitForTimeout(300);
   }
   // A tap on a picker scrolls the check view; the picture is of its top.
@@ -320,6 +400,31 @@ async function settle(page, base, sc) {
   });
   await page.evaluate(() => document.fonts.ready.then(() => undefined));
   await page.waitForTimeout(300);
+}
+
+/**
+ * Tap a Look where a player can: the first point of its button, row by row
+ * from its center, that no smaller Look stacked over it covers (the basin's
+ * center is Lunch Lake's). With none, the button itself is pressed, as
+ * VoiceOver does.
+ * @param {any} page
+ * @param {string} kind
+ */
+async function tapLook(page, kind) {
+  const sel = `.look[data-kind="${kind}"]`;
+  await page.waitForSelector(sel, { timeout: 5000 });
+  const at = await page.evaluate((s) => {
+    const b = /** @type {HTMLElement} */ (document.querySelector(s));
+    const r = b.getBoundingClientRect();
+    const cx = r.left + r.width / 2;
+    const cy = r.top + r.height / 2;
+    const pts = [];
+    for (let j = 0; j <= 8; j++) for (let i = 0; i <= 8; i++) pts.push([r.left + ((i + 0.5) * r.width) / 9, r.top + ((j + 0.5) * r.height) / 9]);
+    pts.sort((p, q) => Math.hypot(p[0] - cx, p[1] - cy) - Math.hypot(q[0] - cx, q[1] - cy));
+    return pts.find(([x, y]) => document.elementFromPoint(x, y) === b) || null;
+  }, sel);
+  if (at) await page.mouse.click(at[0], at[1]);
+  else await page.locator(sel).evaluate((b) => /** @type {HTMLElement} */ (b).click());
 }
 
 /**

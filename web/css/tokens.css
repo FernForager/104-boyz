@@ -12,28 +12,31 @@
 }
 
 :root {
-  --c0: #1b1f2a;  /* ink */
-  --c1: #24324a;  /* night navy */
-  --c2: #3f5a7a;  /* slate */
-  --c3: #8fb3c9;  /* glacier blue */
+  --c0: #343945;  /* ink */
+  --c1: #394862;  /* night navy */
+  --c2: #4d698a;  /* slate */
+  --c3: #93b7cd;  /* glacier blue */
   --c4: #f2efe6;  /* snow */
-  --c5: #e8d9b5;  /* paper cream */
-  --c6: #e09a8a;  /* alpenglow pink */
-  --c7: #e8b33a;  /* bonfire gold: the lily only */
-  --c8: #c4602d;  /* rust: never carries text */
-  --c9: #8a3b2a;  /* brick */
-  --c10: #5a3d2b; /* bark */
-  --c11: #1f3b33; /* spruce */
-  --c12: #2f5b45; /* forest */
-  --c13: #6b8a4a; /* moss */
-  --c14: #a7b88a; /* sage */
-  --c15: #3f7f7a; /* teal */
+  --c5: #e9dab6;  /* paper cream */
+  --c6: #e49d8d;  /* alpenglow pink */
+  --c7: #ebb53d;  /* bonfire gold: the lily only */
+  --c8: #ce6937;  /* rust: never carries text */
+  --c9: #9b4a39;  /* brick */
+  --c10: #6d4f3d; /* bark */
+  --c11: #345148; /* spruce */
+  --c12: #3f6c55; /* forest */
+  --c13: #749353; /* moss */
+  --c14: #aabb8d; /* sage */
+  --c15: #4a8a85; /* teal */
 
   --ink: var(--c0);
   --page: var(--c0);
   --paper: var(--c5);
   --box-fill: var(--c4);
   --box-border: var(--c9);
+  /* The scrim under a sheet: ink at 72%, so the page shows through dimmed.
+     Its rgb() is slot 0's, which the palette test holds. */
+  --scrim: rgb(52 57 69 / 0.72);
 
   /* One device pixel, in CSS px. Borders are whole device pixels. */
   --dp: 1px;

@@ -5,7 +5,10 @@
 // all of it is hashed (save.js tripHash):
 //   {v, mode, rule, seed, plan, profile, phase, set, stop, n, clock,
 //    flags, attempts, end}
-// It never holds the hiker's name. Every function returns a new state and
+// and, only just after a rolled choice (S6), rolled: {stop, c, band}, the
+// stop and choice rolled and the band it landed in (the compass's), which
+// the next move clears; a trip that never rolled hashes as before. It
+// never holds the hiker's name. Every function returns a new state and
 // never mutates its input.
 
 import { EngineError } from './error.js';
@@ -64,7 +67,17 @@ export function startTrip(state, planId, seed, content) {
 }
 
 /**
- * The next stop in the set: n goes up by one.
+ * A trip without its last roll (S6: trip.rolled lasts until the next move).
+ * @param {any} t
+ */
+const unrolled = (t) => {
+  if (!Object.prototype.hasOwnProperty.call(t, 'rolled')) return t;
+  const { rolled, ...rest } = t;
+  return rest;
+};
+
+/**
+ * The next stop in the set: n goes up by one, and the last roll is cleared.
  * @param {any} state
  * @param {import('./content.js').Content} content
  * @param {string} stop
@@ -72,22 +85,25 @@ export function startTrip(state, planId, seed, content) {
 export function moveTo(state, content, stop) {
   const t = state.trip;
   if (!content.stop(t.set, stop)) throw new EngineError('state', 'trip: no such stop in the set');
-  return withTrip(state, { ...t, stop, n: t.n + 1 });
+  return withTrip(state, { ...unrolled(t), stop, n: t.n + 1 });
 }
 
 /**
  * The set's end: the plan's `after`. S3's plans end there ("end"): the
- * trip is over, and the hiker has one more trip.
+ * trip is over, and the hiker has one more trip. A death (S6's stand-in
+ * for S24a's sequence, GAME_DESIGN 9.5) ends it too, and the hiker with
+ * it: the state keeps no hiker, so the guest book asks for a new one.
  * @param {any} state
  * @param {import('./content.js').Content} content
+ * @param {{died?: boolean}} [o]
  */
-export function endOfSet(state, content) {
+export function endOfSet(state, content, { died = false } = {}) {
   const t = state.trip;
   const plan = content.plan(t.plan);
   if (!plan) throw new EngineError('state', 'trip: no such plan');
   if (plan.after !== 'end') throw new EngineError('unbuilt', 'trip: only "end" follows a set in S3');
-  const hiker = state.hiker ? { ...state.hiker, trips: state.hiker.trips + 1 } : state.hiker;
-  return { ...state, hiker, trip: { ...t, end: t.plan } };
+  const hiker = died ? null : state.hiker ? { ...state.hiker, trips: state.hiker.trips + 1 } : state.hiker;
+  return { ...state, hiker, trip: { ...unrolled(t), end: t.plan } };
 }
 
 /**

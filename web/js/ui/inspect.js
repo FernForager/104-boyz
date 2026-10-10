@@ -22,7 +22,10 @@
 // release), so a long press on a choice never commits it, nor lands on the
 // card's scrim, and neither does one that drifted MOVE_PX before the card
 // opened (still a tap to a browser's slop) or one that landed on no line
-// (between two choices, where iOS sends the click to the nearest).
+// (between two choices, where iOS sends the click to the nearest). The
+// gesture is ui/press.js's (S6), shared with a rolled choice's Why sheet:
+// the inspector registers first in rank, so while it listens it owns every
+// long press on words.
 //
 // Its labels are dev words (18.2); the ids, hashes, ctx and words it shows
 // are data. Copy for chat builds its text at once, inside the tap, and
@@ -32,13 +35,12 @@
 
 import { t, tx, wordsOf, lineState } from '../text.js';
 import { copyText, shareText, selectAll } from '../platform/share.js';
+import { onLongPress, PRESS_MS, MOVE_PX, SWALLOW_MS } from './press.js';
 
-/** How long a press opens the card (ms). */
-export const PRESS_MS = 500;
-/** How far the pointer may move during it (CSS px). */
-export const MOVE_PX = 10;
-/** How long after the release the next click is swallowed (ms). */
-export const SWALLOW_MS = 400;
+/** The gesture's numbers (ui/press.js): how long a press opens the card, how far it may move, how long after it the next click is swallowed. */
+export { PRESS_MS, MOVE_PX, SWALLOW_MS };
+/** The inspector's rank among the long presses: above the game's own (ui/press.js). */
+export const INSPECT_RANK = 10;
 /** The attributes that name a line (tools/text.mjs fills; tx(); spoken names set with t()). */
 export const LINE_ATTRS = Object.freeze(['data-t', 'data-t-aria', 'data-t-attr']);
 /** How long the ✓ shows after a copy (as the debug menu's). */
@@ -220,28 +222,8 @@ export function installInspector(doc, { fetchFn = (u) => fetch(u), meta, nav = g
     return m;
   });
 
-  /** @type {{x: number, y: number, timer: ReturnType<typeof setTimeout>, id: string} | null} */
-  let press = null;
-  /** Swallow the next click: 'armed' while the finger is still down, then for SWALLOW_MS after the release. */
-  let swallow = false;
-  /** A primary press's hold, on a line or not and however far it moved: its timer until PRESS_MS, then held. @type {ReturnType<typeof setTimeout> | null} */
-  let holdTimer = null;
-  let held = false;
-  /** @type {ReturnType<typeof setTimeout> | null} */
-  let swallowTimer = null;
   /** @type {HTMLElement | null} */
   let scrim = null;
-
-  const cancel = () => {
-    if (press) clearTimeout(press.timer);
-    press = null;
-  };
-
-  const endHold = () => {
-    if (holdTimer) clearTimeout(holdTimer);
-    holdTimer = null;
-    held = false;
-  };
 
   const close = () => {
     if (scrim && scrim.parentNode) scrim.parentNode.removeChild(scrim);
@@ -303,76 +285,22 @@ export function installInspector(doc, { fetchFn = (u) => fetch(u), meta, nav = g
     return sheet;
   };
 
-  /** @param {PointerEvent} event */
-  const down = (event) => {
-    cancel();
-    if (event.isPrimary === false || (typeof event.button === 'number' && event.button > 0)) return;
-    const target = /** @type {any} */ (event.target);
-    endHold();
-    if (scrim && target && typeof scrim.contains === 'function' && scrim.contains(target)) return; // a press on the card is the card's
-    holdTimer = setTimeout(() => {
-      holdTimer = null;
-      held = true;
-    }, PRESS_MS);
-    const hit = lineAt(target);
-    if (!hit) return;
-    const x = event.clientX || 0;
-    const y = event.clientY || 0;
-    press = {
-      x,
-      y,
-      id: hit.id,
-      timer: setTimeout(() => {
-        const id = hit.id;
-        press = null;
-        swallow = true;
-        metaP.then(() => open(id));
-      }, PRESS_MS),
-    };
-  };
-  /** @param {PointerEvent} event */
-  const move = (event) => {
-    if (!press) return;
-    if (Math.hypot((event.clientX || 0) - press.x, (event.clientY || 0) - press.y) >= MOVE_PX) cancel();
-  };
-  /** @param {PointerEvent} event */
-  const up = (event) => {
-    cancel();
-    if (event.isPrimary !== false) {
-      if (held && event.type === 'pointerup') swallow = true; // a held press is never a tap (a cancelled one sends no click)
-      endHold();
-    }
-    if (!swallow) return;
-    if (swallowTimer) clearTimeout(swallowTimer);
-    swallowTimer = setTimeout(() => {
-      swallow = false;
-      swallowTimer = null;
-    }, SWALLOW_MS);
-  };
-  /** @param {Event} event */
-  const click = (event) => {
-    if (!swallow) return;
-    swallow = false;
-    if (swallowTimer) clearTimeout(swallowTimer);
-    swallowTimer = null;
-    event.preventDefault();
-    event.stopPropagation();
-    if (typeof event.stopImmediatePropagation === 'function') event.stopImmediatePropagation();
-  };
   /** A long press's own menu (a desktop's right click, Android's) never opens over a line. @param {Event} event */
   const menu = (event) => {
     if (lineAt(/** @type {any} */ (event.target))) event.preventDefault();
   };
-  /** @type {[string, (event: any) => void][]} */
-  const on = [
-    ['pointerdown', down],
-    ['pointermove', move],
-    ['pointerup', up],
-    ['pointercancel', up],
-    ['click', click],
-    ['contextmenu', menu],
-  ];
-  for (const [type, f] of on) doc.addEventListener(type, f, { capture: true });
+  const stopPress = onLongPress(doc, {
+    rank: INSPECT_RANK,
+    // While it listens, a held press anywhere is never a tap (S5: between two choices, iOS clicks the nearest).
+    holdAll: true,
+    find: (/** @type {any} */ target) => lineAt(target),
+    run: (/** @type {{id: string}} */ hit) => {
+      metaP.then(() => open(hit.id));
+    },
+    // A press on the card is the card's.
+    ignore: (/** @type {any} */ target) => Boolean(scrim && target && typeof scrim.contains === 'function' && scrim.contains(target)),
+  });
+  doc.addEventListener('contextmenu', menu, { capture: true });
   // frame.css: while this listens, a long press on words never starts iOS's
   // text selection or its callout, which would take the touch first.
   doc.documentElement.setAttribute('data-inspect', '');
@@ -382,10 +310,9 @@ export function installInspector(doc, { fetchFn = (u) => fetch(u), meta, nav = g
     close,
     ready: metaP,
     uninstall() {
-      cancel();
-      endHold();
+      stopPress();
       close();
-      for (const [type, f] of on) doc.removeEventListener(type, f, { capture: true });
+      doc.removeEventListener('contextmenu', menu, { capture: true });
       doc.documentElement.removeAttribute('data-inspect');
     },
   };

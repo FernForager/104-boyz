@@ -132,6 +132,18 @@
   "screen": "debug",
   "class": "dev"
  },
+ "dev.fixture.three": {
+  "text": "three choices",
+  "ctx": "The trail frame's check view at #frame, preview only: the fixture with three choices, the SE's budget (BUILD_PLAN S6)",
+  "screen": "debug",
+  "class": "dev"
+ },
+ "dev.fixture.four": {
+  "text": "four choices",
+  "ctx": "The trail frame's check view at #frame, preview only: the fixture with four choices, the 15's budget, whose box continues with its more mark (BUILD_PLAN S6)",
+  "screen": "debug",
+  "class": "dev"
+ },
  "dev.audio.render": {
   "text": "Render 10 s of this scene",
   "ctx": "The debug menu, preview only: renders the UI cues' 10-second demo through the sound's graph in an offline context on this phone, measures it, and checks this phone's synthesis against Node's hashes (BUILD_PLAN S5, 13.5; the result rides in the bug report)",

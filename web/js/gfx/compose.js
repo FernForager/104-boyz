@@ -35,7 +35,7 @@
 // at_star_floor row, emitted last, so the far, mid and near layers hide
 // any that fall behind them. Last, a flipped place mirrors the whole list.
 
-import { LAYERS } from './picvm.js';
+import { LAYERS, MAX_STAMP_DEPTH } from './picvm.js';
 import { draw, ART_SEED } from '../engine/rng.js';
 
 /** The hours a place can show (GAME_DESIGN 11.4): each a palette table. */
@@ -68,7 +68,8 @@ export const REQUIRED_ANCHORS = Object.freeze({
  * @property {any[][]} ops compiled picture ops for renderPic (160x168)
  * @property {number} width
  * @property {number} height
- * @property {Hotspot[]} hotspots Look targets (no anchors)
+ * @property {Hotspot[]} hotspots Look targets (no anchors): the
+ *   picture's own, and its stamps' (hotspotsOf)
  * @property {Record<string, number[]>} anchors anchor name -> [x, y]
  * @property {string} key "<place>@<hour>"
  * @property {string} place
@@ -238,6 +239,42 @@ export function starPoints(place, hour, floor) {
 }
 
 /**
+ * Every Look hotspot an op list holds, in op order: its own Z ops, and the
+ * Z ops inside the stamps it places (S6: a stamp carries its own hotspot,
+ * in its own coordinates, as the privy, the skylines and the hiker do),
+ * offset to where the stamp stands and mirrored with it, nested stamps
+ * too, as the picture VM records them (picvm.js renderPic's hotspots).
+ * Anchors (at_*) are no hotspots.
+ * @param {any[][]} ops
+ * @param {Record<string, any[][]>} stamps
+ * @returns {Hotspot[]}
+ */
+export function hotspotsOf(ops, stamps) {
+  /** @type {Hotspot[]} */
+  const out = [];
+  /**
+   * @param {any[][]} list
+   * @param {number} ox
+   * @param {number} oy
+   * @param {number} fx 1, or -1 when mirrored
+   * @param {number} depth
+   */
+  const walk = (list, ox, oy, fx, depth) => {
+    for (const op of list) {
+      if (op[0] === 'Z') {
+        const [, id, x, y, w, h] = op;
+        if (String(id).startsWith(ANCHOR)) continue;
+        out.push({ id, x: fx < 0 ? ox - x - (w - 1) : ox + x, y: oy + y, w, h });
+      } else if (op[0] === 'T' && depth < MAX_STAMP_DEPTH && own(stamps, op[1])) {
+        walk(stamps[op[1]], ox + fx * op[2], oy + op[3], fx * (op[4] ? -1 : 1), depth + 1);
+      }
+    }
+  };
+  walk(ops, 0, 0, 1, 0);
+  return out;
+}
+
+/**
  * Compose a place at an hour.
  * @param {string} pic the place (a key of recipes.places)
  * @param {any} art art.json: pics, stamps and recipes
@@ -311,8 +348,6 @@ export function compose(pic, art, o = {}) {
     out.push(['@', 'sky'], ['C', STAR]);
     for (const [x, y] of stars) out.push(['L', [x, y]]);
   }
-  /** @type {Hotspot[]} */
-  const hotspots = [];
-  for (const op of out) if (op[0] === 'Z') hotspots.push({ id: op[1], x: op[2], y: op[3], w: op[4], h: op[5] });
+  const hotspots = hotspotsOf(out, art.stamps || {});
   return { ops: out, width: WIDTH, height: HEIGHT, hotspots, anchors, key: `${pic}@${hour}`, place: pic, flip, horizon, stars: stars.length, from: r.scene || /** @type {{id: string}} */ (r.base).id };
 }

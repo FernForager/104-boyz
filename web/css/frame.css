@@ -5,7 +5,9 @@
    --pic-x from frameLayout(), its space check:
 
      header.status-line      22 pt, snow, the chrome font
-     figure.frame-picture    the picture at whole device pixels
+     figure.frame-picture    the picture at whole device pixels, in its
+                             mat: a 1-fp slate keyline as wide as the
+                             column, ink between it and the picture (S6)
      p.frame-caption         two chrome rows (40 pt on 3x, 42 on 2x)
      div.frame-strip         24 pt: the profile and the mile
      div.game-box            the rest (1fr), top-aligned, 2 fp clear of
@@ -48,9 +50,11 @@
 @media (min-resolution: 2dppx) { :root { --fp: 1.5px; } }
 @media (min-resolution: 3dppx) { :root { --fp: calc(4px / 3); } }
 
+/* The Plain serif, on the root: the Why sheet sits over the frame, outside it, and is in Plain too. */
+:root { --font-plain: "Literata", Georgia, serif; }
+
 .frame {
   --font-chrome: "OPH Chrome", var(--font-pixel);
-  --font-plain: "Literata", Georgia, serif;
   /* The chrome font: a 12-pixel em (16 CSS px on 3x, 18 on 2x) on 14-pixel lines (tools/fontbuild.mjs). */
   --chrome-size: calc(12 * var(--fp));
   --chrome-line: calc(14 * var(--fp));
@@ -166,10 +170,20 @@
 
 /* ---- The picture, the caption, the strip ---------------------------- */
 
+/* The mat (S6, lead call 2): a block as wide as the column, so its edges
+   are the status line's, the caption's, the box's and the choices'; a
+   1-font-pixel slate keyline (2:1 on the page's ink), so a night sky's ink
+   top never melts into the page; and ink between the keyline and the
+   picture (--mat each side, whole device pixels, from frameLayout: about
+   10 pt on the SE and the 13 mini, none where the keyline hugs it). */
 .frame-picture {
   grid-area: picture;
-  width: auto;
-  margin: 0 0 0 var(--pic-x);
+  position: relative; /* the Look buttons and the Look box sit over the canvas */
+  box-sizing: border-box;
+  margin: 0 0 0 var(--col-x);
+  padding: 0 0 0 var(--mat, 0px);
+  border: calc(1 * var(--fp)) solid var(--c2);
+  background: var(--c0);
   line-height: 0;
   -webkit-touch-callout: none;
   user-select: none;
@@ -297,6 +311,354 @@
   height: calc(14 * var(--fp));
 }
 
+/* ---- The odds on a choice (S6; GAME_DESIGN 8.1, 8.7, 12.1, 12.2) ------ */
+
+/* Spoken, never seen: the diamond's name, the frame's live region. */
+.vh {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Line 1: the label and, right-aligned beside it when it fits (11.9), the
+   tag; when it doesn't, the tag wraps under the label, still right. */
+.choice-head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  column-gap: calc(4 * var(--fp));
+  width: 100%;
+}
+
+.choice-tag {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: calc(2 * var(--fp));
+  white-space: nowrap;
+}
+
+/* The diamond: a brick pixel glyph on the 7 x 7 grid, before the made it in ink. */
+.diamond-glyph {
+  display: block;
+  width: calc(7 * var(--fp));
+  height: calc(7 * var(--fp));
+  color: var(--c9);
+}
+
+/* A diamond's second line, right-aligned in brick: its fail share and fail
+   word, then its fatal share. Its button is 64 pt (12.1); the picture is
+   sized as if three 52-pt choices showed, so the box gives up the 12. */
+.choice-odds2 {
+  display: block;
+  width: 100%;
+  text-align: right;
+  white-space: nowrap;
+  color: var(--c9);
+}
+
+.frame .choice[data-odds="diamond"] { height: 64px; min-height: 64px; }
+
+/* With the fatal share's intro, the sure way is outlined: a moss second ring (8.7). */
+.frame .choice.choice-ring {
+  outline: calc(2 * var(--fp)) solid var(--c13);
+  outline-offset: calc(1 * var(--fp));
+}
+
+/* The confirm (12.1): the diamond's slot holds its prompt over Yes and Not
+   yet, each at least 44 pt, in the diamond's own 64 pt. */
+.choice-confirm {
+  flex: 1;
+  min-width: 0;
+  height: 64px;
+  display: grid;
+  grid-template-rows: auto 44px;
+  align-content: space-between;
+  background: none;
+  border: 0;
+  color: var(--c5);
+  font: var(--chrome-size)/var(--chrome-line) var(--font-chrome);
+  font-variant-ligatures: none;
+  font-feature-settings: "liga" 0, "clig" 0;
+}
+
+.confirm-prompt {
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.confirm-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: calc(2 * var(--fp));
+}
+
+.confirm-yes,
+.confirm-no {
+  min-width: 44px;
+  height: 44px;
+  padding: 0 calc(4 * var(--fp));
+  border: var(--chrome-border);
+  border-radius: 0;
+  font: inherit;
+  font-variant-ligatures: none;
+  font-feature-settings: "liga" 0, "clig" 0;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* While the compass rolls (ui/compass.js), the box and the choices are inert: a tap anywhere is the compass's. */
+.frame[data-compass] .game-box,
+.frame[data-compass] .game-choices { pointer-events: none; }
+
+/* ---- An outcome (S6; GAME_DESIGN 12.13) ----------------------------- */
+
+/* Under the box, above Walk on: the severity's ornament and the pencil rows. */
+.outcome-notes {
+  display: flex;
+  align-items: flex-start;
+  gap: calc(4 * var(--fp));
+  color: var(--c5);
+  font: var(--chrome-size)/var(--chrome-line) var(--font-chrome);
+  font-variant-ligatures: none;
+  font-feature-settings: "liga" 0, "clig" 0;
+}
+
+/* A small snow tile with its glyph: a moss fern, a bark twig, a brick diamond in a brick border. */
+.ornament {
+  flex: none;
+  box-sizing: border-box;
+  width: calc(16 * var(--fp));
+  height: calc(16 * var(--fp));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: var(--chrome-border);
+}
+
+.ornament-glyph {
+  display: block;
+  width: calc(8 * var(--fp));
+  height: calc(8 * var(--fp));
+}
+
+.outcome-notes[data-sev="good"] .ornament { color: var(--c13); }
+.outcome-notes[data-sev="mishap"] .ornament { color: var(--c10); }
+.outcome-notes[data-sev="serious"] .ornament,
+.outcome-notes[data-sev="death"] .ornament { color: var(--c9); border: calc(3 * var(--fp)) solid var(--c9); }
+
+.pencil {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pencil-row {
+  display: flex;
+  align-items: center;
+  gap: calc(2 * var(--fp));
+}
+
+.pencil-glyph {
+  flex: none;
+  display: block;
+  width: calc(8 * var(--fp));
+  height: calc(8 * var(--fp));
+}
+
+/* ---- The Why sheet (S6; GAME_DESIGN 12.11) -------------------------- */
+
+/* Over the frame, under the menu and the debug menu. */
+.scrim.why-scrim { z-index: 8; }
+
+.why {
+  gap: calc(2 * var(--fp));
+  font: calc(12 * var(--fp))/calc(14 * var(--fp)) "OPH Chrome", var(--font-pixel);
+  font-variant-ligatures: none;
+  font-feature-settings: "liga" 0, "clig" 0;
+  font-kerning: none;
+  letter-spacing: 0;
+}
+
+.why p { margin: 0; }
+
+.why-title {
+  margin: 0 0 calc(2 * var(--fp));
+  font: inherit;
+  font-variant-ligatures: none;
+  font-feature-settings: "liga" 0, "clig" 0;
+}
+
+.why-title:focus { outline: none; }
+
+/* A row, its leader dots (CSS: 12.11's ....), its value at the right. */
+.why-row {
+  display: flex;
+  align-items: baseline;
+}
+
+.why-k,
+.why-v { flex: none; }
+
+.why-dots {
+  flex: 1;
+  min-width: calc(4 * var(--fp));
+  margin: 0 calc(2 * var(--fp));
+  border-bottom: var(--fp) dotted currentColor;
+}
+
+.why-rule {
+  margin: calc(2 * var(--fp)) 0;
+  border: 0;
+  border-top: var(--fp) solid var(--c0);
+}
+
+/* The three-band bar: moss, pink, brick, an ink rule between each and the
+   fatal sliver in ink at the far end (11.9: never color alone; the legend
+   under it says the same in words). */
+.why-bar {
+  display: block;
+  width: 100%;
+  height: calc(8 * var(--fp));
+  border: var(--fp) solid var(--c0);
+  box-sizing: border-box; /* the border inside the column, so the sheet never scrolls sideways */
+}
+
+.why-bar .bar-clean { fill: var(--c13); }
+.why-bar .bar-shaky { fill: var(--c6); }
+.why-bar .bar-fail { fill: var(--c9); }
+.why-bar .bar-rule,
+.why-bar .bar-fatal { fill: var(--c0); }
+
+.why-fatal { color: var(--c9); }
+
+.why-close { margin-top: calc(2 * var(--fp)); }
+
+/* It slides up, and only where motion is welcome (Reduce Motion: it appears). */
+@media (prefers-reduced-motion: no-preference) {
+  .why { animation: why-up 160ms ease-out; }
+  @keyframes why-up {
+    from { transform: translateY(100%); }
+    to { transform: none; }
+  }
+}
+
+/* ---- Look (S6; GAME_DESIGN 12.1, 12.2; ui/look.js) ------------------- */
+
+/* The Look buttons: transparent, over the canvas (inside the mat), each at
+   least 44 x 44 pt, placed by ui/look.js from the display's pixel shape;
+   the smaller stack over the larger. */
+.looks {
+  position: absolute;
+  top: 0;
+  left: var(--mat, 0px);
+  right: var(--mat, 0px);
+  bottom: 0;
+  pointer-events: none;
+}
+
+.look {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  background: none;
+  border: 0;
+  border-radius: 0;
+  pointer-events: auto;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+}
+
+.look:focus-visible { outline: calc(1 * var(--fp)) dashed var(--c4); outline-offset: calc(-1 * var(--fp)); }
+
+/* The Look box: a smaller Sierra box over the picture's lower half. */
+.look-box {
+  position: absolute;
+  left: calc(var(--mat, 0px) + 3 * var(--fp));
+  right: calc(var(--mat, 0px) + 3 * var(--fp));
+  bottom: calc(3 * var(--fp));
+  z-index: 2;
+  max-height: calc(100% - 6 * var(--fp)); /* it sits over the lower half, and grows up for a longer Look (lint T02e) */
+  overflow: hidden;
+  box-sizing: border-box;
+  padding: calc(3 * var(--fp)) calc(4 * var(--fp));
+  border: var(--chrome-border);
+  font: 20px/26px var(--font-pixel);
+  font-variant-ligatures: none;
+  font-feature-settings: "liga" 0, "clig" 0;
+  text-align: left;
+}
+
+.look-box p { margin: 0; }
+.look-box p + p { margin-top: 13px; }
+.look-box:focus { outline: none; }
+
+/* It pops up, only where motion is welcome (Reduce Motion: it appears). */
+@media (prefers-reduced-motion: no-preference) {
+  .look-box { animation: look-pop 120ms steps(3, end); }
+  @keyframes look-pop {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: none; opacity: 1; }
+  }
+}
+
+/* ---- The ▾ continuation (S6; GAME_DESIGN 12.1; ui/textbox.js) -------- */
+
+/* The box's window over its whole text: a page of whole lines at a time.
+   The box holds the ▾ (a Look box is already positioned). */
+.frame .game-box { position: relative; }
+.box-view { overflow: hidden; }
+
+/* The ▾ in the box's corner: a brick pixel glyph in a 44-pt button, named More. */
+.box-more {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 44px;
+  height: 44px;
+  margin: 0;
+  padding: 0 calc(1 * var(--fp)) calc(1 * var(--fp)) 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  color: var(--c9);
+  background: none;
+  border: 0;
+  border-radius: 0;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.box-more[hidden] { display: none; }
+
+.more-glyph {
+  display: block;
+  width: calc(7 * var(--fp));
+  height: calc(4 * var(--fp));
+}
+
+/* While the box's pages remain, the choices show but are inert: dimmed by
+   a slate outline in place of their border's brick, never by opacity. */
+.frame .game-choices[data-wait] .choice,
+.frame .game-choices[data-wait] .choice-info {
+  border-color: var(--c2);
+  cursor: default;
+}
+
 /* ---- The toolbar ---------------------------------------------------- */
 
 .toolbar {
@@ -365,10 +727,20 @@ body:has(> .frame-sheet) > .scrim.debug { z-index: 17; }
 
 html[data-text="plain"] .frame .game-box,
 html[data-text="plain"] .frame .choice,
-html[data-text="plain"] .frame-caption {
+html[data-text="plain"] .frame-caption,
+html[data-text="plain"] .look-box,
+html[data-text="plain"] .why,
+html[data-text="plain"] .choice-confirm,
+html[data-text="plain"] .outcome-notes {
   font-family: var(--font-plain);
   font-size: var(--plain-size, 20px);
   line-height: 1.35;
+  /* Literata at its default optical size, 12 (its fvar), at every Plain
+     size (the spec's lead call 6): its advances are then exactly its hmtx's,
+     which lint T02 measures (tools/fontmetrics.mjs), and the text-size cut
+     reads well on a phone. Auto would move the advances through its HVAR. */
+  font-optical-sizing: none;
+  font-variation-settings: "opsz" 12;
 }
 
 /* Nothing in Plain is cut off: the caption's row and each choice grow to
@@ -387,6 +759,27 @@ html[data-text="plain"] .frame .choice {
   padding: calc(2 * var(--fp)) calc(4 * var(--fp));
   white-space: normal;
 }
+
+/* A diamond's second line wraps between its two shares, never inside one,
+   so the fatal share is never cut off at the button's edge (11.9, 8.7). */
+html[data-text="plain"] .choice-odds2 { white-space: normal; }
+html[data-text="plain"] .choice-fail,
+html[data-text="plain"] .choice-fatal { white-space: nowrap; }
+
+/* The confirm grows to its words: the prompt wraps, Yes and Not yet keep 44 pt at least. */
+html[data-text="plain"] .choice-confirm {
+  height: auto;
+  min-height: 64px;
+  grid-template-rows: auto auto;
+  gap: calc(2 * var(--fp));
+}
+html[data-text="plain"] .confirm-prompt { white-space: normal; overflow: visible; }
+html[data-text="plain"] .confirm-yes,
+html[data-text="plain"] .confirm-no { height: auto; min-height: 44px; }
+
+/* A Why row's label wraps beside its value, which stays whole at the right. */
+html[data-text="plain"] .why-row { align-items: flex-end; }
+html[data-text="plain"] .why-k { flex: 0 1 auto; min-width: 0; }
 
 /* ---- The #frame check view (preview, debug mode) -------------------- */
 

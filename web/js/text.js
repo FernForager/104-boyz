@@ -18,6 +18,13 @@
 // var or by its own id, its spaces render as no-break spaces, so a caption
 // never breaks 4,900 from its ft. The words themselves keep plain spaces.
 //
+// A line's own separator, " · " (the caption's Day 1 · Deer Lake · 4,780
+// ft), renders as " ·" and a no-break space (S6): the dot travels with what
+// follows it, so a row breaks before a separator and never after it, and
+// never hangs a " ·" at a row's end. One rule in renderParts, so the
+// build's first paint, a later tx() and T15's count (one code point for
+// one) agree.
+//
 // measure() is a line's length against its max (S5): lint T15 and the
 // build's text/meta.json (preview's line inspector) both use it, so the
 // number the inspector shows is the one the lint checks.
@@ -33,6 +40,16 @@ const MODES = ['on', 'drafts', 'off'];
 const PLACEHOLDER = /^[A-Z][A-Z0-9_]*$/;
 /** The no-break space a number's format binds its number and unit with. */
 export const NBSP = '\u00a0';
+/**
+ * A tally's words, each bound to its number: a space before a digit becomes
+ * a no-break space, so a row never ends on a word whose number starts the
+ * next (the Why sheet's legend: "fail 35", never "fail" and then "35").
+ * @param {string} s
+ */
+export const bindNumbers = (s) => s.replace(/ (?=\d)/g, NBSP);
+/** A line's separator as written, and as shown: the dot bound to what follows. */
+export const SEP = ' · ';
+export const SEP_SHOWN = ` ·${NBSP}`;
 
 /** The channel the build stamped on <html>: 'main', 'preview', or 'dev' (web/ unbuilt). */
 function channel() {
@@ -155,10 +172,14 @@ function fill(s, vars) {
   return s.replace(/\{([a-z][a-z0-9_]*)\}/g, (/** @type {string} */ m, /** @type {string} */ k) => (vars && Object.prototype.hasOwnProperty.call(vars, k) ? String(vars[k]) : m));
 }
 
+/** A line's own separators, bound to what follows (a var's value is left as it is). @param {string} s */
+const bindSeps = (s) => s.split(SEP).join(SEP_SHOWN);
+
 /**
  * Pure: the parts of a line's words, {vars} filled after the markup is
- * read (so a var's value can never add markup). Parts are {text}, {em},
- * {ph} for an {UPPER} placeholder, and {br: true}.
+ * read (so a var's value can never add markup), and its own " · "
+ * separators bound to what follows them. Parts are {text}, {em}, {ph} for
+ * an {UPPER} placeholder, and {br: true}.
  * @param {string} s
  * @param {Record<string, unknown>} [vars]
  * @returns {Part[]}
@@ -173,13 +194,13 @@ export function renderParts(s, vars) {
       row.split(/(\*[^*\n]+\*)/).forEach((chunk) => {
         if (!chunk) return;
         if (chunk.length > 2 && chunk[0] === '*' && chunk[chunk.length - 1] === '*') {
-          out.push({ em: fill(chunk.slice(1, -1), vars) });
+          out.push({ em: fill(bindSeps(chunk.slice(1, -1)), vars) });
           return;
         }
         chunk.split(/(\{[A-Z][A-Z0-9_]*\})/).forEach((bit) => {
           if (!bit) return;
           if (bit[0] === '{' && PLACEHOLDER.test(bit.slice(1, -1))) out.push({ ph: bit });
-          else out.push({ text: fill(bit, vars) });
+          else out.push({ text: fill(bindSeps(bit), vars) });
         });
       });
     });

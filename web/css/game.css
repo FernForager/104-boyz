@@ -133,7 +133,9 @@ button {
   margin: calc(var(--u) * 0.012) 0 0;
   font-size: calc(var(--u) * 0.04);
   font-weight: 400;
-  color: var(--c6);
+  /* Paper cream on the cover's night-navy sky, 6.7:1. Alpenglow pink was
+     5.6:1 in option B and is 4.2:1 in palette A, under AA (decision 68). */
+  color: var(--c5);
   text-shadow: 0 1px 0 var(--c0);
 }
 
@@ -400,7 +402,7 @@ button {
   align-items: flex-end;
   justify-content: center;
   padding: var(--safe-top) var(--safe-right) 0 var(--safe-left);
-  background: rgb(27 31 42 / 0.72);
+  background: var(--scrim);
 }
 
 /* An error comes first, even over the debug menu. */
@@ -665,7 +667,9 @@ html[data-marks] [data-t-state="missing"] { outline: 1px dashed var(--c6); }
   padding: 3px 0;
 }
 
-.map-n { text-align: right; color: var(--c2); }
+/* Bark on the legend's paper cream, 5.3:1 (slate is 4.1:1 in palette A,
+   under AA; decision 68). */
+.map-n { text-align: right; color: var(--c10); }
 
 /* The mark the picture draws, so a row and its place read alike. */
 .map-key {
@@ -682,7 +686,7 @@ html[data-marks] [data-t-state="missing"] { outline: 1px dashed var(--c6); }
   font-family: var(--font-code);
   font-size: 13px;
   white-space: nowrap;
-  color: var(--c2);
+  color: var(--c10);
 }
 
 @media (orientation: landscape) and (max-height: 540px) {

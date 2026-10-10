@@ -57,7 +57,8 @@ function sine(hz, db, seconds, rate = 48000) {
 }
 
 test('every cue variant renders to its golden hash at 48 kHz and at 44.1 kHz, the same twice (bit-exact)', () => {
-  assert.deepEqual(Object.keys(BANK.cues).sort(), ['ui.next', 'ui.open', 'ui.sound_on', 'ui.tick'], "A1's four UI cues");
+  // Re-pinned at S6: A1's four UI cues, and S6 adds the compass's two and the outcomes' three.
+  assert.deepEqual(Object.keys(BANK.cues).sort(), ['ui.compass', 'ui.good', 'ui.land', 'ui.mishap', 'ui.next', 'ui.open', 'ui.serious', 'ui.sound_on', 'ui.tick'], "A1's four UI cues and S6's five");
   for (const rate of [48000, 44100]) {
     const want = GOLDEN.cues[String(rate)];
     assert.deepEqual(Object.keys(want).sort(), Object.keys(BANK.cues).sort(), `the golden holds every cue at ${rate}`);
@@ -261,15 +262,21 @@ test('spectrum() puts a 1 kHz sine in the band that holds 1 kHz; silence reads t
   assert.equal(spectrumDigits([[0, -5, -10, -89.9, -90.1, -200, 12]]), '9880009', '0 dB and over is 9, -10 dB 8; under -80 dB, 0');
 });
 
-test('scenes: ui_demo plays the four cues in turn every 500 ms, cycling their variants, and mixes to its golden; silence is silent', () => {
+test('scenes: ui_demo plays the nine cues in turn every 500 ms, cycling their variants, and mixes to its golden; silence is silent', () => {
   const ev = sceneEvents(BANK.scenes.ui_demo, BANK);
   assert.equal(ev.length, 20);
-  assert.deepEqual(ev.slice(0, 5).map((e) => [e.at, e.cue, e.variant]), [
+  // Re-pinned at S6: the scene gains the compass's two cues and the outcomes' three, so the tick's second variant comes tenth.
+  assert.deepEqual(ev.slice(0, 10).map((e) => [e.at, e.cue, e.variant]), [
     [0, 'ui.tick', 0],
     [0.5, 'ui.next', 0],
     [1, 'ui.open', 0],
     [1.5, 'ui.sound_on', 0],
-    [2, 'ui.tick', 1],
+    [2, 'ui.compass', 0],
+    [2.5, 'ui.land', 0],
+    [3, 'ui.good', 0],
+    [3.5, 'ui.mishap', 0],
+    [4, 'ui.serious', 0],
+    [4.5, 'ui.tick', 1],
   ]);
   const demo = mixScene(BANK.scenes.ui_demo, BANK, { rate: 48000 });
   assert.equal(demo.length, 480000);

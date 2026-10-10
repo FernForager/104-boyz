@@ -1,11 +1,56 @@
 {
- "$comment": "S5's sample stops on preview (BUILD_PLAN S5): Deer Lake, then the rim of the Seven Lakes Basin. view is display data (voice.json): the picture (a place in content/art/recipes.json), the park node the caption and the strip read, and today's route for the strip. S6 adds the fork at the rim; S9's cards and S15a's trail replace the set.",
+ "$comment": "S5's sample stops on preview (BUILD_PLAN S5), and S6's sample fork (BUILD_PLAN S6; the spec's lead call 1: GAME_DESIGN B.6's own trip at the moment the storm arrives at the rim, priced by single rolls 9.5's table names, since 12.12's look-ahead bars are S16's). Deer Lake foreshadows the thunder (9.5's fair-death rule) and Walk on takes the router's time to the rim; the rim walks on to the fork (no time); the fork offers a diamond (stay high on the crest), a % (down the stone staircase) and a sure way out (back to the car), each going to an outcome stop that walks to its place and ends the set. view is display data (voice.json): the picture (a place in content/art/recipes.json, one the composer can draw), the park node the caption and the strip read, and the day's route for the strip. car_out shows Deer Lake, passed on the way down, until S15a draws the trailhead base: its node, caption, strip and pencil row stay the trailhead's (a stand-in, logged in BUILD_LOG S6). S9's cards and S15a's trail replace the set.",
  "id": "deer_lake_rim",
  "screen": "trail",
  "phase": "trailhead",
  "first": "deer_lake",
  "stops": [
-  { "id": "deer_lake", "box": "@trail.deer_lake_rim.deer_lake", "view": { "pic": "deer_lake", "node": "deer_lake", "day": ["sol_duc_trailhead", "seven_lakes_basin"] }, "next": "rim" },
-  { "id": "rim", "box": "@trail.deer_lake_rim.rim", "view": { "pic": "seven_lakes_basin", "node": "seven_lakes_basin", "day": ["sol_duc_trailhead", "seven_lakes_basin"] }, "next": null }
+  { "id": "deer_lake", "box": "@trail.deer_lake_rim.deer_lake", "view": { "pic": "deer_lake", "node": "deer_lake", "day": ["sol_duc_trailhead", "seven_lakes_basin"] }, "foreshadow": "thunder", "walk": { "from": "deer_lake", "to": "seven_lakes_basin" }, "next": "rim" },
+  { "id": "rim", "box": "@trail.deer_lake_rim.rim", "view": { "pic": "seven_lakes_basin", "node": "seven_lakes_basin", "day": ["sol_duc_trailhead", "seven_lakes_basin"] }, "next": "fork" },
+  {
+   "id": "fork",
+   "box": "@trail.deer_lake_rim.fork",
+   "view": { "pic": "seven_lakes_basin", "node": "seven_lakes_basin", "day": ["sol_duc_trailhead", "seven_lakes_basin"] },
+   "choices": [
+    {
+     "id": "high",
+     "label": "@trail.deer_lake_rim.fork.high",
+     "needs": "thunder",
+     "odds": {
+      "base": "exposed_crest_storm",
+      "mods": [],
+      "clean": "high_clean",
+      "shaky": "high_shaky",
+      "fail": [{ "to": "high_struck", "w": 100, "rung": 3, "death": { "permille": 20, "to": "high_fatal", "cause": "lightning", "gentle": "high_struck" } }]
+     },
+     "fail_word": "@trail.deer_lake_rim.fork.high.fail",
+     "badly": "@trail.deer_lake_rim.fork.high.badly",
+     "route": { "from": "seven_lakes_basin", "via": ["high_divide"], "to": "heart_lake", "exposed_to": "heart_lake_junction" }
+    },
+    {
+     "id": "basin",
+     "label": "@trail.deer_lake_rim.fork.basin",
+     "odds": {
+      "base": "stone_staircase_dry",
+      "mods": [{ "skill": "footing" }],
+      "clean": "basin_clean",
+      "shaky": "basin_shaky",
+      "fail": [{ "to": "basin_slip", "w": 80, "rung": 1 }, { "to": "basin_sprain", "w": 20, "rung": 2 }]
+     },
+     "badly": "@trail.deer_lake_rim.fork.basin.badly",
+     "route": { "from": "seven_lakes_basin", "to": "lunch_lake" }
+    },
+    { "id": "car", "label": "@trail.deer_lake_rim.fork.car", "tag": "sure", "then": "car_out" }
+   ]
+  },
+  { "id": "high_clean", "outcome": "good", "box": "@trail.deer_lake_rim.fork.high.clean", "view": { "pic": "heart_lake", "node": "heart_lake", "day": ["sol_duc_trailhead", "seven_lakes_basin", "high_divide", "heart_lake"] }, "walk": { "from": "seven_lakes_basin", "via": ["high_divide"], "to": "heart_lake" }, "next": null },
+  { "id": "high_shaky", "outcome": "mishap", "box": "@trail.deer_lake_rim.fork.high.shaky", "view": { "pic": "heart_lake", "node": "heart_lake", "day": ["sol_duc_trailhead", "seven_lakes_basin", "high_divide", "heart_lake"] }, "walk": { "from": "seven_lakes_basin", "via": ["high_divide"], "to": "heart_lake" }, "add_s": 1200, "next": null },
+  { "id": "high_struck", "outcome": "serious", "box": "@trail.deer_lake_rim.fork.high.struck", "view": { "pic": "high_divide", "node": "high_divide", "day": ["sol_duc_trailhead", "seven_lakes_basin", "high_divide"] }, "walk": { "from": "seven_lakes_basin", "to": "high_divide" }, "next": null },
+  { "id": "high_fatal", "outcome": "death", "box": "@trail.deer_lake_rim.fork.high.fatal", "view": { "pic": "high_divide", "node": "high_divide", "day": ["sol_duc_trailhead", "seven_lakes_basin", "high_divide"] }, "walk": { "from": "seven_lakes_basin", "to": "high_divide" }, "next": null },
+  { "id": "basin_clean", "outcome": "good", "box": "@trail.deer_lake_rim.fork.basin.clean", "view": { "pic": "lunch_lake", "node": "lunch_lake", "day": ["sol_duc_trailhead", "seven_lakes_basin", "lunch_lake"] }, "walk": { "from": "seven_lakes_basin", "to": "lunch_lake" }, "next": null },
+  { "id": "basin_shaky", "outcome": "mishap", "box": "@trail.deer_lake_rim.fork.basin.shaky", "view": { "pic": "lunch_lake", "node": "lunch_lake", "day": ["sol_duc_trailhead", "seven_lakes_basin", "lunch_lake"] }, "walk": { "from": "seven_lakes_basin", "to": "lunch_lake" }, "add_s": 600, "next": null },
+  { "id": "basin_slip", "outcome": "mishap", "box": "@trail.deer_lake_rim.fork.basin.slip", "view": { "pic": "lunch_lake", "node": "lunch_lake", "day": ["sol_duc_trailhead", "seven_lakes_basin", "lunch_lake"] }, "walk": { "from": "seven_lakes_basin", "to": "lunch_lake" }, "add_s": 900, "next": null },
+  { "id": "basin_sprain", "outcome": "mishap", "box": "@trail.deer_lake_rim.fork.basin.sprain", "view": { "pic": "lunch_lake", "node": "lunch_lake", "day": ["sol_duc_trailhead", "seven_lakes_basin", "lunch_lake"] }, "walk": { "from": "seven_lakes_basin", "to": "lunch_lake" }, "add_s": 1800, "next": null },
+  { "id": "car_out", "outcome": "good", "box": "@trail.deer_lake_rim.fork.car.out", "view": { "pic": "deer_lake", "node": "sol_duc_trailhead", "day": ["sol_duc_trailhead", "seven_lakes_basin", "sol_duc_trailhead"] }, "walk": { "from": "seven_lakes_basin", "to": "sol_duc_trailhead" }, "next": null }
  ]
 }

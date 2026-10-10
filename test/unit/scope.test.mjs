@@ -53,11 +53,17 @@ test('R01 catches a switch the registry lacks, a missing one, a wrong kind, a mi
   for (const want of [/switches\.jetpack: "jetpack" is not a switch/, /switches: the switch "crew" is missing/, /switches\.wic_phone: is an on switch/, /switches\.wic_phone: has "value"/, /switches\.peak: needs its doc/, /switches\.beer_cooler: needs "overnight_only"/, /ships\.weather: "weather" is not a data section/, /ships: the section "drives" is missing/, /main\.screens: "lockbox" is not one of the screens/]) assert.ok(msgs.some((m) => want.test(m)), `${want}: ${msgs.join(' | ')}`);
 });
 
-test('ships: the park ships with the map screen, every other section with nothing yet (BUILD_PLAN S4)', () => {
+test('ships: the park ships with the map screen, and from S6 with the trail, as the odds do; every other section with nothing yet (BUILD_PLAN S4, S6)', () => {
   assert.deepEqual(Object.keys(SCOPE.ships).sort(), Object.keys(SECTIONS).sort());
-  assert.deepEqual(SCOPE.ships.park, ['map']);
-  for (const [k, v] of Object.entries(SCOPE.ships)) if (k !== 'park') assert.deepEqual(v, [], `${k} ships with no screen in S4`);
+  // Re-pinned in S6: the trail's fork walks the router (the park) and prices its choices (the odds).
+  assert.deepEqual(SCOPE.ships.park, ['map', 'trail']);
+  assert.deepEqual(SCOPE.ships.odds, ['trail']);
+  assert.deepEqual(SECTIONS.odds, { screen: 'trail', session: 'S6' });
+  for (const [k, v] of Object.entries(SCOPE.ships)) if (k !== 'park' && k !== 'odds') assert.deepEqual(v, [], `${k} ships with no screen in S6`);
   assert.equal(ships(SCOPE, 'park', ['app', 'map']), true);
+  assert.equal(ships(SCOPE, 'park', ['app', 'trail']), true);
+  assert.equal(ships(SCOPE, 'odds', ['app', 'map']), false, 'the odds go with the trail alone');
+  assert.equal(ships(SCOPE, 'odds', SCOPE.main.screens), false, 'never on main');
   assert.equal(ships(SCOPE, 'park', SCOPE.main.screens), false, 'never on main');
   assert.equal(ships(SCOPE, 'quiz', ['lockbox']), false);
   assert.equal(ships(null, 'park', ['map']), false);

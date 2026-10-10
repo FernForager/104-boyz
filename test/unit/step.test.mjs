@@ -118,24 +118,27 @@ test('start refuses a bad seed or plan, and opens the trip and its log', () => {
   assert.deepEqual(screen, { phase: 'trailhead', stop: { set: 'fx', id: 'a', n: 1 }, box: [{ id: 'fx.a' }], choices: [{ act: { t: 'next' }, label: null, enabled: true }] });
 });
 
-test("a walk through the sample's two stops (Deer Lake, then the rim, from S5) ends the sample trip and comes home, where a fresh trip starts (BUILD_PLAN S3)", () => {
+test("a walk through the sample's stops (Deer Lake, the rim, from S5, and S6's fork, its sure way back) ends the sample trip and comes home, where a fresh trip starts (BUILD_PLAN S3, S6)", () => {
+  // Re-pinned in S6: the rim walks on to the fork; Back to the car (sure) is its outcome, whose Walk on ends the set.
   const content = liveContent();
-  const { session, screens } = play(newSession(content), [{ t: 'sign', name: 'Robin', id: 'h00000001' }, { t: 'start', plan: 'sample', seed: 'K7QM2Q9F' }, { t: 'next' }, { t: 'next' }], content);
+  const { session, screens } = play(newSession(content), [{ t: 'sign', name: 'Robin', id: 'h00000001' }, { t: 'start', plan: 'sample', seed: 'K7QM2Q9F' }, { t: 'next' }, { t: 'next' }, { t: 'choose', c: 'car' }, { t: 'next' }], content);
   assert.deepEqual(
     screens.map((s) => [s.phase, s.stop && s.stop.id, s.box.map((r) => r.id)]),
     [
       ['home', undefined, []],
       ['trailhead', 'deer_lake', ['trail.deer_lake_rim.deer_lake']],
       ['trailhead', 'rim', ['trail.deer_lake_rim.rim']],
+      ['trailhead', 'fork', ['trail.deer_lake_rim.fork']],
+      ['trailhead', 'car_out', ['trail.deer_lake_rim.fork.car.out']],
       ['home', undefined, []],
     ],
   );
   assert.equal(session.state.trip.end, 'sample');
-  assert.equal(session.state.trip.n, 2, 'the set ending moves to no new stop');
+  assert.equal(session.state.trip.n, 4, 'the set ending moves to no new stop');
   assert.equal(phaseOf(session.state), 'home');
   assert.equal(session.state.hiker.trips, 1);
-  assert.deepEqual(session.state.hiker.latest, { seed: 'K7QM2Q9F', stop: 2 });
-  assert.deepEqual(session.log.actions, [['next'], ['next']]);
+  assert.deepEqual(session.state.hiker.latest, { seed: 'K7QM2Q9F', stop: 4 });
+  assert.deepEqual(session.log.actions, [['next'], ['next'], ['choose', 'car'], ['next']]);
   assert.throws(() => dispatch(session, { t: 'next' }, content), refused, 'the trip is over');
   const again = dispatch(session, { t: 'start', plan: 'sample', seed: 'ABCDEFGH' }, content).session;
   assert.equal(again.state.trip.stop, 'deer_lake');

@@ -9,7 +9,7 @@
 // the text room. That gives the doc's table: 7x4 on the iPhone 15 and 16,
 // 8x5 on the Plus and Pro Max, 6x4 on the 13 mini, 4x2 on the SE.
 
-import { resolve, toRGBA, hasCycles, CYCLE_FPS } from './palette.js';
+import { resolve, toRGBA, hasCycles, CYCLE_FPS, PALETTE } from './palette.js';
 
 /** sy is about sx times this: AGI's double-wide pixel on a 4:3 screen. */
 export const PIXEL_ASPECT = 0.6;
@@ -57,9 +57,9 @@ export function pickPixelShape(o) {
  * @param {HTMLCanvasElement} canvas
  * @param {number} width picture width
  * @param {number} height picture height
- * @param {string} [edge] the color of any leftover device pixels
+ * @param {string} [edge] the color of any leftover device pixels (ink, slot 0)
  */
-export function createDisplay(canvas, width, height, edge = '#1b1f2a') {
+export function createDisplay(canvas, width, height, edge = PALETTE[0]) {
   const src = document.createElement('canvas');
   src.width = width;
   src.height = height;

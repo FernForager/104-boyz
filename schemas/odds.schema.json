@@ -1,0 +1,38 @@
+{
+ "$comment": "content/rules/odds.json: 8.5 and 8.8's shared constants and the bases a choice's odds name (GAME_DESIGN 8.5, 8.8; BUILD_PLAN S6). Whole numbers only. A base's and a skill's label are display data (voice.json); the rest is rules-hashed (rules.odds), and web/js/engine/odds.js reads it.",
+ "type": "object",
+ "required": ["clamp", "shaky_cap", "great_below", "routine_at", "skill_per_level", "bases", "skills"],
+ "additionalProperties": false,
+ "properties": {
+  "$comment": { "type": "string" },
+  "clamp": { "type": "array", "minItems": 2, "maxItems": 2, "items": { "type": "integer", "minimum": 0, "maximum": 100 } },
+  "shaky_cap": { "type": "integer", "minimum": 0, "maximum": 100 },
+  "great_below": { "type": "integer", "minimum": 0, "maximum": 100 },
+  "routine_at": { "type": "integer", "minimum": 0, "maximum": 100 },
+  "skill_per_level": { "type": "integer", "minimum": 0, "maximum": 20 },
+  "bases": { "type": "object", "additionalProperties": { "$ref": "#/$defs/base" } },
+  "skills": { "type": "object", "additionalProperties": { "$ref": "#/$defs/skill" } }
+ },
+ "$defs": {
+  "line": { "type": "string", "pattern": "^@[a-z][a-z0-9_]*(\\.[a-z0-9_]+)+$", "x-text": true, "x-voice": true },
+  "base": {
+   "type": "object",
+   "required": ["base", "label", "doc"],
+   "additionalProperties": false,
+   "properties": {
+    "base": { "type": "integer", "minimum": 0, "maximum": 100 },
+    "label": { "$ref": "#/$defs/line" },
+    "doc": { "type": "string" }
+   }
+  },
+  "skill": {
+   "type": "object",
+   "required": ["label", "doc"],
+   "additionalProperties": false,
+   "properties": {
+    "label": { "$ref": "#/$defs/line" },
+    "doc": { "type": "string" }
+   }
+  }
+ }
+}

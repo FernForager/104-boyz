@@ -13,6 +13,7 @@ import { makePalette } from '../gfx/palette.js';
 import { createDisplay, startCycles } from '../gfx/display.js';
 import { playDrawIn } from '../gfx/drawin.js';
 import { isInstalled } from '../platform/sw-client.js';
+import { reducedMotion, liveCycles } from './motion.js';
 
 const ART_URL = new URL('../../art/art.json', import.meta.url);
 const COVER = 'cover_high_divide_dusk';
@@ -36,10 +37,6 @@ export const GAME_SCREENS = Object.freeze(['guestbook', 'trail']);
 export function opensGame(doc) {
   const screens = String(doc.documentElement.getAttribute('data-screens') || '').split(/\s+/);
   return GAME_SCREENS.every((s) => screens.includes(s));
-}
-
-function reducedMotion() {
-  return typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
 }
 
 /** @param {string} v a CSS length */
@@ -170,8 +167,9 @@ export async function showTitle(doc = document) {
       reduced,
       onDone(final) {
         plate.classList.remove('drawing');
-        // The stars twinkle, unless Reduce Motion is on (doc 11.5).
-        if (!reduced) stopCycles = startCycles(display, final, pic.width, palette, { remap: 'day' });
+        // The stars twinkle, unless Reduce Motion is on (doc 11.5), and stop
+        // (or start) when it changes while the title shows (ui/motion.js).
+        stopCycles = liveCycles(() => startCycles(display, final, pic.width, palette, { remap: 'day' }));
         drawn();
       },
     });

@@ -1,0 +1,113 @@
+{
+ "$comment": "The sample fork's two Why sheets, as the engine's screen carries them (BUILD_PLAN S6; GAME_DESIGN 12.11): regenerate with UPDATE_GOLDENS=1 node --test test/unit/fork.test.mjs, and review the diff.",
+ "sheets": {
+  "high": {
+   "label": {
+    "id": "trail.deer_lake_rim.fork.high"
+   },
+   "odds": {
+    "kind": "diamond",
+    "made": 65,
+    "fail": 35,
+    "fatal": {
+     "tenths": 7
+    },
+    "failWord": {
+     "id": "trail.deer_lake_rim.fork.high.fail"
+    }
+   },
+   "why": {
+    "rows": [
+     {
+      "label": {
+       "id": "trail.why.crest_storm"
+      },
+      "value": 40
+     }
+    ],
+    "p": 40,
+    "bands": {
+     "clean": 40,
+     "shaky": 25,
+     "fail": 35
+    },
+    "made": 65,
+    "badly": {
+     "id": "trail.deer_lake_rim.fork.high.badly"
+    },
+    "fatalCalc": {
+     "fail": 35,
+     "band": {
+      "num": 1,
+      "den": 1
+     },
+     "death": 20,
+     "exact": {
+      "num": 7,
+      "den": 10
+     },
+     "shown": {
+      "tenths": 7
+     }
+    },
+    "route": {
+     "place": {
+      "id": "place.heart_lake"
+     },
+     "eta_s": 59188,
+     "mi10": 34,
+     "exposedUntil_s": 58234
+    }
+   }
+  },
+  "basin": {
+   "label": {
+    "id": "trail.deer_lake_rim.fork.basin"
+   },
+   "odds": {
+    "kind": "pct",
+    "made": 95,
+    "fail": 5,
+    "fatal": null,
+    "failWord": null
+   },
+   "why": {
+    "rows": [
+     {
+      "label": {
+       "id": "trail.why.staircase"
+      },
+      "value": 88
+     },
+     {
+      "label": {
+       "id": "trail.why.skill_footing",
+       "vars": {
+        "level": 1
+       }
+      },
+      "value": 2
+     }
+    ],
+    "p": 90,
+    "bands": {
+     "clean": 90,
+     "shaky": 5,
+     "fail": 5
+    },
+    "made": 95,
+    "badly": {
+     "id": "trail.deer_lake_rim.fork.basin.badly"
+    },
+    "fatalCalc": null,
+    "route": {
+     "place": {
+      "id": "place.lunch_lake"
+     },
+     "eta_s": 52251,
+     "mi10": 9
+    }
+   }
+  }
+ }
+}

@@ -11,10 +11,19 @@
 //   the Sierra box   S3's box (ui/stop.js, ui/textbox.js), absent on a
 //                    quiet stop (decision 32), when the caption takes focus
 //   the choices      S3's buttons, with the cue each tap plays and the (i)
-//                    square (ui/choices.js), in the thumb zone
+//                    square (ui/choices.js), in the thumb zone; from S6 a
+//                    rolled choice's tag and a diamond's second line, the
+//                    diamond's confirm, the (i)'s Why sheet (ui/sheet.js,
+//                    also a long press on the choice: ui/press.js), the
+//                    odds intro before the box, and on an outcome stop its
+//                    ornament and pencil rows (ui/outcome.js)
 //   the toolbar      Pack, Map and Log (ui/toolbar.js), tall screens only;
 //                    on a short screen (under 700 pt) they fold into ≡ and
 //                    the picture takes the flatter 4x2 pixel
+//
+// After a diamond's Yes the game asks the frame for the compass roll
+// (compass(): ui/compass.js, drawn into this stop's own picture canvas),
+// then draws the outcome.
 //
 // One CSS grid (css/frame.css) fills the game screen; every chrome length is
 // a whole number of font pixels (--fp: 4 device px on 3x, 3 on 2x), so its
@@ -30,8 +39,9 @@
 //
 // On preview this module also registers the dev control *hour* and the dev
 // action *Scenes*, the #frame check view (showScenes): the frame with a
-// fixture screen, every drawable picture and the four hours, for the phone
-// and the screenshots. main.js never imports it: ui/app.js, preview's only
+// fixture screen (three choices, or from S6 four, the 15's budget, whose
+// box continues with ▾), every drawable picture and the four hours, for
+// the phone and the screenshots. main.js never imports it: ui/app.js, preview's only
 // (home.js opensGame), does.
 
 import { renderPic } from '../gfx/picvm.js';
@@ -41,8 +51,15 @@ import { t, tx, wordsOf } from '../text.js';
 import { load, save } from '../platform/storage.js';
 import { feet } from '../fmt.js';
 import { renderStop } from './stop.js';
-import { addInfo, cueFor, pixelGlyph } from './choices.js';
-import { checkBox } from './textbox.js';
+import { addInfo, addTags, cueFor, pixelGlyph, drawnChoices, withIntro, openConfirm } from './choices.js';
+import { openWhy, closeWhy } from './sheet.js';
+import { renderOutcome } from './outcome.js';
+import { playCompass } from './compass.js';
+import { onLongPress } from './press.js';
+import { checkBox, continueBox } from './textbox.js';
+import { renderLooks, openLook, closeLook, lookLines } from './look.js';
+import { altFor } from '../gfx/alt.js';
+import { reducedMotion, onMotionChange, liveCycles } from './motion.js';
 import { renderStrip } from './strip.js';
 import { renderToolbar, menuRows } from './toolbar.js';
 import { registerDevControl, registerDevAction } from './debug.js';
@@ -65,6 +82,8 @@ export const CAPTION_ROWS = 2;
 /** S5's strip: the profile row of the 32-pt budget (the split row arrives in S8). */
 export const STRIP_PT = 24;
 export const CHOICE_PT = 52;
+/** A choice whose odds take a second line (a diamond's fail and fatal shares, or a wrapped tag): 12.1's 64 pt. */
+export const CHOICE_TALL_PT = 64;
 export const CHOICE_GAP_PT = 8;
 /** The choices' foot: frame.css pads the list 6 pt under the last one (off the screen's edge where there's no toolbar). */
 export const CHOICES_FOOT_PT = 6;
@@ -92,8 +111,17 @@ export const PLAIN_CHOICE_ROWS = 1;
 export const PLAIN_CHOICE_CHROME_FP = 10;
 /** A chrome row: the 8x14 font's cell. */
 export const CHROME_ROW_FP = 14;
-/** The column's side margins (pt): the column is max(picture, viewport - 32). */
+/** The column's side margins (pt): the column is max(picture and its keyline, viewport - 32). */
 export const SIDE_PT = 32;
+/**
+ * The picture's mat (S6, lead call 2): a keyline this many font pixels
+ * wide, slate (frame.css), round a block as wide as the column, and ink
+ * between it and the picture. Every edge (the status line, the keyline,
+ * the caption, the box, the choices) is the column's, on every phone, and
+ * the picture's edge never meets the page, at any hour (a night sky's top
+ * is ink, as the page is), with no rule on the art.
+ */
+export const KEYLINE_FP = 1;
 /** The hiker on every composed trail picture (S5: idle at the trail spot). */
 const SPRITES = Object.freeze([['hiker', 'idle', 'trail_spot']]);
 const HOUR_KEY = 'hour';
@@ -114,12 +142,15 @@ export function fontPixel(dpr) {
  * uses (a test reads them there). Every row's height in points, the
  * picture's pixel shape and size, the column, the box's own height inside
  * its row, and how many whole lines of box text it shows.
- * @param {{width: number, height: number, dpr: number, safeTop?: number, safeBottom?: number, usable?: number, choices?: number, plainPx?: number | null}} o
+ * @param {{width: number, height: number, dpr: number, safeTop?: number, safeBottom?: number, usable?: number, choices?: number, tall?: number, plainPx?: number | null}} o
  *   width, height: the portrait screen (pt); usable: the frame's height when
- *   measured (else height minus the safe areas); plainPx: the Plain size
- *   under Larger Text (frame.css --plain-size), else null for the pixel fonts
+ *   measured (else height minus the safe areas); choices: the choices shown,
+ *   tall of them 64 pt (a diamond, S6), the rest 52; plainPx: the Plain
+ *   size under Larger Text (frame.css --plain-size), else null for the
+ *   pixel fonts. The picture is always sized as if three 52-pt choices
+ *   showed, so it never jumps: a diamond's 12 pt come out of the box.
  */
-export function frameLayout({ width, height, dpr, safeTop = 0, safeBottom = 0, usable, choices = LAYOUT_CHOICES, plainPx = null }) {
+export function frameLayout({ width, height, dpr, safeTop = 0, safeBottom = 0, usable, choices = LAYOUT_CHOICES, tall = 0, plainPx = null }) {
   const fp = fontPixel(dpr);
   const room = usable === undefined ? height - safeTop - safeBottom : usable;
   const short = height < SHORT_SCREEN_PT;
@@ -128,12 +159,13 @@ export function frameLayout({ width, height, dpr, safeTop = 0, safeBottom = 0, u
   const line = plain ? PLAIN_LINE * plain : BOX_LINE_PT;
   const caption = Math.max(CAPTION_PT, plain ? Math.ceil(PLAIN_CAPTION_ROWS * line - 1e-6) : CAPTION_ROWS * CHROME_ROW_FP * fp);
   const choice = plain ? Math.max(CHOICE_PT, Math.ceil(PLAIN_CHOICE_ROWS * line + PLAIN_CHOICE_CHROME_FP * fp - 1e-6)) : CHOICE_PT;
-  const choicesOf = (/** @type {number} */ n) => (n > 0 ? n * choice + (n - 1) * CHOICE_GAP_PT + CHOICES_FOOT_PT : 0);
+  const choicesOf = (/** @type {number} */ n, k = 0) => (n > 0 ? n * choice + Math.min(k, n) * Math.max(0, CHOICE_TALL_PT - choice) + (n - 1) * CHOICE_GAP_PT + CHOICES_FOOT_PT : 0);
   const toolbar = short ? 0 : TOOLBAR_PT;
   // The box's row less its gaps: the box itself, border and padding in.
   const gaps = 2 * BOX_GAP_FP * fp;
   const minBox = MIN_BOX_LINES * line + BOX_CHROME_FP * fp + gaps;
-  const maxCssHeight = room - STATUS_PT - caption - STRIP_PT - choicesOf(LAYOUT_CHOICES) - toolbar - minBox;
+  const keyline = KEYLINE_FP * fp;
+  const maxCssHeight = room - STATUS_PT - 2 * keyline - caption - STRIP_PT - choicesOf(LAYOUT_CHOICES) - toolbar - minBox;
   const shape = pickPixelShape({ cssWidth: width, screenHeight: height, dpr, picWidth: PIC.width, picHeight: PIC.height, maxCssHeight });
   const picture = {
     width: Math.ceil((PIC.width * shape.sx) / dpr - 1e-6),
@@ -141,19 +173,22 @@ export function frameLayout({ width, height, dpr, safeTop = 0, safeBottom = 0, u
   };
   const rows = {
     status: STATUS_PT,
-    picture: picture.height,
+    picture: picture.height + 2 * keyline,
     caption,
     strip: STRIP_PT,
     box: 0,
-    choices: choicesOf(choices),
+    choices: choicesOf(choices, tall),
     toolbar,
   };
   rows.box = room - rows.status - rows.picture - rows.caption - rows.strip - rows.choices - rows.toolbar;
   const box = Math.max(0, rows.box - gaps);
-  const column = Math.max(picture.width, width - SIDE_PT);
-  // Left edges on whole CSS pixels (so on whole device pixels): the column
-  // centered, and the picture (and the strip) centered in it.
+  const column = Math.max(picture.width + 2 * keyline, width - SIDE_PT);
+  // The column's left edge on a whole CSS pixel, centered; inside its
+  // keyline, the mat each side in whole device pixels (none where the
+  // keyline hugs the picture), so the picture (and the strip under it)
+  // starts on a whole device pixel too.
   const colX = Math.max(0, Math.floor((width - column) / 2));
+  const mat = Math.floor(((column - 2 * keyline - picture.width) / 2) * dpr + 1e-6) / dpr;
   return {
     short,
     fp,
@@ -161,7 +196,9 @@ export function frameLayout({ width, height, dpr, safeTop = 0, safeBottom = 0, u
     picture,
     maxCssHeight,
     column,
-    x: { column: colX, picture: colX + Math.floor((column - picture.width) / 2) },
+    keyline,
+    mat,
+    x: { column: colX, picture: colX + keyline + mat },
     rows,
     box,
     // Whole lines only: the box clips the next one (S6's ▾ continues it).
@@ -216,8 +253,8 @@ export function remapFor(palette, hour) {
 }
 
 /**
- * @typedef {{compose: (pic: string, art: any, o: {hour: string, sprites: readonly (readonly string[])[]}) => {ops: any[], width: number, height: number, key: string}, drawable: (pic: string, art: any) => boolean}} Composer
- * @typedef {{ops: any[], width: number, height: number, place: string, remap: string, y0: number}} PicturePlan
+ * @typedef {{compose: (pic: string, art: any, o: {hour: string, sprites: readonly (readonly string[])[]}) => {ops: any[], width: number, height: number, key: string, hotspots?: {id: string, x: number, y: number, w: number, h: number}[]}, drawable: (pic: string, art: any) => boolean}} Composer
+ * @typedef {{ops: any[], width: number, height: number, place: string, remap: string, y0: number, hotspots: {id: string, x: number, y: number, w: number, h: number}[], alt: {id: string}[]}} PicturePlan
  */
 
 /**
@@ -235,12 +272,13 @@ export function picturePlan(view, art, hour, composer) {
   if (composer) {
     if (!view || !composer.drawable(view.pic, art)) return null;
     const c = composer.compose(view.pic, art, { hour, sprites: SPRITES });
-    return { ops: c.ops, width: c.width, height: c.height, place: String(c.key).split('@')[0], remap: hour, y0: 0 };
+    // Its Looks are its hotspots' (S6), and its alt text its parts' lines (gfx/alt.js).
+    return { ops: c.ops, width: c.width, height: c.height, place: String(c.key).split('@')[0], remap: hour, y0: 0, hotspots: c.hotspots || [], alt: altFor(view.pic, art, { hour, sprites: SPRITES }) };
   }
   const cover = art.pics && art.pics[STAND_IN.pic];
   if (!cover) return null;
   // The cover is drawn in its own dusk colors and shown with the day table, as the title shows it.
-  return { ops: cover.ops, width: cover.width, height: cover.height, place: STAND_IN.pic, remap: 'day', y0: STAND_IN.y };
+  return { ops: cover.ops, width: cover.width, height: cover.height, place: STAND_IN.pic, remap: 'day', y0: STAND_IN.y, hotspots: [], alt: [] };
 }
 
 /** Places drawn in this page load: a revisit, or a new hour, shows at once (11.4). */
@@ -248,10 +286,6 @@ const seen = new Set();
 /** Forget the places seen (tests). */
 export function forgetSeen() {
   seen.clear();
-}
-
-function reducedMotion() {
-  return typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
 }
 
 /**
@@ -300,6 +334,9 @@ export function stubSound() {
  * @property {Composer | null} composer
  * @property {Sound} sound
  * @property {Menu} menu
+ * @property {() => void} [rearm] the diamond's confirm opened: the game
+ *   restarts its double-tap guard, so the second tap of a double tap on the
+ *   diamond can't land on Yes (12.1)
  */
 
 /**
@@ -413,13 +450,41 @@ export function renderFrame(host, screen, onAct, ctx) {
   host.appendChild(status.header);
   stops.push(watchUpdate(doc, status.menu));
 
-  // The picture.
+  // The picture: its canvas (hidden from VoiceOver), its alt text (an
+  // element with role img, its words the parts' lines: gfx/alt.js), its
+  // Look buttons over the canvas (ui/look.js), and its polite live region
+  // (the confirm's prompt, the compass's result).
+  const plan = picturePlan(view, ctx.art, ctx.hour, ctx.composer);
   const figure = doc.createElement('figure');
   figure.className = 'frame-picture';
   const canvas = /** @type {HTMLCanvasElement} */ (doc.createElement('canvas'));
   canvas.className = 'picture';
   canvas.setAttribute('aria-hidden', 'true');
   figure.appendChild(canvas);
+  const alt = plan ? plan.alt : [];
+  if (alt.length) {
+    const img = doc.createElement('div');
+    img.classList.add('vh', 'frame-alt');
+    img.setAttribute('role', 'img');
+    img.setAttribute('aria-label', alt.map((r) => t(r.id)).join(' ')); // t-ids: @art
+    img.setAttribute('data-t-aria', alt[0].id); // the line inspector finds a spoken name by it
+    img.setAttribute('data-t-alt', alt.map((r) => r.id).join(' '));
+    figure.appendChild(img);
+  }
+  const placeId = view ? view.node : null;
+  /** @param {string} kind @param {HTMLElement} button */
+  const look = (kind, button) => openLook(figure, lookLines(kind, placeId), { opener: button, sound: ctx.sound });
+  const looks = renderLooks(doc, plan ? plan.hotspots : [], ctx.art ? ctx.art.hotspots : null, look);
+  if (looks.buttons.length) figure.appendChild(looks.layer);
+  // A tap on the picture that hits no Look shows its alt text as the Look (King's Quest's LOOK at the room).
+  figure.addEventListener('click', () => {
+    if (host.hasAttribute('data-compass') || !alt.length) return;
+    openLook(figure, alt, { sound: ctx.sound, flow: true });
+  });
+  const live = doc.createElement('p');
+  live.classList.add('vh', 'frame-live');
+  live.setAttribute('aria-live', 'polite');
+  figure.appendChild(live);
   host.appendChild(figure);
 
   // The caption.
@@ -445,14 +510,92 @@ export function renderFrame(host, screen, onAct, ctx) {
     }
   }
 
-  // The box and the choices: S3's, with the cue each tap plays and the (i) square.
-  const st = renderStop(host, screen, (a) => onAct(a, cueFor(a)));
+  // The box and the choices: S3's, with the cue each tap plays, the odds
+  // intro before the box, the tags, the (i) square and its Why sheet, the
+  // diamond's confirm, and an outcome's notes.
+  const { screen: shown, intro } = withIntro(/** @type {any} */ (screen));
+  /** @type {ReturnType<typeof openConfirm> | null} */
+  let confirm = null;
+  const drawn = drawnChoices(/** @type {any} */ (shown));
+  /** @type {import('./textbox.js').Pager | null} */
+  let pager = null;
+  /** @param {Record<string, unknown>} a */
+  const tap = (a) => {
+    // While the box's pages remain, the choices are inert: a tap turns the page (12.1's ▾).
+    if (pager && pager.waiting()) {
+      pager.next();
+      return;
+    }
+    const k = drawn.findIndex((c) => c.act.t === a.t && c.act.c === a.c);
+    const c = k >= 0 ? drawn[k] : null;
+    if (confirm) {
+      confirm.close();
+      confirm = null;
+    }
+    if (c && c.odds && c.odds.kind === 'diamond') {
+      // 12.1: nothing critical happens on one brush of the thumb.
+      ctx.sound.play('ui.tick');
+      const button = st.buttons[k];
+      confirm = openConfirm(button, c, {
+        live,
+        onYes: () => onAct(a, cueFor(a)),
+        onClose: () => {
+          confirm = null;
+        },
+      });
+      // Yes and Not yet sit where the diamond was: a double tap's second tap is dropped there too.
+      if (ctx.rearm) ctx.rearm();
+      return;
+    }
+    onAct(a, cueFor(a));
+  };
+  const st = renderStop(host, /** @type {any} */ (shown), tap);
   const list = /** @type {HTMLElement} */ (host.querySelector('.game-choices'));
-  if (list) addInfo(list, /** @type {any} */ (screen), st.buttons, () => ctx.sound.play('ui.open'));
+  // The ▾ continuation (ui/textbox.js): the choices show, inert, until the box's last page.
+  if (st.box) {
+    pager = continueBox(st.box, {
+      onChange: (pg) => {
+        const wait = pg.waiting();
+        if (list) {
+          if (wait) list.setAttribute('data-wait', '');
+          else list.removeAttribute('data-wait');
+        }
+        for (const b of st.buttons) {
+          if (wait) b.setAttribute('aria-disabled', 'true');
+          else b.removeAttribute('aria-disabled');
+        }
+      },
+    });
+  }
+  addTags(/** @type {any} */ (shown), st.buttons);
+  /** @param {any} c @param {HTMLElement | null} opener */
+  const why = (c, opener) => {
+    ctx.sound.play('ui.open');
+    if (c.why) openWhy(doc, { label: c.label, why: c.why, opener });
+  };
+  if (list) addInfo(list, /** @type {any} */ (shown), st.buttons, (c, sq) => why(c, sq));
+  // With the fatal share's intro, the sure way is outlined (8.7).
+  if (intro === 'fatal') for (const b of st.buttons) if (b.hasAttribute('data-sure')) b.classList.add('choice-ring');
+  // A long press on a rolled choice opens its Why sheet (12.1's accelerator), unless the line inspector listens.
+  const stopPress = onLongPress(doc, {
+    find: (/** @type {any} */ target) => {
+      if (doc.documentElement.hasAttribute('data-inspect')) return null;
+      for (let at = target; at && at !== host; at = at.parentNode) {
+        if (at.getAttribute && at.hasAttribute('data-choice')) {
+          const c = drawn[Number(at.getAttribute('data-choice'))];
+          return c && c.why ? { c, el: at } : null;
+        }
+      }
+      return null;
+    },
+    run: (/** @type {{c: any, el: HTMLElement}} */ hit) => why(hit.c, hit.el),
+  });
+  stops.push(stopPress);
+  if (list && /** @type {any} */ (shown).outcome) list.insertBefore(renderOutcome(doc, /** @type {any} */ (shown)), list.firstChild);
   if (!st.box) caption.setAttribute('tabindex', '-1');
 
   // The toolbar, or (short) its three in the ≡ sheet.
-  const layout = measure(host, win, screen.choices.length);
+  const layout = measure(host, win, screen.choices.length, drawn.filter((c) => c.odds && c.odds.kind === 'diamond').length);
   const short = layout ? layout.short : false;
   host.setAttribute('data-short', short ? '1' : '0');
   if (!short) host.appendChild(renderToolbar(doc));
@@ -463,9 +606,8 @@ export function renderFrame(host, screen, onAct, ctx) {
   /** @type {ReturnType<typeof createDisplay> | null} */
   let display = null;
   let stopCycles = () => {};
-  /** @type {{finish: () => void} | null} */
+  /** @type {{finish: () => void, readonly done: boolean} | null} */
   let run = null;
-  const plan = picturePlan(view, ctx.art, ctx.hour, ctx.composer);
   const preview = doc.documentElement.dataset.channel !== 'main';
   // (With no art.json at all, the title page has said so already.)
   if (!plan && ctx.art && preview) console.warn(`frame: no picture for ${view ? view.pic : screen.stop ? screen.stop.id : '?'} yet`);
@@ -473,12 +615,15 @@ export function renderFrame(host, screen, onAct, ctx) {
   if (win && typeof canvas.getContext === 'function') {
     display = createDisplay(canvas, PIC.width, PIC.height);
     const relayoutAll = () => {
-      const l = measure(host, win, screen.choices.length);
+      const l = measure(host, win, screen.choices.length, drawn.filter((c) => c.odds && c.odds.kind === 'diamond').length);
       if (!l || !display) return;
       snapWidth(status.sound);
       display.layout({ cssWidth: win.innerWidth, screenHeight: screenHeight(win), maxCssHeight: l.maxCssHeight });
       if (strip) strip.relayout(display.shape, screenHeight(win));
       display.snap();
+      const dpr = win.devicePixelRatio || 1;
+      looks.place({ ...display.shape, dpr, ox: canvasInset(display.shape.sx, dpr) });
+      if (pager) pager.relayout();
     };
     relayoutAll();
     if (plan && ctx.palette) {
@@ -496,12 +641,21 @@ export function renderFrame(host, screen, onAct, ctx) {
         remap,
         reduced,
         onDone(final) {
-          // The water shimmers and the stars twinkle, unless Reduce Motion is on (11.5).
-          if (!reduced) stopCycles = startCycles(/** @type {any} */ (shown), final, plan.width, palette, { remap });
+          // The water shimmers and the stars twinkle, unless Reduce Motion is
+          // on (11.5), and they stop (or start) when it changes mid-stop (ui/motion.js).
+          stopCycles = liveCycles(() => startCycles(/** @type {any} */ (shown), final, plan.width, palette, { remap }));
         },
       });
-      const finish = () => run && run.finish();
-      canvas.addEventListener('pointerdown', finish);
+      // Reduce Motion turned on mid-draw: the picture shows finished.
+      stops.push(onMotionChange((on) => on && run && run.finish()));
+      // The first tap on the picture while it draws in only finishes the draw-in, before any Look.
+      const firstTap = (/** @type {Event} */ event) => {
+        if (!run || run.done) return;
+        event.preventDefault();
+        event.stopPropagation();
+        run.finish();
+      };
+      figure.addEventListener('click', firstTap, true);
     }
     // Back in the foreground the text size may have changed (ui/textsize.js
     // reads it first: it listened first), and the Plain rows with it.
@@ -517,15 +671,75 @@ export function renderFrame(host, screen, onAct, ctx) {
       doc.removeEventListener('visibilitychange', onVisible);
     });
     // The box's overflow can only be measured once the fonts have laid it out.
-    if (doc.fonts && doc.fonts.ready) doc.fonts.ready.then(() => checkBox(st.box));
+    if (doc.fonts && doc.fonts.ready)
+      doc.fonts.ready.then(() => {
+        if (pager) pager.relayout();
+        checkBox(st.box);
+      });
   }
 
+  /** @type {ReturnType<typeof playCompass> | null} */
+  let spin = null;
   return {
     box: st.box,
     buttons: st.buttons,
     /** What takes focus on a new stop: the box, or on a quiet stop the caption. */
     focus: st.box || caption,
+    /** The live region the confirm and the compass speak in. */
+    live,
+    /** The box's pages (the ▾), or null on a quiet stop. */
+    pager,
+    /** The picture's Look buttons (ui/look.js), and what a tap off them shows: its alt text. */
+    looks,
+    alt,
+    /**
+     * The compass roll (ui/compass.js) in this stop's picture: the box and
+     * the choices inert, a tap anywhere skips to rest and then on. Resolves
+     * when the outcome's turn comes (at once with no canvas, in Node).
+     * @param {import('./compass.js').CompassRoll} roll the outcome screen's roll
+     * @param {number} u the rest draw (restDraw)
+     * @param {{reduced?: boolean, now?: () => number, frame?: (f: () => void) => unknown, later?: (f: () => void, ms: number) => unknown}} [o]
+     * @returns {Promise<void>}
+     */
+    compass(roll, u, o = {}) {
+      closeWhy(doc);
+      closeLook(figure);
+      looks.layer.hidden = true;
+      if (confirm) confirm.close();
+      const pal = ctx.palette;
+      if (!display || !pal) return Promise.resolve();
+      if (run) run.finish();
+      stopCycles();
+      host.setAttribute('data-compass', '');
+      const shownDisplay = display;
+      return new Promise((resolve) => {
+        const onTap = () => spin && spin.tap();
+        host.addEventListener('click', onTap, true);
+        stops.push(() => host.removeEventListener('click', onTap, true));
+        spin = playCompass({
+          display: shownDisplay,
+          palette: pal,
+          roll,
+          u,
+          reduced: o.reduced === undefined ? reducedMotion() : o.reduced,
+          sound: ctx.sound,
+          live,
+          ...(o.now ? { now: o.now } : {}),
+          ...(o.frame ? { frame: o.frame } : {}),
+          ...(o.later ? { later: o.later } : {}),
+          done: () => {
+            host.removeEventListener('click', onTap, true);
+            resolve();
+          },
+        });
+      });
+    },
     release() {
+      if (spin) spin.stop();
+      // The compass's inert box and choices end with this stop (the host is the next one's too).
+      host.removeAttribute('data-compass');
+      closeWhy(doc);
+      closeLook(figure);
       if (run) run.finish();
       stopCycles();
       for (const s of stops) s();
@@ -548,6 +762,19 @@ function snapWidth(el) {
   if (w > 0) el.style.width = `${Math.ceil(w - 0.01)}px`;
 }
 
+/**
+ * Where the picture starts inside its canvas, in device pixels: the canvas
+ * is a whole number of CSS px wide, and the picture is centered in it
+ * (gfx/display.js layout), so a pixel or two may stay ink at its left.
+ * @param {number} sx
+ * @param {number} dpr
+ */
+export function canvasInset(sx, dpr) {
+  const pw = PIC.width * sx;
+  const bw = Math.round(Math.ceil(pw / dpr - 1e-6) * dpr);
+  return (bw - pw) >> 1;
+}
+
 /** @param {Window} win */
 function screenHeight(win) {
   const s = win.screen;
@@ -556,18 +783,21 @@ function screenHeight(win) {
 
 /**
  * The frame's layout on this screen, with its CSS numbers set on host:
- * --col (the column), --col-x and --pic-x (their left edges). Null
+ * --col (the column), --col-x and --pic-x (their left edges) and --mat
+ * (the ink between the picture's keyline and the picture). Null
  * without a window.
  * @param {HTMLElement} host
  * @param {(Window & typeof globalThis) | null} win
  * @param {number} choices
+ * @param {number} [tall] of them 64 pt (a diamond)
  */
-function measure(host, win, choices) {
+function measure(host, win, choices, tall = 0) {
   if (!win) return null;
-  const l = frameLayout({ width: win.innerWidth, height: screenHeight(win), dpr: win.devicePixelRatio || 1, usable: host.clientHeight || win.innerHeight, choices, plainPx: plainSizeOf(host.ownerDocument, win) });
+  const l = frameLayout({ width: win.innerWidth, height: screenHeight(win), dpr: win.devicePixelRatio || 1, usable: host.clientHeight || win.innerHeight, choices, tall, plainPx: plainSizeOf(host.ownerDocument, win) });
   host.style.setProperty('--col', `${l.column}px`);
   host.style.setProperty('--col-x', `${l.x.column}px`);
   host.style.setProperty('--pic-x', `${l.x.picture}px`);
+  host.style.setProperty('--mat', `${l.mat}px`);
   return l;
 }
 
@@ -621,23 +851,33 @@ const HOUR_WORDS = Object.freeze([
   ['night', 'dev.hour.night'],
 ]);
 
+/** The check view's fixtures, by the choices they show (S6: four, the 15's budget, lint T02's). */
+export const FIXTURES = Object.freeze(['three', 'four']);
+/** Each fixture's dev words in the picker. */
+const FIXTURE_WORDS = Object.freeze({ three: 'dev.fixture.three', four: 'dev.fixture.four' });
+
 /**
- * The fixture screen the check view shows: a three-line box from the two
- * sample lines, and three choices: Walk on, and two whose labels are the
- * sample lines' ids (shown as data), the second with the (i) square.
+ * A fixture screen the check view shows: a three-paragraph box from the
+ * two sample lines, and three choices: Walk on, and two whose labels are
+ * the sample lines' ids (shown as data), the second with the (i) square.
+ * The four-choice fixture (S6) adds a third with its (i), the 15's budget
+ * (12.1, lint T02), so its box continues with ▾ there and on any phone.
+ * @param {string} [which] a FIXTURES id
  */
-export function fixtureScreen() {
+export function fixtureScreen(which = 'three') {
   const a = 'trail.deer_lake_rim.deer_lake';
   const b = 'trail.deer_lake_rim.rim';
+  const choices = [
+    { act: { t: 'next' }, label: null, enabled: true },
+    { act: { t: 'choose', c: 'one' }, label: { id: a }, enabled: true },
+    { act: { t: 'choose', c: 'two' }, label: { id: b }, enabled: true, info: { fixture: true } },
+  ];
+  if (which === 'four') choices.push({ act: { t: 'choose', c: 'three' }, label: { id: a }, enabled: true, info: { fixture: true } });
   return {
     phase: 'trailhead',
     stop: { set: 'deer_lake_rim', id: 'deer_lake', n: 1 },
     box: [{ id: a }, { id: b }, { id: a }],
-    choices: [
-      { act: { t: 'next' }, label: null, enabled: true },
-      { act: { t: 'choose', c: 'one' }, label: { id: a }, enabled: true },
-      { act: { t: 'choose', c: 'two' }, label: { id: b }, enabled: true, info: { fixture: true } },
-    ],
+    choices,
   };
 }
 
@@ -669,6 +909,7 @@ export function showScenes(doc, ctx) {
   const pics = scenePics(ctx.art, ctx.composer);
   let pic = pics[0] || STAND_IN.pic;
   let hour = 'day';
+  let fixture = FIXTURES[0];
   const sheet = doc.createElement('div');
   sheet.className = 'frame-sheet';
   sheet.id = SCENES_ID;
@@ -697,7 +938,7 @@ export function showScenes(doc, ctx) {
     const node = ctx.park && ctx.park.nodes && ctx.park.nodes[pic] ? pic : SCENES_FALLBACK_NODE;
     const named = wordsOf(`place.${node}`) !== undefined;
     const view = { pic, node, day: ['sol_duc_trailhead', node] };
-    frame = renderFrame(host, fixtureScreen(), () => {}, { ...ctx, view, hour });
+    frame = renderFrame(host, fixtureScreen(fixture), () => {}, { ...ctx, view, hour });
     if (!named) {
       const caption = /** @type {HTMLElement} */ (host.querySelector('.frame-caption'));
       while (caption.firstChild) caption.removeChild(caption.firstChild);
@@ -748,6 +989,19 @@ export function showScenes(doc, ctx) {
         draw();
       });
       hourRow.appendChild(b);
+    }
+    const fixtureRow = row('scenes-fixtures');
+    for (const f of FIXTURES) {
+      const b = doc.createElement('button');
+      b.className = 'marks-mode';
+      b.setAttribute('type', 'button');
+      b.setAttribute('aria-pressed', String(f === fixture));
+      tx(b, /** @type {Record<string, string>} */ (FIXTURE_WORDS)[f]); // t-ids: dev.fixture.three, dev.fixture.four
+      b.addEventListener('click', () => {
+        fixture = f;
+        draw();
+      });
+      fixtureRow.appendChild(b);
     }
     const close = doc.createElement('button');
     close.className = 'map-close';

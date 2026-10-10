@@ -1,28 +1,28 @@
 {
-  "$comment": "The sixteen colors (BUILD_PLAN 4.1, doc 11.1), the time-of-day remaps (doc 11.4) and the cycles (doc 11.5). web/js/gfx/palette.js holds the same tables, and test/unit/palette.test.mjs keeps the two identical. A remap sends each slot to a slot. A cycle lists its slots in order; a light resolves after the remap, so it stays bright at night; hold is frames per step at 8 fps; phase is how a pixel's position offsets its step. Blue hour and night arrived in S5 (their key slots are the doc's; the rest are tuned by eye on the renders: spruce goes to ink at dusk, blue hour and night, and forest to spruce at all three, so a conifer keeps its two sides, stands darker than the meadow and keeps its lit side against the night sky; teal goes to slate at night, so a ridge's haze stays apart from the ink ridge and the treeline); the weather tints and the drained death-box table arrive with their sessions (S8, S16, S24a).",
+  "$comment": "The sixteen colors (BUILD_PLAN 4.1, doc 11.1: option B, lifted by decision 68), the time-of-day remaps (doc 11.4) and the cycles (doc 11.5). web/js/gfx/palette.js holds the same tables, and test/unit/palette.test.mjs keeps the two identical. A remap sends each slot to a slot. A cycle lists its slots in order; a light resolves after the remap, so it stays bright at night; hold is frames per step at 8 fps; phase is how a pixel's position offsets its step. Blue hour and night arrived in S5 (their key slots were the doc's; the rest tuned by eye on the renders: spruce goes to ink at dusk, blue hour and night, and forest to spruce at all three, so a conifer keeps its two sides, stands darker than the meadow and keeps its lit side against the night sky; teal goes to slate at night, so a ridge's haze stays apart from the ink ridge and the treeline). S6 re-tuned dusk, blue hour and night by eye on the renders for decision 68's lighter sixteen, whose darks sit closer (forest and slate are 1.06 apart), so the lake, the trail and the trees read against the meadow at every hour (at least 1.3 apart, test/unit/palette.test.mjs and render-pics' light.txt) and night stays night, never grey: at dusk the meadow (moss) goes to teal, not forest, apart from the lake's slate; blue hour keeps dusk's lit sky below and cools the rest: slate to ink (a key slot, which was night navy; doc 11.4 moves with it), so the upper sky sits a step under dusk's, while glacier blue stays slate, as at dusk, so the sky stays lighter than night's and than S5's blue hour (the S6 review: a first re-tune sent glacier blue to night navy too, and blue hour's sky was night's, darker than S5's at every place); no warm color is left (alpenglow pink to night navy, paper cream, the trail, to slate, bark to ink, snow to glacier blue, kept), and its slate lake reads against a teal meadow (moss and sage to teal), as at dusk; at night the trail (paper cream) goes to teal, not slate, the one pale thing left on the ground and still under every star. No hour is darker than S5's at any place (test/unit/palette.test.mjs). Tried and left: the night sky's top on night navy (slate to night navy), since slate is also every far ridge and the rim's rock, and Bogachiel Peak went into the night sky with it. The weather tints and the drained death-box table arrive with their sessions (S8, S16, S24a).",
   "colors": [
-    { "slot": 0, "name": "ink", "hex": "#1b1f2a", "use": "Outlines, text, night" },
-    { "slot": 1, "name": "night navy", "hex": "#24324a", "use": "Dusk sky, deep water" },
-    { "slot": 2, "name": "slate", "hex": "#3f5a7a", "use": "Day sky top, far ridges" },
-    { "slot": 3, "name": "glacier blue", "hex": "#8fb3c9", "use": "Sky, lakes, snow shadow" },
+    { "slot": 0, "name": "ink", "hex": "#343945", "use": "Outlines, text, night" },
+    { "slot": 1, "name": "night navy", "hex": "#394862", "use": "Dusk sky, deep water" },
+    { "slot": 2, "name": "slate", "hex": "#4d698a", "use": "Day sky top, far ridges" },
+    { "slot": 3, "name": "glacier blue", "hex": "#93b7cd", "use": "Sky, lakes, snow shadow" },
     { "slot": 4, "name": "snow", "hex": "#f2efe6", "use": "Snow, message box" },
-    { "slot": 5, "name": "paper cream", "hex": "#e8d9b5", "use": "Paper, trails, stars" },
-    { "slot": 6, "name": "alpenglow pink", "hex": "#e09a8a", "use": "Dusk sky, heather" },
-    { "slot": 7, "name": "bonfire gold", "hex": "#e8b33a", "use": "The Bonfire Lily only" },
-    { "slot": 8, "name": "rust", "hex": "#c4602d", "use": "The hiker's jacket, fall color" },
-    { "slot": 9, "name": "brick", "hex": "#8a3b2a", "use": "Box border, pack, the diamond" },
-    { "slot": 10, "name": "bark", "hex": "#5a3d2b", "use": "Trunks, logs, bear" },
-    { "slot": 11, "name": "spruce", "hex": "#1f3b33", "use": "Conifer shadow sides" },
-    { "slot": 12, "name": "forest", "hex": "#2f5b45", "use": "Conifers" },
-    { "slot": 13, "name": "moss", "hex": "#6b8a4a", "use": "Meadow, moss" },
-    { "slot": 14, "name": "sage", "hex": "#a7b88a", "use": "Sunlit meadow, gravel" },
-    { "slot": 15, "name": "teal", "hex": "#3f7f7a", "use": "Rivers, hazy mid ridges" }
+    { "slot": 5, "name": "paper cream", "hex": "#e9dab6", "use": "Paper, trails, stars" },
+    { "slot": 6, "name": "alpenglow pink", "hex": "#e49d8d", "use": "Dusk sky, heather" },
+    { "slot": 7, "name": "bonfire gold", "hex": "#ebb53d", "use": "The Bonfire Lily only" },
+    { "slot": 8, "name": "rust", "hex": "#ce6937", "use": "The hiker's jacket, fall color" },
+    { "slot": 9, "name": "brick", "hex": "#9b4a39", "use": "Box border, pack, the diamond" },
+    { "slot": 10, "name": "bark", "hex": "#6d4f3d", "use": "Trunks, logs, bear" },
+    { "slot": 11, "name": "spruce", "hex": "#345148", "use": "Conifer shadow sides" },
+    { "slot": 12, "name": "forest", "hex": "#3f6c55", "use": "Conifers" },
+    { "slot": 13, "name": "moss", "hex": "#749353", "use": "Meadow, moss" },
+    { "slot": 14, "name": "sage", "hex": "#aabb8d", "use": "Sunlit meadow, gravel" },
+    { "slot": 15, "name": "teal", "hex": "#4a8a85", "use": "Rivers, hazy mid ridges" }
   ],
   "remaps": {
     "day": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
-    "dusk": [0, 1, 1, 2, 6, 6, 9, 7, 9, 10, 10, 0, 11, 12, 13, 2],
-    "blue": [0, 1, 1, 2, 3, 2, 2, 7, 9, 10, 0, 0, 11, 12, 13, 2],
-    "night": [0, 0, 0, 1, 2, 2, 1, 7, 9, 10, 0, 0, 11, 12, 12, 2]
+    "dusk": [0, 1, 1, 2, 6, 6, 9, 7, 9, 10, 10, 0, 11, 15, 13, 2],
+    "blue": [0, 1, 0, 2, 3, 2, 1, 7, 9, 10, 0, 0, 11, 15, 15, 2],
+    "night": [0, 0, 0, 1, 2, 15, 1, 7, 9, 10, 0, 0, 11, 12, 12, 2]
   },
   "cycles": {
     "16": { "name": "lake", "slots": [3, 2, 3, 4], "light": false, "hold": 2, "phase": "wave" },

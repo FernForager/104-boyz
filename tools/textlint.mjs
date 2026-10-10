@@ -10,6 +10,11 @@
 //   T12 the ledger matches the answers files, entry by entry
 //   T13 {variables} match their calls; {PLACEHOLDERS} only where allowed
 //   T14 the main gate: every line main reaches is approved words
+//   T02 measured fit (S6; tools/t02.mjs, tools/fontmetrics.mjs): every box,
+//       label, caption, Look and Why-sheet row, set in the shipped fonts'
+//       advances and broken as a browser breaks it, fits frameLayout()'s
+//       space at 375 x 667 and 393 x 852 (T02a to T02f; a box the ▾ may
+//       continue is a warning, and what continues is printed)
 //   T15 a line over its max (S5; BUILD_PLAN 10.5): every ours line has an
 //       integer max of 1 or more, and each of its forms, measured as
 //       web/js/text.js measure() counts (code points of the plain words, a
@@ -31,7 +36,10 @@
 // content names ends its tx() or t() line `// t-ids: @content`: its ids are
 // the content's refs, which T11 and the smoke run's template check cover.
 // Code that shows a place by a computed id ends it `// t-ids: @places`:
-// the ids are the build's place.<id> labels, which T16 checks.
+// the ids are the build's place.<id> labels, which T16 checks. Code that
+// shows a picture's words by a computed id (S6: an alt part, a Look, a Look
+// button's name) ends it `// t-ids: @art`: the ids are those the drawable
+// places' art names (tools/looks.mjs), which P15 holds to their lines.
 //
 // Each issue is {file, line, code, msg, level}, level 'error' or 'warn'.
 // What isn't a problem but is worth knowing (a line waiting for its screen,
@@ -75,6 +83,8 @@ import {
   VARS_FILE,
 } from './text.mjs';
 import { measure } from '../web/js/text.js';
+import { artUses } from './looks.mjs';
+import { runT02 } from './t02.mjs';
 
 /** T07 on a draft that only preview can show: 'warn' (SPEC call 1) or 'error'. */
 export const T07_PREVIEW = 'warn';
@@ -84,10 +94,27 @@ export const PLACEHOLDER_RE = /^(?:BOY_\d(?:_QUIRK|_TUB|_GUESTBOOK)?|JON_QUIRK|M
 const VAR_RE = /^[a-z][a-z0-9_]*$/;
 /** A content ref: "@" and a line id. */
 export const CONTENT_REF_RE = /^@([a-z][a-z0-9_]*(?:\.[a-z0-9_]+)+)$/;
+/**
+ * The content fields whose lines the engine fills (T13): a line content
+ * names holds no {variables} but the ones the engine passes it, each field
+ * here with its file, its path and why. S6: an odds skill's Why-sheet row,
+ * at the hiker's level (engine/odds.js pOf).
+ * @type {readonly {file: RegExp, path: RegExp, vars: readonly string[], why: string}[]}
+ */
+export const CONTENT_VARS = Object.freeze([
+  { file: /^content\/rules\/odds\.json$/, path: /^skills\.[a-z][a-z0-9_]*\.label$/, vars: Object.freeze(['level']), why: 'engine/odds.js pOf: a skill row at its level' },
+]);
 /** The `// t-ids:` entry for a call whose ids come from content refs. */
 export const CONTENT_TIDS = '@content';
 /** The `// t-ids:` entry for a call that shows a place by a computed id (the build's place.<id> labels, T16). */
 export const PLACES_TIDS = '@places';
+/**
+ * The `// t-ids:` entry for a call that shows a picture's words by a
+ * computed id (S6): the alt parts and the Looks the drawable places' art
+ * names (tools/looks.mjs artUses; lint P15 holds them to their lines), so
+ * T11 counts every one the art names as used.
+ */
+export const ART_TIDS = '@art';
 /** The public-domain quotes T16 holds content/lore/quotes.json to (S24a writes the file). */
 export const QUOTES_FILE = 'content/lore/quotes.json';
 export const QUOTES_SOURCE = 'design/data/lore/quotes_public_domain.json';
@@ -627,16 +654,16 @@ export function contentFiles(root = ROOT) {
 
 /**
  * Pure: the content refs in a file, every string "@<id>" (keys and
- * $comment aside), with its line.
+ * $comment aside), with its line and its path.
  * @param {{file: string, src: string, data: any}} f
- * @returns {{id: string, file: string, line: number}[]}
+ * @returns {{id: string, file: string, line: number, path: string}[]}
  */
 export function contentRefs({ file, src, data }) {
   const out = [];
   const visit = (v, path) => {
     if (typeof v === 'string') {
       const m = CONTENT_REF_RE.exec(v);
-      if (m) out.push({ id: m[1], file, line: lineOfPath(src, path) });
+      if (m) out.push({ id: m[1], file, line: lineOfPath(src, path), path });
     } else if (Array.isArray(v)) v.forEach((x, i) => visit(x, `${path}[${i}]`));
     else if (v && typeof v === 'object') for (const [k, x] of Object.entries(v)) if (k !== '$comment') visit(x, path ? `${path}.${k}` : k);
   };
@@ -801,10 +828,12 @@ export function lintT11(text, uses) {
   for (const u of uses.manifest) need(u.id, u.file, u.line, 'the manifest uses');
   for (const u of uses.content || []) need(u.id, u.file, u.line, 'content refers to');
   for (const l of uses.literals) if (defined(text, l.value)) used.add(l.value);
-  for (const t of uses.tids) for (const id of t.ids) if (id !== CONTENT_TIDS && id !== PLACES_TIDS) need(id, t.file, t.line, '// t-ids: lists');
+  for (const t of uses.tids) for (const id of t.ids) if (id !== CONTENT_TIDS && id !== PLACES_TIDS && id !== ART_TIDS) need(id, t.file, t.line, '// t-ids: lists');
+  // The pictures' words: counted once some code shows them (// t-ids: @art).
+  if (uses.tids.some((t) => t.ids.includes(ART_TIDS))) for (const id of uses.art || []) if (defined(text, id)) used.add(id);
   for (const c of uses.calls) {
     if (c.literal) need(c.id, c.file, c.line, `${c.fn}() asks for`);
-    else if (!c.tids) issues.push({ file: c.file, line: c.line, code: 'T11', msg: `${c.fn}() needs a literal id, or the line ends // t-ids: <every id it can be> (or ${CONTENT_TIDS}, or ${PLACES_TIDS})` });
+    else if (!c.tids) issues.push({ file: c.file, line: c.line, code: 'T11', msg: `${c.fn}() needs a literal id, or the line ends // t-ids: <every id it can be> (or ${CONTENT_TIDS}, ${PLACES_TIDS} or ${ART_TIDS})` });
   }
   for (const [id, line] of text.lines) {
     if (used.has(id)) continue;
@@ -892,15 +921,21 @@ export function lintT13(text, uses) {
     const got = [...new Set(c.vars || [])].sort();
     if (!same(want, got)) out.push({ file: c.file, line: c.line, code: 'T13', msg: `${c.fn}('${c.id}') passes {${got.join(', ')}}, but the line has {${want.join(', ')}}` });
   }
+  /** The vars the engine passes a content field's line (CONTENT_VARS), or none. */
+  const filled = (u) => {
+    const f = CONTENT_VARS.find((x) => x.file.test(u.file) && x.path.test(u.path || ''));
+    return f ? f.vars : [];
+  };
   for (const [list, known, what] of [
     [uses.html, FILL_VARS, 'the build fills'],
     [uses.manifest, [], 'the manifest takes'],
-    [uses.content || [], [], 'content refers to'],
+    [uses.content || [], null, 'content refers to'],
   ]) {
     for (const u of list) {
       if (!defined(text, u.id)) continue;
-      const extra = varsOf(text.lines.get(u.id)).filter((v) => !known.includes(v));
-      if (extra.length) out.push({ file: u.file, line: u.line, code: 'T13', msg: `${u.id}: ${what} it, and knows no {${extra.join(', ')}}${known.length ? ` (only {${known.join(', ')}})` : ''}` });
+      const may = known || filled(u);
+      const extra = varsOf(text.lines.get(u.id)).filter((v) => !may.includes(v));
+      if (extra.length) out.push({ file: u.file, line: u.line, code: 'T13', msg: `${u.id}: ${what} it, and knows no {${extra.join(', ')}}${may.length ? ` (only {${may.join(', ')}})` : ''}` });
     }
   }
   return out;
@@ -1156,6 +1191,11 @@ export function runTextLint(root = ROOT, { main = false } = {}) {
   const uses = collectUses(files.filter((f) => f.file.startsWith('web/')));
   const content = contentFiles(root);
   uses.content = content.flatMap(contentRefs);
+  try {
+    uses.art = [...artUses(root, (id) => text.lines.has(id))];
+  } catch {
+    uses.art = []; // P13 and P15 report art that won't compose
+  }
   issues.push(...lintContentText(root, content));
   issues.push(...lintT07(text, reach));
   const t11 = lintT11(text, uses);
@@ -1164,6 +1204,14 @@ export function runTextLint(root = ROOT, { main = false } = {}) {
   issues.push(...lintT12(text));
   issues.push(...lintT13(text, uses));
   issues.push(...lintT15(text));
+  // T02, measured fit (S6; tools/t02.mjs): what continues (▾) is printed as an info.
+  try {
+    const t02 = runT02(root);
+    issues.push(...t02.issues);
+    infos.push(...t02.continues.map((c) => `T02: ${c}`));
+  } catch (e) {
+    issues.push({ file: 'tools/t02.mjs', line: 1, code: 'T02', msg: `can't measure the fit: ${/** @type {Error} */ (e).message}` });
+  }
   const quotesPath = join(root, QUOTES_FILE);
   let quotes = null;
   let quotesSrc = '';

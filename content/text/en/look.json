@@ -1,0 +1,111 @@
+{
+ "$comment": "The Looks (GAME_DESIGN 12.1, 12.2, 2.3; BUILD_PLAN S6): a tap on a picture's hotspot shows its kind's Look in a small Sierra box, in the second person, deadpan, as King's Quest's LOOK did; look.<kind> serves every picture with that kind (content/art/hotspots.json), look.<kind>.<place> one place's own when it has one, and look.name.<kind> is the Look button's spoken name (VoiceOver). A tap on no hotspot shows the picture's alt text (en/alt.json) instead, so no place needs a line of its own (decision 69). Lint P15 holds every looked kind to its two lines. Drafts until B006 is answered; preview only.",
+ "look.lake": {
+  "text": "You see a mountain lake, very still, keeping a copy of everything above it.",
+  "ctx": "A Look at a lake basin's water, any lake place's (a tap on the lake; a place may get its own later, look.lake.<place>)",
+  "screen": "trail",
+  "max": 140
+ },
+ "look.ridge": {
+  "text": "You see a forested ridge. Somewhere behind it is the crest, and the trail knows where.",
+  "ctx": "A Look at Deer Lake's ridge skyline, toward the High Divide",
+  "screen": "trail",
+  "max": 140
+ },
+ "look.privy": {
+  "text": "You see the roof of a privy among the firs. It has a better view than most privies deserve.",
+  "ctx": "A Look at Deer Lake's privy roof, peeking out of the trees on the far shore",
+  "screen": "trail",
+  "max": 140
+ },
+ "look.hiker": {
+  "text": "You see yourself, more or less. The jacket is doing its best.",
+  "ctx": "A Look at the hiker sprite, in every trail picture",
+  "screen": "trail",
+  "max": 140
+ },
+ "look.basin": {
+  "text": "You see the Seven Lakes Basin. You count the lakes again and get a third answer.",
+  "ctx": "A Look at the basin from the rim (the rim's box counted them twice and got two answers)",
+  "screen": "trail",
+  "max": 140
+ },
+ "look.lunch_lake": {
+  "text": "You see Lunch Lake, the basin's biggest, set in pale rock, with a few tents along its shore.",
+  "ctx": "A Look at Lunch Lake, below the rim",
+  "screen": "trail",
+  "max": 140
+ },
+ "look.staircase": {
+  "text": "You see the stone staircase, set step by step into the slope by people with strong backs.",
+  "ctx": "A Look at the stone staircase dropping from the rim into the basin",
+  "screen": "trail",
+  "max": 140
+ },
+ "look.bogachiel_peak": {
+  "text": "You see Bogachiel Peak, the high point of the Divide, with old snow in its gullies.",
+  "ctx": "A Look at Bogachiel Peak above the basin, from the rim",
+  "screen": "trail",
+  "max": 140
+ },
+ "look.sign": {
+  "text": "You see a trail sign. It points three ways and has opinions about none of them.",
+  "ctx": "A Look at the trail sign at the rim",
+  "screen": "trail",
+  "max": 140
+ },
+ "look.name.lake": {
+  "text": "The lake",
+  "ctx": "VoiceOver's name for the lake's Look button over the picture",
+  "screen": "trail",
+  "max": 24
+ },
+ "look.name.ridge": {
+  "text": "The ridge",
+  "ctx": "VoiceOver's name for the ridge's Look button",
+  "screen": "trail",
+  "max": 24
+ },
+ "look.name.privy": {
+  "text": "The privy",
+  "ctx": "VoiceOver's name for the privy's Look button",
+  "screen": "trail",
+  "max": 24
+ },
+ "look.name.hiker": {
+  "text": "You",
+  "ctx": "VoiceOver's name for the hiker's Look button (the hiker is you)",
+  "screen": "trail",
+  "max": 24
+ },
+ "look.name.basin": {
+  "text": "The basin",
+  "ctx": "VoiceOver's name for the basin's Look button, at the rim",
+  "screen": "trail",
+  "max": 24
+ },
+ "look.name.lunch_lake": {
+  "text": "Lunch Lake",
+  "ctx": "VoiceOver's name for Lunch Lake's Look button, at the rim",
+  "screen": "trail",
+  "max": 24
+ },
+ "look.name.staircase": {
+  "text": "The stone staircase",
+  "ctx": "VoiceOver's name for the staircase's Look button, at the rim",
+  "screen": "trail",
+  "max": 24
+ },
+ "look.name.bogachiel_peak": {
+  "text": "Bogachiel Peak",
+  "ctx": "VoiceOver's name for Bogachiel Peak's Look button, at the rim",
+  "screen": "trail",
+  "max": 24
+ },
+ "look.name.sign": {
+  "text": "The trail sign",
+  "ctx": "VoiceOver's name for the trail sign's Look button, at the rim",
+  "screen": "trail",
+  "max": 24
+ }
+}

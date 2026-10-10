@@ -1,9 +1,63 @@
 {
- "$comment": "Pictures' alt text, read by VoiceOver (GAME_DESIGN 18.3). Working words; status comes from approved.json.",
+ "$comment": "Pictures' alt text, read by VoiceOver (GAME_DESIGN 11.9, 18.3). The cover's own line; and from S6 the trail pictures' parts (web/js/gfx/alt.js): a scene's line or a base's, then each skyline's, the sprite's and the hour's (day adds none), each a whole sentence, joined in that order, so every drawable place is described with no line of its own (decision 69), and the same words are the picture's Look where a tap hits no hotspot. Lint P15 holds every drawable place's parts to their lines. Working words; status comes from approved.json.",
  "alt.cover_high_divide_dusk": {
   "text": "The High Divide at dusk. Across the Hoh valley, Mount Olympus glows pink in the last light, under the first stars. A hiker in a rust jacket walks the crest trail among subalpine firs and pink heather.",
   "ctx": "VoiceOver's description of the cover on the title page (off main: there the cover is decoration beside the name; it returns as the loading art's in B002)",
   "screen": "title",
   "max": 240
+ },
+ "alt.base.lake_basin": {
+  "text": "A mountain lake ringed with firs, a meadow on its near shore.",
+  "ctx": "The lake-basin base's description (VoiceOver; and the Look where a tap hits no hotspot): every lake place drawn from it starts with it",
+  "screen": "trail",
+  "max": 120
+ },
+ "alt.base.meadow": {
+  "text": "A subalpine meadow of heather and grass, with firs at its edges.",
+  "ctx": "The meadow base's description: every meadow and crest place drawn from it starts with it",
+  "screen": "trail",
+  "max": 120
+ },
+ "alt.skyline.deer_lake_ridge": {
+  "text": "A forested ridge rises behind the lake.",
+  "ctx": "Deer Lake's ridge skyline, after its base's sentence",
+  "screen": "trail",
+  "max": 80
+ },
+ "alt.skyline.olympus_from_divide": {
+  "text": "Across the Hoh valley stands Mount Olympus, white with glaciers.",
+  "ctx": "Mount Olympus across the Hoh valley, the crest places' skyline, after its base's sentence",
+  "screen": "trail",
+  "max": 80
+ },
+ "alt.scene.seven_lakes_basin_rim": {
+  "text": "From the rim, the Seven Lakes Basin below: blue lakes in pale rock and heather, Bogachiel Peak above, a stone staircase dropping into it.",
+  "ctx": "The rim's hand-drawn scene, looking down into the basin",
+  "screen": "trail",
+  "max": 160
+ },
+ "alt.sprite.hiker": {
+  "text": "A hiker in a rust jacket stands on the trail.",
+  "ctx": "The hiker sprite, after the place's sentences, in every trail picture",
+  "screen": "trail",
+  "max": 60
+ },
+ "alt.hour.dusk": {
+  "text": "Dusk.",
+  "ctx": "The hour, last, at dusk (day adds none)",
+  "screen": "trail",
+  "max": 40
+ },
+ "alt.hour.blue": {
+  "text": "Blue hour, the first stars out.",
+  "ctx": "The hour, last, at blue hour",
+  "screen": "trail",
+  "max": 40
+ },
+ "alt.hour.night": {
+  "text": "Night, under the stars.",
+  "ctx": "The hour, last, at night",
+  "screen": "trail",
+  "max": 40
  }
 }

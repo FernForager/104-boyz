@@ -81,6 +81,17 @@ class FakeNode {
     n.parentNode = null;
     return n;
   }
+  insertBefore(n, ref) {
+    if (!ref) return this.appendChild(n);
+    if (n.parentNode) n.parentNode.removeChild(n);
+    this.childNodes.splice(this.childNodes.indexOf(ref), 0, n);
+    n.parentNode = this;
+    return n;
+  }
+  contains(n) {
+    for (let at = n; at; at = at.parentNode) if (at === this) return true;
+    return false;
+  }
   get textContent() {
     return this.childNodes.map((c) => c.textContent).join('');
   }
@@ -90,6 +101,9 @@ class FakeText extends FakeNode {
   constructor(doc, data) {
     super(doc);
     this.data = data;
+  }
+  get nodeType() {
+    return 3;
   }
   get outerHTML() {
     return esc(this.data);
@@ -135,6 +149,9 @@ class FakeElement extends FakeNode {
       remove: (...cs) => el.setAttribute('class', el.className.split(' ').filter((c) => c && !cs.includes(c)).join(' ')),
       contains: (c) => el.className.split(' ').includes(c),
     };
+  }
+  get nodeType() {
+    return 1;
   }
   set className(v) {
     this.setAttribute('class', v);

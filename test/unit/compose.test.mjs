@@ -94,7 +94,9 @@ test('layering: no base op on the far layer; within a layer the base comes first
   assert.deepEqual(dl.anchors.trail_spot, [36, 150]);
   const hiker = dl.ops.find((op) => op[0] === 'T' && op[1] === 'hiker_idle');
   assert.deepEqual(hiker, ['T', 'hiker_idle', 36, 150, 0], 'the hiker stands at the trail spot, facing right, toward the water');
-  assert.deepEqual(dl.hotspots.map((h) => h.id), ['lake', 'far_shore', 'shore']);
+  // Re-pinned in S6 (S5's was the base's three, lake, far_shore and shore): the stamps carry their own
+  // hotspots now (track C), so the ridge, the privy and the hiker join them, in op order.
+  assert.deepEqual(dl.hotspots.map((h) => h.id), ['ridge', 'privy', 'lake', 'far_shore', 'shore', 'hiker']);
   // A left-facing sprite flips.
   const left = compose('deer_lake', art, { sprites: [['hiker', 'idle', 'trail_spot', 'left']] });
   assert.equal(left.ops.find((op) => op[0] === 'T' && op[1] === 'hiker_idle')[4], 1);

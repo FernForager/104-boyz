@@ -4,7 +4,7 @@
 // line's state from the ledger, fills the shell and the manifest for each
 // channel, and writes the ledger from the creator's answers.
 //
-//   node tools/text.mjs check [--main]   the text lints (T07, T10-T16); with
+//   node tools/text.mjs check [--main]   the text lints (T02, T07, T10-T16); with
 //                                        --main, also main's built words, in
 //                                        memory
 //   node tools/text.mjs count            where things stand
@@ -42,7 +42,7 @@ import { createHash } from 'node:crypto';
 import { pathToFileURL } from 'node:url';
 import { ROOT } from './pics.mjs';
 import { parseHtml, serialize, walk, getAttr, setAttr, removeAttr, hasAttr, el, text as textNode, textOf } from './html.mjs';
-import { renderParts, plainText, measure } from '../web/js/text.js';
+import { renderParts, plainText, measure, NBSP } from '../web/js/text.js';
 import { validate } from './schema.mjs';
 
 export const ID_RE = /^[a-z][a-z0-9_]*(\.[a-z0-9_]+)+$/;
@@ -1176,7 +1176,9 @@ export function fileBatch(root, batch, { ids = null, by = null } = {}) {
     }
     lines[id] = hash;
     const n = Object.keys(lines).length;
+    // After the table's last row, or (a new batch's first line) after its header's rule.
     const rows = [...md.matchAll(/^\| *\d+ *\|.*$/gm)];
+    if (!rows.length) rows.push(...md.matchAll(/^\|(?: *:?-{3,}:? *\|)+ *$/gm));
     if (!rows.length) {
       errors.push(`batch: ${REVIEW_DIR}/${batch}.md has no table to append to`);
       break;
@@ -1216,7 +1218,8 @@ export function sampleFills(text, words) {
   const out = [];
   for (let k = 0; k < 3; k++) {
     const vars = Object.fromEntries(names.map((n) => [n, v[n] && v[n].samples ? v[n].samples[k] : `{${n}}`]));
-    out.push(plainText(renderParts(pick(words, { ...vars, n: k === 0 ? 1 : 2 }), vars)).replace(/\n/g, ' / '));
+    // The words as written: the page's no-break spaces (a separator bound to what follows, S6) are spacing, not words.
+    out.push(plainText(renderParts(pick(words, { ...vars, n: k === 0 ? 1 : 2 }), vars)).replace(/\n/g, ' / ').replaceAll(NBSP, ' '));
   }
   return out;
 }
@@ -1480,7 +1483,7 @@ async function cli(cmd, args) {
     for (const i of lint.infos) console.log(`info: ${i}`);
     const errs = lint.issues.filter((i) => i.level !== 'warn').length;
     const warns = lint.issues.length - errs;
-    console.log(errs ? `text: ${errs} problem${errs === 1 ? '' : 's'}` : `text: clean (T07, T10-T16)${warns ? `; ${warns} warning${warns === 1 ? '' : 's'}` : ''}`);
+    console.log(errs ? `text: ${errs} problem${errs === 1 ? '' : 's'}` : `text: clean (T02, T07, T10-T16)${warns ? `; ${warns} warning${warns === 1 ? '' : 's'}` : ''}`);
     return errs ? 1 : 0;
   }
   console.error('usage: node tools/text.mjs check [--main] | count | apply B00n | batch B00n --file [id ...] [--by S5] | batch B00n [--shots] [--out dir] [--engine webkit|chromium]');

@@ -34,3 +34,19 @@ export function choiceLabel(content, trip, choice) {
   if (!id) throw new EngineError('state', 'voice: a choice has no label');
   return ref(id);
 }
+
+/**
+ * A rolled choice's words beside its label (S6): its fail word (a diamond's
+ * second line, 8.1) and its Why sheet's "if it goes badly" line (8.7), as
+ * Refs, or null where it has none.
+ * @param {import('./content.js').Content} content
+ * @param {{set: string}} trip
+ * @param {string} stop
+ * @param {string} choice
+ * @returns {{failWord: import('./template.js').Ref | null, badly: import('./template.js').Ref | null}}
+ */
+export function choiceWords(content, trip, stop, choice) {
+  const v = content.voice(trip.set, stop);
+  const of = (/** @type {any} */ m) => (m && Object.prototype.hasOwnProperty.call(m, choice) ? ref(m[choice]) : null);
+  return { failWord: of(v && v.fail_words), badly: of(v && v.badly) };
+}

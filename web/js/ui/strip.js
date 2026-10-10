@@ -45,8 +45,10 @@ const SAGE = 14;
 /**
  * Pure: the day's profile. Walks the route through the day's points: each
  * node with its mile from the start (tenths) and its elevation; ticks at the
- * camps and landmarks after the start; you at the node's first mile on the
- * route (null when the route doesn't pass it).
+ * camps and landmarks after the start; you at the node's last mile on the
+ * route (null when the route doesn't pass it): an outcome's view.day is the
+ * day so far (S6), so back at the trailhead you are at its end, not its
+ * start.
  * @param {any} park rules.park
  * @param {string[]} day the day's points, in order (a stop's view.day)
  * @param {string} node where you are (a stop's view.node)
@@ -69,7 +71,7 @@ export function stripProfile(park, day, node) {
     });
   }
   const elevs = points.map((p) => p.elev);
-  const at = points.find((p) => p.id === node);
+  const at = [...points].reverse().find((p) => p.id === node);
   return {
     points,
     total: mi10,

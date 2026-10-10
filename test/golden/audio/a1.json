@@ -26,6 +26,36 @@
     "2ba12b7c",
     "d8d4d3c9",
     "d96df53d"
+   ],
+   "ui.compass": [
+    "826a296b",
+    "98e08f4c",
+    "d365a19f",
+    "0abfaf3c"
+   ],
+   "ui.land": [
+    "16d54ced",
+    "8f37e956",
+    "58e3fd8b",
+    "9c744fa4"
+   ],
+   "ui.good": [
+    "28eae458",
+    "8d1275f5",
+    "5d8d28d4",
+    "7d71339a"
+   ],
+   "ui.mishap": [
+    "a828b731",
+    "fd3cd0ad",
+    "291d2f13",
+    "b72befa4"
+   ],
+   "ui.serious": [
+    "38da8d17",
+    "8909beca",
+    "fcd84783",
+    "7576a1ed"
    ]
   },
   "48000": {
@@ -52,19 +82,49 @@
     "ee0e5282",
     "e488f6c9",
     "125c07eb"
+   ],
+   "ui.compass": [
+    "9cb53896",
+    "814a2936",
+    "fa6666bf",
+    "54d1bec1"
+   ],
+   "ui.land": [
+    "5d8009aa",
+    "6cf52604",
+    "6144fbba",
+    "fbec5a0f"
+   ],
+   "ui.good": [
+    "78bf1569",
+    "704a7cae",
+    "0baf47f1",
+    "0a27d215"
+   ],
+   "ui.mishap": [
+    "99972ad9",
+    "4cce1df6",
+    "40549de5",
+    "5d67c5c3"
+   ],
+   "ui.serious": [
+    "2165c330",
+    "364f596d",
+    "cb2129e7",
+    "33b062c3"
    ]
   }
  },
  "limiter": "ab66b38a",
  "scenes": {
   "ui_demo": {
-   "hash": "80902751",
+   "hash": "9b8de610",
    "measure": {
     "peakDb": -22.388,
     "truePeakDb": -22.37,
-    "lufsI": -48.124,
+    "lufsI": -47.768,
     "lufsMMax": -44.9,
-    "lufsSMax": -48.07
+    "lufsSMax": -48.025
    }
   },
   "silence": {

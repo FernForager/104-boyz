@@ -38,6 +38,7 @@ import {
   hideScenes,
   SCENES_FALLBACK_NODE,
   STATUS_PT,
+  KEYLINE_FP,
   CAPTION_PT,
   CAPTION_ROWS,
   CHROME_ROW_FP,
@@ -53,9 +54,12 @@ import {
   PLAIN_CHOICE_CHROME_FP,
 } from '../../web/js/ui/frame.js';
 import { FORCED_PLAIN_PX } from '../../web/js/ui/textsize.js';
+import { breakLines } from '../../tools/fontmetrics.mjs';
 import { stripProfile, stripPixels, elevAt, STRIP_SLOTS, STRIP_WIDTH, STRIP_HEIGHT, PLOT_WIDTH } from '../../web/js/ui/strip.js';
 import { cueFor } from '../../web/js/ui/choices.js';
 import { compose, drawable } from '../../web/js/gfx/compose.js';
+import { PALETTE, REMAPS } from '../../web/js/gfx/palette.js';
+import { contrastRatio } from '../../tools/color.mjs';
 import { boxFits, checkBox } from '../../web/js/ui/textbox.js';
 import { TOOLBAR } from '../../web/js/ui/toolbar.js';
 import { createMenu } from '../../web/js/ui/menu.js';
@@ -174,19 +178,23 @@ const classes = (el) => el.children.map((c) => c.className);
 
 /**
  * [name, width, height, dpr, safe top, safe bottom, shape, picture, toolbar,
- * box row (3 choices), whole lines of box text]. The box row is 1fr less
- * nothing; the box itself is 4 fp shorter (2 above, 2 below), and its
- * border and padding take 12 fp more, so the lines are whole 26-pt lines
- * of what is left (the next one is clipped, as in a browser).
+ * box row (3 choices), whole lines of box text, the mat each side]. The box
+ * row is 1fr less nothing; the box itself is 4 fp shorter (2 above, 2
+ * below), and its border and padding take 12 fp more, so the lines are
+ * whole 26-pt lines of what is left (the next one is clipped, as in a
+ * browser). Re-pinned in S6: the picture's keyline (1 fp above and below)
+ * takes its 2 fp from the box row (S5's were 240, 221, 190, 246, 266 and
+ * 213), and no phone loses a line.
  */
 const PHONES = [
-  ['iPhone 17', 402, 874, 3, 62, 34, [7, 4], [374, 224], 50, 240, 8],
-  ['iPhone 15/16', 393, 852, 3, 59, 34, [7, 4], [374, 224], 50, 221, 7],
-  ['13 mini', 375, 812, 3, 50, 34, [6, 4], [320, 224], 50, 190, 6],
-  ['iPhone 11 / XR', 414, 896, 2, 48, 34, [5, 3], [400, 252], 50, 246, 8],
-  ['Pro Max', 440, 956, 3, 62, 34, [8, 5], [427, 280], 50, 266, 9],
-  ['SE (short)', 375, 667, 2, 20, 0, [4, 2], [320, 168], 0, 213, 7],
+  ['iPhone 17', 402, 874, 3, 62, 34, [7, 4], [374, 224], 50, 240 - 8 / 3, 8, 0],
+  ['iPhone 15/16', 393, 852, 3, 59, 34, [7, 4], [374, 224], 50, 221 - 8 / 3, 7, 0],
+  ['13 mini', 375, 812, 3, 50, 34, [6, 4], [320, 224], 50, 190 - 8 / 3, 6, 10],
+  ['iPhone 11 / XR', 414, 896, 2, 48, 34, [5, 3], [400, 252], 50, 246 - 3, 8, 0],
+  ['Pro Max', 440, 956, 3, 62, 34, [8, 5], [427, 280], 50, 266 - 8 / 3, 9, 0],
+  ['SE (short)', 375, 667, 2, 20, 0, [4, 2], [320, 168], 0, 213 - 3, 7, 10],
 ];
+const near = (a, b) => Math.abs(a - b) < 1e-9;
 
 test('the space check: every phone of 3.2, row by row, with three choices and with one', () => {
   for (const [name, width, height, dpr, safeTop, safeBottom, shape, pic, toolbar, box, lines] of PHONES) {
@@ -195,21 +203,84 @@ test('the space check: every phone of 3.2, row by row, with three choices and wi
     assert.deepEqual([l.picture.width, l.picture.height], pic, `${name}: the picture`);
     assert.equal(l.short, height < 700, `${name}: short`);
     const caption = dpr >= 3 ? 40 : 42;
-    // Three choices: 3 x 52 + 2 x 8, and the list's 6 under the last.
-    assert.deepEqual(l.rows, { status: 22, picture: pic[1], caption, strip: 24, box, choices: 178, toolbar }, `${name}: the rows`);
-    assert.equal(Object.values(l.rows).reduce((a, b) => a + b, 0), height - safeTop - safeBottom, `${name}: the rows fill the screen`);
-    assert.equal(l.box, box - 4 * l.fp, `${name}: the box is 2 fp clear of the strip and of the choices`);
+    // Three choices: 3 x 52 + 2 x 8, and the list's 6 under the last; the picture's row is the picture and its keyline (S6).
+    const { box: gotBox, ...rest } = l.rows;
+    assert.deepEqual(rest, { status: 22, picture: pic[1] + 2 * l.fp, caption, strip: 24, choices: 178, toolbar }, `${name}: the rows`);
+    assert.ok(near(gotBox, box), `${name}: the box row, ${gotBox}`);
+    assert.ok(near(Object.values(l.rows).reduce((a, b) => a + b, 0), height - safeTop - safeBottom), `${name}: the rows fill the screen`);
+    assert.ok(near(l.box, box - 4 * l.fp), `${name}: the box is 2 fp clear of the strip and of the choices`);
     assert.equal(l.boxLines, lines, `${name}: ${lines} whole lines`);
     assert.equal(l.boxLines, Math.floor((l.box - 12 * l.fp) / 26), `${name}: whole lines, never rounded up`);
     assert.ok(l.rows.box >= 78, `${name}: never under three lines of box`);
     assert.ok(l.boxLines >= 3, `${name}: three whole lines at least, border and padding in`);
-    assert.equal(l.column, Math.max(pic[0], width - 32), `${name}: the column`);
-    assert.ok(Number.isInteger(l.x.column) && Number.isInteger(l.x.picture), `${name}: left edges on whole pixels`);
+    assert.equal(l.column, Math.max(pic[0] + 2 * l.fp, width - 32), `${name}: the column, the picture and its keyline at least`);
+    // Re-pinned in S6: the keyline is 1 fp (4/3 px on 3x), so the picture starts on a whole device pixel, the column on a whole CSS pixel.
+    assert.ok(Number.isInteger(l.x.column) && near(Math.round(l.x.picture * dpr), l.x.picture * dpr), `${name}: left edges on whole pixels`);
     const one = frameLayout({ width, height, dpr, safeTop, safeBottom, choices: 1 });
-    assert.equal(one.rows.box, box + 120, `${name}: Walk on alone gives the box 120 pt more`);
+    assert.ok(near(one.rows.box, box + 120), `${name}: Walk on alone gives the box 120 pt more`);
     assert.deepEqual(one.picture, l.picture, `${name}: the picture never moves with the choices`);
   }
   assert.deepEqual([fontPixel(3), fontPixel(2), fontPixel(1)], [4 / 3, 1.5, 2], 'a font pixel: 4 device px on 3x, 3 on 2x');
+});
+
+test("the picture's mat (S6, lead call 2): a slate keyline as wide as the column, so every edge aligns on all six phones, and the picture inside it on a whole device pixel", () => {
+  assert.equal(KEYLINE_FP, 1);
+  for (const [name, width, height, dpr, safeTop, safeBottom, , pic, , , , mat] of PHONES) {
+    const l = frameLayout({ width, height, dpr, safeTop, safeBottom });
+    // The keyline's block is the column: its left edge is the status line's, the caption's, the box's and the choices' (all at --col-x, frame.css).
+    assert.equal(l.keyline, l.fp, `${name}: the keyline, one font pixel`);
+    assert.equal(l.mat, mat, `${name}: the mat each side`);
+    assert.ok(near(Math.round(l.mat * dpr), l.mat * dpr), `${name}: the mat is whole device pixels`);
+    assert.ok(near(l.x.picture, l.x.column + l.keyline + l.mat), `${name}: the picture inside the keyline and the mat`);
+    assert.ok(near(Math.round(l.x.picture * dpr), l.x.picture * dpr), `${name}: the canvas starts on a whole device pixel`);
+    // Centered: the ink either side differs by less than a device pixel each way, and the picture fits.
+    const spare = l.column - 2 * l.keyline - pic[0] - 2 * l.mat;
+    assert.ok(spare > -1e-9 && spare < 2 / dpr, `${name}: centered (${spare} px over)`);
+    // The column's right edge is on a whole device pixel too.
+    assert.ok(near(Math.round((l.x.column + l.column) * dpr), (l.x.column + l.column) * dpr), `${name}: the right edge`);
+  }
+  // The SE and the 13 mini: a 320-pt picture in a 343-pt column, about 10 pt of mat each side (S5's 11.5-pt overhang).
+  assert.deepEqual(PHONES.filter((p) => p[11] > 0).map((p) => p[0]), ['13 mini', 'SE (short)']);
+  // frame.css draws it: the figure is a column-wide block at --col-x (no --pic-x of its own), a 1-fp slate border, an ink mat, the picture at --mat.
+  const fig = CSS.slice(CSS.indexOf('\n.frame-picture {'), CSS.indexOf('}', CSS.indexOf('\n.frame-picture {')));
+  assert.match(fig, /box-sizing: border-box;/);
+  assert.match(fig, /margin: 0 0 0 var\(--col-x\);/);
+  assert.match(fig, /padding: 0 0 0 var\(--mat, 0px\);/);
+  assert.match(fig, /border: calc\(1 \* var\(--fp\)\) solid var\(--c2\);/);
+  assert.match(fig, /background: var\(--c0\);/);
+  assert.match(CSS, /\.frame > \* \{\n\s+width: var\(--col\);\n\s+max-width: 100%;\n\s+margin-left: var\(--col-x\);/, "every row is the column's width, at its edge");
+  assert.equal([...CSS.matchAll(/margin-left: var\(--pic-x\)/g)].length, 1, 'only the strip keeps to the picture');
+  // At night the sky's top is ink, as the page is; the slate keyline stands off it, 2.04:1.
+  assert.equal(REMAPS.night[2], 0, "a night sky's top is ink");
+  assert.equal(contrastRatio(PALETTE[2], PALETTE[0]).toFixed(2), '2.04');
+});
+
+test('the caption never hangs a "·" at a row\'s end (S6): its separators bind to what follows, so on all six phones, for every place it can name, a row breaks before a dot, never after it', () => {
+  // The chrome font: monospace, every advance 8 font pixels (tools/fontbuild.mjs). The caption: the column less 2 fp each side, two rows.
+  // The line breaker is T02's (tools/fontmetrics.mjs, S6 track C): greedy; a break after a space (it hangs), never at a
+  // no-break space; 1 px of slack. A row of n characters is 8n fp wide.
+  const rowsOf = (text, l) => breakLines(text, l.column - 4 * l.fp, (s) => Array.from(s).length * 8 * l.fp).lines;
+  const places = Object.keys(WORDS).filter((id) => id.startsWith('place.') && PARK.nodes[id.slice(6)] && Number.isFinite(PARK.nodes[id.slice(6)].elev_ft));
+  assert.ok(places.length >= 34, `the loop's places with an elevation (S5: 34): ${places.length}`);
+  setBundle(WORDS, {}, 'preview');
+  const captions = places.flatMap((id) => [1, 12].map((day) => words('trail.caption', { day, place: { id }, elev: feet(PARK.nodes[id.slice(6)].elev_ft) })));
+  setBundle({}, {}, null);
+  let hung = 0;
+  for (const [name, width, height, dpr, safeTop, safeBottom] of PHONES) {
+    const l = frameLayout({ width, height, dpr, safeTop, safeBottom });
+    for (const c of captions) {
+      for (const row of rowsOf(c, l)) assert.ok(!row.endsWith('·'), `${name}: "${row}" hangs a dot (${c})`);
+      // As S5 showed it, with plain spaces, a row could end on the dot.
+      if (rowsOf(c.replaceAll(NBSP, ' '), l).some((row) => row.endsWith('·'))) hung++;
+    }
+  }
+  assert.ok(hung > 0, "S5's captions hung a dot somewhere: the check bites");
+  // The rim on the SE, S5's own case: the dot now starts the second row with the elevation.
+  const se = frameLayout({ width: 375, height: 667, dpr: 2, safeTop: 20 });
+  setBundle(WORDS, {}, 'preview');
+  const rim = words('trail.caption', { day: 1, place: { id: 'place.seven_lakes_basin' }, elev: feet(4900) });
+  setBundle({}, {}, null);
+  assert.deepEqual(rowsOf(rim, se), [`Day 1 ·${NBSP}Seven Lakes Basin`, `·${NBSP}4,900${NBSP}ft`]);
 });
 
 test("frame.css and the space check agree: every length frameLayout counts is frame.css's own", () => {
@@ -266,6 +337,14 @@ test('Larger Text: the caption and the choices grow to their words, never cut of
   for (const block of CSS.split('}').filter((b) => b.includes('html[data-text="plain"]'))) {
     assert.doesNotMatch(block, /(?<!min-)height: \d+px|overflow: hidden/, 'nothing in Plain is capped');
   }
+  // Everything the trail sets in words is in Plain (the spec's C.3): the Why sheet, the diamond's confirm and an outcome's pencil rows too.
+  const plainFont = CSS.slice(CSS.indexOf('html[data-text="plain"] .frame .game-box,'));
+  const plainSelectors = plainFont.slice(0, plainFont.indexOf('{'));
+  for (const sel of ['.why', '.choice-confirm', '.outcome-notes', '.look-box']) assert.ok(plainSelectors.includes(`html[data-text="plain"] ${sel}`), `${sel} in Plain`);
+  // A diamond's second line wraps between its shares in Plain, each share whole; the confirm grows to its words.
+  assert.match(CSS, /html\[data-text="plain"\] \.choice-odds2 \{ white-space: normal; \}/);
+  assert.match(CSS, /html\[data-text="plain"\] \.choice-fail,\nhtml\[data-text="plain"\] \.choice-fatal \{ white-space: nowrap; \}/);
+  assert.match(CSS, /html\[data-text="plain"\] \.choice-confirm \{\n\s+height: auto;\n\s+min-height: 64px;/);
   // The space check: two Plain lines of caption and one of each choice, and three of box at least.
   for (const [name, width, height, dpr, safeTop, safeBottom, shape] of PHONES) {
     const pixel = frameLayout({ width, height, dpr, safeTop, safeBottom });
@@ -402,7 +481,7 @@ test('the frame: the rows in order, the status line named by its ids, Sound pres
   // The caption and the strip's mile.
   const caption = host.querySelector('.frame-caption');
   assert.equal(caption.getAttribute('data-t'), 'trail.caption');
-  assert.equal(caption.textContent, `Day 1 · Deer Lake · 3,530${NBSP}ft`);
+  assert.equal(caption.textContent, `Day 1 ·${NBSP}Deer Lake ·${NBSP}3,530${NBSP}ft`);
   assert.equal(host.querySelector('.strip-mile').textContent, `mi${NBSP}3.7`);
   assert.equal(host.querySelector('.strip-mile').getAttribute('data-t'), 'fmt.mile_marker', "the mile marker is its format's own line");
   assert.equal(host.querySelector('canvas.picture').getAttribute('aria-hidden'), 'true');
@@ -425,7 +504,7 @@ test('a number never breaks from its unit: the caption\'s feet and the strip\'s 
   assert.deepEqual([WORDS['fmt.ft'], WORDS['fmt.mile_marker']], ['{ft} ft', 'mi {mi}'], 'the tokens keep plain spaces');
   assert.equal(words('fmt.ft', feet(4900).vars), `4,900${NBSP}ft`);
   assert.equal(words('fmt.mile_marker', mileMarker(124).vars), `mi${NBSP}12.4`);
-  assert.equal(words('trail.caption', { day: 3, place: { id: 'place.seven_lakes_basin' }, elev: feet(4900) }), `Day 3 · Seven Lakes Basin · 4,900${NBSP}ft`, 'as a var: the caption breaks only at its own spaces');
+  assert.equal(words('trail.caption', { day: 3, place: { id: 'place.seven_lakes_basin' }, elev: feet(4900) }), `Day 3 ·${NBSP}Seven Lakes Basin ·${NBSP}4,900${NBSP}ft`, 'as a var: the caption breaks only at its own spaces, and before a separator, never after it (S6)');
   assert.equal(words('trail.walk_on'), 'Walk on', "any other line's spaces are as written");
   // Not by hand: no line holds a no-break space, and none but a format sets a unit beside a {var}.
   const text = JSON.parse(readOut('preview', 'text/en.json'));
@@ -444,7 +523,7 @@ test('the rim: its caption, its mile, and both miles agree with the park goldens
   assert.equal(screen.stop.id, 'rim');
   const host = doc.body.appendChild(doc.createElement('div'));
   renderFrame(host, screen, () => {}, ctxFor(c, screen, { doc }));
-  assert.equal(host.querySelector('.frame-caption').textContent, `Day 1 · Seven Lakes Basin · 4,900${NBSP}ft`);
+  assert.equal(host.querySelector('.frame-caption').textContent, `Day 1 ·${NBSP}Seven Lakes Basin ·${NBSP}4,900${NBSP}ft`);
   assert.equal(host.querySelector('.strip-mile').textContent, `mi${NBSP}6.9`);
   const day = VOICE.stops.deer_lake_rim.rim.view.day;
   const atLake = stripProfile(PARK, day, 'deer_lake').you;
@@ -524,6 +603,7 @@ test('a short screen folds the toolbar into ≡: no toolbar row, and Pack, Map a
     assert.equal(host.style.getPropertyValue('--col'), `${l.column}px`);
     assert.equal(host.style.getPropertyValue('--col-x'), `${l.x.column}px`);
     assert.equal(host.style.getPropertyValue('--pic-x'), `${l.x.picture}px`);
+    assert.equal(host.style.getPropertyValue('--mat'), `${l.mat}px`, 'the mat (S6)');
   }
 });
 
@@ -683,6 +763,14 @@ test('the #frame check view: every picture it offers is captioned with its own p
   const sheet = doc.getElementById('frame-sheet');
   const pickers = () => sheet.querySelectorAll('.scenes-pics button');
   assert.deepEqual(pickers().map((b) => b.textContent), pics);
+  // The fixture picker's words are dev lines (main.off), never ids in code.
+  assert.deepEqual(
+    sheet.querySelectorAll('.scenes-fixtures button').map((b) => [b.getAttribute('data-t'), b.textContent]),
+    [
+      ['dev.fixture.three', 'three choices'],
+      ['dev.fixture.four', 'four choices'],
+    ],
+  );
   const own = [];
   for (const pic of pics) {
     pickers()
@@ -694,7 +782,7 @@ test('the #frame check view: every picture it offers is captioned with its own p
     const named = WORDS[`place.${node}`] !== undefined;
     // Lake #8 has no elevation in the research, and a junction whose label is ours no name: no caption, rather than a wrong one (or a throw).
     const elev = PARK.nodes[node].elev_ft;
-    assert.equal(caption, named && Number.isFinite(elev) ? `Day 1 · ${WORDS[`place.${node}`]} · ${fmtInt(elev)}${NBSP}ft` : '', pic);
+    assert.equal(caption, named && Number.isFinite(elev) ? `Day 1 ·${NBSP}${WORDS[`place.${node}`]} ·${NBSP}${fmtInt(elev)}${NBSP}ft` : '', pic);
     assert.equal(sheet.querySelector('.frame-caption').getAttribute('data-t'), named && Number.isFinite(elev) ? 'trail.caption' : null);
     if (named) own.push(pic);
   }
@@ -708,7 +796,7 @@ test('the #frame check view: every picture it offers is captioned with its own p
   pickers()
     .find((b) => b.textContent === 'high_divide')
     .click();
-  assert.equal(sheet.querySelector('.frame-caption').textContent, `Day 1 · High Divide · 5,180${NBSP}ft`, 'the shots of the High Divide name it');
+  assert.equal(sheet.querySelector('.frame-caption').textContent, `Day 1 ·${NBSP}High Divide ·${NBSP}5,180${NBSP}ft`, 'the shots of the High Divide name it');
   // ≡ opened from the view's frame closes with the view.
   menu.open();
   assert.equal(hideScenes(doc), true);

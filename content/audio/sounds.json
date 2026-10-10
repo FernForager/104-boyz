@@ -1,5 +1,5 @@
 {
- "$comment": "The cue bank (BUILD_PLAN 13.2, 13.6 A1, S5; GAME_DESIGN 13.2, 13.3, 13.11). Every cue is a recipe that web/js/audio/dsp.js synthesizes, the same bits in Node and on the phone: layers of a wave (sine, pulse, square, saw, triangle or noise) or another cue, each at a time (s), with an envelope (a: the attack; d: the decay to -60 dB; s, hold and r for a sustained note), filters (lp1 and hp1, one-pole; bandpass, peak, lowpass and highpass, RBJ biquads) and a level (dB); the cue's own level; and its variants (n of them, spread over +-cents in pitch and +-db in level, each rendered once at unlock, one picked per play by the sound's own generator, never the game's). bus is the 13.11 bus it plays on. scenes are what tools/listen.mjs and the debug menu's 10-second render mix. A1's four cues are the chunky UI voice: dry, quiet, short, each with its weight between 800 Hz and 5 kHz for a phone's speaker. Every cue is logged in credits.json. The build stamps each variant's golden hash into the shipped copy (audio/sounds.json) and refuses one that differs from test/golden/audio/a1.json.",
+ "$comment": "The cue bank (BUILD_PLAN 13.2, 13.6 A1, S5; GAME_DESIGN 13.2, 13.3, 13.11). Every cue is a recipe that web/js/audio/dsp.js synthesizes, the same bits in Node and on the phone: layers of a wave (sine, pulse, square, saw, triangle or noise) or another cue, each at a time (s), with an envelope (a: the attack; d: the decay to -60 dB; s, hold and r for a sustained note), filters (lp1 and hp1, one-pole; bandpass, peak, lowpass and highpass, RBJ biquads) and a level (dB); the cue's own level; and its variants (n of them, spread over +-cents in pitch and +-db in level, each rendered once at unlock, one picked per play by the sound's own generator, never the game's). bus is the 13.11 bus it plays on. scenes are what tools/listen.mjs and the debug menu's 10-second render mix. A1's four cues are the chunky UI voice: dry, quiet, short, each with its weight between 800 Hz and 5 kHz for a phone's speaker; S6 adds the compass roll's tick and its landing, and an outcome's two- and three-tick cues, in the same voice. Every cue is logged in credits.json. The build stamps each variant's golden hash into the shipped copy (audio/sounds.json) and refuses one that differs from test/golden/audio/a1.json.",
  "format": 1,
  "cues": {
   "ui.tick": {
@@ -42,10 +42,68 @@
     { "wave": "square", "hz": 1000, "at": 0, "env": { "a": 0.002, "d": 0.05 }, "filters": [{ "type": "lp1", "hz": 4000 }], "db": 0 },
     { "wave": "sine", "hz": 2000, "at": 0, "env": { "a": 0.001, "d": 0.012 }, "db": -9 }
    ]
+  },
+  "ui.compass": {
+   "when": "The compass roll's needle, a tick at each 12 degrees of its travel, so the ticks slow as it does (S6; 13.2: dry wooden ticks that slow)",
+   "bus": "ui",
+   "db": -8,
+   "variants": { "n": 4, "cents": 25, "db": 1 },
+   "layers": [
+    { "wave": "noise", "at": 0, "env": { "a": 0.0002, "d": 0.003 }, "filters": [{ "type": "bandpass", "hz": 3200, "q": 5 }], "db": 4 },
+    { "wave": "sine", "hz": 1400, "at": 0, "env": { "a": 0.0003, "d": 0.01 }, "db": -4 }
+   ]
+  },
+  "ui.land": {
+   "when": "The compass needle comes to rest in its band: two ticks falling (S6; 13.2)",
+   "bus": "ui",
+   "db": -2,
+   "variants": { "n": 4, "cents": 25, "db": 1 },
+   "layers": [
+    { "cue": "ui.compass", "at": 0 },
+    { "cue": "ui.compass", "at": 0.11, "semitones": -4, "db": -2 }
+   ]
+  },
+  "ui.good": {
+   "when": "An outcome that went well, as it shows (S6; 13.2: two soft wooden ticks at one pitch, quiet, never a melody)",
+   "bus": "ui",
+   "db": -6,
+   "variants": { "n": 4, "cents": 25, "db": 1 },
+   "layers": [
+    { "wave": "sine", "hz": 1100, "at": 0, "env": { "a": 0.002, "d": 0.03 }, "db": 0 },
+    { "wave": "noise", "at": 0, "env": { "a": 0.0001, "d": 0.001 }, "filters": [{ "type": "hp1", "hz": 1500 }], "db": -6 },
+    { "wave": "sine", "hz": 1100, "at": 0.09, "env": { "a": 0.002, "d": 0.03 }, "db": -2 },
+    { "wave": "noise", "at": 0.09, "env": { "a": 0.0001, "d": 0.001 }, "filters": [{ "type": "hp1", "hz": 1500 }], "db": -8 }
+   ]
+  },
+  "ui.mishap": {
+   "when": "An outcome that cost something, a mishap or a setback, as it shows (S6; 13.2: two soft ticks, the second a minor third lower)",
+   "bus": "ui",
+   "db": -6,
+   "variants": { "n": 4, "cents": 25, "db": 1 },
+   "layers": [
+    { "wave": "sine", "hz": 1100, "at": 0, "env": { "a": 0.002, "d": 0.03 }, "db": 0 },
+    { "wave": "noise", "at": 0, "env": { "a": 0.0001, "d": 0.001 }, "filters": [{ "type": "hp1", "hz": 1500 }], "db": -6 },
+    { "wave": "sine", "hz": 925, "at": 0.1, "env": { "a": 0.002, "d": 0.03 }, "db": -1 },
+    { "wave": "noise", "at": 0.1, "env": { "a": 0.0001, "d": 0.001 }, "filters": [{ "type": "hp1", "hz": 1500 }], "db": -7 }
+   ]
+  },
+  "ui.serious": {
+   "when": "A serious or trip-ending outcome, as it shows (S6; 13.2: three soft ticks falling, quiet, never a melody)",
+   "bus": "ui",
+   "db": -6,
+   "variants": { "n": 4, "cents": 25, "db": 1 },
+   "layers": [
+    { "wave": "sine", "hz": 1240, "at": 0, "env": { "a": 0.002, "d": 0.03 }, "db": 0 },
+    { "wave": "noise", "at": 0, "env": { "a": 0.0001, "d": 0.001 }, "filters": [{ "type": "hp1", "hz": 1500 }], "db": -6 },
+    { "wave": "sine", "hz": 1100, "at": 0.07, "env": { "a": 0.002, "d": 0.03 }, "db": -1 },
+    { "wave": "noise", "at": 0.07, "env": { "a": 0.0001, "d": 0.001 }, "filters": [{ "type": "hp1", "hz": 1500 }], "db": -7 },
+    { "wave": "sine", "hz": 925, "at": 0.14, "env": { "a": 0.002, "d": 0.03 }, "db": -2 },
+    { "wave": "noise", "at": 0.14, "env": { "a": 0.0001, "d": 0.001 }, "filters": [{ "type": "hp1", "hz": 1500 }], "db": -8 }
+   ]
   }
  },
  "scenes": {
-  "ui_demo": { "what": "The four cues in turn every 500 ms, each cycling its variants, on the UI bus through the limiter: what the debug menu's Render 10 s of this scene plays", "seconds": 10, "every": 0.5, "cues": ["ui.tick", "ui.next", "ui.open", "ui.sound_on"] },
+  "ui_demo": { "what": "The UI cues in turn every 500 ms, each cycling its variants, on the UI bus through the limiter: what the debug menu's Render 10 s of this scene plays (S6 adds the compass's two and the outcomes' three)", "seconds": 10, "every": 0.5, "cues": ["ui.tick", "ui.next", "ui.open", "ui.sound_on", "ui.compass", "ui.land", "ui.good", "ui.mishap", "ui.serious"] },
   "silence": { "what": "Nothing: the limiter's noise floor, all zeros", "seconds": 10, "every": 0, "cues": [] }
  }
 }

@@ -1,0 +1,15 @@
+{
+ "$comment": "8.5 and 8.8's shared constants, and S6's two bases (GAME_DESIGN B.6, B.3, 9.5; BUILD_PLAN S6). Whole numbers only, so web/js/engine/odds.js prices a choice exactly: p = clamp(base + its labeled modifiers, clamp), shaky = min(ceil((100 - p) / 2), shaky_cap), made = p + shaky; a skill adds skill_per_level for each level (8.5: a beginner's level 1 is +2); great_below is the Great band's distance under p (8.8) and routine_at the p from which a check is told, not asked (8.5). Each base names the line its Why-sheet row reads (label: display data, so tools/content.mjs sends it to voice.json, never rules.json), as each skill does. Shipped in rules.json as odds with the trail (content/scope/m1a.json ships). S9 grows this into rules/mods.json and rules/tuning.json.",
+ "clamp": [5, 97],
+ "shaky_cap": 25,
+ "great_below": 30,
+ "routine_at": 95,
+ "skill_per_level": 2,
+ "bases": {
+  "exposed_crest_storm": { "base": 40, "label": "@trail.why.crest_storm", "doc": "GAME_DESIGN B.6 (the crest card's ♦: about 35% goes badly, so 40 clean and 25 shaky make 65), 9.5 (an exposed crest in a thunderstorm)" },
+  "stone_staircase_dry": { "base": 88, "label": "@trail.why.staircase", "doc": "GAME_DESIGN B.3 (the stone staircase and the basin scree, 88; dry, so no wet rock)" }
+ },
+ "skills": {
+  "footing": { "label": "@trail.why.skill_footing", "doc": "GAME_DESIGN 8.5's skill row, footing (7.10)" }
+ }
+}

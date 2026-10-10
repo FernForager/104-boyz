@@ -1,8 +1,8 @@
 {
- "$comment": "S3's stand-in plan (Lead call 8), started at S5's sample stops: Deer Lake, then the rim (content/stops/deer_lake_rim.json). S3's two trailhead stops stay in content, unreachable until S15a draws the trailhead. The map table's plans replace it in S10.",
+ "$comment": "S3's stand-in plan (Lead call 8), started at S5's sample stops: Deer Lake, then the rim (content/stops/deer_lake_rim.json), and from S6 the fork there. It leaves Deer Lake at 11:05 am (s 39900), GAME_DESIGN B.6's 10:45 arrival and its 20-minute lunch, so the router puts the rim at 1:49 pm, when the storm comes early (BUILD_PLAN S6). S3's two trailhead stops stay in content, unreachable until S15a draws the trailhead. The map table's plans replace it in S10.",
  "id": "sample",
  "screen": "trail",
  "mode": "open",
- "start": { "set": "deer_lake_rim", "day": 1, "s": 30600 },
+ "start": { "set": "deer_lake_rim", "day": 1, "s": 39900 },
  "after": "end"
 }

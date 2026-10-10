@@ -12,21 +12,26 @@ import { tx } from '../text.js';
 
 /** The UI's own word for a choice whose label is null, by action. */
 const UI_LABELS = Object.freeze({ next: 'trail.walk_on' });
+/** A death box's one button (GAME_DESIGN 9.5, 12.17: Next, not Walk on; S6). */
+export const DEATH_NEXT = 'trail.next';
 
 /**
  * @typedef {{id: string, vars?: Record<string, unknown>}} Ref
  * @typedef {{act: Record<string, unknown>, label: Ref | null, enabled: boolean}} Choice
- * @typedef {{phase: string, stop?: {set: string, id: string, n: number}, box: Ref[], choices: Choice[]}} StopScreen
+ * @typedef {{phase: string, stop?: {set: string, id: string, n: number}, box: Ref[], choices: Choice[], outcome?: string}} StopScreen
  */
 
 /**
- * The line a choice's button shows: its own ref, or the UI's word.
+ * The line a choice's button shows: its own ref, or the UI's word (on a
+ * death stop's screen, Next for Walk on).
  * @param {Choice} c
+ * @param {{outcome?: string} | null} [screen]
  * @returns {Ref | null}
  */
-export function choiceLine(c) {
+export function choiceLine(c, screen = null) {
   if (c.label) return c.label;
   const t = /** @type {string} */ (c.act.t);
+  if (t === 'next' && screen && screen.outcome === 'death') return { id: DEATH_NEXT };
   return Object.prototype.hasOwnProperty.call(UI_LABELS, t) ? { id: /** @type {Record<string, string>} */ (UI_LABELS)[t] } : null;
 }
 
@@ -58,7 +63,7 @@ export function renderStop(host, screen, onAct) {
   /** @type {HTMLButtonElement[]} */
   const buttons = [];
   for (const c of screen.choices) {
-    const line = choiceLine(c);
+    const line = choiceLine(c, screen);
     if (!line) continue; // a choice the UI has no word for is not drawn
     const b = /** @type {HTMLButtonElement} */ (doc.createElement('button'));
     b.classList.add('box', 'choice');

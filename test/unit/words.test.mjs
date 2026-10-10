@@ -124,7 +124,11 @@ test('preview carries the working words, Session 1 marked as drafts', () => {
   // S5's review adds the nine places the #frame check view draws that no stop or map label
   // names (build.mjs viewNames: the composer's drawable places with gazetteer names, not ours).
   // S5's fixes trade the strip's mile line for two number formats (fmt.ft, fmt.mile_marker).
-  assert.equal(Object.keys(words).length, 150);
+  // S6 (track B) adds the sample fork's 56 lines (B004's 17, B005's 35 and four with no words); the
+  // places its Why sheet and pencil rows name (Heart Lake, Lunch Lake) were shipped already, as drawable places.
+  // S6 (track C) adds 29: the Looks, their names and group, the alt text's parts (B006) and the ▾'s name.
+  // S6's review adds the #frame check view's two fixture names (dev.fixture.three and .four).
+  assert.equal(Object.keys(words).length, 237);
   assert.equal(words['dev.inspect.copy'], 'Copy for chat');
   assert.equal(words['dev.audio.render'], 'Render 10 s of this scene');
   assert.equal(words['dev.audio.result'], 'Sound: peak {peak} dBFS · {lufs} LUFS · dsp {dsp}');
@@ -143,6 +147,26 @@ test('preview carries the working words, Session 1 marked as drafts', () => {
   assert.equal(lockbox.length, 50);
   const marks = JSON.parse(read('text/marks.json'));
   for (const k of lockbox) {
+    assert.equal(marks[k], 'draft', k);
+    delete marks[k];
+  }
+  // S6's drafts (B004's 17 and B005's 35), each marked; the four with no words are never marked.
+  const s6 = JSON.parse(read('text/en.json'));
+  const fork = Object.keys(s6).filter((k) => /^trail\.(?:deer_lake_rim\.fork|odds|confirm|why|compass|band|outcome|pencil)\b|^trail\.next$|^fmt\.(?:mi|clock_am|clock_pm|min)$/.test(k));
+  assert.equal(fork.length, 54, "the fork's 56 new ids but the two percentage formats: 52 drafts, and the fail share's and the confirm's, which hold no words");
+  for (const k of fork) {
+    if (['trail.odds.fail', 'trail.confirm.ask'].includes(k)) {
+      assert.equal(marks[k], undefined, `${k}: no words, no mark`);
+      continue;
+    }
+    assert.equal(marks[k], 'draft', k);
+    delete marks[k];
+  }
+  assert.deepEqual([marks['fmt.pct'], marks['fmt.pct_under']], [undefined, undefined], 'the percentage formats hold no words');
+  // S6 track C's drafts (B006's 28 and B005's ▾), each marked.
+  const pictures = Object.keys(s6).filter((k) => /^look\.|^alt\.(?:base|skyline|scene|sprite|hour)\.|^trail\.(?:look\.group|box\.more)$/.test(k));
+  assert.equal(pictures.length, 29, 'the Looks, their names and group, the alt parts and the ▾');
+  for (const k of pictures) {
     assert.equal(marks[k], 'draft', k);
     delete marks[k];
   }

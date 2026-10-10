@@ -254,7 +254,8 @@ test("S5: in the repo's tree, a view's node and day are checked against the scop
   const file = join(root, 'content', 'stops', 'deer_lake_rim.json');
   const src = readFileSync(file, 'utf8');
   assert.deepEqual(compileContent({ root, screens: ['trail'], checkText: false }).problems, []);
-  writeFileSync(file, src.replace('"node": "deer_lake"', '"node": "atlantis"').replace('"day": ["sol_duc_trailhead", "seven_lakes_basin"] }, "next": null', '"day": ["sol_duc_trailhead", "el_dorado"] }, "next": null'));
+  // S6: the rim walks on to the fork (it was the set's end in S5).
+  writeFileSync(file, src.replace('"node": "deer_lake"', '"node": "atlantis"').replace('"day": ["sol_duc_trailhead", "seven_lakes_basin"] }, "next": "fork"', '"day": ["sol_duc_trailhead", "el_dorado"] }, "next": "fork"'));
   const msgs = compileContent({ root, screens: ['trail'], checkText: false }).problems.map((p) => `${p.code} ${p.msg}`);
   assert.deepEqual(msgs, [
     'R01 stop "deer_lake": view.node "atlantis" is not a node in the scope\'s park (content/scope/m1a.json)',
@@ -263,5 +264,19 @@ test("S5: in the repo's tree, a view's node and day are checked against the scop
   writeFileSync(file, src);
   writeFileSync(join(root, 'content', 'art', 'recipes.json'), JSON.stringify({ places: { deer_lake: {} } }));
   const pics = compileContent({ root, screens: ['trail'], checkText: false }).problems.map((p) => p.msg);
-  assert.deepEqual(pics, ['stop "rim": view.pic "seven_lakes_basin" is not a place in content/art/recipes.json']);
+  // Re-pinned in S6: the fork stands at the rim, and its outcomes at Heart Lake, the High Divide and Lunch Lake; the car's
+  // shows Deer Lake (the way down) until S15a draws the trailhead, and Deer Lake is a place here.
+  const notAPlace = (/** @type {string} */ stop, /** @type {string} */ pic) => `stop "${stop}": view.pic "${pic}" is not a place in content/art/recipes.json`;
+  assert.deepEqual(pics, [
+    notAPlace('rim', 'seven_lakes_basin'),
+    notAPlace('fork', 'seven_lakes_basin'),
+    notAPlace('high_clean', 'heart_lake'),
+    notAPlace('high_shaky', 'heart_lake'),
+    notAPlace('high_struck', 'high_divide'),
+    notAPlace('high_fatal', 'high_divide'),
+    notAPlace('basin_clean', 'lunch_lake'),
+    notAPlace('basin_shaky', 'lunch_lake'),
+    notAPlace('basin_slip', 'lunch_lake'),
+    notAPlace('basin_sprain', 'lunch_lake'),
+  ]);
 });

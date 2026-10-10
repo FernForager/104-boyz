@@ -12,6 +12,7 @@ import { ROOT } from '../../tools/pics.mjs';
 import { readText, channelScreens } from '../../tools/text.mjs';
 import { rulesHash } from '../../tools/rules.mjs';
 import { canon } from '../../web/js/engine/canon.js';
+import { PALETTE, hexToRgb } from '../../web/js/gfx/palette.js';
 
 /** Every file under dir, as {relative path: bytes}. */
 function snapshot(dir) {
@@ -83,7 +84,8 @@ test('the icons are the right sizes, opaque, and drawn from the cover; preview h
   }
   preview.forEach(({ file, png }, k) => {
     assert.ok(!png.equals(main[k].png), `preview's ${file} differs from main's`);
-    assert.ok(pixels(png).has('63,127,122'), `preview's ${file} has the teal band`);
+    // Re-pinned in S6: palette A's teal, #4a8a85 (decision 68; option B's was 63,127,122).
+    assert.ok(pixels(png).has('74,138,133'), `preview's ${file} has the teal band`);
   });
   assert.throws(() => makeIcons(art, 'beta'), /no channel "beta"/);
 });
@@ -239,8 +241,12 @@ test("the data step: each channel's rules.json is canonical and scoped to its sc
     assert.equal(rules.format, 1);
     assert.equal(voice.format, 1);
     const screens = channelScreens(text, channel);
-    // S4: main's rules keys are exactly S3's; preview adds the park when its screens include the map.
-    assert.deepEqual(Object.keys(rules), channel === 'preview' && screens.includes('map') ? ['format', 'park', 'plans', 'profile', 'standard', 'stops'] : ['format', 'plans', 'profile', 'standard', 'stops']);
+    // S4: main's rules keys are exactly S3's; preview adds the park when its screens include the map. S6: the
+    // park ships with the trail too (the fork's walks), and the odds with it (content/scope/m1a.json ships).
+    const trail = channel === 'preview' && screens.includes('trail');
+    const park = channel === 'preview' && (screens.includes('map') || trail);
+    assert.deepEqual(Object.keys(rules), ['format', ...(trail ? ['odds'] : []), ...(park ? ['park'] : []), 'plans', 'profile', 'standard', 'stops']);
+    assert.equal(Object.keys(voice).includes('odds'), trail, "the odds' row labels go with the odds, in voice.json");
     assert.equal(readdirSync(join(out, 'data')).includes('map.json'), channel === 'preview' && screens.includes('map'), 'data/map.json exactly when the channel has the map');
     if (channel === 'main') assert.deepEqual(Object.keys(rules), ['format', 'plans', 'profile', 'standard', 'stops'], "main's keys don't move");
     assert.ok(!rulesSrc.includes('trail.'), 'no line id in the outcome data (call 1)');
@@ -276,9 +282,41 @@ test('the data step on a preview whose scope has the trail screen carries the sa
   const { rules, voice, screens } = makeData({ root, channel: 'preview' });
   assert.ok(screens.includes('trail'));
   // S5: the sample starts at Deer Lake (content/stops/deer_lake_rim.json); S3's trailhead set stays, unreachable.
-  assert.deepEqual(rules.plans, { sample: { after: 'end', mode: 'open', start: { day: 1, s: 30600, set: 'deer_lake_rim' } } });
-  assert.deepEqual(rules.stops.deer_lake_rim, { first: 'deer_lake', phase: 'trailhead', stops: [{ id: 'deer_lake', next: 'rim' }, { id: 'rim', next: null }] }, 'no view in the rules');
+  // Re-pinned in S6: it leaves Deer Lake at 11:05 am (s 39900: GAME_DESIGN B.6's 10:45 and its 20-minute lunch).
+  assert.deepEqual(rules.plans, { sample: { after: 'end', mode: 'open', start: { day: 1, s: 39900, set: 'deer_lake_rim' } } });
+  // S6: Deer Lake names the storm and walks on to the rim, the rim walks on to the fork, and the fork's three
+  // choices go to the outcomes: the logic in the rules, never a view, a label or a word.
+  const dl = rules.stops.deer_lake_rim;
+  assert.deepEqual([dl.first, dl.phase], ['deer_lake', 'trailhead']);
+  assert.deepEqual(dl.stops.slice(0, 2), [{ id: 'deer_lake', next: 'rim', foreshadow: 'thunder', walk: { from: 'deer_lake', to: 'seven_lakes_basin' } }, { id: 'rim', next: 'fork' }], 'no view in the rules');
+  assert.deepEqual(dl.stops[2].choices.map((c) => [c.id, Object.keys(c).sort()]), [
+    ['high', ['id', 'needs', 'odds', 'route']],
+    ['basin', ['id', 'odds', 'route']],
+    ['car', ['id', 'tag', 'then']],
+  ]);
+  assert.deepEqual(dl.stops.slice(3).map((st) => [st.id, st.outcome, st.next]), [
+    ['high_clean', 'good', null],
+    ['high_shaky', 'mishap', null],
+    ['high_struck', 'serious', null],
+    ['high_fatal', 'death', null],
+    ['basin_clean', 'good', null],
+    ['basin_shaky', 'mishap', null],
+    ['basin_slip', 'mishap', null],
+    ['basin_sprain', 'mishap', null],
+    ['car_out', 'good', null],
+  ]);
   assert.deepEqual(voice.stops.deer_lake_rim.rim, { box: [['trail.deer_lake_rim.rim']], labels: {}, view: { pic: 'seven_lakes_basin', node: 'seven_lakes_basin', day: ['sol_duc_trailhead', 'seven_lakes_basin'] } });
+  assert.deepEqual(
+    [voice.stops.deer_lake_rim.fork.labels, voice.stops.deer_lake_rim.fork.fail_words, voice.stops.deer_lake_rim.fork.badly],
+    [
+      { high: 'trail.deer_lake_rim.fork.high', basin: 'trail.deer_lake_rim.fork.basin', car: 'trail.deer_lake_rim.fork.car' },
+      { high: 'trail.deer_lake_rim.fork.high.fail' },
+      { high: 'trail.deer_lake_rim.fork.high.badly', basin: 'trail.deer_lake_rim.fork.basin.badly' },
+    ],
+    "a rolled choice's words are display data",
+  );
+  assert.deepEqual(voice.odds, { bases: { exposed_crest_storm: 'trail.why.crest_storm', stone_staircase_dry: 'trail.why.staircase' }, skills: { footing: 'trail.why.skill_footing' } });
+  assert.deepEqual(rules.odds.bases, { exposed_crest_storm: { base: 40 }, stone_staircase_dry: { base: 88 } }, 'the odds: numbers only');
   assert.deepEqual(rules.stops.sol_duc_trailhead, { first: 'lot', phase: 'trailhead', stops: [{ id: 'lot', next: 'trail_mouth' }, { id: 'trail_mouth', next: null }] });
   assert.deepEqual(voice.stops.sol_duc_trailhead, { lot: { box: [['trail.sol_duc_trailhead.lot']], labels: {} }, trail_mouth: { box: [['trail.sol_duc_trailhead.trail_mouth']], labels: {} } });
   assert.deepEqual(makeData({ root, channel: 'main' }).rules.stops, {}, 'main still carries none');
@@ -308,7 +346,8 @@ function mapTree(t) {
 test('the data step with the map screen (S4): preview carries rules.park and data/map.json; main carries neither', (t) => {
   const { root, scope } = mapTree(t);
   const preview = makeData({ root, channel: 'preview' });
-  assert.deepEqual(Object.keys(preview.rules), ['format', 'park', 'plans', 'profile', 'standard', 'stops']);
+  // S6: preview has the trail, so it carries the odds too.
+  assert.deepEqual(Object.keys(preview.rules), ['format', 'odds', 'park', 'plans', 'profile', 'standard', 'stops']);
   assert.deepEqual(Object.keys(preview.files).sort(), ['map.json', 'rules.json', 'voice.json']);
   const park = preview.rules.park;
   assert.equal(Object.keys(park.nodes).length, 47);
@@ -387,12 +426,12 @@ test("main stays put in S5: its screens, words, data, rules hash, page, art and 
   assert.deepEqual(Object.keys(JSON.parse(read('main', 'text/en.json'))).sort(), MAIN_S3_IDS);
   assert.deepEqual(readdirSync(join(out.main, 'text')), ['en.json'], 'no marks.json, no meta.json');
   assert.deepEqual(readdirSync(join(out.preview, 'text')).sort(), ['en.json', 'marks.json', 'meta.json']);
-  // 2. The same data, and the same rules hash (no engine file changed in S5).
+  // 2. The same data. (S5's rules hash, 46dd9f1e4c40, S4's: no engine file changed in S5. S6's engine files
+  // move it, so its pin is in "main at S6" below, with its reason.)
   const rules = JSON.parse(read('main', 'data/rules.json'));
   assert.deepEqual(Object.keys(rules), ['format', 'plans', 'profile', 'standard', 'stops']);
-  assert.deepEqual([rules.plans, rules.stops, rules.park], [{}, {}, undefined]);
+  assert.deepEqual([rules.plans, rules.stops, rules.park, rules.odds], [{}, {}, undefined, undefined]);
   assert.deepEqual(JSON.parse(read('main', 'data/voice.json')), { format: 1, stops: {} });
-  assert.equal(built.main.rules, '46dd9f1e4c40', "S4's main rules hash");
   assert.notEqual(built.preview.rules, built.main.rules, "preview's moved: the new stop set");
   // 3. The same page: the same links and scripts, nothing new preloaded.
   const heads = (html) => [...html.matchAll(/<(?:link|script)\b[^>]*>/g)].map((m) => m[0].replace(/\s+data-[a-z-]+="[^"]*"/g, ''));
@@ -437,6 +476,99 @@ test("main stays put in S5: its screens, words, data, rules hash, page, art and 
   for (const f of ['fonts/OPHChrome.ttf', 'css/frame.css', 'js/ui/inspect.js', 'js/ui/frame.js', 'audio/sounds.json']) assert.ok(files('main').includes(f), `${f} ships on both (main never loads it)`);
 });
 
+test("main at S6: S5's screens, words, data, page and modules, with S6's rules hash, palette A on both channels, and the fork, the sheet, the compass, the Looks and the alt text preview's (SPEC D.2)", (t) => {
+  const tmp = mkdtempSync(join(tmpdir(), 'oph-main-s6-'));
+  t.after(() => rmSync(tmp, { recursive: true, force: true }));
+  const out = {};
+  const built = {};
+  for (const channel of ['main', 'preview']) {
+    out[channel] = join(tmp, channel);
+    built[channel] = build({ out: out[channel], channel, quiet: true });
+  }
+  const read = (channel, f) => readFileSync(join(out[channel], f), 'utf8');
+  // 1. The same screens and words: S3's ids, each the ledger's; nothing to mark, nothing to inspect.
+  assert.equal(/<html[^>]*\sdata-screens="([^"]*)"/.exec(read('main', 'index.html'))[1], 'app debug title');
+  assert.equal(/<html[^>]*\sdata-screens="([^"]*)"/.exec(read('preview', 'index.html'))[1], 'app debug guestbook map title trail');
+  const words = JSON.parse(read('main', 'text/en.json'));
+  assert.deepEqual(Object.keys(words).sort(), MAIN_S3_IDS);
+  const ledger = JSON.parse(readFileSync(join(ROOT, 'content', 'text', 'approved.json'), 'utf8')).lines;
+  for (const [id, w] of Object.entries(words)) if (ledger[id]) assert.equal(w, ledger[id].text, `${id}: the approved words`);
+  assert.ok(!Object.keys(words).some((k) => /^(?:trail|look|alt|fmt)\./.test(k)), 'none of the trail, the Looks, the alt text or the formats');
+  assert.deepEqual(readdirSync(join(out.main, 'text')), ['en.json'], 'no marks.json, no meta.json');
+  // 2. The same data: no park and no odds on main; preview carries both with the trail.
+  const rules = JSON.parse(read('main', 'data/rules.json'));
+  assert.deepEqual(Object.keys(rules), ['format', 'plans', 'profile', 'standard', 'stops']);
+  assert.deepEqual([rules.plans, rules.stops, rules.park, rules.odds], [{}, {}, undefined, undefined]);
+  assert.deepEqual(JSON.parse(read('main', 'data/voice.json')), { format: 1, stops: {} });
+  assert.deepEqual(Object.keys(JSON.parse(read('preview', 'data/rules.json'))), ['format', 'odds', 'park', 'plans', 'profile', 'standard', 'stops']);
+  // Re-pinned in S6 (S4's and S5's was 46dd9f1e4c40): engine files changed in S6 (odds.js, and the
+  // trailhead, the trip, the content and the voice for the fork; the review's trailhead fix, an outcome
+  // restored under a later build drawn without its roll); main's rules.json is byte-identical.
+  assert.equal(built.main.rules, '2b38247b1be6', "main's rules hash: engine files changed in S6");
+  assert.notEqual(built.preview.rules, built.main.rules, "preview's moved: the fork");
+  // 3. The same page: the same links and scripts, nothing new preloaded.
+  const heads = (html) => [...html.matchAll(/<(?:link|script)\b[^>]*>/g)].map((m) => m[0].replace(/\s+data-[a-z-]+="[^"]*"/g, ''));
+  assert.deepEqual(heads(read('main', 'index.html')), [
+    '<link rel="manifest" href="manifest.webmanifest">',
+    '<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">',
+    '<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">',
+    '<link rel="preload" href="fonts/PixelifySans.woff2" as="font" type="font/woff2" crossorigin>',
+    '<link rel="modulepreload" href="js/gfx/picvm.js">',
+    '<link rel="stylesheet" href="css/tokens.css">',
+    '<link rel="stylesheet" href="css/game.css">',
+    '<script type="module" src="js/boot.js">',
+    '<script type="module" src="js/main.js">',
+  ]);
+  assert.ok(!/frame\.css|OPHChrome|Literata|inspect|(?:compass|sheet|look|outcome|press|alt|odds)\.js/.test(read('main', 'index.html')), "main's page names none of S5's or S6's files");
+  // 4. Nothing new loads: main's static import graph reaches none of S5's or S6's screens' modules. The one S6
+  // module main does load is ui/motion.js, Reduce Motion in one place (SPEC C.4), behind the title page, whose
+  // draw-in and stars read it.
+  const seen = new Set();
+  const walk = (rel) => {
+    if (seen.has(rel)) return;
+    seen.add(rel);
+    const src = read('main', rel);
+    for (const m of src.matchAll(/^\s*(?:import|export)\s[^;]*?from\s+'([^']+)'/gms)) walk(join(rel, '..', m[1]).split(sep).join('/'));
+    for (const m of src.matchAll(/^import\s+'([^']+)'/gm)) walk(join(rel, '..', m[1]).split(sep).join('/'));
+  };
+  walk('js/boot.js');
+  walk('js/main.js');
+  const s5 = ['js/ui/frame.js', 'js/ui/sound.js', 'js/ui/inspect.js', 'js/ui/strip.js', 'js/ui/textbox.js', 'js/ui/choices.js', 'js/ui/toolbar.js', 'js/ui/textsize.js', 'js/gfx/compose.js'];
+  const s6 = ['js/ui/compass.js', 'js/ui/sheet.js', 'js/ui/look.js', 'js/ui/outcome.js', 'js/ui/press.js', 'js/gfx/compass.js', 'js/gfx/alt.js', 'js/engine/odds.js'];
+  for (const f of [...s5, ...s6]) assert.ok(!seen.has(f), `main never imports ${f}`);
+  assert.ok(!seen.has('js/ui/home.js') && !seen.has('js/ui/motion.js'), 'the title page, and motion.js with it, come by main.js\'s import() on demand');
+  assert.match(read('main', 'js/ui/home.js'), /^import \{ reducedMotion, liveCycles \} from '\.\/motion\.js';$/m);
+  assert.ok(![...seen].some((f) => f.startsWith('js/audio/')), 'nor the sound');
+  const dynamic = [...seen].flatMap((f) => [...read('main', f).matchAll(/import\('([^']+)'\)/g)].map((m) => `${f} ${m[1]}`)).sort();
+  assert.deepEqual(dynamic, ['js/main.js ./ui/app.js', 'js/main.js ./ui/home.js', 'js/main.js ./ui/map.js', 'js/ui/debug.js ./inspect.js', 'js/ui/selfcheck.js ../engine/selfcheck.js']);
+  // ... and what its worker downloads (its page's reach) has none of the trail's screens' modules either.
+  const cached = Object.keys(JSON.parse(read('main', 'precache.json')).paths);
+  for (const f of [...s5, ...s6.filter((f) => !f.startsWith('js/engine/'))]) assert.ok(!cached.includes(f), `main's worker never downloads ${f}`);
+  assert.ok(cached.includes('js/ui/motion.js') && cached.includes('js/ui/home.js'));
+  // 5. File parity: main's files are preview's minus the map's data, the marks and meta.json; S6's ship on both.
+  const files = (channel) => Object.keys(snapshot(out[channel]));
+  assert.deepEqual(files('preview').filter((f) => !files('main').includes(f)), ['data/map.json', 'text/marks.json', 'text/meta.json']);
+  assert.deepEqual(files('main').filter((f) => !files('preview').includes(f)), []);
+  for (const f of [...s6, 'js/ui/motion.js']) assert.ok(files('main').includes(f), `${f} ships on both (main never loads it, but motion.js)`);
+  // 6. Palette A on both channels (decision 68): the art bundle, palette.js and tokens.css carry its sixteen; the
+  // shell's theme-color and the manifest's two colors are its ink; every icon pixel is one of its colors, and
+  // none is option B's ink, #1b1f2a.
+  const rgbA = new Set(PALETTE.map((h) => hexToRgb(h).join(',')));
+  for (const channel of ['main', 'preview']) {
+    const art = JSON.parse(read(channel, 'art/art.json'));
+    assert.deepEqual(art.palette.colors.map((c) => (typeof c === 'string' ? c : c.hex)), [...PALETTE], `${channel}: art.json`);
+    assert.match(read(channel, 'css/tokens.css'), new RegExp(`--c0: ${PALETTE[0]};`), `${channel}: tokens.css`);
+    assert.match(read(channel, 'index.html'), new RegExp(`<meta name="theme-color" content="${PALETTE[0]}">`), `${channel}: theme-color`);
+    const m = JSON.parse(read(channel, 'manifest.webmanifest'));
+    assert.deepEqual([m.background_color, m.theme_color], [PALETTE[0], PALETTE[0]], `${channel}: the manifest`);
+    for (const { file } of ICONS) {
+      const px = pixels(readFileSync(join(out[channel], 'icons', file)));
+      assert.ok([...px].every((p) => rgbA.has(p)), `${channel}'s ${file}: palette A's colors only`);
+      assert.ok(!px.has('27,31,42'), `${channel}'s ${file}: no option-B ink`);
+    }
+  }
+});
+
 test("S5: each channel's art.json is what its screens reach: main the cover and its five firs; preview the trail's bases and scene, the stamps they and the recipes reach, and the recipes", (t) => {
   const tmp = mkdtempSync(join(tmpdir(), 'oph-art-s5-'));
   t.after(() => rmSync(tmp, { recursive: true, force: true }));
@@ -449,7 +581,9 @@ test("S5: each channel's art.json is what its screens reach: main the cover and 
   assert.deepEqual(Object.keys(art.main), ['format', 'palette', 'pics', 'stamps'], 'main: no recipes');
   assert.deepEqual(Object.keys(art.main.pics), ['cover_high_divide_dusk']);
   assert.deepEqual(Object.keys(art.main.stamps), ['subalpine_fir_l', 'subalpine_fir_m', 'subalpine_fir_s', 'subalpine_fir_xl', 'subalpine_fir_xs']);
-  assert.deepEqual(Object.keys(art.preview), ['format', 'palette', 'pics', 'stamps', 'recipes']);
+  // S6 (track C): beside the recipes, the Look hotspots by kind, {kind: looked} (content/art/hotspots.json).
+  assert.deepEqual(Object.keys(art.preview), ['format', 'palette', 'pics', 'stamps', 'recipes', 'hotspots']);
+  assert.deepEqual(Object.keys(art.preview.hotspots).filter((k) => art.preview.hotspots[k]), ['basin', 'bogachiel_peak', 'hiker', 'lake', 'lunch_lake', 'privy', 'ridge', 'sign', 'staircase']);
   assert.deepEqual(Object.keys(art.preview.pics), ['base_lake_basin', 'base_meadow', 'cover_high_divide_dusk', 'seven_lakes_basin_rim']);
   for (const id of Object.keys(art.main.stamps)) assert.deepEqual(art.preview.stamps[id], art.main.stamps[id], `${id}: the same stamp on both`);
   assert.deepEqual(art.preview.pics.cover_high_divide_dusk, art.main.pics.cover_high_divide_dusk);

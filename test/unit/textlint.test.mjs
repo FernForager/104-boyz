@@ -221,7 +221,8 @@ test('T11: ids used are defined, and lines on built screens are used', () => {
     "web/index.html:1 data-t uses app.gone, which isn't defined in content/text",
     "web/js/a.js:1 t() asks for nope.x, which isn't defined in content/text",
     // S4: a call that shows a place by a computed id may end // t-ids: @places instead.
-    'web/js/a.js:3 tx() needs a literal id, or the line ends // t-ids: <every id it can be> (or @content, or @places)',
+    // S6 (track C) adds @art to the list: a picture's words by a computed id (tools/looks.mjs).
+    'web/js/a.js:3 tx() needs a literal id, or the line ends // t-ids: <every id it can be> (or @content, @places or @art)',
     'content/text/en/app.json:1 app.unused is defined and never used',
   ]);
   assert.deepEqual(r.infos, ['credits.later: waiting for screen credits']);

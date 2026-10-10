@@ -28,8 +28,13 @@
 //                and the log the resumed session carries replays to it
 //   template     on the live content, every line a screen names is a line in content/text
 //                (a line on a screen the scope doesn't have yet may wait for its words, as T11
-//                lets it; the summary counts those); the fixture's fx.* ids are never rendered
+//                lets it; the summary counts those), and from S6 every line a rolled choice's
+//                odds and Why sheet name, and every place they and an outcome's pencil rows
+//                name is in the gazetteer; the fixture's fx.* ids are never rendered
 //   refusal      the planted off-screen action wasn't refused
+//   death        (S6) a trip that ends in a death ends its hiker: the guest book signs a new
+//                one, and home starts a fresh trip at the plan's first stop (no statistics:
+//                a death is counted, never required, E.9)
 //
 // --workers k (default min(4, cpus)) splits the trips over worker_threads;
 // the summary is the same for any k. It prints one line and writes
@@ -108,12 +113,36 @@ export function liveContext(root = ROOT) {
   /** @type {Map<string, string[]>} */
   const lines = new Map();
   for (const [id, l] of text.lines) lines.set(id, varsOf(l.text));
-  return { kind: 'live', content, lines, setScreens, scopeScreens: new Set(text.scope.screens) };
+  return { kind: 'live', content, lines, places: new Set(text.names.places.keys()), setScreens, scopeScreens: new Set(text.scope.screens) };
+}
+
+/**
+ * Every ref a screen shows: its box, its labels, and from S6 a rolled
+ * choice's fail word, its Why sheet's rows and its "if it goes badly"
+ * line; and every place it names: a route's arrival and an outcome's
+ * pencil rows.
+ * @param {any} screen
+ * @returns {{refs: any[], places: string[]}}
+ */
+export function screenRefs(screen) {
+  const refs = [...(screen.box || [])];
+  const places = [];
+  for (const c of screen.choices || []) {
+    if (c.label) refs.push(c.label);
+    if (c.odds && c.odds.failWord) refs.push(c.odds.failWord);
+    if (c.why) {
+      for (const r of c.why.rows || []) if (r.label) refs.push(r.label);
+      if (c.why.badly) refs.push(c.why.badly);
+      if (c.why.route) places.push(c.why.route.place.id);
+    }
+  }
+  for (const r of screen.pencil || []) if (r.arrive) places.push(r.arrive.id);
+  return { refs, places };
 }
 
 /** The fixture's context: its lines are never rendered, so it has no template check. */
 export function fixtureContext() {
-  return { kind: 'fixture', content: fixtureContent(), lines: null, setScreens: new Map(), scopeScreens: new Set() };
+  return { kind: 'fixture', content: fixtureContent(), lines: null, places: null, setScreens: new Map(), scopeScreens: new Set() };
 }
 
 /**
@@ -129,7 +158,8 @@ export function checkTemplates(screen, ctx) {
   /** @type {string[]} */
   const waiting = [];
   if (!ctx.lines) return { bad, waiting };
-  const refs = [...(screen.box || []), ...(screen.choices || []).map((/** @type {any} */ c) => c.label).filter(Boolean)];
+  const { refs, places } = screenRefs(screen);
+  for (const id of places) if (ctx.places && !ctx.places.has(id)) bad.push(`${id} is not a place in content/text/names`);
   const setScreen = screen.stop ? ctx.setScreens.get(screen.stop.set) : null;
   for (const r of refs) {
     const want = ctx.lines.get(r.id);
@@ -160,6 +190,7 @@ const offersMove = (screen) => Boolean(screen.auto) || (screen.choices || []).so
  * @property {boolean} ended
  * @property {string[]} waiting line ids waiting for their screen's words
  * @property {boolean} probed
+ * @property {boolean} died the trip ended in a death (S6), and a new hiker signed after it
  * @property {{check: string, msg: string}[]} failures
  */
 
@@ -175,7 +206,7 @@ export function smokeTrip(i, contexts) {
   const seed = smokeSeed(i);
   const gen = botGen(`bot|${i}`);
   /** @type {TripResult} */
-  const result = { i, seed, kind: ctx.kind, actions: 0, ended: false, waiting: [], probed: false, failures: [] };
+  const result = { i, seed, kind: ctx.kind, actions: 0, ended: false, waiting: [], probed: false, died: false, failures: [] };
   const fail = (/** @type {string} */ check, /** @type {string} */ msg) => result.failures.push({ check, msg });
   const waiting = new Set();
   const look = (/** @type {any} */ screen) => {
@@ -273,6 +304,22 @@ export function smokeTrip(i, contexts) {
       if (r.error) fail('resume', `saved after ${savedAt} actions, the resumed log stops at action ${r.error.at}: ${r.error.code}`);
       else if (r.hash !== hash) fail('resume', `saved after ${savedAt} actions, the resumed log replays to ${r.hash.slice(0, 12)}, not ${hash.slice(0, 12)}`);
     }
+    // A death (S6) ends the hiker: the guest book signs a new one, and home starts a fresh trip.
+    if (result.ended && session.state.hiker === null) {
+      result.died = true;
+      const gb = screen;
+      if (gb.phase !== 'guestbook') fail('death', `after a death the screen is ${gb.phase}, not the guest book`);
+      else {
+        const signed = dispatch(session, { t: 'sign', name: NAMES[(i + 1) % NAMES.length], id: `h${smokeSeed(i + 1)}` }, content);
+        if (!signed.screen.auto) fail('death', 'the new hiker has no trip to start');
+        else {
+          const fresh = dispatch(signed.session, { ...signed.screen.auto, seed: smokeSeed(i + 1) }, content).session;
+          const plan = content.plan(fresh.state.trip.plan);
+          const set = plan ? content.set(plan.start.set) : null;
+          if (!set || fresh.state.trip.stop !== set.first || fresh.state.trip.n !== 1 || fresh.state.hiker.trips !== 0) fail('death', 'the new hiker\'s trip does not start fresh at the plan\'s first stop');
+        }
+      }
+    }
   } catch (e) {
     fail('crash', e && /** @type {any} */ (e).stack ? String(/** @type {any} */ (e).stack).split('\n').slice(0, 3).join(' | ') : String(e));
   }
@@ -323,6 +370,8 @@ export function summarize(results) {
     resume: count('resume'),
     templates: count('template'),
     refusals: count('refusal'),
+    deathChecks: count('death'),
+    died: sorted.filter((r) => r.died).length,
     waiting,
     failures,
   };
@@ -343,6 +392,7 @@ export function summaryLine(s, ms) {
     s.resume && plural(s.resume, 'resume failure', 'resume failures'),
     s.templates && plural(s.templates, 'template failure', 'template failures'),
     s.refusals && plural(s.refusals, 'missed refusal', 'missed refusals'),
+    s.deathChecks && plural(s.deathChecks, 'death failure', 'death failures'),
   ].filter(Boolean);
   const waiting = s.waiting.length ? `; ${plural(s.waiting.length, 'line', 'lines')} waiting for ${s.waiting.length === 1 ? 'its' : 'their'} screen's words` : '';
   return `sim: smoke ${s.trips} trips (live ${s.live}, fixture ${s.fixture}): ${plural(s.crashes, 'crash', 'crashes')}, ${plural(s.deadEnds, 'dead end', 'dead ends')}, ${s.stuck} stuck, ${s.nondeterministic ? `${s.nondeterministic} nondeterministic` : 'deterministic'}${extra.length ? `, ${extra.join(', ')}` : ''}; ${thousands(s.actions)} actions, ${(ms / Math.max(1, s.trips)).toFixed(2)} ms a trip${waiting}`;

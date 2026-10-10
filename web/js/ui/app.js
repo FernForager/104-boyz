@@ -29,6 +29,14 @@
 // after the second stop, a new trip begins at the first stop again; the
 // trail beyond the trailhead arrives in S15a.
 //
+// From S6 a diamond's Yes plays the compass roll in the fork's own picture
+// (frame.compass, ui/compass.js) before the outcome is drawn, only on that
+// tap's own draw (fresh): the save written at the tap already holds the
+// outcome (8.14), so a restored save shows the outcome directly. A fresh
+// outcome plays its severity's cue (ui.good, ui.mishap, ui.serious). A
+// death ends the hiker: the saves write the hiker as gone (null), and the
+// guest book asks for a new one (S6's stand-in for S24a's sequence).
+//
 // From S5 a stop is drawn in the trail frame (ui/frame.js): the status line,
 // the picture, the caption, the strip, S3's box and choices, the toolbar.
 // While the cover draws in, the game also adds css/frame.css to the page,
@@ -49,8 +57,10 @@
 // Dev routes, preview only, in debug mode (?debug=1, or the menu opened):
 // #stop=<set>.<stop>&hour=<h> opens that stop through the real engine in a
 // session kept in memory (Robin, a fixed id, the sample with a fixed seed,
-// Walk on until the stop), never touching storage (tools/shots.mjs uses
-// it); #frame opens the frame's check view (the dev action Scenes).
+// Walk on until the stop; from S6, every choice in turn too, and for a
+// stop only a roll reaches, the first of a fixed list of seeds that rolls
+// there), never touching storage (tools/shots.mjs uses it); #frame opens
+// the frame's check view (the dev action Scenes).
 
 import { loadContent, newSession, dispatch, screenOf, toSaves, fromSaves, reportState, isEngineError } from '../engine/api.js';
 import { makePalette } from '../gfx/palette.js';
@@ -62,6 +72,7 @@ import { provideState, debugRequested, debugMode, opensTrail } from './debug.js'
 import { renderGuestbook } from './guestbook.js';
 import { createMenu } from './menu.js';
 import { renderFrame, hourOf, savedHour, stubSound, registerFrameDev, showScenes, hideScenes, HOURS, SCENES_HASH } from './frame.js';
+import { restDraw } from './compass.js';
 import { initTextSize } from './textsize.js';
 import { createUnlock } from '../audio/unlock.js';
 
@@ -82,8 +93,12 @@ export const FONT_WAIT_MS = 1500;
 export const DEV_HIKER = Object.freeze({ name: 'Robin', id: 'h00000001', seed: 'K7QM2Q9F' }); // t-ok: the dev route's fixture hiker (the doc's own example), never on main
 /** Walk on at most this many times looking for a #stop= route's stop. */
 const DEV_MAX_STEPS = 64;
+/** How many seeds a #stop= route tries for a stop only a roll reaches (the fatal share's 0.7% needs a few hundred). */
+export const DEV_MAX_SEEDS = 2000;
 /** A tap this soon after a screen is drawn is the last screen's double tap, and is dropped (ms). */
 export const TAP_GUARD_MS = 300;
+/** Each outcome's cue (13.2; S6): good, a mishap, and serious or worse. */
+export const OUTCOME_CUES = Object.freeze({ good: 'ui.good', mishap: 'ui.mishap', serious: 'ui.serious', death: 'ui.serious' });
 /** The three saves, in the order a tap writes them (E.6; 8.14: the save at the tap holds the outcome). */
 export const SAVE_ORDER = Object.freeze(['trip', 'hiker']);
 
@@ -160,7 +175,11 @@ export function writeSaves(session, store = { load, save }) {
   const refused = [];
   for (const name of SAVE_ORDER) {
     const rec = /** @type {Record<string, unknown>} */ (records)[name];
-    if (!rec) continue;
+    if (!rec) {
+      // A death (S6): the trip ended with no hiker, so the stored hiker goes too.
+      if (name === 'hiker' && records.trip && !refused.includes('trip') && !store.save(name, null)) refused.push(name);
+      continue;
+    }
     if (name === 'hiker' && refused.includes('trip')) refused.push(name);
     else if (!store.save(name, rec)) refused.push(name);
   }
@@ -252,24 +271,70 @@ function routeOf(doc) {
 
 /**
  * A session at a real stop, through the real engine (#stop=): Robin signs
- * with a fixed id, the sample starts with a fixed seed, and Walk on until
- * the stop shows. Null when the walk never reaches it.
+ * with a fixed id, the sample starts with a fixed seed, and Walk on (and
+ * from S6 each choice in turn, breadth first) until the stop shows. A stop
+ * only a roll reaches (an outcome) may need another seed: then the seeds
+ * of a fixed list, in order (devSeed), until one rolls there. Null when
+ * none reaches it.
  * @param {Content} content
  * @param {{set: string, id: string}} stop
  * @returns {Session | null}
  */
 export function devSession(content, stop) {
+  for (let k = 0; k < DEV_MAX_SEEDS; k++) {
+    const s = devWalk(content, stop, k === 0 ? DEV_HIKER.seed : devSeed(k));
+    if (s) return s;
+  }
+  return null;
+}
+
+/**
+ * The dev route's k-th fallback seed (k >= 1): Crockford base32 of k, a
+ * fixed list, so a screenshot of a rolled outcome is the same every time.
+ * @param {number} k
+ */
+export function devSeed(k) {
+  const digits = '0123456789ABCDEFGHJKMNPQRSTVWXYZ';
+  let v = k;
+  let out = '';
+  for (let i = 0; i < 8; i++) {
+    out = digits[v % 32] + out;
+    v = Math.floor(v / 32);
+  }
+  return `D${out.slice(1)}`;
+}
+
+/**
+ * One seed's search: breadth first over Walk on and each choice, from the
+ * sample's start, until the stop shows (within DEV_MAX_STEPS moves).
+ * @param {Content} content
+ * @param {{set: string, id: string}} stop
+ * @param {string} seed
+ * @returns {Session | null}
+ */
+function devWalk(content, stop, seed) {
   let s = newSession(content);
   s = dispatch(s, { t: 'sign', name: DEV_HIKER.name, id: DEV_HIKER.id }, content).session;
-  s = dispatch(s, { t: 'start', plan: 'sample', seed: DEV_HIKER.seed }, content).session;
-  for (let i = 0; i < DEV_MAX_STEPS; i++) {
-    const sc = screenOf(s.state, content);
-    if (sc.stop && sc.stop.set === stop.set && sc.stop.id === stop.id) return s;
-    try {
-      s = dispatch(s, { t: 'next' }, content).session;
-    } catch {
-      return null;
+  s = dispatch(s, { t: 'start', plan: 'sample', seed }, content).session;
+  /** @type {Session[]} */
+  let layer = [s];
+  for (let i = 0; i < DEV_MAX_STEPS && layer.length; i++) {
+    /** @type {Session[]} */
+    const next = [];
+    for (const at of layer) {
+      const trip = at.state.trip;
+      if (!trip || trip.end) continue;
+      const sc = screenOf(at.state, content);
+      if (sc.stop && sc.stop.set === stop.set && sc.stop.id === stop.id) return at;
+      for (const c of sc.choices) {
+        try {
+          next.push(dispatch(at, c.act, content).session);
+        } catch {
+          // a choice that can't be taken here leads nowhere
+        }
+      }
     }
+    layer = next;
   }
   return null;
 }
@@ -304,7 +369,7 @@ export function runGame({ doc, app, host, content, session: start, store = { loa
   let buttons = [];
   /** @type {(string | number)[] | null} the action that last threw, until one goes through */
   let pending = null;
-  /** @type {{release: () => void} | null} the trail frame on screen */
+  /** @type {{release: () => void, compass?: (roll: any, u: number) => Promise<void>} | null} the trail frame on screen */
   let frame = null;
   const palette = art && art.palette ? makePalette(art.palette) : null;
   // ≡ opens with a soft tick, inside the tap (C's ui.open).
@@ -352,17 +417,35 @@ export function runGame({ doc, app, host, content, session: start, store = { loa
     pending = null;
     session = r.session;
     persist();
-    draw(r.screen);
+    draw(r.screen, { fresh: true });
     return true;
   };
 
-  /** @param {Screen} next */
-  const draw = (next) => {
+  /**
+   * @param {Screen} next
+   * @param {{fresh?: boolean, cue?: boolean}} [o] fresh: this tap's own draw
+   *   (the compass rolls, and an outcome plays its cue, only then; a
+   *   restored save shows the outcome directly); cue: the outcome after
+   *   its compass, which plays its cue too
+   */
+  const draw = (next, { fresh = false, cue = false } = {}) => {
     if (next.auto) {
       // Home's stub: start the plan it asks for, with a seed drawn here.
       act({ ...next.auto, seed: seed() }, { tap: false });
       return;
     }
+    const n = /** @type {any} */ (next);
+    const trip = session.state.trip;
+    if (fresh && n.roll && n.roll.kind === 'diamond' && frame && frame.compass && trip && trip.rolled) {
+      // 8.8: the compass in the fork's own picture, then the outcome.
+      const shown = frame;
+      /** @type {(roll: any, u: number) => Promise<void>} */ (shown.compass)(n.roll, restDraw(trip)).then(() => {
+        if (frame === shown) draw(next, { fresh: false, cue: true });
+      });
+      return;
+    }
+    // 13.2: an outcome's own cue, on the tap that brought it (two and three dry ticks, never a melody).
+    if ((fresh || cue) && n.outcome) sound.play(/** @type {Record<string, string>} */ (OUTCOME_CUES)[n.outcome] || 'ui.serious');
     screen = next;
     if (frame) frame.release();
     frame = null;
@@ -370,6 +453,7 @@ export function runGame({ doc, app, host, content, session: start, store = { loa
     host.className = 'game-screen';
     host.removeAttribute('data-hour');
     host.removeAttribute('data-short');
+    host.removeAttribute('data-compass');
     app.setAttribute('data-screen', screenName(next));
     let box;
     if (next.phase === 'guestbook') {
@@ -389,6 +473,9 @@ export function runGame({ doc, app, host, content, session: start, store = { loa
         composer,
         sound,
         menu,
+        rearm: () => {
+          shownAt = now();
+        },
       });
       frame = f;
       box = f.focus;

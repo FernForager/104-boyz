@@ -72,6 +72,7 @@ export const SWITCHES = Object.freeze({
  */
 export const SECTIONS = Object.freeze({
   park: { screen: 'map', session: 'S4' },
+  odds: { screen: 'trail', session: 'S6' },
   conditions: { screen: 'plan', session: 'S10' },
   permits: { screen: 'plan', session: 'S10' },
   daylight: { screen: 'trail', session: 'S8' },

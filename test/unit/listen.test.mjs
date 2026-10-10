@@ -76,7 +76,8 @@ test('the spectrogram: 64 bands by 20 ms frames, 4 px a cell, in the palette, an
   const rgb = paletteRGB();
   assert.equal(rgb.length, 16);
   assert.deepEqual([...cs[1][1]], rgb.flat(), 'the palette is the game\'s 16 colors');
-  assert.deepEqual(rgb[7], [0xe8, 0xb3, 0x3a], 'slot 7 is bonfire gold');
+  // Re-pinned in S6: palette A's bonfire gold, #ebb53d (decision 68; option B's was #e8b33a).
+  assert.deepEqual(rgb[7], [0xeb, 0xb5, 0x3d], 'slot 7 is bonfire gold');
   const raw = inflateSync(cs[2][1]);
   const used = new Set();
   for (let y = 0; y < sg.height; y++) for (let x = 0; x < sg.width; x++) used.add(raw[y * (sg.width + 1) + 1 + x]);
@@ -142,7 +143,8 @@ test('rendering by name: a cue lays its variants end to end with each one\'s has
   const s = renderNamed(BANK, 'ui_demo', { seconds: 2 });
   assert.equal(s.kind, 'scene');
   assert.equal(s.samples.length, 96000);
-  assert.throws(() => renderNamed(BANK, 'ui.nope'), /no cue or scene "ui\.nope" \(cues: ui\.tick, ui\.next, ui\.open, ui\.sound_on; scenes: ui_demo, silence\)/);
+  // Re-pinned at S6: the bank's five new cues are in the list.
+  assert.throws(() => renderNamed(BANK, 'ui.nope'), /no cue or scene "ui\.nope" \(cues: ui\.tick, ui\.next, ui\.open, ui\.sound_on, ui\.compass, ui\.land, ui\.good, ui\.mishap, ui\.serious; scenes: ui_demo, silence\)/);
   // The command writes the WAV, the spectrogram and the readout.
   const out = mkdtempSync(join(tmpdir(), 'oph-listen-out-'));
   t.after(() => rmSync(out, { recursive: true, force: true }));
@@ -223,7 +225,7 @@ test("the build's audio step ships the bank with its golden hashes, and refuses 
   const out = join(tmp, 'dist');
   mkdirSync(out, { recursive: true });
   const r = buildAudio(out, { root: tmp });
-  assert.deepEqual(r, { cues: 4, variants: 16 });
+  assert.deepEqual(r, { cues: 9, variants: 36 }, 'S6: A1\'s four cues and S6\'s five, four variants each');
   const shipped = JSON.parse(readFileSync(join(out, 'audio', 'sounds.json'), 'utf8'));
   assert.deepEqual(shipped, shippedBank(BANK, cueHashes(BANK)));
   assert.deepEqual(Object.keys(shipped), ['format', 'cues', 'scenes', 'golden']);

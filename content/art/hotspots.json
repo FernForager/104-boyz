@@ -1,0 +1,21 @@
+{
+ "$comment": "The Look hotspots by kind (GAME_DESIGN 12.1, 12.2, 11.8; BUILD_PLAN S6, the spec's lead call 5): every kind a drawable place's picture carries (a Z op in a base, a scene or a stamp), each looked or silent. A looked kind's Look is the line look.<kind>, or look.<kind>.<place> where a place has its own, and its button's spoken name is look.name.<kind> (content/text/en/look.json); a silent kind has no button, and a tap there shows the picture's composed alt text as its Look (gfx/alt.js: King's Quest's LOOK at the room), with its reason here. Lint P15 holds every kind of every drawable place to this file and every looked kind to its two lines; schemas/hotspots.schema.json is its J01. Shipped in art/art.json as hotspots ({kind: looked}) on a channel with the trail screen.",
+ "kinds": {
+  "lake": { "look": true, "doc": "A lake basin's water (base_lake_basin): every lake place shares the line until it has its own" },
+  "far_shore": { "look": false, "why": "S6's batch stays small: the far shore's firs are the alt text's ring of firs until a later batch gives them words" },
+  "shore": { "look": false, "why": "S6's batch stays small: the near shore is the alt text's meadow until a later batch gives it words" },
+  "meadow": { "look": false, "why": "S6's batch stays small: the meadow base's ground is its alt text until a later batch gives it words" },
+  "heather": { "look": false, "why": "S6's batch stays small: the heather drifts are the meadow's alt text until a later batch gives them words" },
+  "sky": { "look": false, "why": "S6's batch stays small: an open sky says no more than the alt text's hour until S8's weather gives it words" },
+  "olympus": { "look": false, "why": "S6's batch stays small: Mount Olympus is the skyline's alt text until S16 draws the crest and gives it a Look" },
+  "cloud": { "look": false, "why": "S6's batch stays small: the rim's one cumulus waits for S8's weather to say what a cloud means" },
+  "ridge": { "look": true, "doc": "Deer Lake's forested ridge (skyline_deer_lake_ridge)" },
+  "privy": { "look": true, "doc": "Deer Lake's privy roof among the firs (privy_roof)" },
+  "hiker": { "look": true, "doc": "The hiker sprite, standing or sitting (hiker_idle, hiker_sit): in every trail picture" },
+  "basin": { "look": true, "doc": "The rim scene's view down into the Seven Lakes Basin" },
+  "lunch_lake": { "look": true, "doc": "The rim scene's Lunch Lake, the basin's biggest" },
+  "staircase": { "look": true, "doc": "The rim scene's stone staircase into the basin" },
+  "bogachiel_peak": { "look": true, "doc": "The rim scene's Bogachiel Peak" },
+  "sign": { "look": true, "doc": "The rim scene's trail sign" }
+ }
+}

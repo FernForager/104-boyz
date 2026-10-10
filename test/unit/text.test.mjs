@@ -74,7 +74,7 @@ const APPROVED = {
 test('every line file reads cleanly: good ids, in their area, complete', () => {
   const text = readText(ROOT);
   assert.deepEqual(text.problems, []);
-  assert.deepEqual(text.files, ['content/text/en/alt.json', 'content/text/en/app.json', 'content/text/en/credits.json', 'content/text/en/dev.json', 'content/text/en/first.json', 'content/text/en/fmt.json', 'content/text/en/title.json', 'content/text/en/trail.json']);
+  assert.deepEqual(text.files, ['content/text/en/alt.json', 'content/text/en/app.json', 'content/text/en/credits.json', 'content/text/en/dev.json', 'content/text/en/first.json', 'content/text/en/fmt.json', 'content/text/en/look.json', 'content/text/en/title.json', 'content/text/en/trail.json']);
   for (const [id, l] of text.lines) {
     assert.match(id, ID_RE);
     assert.equal(l.file, `content/text/en/${id.split('.')[0]}.json`);
@@ -280,10 +280,18 @@ test('count: where things stand', () => {
   // adds the line inspector's three dev lines, preview only. S5's fixes
   // make the strip's mile and the caption's feet two number formats
   // (content/text/en/fmt.json, E.12), retiring trail.strip.mile: one more.
-  assert.equal(c.lines, 115);
-  assert.equal(c.files, 8);
-  assert.deepEqual(c.ours, { total: 88, approved: 14, draft: 73, changed: 0, cut: 0, nowords: 1 });
-  assert.equal(c.dev, 27);
+  // S6 (track B) adds the sample fork's 56: B004's 17 (Next and the fork's
+  // 16), B005's 35 (the odds, the Why sheet, the outcome and four number
+  // formats), and four with no words to approve (a percentage, a share under
+  // the least shown, the diamond's fail share and the confirm's question).
+  // S6 (track C) adds 29: B006's 28 (the Looks in a new file, en/look.json,
+  // their buttons' names and group, the alt text's nine parts) and B005's
+  // ▾ (trail.box.more), all preview only. S6's review adds the #frame check
+  // view's two fixture names (dev.fixture.three and .four), preview only.
+  assert.equal(c.lines, 202);
+  assert.equal(c.files, 9);
+  assert.deepEqual(c.ours, { total: 173, approved: 14, draft: 154, changed: 0, cut: 0, nowords: 5 });
+  assert.equal(c.dev, 29);
   // The 13 app lines, and the debug menu's six dev lines main keeps
   // (dev.note, dev.close, dev.throw and the three dev.check lines; the marks
   // are preview's alone, and so are dev.map, S4, and S5's hour, text, Scenes
@@ -291,7 +299,7 @@ test('count: where things stand', () => {
   assert.equal(c.main.reach.length, 19);
   assert.deepEqual(c.main.screens, ['app', 'debug', 'title']);
   assert.deepEqual(c.main.needs, []);
-  assert.equal(c.main.off.length, 26);
+  assert.equal(c.main.off.length, 28, "S6's review: the check view's two fixture names are off main too");
   assert.deepEqual(c.t07, ['title.begin', 'title.start_label', 'title.tagline']);
   assert.deepEqual(c.unapplied, []);
   // The words (18.9): the 14 approved lines hold 58, the bare build code none.
@@ -303,10 +311,10 @@ test('count: where things stand', () => {
   assert.equal(c.words.ours.total, c.words.ours.approved + c.words.ours.draft + c.words.ours.changed + c.words.ours.cut);
   assert.ok(c.words.ours.draft > 0 && c.words.dev > 0);
   const out = formatCount(c);
-  assert.match(out, /^text: 115 lines in 8 files\n {2}ours {2}88: approved 14, draft 73, changed 0, cut 0, no words 1\n {8}words \d+: approved 58, draft \d+, changed 0, cut 0\n {2}dev {4}27: exempt \(decision 64\); words \d+/);
+  assert.match(out, /^text: 202 lines in 9 files\n {2}ours {2}173: approved 14, draft 154, changed 0, cut 0, no words 5\n {8}words \d+: approved 58, draft \d+, changed 0, cut 0\n {2}dev {4}29: exempt \(decision 64\); words \d+/);
   assert.match(out, /credits 2 \(approved 2; waiting for its screen\)/);
-  assert.match(out, /debug 27 \(dev 27\)/);
-  assert.match(out, /main: carries app, debug, title; reaches 19 lines, all shippable; needs 0; off main 26/);
+  assert.match(out, /debug 29 \(dev 29\)/);
+  assert.match(out, /main: carries app, debug, title; reaches 19 lines, all shippable; needs 0; off main 28/);
   assert.match(out, /answers not yet applied: none$/);
 });
 

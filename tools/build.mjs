@@ -115,6 +115,7 @@ import { checkLock } from './ingest.mjs';
 import { buildFonts } from './fontbuild.mjs';
 import { buildAudio } from './listen.mjs';
 import { pageReach } from './reach.mjs';
+import { loadHotspots, shippedHotspots } from './looks.mjs';
 import { canon } from '../web/js/engine/canon.js';
 
 export const MAX_BYTES = 5 * 1024 * 1024;
@@ -234,7 +235,11 @@ export function compileArt({ screens = null } = {}) {
     out.pics[id] = { width: p.width, height: p.height, ops: p.ops };
   }
   for (const id of [...reached].sort()) out.stamps[id] = stamps[id];
-  if (withRecipes) out.recipes = recipes;
+  if (withRecipes) {
+    out.recipes = recipes;
+    // The Look hotspots by kind, {kind: looked} (S6; ui/look.js): a silent kind gets no button.
+    out.hotspots = shippedHotspots(loadHotspots().hotspots);
+  }
   return out;
 }
 
