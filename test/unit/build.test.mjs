@@ -63,7 +63,11 @@ test('the art bundle compiles, and carries no gold', () => {
       if (op[0] === 'D') assert.ok(![op[1], op[2]].includes(7) && ![op[1], op[2]].includes(19));
     }
   }
-  assert.ok(JSON.stringify(art).length < 100 * 1024, 'the art stays small');
+  // S7: the cabin (its plate, the stamps only it reaches and its data: what compileArt ships for the home's screens
+  // over what it ships for none) keeps a budget of its own, so the rest keeps S1's whole budget, as before.
+  const cabin = JSON.stringify(compileArt({ screens: ['home'] })).length - JSON.stringify(compileArt({ screens: [] })).length;
+  assert.ok(cabin > 0 && cabin < 64 * 1024, `the cabin stays small: ${cabin}`);
+  assert.ok(JSON.stringify(art).length - cabin < 100 * 1024, 'the art stays small');
 });
 
 test('the icons are the right sizes, opaque, and drawn from the cover; preview has its own', () => {
@@ -582,12 +586,16 @@ test("S5: each channel's art.json is what its screens reach: main the cover and 
   assert.deepEqual(Object.keys(art.main.pics), ['cover_high_divide_dusk']);
   assert.deepEqual(Object.keys(art.main.stamps), ['subalpine_fir_l', 'subalpine_fir_m', 'subalpine_fir_s', 'subalpine_fir_xl', 'subalpine_fir_xs']);
   // S6 (track C): beside the recipes, the Look hotspots by kind, {kind: looked} (content/art/hotspots.json).
-  assert.deepEqual(Object.keys(art.preview), ['format', 'palette', 'pics', 'stamps', 'recipes', 'hotspots']);
+  // S7: and the cabin's display data (content/home/cabin.json), since the guest book's screen shows the cabin on the porch.
+  assert.deepEqual(Object.keys(art.preview), ['format', 'palette', 'pics', 'stamps', 'recipes', 'hotspots', 'cabin']);
   assert.deepEqual(Object.keys(art.preview.hotspots).filter((k) => art.preview.hotspots[k]), ['basin', 'bogachiel_peak', 'hiker', 'lake', 'lunch_lake', 'privy', 'ridge', 'sign', 'staircase']);
-  assert.deepEqual(Object.keys(art.preview.pics), ['base_lake_basin', 'base_meadow', 'cover_high_divide_dusk', 'seven_lakes_basin_rim']);
+  assert.deepEqual(Object.keys(art.preview.pics), ['base_lake_basin', 'base_meadow', 'cabin_quinault', 'cover_high_divide_dusk', 'seven_lakes_basin_rim']);
   for (const id of Object.keys(art.main.stamps)) assert.deepEqual(art.preview.stamps[id], art.main.stamps[id], `${id}: the same stamp on both`);
   assert.deepEqual(art.preview.pics.cover_high_divide_dusk, art.main.pics.cover_high_divide_dusk);
-  assert.deepEqual(art.main.palette, art.preview.palette, 'the same tables (S5 adds blue hour and night)');
+  assert.deepEqual([art.main.palette.colors, art.main.palette.remaps], [art.preview.palette.colors, art.preview.palette.remaps], 'the same tables (S5 adds blue hour and night)');
+  // S7: preview's cycles are main's and the cabin's two (spill and smoke), which ship only with the home's screens.
+  assert.deepEqual(Object.keys(art.preview.palette.cycles).filter((k) => !art.main.palette.cycles[k]), ['28', '29']);
+  assert.deepEqual(Object.keys(art.main.palette.cycles), ['16', '17', '18', '19', '20', '21', '22', '23', '24', '25']);
   assert.deepEqual(Object.keys(art.main.palette.remaps), ['day', 'dusk', 'blue', 'night']);
 });
 

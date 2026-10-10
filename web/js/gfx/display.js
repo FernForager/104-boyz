@@ -145,7 +145,7 @@ export function createDisplay(canvas, width, height, edge = PALETTE[0]) {
  * Run the palette cycles (stars, water) at 8 fps while the page is
  * visible. Returns a stop function. Does nothing for a still picture.
  * @param {ReturnType<typeof createDisplay>} display
- * @param {Uint8Array} indices composited picture (0-25, 255)
+ * @param {Uint8Array} indices composited picture (0-29, 255)
  * @param {number} width
  * @param {import('./palette.js').Palette} pal makePalette()
  * @param {{remap?: string, background?: number}} [o]

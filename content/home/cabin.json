@@ -1,0 +1,115 @@
+{
+ "$comment": "The cabin at Lake Quinault (BUILD_PLAN S7; GAME_DESIGN 2.2, 11.11, 12.3): one authored file read two ways. Its next table compiles into data/rules.json as the section home (rules, hashed); everything else compiles into art/art.json as cabin (display data, with the plate and its stamps), both only on a channel with the home screen. plate: the hand-drawn 160x320 plate (content/art/pics/home/), August (season), its anchors (Z at_<name> ops) and its places' Z ops (art boxes) the record of where things are drawn; tables: the palette table each hour resolves with (dawn borrows dusk's, GAME_DESIGN 11.4); skies, weather, lights, embers, smoke and states: the stamps web/js/gfx/cabin.js composes over the plate, each at an anchor (or the plate's origin) on its layer, in this order; moon: the real moon's arithmetic (lead call 54) and its stamps; stars: how many twinkle at blue hour and at night, above at_star_floor, plus the Big Dipper's seven, fixed; places: each place's kind (place, look, silent, first), art box and hit area (picture pixels; lint P17 holds every hit area to 44 x 44 pt on every phone), label anchor, rail button, the screen it opens and the session that lands it; rail: the porch rail's order; hours: the rule that turns the sun table into the cabin's hour (platform/now.js hourAt); sky: the climatology's knobs (platform/now.js skyOn), fog's odds flagged estimates until T2's forecast; next: the next-step button's states, each with the session that lands it; first: the porch frame's window on the plate (ui/porch.js). schemas/cabin.schema.json is its J01.",
+ "plate": "cabin_quinault",
+ "season": "summer",
+ "tables": { "day": "day", "dawn": "dusk", "dusk": "dusk", "blue": "blue", "night": "night" },
+ "skies": { "clear": "cabin_sky_clear", "cloudy": "cabin_sky_cloudy", "rain": "cabin_sky_rain" },
+ "weather": {
+  "cloudy": [
+   { "layer": "far", "stamp": "cabin_cloud_cap" }
+  ],
+  "rain": [
+   { "layer": "far", "stamp": "cabin_cloud_cap" },
+   { "layer": "near", "stamp": "cabin_rain" },
+   { "layer": "near", "stamp": "cabin_puddles" },
+   { "layer": "near", "stamp": "cabin_rain_chains", "at": "chain_l" },
+   { "layer": "near", "stamp": "cabin_rain_chains", "at": "chain_r" }
+  ],
+  "fog": [
+   { "layer": "far", "stamp": "cabin_fog_far" },
+   { "layer": "mid", "stamp": "cabin_fog_low" }
+  ]
+ },
+ "lights": [
+  { "stamp": "cabin_lit_bank", "at": "win_left" },
+  { "stamp": "cabin_lit_bank", "at": "win_right", "fx": true },
+  { "stamp": "cabin_lit_stove", "at": "stove" },
+  { "stamp": "cabin_lit_spill", "at": "spill_l" },
+  { "stamp": "cabin_lit_spill", "at": "spill_r", "fx": true },
+  { "stamp": "cabin_lit_gable", "at": "win_gable" },
+  { "stamp": "cabin_lit_door", "at": "door" },
+  { "stamp": "cabin_lit_lanterns", "at": "lantern_l" },
+  { "stamp": "cabin_lit_lanterns", "at": "lantern_r", "fx": true },
+  { "stamp": "cabin_lit_shed", "at": "shed_light" }
+ ],
+ "embers": [
+  { "stamp": "cabin_embers", "at": "bowl" }
+ ],
+ "smoke": [
+  { "stamp": "cabin_smoke", "at": "pipe" }
+ ],
+ "states": {
+  "first": [
+   { "stamp": "cabin_lockbox_lit", "at": "lockbox" },
+   { "stamp": "cabin_guestbook_open", "at": "guestbook" }
+  ],
+  "flag_up": [
+   { "stamp": "cabin_mailbox_flag_up", "at": "mailbox_flag" }
+  ]
+ },
+ "moon": {
+  "$comment": "Lead call 54: the phase from the date by integer arithmetic, age in hundredths of a day since a fixed new moon (2000-01-06 18:14 UTC) modulo the synodic month (29.53059 days), as eighths 0 (new, not drawn) to 7, lit on the right while waxing; it rises at 6:00 Pacific plus 48 minutes a day of age and is up for 12 hours, a plain rule, drawn at one fixed spot over the peak's left shoulder.",
+  "at": "moon",
+  "stamp": "cabin_moon_",
+  "new_moon_ms": 947182440000,
+  "synodic_hundredths": 2953059,
+  "rise_min": 360,
+  "rise_per_day_min": 48,
+  "up_min": 720
+ },
+ "stars": {
+  "$comment": "Stars twinkle (the star cycle, 22) one pixel each, never two touching, never on or beside a fixed star, above at_star_floor, thinning toward the horizon; seeded by the cabin (ART_SEED), so every phone sees the same sky. The Big Dipper's seven, fixed, right of the spruce's tip.",
+  "floor": "star_floor",
+  "count": { "blue": [8, 12], "night": [46, 54] },
+  "dipper": [[121, 35], [128, 38], [134, 41], [140, 44], [141, 51], [151, 53], [152, 45]]
+ },
+ "places": {
+  "door": { "kind": "place", "art": [73, 180, 15, 32], "hit": [64, 172, 30, 44], "label": [80, 236], "align": "center", "rail": "plan", "opens": "next", "lands": "S7", "doc": "The screen door: the next step until S10, then the map table (GAME_DESIGN 2.2)" },
+  "shed": { "kind": "place", "art": [131, 164, 29, 58], "hit": [126, 160, 34, 70], "label": [144, 196], "align": "center", "rail": "gear", "opens": "gear", "lands": "S12a", "doc": "The shed: your gear, then the flat lay" },
+  "car": { "kind": "place", "art": [0, 281, 41, 39], "hit": [0, 272, 44, 48], "label": [20, 276], "align": "center", "rail": "drive", "opens": "town", "lands": "S11", "doc": "The car: to town, or to the trailhead once packed" },
+  "fire_bowl": { "kind": "place", "art": [68, 261, 25, 17], "hit": [56, 246, 46, 44], "label": [80, 258], "align": "center", "rail": "stories", "opens": "reports", "lands": "S15a", "doc": "The fire bowl: trip reports and the hiker's card" },
+  "mailbox": { "kind": "place", "art": [142, 290, 12, 24], "hit": [132, 276, 28, 44], "label": [140, 288], "align": "right", "rail": "mailbox", "opens": "mailbox", "lands": "S7", "doc": "The mailbox: settings (GAME_DESIGN 12.18)" },
+  "tub": { "kind": "look", "art": [111, 217, 27, 19], "hit": [108, 200, 30, 44], "opens": "soak", "lands": "S25", "doc": "The hot tub: a Look until the soak (lead call 58)" },
+  "register_post": { "kind": "look", "art": [3, 221, 12, 42], "hit": [0, 220, 24, 46], "opens": "register", "lands": "S24b", "doc": "The register post: a Look until the Trail Register (lead call 58)" },
+  "peak": { "kind": "silent", "art": [18, 30, 80, 62], "hit": [10, 20, 90, 72], "opens": "fkt", "lands": "T1", "doc": "The peak: silent until the FKT boards (lead call 58)" },
+  "chalkboard": { "kind": "silent", "art": [51, 215, 11, 14], "hit": [40, 198, 26, 44], "opens": "daily", "lands": "T2", "doc": "The chalkboard: silent until the Hike of the Day (lead call 58)" },
+  "clam_shovel": { "kind": "silent", "art": [131, 204, 4, 21], "hit": [122, 200, 22, 44], "opens": "dig", "lands": "S37", "doc": "The clam shovel leaning on the shed: drawn and silent (lead call 58; decision 61)" },
+  "lockbox": { "kind": "first", "art": [62, 203, 4, 7], "hit": [52, 190, 24, 44], "opens": "lockbox", "lands": "S7", "doc": "The key lockbox on the newel post: first launch only (decision 45)" }
+ },
+ "rail": ["plan", "gear", "drive", "stories", "mailbox"],
+ "hours": {
+  "$comment": "platform/now.js hourAt: from the sun table's row [offset, civil dawn, sunrise, sunset, civil dusk], with A = sunrise - civil dawn and B = civil dusk - sunset: night until civil dawn - A x blue_outside; blue until civil dawn + A x blue_inside; dawn until sunrise + sun_margin; day; dusk from sunset - sun_margin; blue from sunset + B x blue_inside; night from civil dusk + B x blue_outside. The shares are per mille, so the rule stays integer.",
+  "sun_margin_s": 1800,
+  "blue_outside_permille": 1000,
+  "blue_inside_permille": 500
+ },
+ "sky": {
+  "$comment": "platform/now.js skyOn: the date's sky, one draw a date. Rain: the cabin zone's station's wet days (days with 0.01 in or more) over the month's days; cloudy: of the rest, the chain's unsettled share; clear otherwise. Morning fog: a second draw on a dry day against fog_permille, from blue hour to fog_until, flagged estimates until T2's forecast (lead call 64's note).",
+  "zone": "west_valleys",
+  "fog_until_s": 39600,
+  "fog_permille": [
+   { "m": 1, "permille": 250, "estimate": true, "why": "Valley fog in the wet months: the Quinault's winter inversions" },
+   { "m": 2, "permille": 220, "estimate": true, "why": "Valley fog in the wet months, thinning toward spring" },
+   { "m": 3, "permille": 160, "estimate": true, "why": "Spring: showers more than fog" },
+   { "m": 4, "permille": 120, "estimate": true, "why": "Spring: showers more than fog" },
+   { "m": 5, "permille": 100, "estimate": true, "why": "Late spring: morning low cloud now and then" },
+   { "m": 6, "permille": 100, "estimate": true, "why": "June's marine layer reaches up the valley some mornings" },
+   { "m": 7, "permille": 80, "estimate": true, "why": "Dry summer mornings, marine layer only now and then" },
+   { "m": 8, "permille": 100, "estimate": true, "why": "Late summer: clear nights cool the valley floor, a little morning fog" },
+   { "m": 9, "permille": 180, "estimate": true, "why": "September's long clear nights: radiation fog on the lake most weeks" },
+   { "m": 10, "permille": 250, "estimate": true, "why": "Valley fog in the wet months: October's still mornings" },
+   { "m": 11, "permille": 250, "estimate": true, "why": "Valley fog in the wet months" },
+   { "m": 12, "permille": 250, "estimate": true, "why": "Valley fog in the wet months: the Quinault's winter inversions" }
+  ]
+ },
+ "next": [
+  { "id": "plan_first", "when": "no_finished_trip", "act": "start", "lands": "S7", "doc": "A hiker with no finished trip: Plan your first trip (2.2 step 4); until S10 it starts the sample trip" },
+  { "id": "plan", "when": "no_trip_under_way", "act": "start", "lands": "S7", "doc": "Any other hiker with no trip under way: Plan a trip" },
+  { "id": "plan_drafted", "lands": "S10", "doc": "A plan drafted: Drive to town (the permit at the desk, 3.1)" },
+  { "id": "desk", "lands": "S11", "doc": "The permit issued at the desk" },
+  { "id": "town", "lands": "S11", "doc": "Back from town: Lay out your gear" },
+  { "id": "packed", "lands": "S12a", "doc": "Packed: Leave in the morning" },
+  { "id": "just_home", "lands": "S25", "doc": "Just home: the trip report, then the tub if it glows" }
+ ],
+ "first": { "window_y": 128, "window_h": 168 }
+}

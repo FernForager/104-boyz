@@ -1,0 +1,49 @@
+# bigleaf_maple_summer: a huge bigleaf maple in full August leaf
+# (GAME_DESIGN 11.11): a short, thick bark trunk splitting low into
+# sprawling limbs heavy with moss, licorice ferns along them, and big
+# lobed clumps of leaves lit from the upper left (maple_clump_*), with the
+# limbs showing between. Its limbs leave the frame on the left; flipped, on
+# the right. The anchor, 0,0, is the foot of the trunk. About 66 wide, 167
+# tall.
+# the trunk: bark, flaring at its foot, moss up its lit side, ink in its shade
+C 10  L -5,0 -4,-3 -4,-70 3,-70 3,-3 5,0 -5,0
+C 10  F 0,-30
+C 13  L -4,-6 -4,-68  L -3,-24 -3,-66  L -2,-50 -2,-64  L -5,0 -4,-4
+C 14  L -4,-40 -4,-50  L -3,-60 -3,-64
+C 0  L 3,-4 3,-69  L 4,-2 5,0
+C 0  L -1,-10 -1,-14  L 1,-30 1,-36  L -1,-46 -1,-50
+# the limbs, bark under moss, splitting from the trunk
+B circle 2  C 10  S -1,-70 -4,-84 -8,-98 -12,-112 -16,-126 -20,-140
+B circle 1  C 13  S -2,-71 -5,-85 -9,-99 -13,-113 -17,-127 -21,-141
+B circle 2  C 10  S 0,-70 0,-90 -1,-110 1,-128 4,-144
+B circle 1  C 13  S -1,-71 -1,-91 -2,-111 0,-129 3,-145
+B circle 1  C 10  S 2,-72 8,-82 16,-92 26,-100 36,-104 46,-102
+B circle 0  C 13  S 1,-73 7,-83 15,-93 25,-101 35,-105 45,-103
+B circle 1  C 10  S 3,-74 12,-78 22,-80 32,-78
+B circle 0  C 13  S 2,-75 11,-79 21,-81 31,-79
+B circle 0
+# the canopy's shadowed depths, behind the clumps and the limbs
+C 11  L -15,-146 -4,-156 10,-158 24,-150 36,-140 46,-128 52,-112 50,-98
+      40,-88 26,-82 10,-80 -4,-82 -15,-90 -15,-146
+C 11  F 10,-120
+# the clumps, back to front
+T maple_clump_l -8,-150
+T maple_clump_l 12,-151 fx
+T maple_clump_m 30,-140
+T maple_clump_l -12,-128 fx
+T maple_clump_l 20,-130
+T maple_clump_m 40,-124 fx
+T maple_clump_m 47,-112
+# a mossy limb sprawling in front of the clumps, and licorice ferns on it
+B circle 1  C 10  S 24,-104 30,-108 36,-110 42,-110
+B circle 0  C 13  S 23,-106 29,-110 35,-112 41,-112
+T maple_clump_l 4,-117 fx
+T maple_clump_m -10,-104
+T maple_clump_l 27,-110 fx
+T maple_clump_s 49,-100
+T maple_clump_m 13,-98
+T maple_clump_s -6,-88 fx
+T maple_clump_m 35,-94
+T maple_clump_s 22,-86 fx
+T maple_clump_s 5,-84
+C 12  L 30,-112 30,-114  L 38,-112 39,-114  L 16,-94 16,-96  L 26,-102 27,-104  L -6,-92 -6,-94

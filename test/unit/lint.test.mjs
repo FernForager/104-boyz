@@ -66,6 +66,13 @@ test('the picture rules catch what they should', () => {
   assert.deepEqual(codes(lintPicture(plate('@ sky  C 1  F 10,10'), {})), [], 'the sky may be one big fill');
   assert.deepEqual(codes(lintPicture(plate('Z rock 150,300,20,30'), {})), ['P06']);
   assert.deepEqual(codes(lintPicture(plate('@ near  C 25  L 3,3'), {})), ['P08']);
+  // S7: a pseudo-color in the VM's range (16-29) that the palette doesn't define: 26 (steam) and 27 (alpen) are
+  // reserved for S25 and S17; the cabin's 28 (spill) and 29 (smoke) are defined.
+  assert.deepEqual(codes(lintPicture(plate('@ near  C 26  L 3,3'), {})), ['P01']);
+  assert.deepEqual(codes(lintPicture(plate('@ near  D 27 2 checker  F 3,3'), {})), ['P01', 'P04']);
+  assert.deepEqual(codes(lintPicture(stamp('C 26  L 0,0'), {})), ['P01']);
+  assert.deepEqual(codes(lintPicture(plate('@ near  C 28  L 3,3  C 29  L 4,4'), {})), []);
+  assert.deepEqual(codes(lintPicture(plate('@ near  C 28  L 3,3'), {}, { 16: {} })), ['P01'], "against the palette it's given");
   assert.deepEqual(codes(lintPicture(stamp('@ far  C 1  L 0,0'), {})), ['P11']);
   assert.deepEqual(codes(lintPicture(stamp('C 1  L 0,0 4,0 4,4  F 1,3'), {})), ['P09'], 'an open outline leaks');
   assert.deepEqual(codes(lintPicture({ ...plate('@ near  C 1  L 1,1'), kind: null }, {})), ['P10'], 'a picture outside plates/, scenes/ and stamps/');

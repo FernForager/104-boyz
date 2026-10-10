@@ -3,8 +3,10 @@
 // tests).
 //
 // The first folder sets a picture's kind and size: plates/ are tall plates
-// (160x320), scenes/ and bases/ are 160x168 (a hand-drawn scene; a biome
-// base the composer builds on, BUILD_PLAN S5), and stamps/ are stamps,
+// (160x320), home/ the cabin's tall plate (160x320, S7: composed by
+// web/js/gfx/cabin.js at the lake's hour), scenes/ and bases/ are 160x168
+// (a hand-drawn scene; a biome base the composer builds on, BUILD_PLAN
+// S5), and stamps/ are stamps,
 // drawn around their anchor (any folders below stamps/ only sort them:
 // trees/, rocks/, sprites/, skylines/ ...). Every id is the file's base
 // name, and ids are unique across folders. A kind's screens are the screens
@@ -22,15 +24,18 @@ export const PICS_DIR = join(ROOT, 'content', 'art', 'pics');
 export const PALETTE_PATH = join(ROOT, 'content', 'art', 'palette.json');
 export const RECIPES_PATH = join(ROOT, 'content', 'art', 'recipes.json');
 export const RECIPES_SCHEMA_PATH = join(ROOT, 'schemas', 'recipes.schema.json');
+export const CABIN_PATH = join(ROOT, 'content', 'home', 'cabin.json');
 
 /**
  * Folder -> picture size (null for stamps) and the screens that show it:
- * the cover is the title's (S7's cabin plate will say home); scenes and
- * bases are the trail's; stamps ship when a shipped picture or recipe
- * reaches them.
+ * the cover is the title's; the cabin (S7) is the home's, and the
+ * lockbox's and the guest book's, which show it on the porch; scenes and
+ * bases are the trail's; stamps ship when a shipped picture or the
+ * recipes or the cabin's data reach them.
  */
 export const KINDS = Object.freeze({
   plates: Object.freeze({ width: 160, height: 320, screens: Object.freeze(['title']) }),
+  home: Object.freeze({ width: 160, height: 320, screens: Object.freeze(['home', 'lockbox', 'guestbook']) }),
   scenes: Object.freeze({ width: 160, height: 168, screens: Object.freeze(['trail']) }),
   bases: Object.freeze({ width: 160, height: 168, screens: Object.freeze(['trail']) }),
   stamps: null,
@@ -66,7 +71,7 @@ export function loadPicSources(dir = PICS_DIR) {
     const size = kind ? KINDS[kind] : null;
     return {
       id: basename(path, '.pic'),
-      kind, // 'plates' | 'scenes' | 'bases' | 'stamps' | null (unknown folder)
+      kind, // 'plates' | 'home' | 'scenes' | 'bases' | 'stamps' | null (unknown folder)
       path,
       rel,
       text,
@@ -75,6 +80,15 @@ export function loadPicSources(dir = PICS_DIR) {
       height: size ? size.height : 0,
     };
   });
+}
+
+/**
+ * The cabin's data (content/home/cabin.json, S7), or null when it isn't
+ * there. Its schema is J01's (tools/content.mjs FOLDERS).
+ * @param {string} [path]
+ */
+export function loadCabin(path = CABIN_PATH) {
+  return existsSync(path) ? JSON.parse(readFileSync(path, 'utf8')) : null;
 }
 
 /** The palette data. */

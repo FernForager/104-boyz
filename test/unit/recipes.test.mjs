@@ -321,13 +321,18 @@ test('the art by channel: main keeps the cover and its five firs; preview adds t
   assert.deepEqual(Object.keys(main.stamps), ['subalpine_fir_l', 'subalpine_fir_m', 'subalpine_fir_s', 'subalpine_fir_xl', 'subalpine_fir_xs']);
   assert.equal(main.recipes, undefined);
   const preview = compileArt({ screens: ['app', 'debug', 'guestbook', 'map', 'title', 'trail'] });
-  assert.deepEqual(Object.keys(preview.pics), ['base_lake_basin', 'base_meadow', 'cover_high_divide_dusk', 'seven_lakes_basin_rim']);
+  // S7: the guest book's screen shows the cabin on the porch (tools/pics.mjs KINDS.home), so preview carries its plate.
+  assert.deepEqual(Object.keys(preview.pics), ['base_lake_basin', 'base_meadow', 'cabin_quinault', 'cover_high_divide_dusk', 'seven_lakes_basin_rim']);
   assert.deepEqual(preview.recipes, loadArt().recipes);
   for (const id of recipeStamps(preview.recipes)) assert.ok(preview.stamps[id], `${id} ships`);
   for (const id of ['hiker_idle', 'skyline_deer_lake_ridge', 'skyline_olympus_from_divide', 'signpost', 'krummholz_b', 'subalpine_fir_xs']) assert.ok(preview.stamps[id], id);
   assert.ok(!preview.stamps.talus_patch, 'a stamp nothing reaches stays home');
   assert.deepEqual(Object.keys(preview.stamps), Object.keys(preview.stamps).sort());
-  // The palette tables are the same on both.
-  assert.deepEqual(main.palette, preview.palette);
+  // The palette tables are the same on both; preview's cycles are main's and the cabin's two (S7: spill and smoke
+  // ship only with the home's screens, so main's bundle doesn't change).
+  assert.deepEqual(main.palette.remaps, preview.palette.remaps);
+  assert.deepEqual(main.palette.colors, preview.palette.colors);
+  assert.deepEqual(Object.keys(preview.palette.cycles).filter((k) => !main.palette.cycles[k]), ['28', '29']);
+  for (const k of Object.keys(main.palette.cycles)) assert.deepEqual(main.palette.cycles[k], preview.palette.cycles[k]);
   assert.deepEqual(Object.keys(main.palette.remaps), ['day', 'dusk', 'blue', 'night']);
 });

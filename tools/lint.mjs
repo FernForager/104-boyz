@@ -5,7 +5,9 @@
 // names the active codes. The active rules:
 //
 // Pictures (content/art/pics/**/*.pic):
-//   P01 a command, color, point or pattern the format doesn't know
+//   P01 a command, color, point or pattern the format doesn't know, or a
+//       pseudo-color content/art/palette.json doesn't define (S7: 26 and
+//       27 are reserved for S25 and S17)
 //   P02 a stamp that doesn't exist
 //   P03 a point off the canvas (in a plate or scene; stamps draw around
 //       their anchor, so their own points may be anywhere)
@@ -16,7 +18,7 @@
 //       M1a has no lily, so no gold at all
 //   P08 the dust pseudo-color (25), which only the renderer may use
 //   P09 a stamp fill that leaks out of its outline
-//   P10 a picture outside plates/, scenes/, bases/ or stamps/, a bad id,
+//   P10 a picture outside plates/, home/, scenes/, bases/ or stamps/, a bad id,
 //       or a duplicate id
 //   P11 a layer switch inside a stamp
 //   P12 a palette table that makes gold: a remap that turns another color
@@ -147,7 +149,7 @@ const GLOW = 19;
 const GOLD = new Set([GOLD_SLOT, GLOW]);
 const DUST = 25;
 const TEXT_EXT = new Set(['.html', '.css', '.js', '.mjs', '.json', '.webmanifest', '.pic', '.md', '.txt', '.svg']);
-export const PURE_MODULES = ['web/js/gfx/picvm.js', 'web/js/gfx/palette.js', 'web/js/gfx/compose.js', 'web/js/gfx/alt.js'];
+export const PURE_MODULES = ['web/js/gfx/picvm.js', 'web/js/gfx/palette.js', 'web/js/gfx/compose.js', 'web/js/gfx/alt.js', 'web/js/gfx/cabin.js'];
 
 /** @typedef {{file: string, line: number, code: string, msg: string, level?: 'error' | 'warn'}} Issue */
 
@@ -170,7 +172,7 @@ const rule = (code, family, doc, what, lands) => (lands ? { code, family, doc, s
  * @type {readonly Rule[]}
  */
 export const RULES = Object.freeze([
-  rule('P01', 'pictures', 'BUILD_PLAN 4.2, 4.8', "a command, color, point or pattern the .pic format doesn't know"),
+  rule('P01', 'pictures', 'BUILD_PLAN 4.2, 4.8', "a command, color, point or pattern the .pic format doesn't know, or a pseudo-color the palette doesn't define"),
   rule('P02', 'pictures', 'BUILD_PLAN 4.8', "a stamp that doesn't exist"),
   rule('P03', 'pictures', 'BUILD_PLAN 4.8', 'a point off the canvas'),
   rule('P04', 'pictures', 'BUILD_PLAN 4.8', 'a fill over 60% of a non-sky layer (an outline left open)'),
@@ -179,7 +181,7 @@ export const RULES = Object.freeze([
   rule('P07', 'pictures', 'GAME_DESIGN 9.8, 11.1', "bonfire gold outside the lily's own files"),
   rule('P08', 'pictures', 'GAME_DESIGN 11.10', 'the dust pseudo-color, which only the renderer may use'),
   rule('P09', 'pictures', 'BUILD_PLAN 4.8', 'a stamp fill that leaks out of its outline'),
-  rule('P10', 'pictures', 'BUILD_PLAN 4.2', 'a picture outside plates/, scenes/, bases/ or stamps/, a bad id, or a duplicate id'),
+  rule('P10', 'pictures', 'BUILD_PLAN 4.2', 'a picture outside plates/, home/, scenes/, bases/ or stamps/, a bad id, or a duplicate id'),
   rule('P11', 'pictures', 'BUILD_PLAN 4.2', 'a layer switch inside a stamp'),
   rule('P12', 'palette', 'BUILD_PLAN 4.7; GAME_DESIGN 11.4', 'a palette remap or cycle that makes bonfire gold'),
   rule('P13', 'pictures', 'BUILD_PLAN 4.4, 4.5, S5; GAME_DESIGN 11.7', "the composer's recipes resolve: bases, anchors, layers, slots, skylines, stamps, landmarks never flipped"),
@@ -278,20 +280,22 @@ function colorsOf(op) {
  * Lint one parsed picture source.
  * @param {{id: string, kind: string|null, rel: string, parsed: any, width: number, height: number}} src
  * @param {Record<string, any[][]>} stamps every stamp's ops, by id
+ * @param {Record<string, any>} [cycles] the palette's cycles, by pseudo-color (palette.json's; palette.js's by default)
  * @returns {Issue[]}
  */
-export function lintPicture(src, stamps) {
+export function lintPicture(src, stamps, cycles = CYCLES) {
   /** @type {Issue[]} */
   const out = [];
   const file = src.rel;
   const add = (line, code, msg) => out.push({ file, line, code, msg });
   const { ops, lines, errors } = src.parsed;
   for (const e of errors) add(e.line, 'P01', e.msg);
-  if (!src.kind) add(1, 'P10', 'pictures live in plates/, scenes/, bases/ or stamps/');
+  if (!src.kind) add(1, 'P10', 'pictures live in plates/, home/, scenes/, bases/ or stamps/');
   if (!/^[a-z][a-z0-9_]*$/.test(src.id)) add(1, 'P10', `"${src.id}" is not a good id (lowercase, digits, underscores)`);
   const lilyFile = src.id.includes('bonfire_lily');
   ops.forEach((op, k) => {
     for (const c of colorsOf(op)) {
+      if (c >= 16 && !Object.prototype.hasOwnProperty.call(cycles, String(c))) add(lines[k], 'P01', `color ${c} is no pseudo-color content/art/palette.json defines`);
       if (GOLD.has(c) && !lilyFile) add(lines[k], 'P07', `color ${c} is bonfire gold: the lily's alone, and M1a has no lily`);
       if (c === DUST) add(lines[k], 'P08', 'color 25 (dust) is for the renderer only');
     }
@@ -331,8 +335,12 @@ export function lintPicture(src, stamps) {
   return out;
 }
 
-/** Every picture, with stamps resolved across files. */
-export function lintPictures(sources) {
+/**
+ * Every picture, with stamps resolved across files.
+ * @param {any[]} sources
+ * @param {Record<string, any>} [cycles] the palette's cycles (palette.json's)
+ */
+export function lintPictures(sources, cycles = CYCLES) {
   const stamps = {};
   /** @type {Issue[]} */
   const out = [];
@@ -342,7 +350,7 @@ export function lintPictures(sources) {
     else seen.set(s.id, s.rel);
     if (s.kind === 'stamps') stamps[s.id] = s.parsed.ops;
   }
-  for (const s of sources) out.push(...lintPicture(s, stamps));
+  for (const s of sources) out.push(...lintPicture(s, stamps, cycles));
   return out;
 }
 
@@ -1082,7 +1090,7 @@ export function runLint(root = ROOT) {
   const issues = [];
   const rel = (p) => relative(root, p).split(sep).join('/');
   const sources = loadPicSources(join(root, 'content', 'art', 'pics'));
-  issues.push(...lintPictures(sources).map((i) => ({ ...i, file: `content/art/pics/${i.file}` })));
+  issues.push(...lintPictures(sources, loadPalette(join(root, 'content', 'art', 'palette.json')).cycles).map((i) => ({ ...i, file: `content/art/pics/${i.file}` })));
   const recipes = loadRecipes(join(root, 'content', 'art', 'recipes.json'), join(root, 'schemas', 'recipes.schema.json'));
   issues.push(...lintRecipes(recipes, sources));
   issues.push(...lintCompositions(recipes, sources));

@@ -78,6 +78,7 @@ export const FOLDERS = Object.freeze([
   { pattern: /^drive\/routes\.json$/, schema: 'drives.schema.json', owner: 'S4 B' },
   { pattern: /^quiz\/locals\.json$/, schema: 'quiz.schema.json', owner: 'S4 B' },
   { pattern: /^scope\/[a-z][a-z0-9_]*\.json$/, schema: 'scope.schema.json', owner: 'S4 A' },
+  { pattern: /^home\/cabin\.json$/, schema: 'cabin.schema.json', owner: 'S7 A' },
 ]);
 
 /**
@@ -224,7 +225,7 @@ export function fairDeath(set) {
 }
 
 /** The folders under content/ whose JSON files are compiled (walked recursively); content/text/ and content/art/ have their own readers. */
-export const DIRS = Object.freeze(['rules', 'trips', 'stops', 'park', 'data', 'gear', 'food', 'stores', 'drive', 'quiz', 'scope']);
+export const DIRS = Object.freeze(['rules', 'trips', 'stops', 'park', 'data', 'gear', 'food', 'stores', 'drive', 'quiz', 'scope', 'home']);
 
 /**
  * The schema a content file takes, by its path under content/

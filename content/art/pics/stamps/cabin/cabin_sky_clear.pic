@@ -1,0 +1,22 @@
+# cabin_sky_clear: the clear sky over the cabin (BUILD_PLAN S7), the whole
+# sky layer, placed at the plate's origin by web/js/gfx/cabin.js. Slate
+# overhead, glacier blue through the name's band (rows 2 to 28 stay one flat
+# band, lead call 61), snow at the horizon: the hour's table makes it
+# navy over slate over pink at dusk and dawn, ink over slate over glacier at
+# blue hour, ink over navy over slate at night, so the name's night sky is
+# navy, dark and blue (6.3); the glow starts under the peak's summit, so
+# its snowy crest stands on clear glacier blue at every hour. Its frame
+# runs one pixel outside the plate, so
+# no band's fill reaches the stamp's edge; the plate clips it.
+C 9  L -1,-1 160,-1 160,171 -1,171 -1,-1
+# The bands, cut by ink rows; each band's fill takes its row too.
+C 0  L 0,3 159,3  L 0,6 159,6  L 0,9 159,9  L 0,57 159,57  L 0,62 159,62
+     L 0,67 159,67  L 0,72 159,72
+C 2              F 80,1
+D 2 3 checker    F 80,4 80,3
+D 3 2 checker25  F 80,7 80,6
+C 3              F 80,30 80,9
+D 3 4 checker25  F 80,59 80,57
+D 3 4 checker    F 80,64 80,62
+D 4 3 checker25  F 80,69 80,67
+C 4              F 80,120 80,72

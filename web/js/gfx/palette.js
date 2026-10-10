@@ -3,7 +3,7 @@
 //
 // PURE: no DOM, no clock, no randomness. The screen never shows a 17th
 // color: a remap sends each slot to one of the same sixteen, and a cycling
-// pseudo-color (16-25) resolves each frame to one of them.
+// pseudo-color (16-29) resolves each frame to one of them.
 //
 // content/art/palette.json carries the same tables as data; a unit test
 // keeps the two identical.
@@ -82,7 +82,11 @@ export const REMAPS = Object.freeze({
  * Cycles (11.5). slots: palette slots in order; light: resolved after the
  * remap, so it stays bright at night; hold: frames per step at 8 fps;
  * phase: how a pixel's position offsets its step ("scatter" hashes the
- * position, so each star keeps its own time; "wave" runs bands across).
+ * position, so each star keeps its own time; "wave" runs bands across;
+ * "rise" climbs a row a step, as "fall" drops one); screens, where given:
+ * the screens that use it, so a channel ships it only with one of them
+ * (tools/build.mjs compileArt). 26 (steam) and 27 (alpen) are reserved for
+ * S25 and S17, so no picture may use them yet (lint P01).
  */
 export const CYCLES = Object.freeze({
   16: Object.freeze({ name: 'lake', slots: [3, 2, 3, 4], light: false, hold: 2, phase: 'wave' }),
@@ -95,9 +99,14 @@ export const CYCLES = Object.freeze({
   23: Object.freeze({ name: 'rain glint', slots: [2, 3], light: false, hold: 2, phase: 'scatter' }), // t-ok: palette names (developer text)
   24: Object.freeze({ name: 'lamp', slots: [5], light: true, hold: 1, phase: 'none' }),
   25: Object.freeze({ name: 'dust', slots: [5, 10, 2], light: true, hold: 2, phase: 'none' }),
+  // S7, the cabin (lead call 56): warm light spilling from the windows, the
+  // lanterns and the embers, a light fixed on brick so it stays warm at
+  // night; and the stovepipe's smoke, remapped with the hour, rising.
+  28: Object.freeze({ name: 'spill', slots: [9], light: true, hold: 1, phase: 'none', screens: Object.freeze(['home', 'lockbox', 'guestbook']) }),
+  29: Object.freeze({ name: 'smoke', slots: [4, 3, 4, 2], light: false, hold: 2, phase: 'rise', screens: Object.freeze(['home', 'lockbox', 'guestbook']) }),
 });
 
-/** @typedef {{name: string, slots: number[], light: boolean, hold: number, phase: string}} Cycle */
+/** @typedef {{name: string, slots: readonly number[], light: boolean, hold: number, phase: string, screens?: readonly string[]}} Cycle */
 /** @typedef {{colors: readonly string[], remaps: Readonly<Record<string, readonly number[]>>, cycles: Record<number, Cycle>, rgb: number[][]}} Palette a palette ready to resolve pictures (makePalette) */
 
 /** Cycling runs at 8 frames a second (11.5). */
@@ -135,6 +144,8 @@ function phaseOf(kind, x, y) {
       return (x >> 2) + y;
     case 'fall':
       return 1000 - y;
+    case 'rise':
+      return y;
     case 'ring':
       return (x + y) >> 1;
     default:
@@ -161,7 +172,7 @@ export function makePalette(json) {
 }
 
 /**
- * Resolve a picture's indices (0-25, or 255 for nothing) to the sixteen.
+ * Resolve a picture's indices (0-29, or 255 for nothing) to the sixteen.
  *
  * @param {Uint8Array} src indices from picvm.composite
  * @param {number} width
