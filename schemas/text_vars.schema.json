@@ -1,0 +1,23 @@
+{
+ "$comment": "content/text/vars.json (BUILD_PLAN 10.5, 10.7, S5): the widths lint T15 counts each {var} and {PLACEHOLDER} at, and the samples a batch fills a template line with. tools/text.mjs reads and validates it, and checks the names: a var is lowercase (a line's {var}), a placeholder uppercase (T13's {PLACEHOLDER}).",
+ "type": "object",
+ "required": ["vars", "placeholders"],
+ "additionalProperties": false,
+ "properties": {
+  "$comment": { "type": "string" },
+  "vars": { "type": "object", "additionalProperties": { "$ref": "#/$defs/width" } },
+  "placeholders": { "type": "object", "additionalProperties": { "$ref": "#/$defs/width" } }
+ },
+ "$defs": {
+  "width": {
+   "type": "object",
+   "required": ["width", "samples", "$comment"],
+   "additionalProperties": false,
+   "properties": {
+    "$comment": { "type": "string", "minLength": 1 },
+    "width": { "type": "integer", "minimum": 1, "maximum": 200 },
+    "samples": { "type": "array", "minItems": 3, "maxItems": 3, "items": { "type": "string", "minLength": 1 } }
+   }
+  }
+ }
+}

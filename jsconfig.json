@@ -1,5 +1,5 @@
 {
-  "$comment": "The page's type check (BUILD_PLAN 2.1, 6.5; GAME_DESIGN E.3): JSDoc-checked JS under web/js/, with the DOM. npm run typecheck runs it with jsconfig.engine.json and jsconfig.worker.json; the code ships exactly as written.",
+  "$comment": "The page's type check (BUILD_PLAN 2.1, 6.5; GAME_DESIGN E.3): JSDoc-checked JS under web/js/, with the DOM. npm run typecheck runs it with jsconfig.engine.json, jsconfig.worker.json and jsconfig.worklet.json (the limiter worklet, left out here: its global scope is not the page's); the code ships exactly as written.",
   "compilerOptions": {
     "allowJs": true,
     "checkJs": true,
@@ -12,5 +12,6 @@
     "types": [],
     "lib": ["ES2022", "DOM", "DOM.Iterable"]
   },
-  "include": ["web/js/**/*.js"]
+  "include": ["web/js/**/*.js"],
+  "exclude": ["web/js/audio/limiter.worklet.js"]
 }

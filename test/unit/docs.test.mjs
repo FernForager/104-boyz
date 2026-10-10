@@ -63,8 +63,11 @@ test('package.json names OP Hiker, has no book words, and its scripts are the RE
   assert.equal(lock.packages['node_modules/typescript'].version, pkg.devDependencies.typescript, 'the lockfile pins the same');
   assert.deepEqual(Object.keys(lock.packages).sort(), ['', 'node_modules/typescript'], 'and nothing else');
   const scripts = Object.keys(pkg.scripts).sort();
-  // S4 adds ingest (BUILD_PLAN 3.2).
-  assert.deepEqual(scripts, ['build', 'ci', 'ingest', 'lint', 'play', 'render', 'serve', 'sim:smoke', 'test', 'text:apply', 'text:check', 'text:count', 'typecheck']);
+  // S4 adds ingest (BUILD_PLAN 3.2); S5 (sound A1) adds listen (BUILD_PLAN 13.5), and (the words) shots and text:batch (10.7).
+  assert.deepEqual(scripts, ['build', 'ci', 'ingest', 'lint', 'listen', 'play', 'render', 'serve', 'shots', 'sim:smoke', 'test', 'text:apply', 'text:batch', 'text:check', 'text:count', 'typecheck']);
+  assert.equal(pkg.scripts.listen, 'node tools/listen.mjs');
+  assert.equal(pkg.scripts.shots, 'node tools/shots.mjs');
+  assert.equal(pkg.scripts['text:batch'], 'node tools/text.mjs batch');
   // BUILD_PLAN 6.5: ci runs the five checks, in that order.
   assert.equal(pkg.scripts.ci, 'npm run build && npm run lint && npm run typecheck && npm run test && npm run sim:smoke');
   assert.equal(pkg.scripts['sim:smoke'], 'node tools/sim.mjs --smoke 1000');
@@ -104,4 +107,20 @@ test('every build log entry from S2 on has the five lines and the batch line (BU
     assert.deepEqual(bullets, want, head);
     if (n >= 2) assert.match(body, /^- \*\*Batch:\*\* (?:none|B\d{3}), \d+ lines?\b/m, `${head}: Batch: <id or none>, n lines`);
   }
+});
+
+test("the worker caches what its channel's page can load: E.7, the README and sw.js say so, and name tools/reach.mjs (S5)", () => {
+  const e7 = read('design/GAME_DESIGN.md')
+    .split('\n')
+    .find((l) => l.startsWith('- Each worker precaches '));
+  assert.ok(e7, "E.7's precache bullet");
+  const row = read('README.md')
+    .split('\n')
+    .find((l) => l.startsWith('| `web/sw.js` |'));
+  const sw = read('web/sw.js').split('\n').slice(0, 20).join('\n');
+  for (const [name, text] of [['E.7', e7], ['the README', row], ['sw.js', sw]]) {
+    assert.match(text, /tools\/reach\.mjs/, `${name} names the reach`);
+    assert.doesNotMatch(text, /every file of its (?:current )?build|saves every file of its build/, `${name}: not every file the build ships`);
+  }
+  assert.match(e7, /the hash still covers every file the build ships/, 'and the cache name still changes with any of them');
 });

@@ -6,6 +6,7 @@ import { cpSync, existsSync, mkdtempSync, mkdirSync, readFileSync, readdirSync, 
 import { tmpdir } from 'node:os';
 import { join, relative, sep } from 'node:path';
 import { compileArt, makeIcons, buildInfo, build, buildAll, checkSize, stampWorker, precachePaths, makeData, ingestGate, ICONS, MAX_BYTES, SW_STAMP } from '../../tools/build.mjs';
+import { pageReach } from '../../tools/reach.mjs';
 import { listFiles, INPUTS, TOOLS } from '../../tools/ingest.mjs';
 import { ROOT } from '../../tools/pics.mjs';
 import { readText, channelScreens } from '../../tools/text.mjs';
@@ -138,16 +139,18 @@ test('each channel builds reproducibly into its own folder, and stamps its id', 
     assert.deepEqual(sw.slice(0, 4), [`// oph-sw ${channel} ${version.build} ${version.files}`, `const CHANNEL = '${channel}';`, `const BUILD = '${version.build}';`, `const FILES = '${version.files}';`]);
     assert.equal(sw.slice(4).join('\n'), swSource.split('\n').slice(4).join('\n'), 'nothing else in sw.js changes');
 
-    // The precache list: every shipped file but the worker and the two lists, by the hash of its bytes.
+    // The precache list: every file the built page can load (tools/reach.mjs) but the worker and the two lists, by the hash of its bytes.
     const list = JSON.parse(sa['precache.json'].toString());
     assert.deepEqual(Object.keys(list), ['build', 'channel', 'files', 'paths']);
     assert.equal(list.build, version.build);
     assert.equal(list.channel, channel);
     assert.equal(list.files, version.files, "precache.json's files is version.json's");
-    const shipped = Object.keys(sa).filter((f) => !['sw.js', 'version.json', 'precache.json'].includes(f));
-    assert.deepEqual(Object.keys(list.paths), shipped, 'every other file, in sorted order');
-    for (const f of shipped) assert.equal(list.paths[f], sha12(sa[f]), `${channel}: ${f}'s hash`);
+    const loads = pageReach(join(tmp, 'a', channel)).files.filter((f) => !['sw.js', 'version.json', 'precache.json'].includes(f));
+    assert.deepEqual(Object.keys(list.paths), loads, 'what the page can load, in sorted order');
+    for (const f of loads) assert.equal(list.paths[f], sha12(sa[f]), `${channel}: ${f}'s hash`);
     assert.deepEqual(precachePaths(join(tmp, 'a', channel)), list.paths);
+    for (const f of ['index.html', 'manifest.webmanifest', 'css/tokens.css', 'css/game.css', 'fonts/PixelifySans.woff2', 'js/boot.js', 'js/main.js', 'js/ui/home.js', 'art/art.json', 'text/en.json', 'selfcheck.json', ...ICONS.map((i) => `icons/${i.file}`)]) assert.ok(list.paths[f], `${channel} precaches ${f}`);
+    for (const f of ['flags.json', 'fonts/OFL.txt']) assert.ok(sa[f] && !list.paths[f], `${channel} ships ${f}, and its page never loads it`);
 
     assert.ok(a.total < MAX_BYTES, `${channel} is under 5 MB`);
     icons[channel] = sa['icons/icon-192.png'];
@@ -272,7 +275,10 @@ test('the data step on a preview whose scope has the trail screen carries the sa
   writeFileSync(trail, JSON.stringify(have, null, 1));
   const { rules, voice, screens } = makeData({ root, channel: 'preview' });
   assert.ok(screens.includes('trail'));
-  assert.deepEqual(rules.plans, { sample: { after: 'end', mode: 'open', start: { day: 1, s: 30600, set: 'sol_duc_trailhead' } } });
+  // S5: the sample starts at Deer Lake (content/stops/deer_lake_rim.json); S3's trailhead set stays, unreachable.
+  assert.deepEqual(rules.plans, { sample: { after: 'end', mode: 'open', start: { day: 1, s: 30600, set: 'deer_lake_rim' } } });
+  assert.deepEqual(rules.stops.deer_lake_rim, { first: 'deer_lake', phase: 'trailhead', stops: [{ id: 'deer_lake', next: 'rim' }, { id: 'rim', next: null }] }, 'no view in the rules');
+  assert.deepEqual(voice.stops.deer_lake_rim.rim, { box: [['trail.deer_lake_rim.rim']], labels: {}, view: { pic: 'seven_lakes_basin', node: 'seven_lakes_basin', day: ['sol_duc_trailhead', 'seven_lakes_basin'] } });
   assert.deepEqual(rules.stops.sol_duc_trailhead, { first: 'lot', phase: 'trailhead', stops: [{ id: 'lot', next: 'trail_mouth' }, { id: 'trail_mouth', next: null }] });
   assert.deepEqual(voice.stops.sol_duc_trailhead, { lot: { box: [['trail.sol_duc_trailhead.lot']], labels: {} }, trail_mouth: { box: [['trail.sol_duc_trailhead.trail_mouth']], labels: {} } });
   assert.deepEqual(makeData({ root, channel: 'main' }).rules.stops, {}, 'main still carries none');
@@ -359,11 +365,96 @@ test("main stays put in S4: its screens, its words, its data and its files; the 
   assert.deepEqual(readdirSync(join(out.main, 'data')).sort(), ['rules.json', 'voice.json']);
   assert.deepEqual(Object.keys(JSON.parse(read('main', 'data/rules.json'))), ['format', 'plans', 'profile', 'standard', 'stops']);
   assert.deepEqual(readdirSync(join(out.preview, 'data')).sort(), ['map.json', 'rules.json', 'voice.json']);
-  // Main's files: the same as preview's but for the map's data and preview's marks; the map's module ships on both (web/ is copied as is) and main never imports it (map.test.mjs).
+  // Main's files: the same as preview's but for the map's data, preview's marks and (S5) the line inspector's text/meta.json; the map's module ships on both (web/ is copied as is) and main never imports it (map.test.mjs).
   const files = (channel) => Object.keys(snapshot(out[channel]));
-  assert.deepEqual(files('preview').filter((f) => !files('main').includes(f)), ['data/map.json', 'text/marks.json']);
+  assert.deepEqual(files('preview').filter((f) => !files('main').includes(f)), ['data/map.json', 'text/marks.json', 'text/meta.json']);
   assert.deepEqual(files('main').filter((f) => !files('preview').includes(f)), []);
   assert.ok(files('main').includes('js/ui/map.js'));
+});
+
+test("main stays put in S5: its screens, words, data, rules hash, page, art and modules are S4's; the trail, the sound and the inspector are preview's (SPEC 7)", (t) => {
+  const tmp = mkdtempSync(join(tmpdir(), 'oph-main-s5-'));
+  t.after(() => rmSync(tmp, { recursive: true, force: true }));
+  const out = {};
+  const built = {};
+  for (const channel of ['main', 'preview']) {
+    out[channel] = join(tmp, channel);
+    built[channel] = build({ out: out[channel], channel, quiet: true });
+  }
+  const read = (channel, f) => readFileSync(join(out[channel], f), 'utf8');
+  // 1. The same screens and words; nothing to mark, nothing to inspect.
+  assert.equal(/<html[^>]*\sdata-screens="([^"]*)"/.exec(read('main', 'index.html'))[1], 'app debug title');
+  assert.deepEqual(Object.keys(JSON.parse(read('main', 'text/en.json'))).sort(), MAIN_S3_IDS);
+  assert.deepEqual(readdirSync(join(out.main, 'text')), ['en.json'], 'no marks.json, no meta.json');
+  assert.deepEqual(readdirSync(join(out.preview, 'text')).sort(), ['en.json', 'marks.json', 'meta.json']);
+  // 2. The same data, and the same rules hash (no engine file changed in S5).
+  const rules = JSON.parse(read('main', 'data/rules.json'));
+  assert.deepEqual(Object.keys(rules), ['format', 'plans', 'profile', 'standard', 'stops']);
+  assert.deepEqual([rules.plans, rules.stops, rules.park], [{}, {}, undefined]);
+  assert.deepEqual(JSON.parse(read('main', 'data/voice.json')), { format: 1, stops: {} });
+  assert.equal(built.main.rules, '46dd9f1e4c40', "S4's main rules hash");
+  assert.notEqual(built.preview.rules, built.main.rules, "preview's moved: the new stop set");
+  // 3. The same page: the same links and scripts, nothing new preloaded.
+  const heads = (html) => [...html.matchAll(/<(?:link|script)\b[^>]*>/g)].map((m) => m[0].replace(/\s+data-[a-z-]+="[^"]*"/g, ''));
+  assert.deepEqual(heads(read('main', 'index.html')), [
+    '<link rel="manifest" href="manifest.webmanifest">',
+    '<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">',
+    '<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">',
+    '<link rel="preload" href="fonts/PixelifySans.woff2" as="font" type="font/woff2" crossorigin>',
+    '<link rel="modulepreload" href="js/gfx/picvm.js">',
+    '<link rel="stylesheet" href="css/tokens.css">',
+    '<link rel="stylesheet" href="css/game.css">',
+    '<script type="module" src="js/boot.js">',
+    '<script type="module" src="js/main.js">',
+  ]);
+  assert.ok(!/frame\.css|OPHChrome|Literata|inspect/.test(read('main', 'index.html')), "main's page names none of S5's files");
+  // 4. The same art: the cover and its five firs.
+  const art = JSON.parse(read('main', 'art/art.json'));
+  assert.deepEqual([Object.keys(art.pics), Object.keys(art.stamps).length, art.recipes], [['cover_high_divide_dusk'], 5, undefined]);
+  // 5. Nothing new loads: main's static import graph reaches none of S5's modules.
+  const seen = new Set();
+  const walk = (rel) => {
+    if (seen.has(rel)) return;
+    seen.add(rel);
+    const src = read('main', rel);
+    for (const m of src.matchAll(/^\s*(?:import|export)\s[^;]*?from\s+'([^']+)'/gms)) walk(join(rel, '..', m[1]).split(sep).join('/'));
+    for (const m of src.matchAll(/^import\s+'([^']+)'/gm)) walk(join(rel, '..', m[1]).split(sep).join('/'));
+  };
+  walk('js/boot.js');
+  walk('js/main.js');
+  assert.ok(seen.has('js/ui/debug.js') && seen.has('js/text.js'));
+  const s5 = ['js/ui/frame.js', 'js/ui/sound.js', 'js/ui/inspect.js', 'js/ui/strip.js', 'js/ui/textbox.js', 'js/ui/choices.js', 'js/ui/toolbar.js', 'js/ui/textsize.js', 'js/gfx/compose.js'];
+  for (const f of s5) assert.ok(!seen.has(f), `main never imports ${f}`);
+  assert.ok(![...seen].some((f) => f.startsWith('js/audio/')), 'nor the sound');
+  // ... and its dynamic imports are S4's (the title, the game behind opensGame, the map behind opensMap, the self-check's engine) and S5's one, the inspector, behind preview and the trail.
+  const dynamic = [...seen].flatMap((f) => [...read('main', f).matchAll(/import\('([^']+)'\)/g)].map((m) => `${f} ${m[1]}`)).sort();
+  assert.deepEqual(dynamic, ['js/main.js ./ui/app.js', 'js/main.js ./ui/home.js', 'js/main.js ./ui/map.js', 'js/ui/debug.js ./inspect.js', 'js/ui/selfcheck.js ../engine/selfcheck.js']);
+  assert.match(read('main', 'js/ui/debug.js'), /if \(preview && opensTrail\(doc\)\) loadInspector\(doc\);/);
+  // 6. File parity: main's files are preview's minus the map's data, the marks and meta.json.
+  const files = (channel) => Object.keys(snapshot(out[channel]));
+  assert.deepEqual(files('preview').filter((f) => !files('main').includes(f)), ['data/map.json', 'text/marks.json', 'text/meta.json']);
+  assert.deepEqual(files('main').filter((f) => !files('preview').includes(f)), []);
+  for (const f of ['fonts/OPHChrome.ttf', 'css/frame.css', 'js/ui/inspect.js', 'js/ui/frame.js', 'audio/sounds.json']) assert.ok(files('main').includes(f), `${f} ships on both (main never loads it)`);
+});
+
+test("S5: each channel's art.json is what its screens reach: main the cover and its five firs; preview the trail's bases and scene, the stamps they and the recipes reach, and the recipes", (t) => {
+  const tmp = mkdtempSync(join(tmpdir(), 'oph-art-s5-'));
+  t.after(() => rmSync(tmp, { recursive: true, force: true }));
+  const art = {};
+  for (const channel of ['main', 'preview']) {
+    build({ out: join(tmp, channel), channel, quiet: true });
+    art[channel] = JSON.parse(readFileSync(join(tmp, channel, 'art', 'art.json'), 'utf8'));
+    assert.deepEqual(art[channel], JSON.parse(JSON.stringify(compileArt({ screens: channelScreens(readText(), channel) }))), `${channel}: the build writes compileArt for its screens`);
+  }
+  assert.deepEqual(Object.keys(art.main), ['format', 'palette', 'pics', 'stamps'], 'main: no recipes');
+  assert.deepEqual(Object.keys(art.main.pics), ['cover_high_divide_dusk']);
+  assert.deepEqual(Object.keys(art.main.stamps), ['subalpine_fir_l', 'subalpine_fir_m', 'subalpine_fir_s', 'subalpine_fir_xl', 'subalpine_fir_xs']);
+  assert.deepEqual(Object.keys(art.preview), ['format', 'palette', 'pics', 'stamps', 'recipes']);
+  assert.deepEqual(Object.keys(art.preview.pics), ['base_lake_basin', 'base_meadow', 'cover_high_divide_dusk', 'seven_lakes_basin_rim']);
+  for (const id of Object.keys(art.main.stamps)) assert.deepEqual(art.preview.stamps[id], art.main.stamps[id], `${id}: the same stamp on both`);
+  assert.deepEqual(art.preview.pics.cover_high_divide_dusk, art.main.pics.cover_high_divide_dusk);
+  assert.deepEqual(art.main.palette, art.preview.palette, 'the same tables (S5 adds blue hour and night)');
+  assert.deepEqual(Object.keys(art.main.palette.remaps), ['day', 'dusk', 'blue', 'night']);
 });
 
 test("the build's step 0: generated content that doesn't match its lock is refused (run npm run ingest)", (t) => {

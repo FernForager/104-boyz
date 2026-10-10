@@ -1,0 +1,15 @@
+{
+ "$comment": "Number formats (GAME_DESIGN 18.3, E.12; decision 64): the tokens web/js/fmt.js words a number with its unit by, each approved once, so a height or a mile reads the same on every phone and never in its locale. fmt.js fills the number (ASCII digits, a comma every three, a point before tenths); web/js/text.js shows a format's spaces as no-break spaces, so the number never breaks from its unit. S5 has two, both the trail frame's; times, dates and am/pm join with their sessions. Drafts until B004 is answered; preview only.",
+ "fmt.ft": {
+  "text": "{ft} ft",
+  "ctx": "A height in feet: the trail caption's elevation, 4,900 ft (12.2). Never broken across a row",
+  "screen": "trail",
+  "max": 8
+ },
+ "fmt.mile_marker": {
+  "text": "mi {mi}",
+  "ctx": "The strip's mile marker: how far along today's route you are, mi 6.9 (12.2). Never broken across a row",
+  "screen": "trail",
+  "max": 8
+ }
+}

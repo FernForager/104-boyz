@@ -65,5 +65,101 @@
   "ctx": "The debug menu, preview only: opens the pencil map of the loop at #map, a check view (BUILD_PLAN S4)",
   "screen": "debug",
   "class": "dev"
+ },
+ "dev.hour": {
+  "text": "hour",
+  "ctx": "The debug menu, preview only: the label of the trail picture's hour control (BUILD_PLAN S5)",
+  "screen": "debug",
+  "class": "dev"
+ },
+ "dev.hour.auto": {
+  "text": "auto",
+  "ctx": "The debug menu, preview only: the hour from the trip count (day, dusk, night, then day again)",
+  "screen": "debug",
+  "class": "dev"
+ },
+ "dev.hour.day": {
+  "text": "day",
+  "ctx": "The debug menu, preview only: show the trail picture by day",
+  "screen": "debug",
+  "class": "dev"
+ },
+ "dev.hour.dusk": {
+  "text": "dusk",
+  "ctx": "The debug menu, preview only: show the trail picture at dusk",
+  "screen": "debug",
+  "class": "dev"
+ },
+ "dev.hour.blue": {
+  "text": "blue hour",
+  "ctx": "The debug menu, preview only: show the trail picture at blue hour",
+  "screen": "debug",
+  "class": "dev"
+ },
+ "dev.hour.night": {
+  "text": "night",
+  "ctx": "The debug menu, preview only: show the trail picture at night",
+  "screen": "debug",
+  "class": "dev"
+ },
+ "dev.text": {
+  "text": "text",
+  "ctx": "The debug menu, preview only: the label of the box text's font control (pixel or Plain, GAME_DESIGN 11.9)",
+  "screen": "debug",
+  "class": "dev"
+ },
+ "dev.text.auto": {
+  "text": "auto",
+  "ctx": "The debug menu, preview only: the font from iOS Larger Text",
+  "screen": "debug",
+  "class": "dev"
+ },
+ "dev.text.pixel": {
+  "text": "pixel",
+  "ctx": "The debug menu, preview only: the box and the choices in the pixel fonts",
+  "screen": "debug",
+  "class": "dev"
+ },
+ "dev.text.plain": {
+  "text": "plain",
+  "ctx": "The debug menu, preview only: the box and the choices in the Plain serif",
+  "screen": "debug",
+  "class": "dev"
+ },
+ "dev.scenes": {
+  "text": "Scenes",
+  "ctx": "The debug menu, preview only: opens the trail frame's check view at #frame, every picture at every hour (BUILD_PLAN S5)",
+  "screen": "debug",
+  "class": "dev"
+ },
+ "dev.audio.render": {
+  "text": "Render 10 s of this scene",
+  "ctx": "The debug menu, preview only: renders the UI cues' 10-second demo through the sound's graph in an offline context on this phone, measures it, and checks this phone's synthesis against Node's hashes (BUILD_PLAN S5, 13.5; the result rides in the bug report)",
+  "screen": "debug",
+  "class": "dev"
+ },
+ "dev.audio.result": {
+  "text": "Sound: peak {peak} dBFS · {lufs} LUFS · dsp {dsp}",
+  "ctx": "The debug menu, preview only: the 10-second render's line: its true peak, its loudest 3-second loudness, and whether this phone's synthesis matches Node's bit for bit (match, or differs and which cues)",
+  "screen": "debug",
+  "class": "dev"
+ },
+ "dev.inspect.line": {
+  "text": "{state} · {len} of {max} · {batch}",
+  "ctx": "The line inspector, preview only (a long press on any words in debug mode): the line's state, its length against its max (T15's count) and its batch and number there (BUILD_PLAN 10.3, S5)",
+  "screen": "debug",
+  "class": "dev"
+ },
+ "dev.inspect.none": {
+  "text": "no batch",
+  "ctx": "The line inspector, preview only: in place of the batch, for a line in none yet",
+  "screen": "debug",
+  "class": "dev"
+ },
+ "dev.inspect.copy": {
+  "text": "Copy for chat",
+  "ctx": "The line inspector, preview only: copies the line's id, hash, state, length, batch, words and ctx, to paste into a chat with your own words after it (GAME_DESIGN 18.6)",
+  "screen": "debug",
+  "class": "dev"
  }
 }

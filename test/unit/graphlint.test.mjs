@@ -33,11 +33,11 @@ test('the real park is clean: every finding outside the scope is acknowledged, n
   assert.equal(raw.filter((i) => i.code === 'G03').length, 14, "GAME_DESIGN E.4's 14 elevation misses");
 });
 
-test('the registry: G01-G04 and G06-G08 active, G05 waits for S5', () => {
+test('the registry: G01-G08 active (G05 since S5, with the recipes; its cases are in recipes.test.mjs)', () => {
   const active = activeCodes();
-  for (const c of ['G01', 'G02', 'G03', 'G04', 'G06', 'G07', 'G08']) assert.ok(active.includes(c), c);
+  for (const c of ['G01', 'G02', 'G03', 'G04', 'G05', 'G06', 'G07', 'G08']) assert.ok(active.includes(c), c);
   const g05 = RULES.find((r) => r.code === 'G05');
-  assert.deepEqual([g05.status, g05.lands], ['lands', 'S5']);
+  assert.deepEqual([g05.status, g05.lands], ['active', undefined]);
   assert.ok(!RULES.some((r) => r.code === 'G'), 'the family placeholder is gone');
 });
 

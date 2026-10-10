@@ -5,7 +5,8 @@ const FILES = 'dev';
 // The service worker (GAME_DESIGN E.7; BUILD_PLAN 2.2), one per channel. The
 // build stamps the four lines above; the rest ships as written. Main's worker
 // (scope /) passes everything under preview/ through; preview's (scope
-// /preview/) passes review/ through. It precaches every file of its build into
+// /preview/) passes review/ through. It precaches every file precache.json
+// lists, the ones its build's page can load (tools/reach.mjs), into
 // oph-<channel>-<files>, after checking version.json against its stamp,
 // fetched past the HTTP cache, copying files whose hash hasn't changed from
 // the last build's cache. Every file it stores has the hash precache.json

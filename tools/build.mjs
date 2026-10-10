@@ -15,7 +15,26 @@
 //      each one runs: art/art.json holds the palette, the pictures and the
 //      stamps, so the phone fetches one small file and runs the same
 //      picture VM as Node. (The .pic text is the source; it is not shipped.)
+//      A channel ships what its screens reach (BUILD_PLAN S5): a picture
+//      when its kind's screens meet the channel's (the cover is the
+//      title's; scenes and bases are the trail's), the composer's recipes
+//      (content/art/recipes.json) with the trail screen, and a stamp when a
+//      shipped picture or the recipes reach it (their T ops, prop slots,
+//      skylines, fixed stamps and sprites, transitively). So main's art.json
+//      stays the cover and its five firs, and preview's adds the rest.
 //   2. Copy web/ into dist/<channel>/ as is.
+//   2a. The chrome font (BUILD_PLAN S5): content/art/fonts/chrome8x14.txt
+//      built into fonts/OPHChrome.ttf (tools/fontbuild.mjs), the same bytes
+//      on both channels (file parity: only preview's game loads it).
+//   2a'. The sound (BUILD_PLAN S5, sound A1): content/audio/sounds.json
+//      and credits.json checked against their schemas and each other (every
+//      cue logged), every cue variant rendered at 48 kHz with
+//      web/js/audio/dsp.js and its hash checked against this tree's
+//      test/golden/audio/a1.json (a mismatch refuses: "run npm run listen
+//      -- --update and review"), then audio/sounds.json, the recipes with
+//      those hashes stamped in, on both channels (file parity: only
+//      preview's game loads the sound). No audio files in S5: every cue is
+//      synthesized on the phone (tools/listen.mjs buildAudio).
 //   2b. The data (BUILD_PLAN S3): content/rules, trips and stops compiled
 //      for the channel's screens (tools/content.mjs) into data/rules.json
 //      (the outcome data, canonical JSON) and data/voice.json (the line
@@ -51,11 +70,17 @@
 //      its gate (T14) runs before the fill and again over what was built,
 //      and the build fails on any word that isn't approved.
 //   6. The worker's lists (GAME_DESIGN E.7): precache.json names every
-//      shipped file with the hash of its bytes, so a new worker downloads
-//      only what changed; the files hash covers them all, and sw.js's first
-//      four lines are stamped with the channel, the build id and that hash,
-//      so any change to any file changes sw.js, which is what the phone's
-//      update check compares.
+//      file the channel's built page can load (tools/reach.mjs: the files
+//      its page names, its manifest's icons, its stylesheets' url()s, and
+//      its modules' imports and the files they name, a dynamic import
+//      counted only on the screens its line's `// screens:` note names),
+//      each with the hash of its bytes, so an installed app downloads what
+//      its page can use (main ships S5's fonts, sound and trail modules for
+//      file parity and never loads them, so its worker never fetches them),
+//      and a new worker only what changed. The files hash covers every
+//      shipped file, and sw.js's first four lines are stamped with the
+//      channel, the build id and that hash, so any change to any file
+//      changes sw.js, which is what the phone's update check compares.
 //   7. Stamp version.json: the build id, the channel, the commit, its date,
 //      the files hash and the rules hash. The build id is the commit's own
 //      UTC date and its short SHA, read from git, so the same commit always
@@ -77,15 +102,19 @@ import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import { pathToFileURL } from 'node:url';
 import { renderPic, composite } from '../web/js/gfx/picvm.js';
+import { drawable } from '../web/js/gfx/compose.js';
 import { makePalette, resolve } from '../web/js/gfx/palette.js';
 import { encodePNG } from './png.mjs';
-import { ROOT, loadArt, loadPalette } from './pics.mjs';
+import { ROOT, KINDS, loadArt, loadPalette } from './pics.mjs';
 import { readText, fillPage, makeManifest, mainReach, bundle, checkMainBuild, gateSummary, stateOf, json1, channelScreens, CHANNELS } from './text.mjs';
 import { assemble } from './assemble-site.mjs';
 import { compileContent } from './content.mjs';
 import { selfcheckCorpus } from './goldens.mjs';
 import { rulesHash } from './rules.mjs';
 import { checkLock } from './ingest.mjs';
+import { buildFonts } from './fontbuild.mjs';
+import { buildAudio } from './listen.mjs';
+import { pageReach } from './reach.mjs';
 import { canon } from '../web/js/engine/canon.js';
 
 export const MAX_BYTES = 5 * 1024 * 1024;
@@ -142,14 +171,39 @@ function walkFiles(dir) {
   return out;
 }
 
-/** The art bundle the phone fetches. Throws on any picture that won't run. */
-export function compileArt() {
+/**
+ * The stamps a recipes file reaches directly: its prop slots', skylines',
+ * sprites', fixed stamps' and prop overrides' (not yet through T ops).
+ * @param {any} recipes
+ * @returns {string[]}
+ */
+export function recipeStamps(recipes) {
+  const out = new Set();
+  if (!recipes) return [];
+  for (const b of Object.values(recipes.bases || {})) for (const slot of /** @type {any} */ (b).props || []) for (const id of slot.stamps) out.add(id);
+  for (const sk of Object.values(recipes.skylines || {})) out.add(/** @type {any} */ (sk).stamp);
+  for (const id of recipes.sprites || []) out.add(id);
+  for (const p of Object.values(recipes.places || {})) {
+    for (const st of /** @type {any} */ (p).stamps || []) out.add(st.id);
+    for (const o of Object.values(/** @type {any} */ (p).props || {})) for (const id of /** @type {any} */ (o).stamps || []) out.add(id);
+  }
+  return [...out].sort();
+}
+
+/**
+ * The art bundle the phone fetches. Throws on any picture that won't run.
+ * screens: the channel's screens (BUILD_PLAN S5: a picture ships when its
+ * kind's screens meet them, the recipes with the trail screen, a stamp when
+ * what ships reaches it); none (the default) ships everything.
+ * @param {{screens?: string[] | null}} [o]
+ */
+export function compileArt({ screens = null } = {}) {
   const palette = loadPalette();
-  const { sources, pics, stamps } = loadArt();
+  const { sources, pics, stamps, recipes } = loadArt();
   const errors = [];
   for (const s of sources) {
     for (const e of s.parsed.errors) errors.push(`${s.rel}:${e.line}: ${e.msg}`);
-    if (!s.kind) errors.push(`${s.rel}: not in plates/, scenes/ or stamps/`);
+    if (!s.kind) errors.push(`${s.rel}: not in plates/, scenes/, bases/ or stamps/`);
   }
   for (const id of Object.keys(pics)) {
     const p = pics[id];
@@ -157,13 +211,30 @@ export function compileArt() {
     for (const u of r.diag.unknownStamps) errors.push(`${id}: unknown stamp "${u.id}"`);
     for (const d of r.diag.tooDeep) errors.push(`${id}: stamp "${d.id}" nests too deep`);
   }
+  for (const id of recipeStamps(recipes)) if (!stamps[id]) errors.push(`content/art/recipes.json: unknown stamp "${id}"`);
   if (errors.length) throw new Error(`pictures:\n  ${errors.join('\n  ')}`);
+  const meets = (/** @type {readonly string[]} */ list) => !screens || list.some((x) => screens.includes(x));
+  const shipped = Object.keys(pics)
+    .filter((id) => meets(KINDS[pics[id].kind].screens))
+    .sort();
+  const withRecipes = Boolean(recipes) && meets(['trail']);
+  // The stamps what ships reaches, transitively.
+  const reached = new Set();
+  const visit = (/** @type {string} */ id) => {
+    if (reached.has(id) || !stamps[id]) return;
+    reached.add(id);
+    for (const op of stamps[id]) if (op[0] === 'T') visit(op[1]);
+  };
+  for (const id of shipped) for (const op of pics[id].ops) if (op[0] === 'T') visit(op[1]);
+  if (withRecipes) for (const id of recipeStamps(recipes)) visit(id);
   const { $comment, ...pal } = palette;
-  const out = { format: 1, palette: pal, pics: {}, stamps };
-  for (const id of Object.keys(pics).sort()) {
+  const out = { format: 1, palette: pal, pics: {}, stamps: {} };
+  for (const id of shipped) {
     const p = pics[id];
     out.pics[id] = { width: p.width, height: p.height, ops: p.ops };
   }
+  for (const id of [...reached].sort()) out.stamps[id] = stamps[id];
+  if (withRecipes) out.recipes = recipes;
   return out;
 }
 
@@ -211,13 +282,17 @@ export function makeIcons(art, channel = 'main') {
 /** Files the worker's lists leave out: the worker itself and the two lists. */
 export const UNLISTED = new Set(['sw.js', 'version.json', 'precache.json']);
 
-/** Every shipped file the worker caches, as {rel path: first 12 hex of the sha256 of its bytes}, sorted. */
+/**
+ * The files the worker caches: every one the built page in dir can load
+ * (tools/reach.mjs pageReach), but the worker and the two lists, as {rel
+ * path: first 12 hex of the sha256 of its bytes}, sorted.
+ * @param {string} dir a built channel
+ */
 export function precachePaths(dir) {
   const paths = {};
-  for (const f of walkFiles(dir)) {
-    const rel = relative(dir, f).split(sep).join('/');
+  for (const rel of pageReach(dir).files) {
     if (UNLISTED.has(rel)) continue;
-    paths[rel] = createHash('sha256').update(readFileSync(f)).digest('hex').slice(0, 12);
+    paths[rel] = createHash('sha256').update(readFileSync(join(dir, rel))).digest('hex').slice(0, 12);
   }
   return paths;
 }
@@ -282,6 +357,31 @@ export function makeData({ root = ROOT, channel }) {
   return { screens, rules, voice, map, files };
 }
 
+/**
+ * The place.<id> lines a channel's data shows, sorted: the map's labels
+ * (S4), every stop view's node (S5: the trail caption's place), and, where
+ * the channel ships the composer's recipes (preview's trail), every place
+ * the composer can draw that is a park node with a gazetteer name: the
+ * #frame check view captions each picture with its place. A junction whose label is ours (a
+ * not_places entry, T16) is never captioned, so it adds nothing.
+ * @param {{map: any, voice: any, rules?: any}} data makeData()'s
+ * @param {any} [art] compileArt()'s: its recipes, when the channel has them
+ * @param {Set<string>} [places] the gazetteer's place ids
+ * @returns {string[]}
+ */
+export function viewNames(data, art = null, places = new Set()) {
+  const out = new Set();
+  if (data.map) for (const n of Object.values(data.map.nodes)) if (n.label) out.add(n.label);
+  for (const set of Object.values((data.voice && data.voice.stops) || {})) {
+    for (const stop of Object.values(set)) if (stop.view) out.add(`place.${stop.view.node}`);
+  }
+  const nodes = data.rules && data.rules.park ? data.rules.park.nodes : null;
+  if (art && art.recipes && art.recipes.places && nodes) {
+    for (const id of Object.keys(art.recipes.places)) if (nodes[id] && places.has(id) && drawable(id, art)) out.add(`place.${id}`);
+  }
+  return [...out].sort();
+}
+
 /** The gazetteer's place ids (content/text/names/places.json), or none when it isn't there yet. */
 export function gazetteerPlaces(root = ROOT) {
   const p = join(root, 'content', 'text', 'names', 'places.json');
@@ -344,10 +444,14 @@ export function build({ root = ROOT, channel = process.env.CHANNEL || 'main', ou
   ingestGate(root);
   rmSync(out, { recursive: true, force: true });
 
-  // 1. Pictures.
-  const art = compileArt();
+  // 1. Pictures, as far as the channel's screens reach.
+  const art = compileArt({ screens: channelScreens(readText(root), channel) });
   // 2. The shell, as written.
   cpSync(join(root, 'web'), out, { recursive: true });
+  // 2a. The chrome font.
+  buildFonts(out, { root });
+  // 2a'. The sound's cue bank, checked against its goldens.
+  const audio = buildAudio(out, { root });
   mkdirSync(join(out, 'art'), { recursive: true });
   writeFileSync(join(out, 'art', 'art.json'), JSON.stringify(art));
   // 2b. The data, and the rules hash over the engine and the outcome data.
@@ -367,8 +471,10 @@ export function build({ root = ROOT, channel = process.env.CHANNEL || 'main', ou
   // 5. The words, and the build id.
   const info = buildInfo(root);
   if (info.id === 'dev' && process.env.GITHUB_ACTIONS === 'true') throw new Error('build: no git build id in GitHub Actions (is git on the runner?)');
-  // The places and terms the channel's data names (S4: the map's labels) join its words.
-  const names = data.map ? [...new Set(Object.values(data.map.nodes).map((n) => n.label).filter(Boolean))].sort() : [];
+  // The places and terms the channel's data names (S4: the map's labels; S5:
+  // the places the trail's captions show, each stop view's node, and on
+  // preview every place the #frame check view draws) join its words.
+  const names = viewNames(data, art, gazetteerPlaces(root));
   const words = makeWords({ root, channel, build: info.id, commit: info.commit, rules, names });
   writeFileSync(join(out, 'index.html'), words.html);
   writeFileSync(join(out, 'manifest.webmanifest'), words.manifest);
@@ -396,7 +502,10 @@ export function build({ root = ROOT, channel = process.env.CHANNEL || 'main', ou
   log(`build: ${info.id} (${channel}), ${files.length} files, ${(total / 1024).toFixed(1)} KB -> ${name}/`);
   log(`  art.json ${(statSync(join(out, 'art', 'art.json')).size / 1024).toFixed(1)} KB: ${Object.keys(art.pics).length} picture(s), ${Object.keys(art.stamps).length} stamp(s)`);
   log(`  rules ${rules}: ${Object.keys(data.rules.plans).length} plan(s), ${Object.keys(data.rules.stops).length} stop set(s)${data.rules.park ? `, the park (${Object.keys(data.rules.park.nodes).length} places, ${Object.keys(data.rules.park.segs).length} segments)` : ''} for screens ${data.screens.join(' ')}`);
+  log(`  audio/sounds.json ${(statSync(join(out, 'audio', 'sounds.json')).size / 1024).toFixed(1)} KB: ${audio.cues} cues, ${audio.variants} variants, each matching its golden`);
   log(`  selfcheck.json ${(statSync(join(out, 'selfcheck.json')).size / 1024).toFixed(1)} KB: ${corpus.trips.length} golden trips, ${Object.keys(corpus.expect).length} groups`);
+  const cached = Object.keys(paths).reduce((n, f) => n + statSync(join(out, f)).size, 0);
+  log(`  precache.json: ${Object.keys(paths).length} files, ${(cached / 1024).toFixed(1)} KB, what its page can load`);
   return { info, version, total, files: files.length, out, rules };
 }
 

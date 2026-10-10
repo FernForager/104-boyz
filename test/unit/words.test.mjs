@@ -117,9 +117,26 @@ test('preview carries the working words, Session 1 marked as drafts', () => {
   const words = JSON.parse(read('text/en.json'));
   // S4 (track B) adds the lockbox quiz's 50 drafts (content/text/en/first.json), which wait for S7's screen;
   // S4 (track C) adds the map's 25 place names from the gazetteer (not ours) and dev.map.
-  assert.equal(Object.keys(words).length, 112);
+  // S5 (track A) adds the trail frame's 11 drafts, its 11 dev lines (hour, text, Scenes)
+  // and the one place a caption shows that the map doesn't label: the Seven Lakes Basin.
+  // S5 (track C) adds the sound's two dev lines: Render 10 s of this scene, and its result.
+  // S5 (track D) adds the line inspector's three dev lines (its line, no batch, Copy for chat).
+  // S5's review adds the nine places the #frame check view draws that no stop or map label
+  // names (build.mjs viewNames: the composer's drawable places with gazetteer names, not ours).
+  // S5's fixes trade the strip's mile line for two number formats (fmt.ft, fmt.mile_marker).
+  assert.equal(Object.keys(words).length, 150);
+  assert.equal(words['dev.inspect.copy'], 'Copy for chat');
+  assert.equal(words['dev.audio.render'], 'Render 10 s of this scene');
+  assert.equal(words['dev.audio.result'], 'Sound: peak {peak} dBFS · {lufs} LUFS · dsp {dsp}');
   const places = Object.keys(words).filter((k) => k.startsWith('place.'));
-  assert.equal(places.length, 25, 'the trailhead and the 24 camps the map labels');
+  assert.equal(places.length, 35, 'the trailhead and the 24 camps the map labels, the rim\'s basin, and the check view\'s nine');
+  assert.equal(words['place.seven_lakes_basin'], 'Seven Lakes Basin');
+  assert.deepEqual(
+    ['high_divide', 'bogachiel_peak', 'mirror_lake', 'long_lake', 'sol_duc_lake', 'morgenroth_lake', 'no_name_lake', 'y_lake', 'lake_8'].map((p) => words[`place.${p}`]),
+    ['High Divide', 'Bogachiel Peak', 'Mirror Lake', 'Long Lake', 'Sol Duc Lake', 'Morgenroth Lake', 'No Name Lake', 'Y Lake', 'Lake #8'],
+  );
+  assert.ok(!('place.bogachiel_peak_junction' in words), 'a junction whose label is ours (T16) never ships as a place');
+  assert.ok(!('place.c_b_flats_group_site' in words), 'nor a place the composer has no picture for yet');
   assert.equal(words['place.lunch_lake'], 'Lunch Lake');
   assert.equal(words['dev.map'], 'Map');
   const lockbox = Object.keys(words).filter((k) => k.startsWith('first.lockbox.'));
@@ -134,12 +151,24 @@ test('preview carries the working words, Session 1 marked as drafts', () => {
     'first.guestbook.one_life': 'draft',
     'first.guestbook.prompt': 'draft',
     'first.guestbook.sign': 'draft',
+    'fmt.ft': 'draft',
+    'fmt.mile_marker': 'draft',
     'title.begin': 'draft',
     'title.begin_note': 'draft',
     'title.start_label': 'draft',
     'title.tagline': 'draft',
+    'trail.caption': 'draft',
+    'trail.choice.why': 'draft',
+    'trail.deer_lake_rim.deer_lake': 'draft',
+    'trail.deer_lake_rim.rim': 'draft',
     'trail.sol_duc_trailhead.lot': 'draft',
     'trail.sol_duc_trailhead.trail_mouth': 'draft',
+    'trail.status.menu': 'draft',
+    'trail.status.sound_off': 'draft',
+    'trail.status.sound_on': 'draft',
+    'trail.toolbar.log': 'draft',
+    'trail.toolbar.map': 'draft',
+    'trail.toolbar.pack': 'draft',
     'trail.walk_on': 'draft',
   });
 });
@@ -150,4 +179,30 @@ test('no phone links, and both pages carry the format-detection meta', () => {
     assert.ok(!/tel:/i.test(html), `${channel}: no tel:`);
     assert.match(html, /<meta name="format-detection" content="telephone=no">/, `${channel}: format-detection`);
   }
+});
+
+test("S5's words: the trail frame's 12 drafts (its two number formats among them) are drafts on preview and nowhere in main's bundle; every new dev line is in main.off (SPEC 6.1, 6.8)", () => {
+  const drafts = ['fmt.ft', 'fmt.mile_marker', 'trail.deer_lake_rim.deer_lake', 'trail.deer_lake_rim.rim', 'trail.caption', 'trail.status.sound_on', 'trail.status.sound_off', 'trail.status.menu', 'trail.toolbar.pack', 'trail.toolbar.map', 'trail.toolbar.log', 'trail.choice.why'];
+  const dev = ['dev.hour', 'dev.hour.auto', 'dev.hour.day', 'dev.hour.dusk', 'dev.hour.blue', 'dev.hour.night', 'dev.text', 'dev.text.auto', 'dev.text.pixel', 'dev.text.plain', 'dev.scenes', 'dev.audio.render', 'dev.audio.result', 'dev.inspect.line', 'dev.inspect.none', 'dev.inspect.copy'];
+  const text = readText(ROOT);
+  const marks = JSON.parse(built.preview.read('text/marks.json'));
+  const meta = JSON.parse(built.preview.read('text/meta.json'));
+  for (const id of drafts) {
+    assert.equal(text.lines.get(id).class, 'ours', id);
+    assert.equal(marks[id], 'draft', `${id}: a draft on preview`);
+    assert.equal(typeof built.preview.words[id], 'string', `${id}: preview ships its working words`);
+    assert.ok(!(id in built.main.words), `${id}: not in main's bundle`);
+    assert.equal(meta[id].state, 'draft');
+    assert.equal(meta[id].batch, 'B004', `${id}: filed in B004`);
+  }
+  for (const id of dev) {
+    const line = text.lines.get(id);
+    assert.deepEqual([line.class, line.screen], ['dev', 'debug'], id);
+    assert.ok(Object.prototype.hasOwnProperty.call(text.scope.main.off, id), `${id}: in main.off`);
+    assert.match(text.scope.main.off[id], /^Preview only/, id);
+    assert.ok(!(id in built.main.words), `${id}: not in main's bundle`);
+    assert.equal(typeof built.preview.words[id], 'string', `${id}: on preview`);
+  }
+  assert.equal(drafts.length + dev.length, 28, "S5's 12 drafts and 16 dev words");
+  assert.ok(!text.lines.has('trail.strip.mile'), "the strip's mile is fmt.mile_marker, a number format");
 });

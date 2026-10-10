@@ -1,0 +1,11 @@
+{
+ "$comment": "S5's sample stops on preview (BUILD_PLAN S5): Deer Lake, then the rim of the Seven Lakes Basin. view is display data (voice.json): the picture (a place in content/art/recipes.json), the park node the caption and the strip read, and today's route for the strip. S6 adds the fork at the rim; S9's cards and S15a's trail replace the set.",
+ "id": "deer_lake_rim",
+ "screen": "trail",
+ "phase": "trailhead",
+ "first": "deer_lake",
+ "stops": [
+  { "id": "deer_lake", "box": "@trail.deer_lake_rim.deer_lake", "view": { "pic": "deer_lake", "node": "deer_lake", "day": ["sol_duc_trailhead", "seven_lakes_basin"] }, "next": "rim" },
+  { "id": "rim", "box": "@trail.deer_lake_rim.rim", "view": { "pic": "seven_lakes_basin", "node": "seven_lakes_basin", "day": ["sol_duc_trailhead", "seven_lakes_basin"] }, "next": null }
+ ]
+}

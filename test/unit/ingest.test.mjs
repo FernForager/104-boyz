@@ -99,6 +99,16 @@ test("the report: counts first, no errors, every warning with its acknowledgemen
   for (const [k, v] of [['Regions', 7], ['Node records', 510], ['Unique nodes', 497], ['Shared node ids', 13], ['Segment records', 496], ['Unique segments', 492], ['Shared segments (merged across regions)', 4], ['M1a scope: nodes', 47], ['M1a scope: segments (both ends in the scope)', 49], ['M1a scope: map-only segments', 5]]) assert.ok(md.includes(`| ${k} | ${v} |`), `${k}: ${v}`);
   assert.match(md, /D3\. The loop has 49 segments/);
   assert.match(md, /D4\. high_divide_loop_2n_classic/);
+  // S4's doubts the docs and the source have since answered are kept, as
+  // resolved, each saying where; the live list holds only the open ones.
+  const [live, resolved] = md.slice(md.indexOf('## Doubts\n')).split('## Doubts resolved\n');
+  assert.ok(resolved, 'a resolved part');
+  for (const d of ['D1', 'D2', 'D3', 'D4', 'D5', 'D8']) {
+    assert.ok(!live.includes(`- ${d}. `), `${d} is no longer a live doubt`);
+    assert.match(resolved, new RegExp(`^- ${d}\\. .*Resolved 2026-10-09.*FACT_CHECK\\.md`, 'm'), `${d}: resolved, and where`);
+  }
+  for (const d of ['D6', 'D7']) assert.ok(live.includes(`- ${d}. `), `${d} is still open`);
+  for (const stale of ['prints 6:07', 'say about 2 hours 10', 'still says "Begin a new book"', 'runs a minute late']) assert.ok(!md.includes(stale), `no stale claim: ${stale}`);
   assert.match(md, /WAG bags/, 'the stale rule text is listed (IG11)');
   assert.match(md, /uncertain_claims\[0\]/, "the M1a region's uncertain claims, by index");
   const warns = run.entries.filter((e) => e.level === 'warn');

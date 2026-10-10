@@ -1,5 +1,5 @@
 {
-  "$comment": "The sixteen colors (BUILD_PLAN 4.1, doc 11.1), the time-of-day remaps (doc 11.4) and the cycles (doc 11.5). web/js/gfx/palette.js holds the same tables, and test/unit/palette.test.mjs keeps the two identical. A remap sends each slot to a slot. A cycle lists its slots in order; a light resolves after the remap, so it stays bright at night; hold is frames per step at 8 fps; phase is how a pixel's position offsets its step. Blue hour, night, the weather tints and the drained death-box table arrive in S5.",
+  "$comment": "The sixteen colors (BUILD_PLAN 4.1, doc 11.1), the time-of-day remaps (doc 11.4) and the cycles (doc 11.5). web/js/gfx/palette.js holds the same tables, and test/unit/palette.test.mjs keeps the two identical. A remap sends each slot to a slot. A cycle lists its slots in order; a light resolves after the remap, so it stays bright at night; hold is frames per step at 8 fps; phase is how a pixel's position offsets its step. Blue hour and night arrived in S5 (their key slots are the doc's; the rest are tuned by eye on the renders: spruce goes to ink at dusk, blue hour and night, and forest to spruce at all three, so a conifer keeps its two sides, stands darker than the meadow and keeps its lit side against the night sky; teal goes to slate at night, so a ridge's haze stays apart from the ink ridge and the treeline); the weather tints and the drained death-box table arrive with their sessions (S8, S16, S24a).",
   "colors": [
     { "slot": 0, "name": "ink", "hex": "#1b1f2a", "use": "Outlines, text, night" },
     { "slot": 1, "name": "night navy", "hex": "#24324a", "use": "Dusk sky, deep water" },
@@ -20,7 +20,9 @@
   ],
   "remaps": {
     "day": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
-    "dusk": [0, 1, 1, 2, 6, 6, 9, 7, 9, 10, 10, 11, 11, 12, 13, 2]
+    "dusk": [0, 1, 1, 2, 6, 6, 9, 7, 9, 10, 10, 0, 11, 12, 13, 2],
+    "blue": [0, 1, 1, 2, 3, 2, 2, 7, 9, 10, 0, 0, 11, 12, 13, 2],
+    "night": [0, 0, 0, 1, 2, 2, 1, 7, 9, 10, 0, 0, 11, 12, 12, 2]
   },
   "cycles": {
     "16": { "name": "lake", "slots": [3, 2, 3, 4], "light": false, "hold": 2, "phase": "wave" },

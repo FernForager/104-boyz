@@ -1,0 +1,9 @@
+{
+ "$comment": "The license log (BUILD_PLAN 13.4; GAME_DESIGN 13.9, 13.12; decision 33): every sound the game ships, its source and its license. S5's four UI cues are synthesized by our own code from their recipes in sounds.json, with no file and no recording; no human voice anywhere (decision 63). The Credits screen's Sounds part is built from this log (S22 on).",
+ "sounds": [
+  { "id": "ui.tick", "file": null, "source": "synth", "recipe": "ui.tick", "license": "synth", "author": "OP Hiker", "made_by": "web/js/audio/dsp.js", "checked": "2026-10-09", "uses": ["web/js/ui/choices.js: a choice's tap (cueFor)"] },
+  { "id": "ui.next", "file": null, "source": "synth", "recipe": "ui.next", "license": "synth", "author": "OP Hiker", "made_by": "web/js/audio/dsp.js", "checked": "2026-10-09", "uses": ["web/js/ui/choices.js: Walk on's tap (cueFor), until A2's walk-on"] },
+  { "id": "ui.open", "file": null, "source": "synth", "recipe": "ui.open", "license": "synth", "author": "OP Hiker", "made_by": "web/js/audio/dsp.js", "checked": "2026-10-09", "uses": ["web/js/ui/app.js: the menu opens", "web/js/ui/frame.js: the (i) square"] },
+  { "id": "ui.sound_on", "file": null, "source": "synth", "recipe": "ui.sound_on", "license": "synth", "author": "OP Hiker", "made_by": "web/js/audio/dsp.js", "checked": "2026-10-09", "uses": ["web/js/audio/engine.js: Sound turned on in the status line"] }
+ ]
+}

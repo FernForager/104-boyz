@@ -65,35 +65,33 @@ test("park_rules.json's 2027 loop daylight: all 96 values to the minute, and B.2
   }
   assert.equal(n, 96);
   const b2 = row(daylight, '2027-08-12');
-  assert.deepEqual([hmRound(b2[2]), hmRound(b2[3])], ['6:06', '20:34'], 'B.2: 6:06 am (the doc prints 6:07: doubt D1) and 8:34 pm');
+  assert.deepEqual([hmRound(b2[2]), hmRound(b2[3])], ['6:06', '20:34'], 'B.2: 6:06 am and 8:34 pm');
+  // Doubt D1, fixed at the doc: B.2 prints the file's minute.
+  const doc = readFileSync(join(ROOT, 'design', 'GAME_DESIGN.md'), 'utf8');
+  const b2Doc = doc.slice(doc.indexOf('### B.2 The plan'), doc.indexOf('### B.3'));
+  assert.match(b2Doc, /Sunrise 6:06, sunset 8:34 pm/, 'GAME_DESIGN B.2 prints 6:06 (doubt D1)');
 });
 
-test("GAME_DESIGN 7.2's daylight table against the file: a minute late on 8 of its 15 cells, each listed in the report as doubt D8", () => {
-  // 7.2's table, read from the doc (never edited here): date, sunrise, sunset, civil dusk.
+test("GAME_DESIGN 7.2's daylight table is the file's for 2027, to the minute, on all 15 cells (doubt D8, fixed at the doc)", () => {
+  // 7.2's table, read from the doc: date, sunrise, sunset, civil dusk.
   const doc = readFileSync(join(ROOT, 'design', 'GAME_DESIGN.md'), 'utf8');
   const sec = doc.slice(doc.indexOf('### 7.2 Daylight and darkness'), doc.indexOf('### 7.3'));
+  assert.ok(sec.includes('`content/data/daylight.json` for 2027'), 'the section says where its cells come from');
   const rows = [...sec.matchAll(/^\| (\w{3}) (\d+) \| (\d+:\d\d) \| (\d+:\d\d) pm \| (\d+:\d\d) pm \|$/gm)];
   assert.equal(rows.length, 5);
   const MON = { Jul: 7, Aug: 8, Sep: 9, Oct: 10 };
   const pm = (hm) => hm.replace(/^(\d+)/, (h) => String(Number(h) + 12));
-  const late = [];
+  let n = 0;
   for (const [, mon, day, rise, set, dusk] of rows) {
     const iso = `2027-${String(MON[mon]).padStart(2, '0')}-${day.padStart(2, '0')}`;
     const r = row(daylight, iso);
     const got = [hmRound(r[2]), hmRound(r[3]), hmRound(r[4])];
     [rise, pm(set), pm(dusk)].forEach((want, k) => {
-      if (want === got[k]) return;
-      const [wh, wm] = want.split(':').map(Number);
-      const [gh, gm] = got[k].split(':').map(Number);
-      assert.equal(wh * 60 + wm - (gh * 60 + gm), 1, `${iso} ${['sunrise', 'sunset', 'dusk'][k]}: the doc ${want}, the file ${got[k]}`);
-      late.push(`${mon} ${day} ${['sunrise', 'sunset', 'dusk'][k]}`);
+      assert.equal(want, got[k], `${iso} ${['sunrise', 'sunset', 'dusk'][k]}: the doc ${want}, the file ${got[k]}`);
+      n += 1;
     });
   }
-  assert.deepEqual(late, ['Jul 15 sunset', 'Aug 15 sunrise', 'Aug 15 sunset', 'Sep 15 sunrise', 'Oct 1 sunrise', 'Oct 1 dusk', 'Oct 15 sunset', 'Oct 15 dusk']);
-  const report = readFileSync(join(ROOT, 'content', 'park', 'ingest_report.md'), 'utf8');
-  const d8 = report.split('\n').find((l) => l.startsWith('- D8. '));
-  assert.ok(d8 && /7\.2/.test(d8) && /8 of its 15 cells/.test(d8), "the report's Doubts carry it");
-  for (const cell of ['9:11 (data 9:10)', '6:11 and sunset 8:29 (6:10, 8:28)', '6:53 (6:52)', '7:15 and civil dusk 7:26 (7:14, 7:25)', '6:28 and civil dusk 6:59 (6:27, 6:58)']) assert.ok(d8.includes(cell), cell);
+  assert.equal(n, 15);
 });
 
 test('Pacific time by the US rule since 2007: the daylight-time dates 2026 to 2030, the offset at 3 am local', () => {

@@ -10,6 +10,12 @@
 //   T12 the ledger matches the answers files, entry by entry
 //   T13 {variables} match their calls; {PLACEHOLDERS} only where allowed
 //   T14 the main gate: every line main reaches is approved words
+//   T15 a line over its max (S5; BUILD_PLAN 10.5): every ours line has an
+//       integer max of 1 or more, and each of its forms, measured as
+//       web/js/text.js measure() counts (code points of the plain words, a
+//       line break as 1, each {var} and {PLACEHOLDER} at its width in
+//       content/text/vars.json), is within it; a {var} or {PLACEHOLDER}
+//       with no width fails. Dev lines are checked only when they have a max
 //   T16 the gazetteer (S4; GAME_DESIGN 18.5): every place a build or a
 //       content file names (place.<id>: the map's labels, content refs,
 //       code and // t-ids: lists) is a sourced place, not cut, and every
@@ -66,7 +72,9 @@ import {
   FILL_VARS,
   SCOPE_FILE,
   LEDGER_FILE,
+  VARS_FILE,
 } from './text.mjs';
+import { measure } from '../web/js/text.js';
 
 /** T07 on a draft that only preview can show: 'warn' (SPEC call 1) or 'error'. */
 export const T07_PREVIEW = 'warn';
@@ -923,6 +931,40 @@ export function lintT14(text, reach) {
   return { issues, infos };
 }
 
+/**
+ * T15 (BUILD_PLAN 10.5; S5): a line over its max. Every ours line needs an
+ * integer max of 1 or more (README: required); its length is measure()'s,
+ * the same count the line inspector shows, with each {var} and
+ * {PLACEHOLDER} at its width in content/text/vars.json, and one with no
+ * width there fails. A dev line is checked only when it has a max.
+ * @param {any} text readText()'s result (widths: vars.json's, flattened)
+ * @returns {Issue[]}
+ */
+export function lintT15(text) {
+  /** @type {Issue[]} */
+  const out = [];
+  const widths = text.widths || {};
+  for (const [id, line] of text.lines) {
+    const bad = (msg) => out.push({ file: line.file, line: line.line, code: 'T15', id, msg: `${id}: ${msg}` });
+    if (line.class !== 'ours' && line.max === undefined) continue;
+    if (!(Number.isInteger(line.max) && line.max >= 1)) {
+      bad('needs a max: a whole number of characters, 1 or more');
+      continue;
+    }
+    const unknown = new Set();
+    for (const f of forms(line.text)) {
+      for (const m of f.matchAll(/\{([^{}]*)\}/g)) if ((VAR_RE.test(m[1]) || /^[A-Z][A-Z0-9_]*$/.test(m[1])) && !Object.prototype.hasOwnProperty.call(widths, m[1])) unknown.add(m[1]);
+    }
+    if (unknown.size) {
+      for (const k of [...unknown].sort()) bad(`{${k}} has no width in ${VARS_FILE}, so its length can't be measured`);
+      continue;
+    }
+    const len = measure(line.text, widths);
+    if (len > line.max) bad(`is ${len} characters${typeof line.text === 'string' ? '' : ' (its longest form)'}, over its max of ${line.max}`);
+  }
+  return out;
+}
+
 /** Escape a string for a RegExp. */
 const reEscape = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
@@ -1121,6 +1163,7 @@ export function runTextLint(root = ROOT, { main = false } = {}) {
   infos.push(...t11.infos);
   issues.push(...lintT12(text));
   issues.push(...lintT13(text, uses));
+  issues.push(...lintT15(text));
   const quotesPath = join(root, QUOTES_FILE);
   let quotes = null;
   let quotesSrc = '';

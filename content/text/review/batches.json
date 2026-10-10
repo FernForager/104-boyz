@@ -1,0 +1,127 @@
+{
+ "$comment": "Which line is in which batch, in its order, with the FNV-1a hash of its words as filed or sent (BUILD_PLAN 10.7, S5); seeded from the B00n.md tables, which stay the human record (a test holds the two to each other). Written by tools/text.mjs batch --file. held: drafts kept out of every batch, each with its reason; batch --file passes them by.",
+ "held": {
+  "alt.cover_high_divide_dusk": "Session 1's cover description: off main, and B002 (S7) brings it back as the loading art's (BUILD_PLAN 1.2)",
+  "title.begin": "Session 1's title page: retires with it in S7, so never sent (BUILD_PLAN 1.2)",
+  "title.begin_note": "Session 1's title page: retires with it in S7, so never sent (BUILD_PLAN 1.2)",
+  "title.start_label": "Session 1's title page: retires with it in S7, so never sent (BUILD_PLAN 1.2)",
+  "title.tagline": "Session 1's title page: retires with it in S7, so never sent (BUILD_PLAN 1.2)"
+ },
+ "batches": {
+  "B000": {
+   "title": "Approved in conversation",
+   "status": "answered",
+   "lines": {
+    "app.name": "a3e3c244",
+    "app.short_name": "4f8c12d9",
+    "credits.people": "8681d2ef",
+    "credits.park_service": "421fe49b"
+   }
+  },
+  "B001": {
+   "title": "The app's frame",
+   "status": "answered",
+   "sent": "2026-10-09",
+   "lines": {
+    "app.description": "05128d7c",
+    "app.install": "8f70cb99",
+    "app.upright": "717b8de7",
+    "app.offline": "bc3af3b2",
+    "app.update": "daef6bfe",
+    "app.error.line": "60ddbe8a",
+    "app.error.copy": "b3cfbd20",
+    "app.error.reopen": "b41fb578",
+    "app.preview_name": "d7264112",
+    "app.build": "d44beb90"
+   }
+  },
+  "B003": {
+   "title": "The lockbox and the guest book",
+   "status": "filed",
+   "by": [
+    "S3",
+    "S4"
+   ],
+   "lines": {
+    "first.guestbook.prompt": "c18b75de",
+    "first.guestbook.one_life": "27c517b8",
+    "first.guestbook.sign": "8f6340c4",
+    "first.lockbox.q_sequim.ask": "fd571293",
+    "first.lockbox.q_sequim.a0": "b4948807",
+    "first.lockbox.q_sequim.a1": "60eaf21e",
+    "first.lockbox.q_sequim.a2": "ebcf1a8a",
+    "first.lockbox.q_sunny_sequim.ask": "91620931",
+    "first.lockbox.q_sunny_sequim.a0": "fc2573be",
+    "first.lockbox.q_sunny_sequim.a1": "56f9f697",
+    "first.lockbox.q_sunny_sequim.a2": "526d3843",
+    "first.lockbox.q_sunbreak.ask": "8f1f5f30",
+    "first.lockbox.q_sunbreak.a0": "4db1590e",
+    "first.lockbox.q_sunbreak.a1": "4439012a",
+    "first.lockbox.q_sunbreak.a2": "45ae739e",
+    "first.lockbox.q_hoh.ask": "db025ecd",
+    "first.lockbox.q_hoh.a0": "41d0c56b",
+    "first.lockbox.q_hoh.a1": "5a1873f0",
+    "first.lockbox.q_hoh.a2": "49499c7e",
+    "first.lockbox.q_camp_robber.ask": "a7b3cab0",
+    "first.lockbox.q_camp_robber.a0": "4fa44abf",
+    "first.lockbox.q_camp_robber.a1": "abe262cf",
+    "first.lockbox.q_camp_robber.a2": "48aae12a",
+    "first.lockbox.q_puyallup.ask": "da47132b",
+    "first.lockbox.q_puyallup.a0": "c8ca1eeb",
+    "first.lockbox.q_puyallup.a1": "844c39cb",
+    "first.lockbox.q_puyallup.a2": "cdc65600",
+    "first.lockbox.q_geoduck.ask": "46f6e49a",
+    "first.lockbox.q_geoduck.a0": "9c3d00c8",
+    "first.lockbox.q_geoduck.a1": "316c93c4",
+    "first.lockbox.q_geoduck.a2": "6e3c5e5e",
+    "first.lockbox.q_mountain_out.ask": "5b878917",
+    "first.lockbox.q_mountain_out.a0": "737840a9",
+    "first.lockbox.q_mountain_out.a1": "ccafdf96",
+    "first.lockbox.q_mountain_out.a2": "10d41a3d",
+    "first.lockbox.q_dosewallips.ask": "9b1ddeb0",
+    "first.lockbox.q_dosewallips.a0": "58329a62",
+    "first.lockbox.q_dosewallips.a1": "c92a9b33",
+    "first.lockbox.q_dosewallips.a2": "924d5317",
+    "first.lockbox.q_rain_forest.ask": "c2493fc3",
+    "first.lockbox.q_rain_forest.a0": "42bf35ab",
+    "first.lockbox.q_rain_forest.a1": "c9f4b741",
+    "first.lockbox.q_rain_forest.a2": "6c266579",
+    "first.lockbox.q_jojos.ask": "224db43e",
+    "first.lockbox.q_jojos.a0": "661938d7",
+    "first.lockbox.q_jojos.a1": "a0d36fc0",
+    "first.lockbox.q_jojos.a2": "7e825a8d",
+    "first.lockbox.q_potato_bug.ask": "95cf4cbc",
+    "first.lockbox.q_potato_bug.a0": "366c0b66",
+    "first.lockbox.q_potato_bug.a1": "edf7aae3",
+    "first.lockbox.q_potato_bug.a2": "1a602a57",
+    "first.lockbox.right": "2a7d577c",
+    "first.lockbox.wrong": "5938a4d1"
+   }
+  },
+  "B004": {
+   "title": "Trail stops",
+   "status": "filed",
+   "by": [
+    "S3",
+    "S5"
+   ],
+   "lines": {
+    "trail.walk_on": "d5383259",
+    "trail.sol_duc_trailhead.lot": "21e08287",
+    "trail.sol_duc_trailhead.trail_mouth": "6fcee28a",
+    "fmt.ft": "33f42b37",
+    "fmt.mile_marker": "f477aa6f",
+    "trail.deer_lake_rim.deer_lake": "d8f1f1f8",
+    "trail.deer_lake_rim.rim": "be25b08f",
+    "trail.caption": "a3820148",
+    "trail.status.sound_on": "3787c243",
+    "trail.status.sound_off": "bfca7387",
+    "trail.status.menu": "00c6075a",
+    "trail.toolbar.pack": "ca32d500",
+    "trail.toolbar.map": "44a7f051",
+    "trail.toolbar.log": "a1dd7bf1",
+    "trail.choice.why": "7b8038d9"
+   }
+  }
+ }
+}

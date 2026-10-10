@@ -1,0 +1,472 @@
+/* The trail frame (BUILD_PLAN S5; GAME_DESIGN 12.1, 12.2, 11.9). Only
+   preview's game loads this file (ui/app.js adds it while the cover draws
+   in); main's page never does, and css/game.css and css/tokens.css are
+   unchanged. ui/frame.js builds the frame and sets --col, --col-x and
+   --pic-x from frameLayout(), its space check:
+
+     header.status-line      22 pt, snow, the chrome font
+     figure.frame-picture    the picture at whole device pixels
+     p.frame-caption         two chrome rows (40 pt on 3x, 42 on 2x)
+     div.frame-strip         24 pt: the profile and the mile
+     div.game-box            the rest (1fr), top-aligned, 2 fp clear of
+                             the strip and of the choices; clipped in S5
+     div.game-choices        52 pt each, 8 apart, 6 under the last
+     nav.toolbar             50 pt, tall screens only
+
+   frameLayout() counts every one of these lengths (frame.test.mjs reads
+   them here), so a change here is a change there.
+
+   Every chrome length is a whole number of font pixels (--fp), so on 3x
+   and 2x phones the edges land on whole device pixels, and the column
+   starts on a whole CSS pixel (--col-x): the chrome font's pixels stay
+   square and crisp. */
+
+@font-face {
+  font-family: "OPH Chrome";
+  src: url("../fonts/OPHChrome.ttf") format("truetype");
+  font-display: block;
+}
+
+@font-face {
+  font-family: "Literata";
+  src: url("../fonts/Literata.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Literata";
+  src: url("../fonts/Literata-Italic.woff2") format("woff2");
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+}
+
+/* A font pixel: 4 device px on 3x phones, 3 on 2x (GAME_DESIGN 11.9); 2 CSS px at 1x, for dev. */
+:root { --fp: 2px; }
+@media (min-resolution: 2dppx) { :root { --fp: 1.5px; } }
+@media (min-resolution: 3dppx) { :root { --fp: calc(4px / 3); } }
+
+.frame {
+  --font-chrome: "OPH Chrome", var(--font-pixel);
+  --font-plain: "Literata", Georgia, serif;
+  /* The chrome font: a 12-pixel em (16 CSS px on 3x, 18 on 2x) on 14-pixel lines (tools/fontbuild.mjs). */
+  --chrome-size: calc(12 * var(--fp));
+  --chrome-line: calc(14 * var(--fp));
+  --chrome-border: calc(3 * var(--fp)) double var(--c9);
+  --col: calc(100vw - 32px);
+  --col-x: 16px;
+  --pic-x: 16px;
+}
+
+/* ---- The page on the trail ------------------------------------------ */
+
+/* The frame's column rules here, not .game's padding and width cap. */
+.game-page[data-screen="trail"] .game { padding: 0; max-width: none; }
+/* The update note and the stamps live in the ≡ sheet on the trail, and
+   the install line is hidden there: the trail gets the whole height. */
+.game-page[data-screen="trail"] .game-foot { display: none; }
+/* A footer holding nothing visible takes no room (Safari 15.4 on). */
+.game-foot:not(:has(> :not([hidden]))) { display: none; }
+
+.game-screen.frame {
+  display: grid;
+  grid-template-rows: 22px auto max(40px, calc(28 * var(--fp))) 24px minmax(0, 1fr) auto auto;
+  grid-template-areas: "status" "picture" "caption" "strip" "box" "choices" "toolbar";
+  justify-content: normal; /* not game.css's flex-end: the one column fills the width */
+  justify-items: start;
+  align-items: start;
+  gap: 0;
+  padding: 0;
+  overflow: hidden;
+  font-kerning: none;
+  letter-spacing: 0;
+}
+
+.frame > * {
+  width: var(--col);
+  max-width: 100%;
+  margin-left: var(--col-x);
+}
+
+/* ---- The status line ------------------------------------------------ */
+
+.status-line {
+  grid-area: status;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  padding: 0 calc(3 * var(--fp));
+  background: var(--c4);
+  color: var(--c0);
+  font: var(--chrome-size)/var(--chrome-line) var(--font-chrome);
+  font-variant-ligatures: none;
+  font-feature-settings: "liga" 0, "clig" 0;
+  white-space: nowrap;
+  -webkit-touch-callout: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* The score's slot: empty until S9. */
+.status-score { flex: 1; min-width: 0; }
+
+.status-menu,
+.status-sound {
+  position: relative;
+  z-index: 1; /* their hit areas lie over the picture's top rows, and take the tap there */
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0 3px; /* whole pixels: frame.js gives them whole-pixel widths, so the glyphs start on a device pixel */
+  font: inherit;
+  font-variant-ligatures: none;
+  font-feature-settings: "liga" 0, "clig" 0;
+  color: inherit;
+  background: none;
+  border: 0;
+  border-radius: 0;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.status-menu { min-width: 24px; justify-content: center; }
+.status-sound { margin-left: 20px; }
+
+/* Invisible 44 x 44-pt hit areas that reach below the 22-pt bar (12.1):
+   all 22 extra points below it, since the frame clips anything above its
+   top row. */
+.status-menu::after,
+.status-sound::after {
+  content: "";
+  position: absolute;
+  inset: 0 -10px -22px;
+}
+
+/* ≡: three bars on an 8 x 8 grid of font pixels. */
+.menu-glyph {
+  display: block;
+  width: calc(8 * var(--fp));
+  height: calc(8 * var(--fp));
+}
+
+/* The update note waits in ≡: a brick square at its corner (E.7). */
+.status-menu[data-flag]::before {
+  content: "";
+  position: absolute;
+  top: calc(2 * var(--fp));
+  right: 0;
+  width: calc(2 * var(--fp));
+  height: calc(2 * var(--fp));
+  background: var(--c9);
+}
+
+/* ---- The picture, the caption, the strip ---------------------------- */
+
+.frame-picture {
+  grid-area: picture;
+  width: auto;
+  margin: 0 0 0 var(--pic-x);
+  line-height: 0;
+  -webkit-touch-callout: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.frame-caption {
+  grid-area: caption;
+  align-self: center;
+  max-height: calc(28 * var(--fp));
+  margin-top: 0;
+  margin-bottom: 0;
+  padding: 0 calc(2 * var(--fp));
+  overflow: hidden;
+  color: var(--c5);
+  font: var(--chrome-size)/var(--chrome-line) var(--font-chrome);
+  font-variant-ligatures: none;
+  font-feature-settings: "liga" 0, "clig" 0;
+}
+
+.frame-caption:focus { outline: none; }
+
+.frame-strip {
+  grid-area: strip;
+  position: relative;
+  align-self: center;
+  width: auto;
+  margin-left: var(--pic-x);
+  line-height: 0;
+}
+
+.strip {
+  display: block;
+  background: var(--c0);
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  image-rendering: pixelated;
+}
+
+/* The mile, over the strip's clear quarter (picture x 120 to 159). */
+.strip-mile {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 25%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  color: var(--c5);
+  font: var(--chrome-size)/var(--chrome-line) var(--font-chrome);
+  font-variant-ligatures: none;
+  font-feature-settings: "liga" 0, "clig" 0;
+  white-space: nowrap;
+}
+
+/* ---- The Sierra box and the choices --------------------------------- */
+
+.frame .game-box {
+  grid-area: box;
+  max-height: calc(100% - 4 * var(--fp));
+  margin-top: calc(2 * var(--fp));
+  overflow: hidden;
+  padding: calc(3 * var(--fp)) calc(4 * var(--fp));
+  border: var(--chrome-border);
+  font-family: var(--font-pixel);
+  font-size: 20px;
+  line-height: 26px;
+}
+
+.frame .game-box p + p { margin-top: 13px; }
+
+.frame .game-choices {
+  grid-area: choices;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-bottom: 6px;
+}
+
+.frame .choice {
+  height: 52px;
+  min-height: 52px;
+  padding: 0 calc(4 * var(--fp));
+  border: var(--chrome-border);
+  font: var(--chrome-size)/var(--chrome-line) var(--font-chrome);
+  font-variant-ligatures: none;
+  font-feature-settings: "liga" 0, "clig" 0;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+/* A choice with its (i) square: the square is its own 44 x 44-pt button. */
+.choice-row {
+  display: flex;
+  align-items: center;
+  gap: calc(2 * var(--fp));
+}
+
+.choice-row .choice { flex: 1; min-width: 0; width: auto; }
+
+.choice-info {
+  flex: none;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--c0);
+  background: var(--c4);
+  border: var(--chrome-border);
+  border-radius: 0;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  -webkit-touch-callout: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.info-glyph {
+  display: block;
+  width: calc(8 * var(--fp));
+  height: calc(14 * var(--fp));
+}
+
+/* ---- The toolbar ---------------------------------------------------- */
+
+.toolbar {
+  grid-area: toolbar;
+  height: 50px;
+  display: flex;
+  border-top: var(--fp) solid var(--c2);
+  -webkit-touch-callout: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.toolbar-item {
+  flex: 1;
+  min-height: 44px;
+  padding: 0;
+  color: var(--c5);
+  background: none;
+  border: 0;
+  border-radius: 0;
+  font: var(--chrome-size)/var(--chrome-line) var(--font-chrome);
+  font-variant-ligatures: none;
+  font-feature-settings: "liga" 0, "clig" 0;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* Their modal arrives with its sessions (12.2): drawn, and disabled. iOS
+   dims a disabled button on its own (game.css's .choice says so too); the
+   slate says it here, at full strength. */
+.toolbar-item:disabled {
+  color: var(--c2);
+  opacity: 1;
+  -webkit-text-fill-color: currentColor;
+}
+
+/* ---- The ≡ sheet ---------------------------------------------------- */
+
+/* Under the debug menu and the error sheet, which can open from it. */
+.scrim.menu-scrim { z-index: 9; }
+/* In the #frame check view (z-index 15) the ≡ sheet its frame opens shows
+   over the view, and the debug menu (five taps on its build code) over
+   that; the line inspector stays on top of both. */
+body:has(> .frame-sheet) > .scrim.menu-scrim { z-index: 16; }
+body:has(> .frame-sheet) > .scrim.debug { z-index: 17; }
+
+.menu-rows,
+.menu-foot {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.menu-rows:empty { display: none; }
+
+.menu .menu-item {
+  font: calc(12 * var(--fp))/calc(14 * var(--fp)) "OPH Chrome", var(--font-pixel);
+  font-variant-ligatures: none;
+  font-feature-settings: "liga" 0, "clig" 0;
+}
+
+.menu .stamps { color: var(--c2); }
+.menu .offline-stamp { border-color: var(--c2); }
+
+/* ---- Larger Text: the Plain serif (ui/textsize.js) ------------------- */
+
+html[data-text="plain"] .frame .game-box,
+html[data-text="plain"] .frame .choice,
+html[data-text="plain"] .frame-caption {
+  font-family: var(--font-plain);
+  font-size: var(--plain-size, 20px);
+  line-height: 1.35;
+}
+
+/* Nothing in Plain is cut off: the caption's row and each choice grow to
+   their words (a long caption or label wraps), and the box's row, 1fr,
+   gives up the room. ui/frame.js keeps two Plain lines for the caption and
+   for each choice when it sizes the picture, so the picture shrinks first. */
+html[data-text="plain"] .game-screen.frame {
+  grid-template-rows: 22px auto minmax(max(40px, calc(28 * var(--fp))), auto) 24px minmax(0, 1fr) auto auto;
+}
+
+html[data-text="plain"] .frame-caption { max-height: none; overflow: visible; }
+
+html[data-text="plain"] .frame .choice {
+  height: auto;
+  min-height: 52px;
+  padding: calc(2 * var(--fp)) calc(4 * var(--fp));
+  white-space: normal;
+}
+
+/* ---- The #frame check view (preview, debug mode) -------------------- */
+
+.frame-sheet {
+  position: fixed;
+  inset: 0;
+  z-index: 15;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  padding: var(--safe-top) var(--safe-right) var(--safe-bottom) var(--safe-left);
+  background: var(--page);
+}
+
+.frame-sheet > .game-screen {
+  height: calc(100dvh - var(--safe-top) - var(--safe-bottom));
+}
+
+.scenes-picker {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px;
+  color: var(--c4);
+}
+
+.scenes-picker .marks-mode {
+  font: 13px/1.2 var(--font-code);
+  font-variant-ligatures: none;
+  font-feature-settings: "liga" 0, "clig" 0;
+}
+
+@media (orientation: landscape) and (max-height: 540px) {
+  .frame-sheet { display: none; }
+}
+
+/* ---- The line inspector (ui/inspect.js; preview, debug mode) -------- */
+/* A long press on any words: the debug menu's sheet, over everything but
+   the error sheet. Its labels are dev words; the id, hash, ctx and words
+   are data, selectable so a long press there can copy them too. */
+
+.inspect-scrim { z-index: 18; }
+
+/* While the inspector listens (<html data-inspect>), a long press on words
+   is its own: iOS's text selection and its Copy and Look Up callout never
+   take the touch first (WebKit would cancel the press). Fields stay
+   editable, and the card's own words stay selectable. */
+html[data-inspect] :is([data-t], [data-t-aria], [data-t-attr]):not(input, textarea, .inspect *) {
+  -webkit-touch-callout: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.inspect p {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.inspect .inspect-id {
+  font: 14px/1.3 var(--font-code);
+  font-variant-ligatures: none;
+  font-feature-settings: "liga" 0, "clig" 0;
+}
+
+/* The id and hash, the batch and the ctx are codes and notes read off the
+   phone: the build stamp's face, where a 5 never reads as an S. */
+.inspect .inspect-line,
+.inspect .inspect-ctx {
+  font-family: var(--font-code);
+  font-size: 15px;
+  line-height: 1.3;
+  color: var(--c2);
+}
+
+.inspect .inspect-words {
+  font: 20px/26px var(--font-pixel);
+  font-variant-ligatures: none;
+  font-feature-settings: "liga" 0, "clig" 0;
+  color: var(--ink);
+  user-select: text;
+  -webkit-user-select: text;
+}
+

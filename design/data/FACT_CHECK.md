@@ -380,3 +380,11 @@ Each is `estimate: true` with `evidence` for every number; its `name` is a draft
 ### S4-5. Read, not changed
 
 Ingest reads and reports, without editing: the retired `journal_points` (5 items) and `journal_points_bonus` (7 items) are dropped from the generated catalog; `field_guide` reads as `id_book` and `sketchbook` as `luxury` (E.4); stat values that are words stay here. The sun tables reproduce R3's fourteen sunrises to the second and all 96 of `daylight_loop_2027`'s values to the minute. The ingest report (`content/park/ingest_report.md`) lists every fix, estimate and doubt.
+
+## 2026-10-09: Session 4's doubts, answered at the source
+
+**Changed:** 2026-10-09, after S4, from the ingest report's Doubts. Words only: no number, id or field changes, so the generated park and catalogs are the same, and `npm run ingest` re-ran for the lock.
+
+- **D4.** `sol_duc_high_divide.json` `presets.high_divide_loop_2n_classic`, day 2's `via_note` said Bogachiel Peak was climbed "from the west junction"; its own `gain_ft` (1,600) and the router go past the west junction along the crest and up the east spur (`bogachiel_peak_junction`), so the note now says so. The miles are 4.5 either way.
+- **D5.** The research's last book-frame words (decision 22): `sol_duc_high_divide.json` `m1a_play_inputs` `quota_availability.roll_key` and `ranger_presence.permit_check.legal_night`, and `park_rules.json` `permits.desk_requests.roll_key`, now say the seed is drawn when the plan is first saved and is fixed for the trip, *Hike it again* for the old replay name, and two permit checks a trip (Lead call 8). Never shipped: none of these strings reaches generated content.
+- **D1, D2, D3 and D8** were the design docs' errors, not the data's: B.2's sunrise (6:06), the Sol Duc drive (129 minutes, arriving about 8:24), the loop's 49 segments and 7.2's daylight table now match the data in `GAME_DESIGN.md`, `BUILD_PLAN.md` 3.4 and `M1A_DATA_CHECK.md`.

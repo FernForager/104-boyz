@@ -3751,7 +3751,7 @@
       "bogachiel_peak",
       "heart_lake_junction"
      ],
-     "via_note": "Up the stone staircase, Bogachiel Peak as an out-and-back from the west junction (the spur rule returns by the path it came up), then the crest: 4.3 mi of trail plus the 0.2-mi summit spur.",
+     "via_note": "Up the stone staircase and along the crest past the west junction, Bogachiel Peak as an out-and-back up the east spur (the spur rule returns by the path it came up), then the crest: 4.3 mi of trail plus the 0.2-mi summit spur.",
      "miles": 4.5,
      "gain_ft": 1600
     },
@@ -5739,7 +5739,7 @@
   ],
   "quota_availability": {
    "what": "The chance a solo party finds a site left at a camp for a night when the permit is planned. Group and stock sites are never offered (camp.group_site, camp.stock_site).",
-   "roll_key": "hash(trip seed, date, camp). The seed is drawn at Begin a new book, so the planning draws are fixed for the book; changing the date re-rolls the camp; Try this trip again copies the stamped permit (lead call 8).",
+   "roll_key": "hash(trip seed, date, camp). The seed is drawn when the plan is first saved, so the planning draws are fixed for the trip; changing the date re-rolls the camp; Hike it again copies the stamped permit (lead call 8).",
    "night_types": "weekend = Friday and Saturday nights; midweek = Sunday to Thursday nights. Labor Day weekend's Saturday and Sunday nights use half the weekend value.",
    "months": "Jul is the online window from Jul 15; Oct runs to Oct 15. Sep and Oct are no easier on weekends than Aug by much (the 2026-10-07 snapshot was full midweek).",
    "camps": {
@@ -6257,7 +6257,7 @@
     }
    },
    "permit_check": {
-    "legal_night": "The permit check is a Director Larry card, at most one a day and two a book (2.6, 8.4); its deal weight on a night is that camp's evening-visit chance.",
+    "legal_night": "The permit check is a Director Larry card, at most one a day and two a trip (2.6, 8.4); its deal weight on a night is that camp's evening-visit chance.",
     "off_permit_night": "Forced and uncapped: every off-permit night rolls the camp's evening-visit chance, and a hit plays the permit-check card (lead call 5; 3.7). The Leave No Trace cost is charged whether or not a ranger comes.",
     "after_a_citation": "The next permit check in the same region is 1.5 times as likely (9.8; estimate)."
    },

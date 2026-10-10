@@ -1,0 +1,127 @@
+# base_meadow: the subalpine meadow base (BUILD_PLAN 4.4, 4.5, S5 brief B2;
+# GAME_DESIGN 11.7). Potholes, Sol Duc Park and Cat Basin are composed on
+# it, and until S16 draws the crest it stands in for the crest places too
+# (the crest is subalpine meadow): an open meadow on a bench, a big sky, a
+# low slot for a skyline behind the meadow's rim, and the meadow falling
+# toward us with heather drifts, a trail, and the recipe's fir clumps and
+# boulders (content/art/recipes.json). The cover's crest meadow at midday:
+# the same heather and firs, open and bright.
+#
+# Day colors; dusk, blue hour and night are palette remaps. The sun is high
+# in the south-west, so the lit sides are on the right. Each shape is drawn
+# the AGI way: its outline in its own color, then a fill from a seed inside.
+@ sky
+# A big light sky, as in panel B: a thin slate top, glacier blue for most
+# of it, and a snow haze low over the meadow's rim. Each seam is two rows
+# of checker, no more: a dither is texture in a small dose, never a band
+# of screen across the sky. Each band is cut by an ink row that its fill
+# then takes too. The sky stops at row 110, under the rim, so the draw-in
+# never floods it over the meadow. A skyline brings its own horizon light
+# behind its low teeth (skyline_olympus_from_divide), and a snowy massif
+# stands white against the glacier blue by day, pink against slate at
+# dusk.
+C 0  L 0,5 159,5  L 0,7 159,7  L 0,86 159,86  L 0,88 159,88
+     L 0,110 159,110
+C 2              F 80,2
+D 2 3 checker    F 80,6 80,5
+C 3              F 80,40 80,7
+D 3 4 checker    F 80,87 80,86
+C 4              F 80,100 80,88 80,110
+Z at_sky 80,24,1,1
+Z at_star_floor 0,84,1,1
+@ mid
+# The meadow's rim, a long gentle line a little higher on the left: a sage
+# (14) lip catching the sun over the moss (13) slope, the seam one checker
+# band (its wall in ink first, then redrawn in sage).
+C 13  L 0,98 20,97 40,98 60,99 80,99 100,100 120,100 140,101 159,101
+        159,132 0,132 0,98
+C 0   L 0,101 20,100 40,101 60,102 80,102 100,103 120,103 140,104 159,104
+C 13  F 80,116
+D 14 13 checker  F 80,100
+C 13  L 0,101 20,100 40,101 60,102 80,102 100,103 120,103 140,104 159,104
+C 14  L 0,98 20,97 40,98 60,99 80,99 100,100 120,100 140,101 159,101
+# The trail's far end, a thread up to the rim.
+C 5   L 81,99 80,101 79,104 80,107 81,110 82,112 83,114
+Z at_far_bank 40,100,1,1
+@ near
+# The meadow falling toward us: moss, its top seamless with the slope above.
+C 13  L 0,113 30,112 60,113 90,115 120,114 159,116 159,167 0,167 0,113
+C 13  F 80,140
+# Heather in bloom: pink drifts lying across the slope, bigger toward us.
+# Each is a 25% speckle of alpenglow pink (6) on the moss around a 50%
+# heart: the heart first, then the rim around it, each inside an ink wall
+# that then turns back to moss, so no drift has a hard edge (the cover's
+# method).
+# a small drift under the rim
+C 0   L 58,118 57,119 55,119 51,119 48,119 47,118 49,117 51,117 55,117 57,117
+        58,118
+D 13 6 checker  F 53,118
+C 0   L 62,118 61,119 58,119 55,120 50,120 46,120 43,119 43,118 44,117 45,116
+        50,116 54,116 58,117 60,117 62,118
+D 13 6 checker25  F 45,118 60,118
+C 13  L 58,118 57,119 55,119 51,119 48,119 47,118 49,117 51,117 55,117 57,117
+        58,118
+C 13  L 62,118 61,119 58,119 55,120 50,120 46,120 43,119 43,118 44,117 45,116
+        50,116 54,116 58,117 60,117 62,118
+# a drift on the left
+C 0   L 37,126 35,127 30,128 24,128 20,127 18,126 20,125 24,124 30,124 35,125
+        37,126
+D 13 6 checker  F 28,126
+C 0   L 41,126 41,128 38,129 29,130 22,130 14,130 11,128 8,126 13,124 16,123
+        22,122 29,122 37,123 43,124 41,126
+D 13 6 checker25  F 39,126
+C 13  L 37,126 35,127 30,128 24,128 20,127 18,126 20,125 24,124 30,124 35,125
+        37,126
+C 13  L 41,126 41,128 38,129 29,130 22,130 14,130 11,128 8,126 13,124 16,123
+        22,122 29,122 37,123 43,124 41,126
+# a drift on the right
+C 0   L 132,128 129,129 125,130 118,130 111,129 110,128 111,127 118,126 124,126
+        130,127 132,128
+D 13 6 checker  F 121,128
+C 0   L 138,128 136,130 131,131 124,131 116,131 109,131 104,130 102,128 104,126
+        109,125 116,125 124,125 131,125 136,126 138,128
+D 13 6 checker25  F 106,128 135,128
+C 13  L 132,128 129,129 125,130 118,130 111,129 110,128 111,127 118,126 124,126
+        130,127 132,128
+C 13  L 138,128 136,130 131,131 124,131 116,131 109,131 104,130 102,128 104,126
+        109,125 116,125 124,125 131,125 136,126 138,128
+# the near drift on the left
+C 0   L 46,150 42,152 35,153 26,153 18,152 18,150 19,148 26,147 35,147 42,148
+        46,150
+D 13 6 checker  F 33,150
+C 0   L 54,150 56,153 47,156 36,157 25,156 12,156 6,153 5,150 10,147 13,144
+        24,143 35,144 48,144 55,147 54,150
+D 13 6 checker25  F 50,150
+C 13  L 46,150 42,152 35,153 26,153 18,152 18,150 19,148 26,147 35,147 42,148
+        46,150
+C 13  L 54,150 56,153 47,156 36,157 25,156 12,156 6,153 5,150 10,147 13,144
+        24,143 35,144 48,144 55,147 54,150
+# the near drift on the right
+C 0   L 141,152 138,154 130,155 120,155 111,154 108,152 111,150 119,149 130,149
+        137,150 141,152
+D 13 6 checker  F 125,152
+C 0   L 156,152 149,155 144,158 130,158 117,160 106,157 94,155 94,152 100,149
+        105,146 118,146 131,145 141,147 153,149 156,152
+D 13 6 checker25  F 152,152
+C 13  L 141,152 138,154 130,155 120,155 111,154 108,152 111,150 119,149 130,149
+        137,150 141,152
+C 13  L 156,152 149,155 144,158 130,158 117,160 106,157 94,155 94,152 100,149
+        105,146 118,146 131,145 141,147 153,149 156,152
+# Sage tufts where the meadow is dry.
+C 14  L 66,124 68,124  L 92,130 94,130  L 8,138 10,138  L 146,138 148,138
+      L 60,160 62,160  L 100,164 102,164  L 150,124 152,124  L 40,136 42,136
+# White heather and the last avalanche lilies: snow, never gold.
+C 4   L 22,134  L 64,146  L 98,140  L 140,142  L 30,162  L 112,122  L 54,128
+      L 150,164
+# The trail, paper cream (5): an S up the meadow from our feet to the rim,
+# three pixels wide where we stand, narrowing as it climbs.
+C 5   L 75,167 72,160 70,152 69,146 70,140 73,134 78,129 82,124 84,119 84,115
+      L 76,167 73,160 71,152 70,146 71,140 74,134 79,129 83,124 85,119 85,115
+      L 77,167 74,160 72,152 71,146 72,140 75,134 80,129
+Z at_trail_spot 70,140,1,1
+Z at_campsite 118,132,1,1
+Z at_rock 30,128,1,1
+# Look hotspots.
+Z meadow 0,100,160,68
+Z heather 5,116,152,45
+Z sky 0,0,160,60

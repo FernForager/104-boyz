@@ -39,6 +39,9 @@
   --dp: 1px;
 
   --font-pixel: "Pixelify Sans", ui-monospace, "Courier New", monospace;
+  /* Codes read off the phone (the build stamp, the debug menu's build, the
+     inspector's hash and batch): Pixelify's 5 reads as an S, its B as an 8. */
+  --font-code: ui-monospace, "SF Mono", Menlo, monospace;
   --target: 44px;
   --choice-h: 52px;
 

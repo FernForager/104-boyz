@@ -4,11 +4,19 @@
 // line's state from the ledger, fills the shell and the manifest for each
 // channel, and writes the ledger from the creator's answers.
 //
-//   node tools/text.mjs check [--main]   the text lints (T07, T10-T14, T16); with
+//   node tools/text.mjs check [--main]   the text lints (T07, T10-T16); with
 //                                        --main, also main's built words, in
 //                                        memory
 //   node tools/text.mjs count            where things stand
 //   node tools/text.mjs apply B00n       a batch's answers into the ledger
+//   node tools/text.mjs batch B00n --file [id ...] [--by S5]
+//                                        file lines (or every unfiled draft)
+//                                        into a batch that hasn't gone out:
+//                                        content/text/review/batches.json and
+//                                        the B00n.md table
+//   node tools/text.mjs batch B00n [--shots] [--out out/review]
+//                                        build the batch for review, with
+//                                        numbered screenshots (tools/shots.mjs)
 //
 // State is computed, never stored (18.4): approved when the ledger's hash
 // matches the working words, changed when the ledger has other words, cut
@@ -28,13 +36,13 @@
 // names (bundle()'s names), and code that shows one by a computed id ends
 // its call `// t-ids: @places`.
 
-import { existsSync, readFileSync, readdirSync, statSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, readdirSync, rmSync, statSync, writeFileSync } from 'node:fs';
 import { basename, join, relative, sep } from 'node:path';
 import { createHash } from 'node:crypto';
 import { pathToFileURL } from 'node:url';
 import { ROOT } from './pics.mjs';
 import { parseHtml, serialize, walk, getAttr, setAttr, removeAttr, hasAttr, el, text as textNode, textOf } from './html.mjs';
-import { renderParts, plainText } from '../web/js/text.js';
+import { renderParts, plainText, measure } from '../web/js/text.js';
 import { validate } from './schema.mjs';
 
 export const ID_RE = /^[a-z][a-z0-9_]*(\.[a-z0-9_]+)+$/;
@@ -49,6 +57,14 @@ export const FILL_VARS = ['build'];
 export const PREVIEW_NAME = 'app.preview_name';
 export const SCOPE_FILE = 'content/scope/m1a.json';
 export const LEDGER_FILE = 'content/text/approved.json';
+/** T15's widths and the batches' sample fills (S5). */
+export const VARS_FILE = 'content/text/vars.json';
+/** Which line is in which batch (S5); the B00n.md files are the human record. */
+export const BATCHES_FILE = 'content/text/review/batches.json';
+export const REVIEW_DIR = 'content/text/review';
+export const BATCH_RE = /^B\d{3,}$/;
+/** A batch's size, in lines (decision 64): the batch tool warns outside it. */
+export const BATCH_SIZE = Object.freeze({ min: 25, max: 40 });
 const LEDGER_COMMENT =
   'The ledger (GAME_DESIGN 18.4): the exact words the creator approved, by id. Written only by tools/text.mjs apply. State is computed by comparing it with content/text/en.';
 const FIELDS = new Set(['text', 'ctx', 'screen', 'max', 'class']);
@@ -255,8 +271,65 @@ export function readText(root = ROOT, { strict = true } = {}) {
   }
   const names = readNames(root);
   problems.push(...names.problems);
+  const vars = readChecked(root, VARS_FILE, 'text_vars.schema.json', { vars: {}, placeholders: {} }, problems);
+  for (const [group, re, what] of [
+    ['vars', /^[a-z][a-z0-9_]*$/, 'a {var} is lowercase letters, digits and underscores'],
+    ['placeholders', /^[A-Z][A-Z0-9_]*$/, 'a {PLACEHOLDER} is uppercase letters, digits and underscores'],
+  ]) {
+    for (const k of Object.keys(vars.data[group] || {})) if (!re.test(k)) problems.push({ file: VARS_FILE, line: lineOfKey(vars.src, k), msg: `${group}.${k}: ${what}` });
+  }
+  const batches = readChecked(root, BATCHES_FILE, 'batches.schema.json', { batches: {}, held: {} }, problems);
+  for (const [b, x] of Object.entries(batches.data.batches || {})) {
+    if (!BATCH_RE.test(b)) problems.push({ file: BATCHES_FILE, line: lineOfKey(batches.src, b), msg: `${b} is not a batch (B000, B001, ...)` });
+    for (const id of Object.keys((x && x.lines) || {})) if (!ID_RE.test(id)) problems.push({ file: BATCHES_FILE, line: lineOfKey(batches.src, id), msg: `${b}: ${id} is not a line id` });
+  }
   if (strict && problems.length) throw new Error(`text:\n  ${problems.map((p) => `${p.file}:${p.line}: ${p.msg}`).join('\n  ')}`);
-  return { root, lines, files, ledger, ledgerSrc, scope, scopeSrc, allow, answers, problems, names };
+  return { root, lines, files, ledger, ledgerSrc, scope, scopeSrc, allow, answers, problems, names, vars: vars.data, varsSrc: vars.src, widths: flatWidths(vars.data), batches: batches.data, batchesSrc: batches.src };
+}
+
+/**
+ * A JSON file of the text system's own (vars.json, batches.json), validated
+ * against its schema; problems go in the list. A file that isn't there
+ * gives the fallback, and a tree without the schema skips the check (a
+ * partial tree, as the tests copy).
+ * @param {string} root
+ * @param {string} file
+ * @param {string} schemaName
+ * @param {any} fallback
+ * @param {{file: string, line: number, msg: string}[]} problems
+ * @returns {{data: any, src: string}}
+ */
+function readChecked(root, file, schemaName, fallback, problems) {
+  const p = join(root, file);
+  if (!existsSync(p)) return { data: fallback, src: '' };
+  const src = readFileSync(p, 'utf8');
+  let data;
+  try {
+    data = JSON.parse(src);
+  } catch (e) {
+    problems.push({ file, line: 1, msg: `not JSON: ${e.message}` });
+    return { data: fallback, src };
+  }
+  // A copy of the tree without schemas/ is checked by the rest (as readNames does).
+  const schemaPath = join(root, 'schemas', schemaName);
+  if (existsSync(schemaPath)) {
+    const schema = JSON.parse(readFileSync(schemaPath, 'utf8'));
+    for (const e of validate(schema, data).errors) problems.push({ file, line: 1, msg: `${e.path} ${e.msg} (schemas/${schemaName})` });
+  }
+  return { data: { ...fallback, ...data }, src };
+}
+
+/**
+ * vars.json's widths as measure() takes them: each {var}'s and each
+ * {PLACEHOLDER}'s, in one map (a var is lowercase, a placeholder uppercase,
+ * so the two never meet).
+ * @param {any} vars vars.json
+ * @returns {Record<string, number>}
+ */
+export function flatWidths(vars) {
+  const out = {};
+  for (const group of ['vars', 'placeholders']) for (const [k, v] of Object.entries((vars && vars[group]) || {})) if (v && Number.isInteger(v.width)) out[k] = v.width;
+  return out;
 }
 
 // ---- States and channels --------------------------------------------------
@@ -593,7 +666,58 @@ export function bundle(text, channel, reach, names = []) {
     const s = stateOf(id, text);
     if (!UNMARKED.has(s)) marks[id] = s;
   }
-  return { 'en.json': sorted(words), 'marks.json': sorted(marks) };
+  return { 'en.json': sorted(words), 'marks.json': sorted(marks), 'meta.json': metaFor(text) };
+}
+
+/**
+ * The batch a line is in and its number there: the latest batch in
+ * batches.json that lists it, else the ledger's record of the batch that
+ * approved it (a line added in chat, as B001's Restart was), else null.
+ * @param {any} text readText()'s result
+ * @param {string} id
+ * @returns {{batch: string, n: number} | null}
+ */
+export function batchOf(text, id) {
+  const all = (text.batches && text.batches.batches) || {};
+  const num = (/** @type {string} */ b) => Number(b.slice(1));
+  let best = null;
+  for (const [b, x] of Object.entries(all)) {
+    const ids = Object.keys((x && x.lines) || {});
+    const k = ids.indexOf(id);
+    if (k >= 0 && (!best || num(b) > num(best.batch))) best = { batch: b, n: k + 1 };
+  }
+  if (best) return best;
+  const e = text.ledger && text.ledger.lines && text.ledger.lines[id];
+  return e && typeof e.batch === 'string' && Number.isInteger(e.line) ? { batch: e.batch, n: e.line } : null;
+}
+
+/**
+ * Preview's text/meta.json, the line inspector's data (BUILD_PLAN 10.3,
+ * S5): for every line, its state, ctx, screen, max, its length as T15
+ * measures it (null when a {var} has no width), the FNV-1a hash of its
+ * working words (what a batch shows and an answer names) and its batch
+ * and number there (or null). Main gets none.
+ * @param {any} text readText()'s result
+ * @returns {Record<string, {state: string, ctx: string, screen: string, max: number | null, len: number | null, hash: string, batch: string | null, n: number | null}>}
+ */
+export function metaFor(text) {
+  const out = {};
+  for (const id of [...text.lines.keys()].sort()) {
+    const line = text.lines.get(id);
+    const len = measure(line.text, text.widths || {});
+    const b = batchOf(text, id);
+    out[id] = {
+      state: stateOf(id, text),
+      ctx: line.ctx,
+      screen: line.screen,
+      max: Number.isInteger(line.max) ? line.max : null,
+      len: Number.isNaN(len) ? null : len,
+      hash: fnv1a(wordsString(line.text)),
+      batch: b ? b.batch : null,
+      n: b ? b.n : null,
+    };
+  }
+  return out;
 }
 
 /** JSON as the text files write it: one-space indent, a final newline. */
@@ -949,10 +1073,390 @@ export function applyBatch(root, batch) {
   return { errors, results, wrote };
 }
 
+// ---- Batches (BUILD_PLAN 10.7, S5) ------------------------------------------
+
+/**
+ * A B00n.md file's table, as filed or sent: each row's number, id and hash
+ * (the rows that start "| n | `id` | hash |").
+ * @param {string} md
+ * @returns {{n: number, id: string, hash: string}[]}
+ */
+export function parseBatchTable(md) {
+  const out = [];
+  for (const m of String(md).matchAll(/^\| *(\d+) *\| *`([^`]+)` *\| *([0-9a-f]{8}) *\|/gm)) out.push({ n: Number(m[1]), id: m[2], hash: m[3] });
+  return out;
+}
+
+/** A table cell: one row, pipes escaped, a line break as <br>. */
+export const cell = (s) =>
+  String(s)
+    .replace(/\|/g, '\\|')
+    .replace(/\r?\n/g, '<br>');
+
+/** A line's words as one plain string (a plural's forms joined by " / "), the markup kept as it would show. */
+const shownWords = (w) => forms(w).join(' / ');
+
+/**
+ * The lines a batch would take with --file and no ids: every draft or
+ * changed line on a screen the build has, whose working words are in no
+ * batch yet (by their hash) and that batches.json doesn't hold back.
+ * @param {any} text readText()'s result
+ * @returns {string[]}
+ */
+export function unfiledLines(text) {
+  const filed = new Set();
+  for (const x of Object.values((text.batches && text.batches.batches) || {})) for (const [id, h] of Object.entries((x && x.lines) || {})) filed.add(`${id} ${h}`);
+  const held = (text.batches && text.batches.held) || {};
+  const out = [];
+  for (const [id, line] of text.lines) {
+    if (!text.scope.screens.includes(line.screen) || has(held, id)) continue;
+    const s = stateOf(id, text);
+    if (s !== 'draft' && s !== 'changed') continue;
+    if (!filed.has(`${id} ${fnv1a(wordsString(line.text))}`)) out.push(id);
+  }
+  return out;
+}
+
+const has = (o, k) => Object.prototype.hasOwnProperty.call(o || {}, k);
+
+/**
+ * File lines into a batch that hasn't gone out (`text.mjs batch B00n
+ * --file [id ...]`): the named lines, or every unfiled draft (unfiledLines),
+ * each with the FNV-1a hash of its words now, into batches.json and as rows
+ * appended to B00n.md's table, the filing record. A line already filed
+ * there with the same words is left alone, so a second run does nothing; a
+ * line filed there whose words have changed since gets its row and hash
+ * updated (the batch hasn't gone out). A batch that has gone out is never
+ * touched: its lines come back in the next one. by: the session filing
+ * (S5), added to the batch's list.
+ * @param {string} root
+ * @param {string} batch
+ * @param {{ids?: string[] | null, by?: string | null}} [o]
+ * @returns {{errors: string[], filed: {n: number, id: string, hash: string, how: 'added' | 'refiled'}[], wrote: string[]}}
+ */
+export function fileBatch(root, batch, { ids = null, by = null } = {}) {
+  const errors = [];
+  if (!BATCH_RE.test(batch)) return { errors: [`batch: "${batch}" is not a batch (B000, B001, ...)`], filed: [], wrote: [] };
+  const text = readText(root);
+  const all = text.batches.batches || {};
+  const b = all[batch];
+  if (!b) return { errors: [`batch: no ${batch} in ${BATCHES_FILE} (add it with its title and status "filed", and its ${REVIEW_DIR}/${batch}.md)`], filed: [], wrote: [] };
+  if (b.status !== 'filed') return { errors: [`batch: ${batch} is ${b.status}: its record is never edited, and changed lines go in the next batch`], filed: [], wrote: [] };
+  const mdPath = join(root, REVIEW_DIR, `${batch}.md`);
+  if (!existsSync(mdPath)) return { errors: [`batch: no ${REVIEW_DIR}/${batch}.md to file into`], filed: [], wrote: [] };
+  if (by !== null && !/^S\d+[a-z]?$/.test(by)) return { errors: [`batch: --by ${by} is not a session (S5, S15a, ...)`], filed: [], wrote: [] };
+  const want = ids && ids.length ? ids : unfiledLines(text);
+  for (const id of want) {
+    const line = text.lines.get(id);
+    if (!line) errors.push(`batch: ${id} isn't defined in content/text/en`);
+    else if (line.class !== 'ours') errors.push(`batch: ${id} is a ${line.class} line: exempt, never in a batch (decision 64)`);
+    else if (!hasWords(line.text)) errors.push(`batch: ${id} has no words to approve`);
+  }
+  if (errors.length) return { errors, filed: [], wrote: [] };
+  const lines = { ...(b.lines || {}) };
+  let md = readFileSync(mdPath, 'utf8');
+  const filed = [];
+  for (const id of want) {
+    const line = text.lines.get(id);
+    const hash = fnv1a(wordsString(line.text));
+    if (lines[id] === hash) continue;
+    const live = text.ledger.lines[id] ? shownWords(text.ledger.lines[id].text) : 'none';
+    const row = (n) => `| ${n} | \`${id}\` | ${hash} | ${cell(`${line.ctx} (max ${line.max})`)} | ${cell(live)} | ${cell(shownWords(line.text))} |`;
+    if (has(lines, id)) {
+      const n = Object.keys(lines).indexOf(id) + 1;
+      const re = new RegExp(`^\\| *${n} *\\| *\`${id.replace(/\./g, '\\.')}\` *\\|.*$`, 'm');
+      if (!re.test(md)) {
+        errors.push(`batch: ${REVIEW_DIR}/${batch}.md has no row ${n} for ${id}`);
+        continue;
+      }
+      md = md.replace(re, row(n));
+      lines[id] = hash;
+      filed.push({ n, id, hash, how: 'refiled' });
+      continue;
+    }
+    lines[id] = hash;
+    const n = Object.keys(lines).length;
+    const rows = [...md.matchAll(/^\| *\d+ *\|.*$/gm)];
+    if (!rows.length) {
+      errors.push(`batch: ${REVIEW_DIR}/${batch}.md has no table to append to`);
+      break;
+    }
+    const last = rows[rows.length - 1];
+    const at = /** @type {number} */ (last.index) + last[0].length;
+    md = `${md.slice(0, at)}\n${row(n)}${md.slice(at)}`;
+    filed.push({ n, id, hash, how: 'added' });
+  }
+  if (errors.length) return { errors, filed: [], wrote: [] };
+  const wrote = [];
+  const nextBy = by && !(b.by || []).includes(by) ? [...(b.by || []), by] : b.by;
+  if (filed.length || nextBy !== b.by) {
+    const data = JSON.parse(readFileSync(join(root, BATCHES_FILE), 'utf8'));
+    data.batches[batch] = { ...b, ...(nextBy ? { by: nextBy } : {}), lines };
+    writeFileSync(join(root, BATCHES_FILE), json1(data));
+    wrote.push(BATCHES_FILE);
+  }
+  if (filed.length) {
+    writeFileSync(mdPath, md);
+    wrote.push(`${REVIEW_DIR}/${batch}.md`);
+  }
+  return { errors, filed, wrote };
+}
+
+/**
+ * Three sample fills of a template line, from vars.json's samples (the
+ * k-th fill takes each var's k-th sample); none for a line without vars.
+ * @param {any} text readText()'s result
+ * @param {string | {one: string, other: string}} words
+ * @returns {string[]}
+ */
+export function sampleFills(text, words) {
+  const names = [...new Set(forms(words).flatMap((f) => [...f.matchAll(/\{([a-z][a-z0-9_]*)\}/g)].map((m) => m[1])))];
+  if (!names.length) return [];
+  const v = (text.vars && text.vars.vars) || {};
+  const out = [];
+  for (let k = 0; k < 3; k++) {
+    const vars = Object.fromEntries(names.map((n) => [n, v[n] && v[n].samples ? v[n].samples[k] : `{${n}}`]));
+    out.push(plainText(renderParts(pick(words, { ...vars, n: k === 0 ? 1 : 2 }), vars)).replace(/\n/g, ' / '));
+  }
+  return out;
+}
+
+/**
+ * A batch's lines for review, in its order: each with its number, its
+ * words now and as filed, its length (T15's measure), its old words when
+ * it was approved once, and its sample fills. errors: a line no longer
+ * defined, or whose words changed since filing (it comes back in the next
+ * batch, or is refiled while the batch hasn't gone out).
+ * @param {any} text readText()'s result
+ * @param {string} batch
+ */
+export function batchLines(text, batch) {
+  const b = text.batches && text.batches.batches && text.batches.batches[batch];
+  if (!b) return { errors: [`batch: no ${batch} in ${BATCHES_FILE}`], lines: [], batch: null };
+  const errors = [];
+  const lines = Object.entries(b.lines || {}).map(([id, filed], k) => {
+    const line = text.lines.get(id);
+    if (!line) {
+      errors.push(`batch: ${batch} #${k + 1} ${id} isn't defined any more`);
+      return null;
+    }
+    const hash = fnv1a(wordsString(line.text));
+    if (hash !== filed) errors.push(`batch: ${batch} #${k + 1} ${id} changed since filing (${filed}, now ${hash}): it comes back in the next batch${b.status === 'filed' ? `, or refile it here while ${batch} hasn't gone out (text.mjs batch ${batch} --file ${id})` : ''}`);
+    const len = measure(line.text, text.widths || {});
+    const e = text.ledger.lines[id];
+    return {
+      n: k + 1,
+      id,
+      hash,
+      filed,
+      screen: line.screen,
+      ctx: line.ctx,
+      max: line.max,
+      len: Number.isNaN(len) ? null : len,
+      words: line.text,
+      state: stateOf(id, text),
+      old: e && !sameWords(e.text, line.text) ? e.text : null,
+      samples: sampleFills(text, line.text),
+    };
+  });
+  return { errors, lines: /** @type {any[]} */ (lines.filter(Boolean)), batch: b };
+}
+
+/**
+ * The places and terms a batch shows (the gazetteer's, by name, whole
+ * words): its "not ours" tail, for a skim and a veto (18.2). It reads each
+ * line's own words, its three sample fills (a template's {place} shows a
+ * place the words never name), and, when there are screenshots, the words
+ * each badged line showed there (shown: its number and its rendered text,
+ * the var fills in: the rim's caption names Seven Lakes Basin).
+ * @param {any} text
+ * @param {{n: number, words: any, samples?: string[]}[]} lines
+ * @param {{n: number, text: string}[]} [shown]
+ * @returns {{id: string, text: string, kind: string, lines: number[]}[]}
+ */
+export function notOurs(text, lines, shown = []) {
+  const names = text.names || { places: new Map(), terms: new Map() };
+  const all = [];
+  for (const m of [names.places, names.terms]) for (const [id, x] of m) for (const name of [x.text, ...(x.forms || [])]) all.push({ id, name, kind: id.split('.')[0] });
+  all.sort((a, b) => b.name.length - a.name.length || (a.name < b.name ? -1 : a.name > b.name ? 1 : 0));
+  /** @type {Map<string, {id: string, text: string, kind: string, lines: number[]}>} */
+  const found = new Map();
+  const texts = [...lines.map((l) => ({ n: l.n, text: [...forms(l.words), ...(l.samples || [])].join('\n') })), ...shown];
+  for (const l of texts) {
+    let rest = l.text;
+    for (const a of all) {
+      const re = new RegExp(`(?<![\\p{L}\\p{N}])${a.name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(?![\\p{L}\\p{N}])`, 'gu');
+      if (!re.test(rest)) continue;
+      rest = rest.replace(re, (m) => ' '.repeat(m.length));
+      if (!found.has(a.id)) found.set(a.id, { id: a.id, text: nameOf(text, a.id).text, kind: a.kind, lines: [] });
+      const f = /** @type {any} */ (found.get(a.id));
+      if (!f.lines.includes(l.n)) f.lines.push(l.n);
+    }
+  }
+  return [...found.values()].sort((a, b) => a.lines[0] - b.lines[0] || (a.id < b.id ? -1 : 1));
+}
+
+/**
+ * The batch for review (`text.mjs batch B00n [--shots]`), never sent:
+ * <out>/<batch>/<batch>.md, phone-readable (per screen, its numbered
+ * screenshots at the iPhone 17's size first, then a table of #, id, where,
+ * length against max and the words; a template's three sample fills; a
+ * changed line's old words; a mock of the box of a line no screenshot
+ * reaches; the not-ours tail), <batch>.json (lines, hashes, screenshot
+ * files and badge boxes, for the review page) and the screenshots under
+ * shots/. shoot is tools/shots.mjs's shootBatch, or a fake in the tests;
+ * without one the batch is written with no pictures. Warns outside 25 to
+ * 40 lines (decision 64); fails on a line changed since filing.
+ * @param {string} root
+ * @param {string} batch
+ * @param {{out?: string, build?: string, shoot?: ((o: {batch: string, lines: {n: number, id: string, screen: string, words: any}[], dir: string}) => Promise<any>) | null}} [o]
+ * @returns {Promise<{errors: string[], warnings: string[], wrote: string[], json: any}>}
+ */
+export async function buildBatch(root, batch, { out = join(root, 'out', 'review'), build = 'dev', shoot = null } = {}) {
+  if (!BATCH_RE.test(batch)) return { errors: [`batch: "${batch}" is not a batch (B000, B001, ...)`], warnings: [], wrote: [], json: null };
+  const text = readText(root);
+  const known = text.batches && text.batches.batches && text.batches.batches[batch];
+  if (known && known.status === 'answered') return { errors: [`batch: ${batch} is answered: its record is ${REVIEW_DIR}/${batch}.md`], warnings: [], wrote: [], json: null };
+  const r = batchLines(text, batch);
+  if (r.errors.length) return { errors: r.errors, warnings: [], wrote: [], json: null };
+  const b = /** @type {any} */ (r.batch);
+  const lines = r.lines;
+  const warnings = [];
+  if (lines.length < BATCH_SIZE.min || lines.length > BATCH_SIZE.max) warnings.push(`batch: ${batch} has ${lines.length} line${lines.length === 1 ? '' : 's'}, outside ${BATCH_SIZE.min} to ${BATCH_SIZE.max} (decision 64)${b.status === 'filed' ? '; it is filed, and grows until it goes out' : ''}`);
+  for (const l of lines) if (l.len !== null && Number.isInteger(l.max) && l.len > l.max) warnings.push(`batch: #${l.n} ${l.id} is ${l.len} of ${l.max} (T15)`);
+  const dir = join(out, batch);
+  rmSync(dir, { recursive: true, force: true });
+  mkdirSync(join(dir, 'shots'), { recursive: true });
+  const shots = shoot ? await shoot({ batch, lines: lines.map((l) => ({ n: l.n, id: l.id, screen: l.screen, words: l.words })), dir: join(dir, 'shots') }) : null;
+  const tail = notOurs(text, lines, shots ? shots.shots.flatMap((/** @type {any} */ s) => s.shown || []) : []);
+  const json = {
+    format: 1,
+    batch,
+    title: b.title,
+    status: b.status,
+    build,
+    engine: shots ? shots.engine : null,
+    size: shots ? shots.size : null,
+    lines: lines.map((l) => {
+      const shot = shots ? shots.shots.find((s) => s.badges.some((x) => x.id === l.id)) : null;
+      const mock = shots ? shots.mocks.find((m) => m.id === l.id) : null;
+      return {
+        n: l.n,
+        id: l.id,
+        hash: l.hash,
+        screen: l.screen,
+        ctx: l.ctx,
+        max: l.max,
+        len: l.len,
+        state: l.state,
+        words: l.words,
+        old: l.old,
+        samples: l.samples,
+        shot: shot ? `shots/${shot.file}` : null,
+        badge: shot ? shot.badges.find((x) => x.id === l.id).box : null,
+        mock: mock ? `shots/${mock.file}` : null,
+      };
+    }),
+    shots: shots ? shots.shots.map((s) => ({ ...s, file: `shots/${s.file}` })) : [],
+    not_ours: tail,
+    warnings,
+  };
+  writeFileSync(join(dir, `${batch}.json`), `${JSON.stringify(json, null, 1)}\n`);
+  writeFileSync(join(dir, `${batch}.md`), batchMarkdown(json));
+  return { errors: [], warnings, wrote: [`${batch}/${batch}.md`, `${batch}/${batch}.json`, ...(shots ? [...shots.shots.map((s) => `${batch}/shots/${s.file}`), ...shots.mocks.map((m) => `${batch}/shots/${m.file}`)] : [])], json };
+}
+
+/**
+ * The batch as a phone-readable page (developer prose for the review, not
+ * game words: it lives in out/, never in the build).
+ * @param {any} j buildBatch()'s json
+ */
+export function batchMarkdown(j) {
+  const n = j.lines.length;
+  const out = [];
+  out.push(`# ${j.batch} · ${j.title} · ${n} line${n === 1 ? '' : 's'}`, '');
+  out.push(
+    `Built for review from ${j.build} (preview); ${j.status === 'filed' ? 'filed, not sent' : j.status}. ${j.engine ? `Each screen's screenshots come first (${j.size}; ${j.engine}), with a numbered badge beside each line.` : 'No screenshots (run with --shots).'} Then each line: its number, id, where it shows, its length against its max (T15's count) and the words, every one a draft unless it says otherwise.`,
+    '',
+  );
+  for (const w of j.warnings) out.push(`> ${w}`, '');
+  const screens = [...new Set(j.lines.map((l) => l.screen))];
+  for (const screen of screens) {
+    const ls = j.lines.filter((l) => l.screen === screen);
+    out.push(`## ${screen} · ${ls.length} line${ls.length === 1 ? '' : 's'}`, '');
+    const shots = j.shots.filter((s) => s.badges.some((x) => ls.some((l) => l.id === x.id)));
+    for (const s of shots) {
+      const ns = s.badges.filter((x) => ls.some((l) => l.id === x.id)).map((x) => x.n);
+      out.push(`![${screen}: ${s.name}, line${ns.length === 1 ? '' : 's'} ${ns.join(', ')}](${s.file})`, '');
+    }
+    out.push('| # | Id | Where | Length | Words |', '|---|---|---|---|---|');
+    for (const l of ls) {
+      const len = l.len === null ? `? of ${l.max}` : `${l.len} of ${l.max}`;
+      const tag = l.state === 'changed' ? '(CHANGED)' : l.state === 'draft' ? '(DRAFT)' : `(${String(l.state).toUpperCase()})`;
+      out.push(`| ${l.n} | \`${l.id}\` | ${cell(l.ctx)} | ${len} | ${cell(`${tag} ${shownWords(l.words)}`)} |`);
+    }
+    out.push('');
+    for (const l of ls) {
+      if (l.old !== null) out.push(`**${l.n}** was approved as: ${cell(shownWords(l.old))}`, '');
+      if (l.samples.length) out.push(`**${l.n}**, three sample fills: ${l.samples.map((s) => `*${s}*`).join(' · ')}`, '');
+      if (l.mock) out.push(`**${l.n}**: no screenshot reaches it, so here is a mock of its box:`, '', `![${l.id}](${l.mock})`, '');
+      else if (j.engine && !l.shot) out.push(`**${l.n}**: no screenshot or mock reaches it.`, '');
+    }
+  }
+  out.push('## Not ours, for a skim', '');
+  if (!j.not_ours.length) out.push('No place names, terms or quotes.', '');
+  else out.push(`${j.not_ours.map((x) => `*${x.text}* (${x.kind === 'place' ? 'a place' : 'a term'}, line${x.lines.length === 1 ? '' : 's'} ${x.lines.join(', ')})`).join('; ')}: no approval needed, vetoable.`, '');
+  out.push('Reply any way you like: *all ok* · *ok but 2* · *2: your words* · *cut 3* · *later 1*.', '');
+  out.push('Hashes are FNV-1a (32-bit, hex) over the UTF-8 bytes of the words as filed.');
+  return `${out.join('\n')}\n`;
+}
+
 // ---- CLI ------------------------------------------------------------------
 
-/** The command line: check, count and apply. */
+/** The value after a flag, or null. */
+const flagValue = (args, flag) => {
+  const k = args.indexOf(flag);
+  return k >= 0 && k + 1 < args.length ? args[k + 1] : null;
+};
+
+/** `text.mjs batch B00n --file [id ...] [--by S5]`, or `text.mjs batch B00n [--shots] [--out dir] [--engine e]`. */
+async function batchCli(args) {
+  const batch = args[0] || '';
+  if (args.includes('--file')) {
+    const by = flagValue(args, '--by');
+    const ids = args.slice(1).filter((a, k, all) => !a.startsWith('--') && all[k - 1] !== '--by');
+    const r = fileBatch(ROOT, batch, { ids, by });
+    for (const e of r.errors) console.error(e);
+    if (r.errors.length) return 1;
+    for (const f of r.filed) console.log(`${batch} ${String(f.n).padStart(2)} ${f.id} ${f.hash}: ${f.how}`);
+    console.log(r.wrote.length ? `batch: wrote ${r.wrote.join(', ')}` : `batch: nothing to file in ${batch}`);
+    return 0;
+  }
+  const out = flagValue(args, '--out') || join(ROOT, 'out', 'review');
+  let shoot = null;
+  if (args.includes('--shots')) {
+    const shots = await import('./shots.mjs');
+    shoot = (o) => shots.shootBatch({ ...o, engine: flagValue(args, '--engine') || 'webkit' });
+  }
+  const { buildInfo } = await import('./build.mjs');
+  let r;
+  try {
+    r = await buildBatch(ROOT, batch, { out, build: buildInfo(ROOT).id, shoot });
+  } catch (e) {
+    if (!e || e.code !== 'NO_PLAYWRIGHT') throw e;
+    console.error(e.message);
+    return 2;
+  }
+  for (const e of r.errors) console.error(e);
+  if (r.errors.length) return 1;
+  for (const w of r.warnings) console.warn(`warning: ${w}`);
+  console.log(`batch: ${batch}, ${r.json.lines.length} lines -> ${relative(ROOT, join(out, batch)) || out}/ (${r.wrote.length} files)`);
+  return 0;
+}
+
+/** The command line: check, count, apply and batch. */
 async function cli(cmd, args) {
+  if (cmd === 'batch') return batchCli(args);
   // The lints import this module, so they load here, once it has finished loading.
   const { runTextLint } = await import('./textlint.mjs');
   if (cmd === 'apply') {
@@ -976,10 +1480,10 @@ async function cli(cmd, args) {
     for (const i of lint.infos) console.log(`info: ${i}`);
     const errs = lint.issues.filter((i) => i.level !== 'warn').length;
     const warns = lint.issues.length - errs;
-    console.log(errs ? `text: ${errs} problem${errs === 1 ? '' : 's'}` : `text: clean (T07, T10-T14, T16)${warns ? `; ${warns} warning${warns === 1 ? '' : 's'}` : ''}`);
+    console.log(errs ? `text: ${errs} problem${errs === 1 ? '' : 's'}` : `text: clean (T07, T10-T16)${warns ? `; ${warns} warning${warns === 1 ? '' : 's'}` : ''}`);
     return errs ? 1 : 0;
   }
-  console.error('usage: node tools/text.mjs check [--main] | count | apply B00n');
+  console.error('usage: node tools/text.mjs check [--main] | count | apply B00n | batch B00n --file [id ...] [--by S5] | batch B00n [--shots] [--out dir] [--engine webkit|chromium]');
   return 2;
 }
 

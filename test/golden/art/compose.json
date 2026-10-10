@@ -1,0 +1,23 @@
+{
+ "$comment": "The composer's golden (BUILD_PLAN S5; test/unit/compose.test.mjs): the FNV hash of each place's composited picture at each hour, with the trail's hiker. Rewritten only on purpose: node tools/render-pics.mjs --update, then look at the renders and review the diff.",
+ "places": {
+  "deer_lake": {
+   "day": "f70508cc",
+   "dusk": "f70508cc",
+   "blue": "ca43dc8c",
+   "night": "4ae3fec9"
+  },
+  "high_divide": {
+   "day": "0dbdff26",
+   "dusk": "0dbdff26",
+   "blue": "043b83a1",
+   "night": "ddb9d3eb"
+  },
+  "seven_lakes_basin": {
+   "day": "19abd7c8",
+   "dusk": "19abd7c8",
+   "blue": "66dd0a70",
+   "night": "016e7029"
+  }
+ }
+}

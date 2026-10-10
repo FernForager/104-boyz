@@ -1,0 +1,81 @@
+{
+ "$comment": "S5 sound A1's goldens (BUILD_PLAN 13.5): every cue variant's FNV-1a hash over its Float32 samples at 48 and 44.1 kHz (web/js/audio/dsp.js renderCue), the limiter's over its probe (two full-scale sines through it), and each scene's hash and BS.1770 readout at 48 kHz (dsp.js mixScene, measure). Written by `node tools/listen.mjs --update` after a look at the spectrograms; checked by --check, test/unit/dsp.test.mjs and the build, which ships the 48 kHz hashes in audio/sounds.json so the phone's debug render can compare its own.",
+ "format": 1,
+ "cues": {
+  "44100": {
+   "ui.tick": [
+    "a333d8c3",
+    "c7aaad19",
+    "c2f87d4a",
+    "dbee7c98"
+   ],
+   "ui.next": [
+    "6caa3422",
+    "ad8ddc34",
+    "b9a101f6",
+    "9e16fd4e"
+   ],
+   "ui.open": [
+    "d67a6b35",
+    "b8455e0a",
+    "bb316c67",
+    "90230a5f"
+   ],
+   "ui.sound_on": [
+    "b0bd7558",
+    "2ba12b7c",
+    "d8d4d3c9",
+    "d96df53d"
+   ]
+  },
+  "48000": {
+   "ui.tick": [
+    "9dd028c9",
+    "bae3bce5",
+    "00fb3d2d",
+    "cc2fcdb5"
+   ],
+   "ui.next": [
+    "9a1edbed",
+    "13ae12c2",
+    "bc2a934f",
+    "5d1ff9be"
+   ],
+   "ui.open": [
+    "fd2a1d32",
+    "48b1d21b",
+    "6f018792",
+    "4a77f591"
+   ],
+   "ui.sound_on": [
+    "e5907df2",
+    "ee0e5282",
+    "e488f6c9",
+    "125c07eb"
+   ]
+  }
+ },
+ "limiter": "ab66b38a",
+ "scenes": {
+  "ui_demo": {
+   "hash": "80902751",
+   "measure": {
+    "peakDb": -22.388,
+    "truePeakDb": -22.37,
+    "lufsI": -48.124,
+    "lufsMMax": -44.9,
+    "lufsSMax": -48.07
+   }
+  },
+  "silence": {
+   "hash": "102c0dc5",
+   "measure": {
+    "peakDb": null,
+    "truePeakDb": null,
+    "lufsI": null,
+    "lufsMMax": null,
+    "lufsSMax": null
+   }
+  }
+ }
+}

@@ -1,0 +1,187 @@
+{
+ "$comment": "The scene composer's recipes (BUILD_PLAN 4.4, 4.5, S5; GAME_DESIGN 11.7; schemas/recipes.schema.json). bases: the biome bases, drawn (pics/bases/, the row their skylines stand on, their prop slots) or waiting for the session they land in (S5's estimates from BUILD_PLAN 4.5 and 8.3), with a stand-in where one fits; skylines: far-layer stamps, a landmark never mirrored (P13); sprites: the sprite stamps the composer may place at a base's anchors (the trail frame's hiker); places: one recipe for every node of the M1a scope, in its order (G05), a base or a hand-drawn scene. A place with no flip or horizon gets a seeded one. hoh_lake_trail_junction is down in the Hoh rain forest at 1,013 ft (the region data), so it takes the montane base, not the crest.",
+ "bases": {
+  "lake_basin": {
+   "$comment": "B1: a small subalpine lake held low in a bowl of firs, seen from its near shore.",
+   "pic": "base_lake_basin",
+   "drawn": true,
+   "far_y": 74,
+   "props": [
+    {
+     "id": "far_ring",
+     "layer": "mid",
+     "box": [4, 82, 152, 6],
+     "stamps": ["subalpine_fir_far", "mountain_hemlock_far"],
+     "count": [12, 16],
+     "spacing": 7
+    },
+    {
+     "id": "frame_left",
+     "layer": "near",
+     "box": [0, 156, 20, 12],
+     "stamps": ["mountain_hemlock_l", "subalpine_fir_l"],
+     "count": [1, 1]
+    },
+    {
+     "id": "frame_right",
+     "layer": "near",
+     "box": [140, 158, 20, 10],
+     "stamps": ["subalpine_fir_xl", "mountain_hemlock_l"],
+     "count": [1, 1]
+    },
+    {
+     "id": "shore_rocks",
+     "layer": "near",
+     "box": [56, 128, 70, 14],
+     "stamps": ["boulder_a", "boulder_b"],
+     "count": [1, 3],
+     "spacing": 14
+    }
+   ]
+  },
+  "meadow": {
+   "$comment": "B2: an open subalpine meadow on a bench or a crest, heather drifts falling toward us; the crest's stand-in.",
+   "pic": "base_meadow",
+   "drawn": true,
+   "far_y": 74,
+   "props": [
+    {
+     "id": "rim_clumps",
+     "layer": "mid",
+     "box": [0, 98, 160, 6],
+     "stamps": ["subalpine_fir_xs", "subalpine_fir_s", "krummholz_a"],
+     "count": [3, 6],
+     "spacing": 10
+    },
+    {
+     "id": "near_firs_left",
+     "layer": "near",
+     "box": [0, 156, 18, 12],
+     "stamps": ["subalpine_fir_l", "subalpine_fir_xl"],
+     "count": [0, 1]
+    },
+    {
+     "id": "near_firs_right",
+     "layer": "near",
+     "box": [142, 156, 18, 12],
+     "stamps": ["subalpine_fir_l", "subalpine_fir_xl"],
+     "count": [0, 1]
+    },
+    {
+     "id": "rocks",
+     "layer": "near",
+     "box": [16, 122, 128, 22],
+     "stamps": ["boulder_a", "boulder_b", "boulder_c"],
+     "count": [1, 3],
+     "spacing": 16
+    }
+   ]
+  },
+  "crest": {
+   "$comment": "The narrow crest of the High Divide: drawn with S16's Olympus plate; the meadow stands in (the crest is subalpine meadow).",
+   "drawn": false,
+   "lands": "S16",
+   "stand_in": "meadow"
+  },
+  "montane": {"drawn": false, "lands": "S15a"},
+  "trailhead": {"drawn": false, "lands": "S15a"},
+  "river_valley": {"drawn": false, "lands": "S21"},
+  "road": {"drawn": false, "lands": "S15a"}
+ },
+ "skylines": {
+  "olympus_from_divide": {
+   "$comment": "B4: Mount Olympus across the Hoh valley, seen south from the Divide.",
+   "stamp": "skyline_olympus_from_divide",
+   "landmark": true
+  },
+  "deer_lake_ridge": {
+   "$comment": "B3: the forested ridge above Deer Lake, toward the Divide, its first outcrops on top.",
+   "stamp": "skyline_deer_lake_ridge",
+   "landmark": true
+  }
+ },
+ "sprites": ["hiker_idle", "hiker_sit"],
+ "places": {
+  "sol_duc_trailhead": {"base": "trailhead"},
+  "sol_duc_falls": {"scene": "sol_duc_falls", "lands": "S18", "stand_in": "montane"},
+  "sol_duc_falls_camp": {"base": "montane"},
+  "hidden_lake_junction": {"base": "montane"},
+  "hidden_lake": {"base": "lake_basin"},
+  "canyon_creek_1": {"base": "montane"},
+  "canyon_creek_2": {"base": "montane"},
+  "canyon_creek_3": {"base": "montane"},
+  "deer_lake": {
+   "$comment": "B7: Deer Lake at 3,530 ft, the last sure water before the crest: the still lake in its ring of firs and hemlocks, the forested ridge toward the Divide above it, the smaller twin pond in the meadow at the lake's left shore, a hemlock framing the left edge (fixed, so it never stands over the pond), the privy roof in the trees, the outlet's log, the hiker on the near shore facing the water.",
+   "base": "lake_basin",
+   "far": ["deer_lake_ridge"],
+   "flip": false,
+   "horizon": 0,
+   "props": {
+    "far_ring": {"count": [14, 14]},
+    "frame_left": {"count": [0, 0]},
+    "frame_right": {"stamps": ["subalpine_fir_xl"]},
+    "shore_rocks": {"count": [2, 2]}
+   },
+   "stamps": [
+    {"id": "pond_small", "at": [10, 122], "layer": "near"},
+    {"id": "mountain_hemlock_l", "at": [5, 167], "layer": "near"},
+    {"id": "privy_roof", "at": [134, 86], "layer": "mid"},
+    {"id": "log_shore", "at": [136, 113], "layer": "mid"}
+   ]
+  },
+  "potholes": {"base": "meadow"},
+  "seven_lakes_basin": {
+   "$comment": "B9: the basin from the rim, hand-drawn (pics/scenes/seven_lakes_basin_rim.pic).",
+   "scene": "seven_lakes_basin_rim"
+  },
+  "round_lake_junction": {"base": "lake_basin"},
+  "round_lake": {"base": "lake_basin"},
+  "lunch_lake": {"base": "lake_basin"},
+  "clear_lake": {"base": "lake_basin"},
+  "mirror_lake": {"base": "lake_basin"},
+  "mirror_lake_way_trail_junction": {"base": "crest"},
+  "long_lake": {"base": "lake_basin"},
+  "sol_duc_lake": {"base": "lake_basin"},
+  "morgenroth_lake": {"scene": "morgenroth_lake", "lands": "M1b", "stand_in": "lake_basin"},
+  "no_name_lake": {"base": "lake_basin"},
+  "y_lake": {"base": "lake_basin"},
+  "lake_8": {"base": "lake_basin"},
+  "bogachiel_peak_west_junction": {"base": "crest", "far": ["olympus_from_divide"], "flip": false},
+  "high_divide": {
+   "$comment": "B8: the High Divide at the Hoh Lake Trail's sign: the open crest (the meadow stands in until S16 draws the crest), Olympus face to face across the Hoh valley.",
+   "base": "crest",
+   "far": ["olympus_from_divide"],
+   "flip": false,
+   "horizon": 0,
+   "props": {
+    "rim_clumps": {"count": [3, 3]},
+    "rocks": {"count": [2, 2]},
+    "near_firs_left": {"count": [0, 0]},
+    "near_firs_right": {"count": [0, 0]}
+   },
+   "stamps": [{"id": "signpost", "at": [112, 132], "layer": "near"}]
+  },
+  "bogachiel_peak_junction": {"base": "crest", "far": ["olympus_from_divide"], "flip": false},
+  "bogachiel_peak": {"base": "crest", "far": ["olympus_from_divide"], "flip": false},
+  "hoh_lake": {"base": "lake_basin"},
+  "c_b_flats_group_site": {"base": "montane"},
+  "hoh_lake_trail_junction": {"base": "montane"},
+  "heart_lake_junction": {"base": "crest", "far": ["olympus_from_divide"], "flip": false},
+  "heart_lake": {"scene": "heart_lake", "lands": "S23", "stand_in": "lake_basin"},
+  "bruces_roost": {"base": "crest"},
+  "cat_basin_cutoff_junction": {"base": "crest"},
+  "swimming_bear_lake_junction": {"base": "crest"},
+  "cat_basin": {"base": "meadow"},
+  "sol_duc_park": {"base": "meadow"},
+  "lower_bridge_creek": {"base": "montane"},
+  "sol_duc_crossing": {"base": "river_valley"},
+  "horse_head_stock_camp": {"base": "river_valley"},
+  "seven_mile_group_camp": {"base": "river_valley"},
+  "rocky_creek": {"base": "river_valley"},
+  "appleton_junction": {"base": "river_valley"},
+  "sol_duc_river_4": {"base": "river_valley"},
+  "sol_duc_river_3": {"base": "river_valley"},
+  "sol_duc_river_2": {"base": "river_valley"},
+  "sol_duc_river_1": {"base": "river_valley"}
+ }
+}

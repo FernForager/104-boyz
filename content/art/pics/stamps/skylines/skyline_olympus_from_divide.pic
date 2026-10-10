@@ -1,0 +1,143 @@
+# skyline_olympus_from_divide: Mount Olympus across the Hoh valley, seen
+# south from the High Divide about ten miles off (BUILD_PLAN 4.4, S5 brief
+# B4), for the crest places: the High Divide, Bogachiel Peak and its
+# junctions, Heart Lake Junction. A far-layer stamp: its anchor, 0,0, is its
+# left end on the horizon line (a base's far_y plus the place's horizon),
+# and it reaches 40 rows below it, so the meadow's rim always covers its
+# foot (the composer's rule 3). A landmark: never mirrored (lint P13).
+#
+# The cover's massif (cover_high_divide_dusk.pic, its far and mid layers)
+# redrawn at this scale in day colors, so the cover and the trail agree
+# about the mountain: the Bailey Range's darker teeth on the left (east);
+# the East, Middle and West Peaks, the West Peak highest with its summit
+# spire; the long shoulder of the Snow Dome falling right (west); the Blue
+# Glacier's snowfield across the middle with its crevasses; Mount Tom's two
+# small summits on the right. A broad white massif of several summits, not
+# a cone, rising behind the Hoh valley's far wall, whose forested spurs
+# reach up into its foot; then the haze over the river.
+#
+# Day light from the south-west: every face turned right or toward us is
+# lit snow (4); every face turned left (east) is a slate (2) wedge in shade
+# from its summit down to the far wall (the cover's glacier-blue wedges
+# stand against a navy sky; here the day sky is glacier blue, so the shade
+# goes a step darker). At dusk the remap turns the snow alpenglow pink by
+# itself and the shade navy, the cover's look. Each band stands apart from
+# the one behind it in value at every hour: the low teeth stand in the
+# skyline's own horizon light (a bank of snow a few rows over them, its
+# top a two-row checker seam into the sky, never a ruled row), and the
+# massif stands against the open sky above it. The band and the massif's
+# lit snow are the same slot at every hour, so wherever they would meet
+# the massif keeps a shadow face, slate, along its flank, as the cover's
+# massif does: its outline stays closed at every hour. It runs a pixel
+# past each edge, so its fills cover the whole width.
+#
+# 1. The skyline, first in slate (2): its outline over the teeth, the
+# massif and Mount Tom, and down the sides and along the bottom in ink
+# (off the canvas, or hidden under the meadow's rim), so no fill ever
+# reaches the stamp's edge.
+C 0  L -1,-3 -1,40 160,40 160,-8
+C 2  L -1,-3 0,-3 4,-7 8,-5 15,-12 20,-8 25,-10 30,-7 33,-6
+       41,-13 47,-19 51,-24 55,-22 59,-21 63,-25 69,-31 73,-30
+       77,-28 83,-34 87,-40 89,-41 91,-39 93,-40 95,-37 99,-36
+       105,-34 109,-33 115,-31 121,-28 127,-24 130,-21 133,-19 135,-16
+       139,-11 142,-9 146,-13 150,-10 154,-12 160,-8
+C 2  F 80,20
+# 2. The horizon's light behind the low teeth on either side of the
+# massif: a bank of snow (4) between slate walls a pixel off the canvas
+# and the massif's flanks, filled down to the teeth, its top two rows a
+# checker of snow and glacier blue (3) that seams it into the sky. Its
+# edges go in first in colors that their fills then take: the seam's top
+# row in paper cream (5), the row under the seam in alpenglow pink (6).
+C 2  L -1,-3 -1,-17  L 160,-8 160,-17
+C 5  L 0,-17 44,-17  L 135,-17 159,-17
+C 6  L 0,-15 42,-15  L 137,-15 159,-15
+C 4  F 10,-12 150,-12 0,-15 159,-15
+D 4 3 checker  F 0,-16 159,-16 0,-17 159,-17
+# 3. The massif in snow, from its summits down to the far wall's spurs,
+# which rise into its foot as dark ridges (never a ruled line).
+C 4  L 33,-6 41,-13 47,-19 51,-24 55,-22 59,-21 63,-25 69,-31 73,-30
+       77,-28 83,-34 87,-40 89,-41 91,-39 93,-40 95,-37 99,-36
+       105,-34 109,-33 115,-31 121,-28 127,-24 130,-21 133,-19 135,-16
+       134,-10 130,-7 126,-4 122,-5 119,-8 116,-10
+       112,-7 108,-4 104,-5 101,-9 98,-11 94,-7 90,-4 86,-5 82,-8 79,-12
+       76,-10 72,-6 68,-4 64,-7 61,-11 58,-8 54,-4 50,-5 47,-8 44,-10
+       40,-7 36,-5 33,-6
+C 4  F 100,-20 100,-14
+# The faces turned east, in shadow: slate (2) wedges from each summit down
+# to the far wall, as rock and snow in shade read from ten miles off on a
+# glacier-blue day sky (navy against slate at dusk, ink at night).
+# the East Peak and the massif's east flank
+C 2  L 33,-6 41,-13 47,-19 51,-24 48,-14 46,-9 44,-10 40,-7 36,-5 33,-6
+C 2  F 42,-10
+# the Middle Peak
+C 2  L 59,-21 63,-25 69,-31 66,-20 64,-12 61,-11 60,-16 59,-21
+C 2  F 63,-18
+# the West Peak, under its spire
+C 2  L 77,-28 83,-34 87,-40 89,-41 87,-28 84,-16 82,-9 79,-12 78,-20
+       77,-28
+C 2  F 83,-24
+# Each shaded face's crest catches the light where it meets the sky: a
+# line of lit snow along the arete, so the shade never sits on the sky
+# alone (at night the two are ink and navy, too close to tell apart). The
+# East Peak's stops above the band, so it never joins the band's snow.
+C 4  L 47,-19 51,-24  L 59,-21 63,-25 69,-31  L 77,-28 83,-34
+     87,-40 89,-41
+# Rock ribs between the glaciers: slate (2) shapes, each a ridge that
+# tapers up from the far wall into the ice, the light on its right side.
+C 2  L 101,-30 102,-30 104,-22 105,-14 104,-9 101,-9 102,-16 101,-23 101,-30
+C 2  F 103,-15
+C 3  L 103,-28 105,-20 106,-14
+C 2  L 116,-26 117,-26 119,-18 119,-11 116,-10 117,-17 116,-26
+C 2  F 118,-15
+C 3  L 118,-24 120,-17
+C 2  L 127,-20 128,-19 130,-13 129,-8 127,-8 127,-14 127,-20
+C 2  F 128,-12
+# The Snow Dome's shoulder, where it comes down into the band: a shadow
+# face of slate (2) three columns wide along its flank, from just over the
+# band's top down to the far wall, so the massif's outline stays closed
+# against the band's snow at every hour.
+C 2  L 132,-20 134,-18 134,-10 130,-7 126,-4
+     L 132,-19 133,-17 133,-11 129,-7 125,-4
+     L 132,-18 132,-11 128,-7 124,-4
+# Its crest over the band's top catches the light, as the aretes do, so
+# the shade never sits on the sky alone (ink on navy at night).
+C 4  L 132,-20 134,-18
+# The Blue Glacier's crevasses: short glacier-blue strokes in a sweep down
+# the ice between the ribs.
+C 3  L 92,-26 95,-26  L 94,-21 97,-21  L 96,-16 99,-16  L 108,-24 111,-24
+     L 109,-18 112,-18  L 121,-16 123,-16
+# The Bailey Range's old snow in its gullies, and Mount Tom's: broken
+# glacier-blue patches, a pixel or two each.
+C 3  L 15,-10 16,-10  L 15,-9  L 25,-8 26,-8  L 146,-11 147,-11  L 146,-10
+# 4. The Hoh valley under the far wall, in depth: the wall's spurs come
+# down into it on uneven feet; under them the valley's far side in shade,
+# a checker of teal (15) and slate (2) three rows deep; then the haze over
+# the river, teal, high enough that the meadow's firs and krummholz stand
+# against it and never against the wall (a fir's spruce and the wall's
+# slate both go ink at night); and at its bottom the far meadows' edge, a
+# checker of teal and forest (12) with a wavy top, down under the
+# meadow's rim, so the valley never ends on a ruled row and no band of the
+# trees' own greens stands solid behind them. Each edge goes in first in
+# a color its fill then takes (paper cream, alpenglow pink, brick), the
+# fills replacing the wall's slate below the spurs' feet.
+C 5  L 0,3 3,3 3,4 5,4 5,5 7,5 7,6 10,6 10,4
+        13,4 13,3 24,3 24,4 27,4 27,5 30,5 30,7 34,7
+        34,5 37,5 37,3 50,3 50,4 54,4 54,6 57,6 57,7
+        61,7 61,5 64,5 64,3 79,3 79,4 83,4 83,6 88,6
+        88,4 91,4 91,3 104,3 104,4 108,4 108,5 111,5 111,7
+        115,7 115,5 118,5 118,3 134,3 134,5 138,5 138,6 143,6
+        143,4 146,4 146,3 159,3
+C 6  L 0,6 3,6 3,7 5,7 5,8 7,8 7,9 10,9 10,7
+        13,7 13,6 24,6 24,7 27,7 27,8 30,8 30,10 34,10
+        34,8 37,8 37,6 50,6 50,7 54,7 54,9 57,9 57,10
+        61,10 61,8 64,8 64,6 79,6 79,7 83,7 83,9 88,9
+        88,7 91,7 91,6 104,6 104,7 108,7 108,8 111,8 111,10
+        115,10 115,8 118,8 118,6 134,6 134,8 138,8 138,9 143,9
+        143,7 146,7 146,6 159,6
+C 9  L 0,21 9,21 9,20 22,20 22,21 34,21 34,22 46,22 46,21
+        58,21 58,20 71,20 71,19 84,19 84,20 97,20 97,21 110,21
+        110,22 122,22 122,21 133,21 133,20 147,20 147,21 159,21
+D 15 2 checker  F 0,4 11,5 31,8 35,6 38,4 55,7 62,6 65,4 84,7 89,5 112,8
+                 116,6 119,4 135,6 144,5 0,3
+C 15  F 80,10 0,6
+D 15 12 checker  F 80,30 0,21

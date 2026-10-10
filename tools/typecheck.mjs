@@ -7,6 +7,9 @@
 //   jsconfig.json         web/js/**          ES2022, DOM, DOM.Iterable (the page)
 //   jsconfig.engine.json  web/js/engine/**   ES2022 only (no DOM, no Node: the engine is pure)
 //   jsconfig.worker.json  web/sw.js          ES2022, WebWorker (the service worker)
+//   jsconfig.worklet.json web/js/audio/limiter.worklet.js
+//                                            ES2022 and types/audioworklet.d.ts (the
+//                                            limiter's AudioWorklet scope; S5)
 //
 // `npm run typecheck` (in `npm run ci`, after the lint). If TypeScript is
 // missing from node_modules, or isn't the lockfile's version, it runs
@@ -23,8 +26,8 @@ import { join } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { ROOT } from './pics.mjs';
 
-/** The three projects, in the order they run. */
-export const PROJECTS = Object.freeze(['jsconfig.json', 'jsconfig.engine.json', 'jsconfig.worker.json']);
+/** The four projects, in the order they run. */
+export const PROJECTS = Object.freeze(['jsconfig.json', 'jsconfig.engine.json', 'jsconfig.worker.json', 'jsconfig.worklet.json']);
 /** The install, exactly as the workflows run it. */
 export const INSTALL = ['ci', '--ignore-scripts', '--no-audit', '--no-fund'];
 
@@ -73,7 +76,7 @@ export function errorLines(out) {
 }
 
 /**
- * Run the three projects. Returns {errors: {project, lines}[], total}.
+ * Run the four projects. Returns {errors: {project, lines}[], total}.
  * @param {{root?: string, log?: (s: string) => void}} [o]
  */
 export function typecheck({ root = ROOT, log = (s) => console.log(s) } = {}) {

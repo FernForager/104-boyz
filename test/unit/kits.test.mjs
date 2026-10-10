@@ -1,6 +1,6 @@
-// The ranger's checklist, the two pack presets and the test kits (BUILD_PLAN
-// 2.6, 3.5, S4; GAME_DESIGN 6.1, 6.8, B.2, B.5): content/rules/kits.json
-// against the catalog.
+// The ranger's checklist, the two pack presets, the new hiker's town clothes
+// and the test kits (BUILD_PLAN 2.6, 3.5, S4; GAME_DESIGN 6.1, 6.8, 6.9, B.2,
+// B.5, decision 67): content/rules/kits.json against the catalog.
 
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
@@ -90,4 +90,13 @@ test("B.5: the sensible kit is B.2's pack, and the skimpy one is it minus exactl
 test('the ranger reads one checklist for M1a\'s zones and months', () => {
   assert.deepEqual(kits.ranger.high, { 8: 'checklist', 9: 'checklist' });
   assert.deepEqual(kits.ranger.north_mid, { 8: 'checklist', 9: 'checklist' });
+});
+
+test("decision 67: a new hiker arrives in the catalog's town outfit, worn, carrying nothing, and it fills no worn row", () => {
+  const n = kits.presets.new_hiker;
+  assert.deepEqual(n.worn, ['sneakers_canvas', 'tee_cotton', 'jeans_denim', 'socks_cotton', 'ball_cap']);
+  assert.deepEqual(n.worn, kits.test_kits.olympus_day_gear_one_night_TRAP.worn, "the day-gear trap kits' outfit");
+  assert.ok(!n.pack && !n.carried && !n.minus && !n.from && !n.from_kit, 'the shed is otherwise empty');
+  for (const need of kits.checklist.worn) assert.ok(!n.worn.some((r) => meets(need, ref(r))), `${need.id}: the town clothes fill no worn row`);
+  assert.deepEqual(kits.checklist.worn.map((w) => w.id), ['footwear', 'socks', 'top', 'bottom'], 'the outfit and footwear rows stay, for the basics guarantee');
 });

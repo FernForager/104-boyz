@@ -1,0 +1,114 @@
+{
+ "$comment": "content/art/recipes.json: the scene composer's recipes (BUILD_PLAN 4.4, 4.5, S5; GAME_DESIGN 11.7), read by tools/pics.mjs loadRecipes() and shipped in art/art.json on a channel with the trail screen. bases: the biome bases, drawn (a .pic in pics/bases/, its skyline line far_y and its prop slots) or waiting for the session they land in (with an optional stand-in base); skylines: far-layer stamps, a landmark never mirrored; sprites: the sprite stamps the composer may place; places: one recipe per park node (G05), naming a base or a hand-drawn scene (with its stand-in and landing session while it isn't drawn). Coordinates are picture pixels on the 160x168 canvas. The lints that read it: J01 (this schema), P13 (it resolves), P14 (every drawable place composes and lints at every hour), G05 (every M1a node has a place).",
+ "type": "object",
+ "required": ["bases", "skylines", "sprites", "places"],
+ "additionalProperties": false,
+ "properties": {
+  "$comment": {"type": "string"},
+  "bases": {"type": "object", "additionalProperties": {"$ref": "#/$defs/base"}},
+  "skylines": {"type": "object", "additionalProperties": {"$ref": "#/$defs/skyline"}},
+  "sprites": {
+   "$comment": "The sprite stamps the composer may place at an anchor (<kind>_<pose>: the trail frame asks for hiker_idle), so a channel with the trail screen ships them.",
+   "type": "array",
+   "minItems": 1,
+   "items": {"$ref": "#/$defs/id"}
+  },
+  "places": {"type": "object", "additionalProperties": {"$ref": "#/$defs/place"}}
+ },
+ "$defs": {
+  "id": {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"},
+  "session": {"type": "string", "pattern": "^(S[0-9]+[a-z]?|M[0-9]+[a-z]?)$"},
+  "layer": {"enum": ["mid", "near"]},
+  "point": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"type": "integer"}},
+  "box": {"type": "array", "minItems": 4, "maxItems": 4, "items": {"type": "integer", "minimum": 0}},
+  "count": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"type": "integer", "minimum": 0, "maximum": 64}},
+  "stamps": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/id"}},
+  "slot": {
+   "$comment": "A prop slot: count stamps (seeded in the range), each at a seeded point in the box, picked from stamps, never closer than spacing in x to another in the slot; drawn back to front on the layer.",
+   "type": "object",
+   "required": ["id", "layer", "box", "stamps", "count"],
+   "additionalProperties": false,
+   "properties": {
+    "$comment": {"type": "string"},
+    "id": {"$ref": "#/$defs/id"},
+    "layer": {"$ref": "#/$defs/layer"},
+    "box": {"$ref": "#/$defs/box"},
+    "stamps": {"$ref": "#/$defs/stamps"},
+    "count": {"$ref": "#/$defs/count"},
+    "spacing": {"type": "integer", "minimum": 0, "maximum": 160}
+   }
+  },
+  "base": {
+   "oneOf": [
+    {
+     "$comment": "A drawn base: its picture, the row its skylines stand on, and its prop slots.",
+     "type": "object",
+     "required": ["pic", "drawn", "far_y", "props"],
+     "additionalProperties": false,
+     "properties": {
+      "$comment": {"type": "string"},
+      "pic": {"$ref": "#/$defs/id"},
+      "drawn": {"const": true},
+      "far_y": {"type": "integer", "minimum": 0, "maximum": 167},
+      "props": {"type": "array", "items": {"$ref": "#/$defs/slot"}}
+     }
+    },
+    {
+     "$comment": "A base not drawn yet: the session it lands in, and the drawn base that stands in for it until then (none: its places aren't drawable).",
+     "type": "object",
+     "required": ["drawn", "lands"],
+     "additionalProperties": false,
+     "properties": {
+      "$comment": {"type": "string"},
+      "drawn": {"const": false},
+      "lands": {"$ref": "#/$defs/session"},
+      "stand_in": {"$ref": "#/$defs/id"}
+     }
+    }
+   ]
+  },
+  "skyline": {
+   "type": "object",
+   "required": ["stamp"],
+   "additionalProperties": false,
+   "properties": {"$comment": {"type": "string"}, "stamp": {"$ref": "#/$defs/id"}, "landmark": {"type": "boolean"}}
+  },
+  "fixed": {
+   "$comment": "A stamp at a fixed point on a layer, after that layer's props; fx flips it.",
+   "type": "object",
+   "required": ["id", "at", "layer"],
+   "additionalProperties": false,
+   "properties": {
+    "id": {"$ref": "#/$defs/id"},
+    "at": {"$ref": "#/$defs/point"},
+    "layer": {"$ref": "#/$defs/layer"},
+    "fx": {"type": "boolean"}
+   }
+  },
+  "override": {
+   "$comment": "A place's change to one of its base's prop slots: another count, other stamps, or both.",
+   "type": "object",
+   "additionalProperties": false,
+   "properties": {"count": {"$ref": "#/$defs/count"}, "stamps": {"$ref": "#/$defs/stamps"}}
+  },
+  "place": {
+   "$comment": "A place: a base (or a hand-drawn scene, with its stand-in base and landing session while it isn't drawn), its skylines back to front, the variant (flip and horizon, seeded when not pinned), prop overrides, fixed stamps, and which way the sprites face.",
+   "type": "object",
+   "additionalProperties": false,
+   "properties": {
+    "$comment": {"type": "string"},
+    "base": {"$ref": "#/$defs/id"},
+    "scene": {"$ref": "#/$defs/id"},
+    "stand_in": {"$ref": "#/$defs/id"},
+    "lands": {"$ref": "#/$defs/session"},
+    "far": {"type": "array", "items": {"$ref": "#/$defs/id"}},
+    "flip": {"type": "boolean"},
+    "horizon": {"type": "integer", "minimum": -6, "maximum": 6},
+    "props": {"type": "object", "additionalProperties": {"$ref": "#/$defs/override"}},
+    "stamps": {"type": "array", "items": {"$ref": "#/$defs/fixed"}},
+    "face": {"enum": ["left", "right"]}
+   },
+   "oneOf": [{"required": ["base"]}, {"required": ["scene"]}]
+  }
+ }
+}

@@ -1,0 +1,41 @@
+name: shots
+# Screenshots in WebKit, Safari's engine (BUILD_PLAN 2.1, 6.2, S5): the
+# sessions' container has Chromium only, so its pictures are marked
+# chromium, and the WebKit ones are taken here. GitHub offers Run workflow
+# (Actions, shots) only for a workflow on the default branch, so until S6
+# promotes this file to main it runs on its own when it, or the tool it
+# runs, lands on preview; from main it also runs by hand, on any branch.
+# It builds the branch, takes the S5 set at the SE, 17 and Pro Max sizes
+# with tools/shots.mjs, and keeps them as the run's artifact for 30 days.
+# It deploys nothing and writes nothing back. Playwright is never a
+# dependency: it is fetched for the run, unsaved.
+on:
+  push:
+    branches: [preview]
+    paths:
+      - .github/workflows/shots.yml
+      - tools/shots.mjs
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  shots:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22.23.3
+      - run: npm ci --ignore-scripts --no-audit --no-fund
+      - run: npm install --no-save --ignore-scripts --no-audit --no-fund playwright@1.56.1
+      - run: npx -y playwright@1.56.1 install --with-deps webkit
+      - run: npm run build
+      - run: node tools/shots.mjs --engine webkit --set s5
+      - uses: actions/upload-artifact@v7
+        with:
+          name: shots
+          path: out/shots/
+          retention-days: 30

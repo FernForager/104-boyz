@@ -35,7 +35,7 @@ import('./ui/home.js')
   .then(({ showTitle, opensGame }) => {
     const title = showTitle(document);
     if (opensGame(document)) {
-      import('./ui/app.js')
+      import('./ui/app.js') // screens: guestbook trail
         .then(({ startGame }) => startGame(document, { title, words }))
         .catch(showError);
     }
@@ -48,7 +48,7 @@ if (opensMap(document)) {
     const want = location.hash === MAP_HASH;
     if (!want && !mapLoaded) return;
     mapLoaded = true;
-    import('./ui/map.js')
+    import('./ui/map.js') // screens: map
       .then(({ showMap, hideMap }) => (want ? showMap(document, { words }) : hideMap(document)))
       .catch(showError);
   };

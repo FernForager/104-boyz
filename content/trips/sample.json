@@ -1,8 +1,8 @@
 {
- "$comment": "S3's stand-in plan (Lead call 8): the Sol Duc trailhead's two stops. The map table's plans replace it in S10.",
+ "$comment": "S3's stand-in plan (Lead call 8), started at S5's sample stops: Deer Lake, then the rim (content/stops/deer_lake_rim.json). S3's two trailhead stops stay in content, unreachable until S15a draws the trailhead. The map table's plans replace it in S10.",
  "id": "sample",
  "screen": "trail",
  "mode": "open",
- "start": { "set": "sol_duc_trailhead", "day": 1, "s": 30600 },
+ "start": { "set": "deer_lake_rim", "day": 1, "s": 30600 },
  "after": "end"
 }

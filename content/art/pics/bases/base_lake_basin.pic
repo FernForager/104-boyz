@@ -1,0 +1,144 @@
+# base_lake_basin: the lake-basin base (BUILD_PLAN 4.4, 4.5, S5 brief B1;
+# GAME_DESIGN 11.7). Deer Lake, Lunch, Round, Clear, Hoh and the off-menu
+# lakes are composed on it: a small subalpine lake held low in a bowl of
+# conifers, seen from its near shore, so the water is a flat band, its far
+# edge straight under the trees and its near edge the shore we stand on.
+# Open sky above; the far layer is left for the place's skyline (the
+# composer's rule 1), and the recipe's prop slots ring the far shore with
+# small firs and hemlocks, frame the view with a big tree each side and set
+# rocks on the near shore (content/art/recipes.json).
+#
+# Day colors; dusk, blue hour and night are palette remaps. The sun is high
+# in the south-west, so the trees' lit sides and the gravel at the outlet
+# are on the right. Each shape is drawn the AGI way: its outline in its own
+# color, then a fill from a seed inside, so the draw-in shows the lines and
+# then the fills flooding in.
+@ sky
+# A light day sky: a thin slate top, glacier blue for most of it, and the
+# horizon's light, a thin band of snow (4) from row 68 down behind the far
+# trees, the far ring's spires rising into it: a lake with no skyline
+# gets open sky over its trees with only a glow at the horizon (pink at
+# dusk, glacier blue at blue hour, slate at night). A place's skyline
+# brings its own deeper band to stand in (skyline_deer_lake_ridge.pic, as
+# the Olympus skyline does). Each seam is two rows of checker, no more: a
+# dither is texture in a small dose, never a band of screen across the
+# sky. Each band is cut by an ink row that the band's fill then takes too
+# (as on the cover). The sky stops at row 101, under the far shore, so the
+# draw-in never floods it over the water. The stars stay above row 36.
+C 0  L 0,5 159,5  L 0,7 159,7  L 0,66 159,66  L 0,68 159,68
+     L 0,101 159,101
+C 2              F 80,2
+D 2 3 checker    F 80,6 80,5
+C 3              F 80,20 80,7
+D 3 4 checker    F 80,67 80,66
+C 4              F 80,80 80,68 80,101
+Z at_sky 80,20,1,1
+Z at_star_floor 0,36,1,1
+@ mid
+# The far shore's treeline: a serrated line of fir spires in spruce (11),
+# filled spruce down under the water, then each spire's sunlit right edge
+# in forest (12). The spires rise steeply, a column or two for six or
+# eight rows, so they read as subalpine firs on the wide pixel.
+C 11  L 0,80 1,73 2,79 4,74 6,80 8,75 11,79 14,75
+        16,81 17,73 20,80 22,76 25,82 27,72 29,79 30,76
+        32,81 34,75 36,79 39,75 40,81 41,72 43,82 45,76
+        48,79 50,72 53,79 54,74 55,79 57,74 59,79 61,76
+        63,79 66,75 68,79 70,74 72,80 74,74 76,82 78,73
+        80,79 81,75 84,81 85,76 87,79 89,75 91,81 93,75
+        96,81 99,76 102,82 104,76 105,79 107,72 109,80 111,75
+        114,82 117,76 118,79 121,74 123,82 125,75 128,81 130,72
+        132,80 134,72 136,81 137,76 138,80 140,75 143,79 145,72
+        147,79 148,74 150,81 153,76 155,79 156,76 159,82
+        159,126 0,126 0,80
+C 11  F 80,86
+C 12  L 1,73 2,79  L 4,74 6,80  L 8,75 11,79  L 14,75 16,81  L 17,73 20,80
+      L 22,76 25,82  L 27,72 29,79  L 30,76 32,81  L 34,75 36,79  L 39,75 40,81
+      L 41,72 43,82  L 45,76 48,79  L 50,72 53,79  L 54,74 55,79  L 57,74 59,79
+      L 61,76 63,79  L 66,75 68,79  L 70,74 72,80  L 74,74 76,82  L 78,73 80,79
+      L 81,75 84,81  L 85,76 87,79  L 89,75 91,81  L 93,75 96,81  L 99,76 102,82
+      L 104,76 105,79  L 107,72 109,80  L 111,75 114,82  L 117,76 118,79
+      L 121,74 123,82  L 125,75 128,81  L 130,72 132,80  L 134,72 136,81
+      L 137,76 138,80  L 140,75 143,79  L 145,72 147,79  L 148,74 150,81
+      L 153,76 155,79  L 156,76 159,82
+# The lake: glacier blue (3), its far edge straight under the trees, its
+# ends coming toward us, its near edge under the shore (the near layer).
+C 3  L 24,88 146,88 153,92 159,96 159,126 0,126 0,101 6,97 14,92 24,88
+C 3  F 80,110
+# The firs' reflection in still water: the treeline upside down in forest
+# (12), hanging from the waterline itself (the reflection's top edge is
+# the waterline, with no pale line ruled along it), its spires shorter
+# than the trees, a few longer where the tallest firs stand; then broken
+# by the faint ripples a still lake has, short glacier-blue dashes at a
+# few rows, never a ruled stripe across.
+C 12  L 24,88 146,88
+C 12  L 24,89 26,91 28,94 30,91 33,93 35,91 38,96 40,91 42,93
+        44,91 47,98 49,91 51,94 53,91 56,93 58,91 61,95 63,91 66,93
+        68,91 71,94 73,91 75,96 77,91 80,93 82,91 85,94 87,91 90,93
+        92,91 95,94 97,91 99,93 101,91 104,93 106,91 108,97 110,91
+        113,94 115,91 118,93 120,91 123,94 125,91 128,93 130,91 132,97
+        134,91 136,96 138,91 141,94 143,91 144,91 146,89
+C 12  F 80,90
+C 3   L 27,90 31,90  L 58,92 61,92  L 92,90 100,90  L 133,92 136,92
+      L 44,94 47,94  L 84,92 87,92  L 115,92 118,92  L 70,90 73,90
+# Glints: the lake's shimmer (16), short dashes that never touch, fewer
+# and shorter toward the far shore.
+C 16  L 40,101 42,101  L 92,100 95,100  L 64,103 67,103  L 122,102 125,102
+      L 20,105 23,105  L 80,106 85,106  L 108,107 111,107  L 46,109 51,109
+      L 140,108 143,108  L 70,112 74,112  L 98,113 103,113
+Z at_far_bank 96,92,1,1
+@ near
+# The near shore: moss (13), a natural shoreline that wanders, its steps
+# uneven: rising a little to the left, a shallow cove in the middle, then
+# a gravel point where the trail comes nearest the water, and on to the
+# outlet at the right.
+C 13  L 0,106 5,106 9,108 15,109 19,108 24,108 28,110 31,112 36,114
+        42,115 48,116 53,116 57,118 62,120 68,122 76,123 84,123 90,122 94,120
+        97,117 100,115 104,114 107,115 110,117 113,118 118,117 124,117
+        129,116 134,114 140,113 147,113 152,112 159,112 159,167 0,167
+        0,106
+C 13  F 40,150
+# The water's edge: a lip of pale gravel (sage), broken where the moss
+# comes down to the water, around the cove's head.
+C 14  L 0,106 5,106 9,108 15,109 19,108 24,108  L 31,112 36,114 42,115
+      L 76,123 84,123 90,122
+# The gravel point, sage (14) with a paper-cream (5) tip, row by row.
+C 14  L 102,114 105,114  L 100,115 107,115  L 99,116 109,116  L 98,117 110,117
+      L 97,118 112,118  L 96,119 111,119  L 97,120 108,120  L 100,121 104,121
+C 5   L 103,114 104,114  L 102,115 103,115
+# The gravel bank at the outlet, sage, its edge ragged.
+C 14  L 128,115 133,115  L 124,116 138,116  L 121,117 142,117  L 120,118 144,118
+      L 121,119 141,119  L 123,120 136,120  L 127,121 132,121
+# Stones on the shore, half in the water: solid slate (2) bodies, their
+# sunlit tops lost in the water's glare, so no stone rings a bright
+# middle; and one on the bank, its top glacier blue (3) on the gravel.
+C 2   L 53,113 54,113  L 52,114 55,114  L 52,115 55,115
+      L 116,114 117,114  L 115,115 117,115  L 115,116 117,116
+      L 134,116 136,116  L 133,117 137,117
+C 3   L 135,115 136,115
+# Heather in bloom around the bank: pink (6) bells on the moss.
+C 6   L 118,119  L 117,120  L 119,120  L 146,119  L 145,120  L 147,120
+      L 124,122  L 126,122  L 125,121
+# The trail, paper cream (5), one worn ribbon: up from our feet at the
+# lower left, four pixels wide where we stand, then along the shore to the
+# right, narrowing with distance to a thread. Its two edges first, then
+# the fill between them (a seed in each stretch), then its middle line,
+# which closes the pixels where the edges pinch.
+C 5  L 34,167 33,160 32,154 33,148 36,143 42,139 52,135 64,132 78,129
+       92,127 106,125 118,123 126,122
+     L 40,167 38,160 37,154 37,149 39,145 44,141 54,137 66,134 79,131
+       93,128 107,126 118,124 126,122
+     L 34,167 40,167
+C 5  F 36,160 50,137 66,133 85,129 100,127 112,125
+C 5  L 37,160 35,150 38,145 43,141 53,136 65,133 78,130 92,128 106,126
+       118,124 126,122
+# Grass: a few short tufts, sage on the moss.
+C 14  L 10,126 12,126  L 22,140 24,140  L 60,150 62,150  L 76,142 78,142
+      L 88,158 90,158  L 14,156 16,156  L 92,138 94,138  L 52,160 54,160
+      L 136,134 138,134  L 118,150 120,150  L 110,162 112,162  L 128,146 130,146
+Z at_trail_spot 36,150,1,1
+Z at_campsite 128,140,1,1
+Z at_rock 60,132,1,1
+# Look hotspots.
+Z lake 12,88,136,34
+Z far_shore 0,72,160,18
+Z shore 0,122,160,46

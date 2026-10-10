@@ -34,7 +34,13 @@ test("the Sol Duc drive: its legs sum to its minutes, so 6:15 arrives at 8:24:00
   assert.equal(r.trip_time, true);
   const leave = 6 * 3600 + 15 * 60;
   const arrive = leave + r.minutes * 60;
-  assert.equal(`${Math.floor(arrive / 3600)}:${String(Math.floor(arrive / 60) % 60).padStart(2, '0')}:${String(arrive % 60).padStart(2, '0')}`, '8:24:00', 'the doc says about 8:25');
+  assert.equal(`${Math.floor(arrive / 3600)}:${String(Math.floor(arrive / 60) % 60).padStart(2, '0')}:${String(arrive % 60).padStart(2, '0')}`, '8:24:00');
+  // Doubt D2, fixed at the doc: 2.2 and 3.3 say 129 minutes and about 8:24.
+  const doc = readFileSync(join(ROOT, 'design', 'GAME_DESIGN.md'), 'utf8');
+  for (const [from, to] of [['### 2.2 ', '### 2.3 '], ['### 3.3 ', '### 3.4 ']]) {
+    const sec = doc.slice(doc.indexOf(from), doc.indexOf(to));
+    assert.ok(sec.includes('129 minutes') && sec.includes('about 8:24') && !sec.includes('8:25') && !sec.includes('2 hours 10'), `${from.trim()} matches the data`);
+  }
   // The Forks leg is the region data's own number.
   const region = read('content/park/regions/sol_duc_high_divide.json');
   assert.equal(r.legs[1].minutes, region.trailheads.sol_duc_trailhead.drive_min.forks);

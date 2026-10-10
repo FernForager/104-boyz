@@ -1,0 +1,658 @@
+# seven_lakes_basin_rim: the Seven Lakes Basin from the rim, hand-drawn
+# (BUILD_PLAN 4.3, S5 brief B9; GAME_DESIGN 4.3, 11.7). 160x168.
+#
+# We stand at the head of the stone staircase on the rim (node
+# seven_lakes_basin, 4,900 ft), looking north-northeast down into the
+# basin: a bowl of pale glacier-scoured rock and heather benches sprinkled
+# with more lakes than you can count at once, Lunch Lake the biggest, below
+# us and a little right. On the left the bowl's wall falls from its crest
+# to the floor, forest broken by outcrops and cut by gullies; on the right
+# Bogachiel Peak's north face rises behind the floor's far edge, in shadow,
+# its couloirs leaning together to their scree, old snow lying broken in
+# them, one buttress lit, a cumulus standing over its summit. Through the
+# bowl's open far end, the peaks across the Sol Duc valley in haze.
+# Olympus is behind us. The staircase's rough stones drop from our feet
+# over the lip and out of sight; the junction's sign stands on the right.
+# No people but the hiker the composer adds at the trail spot, no legible
+# words on the sign, and not exactly seven lakes.
+#
+# How it reads as a bowl you look down into: the rim we stand on is the
+# darkest and biggest band, and its top edge, the lip, runs across the
+# whole frame, a band of shade under it and blocks of rock standing on it
+# against the floor beyond. Directly above the lip, with nothing between,
+# lies the floor, already far below: benches of pale rock in tiers that
+# step down toward us, each a glacier-blue top over a slate riser, with
+# heather between them and tarns set into them, the riser a tarn's far
+# bank; its firs clumps of spires a few rows tall; going to glacier-blue
+# haze at its far end. The eye jumps from the dark lip to the far floor,
+# and that jump is the drop. The walls rise from the floor on both sides,
+# darker than it: the left wall in forest, Bogachiel's face in slate.
+#
+# Every band's top edge stands apart from what is behind it in value at
+# every hour, not just in hue: the left wall, the far ridge and the feet
+# of the far peaks stand in the horizon's snow band (pink at dusk, glacier
+# blue at blue hour, slate at night); the peaks' tops stand against the
+# open sky in slate and night navy; and Bogachiel rises above it all with
+# a lit edge along its crest. At dusk the floor's rock goes slate and its
+# heather forest green, so it never glows like a lit lawn.
+#
+# Day colors; dusk, blue hour and night are palette remaps. Lit faces are
+# on the right, as the stamps' are. Each shape is drawn the AGI way: its
+# outline, then a fill from a seed inside; the small ones go row by row,
+# so no lone pixel reads as a speck or an eye.
+@ sky
+# A light day sky: a thin slate top, glacier blue for most of it, and the
+# horizon's snow band low behind the far peaks and the left wall. Each
+# seam is two rows of checker, a dither in a small dose; the band's seam
+# steps a row up and down, and it never runs on as one dotted line across
+# the frame: the left wall's crest rises through it at the frame's edge,
+# the two far peaks through its middle, and Bogachiel at the right. Each
+# band is cut by a line that its fill then takes too: ink rows at the
+# top, and for the band's seam a stepped ink line over a stepped
+# night-navy one, so each takes its own fill. The sky stops at row 96,
+# behind the basin's floor.
+C 0  L 0,5 159,5  L 0,7 159,7  L 0,96 159,96
+C 0  L 0,42 26,42 26,43 61,43 61,42 84,42 84,41 103,41 103,42
+        159,42
+C 1  L 0,44 26,44 26,45 61,45 61,44 84,44 84,43 103,43 103,44
+        159,44
+C 2              F 80,2
+D 2 3 checker    F 80,6 80,5
+C 3              F 80,20 80,7
+D 3 4 checker    F 20,43 40,44 70,43 92,42 130,43 0,42
+C 4              F 80,70 0,44 80,96
+Z at_star_floor 0,36,1,1
+@ far
+# The cumulus standing over Bogachiel's summit, drawn first so the peak
+# stands in front of it: a Sierra cloud, flat-shaded, its top a run of
+# rounded puffs, each with its own clean edge, the tallest over the
+# summit; a glacier-blue (3) shade under the puffs, and a flat base, a
+# checker of snow and glacier blue (its two rows go in as paper cream, 5,
+# for the checker to take), standing clear of the crest with sky between
+# them.
+C 4  L 112,20 112,18 113,16 115,14 117,13 119,12 123,12 125,13 126,12
+        127,10 129,9 131,8 135,8 137,9 138,10 139,9 141,8 143,7
+        149,7 151,8 153,8 155,9 157,10 158,12 159,13 159,20 112,20
+C 4  F 135,14
+C 3  L 113,18 113,17 116,16 120,17 124,16 127,15 131,16 135,15 139,14
+        143,15 147,14 151,14 155,15 158,16 159,16
+C 3  L 112,18 159,18
+C 3  F 115,17 123,17
+C 5  L 112,19 159,19  L 112,20 159,20
+D 4 3 checker  F 112,20
+# The mountains beyond the bowl's open end, across the Sol Duc valley,
+# in haze: a far ridge in glacier blue (3), low in the snow band, showing
+# only between the nearer peaks and Bogachiel; and in front of it two
+# peaks in slate (2), each with its east face in night-navy (1) shade,
+# rising out of the band and through its seam into the open sky, so the
+# seam is broken where they cross it (never one dotted line across the
+# frame). Above the band each peak keeps old snow (4) on its lit face, and
+# its shaded face's arete catches the light in a line of snow, as
+# Olympus's do, so neither stands on the open sky in slate or navy alone
+# (at night those are ink against night navy, too close to tell apart;
+# snow goes to slate). The peaks come down behind the left wall's crest
+# and, in a low slate foot, behind the floor's far edge, short of
+# Bogachiel's ridge, so the face's edge stands against the far ridge and
+# the band and never against the peaks' slate, and the floor's haze never
+# meets the far ridge's glacier blue.
+C 3  L 92,96 92,52 96,50 100,47 104,46 107,46 110,48 114,50 118,53
+        122,54 126,55 126,96 92,96
+C 3  F 110,60
+C 2  L 40,62 40,60 44,56 48,53 52,50 56,46 60,42 63,39 65,37 66,36
+        67,35 68,35 70,36 72,38 75,41 78,43 81,43 84,42 86,40 88,39
+        89,39 91,41 93,44 95,48 97,52 99,56 101,60 104,62 107,64 109,65
+        109,96 40,96 40,62
+C 2  F 60,70 96,60 108,70
+C 1  L 67,35 66,36 65,37 63,39 60,42 56,46 52,50 48,53 51,55 54,56
+        57,56 59,53 61,49 63,45 65,41 66,38 67,35
+C 1  F 60,48
+C 1  L 88,39 86,40 84,42 81,43 83,46 85,47 86,44 87,42 88,39
+C 1  F 85,44
+C 4  L 67,35 68,35  L 66,36 70,36  L 65,37  L 67,37 71,37  L 64,38
+     L 68,38 72,38  L 63,39  L 69,39 70,39  L 72,39 73,39  L 62,40
+     L 71,40 74,40  L 61,41  L 73,41 75,41  L 60,42  L 76,42 77,42
+     L 88,39 89,39  L 86,40 87,40  L 88,40 90,40  L 85,41  L 89,41 91,41
+     L 84,42  L 90,42 92,42
+@ mid
+# The bowl. First its walls, each a closed shape: the left wall in
+# forest (12), from its crest down to its foot on the floor, a wedge that
+# narrows toward the bowl's open end.
+C 12  L 0,39 4,41 8,43 12,45 16,47 22,50 28,54 34,57 40,61
+         48,65 44,68 40,70 36,73 32,76 28,79 24,82 20,85 16,88
+         12,92 8,95 4,98 0,101 0,39
+C 12  F 10,70
+# Bogachiel's north face on the right, in shadow: slate (2) from its
+# ridge down to its foot along the floor's far edge.
+C 2  L 110,69 111,65 112,62 113,59 114,57 115,54 116,53 117,54 118,52
+        119,50 121,48 123,46 125,46 126,44 128,42 130,41 131,39 133,37
+        135,35 137,33 138,33 139,31 141,29 143,28 145,26 147,24 149,24
+        151,25 153,26 154,28 156,28 158,29 159,30 159,79 150,77 140,75
+        130,73 120,71 110,69
+C 2  F 145,60
+# The floor between them, heather, moss (13): its far edge, the bowl's
+# open end, a soft line across; then the fill. Its rock and its tarns go
+# on it below, and its far end goes pale in haze.
+C 13  L 48,65 54,64 62,65 70,64 78,65 86,64 94,65 102,67 110,69
+C 13  L 0,132 159,132
+C 13  F 80,100
+# Its far end in glacier-blue (3) haze, down to a stepped edge, then two
+# rows of checker into the heather (the seam's lower edge a stepped ink
+# line that goes back to moss); the far benches below rise out of it.
+C 3  L 40,71 52,71 52,72 63,72 63,73 70,73 70,72 77,72 77,71
+       88,71 88,72 94,72 94,71 101,71 101,73 108,73 108,74 114,74
+       114,75 121,75 121,74 126,74 126,76 133,76 133,77 139,77 139,76
+       144,76 144,78 151,78 151,79 159,79
+C 3  F 80,67
+C 0  L 36,74 40,74 52,74 52,75 63,75 63,76 70,76 70,75 77,75
+       77,74 88,74 88,75 94,75 94,74 101,74 101,76 108,76 108,77
+       114,77 114,78 121,78 121,77 126,77 126,79 133,79 133,80 139,80
+       139,79 144,79 144,81 151,81 151,82 159,82
+D 13 3 checker  F 46,72 66,74 82,72 97,72 111,75 123,75 136,78 147,79
+C 13  F 36,74
+# The left wall's cliffs, slate (2) rock in the forest: two thick
+# outcrops high under the crest, each at its own angle, lit in glacier
+# blue (3) on top and to the right, shaded night navy (1) to the left and
+# under, a spruce (11) shadow on the heather below; under them short
+# ledges of different lengths, apart, thinning toward the foot; then two
+# gullies in spruce down the fall line, cutting across them, so no two
+# bands run on together.
+C 2  L 4,45 5,45  L 2,46 8,46  L 1,47 2,47  L 4,47 10,47
+     L 1,48  L 4,48 10,48  L 5,49 9,49  L 20,53
+     L 19,54 22,54  L 11,55  L 19,55  L 21,55 25,55
+     L 9,56 12,56  L 19,56  L 22,56 27,56  L 8,57 13,57
+     L 22,57 28,57  L 24,58 28,58  L 34,60 36,60  L 33,61
+     L 35,61 39,61  L 13,62 14,62  L 36,62 38,62  L 12,63 16,63
+     L 30,64 31,64  L 27,65 33,65  L 5,67  L 4,68 7,68
+     L 17,70 19,70  L 15,71 20,71  L 31,71 32,71  L 30,72 32,72
+     L 7,77 8,77  L 6,78 8,78  L 20,79 21,79  L 3,85
+     L 2,86 3,86  L 12,88
+C 1  L 3,47  L 2,48 3,48  L 2,49 4,49  L 10,49
+     L 20,55  L 20,56 21,56  L 20,57 21,57  L 22,58 23,58
+     L 34,61  L 34,62 35,62
+C 3  L 6,44 7,44  L 6,45 10,45  L 9,46 10,46  L 20,52 21,52
+     L 21,53 23,53  L 23,54 26,54  L 12,55 13,55  L 26,55 27,55
+     L 13,56  L 28,56  L 35,59 37,59  L 37,60 38,60
+     L 15,62 16,62  L 32,64 33,64  L 6,67 7,67  L 20,70
+     L 33,71  L 9,77  L 22,79  L 4,85
+     L 13,88
+C 11  L 3,50 9,50  L 9,58 12,58  L 24,59 28,59  L 35,63 37,63
+      L 13,64 15,64  L 28,66 32,66  L 5,69 6,69  L 16,72 19,72
+      L 31,73  L 21,80
+# The gullies.
+C 11  L 10,52  L 10,53  L 10,54  L 9,55
+      L 9,56  L 9,57  L 9,58  L 9,59
+      L 9,60  L 9,61 10,61  L 26,61  L 9,62 10,62
+      L 26,62  L 9,63 10,63  L 26,63  L 9,64 10,64
+      L 25,64  L 9,65 10,65  L 25,65  L 8,66 9,66
+      L 25,66  L 8,67 9,67  L 25,67  L 8,68 9,68
+      L 24,68  L 8,69 9,69  L 24,69 25,69  L 7,70 8,70
+      L 24,70 25,70  L 7,71 8,71  L 23,71 24,71  L 7,72 8,72
+      L 23,72 24,72  L 7,73 8,73  L 23,73 24,73  L 7,74 8,74
+      L 22,74 23,74  L 6,75 7,75  L 22,75 23,75  L 6,76 7,76
+      L 22,76 23,76  L 6,77 8,77  L 21,77 22,77  L 6,78 8,78
+      L 21,78 22,78  L 5,79 7,79  L 20,79 21,79  L 5,80 7,80
+      L 20,80 21,80  L 5,81 7,81  L 19,81 20,81  L 5,82 7,82
+      L 19,82 21,82  L 5,83 7,83  L 18,83 20,83  L 4,84 6,84
+      L 18,84 20,84  L 4,85 6,85  L 17,85 19,85  L 4,86 7,86
+      L 17,86 19,86  L 4,87 7,87  L 16,87 18,87  L 3,88 6,88
+      L 16,88  L 3,89 6,89  L 15,89  L 3,90 6,90
+      L 3,91 6,91  L 2,92 5,92  L 2,93 5,93  L 2,94 5,94
+      L 2,95 6,95  L 1,96 5,96  L 1,97 5,97  L 1,98 4,98
+# Its couloirs, night navy (1), down the fall lines of a hollow face:
+# from notches in the ridge they lean together, dog-leg once each, and
+# meet in pairs on their scree mouths at the foot, a crack at the top
+# that widens as it falls; each its own length. Between them the
+# buttresses are wedges, one with its sunward plane lit in glacier blue
+# (3) from the summit down.
+C 1  L 144,27  L 144,28  L 144,29  L 156,29
+     L 144,30  L 156,30  L 145,31  L 156,31
+     L 145,32  L 156,32  L 145,33  L 155,33
+     L 145,34  L 155,34  L 145,35  L 155,35
+     L 144,36  L 155,36  L 144,37  L 155,37
+     L 144,38  L 155,38  L 132,39  L 144,39
+     L 156,39  L 132,40  L 143,40  L 156,40
+     L 132,41  L 143,41  L 156,41  L 131,42
+     L 143,42  L 156,42  L 131,43  L 143,43
+     L 157,43  L 131,44  L 143,44  L 157,44
+     L 131,45  L 142,45 143,45  L 157,45  L 132,46
+     L 142,46 143,46  L 157,46  L 132,47  L 142,47 143,47
+     L 156,47  L 133,48 134,48  L 142,48 143,48  L 156,48
+     L 133,49 134,49  L 142,49 143,49  L 156,49 157,49  L 134,50 135,50
+     L 142,50 143,50  L 156,50 157,50  L 134,51 135,51  L 141,51 142,51
+     L 155,51 156,51  L 134,52 135,52  L 141,52 142,52  L 155,52 156,52
+     L 118,53  L 134,53 135,53  L 141,53 142,53  L 155,53 156,53
+     L 118,54  L 134,54 135,54  L 141,54 142,54  L 155,54 156,54
+     L 118,55  L 135,55 136,55  L 141,55 142,55  L 155,55 156,55
+     L 119,56  L 135,56 136,56  L 140,56 141,56  L 154,56 155,56
+     L 119,57  L 135,57 136,57  L 140,57 141,57  L 154,57 155,57
+     L 119,58  L 135,58 136,58  L 140,58 141,58  L 154,58 155,58
+     L 118,59  L 135,59 136,59  L 140,59 141,59  L 154,59 155,59
+     L 118,60 119,60  L 135,60 136,60  L 139,60 140,60  L 154,60 155,60
+     L 117,61 118,61  L 135,61 136,61  L 139,61 140,61  L 153,61 154,61
+     L 117,62 118,62  L 136,62 137,62  L 139,62 140,62  L 153,62 154,62
+     L 118,63 119,63  L 136,63 141,63  L 153,63 154,63  L 118,64 119,64
+     L 136,64 140,64  L 153,64 154,64  L 119,65 120,65  L 136,65 140,65
+     L 153,65 154,65  L 119,66 120,66  L 136,66 140,66  L 153,66 154,66
+     L 120,67 121,67  L 136,67 138,67  L 152,67 154,67  L 120,68 121,68
+     L 136,68 138,68  L 152,68 154,68  L 121,69 122,69  L 137,69 139,69
+     L 152,69 154,69  L 121,70 123,70  L 137,70 139,70  L 152,70 154,70
+     L 121,71 123,71  L 137,71 140,71  L 152,71 154,71  L 137,72 140,72
+     L 152,72 154,72  L 138,73 141,73  L 152,73 154,73  L 138,74 141,74
+     L 151,74 154,74  L 138,75 141,75  L 151,75 154,75  L 151,76 154,76
+     L 151,77 154,77
+C 3  L 151,30 152,30  L 151,31 152,31  L 150,32 151,32  L 150,33 151,33
+     L 150,34 151,34  L 150,35 151,35  L 150,36 152,36  L 149,37 151,37
+     L 149,38 151,38  L 149,39 151,39  L 148,40 150,40  L 148,41 150,41
+     L 148,42 150,42  L 148,43 150,43  L 148,44 150,44  L 147,45 149,45
+     L 147,46 149,46  L 147,47 149,47  L 146,48 148,48  L 146,49 148,49
+     L 146,50 148,50  L 146,51 147,51  L 146,52 147,52  L 145,53 146,53
+     L 145,54 146,54  L 145,55 146,55  L 144,56 145,56  L 144,57
+     L 144,58
+# Old snow lying broken in the couloirs, in their shade glacier blue
+# (3): a few irregular pieces, each against one wall, larger low down; and
+# a snowfield in the sun on a ledge under the summit, snow (4).
+C 3  L 144,37  L 143,38 144,38  L 133,50  L 133,51 134,51
+     L 154,60 155,60  L 134,61 135,61  L 153,61 155,61  L 134,62 136,62
+     L 153,62 155,62  L 118,63  L 135,63 136,63  L 153,63 154,63
+     L 118,64 119,64  L 135,64 137,64  L 152,64 154,64  L 119,65 120,65
+     L 135,65 137,65  L 152,65 153,65  L 119,66 120,66  L 136,66 137,66
+C 4  L 150,29 152,29  L 148,30 152,30  L 146,31 150,31
+# The crest catches the light where it meets the sky: a line of lit snow
+# (4) along the arete, as on the cover's massif, broken low down, so the
+# face's top edge never sits on the sky alone (at night ink against night
+# navy, too close to tell apart).
+C 4  L 119,50 121,48  L 128,42 130,41  L 133,37 135,35 137,33
+     L 139,31 141,29 143,28 145,26 147,24 149,24 151,25 153,26
+# The fans of broken rock at the couloirs' mouths, on the floor's far
+# edge: slate (2) wedges of scree with pale glacier-blue (3) stones.
+C 2  L 118,72 122,72  L 117,73 126,73  L 135,75 137,75  L 133,76 142,76
+     L 132,77 146,77  L 147,78 152,78  L 145,79 156,79
+C 3  L 118,73 119,73  L 134,76 135,76  L 141,77 142,77  L 149,78 150,78
+     L 155,79 156,79
+# The floor's far tarns in the haze: slivers of slate (2), each its own
+# length, two rows deep where they are widest.
+C 2  L 58,68 64,68  L 56,69 66,69  L 80,69 92,69  L 78,70 90,70
+     L 99,70 103,70  L 98,71 101,71
+# The benches: pale rock in tiers that step down toward us, bigger as
+# they come nearer, each a glacier-blue (3) top with ragged ends, heather
+# (moss, 13) on its back edge, over a slate (2) riser on its near face,
+# jointed in night navy (1), its foot uneven, its sunward end lit; between
+# them the heather, with forest (12) shadow at the risers' feet. The far
+# tier first, two outcrops rising out of the haze.
+C 3  L 46,72 52,72  L 44,73 54,73  L 44,74 55,74
+C 2  L 43,74
+C 2  L 43,75 53,75  L 45,76 53,76
+C 3  L 54,75 55,75
+C 1  L 49,75  L 49,76
+C 12  L 43,76 44,76  L 54,76  L 46,77 48,77  L 51,77
+C 3  L 129,80 135,80  L 127,81 137,81  L 127,82 138,82
+C 2  L 126,82
+C 2  L 126,83 136,83  L 129,84 136,84
+C 3  L 137,83 138,83
+C 1  L 132,83  L 132,84
+C 12  L 126,84  L 128,84  L 129,85 130,85  L 133,85 134,85
+      L 136,85
+# Lunch Lake, the biggest and deepest, teal (15), set into the next
+# tier: two benches step up to its far shore, and their riser drops into
+# the water two and three rows deep, its far bank; its near bank broken
+# stones and moss, with a rocky point; the lake's shimmer (16).
+C 15  L 63,84 116,84  L 62,85 117,85  L 61,86 118,86  L 61,87 118,87
+      L 62,88 118,88  L 63,89 117,89  L 64,90 86,90  L 95,90 116,90
+      L 66,91 85,91  L 97,91 115,91  L 68,92 84,92  L 99,92 113,92
+      L 71,93 82,93  L 101,93 110,93  L 75,94 80,94  L 104,94 107,94
+C 3  L 103,78 107,78  L 86,79 97,79  L 101,79 110,79  L 69,80 82,80
+     L 86,80 111,80  L 61,81 82,81  L 84,81 115,81  L 60,82 83,82
+     L 85,82 117,82  L 60,83 118,83
+C 2  L 84,80 85,80  L 83,81  L 59,82  L 84,82
+     L 58,83 59,83
+C 13  L 63,80 68,80
+C 2  L 58,83 60,83  L 76,83 79,83  L 96,83 104,83  L 58,84 116,84
+     L 61,85 116,85  L 67,86 75,86  L 80,86 90,86  L 96,86 104,86
+     L 111,86 116,86
+C 3  L 117,84 118,84
+C 1  L 70,84  L 84,84  L 99,84  L 112,84
+     L 70,85  L 84,85  L 99,85  L 112,85
+     L 84,86
+C 12  L 58,85 60,85  L 118,85
+C 13  L 66,80 69,80  L 95,81 99,81  L 96,82 98,82
+C 3  L 89,89 90,89  L 87,90 90,90  L 86,91 88,91  L 85,92
+C 2  L 91,90 92,90  L 89,91 93,91  L 86,92 94,92
+C 13  L 60,87  L 119,87  L 60,88  L 119,88
+      L 85,89  L 88,89  L 91,89  L 93,89 94,89
+      L 119,89  L 63,90  L 85,90  L 88,90
+      L 91,90  L 93,90 94,90  L 117,90  L 63,91
+      L 65,91  L 116,91 117,91  L 65,92 66,92  L 97,92 98,92
+      L 116,92  L 66,93  L 69,93  L 84,93
+      L 97,93 98,93  L 112,93 113,93  L 69,94  L 72,94
+      L 74,94  L 82,94  L 84,94  L 101,94
+      L 103,94  L 110,94  L 112,94 113,94  L 72,95
+      L 74,95 75,95  L 78,95 79,95  L 82,95  L 101,95
+      L 103,95 104,95  L 107,95  L 110,95  L 75,96
+      L 78,96 79,96  L 104,96  L 107,96
+C 14  L 61,88  L 62,89  L 86,89 87,89  L 90,89
+      L 118,89  L 95,91 96,91  L 67,92  L 114,92 115,92
+      L 68,93  L 99,93 100,93  L 71,94  L 81,94
+      L 109,94  L 76,95 77,95  L 80,95  L 105,95 106,95
+C 2  L 89,89  L 89,90  L 92,90  L 64,92
+     L 70,93  L 70,94  L 83,94  L 108,94
+     L 111,94  L 73,95  L 102,95  L 108,95
+C 3  L 92,89  L 64,91  L 83,93  L 111,93
+     L 73,94  L 102,94
+C 16  L 70,87 72,87  L 99,87 102,87  L 108,87 110,87  L 78,88 80,88
+      L 68,89 69,89  L 104,90 106,90  L 75,91 77,91
+# A round tarn under the left wall, teal, held under its own bench's
+# riser, the shallows on its near side glacier blue.
+C 15  L 21,89 29,89  L 19,90 31,90  L 18,91 32,91  L 17,92 33,92
+      L 17,93 33,93  L 18,94 32,94  L 19,95 31,95  L 21,96 29,96
+      L 24,97 26,97
+C 3  L 22,95 26,95  L 23,96 28,96  L 24,97 26,97
+C 3  L 28,84 36,84  L 27,85 38,85  L 41,85 44,85  L 21,86 46,86
+     L 20,87 48,87  L 18,88 48,88
+C 2  L 20,86  L 19,87  L 17,88
+C 13  L 23,85 26,85
+C 2  L 17,88 18,88  L 33,88 38,88  L 16,89 46,89  L 19,90 43,90
+     L 33,91 38,91
+C 3  L 47,89 48,89
+C 1  L 24,89  L 38,89  L 24,90  L 38,90
+C 12  L 16,90  L 18,90  L 45,90 46,90  L 48,90
+      L 39,91  L 41,91 43,91  L 35,92 36,92  L 38,92
+C 16  L 21,92 23,92  L 28,93 29,93
+C 13  L 16,93  L 34,93  L 16,94  L 34,94
+      L 32,95  L 20,96  L 31,96 32,96  L 20,97 21,97
+      L 31,97  L 21,98  L 25,98  L 25,99
+C 14  L 17,94  L 33,94  L 18,95  L 22,97 23,97
+      L 27,97 29,97  L 26,98
+C 2  L 19,97  L 30,97  L 24,98  L 24,99
+C 3  L 19,96  L 30,96
+# A long narrow tarn at the right, teal, under the right-hand bench.
+C 15  L 126,94 154,94  L 124,95 156,95  L 125,96 155,96  L 129,97 151,97
+      L 134,98 146,98
+C 3  L 131,88 138,88  L 145,88 149,88  L 129,89 153,89  L 124,90 159,90
+     L 123,91 159,91  L 121,92 159,92
+C 2  L 123,90  L 121,91 122,91  L 120,92
+C 13  L 125,89 128,89
+C 2  L 120,92 122,92  L 139,92 142,92  L 157,92 159,92  L 120,93 159,93
+     L 123,94 159,94  L 129,95 138,95  L 143,95 151,95  L 157,95 159,95
+C 1  L 131,93  L 146,93  L 131,94  L 146,94
+     L 146,95
+C 12  L 120,94 121,94  L 123,95  L 157,96  L 159,96
+C 13  L 139,90 143,90  L 140,91 142,91
+C 16  L 145,95 147,95  L 132,96 134,96
+C 13  L 123,96  L 157,96  L 126,97 127,97  L 152,97 153,97
+      L 126,98 127,98  L 129,98  L 132,98 133,98  L 148,98 149,98
+      L 152,98 153,98  L 129,99  L 132,99 133,99  L 136,99 137,99
+      L 142,99 143,99  L 145,99  L 148,99 149,99  L 136,100 137,100
+      L 142,100 143,100  L 145,100
+C 14  L 124,96  L 156,96  L 125,97  L 154,97 155,97
+      L 130,98 131,98  L 147,98  L 150,98  L 134,99
+      L 138,99 141,99  L 146,99
+C 2  L 128,98  L 151,98  L 135,99  L 151,99
+     L 135,100  L 144,100
+C 3  L 128,97  L 144,99
+# The nearest tier, just beyond our lip, the biggest: two benches with
+# the trail going down between them.
+C 3  L 44,100 55,100  L 44,101 65,101  L 69,101 75,101  L 37,102 65,102
+     L 67,102 77,102  L 36,103 78,103  L 36,104 79,104
+C 2  L 36,102  L 66,102  L 35,103  L 34,104 35,104
+C 13  L 39,101 43,101
+C 2  L 34,104 38,104  L 47,104 52,104  L 71,104 79,104  L 34,105 77,105
+     L 34,106 79,106  L 39,107 46,107  L 53,107 62,107  L 71,107 79,107
+C 3  L 78,105 79,105
+C 1  L 47,105  L 66,105  L 72,105  L 47,106
+     L 66,106  L 72,106  L 47,107  L 72,107
+C 12  L 34,107 36,107  L 38,107  L 47,107 50,107  L 52,107
+      L 63,107 64,107  L 66,107 67,107  L 69,107 70,107  L 39,108
+      L 41,108 44,108  L 53,108  L 55,108 58,108  L 61,108 62,108
+      L 71,108 72,108  L 75,108 78,108
+C 13  L 52,102 56,102  L 53,103 55,103
+C 3  L 95,101 102,101  L 94,102 109,102  L 89,103 112,103  L 88,104 113,104
+C 2  L 90,102  L 88,103  L 87,104
+C 13  L 91,102 93,102
+C 2  L 93,104 99,104  L 109,104 113,104  L 87,105 111,105  L 87,106 113,106
+     L 87,107 92,107  L 100,107 108,107
+C 3  L 112,105 113,105
+C 1  L 96,105  L 107,105  L 96,106  L 107,106
+     L 107,107
+C 12  L 94,107 96,107  L 98,107 99,107  L 110,107 112,107  L 87,108 88,108
+      L 90,108 92,108  L 100,108  L 102,108 104,108  L 106,108 108,108
+# Heather in bloom on the floor: small drifts, pink (6) in the moss, and
+# sunlit sage gravel.
+C 14  L 100,98 104,98  L 52,99 57,99  L 3,100 8,100  L 3,101 6,101
+      L 112,110 118,110  L 114,111 117,111  L 30,112 35,112
+C 6  L 111,81  L 113,81  L 51,93  L 53,93
+     L 50,94  L 52,94  L 54,94  L 141,101
+     L 143,101  L 118,102  L 120,102  L 122,102
+     L 140,102  L 142,102  L 144,102  L 117,103
+     L 119,103  L 121,103  L 123,103  L 6,104
+     L 8,104  L 10,104  L 118,104  L 120,104
+     L 5,105  L 7,105  L 9,105  L 11,105
+     L 4,106  L 6,106  L 8,106  L 10,106
+     L 68,110  L 70,110  L 72,110  L 67,111
+     L 69,111  L 71,111  L 68,112  L 70,112
+# Rocks on the floor: glacier-blue (3) tops over slate (2).
+C 3  L 31,82 32,82  L 57,98 58,98  L 113,100 114,100  L 150,102 151,102
+     L 22,108 23,108
+C 2  L 30,83 33,83  L 56,99 59,99  L 112,101 115,101  L 149,103 152,103
+     L 21,109 24,109
+# The trail far below, a paper-cream (5) thread from behind our lip
+# down between the near benches to Lunch Lake's point, not joined to the
+# staircase.
+C 5  L 84,116 84,113 83,111 83,108 84,106 85,103 87,100 88,97 89,95
+# Firs on the floor, clumps of spires a few rows tall, on the meadow
+# between the benches and along the tarns' shores.
+T subalpine_fir_floor_b 62,78
+T subalpine_fir_floor_a 82,79
+T subalpine_fir_floor_b 72,80
+T subalpine_fir_floor_a 150,89
+T subalpine_fir_floor_b 54,87
+T subalpine_fir_floor_a 122,87
+T subalpine_fir_floor_b 148,87
+T subalpine_fir_floor_a 34,80
+T subalpine_fir_floor_b 42,99
+T subalpine_fir_floor_a 108,99
+T subalpine_fir_floor_b 130,104
+T subalpine_fir_floor_a 12,103
+T subalpine_fir_floor_b 154,103
+@ near
+# The rim we stand on, across the bottom: the darkest and biggest band.
+# Heather in shade, forest (12), its top edge the lip, lowest where the
+# staircase goes over.
+C 12  L 0,112 8,112 12,114 20,115 28,117 36,118 44,118 52,119 58,120
+         66,120 72,118 80,117 88,117 96,115 104,114 112,113 120,112 128,111
+         136,110 144,109 152,108 159,107 159,167 0,167 0,112
+C 12  F 80,150
+# The lip: a band of spruce (11) shade just under its edge, where the rim
+# rolls over; and blocks of rock along it, slate (2) bodies with
+# glacier-blue (3) tops in the sun and ink (0) undersides, standing up
+# against the floor far below.
+C 11  L 141,110 148,110  L 133,111 148,111  L 125,112 144,112  L 0,113 8,113
+      L 117,113 124,113  L 127,113 133,113  L 140,113  L 0,114 10,114
+      L 109,114 121,114  L 127,114 132,114  L 5,115 15,115  L 101,115 117,115
+      L 9,116 10,116  L 15,116 21,116  L 95,116 108,116  L 112,116 116,116
+      L 16,117 25,117  L 91,117 95,117  L 100,117 106,117  L 22,118 31,118
+      L 77,118 94,118  L 100,118  L 22,119 47,119  L 71,119 90,119
+      L 26,120  L 32,120  L 36,120 54,120  L 68,120 71,120
+      L 85,120 89,120  L 36,121 43,121  L 48,121  L 55,121 71,121
+      L 55,122 70,122  L 55,123 61,123  L 66,123 67,123
+C 3  L 2,106 4,106  L 1,107 6,107  L 3,108 4,108
+C 2  L 7,107 8,107  L 0,108 2,108  L 5,108 9,108  L 0,109 9,109
+     L 0,110 9,110
+C 0  L 0,111 9,111
+C 3  L 40,113 43,113  L 40,114 43,114
+C 2  L 38,114 39,114  L 44,114 45,114  L 37,115 45,115  L 37,116 45,116
+C 0  L 38,117 45,117
+C 3  L 98,109 101,109  L 98,110 103,110
+C 2  L 96,110 97,110  L 104,110  L 96,111 104,111  L 96,112 104,112
+C 0  L 96,113 104,113
+C 3  L 126,106 128,106  L 125,107 129,107  L 126,108 128,108
+C 2  L 124,107  L 130,107  L 123,108 125,108  L 129,108 130,108
+     L 123,109 131,109
+C 0  L 123,110 130,110
+C 3  L 147,102 148,102  L 146,103 150,103  L 148,104 151,104
+C 2  L 151,103  L 145,104 147,104  L 152,104 154,104  L 145,105 154,105
+     L 145,106 154,106
+C 0  L 146,107 154,107
+# Rocks of the rim, big and near, either side of the staircase: angular
+# blocks lit from the upper right, each a slate (2) body with its top and
+# its right side glacier blue (3) in the sun, split by a night-navy (1)
+# crack, an ink (0) line of shadow at its foot.
+C 2  L 0,158 0,143 3,140 8,138 13,139 17,141 20,144 21,150 19,155 14,158
+       0,158
+C 2  F 8,150
+C 3  L 3,140 8,138 13,139 17,141 13,143 7,143 3,140
+C 3  F 9,141
+C 3  L 17,141 20,144 21,150 19,153 18,148 16,144 17,141
+C 3  F 18,146
+C 1  L 9,144 10,149 9,154
+C 0  L 0,159 14,159 20,156 22,152
+C 2  L 86,146 87,141 90,138 94,136 98,135 102,136 105,138 108,137 110,140
+       110,146 106,149 98,150 90,149 86,146
+C 2  F 98,143
+C 3  L 94,136 98,135 102,136 105,138 101,139 97,139 94,136
+C 3  F 99,137
+C 3  L 105,138 108,137 110,140 110,145 107,143 106,141 105,138
+C 3  F 107,140
+C 1  L 97,140 98,144 97,148
+C 0  L 86,147 90,150 98,151 106,150 111,147
+C 2  L 130,163 130,152 134,148 140,146 146,147 150,149 154,152 156,158
+       153,163 146,165 130,163
+C 2  F 142,156
+C 3  L 134,148 140,146 146,147 150,149 144,151 137,151 134,148
+C 3  F 141,149
+C 3  L 150,149 154,152 156,158 154,161 153,156 151,152 150,149
+C 3  F 153,155
+C 1  L 141,152 142,157 141,161
+C 0  L 130,164 146,166 154,164 157,160
+# Heather on the rim: moss (13) mats on the forest, their edges ragged,
+# more of them lower down where the sun reaches, and in them small clumps
+# in bloom, pink (6) on the moss in a checker.
+C 13  L 5,124 8,124  L 3,125 11,125  L 2,126 13,126  L 4,127 7,127
+      L 9,127 11,127
+C 13  L 26,136 30,136  L 24,137 33,137  L 25,138 28,138  L 31,138 32,138
+C 13  L 115,118 119,118  L 113,119 121,119  L 112,120 118,120
+C 13  L 118,135 125,135  L 115,136 127,136  L 114,137 126,137  L 116,138 121,138
+      L 123,138 124,138
+C 13  L 73,128 77,128  L 72,129 79,129
+C 13  L 63,156 69,156  L 60,157 72,157  L 58,158 74,158  L 58,159 75,159
+      L 59,160 74,160  L 61,161 66,161  L 69,161 72,161
+C 13  L 21,160 27,160  L 18,161 30,161  L 16,162 31,162  L 16,163 31,163
+      L 16,164 30,164
+C 13  L 0,162 4,162  L 0,163 5,163  L 0,164 6,164  L 0,165 6,165
+      L 0,166 5,166
+C 13  L 110,160 119,160  L 108,161 121,161  L 108,162 121,162  L 109,163 120,163
+C 13  L 142,118 146,118  L 140,119 147,119  L 141,120 144,120
+C 13  L 91,120 94,120  L 90,121 96,121
+C 6  L 6,126  L 8,126  L 5,127  L 7,127
+     L 9,127  L 27,137  L 29,137  L 117,137
+     L 119,137  L 121,137  L 26,138  L 28,138
+     L 30,138  L 116,138  L 118,138  L 120,138
+     L 122,138  L 64,158  L 66,158  L 68,158
+     L 63,159  L 65,159  L 67,159  L 69,159
+     L 71,159  L 22,162  L 24,162  L 26,162
+     L 64,162  L 66,162  L 114,162  L 116,162
+     L 118,162  L 21,163  L 23,163  L 25,163
+     L 27,163  L 113,163  L 115,163  L 117,163
+     L 119,163  L 4,164  L 3,165  L 5,165
+# Heather in bloom: one drift, ragged at its edge, where the pink (6)
+# bells crowd a moss (13) mat: a 50% heart inside a 25% speckle, each
+# inside its own irregular ink wall that then turns back to moss (the
+# meadow base's method), so the drift has no hard edge and no shape a
+# hand would cut; elsewhere clumps (the heather stamps, below).
+C 0   L 104,156 106,155 109,155 111,154 114,155 116,156 114,157 111,158
+        107,158 105,157 104,156
+D 13 6 checker  F 110,156
+C 0   L 97,158 99,156 101,155 103,153 106,153 108,152 111,152 113,153
+        116,153 119,154 121,156 123,157 120,158 117,159 115,161 111,160
+        108,161 105,160 102,160 99,160 97,158
+D 13 6 checker25  F 100,158 119,156 110,153 110,159
+C 13  L 104,156 106,155 109,155 111,154 114,155 116,156 114,157 111,158
+        107,158 105,157 104,156
+C 13  L 97,158 99,156 101,155 103,153 106,153 108,152 111,152 113,153
+        116,153 119,154 121,156 123,157 120,158 117,159 115,161 111,160
+        108,161 105,160 102,160 99,160 97,158
+# The stone staircase: rough flags dropping away from our feet to the
+# lip, each a stone of slate (2) or glacier blue (3), its sunward end lit,
+# its tread worn paper cream (5) only in the middle, its ends uneven, set
+# a pixel or two to one side and then the other, with an ink (0) edge on
+# its far side where the next stone sits lower. Each is narrower, thinner
+# and closer to the next than the one below it, as stairs going down and
+# away are, and the last ones go under the lip's rock: the staircase drops
+# out of sight. Drawn stone by stone, from our feet.
+C 0  L 46,157 56,157
+C 2  L 45,158 47,158  L 55,158  L 44,159 48,159  L 55,159 56,159
+     L 44,160 50,160  L 54,160 55,160  L 45,161 55,161  L 47,162 54,162
+C 5  L 48,158 54,158  L 49,159 54,159  L 51,160 53,160
+C 3  L 56,158 57,158  L 57,159 58,159  L 56,160 57,160  L 56,161 57,161
+     L 55,162
+C 0  L 49,150 57,150
+C 2  L 48,151  L 47,152 48,152  L 48,153 49,153  L 50,154 51,154
+C 3  L 49,151 50,151  L 57,151 60,151  L 49,152 51,152  L 57,152 60,152
+     L 50,153 60,153  L 52,154 57,154
+C 5  L 51,151 56,151  L 52,152 56,152
+C 0  L 50,144 56,144
+C 2  L 49,145 51,145  L 57,145  L 48,146 51,146  L 56,146 57,146
+     L 49,147 57,147  L 50,148 57,148
+C 5  L 52,145 56,145  L 52,146 55,146
+C 3  L 58,145  L 58,146 59,146  L 58,147
+C 0  L 54,139 61,139
+C 2  L 53,140  L 53,141 54,141  L 54,142 55,142
+C 3  L 54,140 55,140  L 60,140 62,140  L 55,141 56,141  L 60,141 63,141
+     L 56,142 62,142
+C 5  L 56,140 59,140  L 57,141 59,141
+C 0  L 54,134 59,134
+C 2  L 53,135 54,135  L 59,135  L 52,136 55,136  L 58,136 59,136
+     L 53,137 59,137
+C 5  L 55,135 58,135  L 56,136 57,136
+C 3  L 60,135  L 60,136 61,136  L 60,137
+C 0  L 58,130 62,130
+C 2  L 57,131  L 58,132 59,132
+C 3  L 58,131  L 62,131 64,131  L 60,132 64,132
+C 5  L 59,131 61,131
+C 0  L 57,126 60,126
+C 2  L 56,127 57,127  L 61,127  L 57,128 60,128
+C 5  L 58,127 60,127
+C 3  L 62,127  L 61,128
+C 0  L 60,123 62,123
+C 2  L 59,124  L 60,125
+C 3  L 60,124  L 63,124 64,124  L 61,125 63,125
+C 5  L 61,124 62,124
+C 0  L 60,120 63,120
+C 2  L 60,121 61,121  L 63,121
+C 5  L 62,121
+C 3  L 64,121
+# The lip's block over the top steps, drawn again over them.
+C 3  L 63,114 67,114  L 63,115 68,115
+C 2  L 61,115 62,115  L 69,115  L 60,116 70,116  L 60,117 70,117
+     L 60,118 70,118
+C 0  L 60,119 70,119
+# Wind-flattened firs on the lip, rocks lying in the heather, and heather
+# clumps on the slope, in bloom.
+T krummholz_b 30,119
+T krummholz_a 118,113
+T boulder_b 34,131
+T boulder_a 80,127
+T boulder_a 146,124
+T heather_m 24,152
+T heather_s 46,128
+T heather_m 104,129
+T heather_s 100,124
+T heather_s 12,134
+T heather_s 78,152
+T heather_s 30,148
+T heather_m 74,166
+T heather_s 92,160
+T heather_m 138,140
+T heather_s 124,166
+T heather_m 8,156
+T heather_s 150,142
+# The junction's sign.
+T signpost 126,140
+Z at_trail_spot 42,158,1,1
+Z at_sign 126,140,1,1
+# Look hotspots.
+Z basin 0,44,160,76
+Z lunch_lake 60,83,60,13
+Z staircase 44,116,28,48
+Z bogachiel_peak 110,24,50,56
+Z sign 120,126,12,16
+Z cloud 112,6,48,16

@@ -37,12 +37,29 @@ export const NAMES = Object.freeze([
  * Time-of-day remaps: slot -> slot, applied at the final blit (11.4).
  * Day is the identity. Dusk follows the doc's key slots (slate to night
  * navy, glacier blue to slate, snow to alpenglow pink, forest to spruce)
- * and darkens the rest by about one step. Blue hour and night arrive with
- * the camp pages (S5).
+ * and darkens the rest by about one step; spruce goes to ink, so a
+ * conifer keeps its two sides (ink in shade, spruce in the light) and
+ * stands darker than the meadow, which goes to forest. Blue hour keeps its
+ * key slots (slate to night navy, glacier blue to slate, snow to glacier
+ * blue, forest to spruce) and cools the rest: the pinks and creams go to
+ * slate, the greens a step down, spruce to ink as at dusk. Night keeps its
+ * key slots (slate to ink, glacier blue to night navy, snow to slate,
+ * forest to spruce) and sinks the rest to slate or darker, so the stars (a
+ * light) are the brightest pixels: spruce to ink and forest to spruce, so
+ * the trees (ink and spruce) stand darker than the meadow (forest) and
+ * keep their lit side against the night sky (navy), where a navy side
+ * would vanish and leave half a tree; teal to slate, so
+ * the haze at a ridge's foot stays apart from the ink ridge above it and
+ * the treeline in front; and the hiker's jacket brick on a bark pack, so
+ * the two stay apart. A ridge stays apart from its sky by the horizon's
+ * light it stands in (snow by day: pink, glacier blue and slate after),
+ * which the pictures draw. Gold only ever maps to itself (lint P12).
  */
 export const REMAPS = Object.freeze({
   day: Object.freeze([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]),
-  dusk: Object.freeze([0, 1, 1, 2, 6, 6, 9, 7, 9, 10, 10, 11, 11, 12, 13, 2]),
+  dusk: Object.freeze([0, 1, 1, 2, 6, 6, 9, 7, 9, 10, 10, 0, 11, 12, 13, 2]),
+  blue: Object.freeze([0, 1, 1, 2, 3, 2, 2, 7, 9, 10, 0, 0, 11, 12, 13, 2]),
+  night: Object.freeze([0, 0, 0, 1, 2, 2, 1, 7, 9, 10, 0, 0, 11, 12, 12, 2]),
 });
 
 /**
@@ -134,7 +151,7 @@ export function makePalette(json) {
  * @param {number} width
  * @param {Palette} pal makePalette()
  * @param {object} [o]
- * @param {string} [o.remap] 'day' | 'dusk'
+ * @param {string} [o.remap] 'day' | 'dusk' | 'blue' | 'night'
  * @param {number} [o.frame] cycle frame (8 per second)
  * @param {number} [o.background] slot shown where nothing was drawn
  * @param {Uint8Array} [out]

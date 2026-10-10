@@ -1,0 +1,109 @@
+{
+ "$comment": "content/audio/sounds.json: the cue bank (BUILD_PLAN 13.2, S5 sound A1; GAME_DESIGN 13.2, 13.3, 13.11), read by tools/listen.mjs loadAudio() (J01 through the audio reader) and shipped as audio/sounds.json with each variant's golden hash. A cue is a recipe web/js/audio/dsp.js synthesizes: layers of a wave or of another cue, its level, its variants and its bus. A scene is what tools/listen.mjs and the debug menu's 10-second render mix: its cues in turn, one every `every` seconds, each cycling its variants.",
+ "type": "object",
+ "required": ["format", "cues", "scenes"],
+ "additionalProperties": false,
+ "properties": {
+  "$comment": {"type": "string"},
+  "format": {"const": 1},
+  "cues": {"type": "object", "additionalProperties": {"$ref": "#/$defs/cue"}},
+  "scenes": {"type": "object", "additionalProperties": {"$ref": "#/$defs/scene"}}
+ },
+ "$defs": {
+  "cueId": {"type": "string", "pattern": "^[a-z][a-z0-9_]*\\.[a-z][a-z0-9_]*$"},
+  "db": {"type": "number", "minimum": -60, "maximum": 12},
+  "seconds": {"type": "number", "minimum": 0, "maximum": 10},
+  "hz": {"type": "number", "minimum": 20, "maximum": 20000},
+  "env": {
+   "$comment": "a: the linear attack; d: the decay to -60 dB (a one-shot) or toward s (a note); s: the sustain level; hold: how long after the attack the note sustains; r: its release to -60 dB. All in seconds.",
+   "type": "object",
+   "required": ["d"],
+   "additionalProperties": false,
+   "properties": {
+    "a": {"$ref": "#/$defs/seconds"},
+    "d": {"type": "number", "minimum": 0.0001, "maximum": 10},
+    "s": {"type": "number", "minimum": 0, "maximum": 1},
+    "hold": {"$ref": "#/$defs/seconds"},
+    "r": {"$ref": "#/$defs/seconds"}
+   }
+  },
+  "filter": {
+   "type": "object",
+   "required": ["type", "hz"],
+   "additionalProperties": false,
+   "properties": {
+    "type": {"enum": ["lp1", "hp1", "bandpass", "peak", "lowpass", "highpass"]},
+    "hz": {"$ref": "#/$defs/hz"},
+    "q": {"type": "number", "minimum": 0.1, "maximum": 40},
+    "db": {"$ref": "#/$defs/db"}
+   }
+  },
+  "layer": {
+   "oneOf": [
+    {
+     "$comment": "A wave: an oscillator (hz; duty for a pulse) or noise, at a time, shaped by its envelope, then its filters, at its level.",
+     "type": "object",
+     "required": ["wave", "at", "env"],
+     "additionalProperties": false,
+     "properties": {
+      "$comment": {"type": "string"},
+      "wave": {"enum": ["sine", "pulse", "square", "saw", "triangle", "noise"]},
+      "hz": {"$ref": "#/$defs/hz"},
+      "duty": {"type": "number", "minimum": 0.01, "maximum": 0.99},
+      "at": {"$ref": "#/$defs/seconds"},
+      "env": {"$ref": "#/$defs/env"},
+      "filters": {"type": "array", "maxItems": 4, "items": {"$ref": "#/$defs/filter"}},
+      "db": {"$ref": "#/$defs/db"}
+     }
+    },
+    {
+     "$comment": "Another cue, played at a time, shifted in semitones and level (ui.next: two ticks).",
+     "type": "object",
+     "required": ["cue", "at"],
+     "additionalProperties": false,
+     "properties": {
+      "$comment": {"type": "string"},
+      "cue": {"$ref": "#/$defs/cueId"},
+      "at": {"$ref": "#/$defs/seconds"},
+      "semitones": {"type": "number", "minimum": -24, "maximum": 24},
+      "db": {"$ref": "#/$defs/db"}
+     }
+    }
+   ]
+  },
+  "cue": {
+   "type": "object",
+   "required": ["when", "bus", "variants", "layers"],
+   "additionalProperties": false,
+   "properties": {
+    "$comment": {"type": "string"},
+    "when": {"type": "string", "minLength": 1},
+    "bus": {"enum": ["body", "weather", "gear", "water", "bed", "life", "ui", "music"]},
+    "db": {"$ref": "#/$defs/db"},
+    "variants": {
+     "type": "object",
+     "required": ["n"],
+     "additionalProperties": false,
+     "properties": {
+      "n": {"type": "integer", "minimum": 1, "maximum": 8},
+      "cents": {"type": "number", "minimum": 0, "maximum": 200},
+      "db": {"type": "number", "minimum": 0, "maximum": 6}
+     }
+    },
+    "layers": {"type": "array", "minItems": 1, "maxItems": 8, "items": {"$ref": "#/$defs/layer"}}
+   }
+  },
+  "scene": {
+   "type": "object",
+   "required": ["what", "seconds", "every", "cues"],
+   "additionalProperties": false,
+   "properties": {
+    "$comment": {"type": "string"},
+    "what": {"type": "string", "minLength": 1},
+    "seconds": {"type": "number", "minimum": 1, "maximum": 120},
+    "every": {"type": "number", "minimum": 0, "maximum": 60},
+    "cues": {"type": "array", "items": {"$ref": "#/$defs/cueId"}}
+   }
+  }
+ }
+}

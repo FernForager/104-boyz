@@ -51,6 +51,36 @@ test('day is the identity; dusk follows the doc 11.4 key slots', () => {
   }
 });
 
+test('S5: the four hours (day, dusk, blue, night), in palette.js and palette.json alike, with the doc 11.4 key slots', () => {
+  assert.deepEqual(Object.keys(REMAPS), ['day', 'dusk', 'blue', 'night']);
+  const json = JSON.parse(readFileSync(join(ROOT, 'content', 'art', 'palette.json'), 'utf8'));
+  assert.deepEqual(Object.keys(json.remaps), ['day', 'dusk', 'blue', 'night']);
+  // Doc 11.4's table: by the day slot, the dusk, blue-hour and night slots.
+  const KEYS = {
+    2: [1, 1, 0], // slate: the upper sky
+    3: [2, 2, 1], // glacier blue: sky, lakes
+    4: [6, 3, 2], // snow: snow, the horizon
+    12: [11, 11, 11], // forest: spruce at night too, so a fir keeps its lit side against the night sky
+  };
+  for (const [from, [dusk, blue, night]] of Object.entries(KEYS)) {
+    assert.equal(REMAPS.dusk[Number(from)], dusk, `dusk ${from}`);
+    assert.equal(REMAPS.blue[Number(from)], blue, `blue ${from}`);
+    assert.equal(REMAPS.night[Number(from)], night, `night ${from}`);
+  }
+  for (const name of ['blue', 'night']) {
+    assert.equal(REMAPS[name].length, 16);
+    assert.equal(REMAPS[name][7], 7, `${name}: gold stays gold`);
+    REMAPS[name].forEach((to, from) => from !== 7 && assert.notEqual(to, 7, `${name} makes no gold from ${from}`));
+  }
+  // Night sinks into the blues: nothing but gold resolves brighter than slate,
+  // so the stars (a light: paper cream, snow, glacier blue) are the brightest.
+  const bright = (slot) => PALETTE[slot].slice(1).match(/../g).reduce((a, h) => a + parseInt(h, 16), 0);
+  for (let s = 0; s < 16; s++) if (s !== 7) assert.ok(bright(REMAPS.night[s]) <= bright(2), `night ${s} -> ${REMAPS.night[s]}`);
+  for (const star of CYCLES[22].slots) assert.ok(bright(star) > bright(2));
+  // A lake glint at night is still visible: its cycle passes through more than one slot.
+  assert.ok(new Set(CYCLES[16].slots.map((s) => REMAPS.night[s])).size > 1);
+});
+
 test('stars are a light: they twinkle through their cycle and skip the remap', () => {
   const pal = makePalette();
   const stars = CYCLES[22];
@@ -78,7 +108,7 @@ test('resolving never leaves the sixteen', () => {
   const src = new Uint8Array(26 * 3);
   for (let i = 0; i < src.length; i++) src[i] = i % 26;
   src[src.length - 1] = 255;
-  for (const remap of ['day', 'dusk']) {
+  for (const remap of ['day', 'dusk', 'blue', 'night']) {
     for (let frame = 0; frame < 12; frame++) {
       for (const v of resolve(src, 26, pal, { remap, frame })) assert.ok(v >= 0 && v <= 15);
     }
@@ -93,5 +123,5 @@ test('makePalette reads palette.json the same as the built-in tables', () => {
   const b = makePalette();
   assert.deepEqual(a.rgb, b.rgb);
   const src = new Uint8Array([0, 4, 12, 22, 16, 255]);
-  for (const remap of ['day', 'dusk']) assert.deepEqual(resolve(src, 6, a, { remap, frame: 5 }), resolve(src, 6, b, { remap, frame: 5 }));
+  for (const remap of ['day', 'dusk', 'blue', 'night']) assert.deepEqual(resolve(src, 6, a, { remap, frame: 5 }), resolve(src, 6, b, { remap, frame: 5 }));
 });

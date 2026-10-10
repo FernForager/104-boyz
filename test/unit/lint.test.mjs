@@ -222,25 +222,35 @@ test('the registry lists every rule once, with its family, doc and status; the s
     assert.ok(r.family && r.doc && r.what, JSON.stringify(r));
     assert.ok(r.status === 'active' ? !r.lands : /^S\d+[a-z]?$/.test(r.lands), JSON.stringify(r));
   }
-  // S4 adds the graph lints (tools/graphlint.mjs): G01-G04 and G06-G08; G05 waits for S5's recipes.
+  // S4 adds the graph lints (tools/graphlint.mjs): G01-G04 and G06-G08; G05 waited for S5's recipes.
   // S4 (track B) also turns T16 on: the gazetteer, the quotes and cut words (tools/textlint.mjs).
-  assert.equal(codeRanges(activeCodes()), 'P01-P12, T04, T06, T07, T10-T14, T16, U01, E01-E03, S01, J01, R01, X01, G01-G04, G06-G08');
+  // S5 (track B) turns on the composer's lints, P13 and P14, and G05 with content/art/recipes.json.
+  // S5 (track C) turns on E04: the sound's synthesis (audio/dsp.js) keeps E02's bans.
+  // S5 (track D) turns on T15: a line over its max, each {var} at its width (content/text/vars.json).
+  assert.equal(codeRanges(activeCodes()), 'P01-P14, T04, T06, T07, T10-T16, U01, E01-E04, S01, J01, R01, X01, G01-G08');
   assert.equal(codeRanges(['A01', 'A02', 'B01', 'A04']), 'A01, A02, B01, A04', 'a range is three or more in a row');
-  for (const family of ['park graph', 'cards', 'honest odds', 'economy', 'minigames', 'coverage', 'Boyz placeholders', 'sound', 'Larry caps', 'fair deaths', 'the death sequence', 'the epitaph dice', 'the timed modes']) {
+  // The park graph's last rule, G05, landed in S5.
+  assert.ok(RULES.filter((r) => r.family === 'park graph').every((r) => r.status === 'active'));
+  for (const family of ['cards', 'honest odds', 'economy', 'minigames', 'coverage', 'Boyz placeholders', 'sound', 'Larry caps', 'fair deaths', 'the death sequence', 'the epitaph dice', 'the timed modes']) {
     assert.ok(RULES.some((r) => r.family === family && r.status === 'lands'), `${family} waits for its session`);
   }
   const text = formatRules();
   assert.match(text, /^P01 +active +pictures/m);
   assert.match(text, /^G01 +active +park graph/m);
-  assert.match(text, /^G05 +lands S5 +park graph/m);
-  // 36 since S4 turned T16 on (35 with the graph lints).
-  assert.match(text, /^lint: 36 rules active, \d+ waiting for their sessions$/m);
+  assert.match(text, /^G05 +active +park graph/m);
+  assert.match(text, /^P13 +active +pictures/m);
+  assert.match(text, /^E04 +active +code/m);
+  assert.match(text, /^T15 +active +text/m);
+  assert.match(text, /^T02 +lands S6 +text/m);
+  // 41 since S5 turned on P13, P14, G05, E04 and T15 (36 since S4 turned T16 on, 35 with the graph lints).
+  assert.match(text, /^lint: 41 rules active, \d+ waiting for their sessions$/m);
 });
 
 test('every active code has a failing case and a passing one in the unit tests', () => {
   // The failing and passing cases live beside each rule's family: pictures,
   // E and S rules and the content codes here, the text codes in textlint.test.mjs,
-  // the park graph's in graphlint.test.mjs (S4).
-  const tests = ['lint.test.mjs', 'textlint.test.mjs', 'graphlint.test.mjs'].map((f) => readFileSync(join(ROOT, 'test', 'unit', f), 'utf8')).join('\n');
+  // the park graph's in graphlint.test.mjs (S4), the composer's (P13, P14,
+  // G05) in recipes.test.mjs (S5), the sound's (E04) in dsp.test.mjs (S5).
+  const tests = ['lint.test.mjs', 'textlint.test.mjs', 'graphlint.test.mjs', 'recipes.test.mjs', 'dsp.test.mjs'].map((f) => readFileSync(join(ROOT, 'test', 'unit', f), 'utf8')).join('\n');
   for (const code of activeCodes()) assert.ok(new RegExp(`\\b${code}\\b`).test(tests), `${code} has cases`);
 });
