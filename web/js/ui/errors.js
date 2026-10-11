@@ -4,14 +4,17 @@
 // own message stays inside the report. The sheet is static markup in the
 // shell, filled by the build, so it shows even when a module fails to load:
 // until installErrors runs, boot.js opens it, and hands over what it kept.
-// Restart is boot.js's restart(), so a waiting fix takes over. sw-client.js
-// notes its own failures here without opening the sheet.
+// Restart is boot.js's restart(), so a waiting fix takes over; inside the
+// game it comes back where you were, without the title screen (S7b,
+// platform/resume.js). sw-client.js notes its own failures here without
+// opening the sheet.
 //
 // The report holds no personal data: an error's source is a path inside the
 // site, and every URL in its message and stack is cut to that path (or, off
 // the site, to its scheme alone), with no query or hash (boot.js's scrub).
 
 import { sitePath, scrub, handOver, restart } from '../boot.js';
+import { markResume } from '../platform/resume.js';
 
 export { sitePath };
 
@@ -148,7 +151,9 @@ export function installErrors(doc, { copy } = {}) {
       // Restart reloads, into the new build when one waits (a reload alone
       // would keep the broken one), and the game comes back on its
       // autosave: every tap saves before the screen changes (ui/app.js), so
-      // nothing is rewound or lost (E.11).
+      // nothing is rewound or lost (E.11). Pressed after the game has taken
+      // the page, the reload skips the title screen (S7b, Lead call 65).
+      markResume(doc);
       restart(win);
     });
   }

@@ -41,10 +41,17 @@
 // none: the game's --keyboard lift is set to about the iOS keyboard's
 // height and a grey block drawn where it would be); the mailbox open; a
 // Look (the tub), a place not open yet (the shed), a long press (the
-// car), the alt Look at night; and the loading art (preview's cover,
-// data/rules.json held back so the game never takes the page). The cabin
+// car), the alt Look at night; and preview's front page (S7's loading
+// art; from S7b the title screen, which waits for a tap). The cabin
 // and porch scenarios run at a fixed time at the lake (the page's clock),
 // so the status line's time is the same every run.
+//
+// --set s7b: the title screen (decision 74) at /preview/ with no debug mode
+// (its cover, the name, Mount Olympus and the prompt), settled, at the
+// three sizes; and on the 17, with motion on, part way through its draw-in.
+// Each screenshot of a batch also records the names it shows on their
+// own, in no line (ownNames: the title screen's Mount Olympus), for the
+// batch's not-ours tail.
 //
 // --batch B004 (and tools/text.mjs batch --shots, through shootBatch): each
 // screen the batch's lines are on is shot in its scenarios, in order; each
@@ -145,13 +152,15 @@ export const pageOf = (sc) => sc.page ?? PAGE;
 
 /**
  * Pure: what shows once a scenario's screen is ready: the title page's
- * cover drawn in; the check view's status line; a stop's; the cabin's and
+ * cover drawn in (main's), the title screen's prompt (preview's, S7b); the check view's status line; a stop's; the cabin's and
  * the porch's once their picture is composed (data-key); the guest book's
  * field; with no route, whichever the game opens on.
  * @param {Scenario} sc
  */
 export function readyOf(sc) {
-  if (sc.screen === 'title') return '.plate:not(.drawing)';
+  // Main's title page (no data-title) once its cover has drawn in; from S7b preview's title screen once the
+  // prompt shows (ready), or, for a picture of its draw-in (motion on), as soon as it starts.
+  if (sc.screen === 'title') return pageOf(sc) === '/' ? '.plate:not(.drawing)' : sc.motion ? '#app[data-title="drawing"]' : '#app[data-title="ready"]';
   if (sc.hash === '#frame') return '#frame-sheet .status-line';
   if (sc.hash.startsWith('#stop=')) return '.frame .status-line';
   if (sc.hash.startsWith('#home') || sc.hash === '#first') return '.cabin[data-key] .status-line';
@@ -214,7 +223,7 @@ export const SETS = Object.freeze({
   ]),
   // S7 (track C): the cabin at every hour, clear, in rain and in fog; first launch; each lockbox step; the
   // guest book, with the keyboard's stand-in; the mailbox; a Look, a place not open yet, a long press, the
-  // alt Look; the loading art. Reduce Motion is on but for the draw-in's own picture.
+  // alt Look; the title screen (S7b; the loading art in S7). Reduce Motion is on but for the draw-in's own picture.
   s7: Object.freeze([
     ...CABIN_HOURS.flatMap((h) => CABIN_SKIES.map((sky) => cabinAt(`cabin_${h}_${sky}`, 'home', h, sky))),
     { name: 'first', screen: 'lockbox', hash: '#first', at: NOON },
@@ -230,7 +239,14 @@ export const SETS = Object.freeze({
     // In debug mode the line inspector owns every long press on words: held back here, the game's own shows.
     cabinAt('press_car', 'home', 'dusk', 'clear', { steps: ['press:car'], block: [INSPECTOR] }),
     cabinAt('alt_night', 'home', 'night', 'clear', { moon: 4, steps: ['alt'] }),
-    { name: 'loading', screen: 'title', hash: '', page: '/preview/', block: ['data/rules.json'] },
+    // S7b: the loading art became the title screen (decision 74), which waits for a tap whether the game has loaded or not.
+    { name: 'title', screen: 'title', hash: '', page: '/preview/' },
+  ]),
+  // S7b: the title screen (decision 74), settled, at the three sizes; and on the 17, with motion on, part
+  // way through its draw-in.
+  s7b: Object.freeze([
+    { name: 'title', screen: 'title', hash: '', page: '/preview/' },
+    { name: 'title_drawin', screen: 'title', hash: '', page: '/preview/', motion: true, wait: 350, sizes: ['17'] },
   ]),
 });
 
@@ -302,8 +318,9 @@ export const SCREEN_SCENARIOS = Object.freeze({
     ...[2, 3].map((q) => ({ name: `q${q}`, screen: 'lockbox', hash: `#lockbox&q=${q}`, at: NOON })),
     ...[3, 0].map((n) => ({ name: `open${n}`, screen: 'lockbox', hash: `#lockbox&open=${n}`, at: NOON })),
   ]),
-  // The loading art: preview's cover drawing in, the game held back (its alt line is the canvas's name).
-  title: Object.freeze([{ name: 'loading', screen: 'title', hash: '', page: '/preview/', block: ['data/rules.json'] }]),
+  // The title screen (S7b, decision 74): the cover (its alt line is the canvas's name), the Mount Olympus
+  // label and the prompt; no block: the title waits for a tap whether the game has loaded or not.
+  title: Object.freeze([{ name: 'title', screen: 'title', hash: '', page: '/preview/' }]),
 });
 
 /**
@@ -642,6 +659,19 @@ function lineBoxes(page) {
 }
 
 /**
+ * Pure: the names a picture shows on their own (S7b): of what lineBoxes
+ * found, the gazetteer's places and the terms (place.<id>, term.<id>),
+ * sorted. The batch's not-ours tail lists each with its screen.
+ * @param {Record<string, number[]>} found
+ * @returns {string[]}
+ */
+export function ownNames(found) {
+  return Object.keys(found)
+    .filter((id) => /^(?:place|term)\./.test(id))
+    .sort();
+}
+
+/**
  * In the page: the words each line shows (its element's text, var fills
  * in), by id; a spoken name's (and from S7 a picture's, data-t-img) is its aria-label.
  * @param {any} page
@@ -718,7 +748,7 @@ async function mockBox(page, line, file) {
  * size, every scenario of every screen the lines are on, badging each line
  * where it first shows; a mock for each line none shows.
  * @param {{batch: string, lines: {n: number, id: string, screen: string, words: any}[], dir: string, engine?: string, size?: string, pw?: any, root?: string, warn?: (msg: string) => void}} o
- * @returns {Promise<{engine: string, version: string, size: string, shots: {file: string, name: string, screen: string, badges: {n: number, id: string, box: number[]}[], shown: {n: number, text: string}[]}[], mocks: {n: number, id: string, file: string}[], errors: string[]}>}
+ * @returns {Promise<{engine: string, version: string, size: string, shots: {file: string, name: string, screen: string, badges: {n: number, id: string, box: number[]}[], shown: {n: number, text: string}[], names: string[]}[], mocks: {n: number, id: string, file: string}[], errors: string[]}>}
  */
 export async function shootBatch({ batch, lines, dir, engine = 'webkit', size: sizeName = BATCH_SIZE_NAME, pw = null, root = ROOT, warn = (m) => console.warn(m) }) {
   const playwright = pw || (await loadPlaywright());
@@ -745,10 +775,12 @@ export async function shootBatch({ batch, lines, dir, engine = 'webkit', size: s
         // fills in, badged here or earlier (the batch's not-ours tail reads them).
         const texts = await lineTexts(page);
         const shown = lines.filter((l) => l.screen === sc.screen && found[l.id] && texts[l.id]).map((l) => ({ n: l.n, text: texts[l.id] }));
+        // S7b: the names the screen shows on their own, in no line (the title screen's Mount Olympus).
+        const names = ownNames(found);
         await drawBadges(page, badges);
         const file = shotName(++k, `${sc.screen}-${sc.name}`, used);
         await page.screenshot({ path: join(dir, file) });
-        shots.push({ file, name: sc.name, screen: sc.screen, badges, shown });
+        shots.push({ file, name: sc.name, screen: sc.screen, badges, shown, names });
       } finally {
         errors.push(...pageErrors.map((e) => `${sc.name}: ${e}`));
         await context.close();

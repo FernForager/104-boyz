@@ -105,7 +105,7 @@ import { renderPic, composite } from '../web/js/gfx/picvm.js';
 import { drawable } from '../web/js/gfx/compose.js';
 import { makePalette, resolve } from '../web/js/gfx/palette.js';
 import { encodePNG } from './png.mjs';
-import { ROOT, KINDS, loadArt, loadPalette, loadCabin } from './pics.mjs';
+import { ROOT, KINDS, loadArt, loadPalette, loadCabin, loadTitle } from './pics.mjs';
 import { readText, fillPage, makeManifest, mainReach, bundle, checkMainBuild, gateSummary, stateOf, json1, channelScreens, CHANNELS, SCOPE_FILE } from './text.mjs';
 import { SWITCHES, switchValue } from './scope.mjs';
 import { assemble } from './assemble-site.mjs';
@@ -249,14 +249,16 @@ export function withoutNotes(v) {
  * kind's screens meet them, the recipes with the trail screen, a stamp when
  * what ships reaches it; S7: the cabin's data, as cabin, with the home's
  * screens, its next table left to the rules, and a palette cycle with
- * screens only when they meet the channel's); none (the default) ships
- * everything.
+ * screens only when they meet the channel's; S7b: the title screen's marks,
+ * content/art/title.json, as title, with the home's screens too, since the
+ * title screen comes with the cabin); none (the default) ships everything.
  * @param {{screens?: string[] | null}} [o]
  */
 export function compileArt({ screens = null } = {}) {
   const palette = loadPalette();
   const { sources, pics, stamps, recipes } = loadArt();
   const cabin = loadCabin();
+  const title = loadTitle();
   const errors = [];
   for (const s of sources) {
     for (const e of s.parsed.errors) errors.push(`${s.rel}:${e.line}: ${e.msg}`);
@@ -271,6 +273,8 @@ export function compileArt({ screens = null } = {}) {
   for (const id of recipeStamps(recipes)) if (!stamps[id]) errors.push(`content/art/recipes.json: unknown stamp "${id}"`);
   for (const id of cabinStamps(cabin)) if (!stamps[id]) errors.push(`content/home/cabin.json: unknown stamp "${id}"`);
   if (cabin && !pics[cabin.plate]) errors.push(`content/home/cabin.json: no plate "${cabin.plate}" in pics/home/`);
+  for (const e of title.errors) errors.push(`content/art/title.json: ${e.path || '(the file)'} ${e.msg}`);
+  if (title.title && !title.errors.length && !(pics[title.title.cover] && pics[title.title.cover].kind === 'plates')) errors.push(`content/art/title.json: no cover "${title.title.cover}" in pics/plates/`);
   if (errors.length) throw new Error(`pictures:\n  ${errors.join('\n  ')}`);
   const meets = (/** @type {readonly string[]} */ list) => !screens || list.some((x) => screens.includes(x));
   const shipped = Object.keys(pics)
@@ -307,6 +311,8 @@ export function compileArt({ screens = null } = {}) {
     const scope = JSON.parse(readFileSync(join(ROOT, SCOPE_FILE), 'utf8'));
     out.cabin = { ...withoutNotes(display), switches: cabinSwitches(scope) };
   }
+  // The title screen's marks (S7b): the label and the quiet sky, with the home (main's title page has neither until the promotion).
+  if (title.title && meets(KINDS.home.screens)) out.title = withoutNotes(title.title);
   return out;
 }
 
@@ -435,7 +441,8 @@ export function makeData({ root = ROOT, channel }) {
  * the channel ships the composer's recipes (preview's trail), every place
  * the composer can draw that is a park node with a gazetteer name: the
  * #frame check view captions each picture with its place. A junction whose label is ours (a
- * not_places entry, T16) is never captioned, so it adds nothing.
+ * not_places entry, T16) is never captioned, so it adds nothing. S7b: the
+ * title screen's label (art.title, shipped with the home: Mount Olympus).
  * @param {{map: any, voice: any, rules?: any}} data makeData()'s
  * @param {any} [art] compileArt()'s: its recipes, when the channel has them
  * @param {Set<string>} [places] the gazetteer's place ids
@@ -453,6 +460,8 @@ export function viewNames(data, art = null, places = new Set()) {
   if (art && art.recipes && art.recipes.places && nodes) {
     for (const id of Object.keys(art.recipes.places)) if (nodes[id] && places.has(id) && drawable(id, art)) out.add(`place.${id}`);
   }
+  // The title screen's label over the cover's summit (S7b: Mount Olympus), where the channel ships it.
+  if (art && art.title && art.title.label) out.add(art.title.label.name);
   return [...out].sort();
 }
 

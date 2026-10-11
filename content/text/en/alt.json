@@ -2,7 +2,7 @@
  "$comment": "Pictures' alt text, read by VoiceOver (GAME_DESIGN 11.9, 18.3). The cover's own line; and from S6 the trail pictures' parts (web/js/gfx/alt.js): a scene's line or a base's, then each skyline's, the sprite's and the hour's (day adds none), each a whole sentence, joined in that order, so every drawable place is described with no line of its own (decision 69), and the same words are the picture's Look where a tap hits no hotspot. Lint P15 holds every drawable place's parts to their lines. Working words; status comes from approved.json.",
  "alt.cover_high_divide_dusk": {
   "text": "The High Divide at dusk. Across the Hoh valley, Mount Olympus glows pink in the last light, under the first stars. A hiker in a rust jacket walks the crest trail among subalpine firs and pink heather.",
-  "ctx": "VoiceOver's description of the loading art: the cover drawing itself in under the name while the cabin loads (BUILD_PLAN S7, 11.2; off main until B002 is answered, where the title page shows the cover as decoration beside the name)",
+  "ctx": "VoiceOver's description of the title screen's cover (decision 74): read after the name, before the Mount Olympus label and the tap prompt; also the cover a Restart shows while the game comes back",
   "screen": "title",
   "max": 240
  },

@@ -25,6 +25,8 @@ export const PALETTE_PATH = join(ROOT, 'content', 'art', 'palette.json');
 export const RECIPES_PATH = join(ROOT, 'content', 'art', 'recipes.json');
 export const RECIPES_SCHEMA_PATH = join(ROOT, 'schemas', 'recipes.schema.json');
 export const CABIN_PATH = join(ROOT, 'content', 'home', 'cabin.json');
+export const TITLE_PATH = join(ROOT, 'content', 'art', 'title.json');
+export const TITLE_SCHEMA_PATH = join(ROOT, 'schemas', 'title.schema.json');
 
 /**
  * Folder -> picture size (null for stamps) and the screens that show it:
@@ -89,6 +91,29 @@ export function loadPicSources(dir = PICS_DIR) {
  */
 export function loadCabin(path = CABIN_PATH) {
   return existsSync(path) ? JSON.parse(readFileSync(path, 'utf8')) : null;
+}
+
+/**
+ * The title screen's marks over the cover (content/art/title.json, S7b:
+ * the Mount Olympus label and the quiet boxes), validated against
+ * schemas/title.schema.json. Returns {title, src, errors}: title is null
+ * when the file is missing or won't parse; errors are the schema's
+ * ({path, msg}), which the lint reports as J01.
+ * @param {string} [path]
+ * @param {string} [schemaPath]
+ * @returns {{title: {cover: string, label: {name: string, summit: number[], floor: number}, quiet: {for: string, box: number[]}[]} | null, src: string, errors: {path: string, msg: string}[]}}
+ */
+export function loadTitle(path = TITLE_PATH, schemaPath = TITLE_SCHEMA_PATH) {
+  if (!existsSync(path)) return { title: null, src: '', errors: [] };
+  const src = readFileSync(path, 'utf8');
+  let title;
+  try {
+    title = JSON.parse(src);
+  } catch (e) {
+    return { title: null, src, errors: [{ path: '', msg: `not JSON: ${/** @type {Error} */ (e).message}` }] };
+  }
+  const schema = JSON.parse(readFileSync(existsSync(schemaPath) ? schemaPath : TITLE_SCHEMA_PATH, 'utf8'));
+  return { title, src, errors: validate(schema, title).errors };
 }
 
 /** The palette data. */

@@ -20,6 +20,7 @@ import { renderStop, choiceLine } from '../../web/js/ui/stop.js';
 import { startGame, loadGameData, openSession, writeSaves, screenName, takePage, devRoute, devHomeSession, devStart, TAP_GUARD_MS, SAVE_ORDER, CLOSED_KEY, pendingOf } from '../../web/js/ui/app.js';
 import { createMenu } from '../../web/js/ui/menu.js';
 import { opensGame, GAME_SCREENS } from '../../web/js/ui/home.js';
+import { showTitleScreen } from '../../web/js/ui/title.js';
 import { buildReport, collectFacts, provideState } from '../../web/js/ui/debug.js';
 import { recentErrors, clearErrors } from '../../web/js/ui/errors.js';
 import { newSession, dispatch, screenOf, replay, unpack, fromBase64url, isEngineError, loadContent } from '../../web/js/engine/api.js';
@@ -878,23 +879,89 @@ test('loadGameData fetches data/rules.json and data/voice.json beside the page, 
   await assert.rejects(loadGameData({ rulesHash: 'dev', fetchFn }), (e) => isEngineError(e) && e.code === 'format', "an unbuilt shell's dev hash loads nothing");
 });
 
-test('the title hands over when its draw-in is done, and a failed title never blocks the game', async (t) => {
+// Rewritten in S7b (was "the title hands over when its draw-in is done, and a failed title never blocks the
+// game"): the title screen (ui/title.js, decision 74) holds the page until a tap, at least as strongly.
+test('the title screen hands over on the tap, never before; the data loads under it; a tap before the data has loaded hands over once it has; nothing brings the title back after (visibilitychange, a persisted pageshow); a failed title never blocks the game (S7b)', async (t) => {
   device(t);
+  // A real title screen (ui/title.js) over a stand-in for the cover's drawing (home.js showTitle needs a canvas).
+  const later = () => () => {};
   let stopped = 0;
-  let finish = () => {};
-  const done = new Promise((r) => {
-    finish = r;
-  });
-  const title = Promise.resolve({ stop: () => stopped++, done });
-  const pending = start({ title });
+  const fakeShow = async (doc, { prepare, onFit }) => {
+    prepare({ pics: { cover_high_divide_dusk: { width: 160, height: 320, ops: [] } }, title: { cover: 'cover_high_divide_dusk', label: { name: 'place.mount_olympus_west_peak', summit: [90, 101], floor: 96 }, quiet: [] } });
+    if (onFit) onFit({ sx: 7, sy: 4, short: false }, { origin: { ox: 1, oy: 0 } });
+    return { finish() {}, stop: () => stopped++, done: Promise.resolve(), art: null, display: null };
+  };
+  // The data/ fetches, each held until the test lets it go.
+  const held = [];
+  const fetched = [];
+  const holdFetch = (url) => {
+    fetched.push(basename(url.pathname));
+    if (basename(url.pathname) !== 'rules.json') return fetchFn(url);
+    return new Promise((r) => held.push(() => r(fetchFn(url))));
+  };
+  const winListeners = new Map();
+  const page = shell({ screens: 'app debug guestbook home title trail' });
+  const { doc } = page;
+  doc.defaultView = { devicePixelRatio: 3, location: { hash: '', search: '', pathname: '/' }, addEventListener: (type, f) => winListeners.set(type, [...(winListeners.get(type) || []), f]), removeEventListener() {}, history: { replaceState() {} } };
+  const now = clock();
+  const sound = { played: [], play(c) { this.played.push(c); }, isOn: () => true, setOn() {}, report: () => null };
+  const title = showTitleScreen(doc, { show: fakeShow, words: Promise.resolve(), now, later, reduced: true });
+  const pending = startGame(doc, { title, fetchFn: holdFetch, now, later, sound, seed: () => 'K7QM2Q9F', hikerId: () => 'h00000001' });
   await new Promise((r) => setTimeout(r, 20));
-  assert.equal(stopped, 0, 'the cover is still drawing in');
-  finish();
-  const { doc } = await pending;
-  assert.equal(stopped, 1, 'the stars and the resize handling stop');
-  assert.equal(doc.getElementById('app').getAttribute('data-screen'), 'guestbook');
+  const app = doc.getElementById('app');
+  assert.ok(fetched.includes('rules.json'), 'the data is fetched while the title waits');
+  assert.equal(app.getAttribute('data-title'), 'ready', 'the prompt shows');
+  assert.equal(app.getAttribute('data-screen'), 'title');
+  // The tap, before the data has loaded: nothing yet but the cue, inside the tap.
+  now.pass();
+  app.dispatchEvent({ type: 'click', target: doc.querySelector('.title-go') });
+  assert.equal(app.getAttribute('data-title'), 'entered');
+  assert.deepEqual(sound.played, ['ui.next'], "Next's two dry clicks, inside the tap");
+  await new Promise((r) => setTimeout(r, 20));
+  assert.equal(app.getAttribute('data-screen'), 'title', 'still the title: the data has not loaded');
+  assert.equal(stopped, 0);
+  // A second tap changes nothing: one start.
+  now.pass();
+  app.dispatchEvent({ type: 'click', target: app });
+  assert.deepEqual(sound.played, ['ui.next']);
+  // The data arrives: the game takes the page, once.
+  for (const go of held.splice(0)) go();
+  await pending;
+  assert.equal(stopped, 1, 'the cover stops once, at the take-over');
+  assert.equal(app.getAttribute('data-screen'), 'guestbook');
+  assert.equal(app.getAttribute('data-title'), null, 'the title screen let go of #app');
+  assert.equal(doc.querySelector('.title-go'), null);
+  assert.equal(doc.querySelector('.peak-label'), null);
+  // Back from the background, or out of the back-forward cache: nothing brings the title back.
+  for (const f of doc.listeners.get('visibilitychange') || []) f({ type: 'visibilitychange' });
+  for (const f of winListeners.get('pageshow') || []) f({ type: 'pageshow', persisted: true });
+  assert.equal(app.getAttribute('data-screen'), 'guestbook');
+  assert.equal(doc.querySelector('.title-go'), null);
+  assert.equal(doc.querySelector('.peak-label'), null);
+  assert.equal(doc.querySelector('.plate'), null);
+  assert.ok(!winListeners.has('pageshow'), 'nobody listens for the cache\'s pageshow');
+
+  // The data first, then the tap: the game waits for the tap, and takes the page on it.
+  let entered = () => {};
+  let stops = 0;
+  const waiting = Promise.resolve({ stop: () => stops++, done: Promise.resolve(), entered: new Promise((r) => { entered = r; }), onEnter() {} });
+  const slow = start({ title: waiting });
+  let settled = false;
+  slow.then(() => {
+    settled = true;
+  });
+  await new Promise((r) => setTimeout(r, 30));
+  assert.equal(settled, false, 'the draw-in is done, the data is in: still the title, until the tap');
+  assert.equal(stops, 0);
+  entered();
+  const { doc: d2 } = await slow;
+  assert.equal(stops, 1);
+  assert.equal(d2.getElementById('app').getAttribute('data-screen'), 'guestbook');
+  // Main's title page (no entered) and a resume (entered is done) hand over when the draw-in is done.
+  const mainStyle = await start({ title: Promise.resolve({ stop() {}, done: Promise.resolve() }) });
+  assert.equal(mainStyle.doc.getElementById('app').getAttribute('data-screen'), 'guestbook');
   const failed = await start({ title: Promise.reject(new Error('art: 404')) });
-  assert.equal(failed.doc.getElementById('app').getAttribute('data-screen'), 'guestbook');
+  assert.equal(failed.doc.getElementById('app').getAttribute('data-screen'), 'guestbook', 'a failed title never blocks the game');
 });
 
 test('the report: its screen follows #app[data-screen], its state names nobody, and its log replays to its hash (the Done when)', async (t) => {
@@ -958,13 +1025,18 @@ test("main's built page has data-screens=\"app debug title\" and never loads ui/
   assert.equal(opensGame(shell({ screens: 'dev' }).doc), false, 'the unbuilt shell has no game');
   // main.js imports the game in one place, behind the gate, and nothing
   // imports it statically, so main's module graph never holds it.
+  // Rewritten in S7b: the gate now returns main's title page first, and the
+  // title screen (ui/title.js) is imported beside the game, behind the same
+  // gate, in one place; nothing imports either statically.
   const mainJs = readFileSync(join(ROOT, 'web', 'js', 'main.js'), 'utf8');
   assert.equal(mainJs.match(/ui\/app\.js/g).length, 2, 'the comment and the one import');
-  assert.match(mainJs, /if \(opensGame\(document\)\) \{\s*import\('\.\/ui\/app\.js'\)/);
+  assert.equal(mainJs.match(/ui\/title\.js/g).length, 2, 'the comment and the one import');
+  assert.match(mainJs, /if \(!opensGame\(document\)\) return showTitle\(document\);\n(?:\s*\/\/[^\n]*\n)*\s*const title = import\('\.\/ui\/title\.js'\) \/\/ screens: home\n[^]*?import\('\.\/ui\/app\.js'\) \/\/ screens: home\n\s*\.then\(\(\{ startGame \}\) => startGame\(document, \{ title, words \}\)\)/);
   for (const dir of ['', 'ui', 'platform', 'gfx']) {
     for (const f of readdirSync(join(ROOT, 'web', 'js', dir)).filter((n) => n.endsWith('.js'))) {
       const src = readFileSync(join(ROOT, 'web', 'js', dir, f), 'utf8');
       assert.ok(!/^import [^;]*from '\.{1,2}\/(?:ui\/)?app\.js'/m.test(src), `${dir}/${f} imports app.js statically`);
+      assert.ok(!/^import [^;]*from '\.{1,2}\/(?:ui\/)?title\.js'/m.test(src), `${dir}/${f} imports title.js statically`);
     }
   }
   // Main's data carries no plans or stops for the game to find.

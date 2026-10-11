@@ -1,0 +1,245 @@
+/* The title screen (GAME_DESIGN 12.3; BUILD_PLAN S7b; decisions 73 and 74;
+   Lead calls 66 and 67). Preview only: ui/title.js links this stylesheet,
+   and main's page never loads it.
+
+   Over the cover, *Mount Olympus* in the chrome font at one CSS px a font
+   pixel (2 device px on the SE, 3 on 3x phones), glacier blue in a
+   one-pixel ink halo, flown from a one-pixel tick cased in ink that stands
+   on the summit's spire with a foot of ink: a note in the margin, like an
+   old peak panorama, never a third line of the title. ui/title.js places
+   the label on whole device pixels and draws the tick in the picture's own
+   device pixels, an SVG laid over it (titleMarks). Under the picture, the
+   prompt, a button: paper cream on the page, the chrome font at its own
+   size, pulsing slowly once it shows. It is the only cream line under the
+   picture: the install line, the update note and the stamps are glacier
+   blue at the stamps' size while the title screen shows, and the stamps'
+   line is held from the start, so Works offline arriving late moves
+   nothing. Once the picture has drawn in, the page above it is the cover's
+   own night navy, so the sky runs to the top of the screen.
+
+   #app[data-title] walks drawing, name, label, ready and entered; each step
+   shows what it names. Every step-in and the pulse sit inside
+   @media (prefers-reduced-motion: no-preference), so under Reduce Motion
+   the name, the label and the prompt simply appear, together. The game
+   removes data-title when it takes the page, and every rule here that
+   restyles the shelf goes with it. */
+
+@font-face {
+  font-family: "OPH Chrome";
+  src: url("../fonts/OPHChrome.ttf") format("truetype");
+  font-display: block;
+}
+
+/* The prompt's font pixel: frame.css's (4 device px on 3x phones, 3 on 2x; 2 CSS px at 1x, for dev). */
+:root { --title-fp: 2px; }
+@media (min-resolution: 2dppx) { :root { --title-fp: 1.5px; } }
+@media (min-resolution: 3dppx) { :root { --title-fp: calc(4px / 3); } }
+
+/* ---- The label and its tick ----------------------------------------- */
+
+.peak-label {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 104px;
+  height: 14px;
+  margin: 0;
+  /* One CSS px a font pixel: the chrome font's 12-pixel em on its 14-pixel line. */
+  font: 12px/14px "OPH Chrome", var(--font-pixel);
+  font-weight: 400;
+  font-kerning: none;
+  font-variant-ligatures: none;
+  font-feature-settings: "liga" 0, "clig" 0;
+  letter-spacing: 0;
+  white-space: nowrap;
+  text-align: left;
+  /* Glacier blue, 5.45:1 on the ink of its halo (4.35:1 on the bare navy sky). */
+  color: var(--c3);
+  text-shadow:
+    -1px -1px 0 var(--c0), 0 -1px 0 var(--c0), 1px -1px 0 var(--c0),
+    -1px 0 0 var(--c0), 1px 0 0 var(--c0),
+    -1px 1px 0 var(--c0), 0 1px 0 var(--c0), 1px 1px 0 var(--c0);
+  pointer-events: none;
+  visibility: hidden;
+  opacity: 0;
+}
+
+/* The tick's layer: an SVG over the whole picture in its device pixels
+   (ui/title.js), so the tick ends exactly on the summit pixel's top edge. */
+.peak-tick {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: block;
+  overflow: hidden;
+  pointer-events: none;
+  visibility: hidden;
+  opacity: 0;
+}
+
+/* One font pixel of glacier blue, cased in ink one font pixel each side, so it reads over the sky's checker;
+   the casing runs one font pixel past the blue at the foot, so the line stands on the spire, apart from it. */
+.peak-tick-line { fill: var(--c3); }
+.peak-tick-case { fill: var(--c0); }
+
+#app[data-title="label"] .peak-label,
+#app[data-title="ready"] .peak-label,
+#app[data-title="entered"] .peak-label,
+#app[data-title="label"] .peak-tick,
+#app[data-title="ready"] .peak-tick,
+#app[data-title="entered"] .peak-tick {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* ---- The sky above the picture ---------------------------------------- */
+
+/* Once the picture has drawn in, the page above it, the picture's width, is
+   the cover's night navy (its top rows are flat c1), so the cover reads as
+   a full-height title screen rather than a card on the page. */
+#app[data-title] .plate::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 100%;
+  height: 100vh;
+  background: var(--c1);
+  pointer-events: none;
+  visibility: hidden;
+  opacity: 0;
+}
+
+#app[data-title="name"] .plate::before,
+#app[data-title="label"] .plate::before,
+#app[data-title="ready"] .plate::before,
+#app[data-title="entered"] .plate::before {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* ---- The shelf while the title shows ---------------------------------- */
+
+/* Works offline's place is kept from the start (unseen and unread until
+   sw-client.js reveals it), so the picture and the prompt never move when
+   the offline worker finishes after the title has settled. */
+#app[data-title] .offline-stamp[hidden] {
+  display: block !important;
+  visibility: hidden;
+}
+
+/* The install line (Safari) at the stamps' size and color: the prompt is
+   the only cream line under the picture. Glacier blue on the page, 5.45:1. */
+#app[data-title] .install {
+  font-size: 13px;
+  line-height: 1.3;
+  color: var(--c3);
+}
+
+/* An update waiting at launch: one line in the stamps' voice, its Restart a
+   link of a full target's height, instead of a box that would squeeze the
+   picture (and hide the label) on the SE in Safari. */
+#app[data-title] .update-note {
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0 10px;
+  min-height: var(--target);
+  margin: 0 2px;
+  padding: 0;
+  background: none;
+  border: 0;
+}
+
+#app[data-title] .update-line {
+  font-size: 13px;
+  line-height: 1.2;
+  color: var(--c3);
+}
+
+#app[data-title] #update-restart {
+  display: inline-flex;
+  align-items: center;
+  width: auto;
+  min-height: var(--target);
+  margin: 0 -8px;
+  padding: 0 8px;
+  background: none;
+  border: 0;
+  font-size: 13px;
+  line-height: 1.2;
+  color: var(--c3);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* ---- The prompt ------------------------------------------------------ */
+
+.title-go {
+  flex: none;
+  display: block;
+  width: 100%;
+  min-height: var(--target);
+  margin: 0;
+  padding: 0;
+  background: none;
+  border: 0;
+  border-radius: 0;
+  -webkit-appearance: none;
+  appearance: none;
+  /* Paper cream on the page's ink, 8.35:1 (5.0:1 at the pulse's dimmest step). */
+  color: var(--c5);
+  font: calc(12 * var(--title-fp)) / calc(14 * var(--title-fp)) "OPH Chrome", var(--font-pixel);
+  font-kerning: none;
+  font-variant-ligatures: none;
+  font-feature-settings: "liga" 0, "clig" 0;
+  letter-spacing: 0;
+  white-space: nowrap;
+  text-align: center;
+  cursor: pointer;
+  -webkit-touch-callout: none;
+  user-select: none;
+  -webkit-user-select: none;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.title-go:focus { outline: none; }
+.title-go:focus-visible { outline: 2px solid var(--c3); outline-offset: 2px; }
+
+#app[data-title="ready"] .title-go,
+#app[data-title="entered"] .title-go {
+  visibility: visible;
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .peak-label,
+  .peak-tick,
+  #app[data-title] .plate::before {
+    transition: opacity 480ms steps(4, end), visibility 0s;
+  }
+
+  .title-go {
+    transition: opacity 240ms steps(2, end), visibility 0s;
+  }
+
+  /* Once it shows, the prompt pulses slowly, in three chunky steps. */
+  #app[data-title="ready"] .title-go {
+    animation: title-pulse 1200ms steps(3, jump-none) 240ms infinite alternate;
+  }
+
+  /* A tap while the cover draws in hurries it: the name, the label and the prompt appear at once. */
+  #app[data-hurry] .cover-title,
+  #app[data-hurry] .plate::before,
+  #app[data-hurry] .peak-label,
+  #app[data-hurry] .peak-tick,
+  #app[data-hurry] .title-go {
+    transition: none;
+  }
+}
+
+@keyframes title-pulse {
+  from { opacity: 1; }
+  to { opacity: 0.7; }
+}

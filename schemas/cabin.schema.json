@@ -1,7 +1,7 @@
 {
- "$comment": "content/home/cabin.json: the cabin at Lake Quinault (BUILD_PLAN S7; GAME_DESIGN 2.2, 11.11, 12.3). The plate, the hour's tables and the cabin's own remaps, the stamps web/js/gfx/cabin.js composes over it (skies, weather, lights, embers, smoke, states), the moon and the stars, the places with their boxes in picture pixels on the 160x320 plate, the rail, the hours rule, the sky's knobs, the next step's states and the porch frame's window. The lints that read it: J01 (this schema), P17 (the hit areas, labels, anchors and Z ops).",
+ "$comment": "content/home/cabin.json: the cabin at Lake Quinault (BUILD_PLAN S7; GAME_DESIGN 2.2, 11.11, 12.3). The plate, the hour's tables and the cabin's own remaps, the stamps web/js/gfx/cabin.js composes over it (skies, weather, lights, embers, smoke, states), the moon and the stars, the name's quiet sky, the places with their boxes in picture pixels on the 160x320 plate, the rail, the hours rule, the sky's knobs, the next step's states and the porch frame's window. The lints that read it: J01 (this schema), P17 (the hit areas, labels, anchors and Z ops).",
  "type": "object",
- "required": ["plate", "season", "tables", "remaps", "skies", "weather", "lights", "embers", "smoke", "states", "moon", "stars", "places", "rail", "hours", "sky", "next", "first"],
+ "required": ["plate", "season", "tables", "remaps", "skies", "weather", "lights", "embers", "smoke", "states", "moon", "stars", "quiet", "places", "rail", "hours", "sky", "next", "first"],
  "additionalProperties": false,
  "properties": {
   "$comment": {"type": "string"},
@@ -97,6 +97,16 @@
      }
     },
     "dipper": {"type": "array", "minItems": 7, "maxItems": 7, "items": {"$ref": "#/$defs/point"}}
+   }
+  },
+  "quiet": {
+   "$comment": "S7b, Lead call 69: the name's quiet sky, a box [x, y, w, h] in picture pixels where no star, moon or rain goes (lint P17 holds the name's line inside it at every phone).",
+   "type": "object",
+   "required": ["name"],
+   "additionalProperties": false,
+   "properties": {
+    "$comment": {"type": "string"},
+    "name": {"$ref": "#/$defs/box"}
    }
   },
   "places": {"type": "object", "additionalProperties": {"$ref": "#/$defs/place"}},

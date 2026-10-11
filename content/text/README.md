@@ -9,7 +9,7 @@ content/text/
   README.md          this file
   en/
     app.json         the frame: name, manifest, install, upright, update, error sheet, stamps
-    title.json       Session 1's title page (retired on preview in S7, preview.off; main's until the cabin's promotion)
+    title.json       Session 1's title page lines (retired on preview in S7, preview.off; main's until the cabin's promotion) and, from S7b, the title screen's prompt, title.prompt (DRAFT, in B002; off main until the promotion)
     alt.json         pictures' alt text: the cover's, and (S6) the parts every trail picture's is composed from, by id (web/js/gfx/alt.js: the scene's or the base's, each skyline's, the sprite's, the hour's), so no place needs a line of its own
     credits.json     decision 47's two lines (no screen yet)
     dev.json         the debug menu's labels, the self-check's line, preview's Map button and (S5) the hour, text, Scenes and sound-render controls and the line inspector's words (class dev, exempt)
@@ -124,7 +124,7 @@ files lines into a batch that hasn't gone out: the ids named, or else every draf
 npm run text:batch -- B004 [--shots] [--out out/review]
 ```
 
-builds the batch for review, never sending it: `out/review/B004/B004.md`, phone-readable (per screen, its numbered screenshots at the iPhone 17's size first, then a table of number, id, where, length against max and the words; a template's three sample fills from `vars.json`; a changed line's old words; a mock of the box of a line no screenshot reaches; the not-ours tail), `B004.json` (the lines, hashes, screenshot files and each badge's box, for the review page) and `shots/`. `--shots` takes the pictures with `tools/shots.mjs` (Playwright; see the main README). It warns when a batch is outside 25 to 40 lines (decision 64), and fails when a line's words changed since filing.
+builds the batch for review, never sending it: `out/review/B004/B004.md`, phone-readable (per screen, its numbered screenshots at the iPhone 17's size first, then a table of number, id, where, length against max and the words; a template's three sample fills from `vars.json`; a changed line's old words; a mock of the box of a line no screenshot reaches; the not-ours tail, which lists the real names the batch's lines carry and, from S7b, a name a screen shows on its own with the screen it shows on: the title screen's *Mount Olympus*), `B004.json` (the lines, hashes, screenshot files and each badge's box, for the review page) and `shots/`. `--shots` takes the pictures with `tools/shots.mjs` (Playwright; see the main README). It warns when a batch is outside 25 to 40 lines (decision 64), and fails when a line's words changed since filing.
 
 ## Answers and `apply`
 

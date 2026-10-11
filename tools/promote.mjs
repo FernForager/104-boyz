@@ -13,10 +13,11 @@
 //
 //   --screens (S7, the cabin's promotion): main's words worked out as though
 //   its scope carried these screens too (main.screens and them), with
-//   preview's loading page (channels.preview.off: the title page's words
+//   preview's title screen (channels.preview.off: the title page's words
 //   retire on main with the same promotion) and main.off's dev lines still
-//   off; the ours lines main.off holds back today (the cover's description,
-//   waiting for B002) come back, since the promotion is what they wait for.
+//   off; the ours lines main.off holds back today (the cover's description
+//   and, from S7b, the title screen's prompt, waiting for B002) come back,
+//   since the promotion is what they wait for.
 //   It lists every line main would then reach that isn't approved, grouped
 //   by the batch it is filed in (and any filed in none), in memory: main's
 //   build would refuse such a scope, which is the point. Exit 0 when every

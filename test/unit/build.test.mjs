@@ -476,8 +476,10 @@ test("main stays put in S5: its screens, words, data, rules hash, page, art and 
   for (const f of s5) assert.ok(!seen.has(f), `main never imports ${f}`);
   assert.ok(![...seen].some((f) => f.startsWith('js/audio/')), 'nor the sound');
   // ... and its dynamic imports are S4's (the title, the game behind opensGame, the map behind opensMap, the self-check's engine) and S5's one, the inspector, behind preview and the trail.
+  // Rewritten in S7b: and the title screen (ui/title.js), beside the game, behind the same gate and its `// screens: home` note.
   const dynamic = [...seen].flatMap((f) => [...read('main', f).matchAll(/import\('([^']+)'\)/g)].map((m) => `${f} ${m[1]}`)).sort();
-  assert.deepEqual(dynamic, ['js/main.js ./ui/app.js', 'js/main.js ./ui/home.js', 'js/main.js ./ui/map.js', 'js/ui/debug.js ./inspect.js', 'js/ui/selfcheck.js ../engine/selfcheck.js']);
+  assert.deepEqual(dynamic, ['js/main.js ./ui/app.js', 'js/main.js ./ui/home.js', 'js/main.js ./ui/map.js', 'js/main.js ./ui/title.js', 'js/ui/debug.js ./inspect.js', 'js/ui/selfcheck.js ../engine/selfcheck.js']);
+  assert.match(read('main', 'js/main.js'), /if \(!opensGame\(document\)\) return showTitle\(document\);\n[^]*?import\('\.\/ui\/title\.js'\) \/\/ screens: home\n/);
   assert.match(read('main', 'js/ui/debug.js'), /if \(preview && opensTrail\(doc\)\) loadInspector\(doc\);/);
   // 6. File parity: main's files are preview's minus the map's data, the marks and meta.json.
   const files = (channel) => Object.keys(snapshot(out[channel]));
@@ -556,12 +558,21 @@ test("main at S6: S5's screens, words, data, page and modules, with S6's rules h
   assert.ok(!seen.has('js/ui/home.js') && !seen.has('js/ui/motion.js'), 'the title page, and motion.js with it, come by main.js\'s import() on demand');
   assert.match(read('main', 'js/ui/home.js'), /^import \{ reducedMotion, liveCycles \} from '\.\/motion\.js';$/m);
   assert.ok(![...seen].some((f) => f.startsWith('js/audio/')), 'nor the sound');
+  // Rewritten in S7b: main's static graph, whole, is S6's and one tiny module, platform/resume.js (Lead call 65:
+  // the Restarts' resume mark, which writes nothing while #app is the title page, so never on main).
+  assert.deepEqual([...seen].sort(), ['js/boot.js', 'js/main.js', 'js/platform/resume.js', 'js/platform/share.js', 'js/platform/storage.js', 'js/platform/sw-client.js', 'js/text.js', 'js/ui/debug.js', 'js/ui/errors.js', 'js/ui/selfcheck.js']);
   const dynamic = [...seen].flatMap((f) => [...read('main', f).matchAll(/import\('([^']+)'\)/g)].map((m) => `${f} ${m[1]}`)).sort();
-  assert.deepEqual(dynamic, ['js/main.js ./ui/app.js', 'js/main.js ./ui/home.js', 'js/main.js ./ui/map.js', 'js/ui/debug.js ./inspect.js', 'js/ui/selfcheck.js ../engine/selfcheck.js']);
-  // ... and what its worker downloads (its page's reach) has none of the trail's screens' modules either.
+  assert.deepEqual(dynamic, ['js/main.js ./ui/app.js', 'js/main.js ./ui/home.js', 'js/main.js ./ui/map.js', 'js/main.js ./ui/title.js', 'js/ui/debug.js ./inspect.js', 'js/ui/selfcheck.js ../engine/selfcheck.js']);
+  // ... and what its worker downloads (its page's reach) has none of the trail's screens' modules either, nor
+  // (S7b) the title screen's module and stylesheet, which preview's worker downloads.
   const cached = Object.keys(JSON.parse(read('main', 'precache.json')).paths);
-  for (const f of [...s5, ...s6.filter((f) => !f.startsWith('js/engine/'))]) assert.ok(!cached.includes(f), `main's worker never downloads ${f}`);
-  assert.ok(cached.includes('js/ui/motion.js') && cached.includes('js/ui/home.js'));
+  for (const f of [...s5, ...s6.filter((f) => !f.startsWith('js/engine/')), 'js/ui/title.js', 'css/title.css']) assert.ok(!cached.includes(f), `main's worker never downloads ${f}`);
+  assert.ok(cached.includes('js/ui/motion.js') && cached.includes('js/ui/home.js') && cached.includes('js/platform/resume.js'));
+  const previewCached = Object.keys(JSON.parse(read('preview', 'precache.json')).paths);
+  for (const f of ['js/ui/title.js', 'css/title.css', 'js/platform/resume.js']) assert.ok(previewCached.includes(f), `preview's worker downloads ${f}`);
+  // S7b: main's art keeps its four keys (the title screen's marks ship with the home); its words carry neither the prompt nor the label.
+  assert.deepEqual(Object.keys(JSON.parse(read('main', 'art/art.json'))), ['format', 'palette', 'pics', 'stamps']);
+  assert.ok(!('title.prompt' in words) && !('place.mount_olympus_west_peak' in words));
   // 5. File parity: main's files are preview's minus the map's data, the marks and meta.json; S6's ship on both.
   const files = (channel) => Object.keys(snapshot(out[channel]));
   assert.deepEqual(files('preview').filter((f) => !files('main').includes(f)), ['data/map.json', 'text/marks.json', 'text/meta.json']);
@@ -600,7 +611,11 @@ test("S5: each channel's art.json is what its screens reach: main the cover and 
   assert.deepEqual(Object.keys(art.main.stamps), ['subalpine_fir_l', 'subalpine_fir_m', 'subalpine_fir_s', 'subalpine_fir_xl', 'subalpine_fir_xs']);
   // S6 (track C): beside the recipes, the Look hotspots by kind, {kind: looked} (content/art/hotspots.json).
   // S7: and the cabin's display data (content/home/cabin.json), since the guest book's screen shows the cabin on the porch.
-  assert.deepEqual(Object.keys(art.preview), ['format', 'palette', 'pics', 'stamps', 'recipes', 'hotspots', 'cabin']);
+  // S7b: and the title screen's marks (content/art/title.json, without its note), with the home.
+  assert.deepEqual(Object.keys(art.preview), ['format', 'palette', 'pics', 'stamps', 'recipes', 'hotspots', 'cabin', 'title']);
+  const { $comment, ...titleData } = JSON.parse(readFileSync(join(ROOT, 'content', 'art', 'title.json'), 'utf8'));
+  assert.ok($comment);
+  assert.deepEqual(art.preview.title, titleData);
   // S7: the cabin's two Looks (the tub, the register post) join them.
   assert.deepEqual(Object.keys(art.preview.hotspots).filter((k) => art.preview.hotspots[k]), ['basin', 'bogachiel_peak', 'hiker', 'lake', 'lunch_lake', 'privy', 'register_post', 'ridge', 'sign', 'staircase', 'tub']);
   assert.deepEqual(Object.keys(art.preview.pics), ['base_lake_basin', 'base_meadow', 'cabin_quinault', 'cover_high_divide_dusk', 'seven_lakes_basin_rim']);

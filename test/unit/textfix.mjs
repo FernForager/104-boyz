@@ -266,6 +266,7 @@ class FakeElement extends FakeNode {
 export function fakeDocument() {
   const doc = {
     createElement: (tag) => new FakeElement(doc, tag),
+    createElementNS: (_ns, tag) => new FakeElement(doc, tag),
     createTextNode: (data) => new FakeText(doc, data),
     activeElement: null,
     listeners: new Map(),

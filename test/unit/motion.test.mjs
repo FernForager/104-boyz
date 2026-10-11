@@ -133,9 +133,9 @@ function declarations(css) {
   return out;
 }
 
-test('every CSS transition and animation sits inside @media (prefers-reduced-motion: no-preference), in frame.css and game.css', () => {
+test('every CSS transition and animation sits inside @media (prefers-reduced-motion: no-preference), in frame.css, game.css and (S7b) title.css', () => {
   let found = 0;
-  for (const f of ['frame.css', 'game.css']) {
+  for (const f of ['frame.css', 'game.css', 'title.css']) {
     for (const d of declarations(read('web', 'css', f))) {
       if (!/^(transition|animation)(-|$)/.test(d.prop) || d.keyframes) continue;
       found++;
@@ -143,6 +143,10 @@ test('every CSS transition and animation sits inside @media (prefers-reduced-mot
     }
   }
   assert.ok(found >= 4, `the title's step-in and safety, the Why sheet's slide, the Look box's pop: ${found}`);
+  // S7b: title.css's label and prompt step-ins, the prompt's pulse and the hurried name, each inside one.
+  const title = declarations(read('web', 'css', 'title.css')).filter((d) => /^(transition|animation)(-|$)/.test(d.prop) && !d.keyframes);
+  assert.ok(title.length >= 4 && title.every((d) => d.media.some((m) => /prefers-reduced-motion:\s*no-preference/.test(m))), `title.css: ${title.length}`);
+  assert.ok(title.some((d) => d.prop === 'animation'), "the prompt's pulse");
   // A planted one fails.
   assert.ok(declarations('.x { transition: opacity 1s; }').some((d) => d.prop === 'transition' && !d.media.length));
 });
@@ -150,9 +154,10 @@ test('every CSS transition and animation sits inside @media (prefers-reduced-mot
 test('the screenshots run with Reduce Motion on (tools/shots.mjs), so the draw-in is instant and the compass is shot at rest', async () => {
   const src = read('tools', 'shots.mjs');
   // Rewritten in S7 (track C): one scenario may turn it off (the s7 set's first_drawin, a picture part way
-  // through the cabin's draw-in); every other scenario of every set and batch keeps it on.
+  // through the cabin's draw-in); every other scenario of every set and batch keeps it on. Rewritten in S7b:
+  // and the s7b set's title_drawin, the title screen part way through its draw-in; no batch's scenario.
   assert.match(src, /reducedMotion: sc\.motion \? 'no-preference' : 'reduce',/);
   const { SETS, SCREEN_SCENARIOS } = await import('../../tools/shots.mjs');
   const moving = [...Object.entries(SETS), ...Object.entries(SCREEN_SCENARIOS)].flatMap(([k, list]) => list.filter((sc) => sc.motion).map((sc) => `${k}:${sc.name}`));
-  assert.deepEqual(moving, ['s7:first_drawin']);
+  assert.deepEqual(moving, ['s7:first_drawin', 's7b:title_drawin']);
 });

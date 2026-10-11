@@ -1,15 +1,16 @@
-// Boot (BUILD_PLAN 2.2). The title page (on preview from S7, the loading
-// art before the cabin). First the error sheet, so nothing after it can
+// Boot (BUILD_PLAN 2.2). The title page (on preview from S7b, the title
+// screen before the cabin). First the error sheet, so nothing after it can
 // white-screen; then the words, the worker, the hidden debug menu; then the
 // title page, imported on its own so a broken module still reaches the
 // sheet. If one of the imports below fails to load, parse or link, none of
 // this runs: boot.js, loaded before this module, opens the sheet instead.
 //
 // On a build whose <html data-screens> lists the home (preview, from S7;
-// the guest book and the trail from S3), the title page is the loading art:
-// the game (ui/app.js) loads its data and the saves while the cover draws
-// in, then takes the page, back on the autosaved screen (the cabin, a stop).
-// Main's page never imports it.
+// the guest book and the trail from S3), the title page is the title screen
+// (ui/title.js, S7b, decision 74): the cover, the name, Mount Olympus and
+// the prompt, until a tap. The game (ui/app.js) loads its data and the
+// saves underneath, then takes the page on the tap, back on the autosaved
+// screen (the lockbox, the cabin, a stop). Main's page imports neither.
 // About a second after the first paint, the replay self-check runs on both
 // channels (ui/selfcheck.js); its result rides in every bug report.
 //
@@ -34,13 +35,17 @@ startWorker(document);
 initDebug(document, words);
 import('./ui/home.js')
   .then(({ showTitle, opensGame }) => {
-    const title = showTitle(document);
-    if (opensGame(document)) {
-      import('./ui/app.js') // screens: home
-        .then(({ startGame }) => startGame(document, { title, words }))
-        .catch(showError);
-    }
-    return title;
+    if (!opensGame(document)) return showTitle(document);
+    // Preview (S7b): the title screen and the game load side by side; the
+    // game takes the page on the tap that goes in. A title that fails opens
+    // the sheet, and the game still goes on.
+    const title = import('./ui/title.js') // screens: home
+      .then(({ showTitleScreen }) => showTitleScreen(document, { words }));
+    title.catch(showError);
+    import('./ui/app.js') // screens: home
+      .then(({ startGame }) => startGame(document, { title, words }))
+      .catch(showError);
+    return undefined;
   })
   .catch(showError);
 if (opensMap(document)) {

@@ -297,10 +297,12 @@ test('count: where things stand', () => {
   // the tub's and the register post's Looks and names, the cabin's nine alt
   // parts) and seven dev lines (the hour's dawn, the sky control and its
   // five), preview only. S7 (track C) adds B003's eight (the lockbox's own
-  // six, the guest book's label and Suggest), preview only.
-  assert.equal(c.lines, 245);
+  // six, the guest book's label and Suggest), preview only. S7b adds the
+  // title screen's prompt (title.prompt, B002's line 40), preview only (off
+  // main until B002 is answered).
+  assert.equal(c.lines, 246);
   assert.equal(c.files, 10);
-  assert.deepEqual(c.ours, { total: 209, approved: 14, draft: 190, changed: 0, cut: 0, nowords: 5 });
+  assert.deepEqual(c.ours, { total: 210, approved: 14, draft: 191, changed: 0, cut: 0, nowords: 5 });
   assert.equal(c.dev, 36);
   // The 13 app lines, and the debug menu's six dev lines main keeps
   // (dev.note, dev.close, dev.throw and the three dev.check lines; the marks
@@ -309,7 +311,8 @@ test('count: where things stand', () => {
   assert.equal(c.main.reach.length, 19);
   assert.deepEqual(c.main.screens, ['app', 'debug', 'title']);
   assert.deepEqual(c.main.needs, []);
-  assert.equal(c.main.off.length, 35, "S6's review: the check view's two fixture names are off main too; S7: the seven new dev lines");
+  assert.equal(c.main.off.length, 36, "S6's review: the check view's two fixture names are off main too; S7: the seven new dev lines; S7b: the title screen's prompt");
+  assert.ok(c.main.off.includes('title.prompt'));
   assert.deepEqual(c.t07, [], 'S7: no preview page shows a book word (the title page retired there)');
   assert.deepEqual(c.unapplied, []);
   // The words (18.9): the 14 approved lines hold 58, the bare build code none.
@@ -321,10 +324,10 @@ test('count: where things stand', () => {
   assert.equal(c.words.ours.total, c.words.ours.approved + c.words.ours.draft + c.words.ours.changed + c.words.ours.cut);
   assert.ok(c.words.ours.draft > 0 && c.words.dev > 0);
   const out = formatCount(c);
-  assert.match(out, /^text: 245 lines in 10 files\n {2}ours {2}209: approved 14, draft 190, changed 0, cut 0, no words 5\n {8}words \d+: approved 58, draft \d+, changed 0, cut 0\n {2}dev {4}36: exempt \(decision 64\); words \d+/);
+  assert.match(out, /^text: 246 lines in 10 files\n {2}ours {2}210: approved 14, draft 191, changed 0, cut 0, no words 5\n {8}words \d+: approved 58, draft \d+, changed 0, cut 0\n {2}dev {4}36: exempt \(decision 64\); words \d+/);
   assert.match(out, /credits 2 \(approved 2; waiting for its screen\)/);
   assert.match(out, /debug 36 \(dev 36\)/);
-  assert.match(out, /main: carries app, debug, title; reaches 19 lines, all shippable; needs 0; off main 35/);
+  assert.match(out, /main: carries app, debug, title; reaches 19 lines, all shippable; needs 0; off main 36/);
   assert.match(out, /answers not yet applied: none$/);
 });
 

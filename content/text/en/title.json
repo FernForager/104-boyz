@@ -1,5 +1,5 @@
 {
- "$comment": "Session 1's title page, word for word (GAME_DESIGN 18.11). Off main since S2 (decision 64); the ids retire with the title page when the cabin replaces it (S7). The name over the cover is app.name.",
+ "$comment": "Session 1's title page, word for word (GAME_DESIGN 18.11): off main since S2 (decision 64), retired on preview from S7 (channels.preview.off), and retired unanswered when main gets the title screen and the cabin. From S7b the title screen's one line of its own, title.prompt (decision 74; B002 line 40), preview only until B002 is answered. The name over the cover is app.name; the label over its summit is the gazetteer's place.mount_olympus_west_peak (content/art/title.json).",
  "title.tagline": {
   "text": "a picture-book trip",
   "ctx": "Session 1's title page: the line under the name",
@@ -23,5 +23,11 @@
   "ctx": "Session 1's title page: the note under the start button (hidden with it)",
   "screen": "title",
   "max": 40
+ },
+ "title.prompt": {
+  "text": "Tap to start",
+  "ctx": "The title screen's prompt under the cover (decision 74): a tap anywhere, or this button, goes in; VoiceOver reads it as the button's name. Also drafted: Tap to play, Tap to head out",
+  "screen": "title",
+  "max": 22
  }
 }

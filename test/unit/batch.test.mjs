@@ -28,7 +28,7 @@ function copyTree(t) {
 }
 
 /** A shooter that takes no pictures: a 1 x 1 PNG per screen, every line badged there (and mocks for a screen named in mocks). */
-function fakeShoot({ mocks = [] } = {}) {
+function fakeShoot({ mocks = [], names = {} } = {}) {
   const calls = [];
   const png = encodePNG({ width: 1, height: 1, type: 'rgb', data: new Uint8Array([27, 31, 42]) });
   const shoot = async ({ batch, lines, dir }) => {
@@ -50,7 +50,8 @@ function fakeShoot({ mocks = [] } = {}) {
       writeFileSync(join(dir, file), png);
       // The words a badged line showed, var fills in: here the caption at a place no line or sample names.
       const shown = mine.filter((l) => l.id === 'trail.caption').map((l) => ({ n: l.n, text: 'Day 1 · Bogachiel Peak · 5,474 ft' }));
-      shots.push({ file, name: screen, screen, badges: mine.map((l, i) => ({ n: l.n, id: l.id, box: [0, i * 10, 10, 10] })), shown });
+      // S7b: the names a screen shows on their own, in no line (names: screen -> ids), as shots.mjs ownNames records them.
+      shots.push({ file, name: screen, screen, badges: mine.map((l, i) => ({ n: l.n, id: l.id, box: [0, i * 10, 10, 10] })), shown, ...(names[screen] ? { names: names[screen] } : {}) });
     }
     return { engine: 'fake', version: '0', size: 'iPhone 17 (402 x 874 @3)', shots, mocks: mocked, errors: [] };
   };
@@ -97,9 +98,10 @@ test('batches.json agrees with every B00n.md table: the same ids, in the same or
   assert.deepEqual(Object.keys(data.batches.B003.lines).slice(53), ['first.lockbox.start', 'first.lockbox.intro', 'first.lockbox.count', 'first.lockbox.all_right', 'first.lockbox.come_in', 'first.lockbox.take_key', 'first.guestbook.label', 'first.guestbook.suggest']);
   assert.deepEqual(data.batches.B003.by, ['S3', 'S4', 'S7']);
   // B002 is S7's, the cabin's: 28 new, 10 moved from B004 to B006, and Session 1's cover description, held until now.
-  assert.equal(Object.keys(data.batches.B002.lines).length, 39);
-  assert.deepEqual(Object.keys(data.batches.B002.lines).slice(28), ['trail.status.sound_on', 'trail.status.sound_off', 'trail.status.menu', 'fmt.clock_am', 'fmt.clock_pm', 'trail.why.close', 'trail.box.more', 'alt.hour.dusk', 'alt.hour.blue', 'alt.hour.night', 'alt.cover_high_divide_dusk']);
-  assert.deepEqual([data.batches.B002.by, data.batches.B002.status], [['S7'], 'filed']);
+  // Re-pinned in S7b: 40, the title screen's prompt filed last by S7b (decision 74), the batch still unsent.
+  assert.equal(Object.keys(data.batches.B002.lines).length, 40);
+  assert.deepEqual(Object.keys(data.batches.B002.lines).slice(28), ['trail.status.sound_on', 'trail.status.sound_off', 'trail.status.menu', 'fmt.clock_am', 'fmt.clock_pm', 'trail.why.close', 'trail.box.more', 'alt.hour.dusk', 'alt.hour.blue', 'alt.hour.night', 'alt.cover_high_divide_dusk', 'title.prompt']);
+  assert.deepEqual([data.batches.B002.by, data.batches.B002.status], [['S7', 'S7b'], 'filed']);
   assert.equal(Object.prototype.hasOwnProperty.call(data.held, 'alt.cover_high_divide_dusk'), false, 'no longer held');
   // Each batch within decision 64's 25 to 40, but B003, one set by the creator's OK (Lead call 46).
   for (const b of ['B002', 'B004', 'B005', 'B006']) assert.ok(Object.keys(data.batches[b].lines).length >= 25 && Object.keys(data.batches[b].lines).length <= 40, b);
@@ -314,6 +316,42 @@ test('the template fills, the not-ours tail, and a changed line shows the words 
   assert.match(md, /^\*\*1\*\* was approved as: Go on$/m);
 });
 
+test("the not-ours tail (S7b): a name a batch's screen shows on its own, in no line, is listed with that screen (the title screen's Mount Olympus), beside the lines that name it", async (t) => {
+  const text = readText(ROOT);
+  const own = [
+    { id: 'place.mount_olympus_west_peak', screen: 'title' },
+    { id: 'place.mount_olympus_west_peak', screen: 'title' },
+    { id: 'title.prompt', screen: 'title' },
+    { id: 'place.nowhere_at_all', screen: 'title' },
+  ];
+  // Named in a line and shown on its own: both; a line id or an unknown name in own is no name.
+  const tail = notOurs(text, [{ n: 39, words: 'Across the Hoh valley, Mount Olympus glows pink.' }, { n: 40, words: 'Tap to start' }], [], own);
+  const olympus = tail.find((x) => x.id === 'place.mount_olympus_west_peak');
+  assert.deepEqual(olympus, { id: 'place.mount_olympus_west_peak', text: 'Mount Olympus', kind: 'place', lines: [39], screens: ['title'] });
+  assert.ok(!tail.some((x) => x.id === 'title.prompt' || x.id === 'place.nowhere_at_all'));
+  assert.ok(tail.filter((x) => x.id !== olympus.id).every((x) => !('screens' in x)), 'a name only in a line has no screens');
+  // Shown on its own only: no line, its screen; it sorts after every name a line carries.
+  const alone = notOurs(text, [{ n: 1, words: 'From Deer Lake.' }, { n: 2, words: 'Tap to start' }], [], own.slice(0, 1));
+  assert.deepEqual(alone.map((x) => [x.id, x.lines, x.screens]), [
+    ['place.deer_lake', [1], undefined],
+    ['place.mount_olympus_west_peak', [], ['title']],
+  ]);
+  // Through the batch: B002 with a fake shooter whose title screen shows the label.
+  const root = copyTree(t);
+  const out = join(root, 'out', 'review');
+  const { shoot } = fakeShoot({ names: { title: ['place.mount_olympus_west_peak'] } });
+  const r = await buildBatch(root, 'B002', { out, shoot });
+  assert.deepEqual(r.errors, []);
+  assert.equal(r.json.lines.length, 40);
+  assert.deepEqual(r.json.lines.slice(-2).map((l) => [l.n, l.id, l.screen, l.state]), [
+    [39, 'alt.cover_high_divide_dusk', 'title', 'draft'],
+    [40, 'title.prompt', 'title', 'draft'],
+  ]);
+  assert.deepEqual(r.json.not_ours.find((x) => x.id === 'place.mount_olympus_west_peak'), { id: 'place.mount_olympus_west_peak', text: 'Mount Olympus', kind: 'place', lines: [39], screens: ['title'] });
+  const md = readFileSync(join(out, 'B002', 'B002.md'), 'utf8');
+  assert.match(md, /\*Mount Olympus\* \(a place, line 39; on the title screen\)/);
+});
+
 test("meta.json (the line inspector's data): every line's state, ctx, max, length, hash and batch; a line added in chat takes its batch from the ledger", () => {
   const text = readText(ROOT);
   const meta = metaFor(text);
@@ -369,14 +407,14 @@ test('--file --from (S7): a line moves out of another unsent batch into this one
     assert.match(r.errors.join('\n'), re, `${b} ${JSON.stringify(o)}`);
     assert.deepEqual(snap(), start, 'nothing written');
   }
-  // Move B004's line 2 and its toolbar's Map (line 10) into B002.
+  // Move B004's line 2 and its toolbar's Map (line 10) into B002 (re-pinned in S7b: B002 holds 40, so they file as 41 and 42).
   const before = Object.keys(JSON.parse(read(BATCHES_FILE, root)).batches.B004.lines);
   const r = fileBatch(root, 'B002', { ids: ['trail.sol_duc_trailhead.lot', 'trail.toolbar.map'], from: 'B004' });
   assert.deepEqual(r.errors, []);
   assert.deepEqual(r.moved, ['trail.sol_duc_trailhead.lot', 'trail.toolbar.map']);
   assert.deepEqual(r.filed.map((f) => [f.n, f.id, f.how]), [
-    [40, 'trail.sol_duc_trailhead.lot', 'added'],
-    [41, 'trail.toolbar.map', 'added'],
+    [41, 'trail.sol_duc_trailhead.lot', 'added'],
+    [42, 'trail.toolbar.map', 'added'],
   ]);
   const data = JSON.parse(read(BATCHES_FILE, root));
   const after = Object.keys(data.batches.B004.lines);
@@ -385,8 +423,8 @@ test('--file --from (S7): a line moves out of another unsent batch into this one
   rows.forEach((row, k) => assert.equal(row.n, k + 1, `B004 row ${k + 1} renumbered`));
   assert.deepEqual(rows.map((row) => [row.id, row.hash]), Object.entries(data.batches.B004.lines), 'B004.md and batches.json agree');
   assert.deepEqual(parseBatchTable(read('content/text/review/B002.md', root)).slice(-2).map((row) => [row.n, row.id]), [
-    [40, 'trail.sol_duc_trailhead.lot'],
-    [41, 'trail.toolbar.map'],
+    [41, 'trail.sol_duc_trailhead.lot'],
+    [42, 'trail.toolbar.map'],
   ]);
   assert.deepEqual(data.batches.B004.by, ['S3', 'S5', 'S6'], "the source batch's sessions stay its own");
 });
