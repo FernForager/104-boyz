@@ -106,6 +106,7 @@ export function diagInit() {
     }
     return wrapped;
   };
+  const rawGetters = {};
   const PROMISE_GETTERS = new Set(['ready', 'finished', 'loaded', 'closed', 'updateCallbackDone', 'released', 'ended', 'committed']);
   const wrapOwner = (owner, label, statics) => {
     let keys;
@@ -131,6 +132,7 @@ export function diagInit() {
         } else if (typeof d.get === 'function' && PROMISE_GETTERS.has(k)) {
           const g = d.get;
           const lab = `${label}.${k}`;
+          rawGetters[lab] = g;
           defp(owner, k, {
             ...d,
             get() {
@@ -209,6 +211,25 @@ export function diagInit() {
         if (s === last) return;
         last = s;
         log(`DIAG screen -> ${s} fonts.status=${document.fonts ? document.fonts.status : '-'} ${ctx()}`);
+        // Is document.fonts.ready (the engine's own promise, unwrapped) settled as this screen draws, and when does it settle?
+        try {
+          const g = rawGetters['FontFaceSet.ready'];
+          const rp = g ? apply(g, document.fonts, []) : document.fonts.ready;
+          let st = 'pending';
+          apply(then, rp, [
+            () => {
+              const was = st;
+              st = 'resolved';
+              if (was === 'pending-after-task') log(`DIAG fonts.ready (as of screen ${s}) settled LATE, status=${document.fonts.status} ${ctx()}`);
+            },
+          ]);
+          setTimeout(() => {
+            if (st === 'pending') st = 'pending-after-task';
+            log(`DIAG fonts.ready at screen ${s}, one task later: ${st} (status=${document.fonts.status}) ${ctx()}`);
+          }, 0);
+        } catch (e) {
+          log(`DIAG fonts.ready probe failed: ${desc(e)}`);
+        }
       };
       if (app) new MutationObserver(onScreen).observe(app, { attributes: true, attributeFilter: ['data-screen'] });
       const sheet = document.getElementById('error-sheet');
@@ -255,13 +276,13 @@ export function hookPage(page, tag, into = []) {
 }
 
 /** The real player flow, fresh, at /preview/ (no debug), on the 17's size. */
-export async function runFlow({ engine = 'webkit', out = join(ROOT, 'out', 'shots', 'flow'), motion = true, size = { width: 402, height: 874, dpr: 3, safe: [62, 34] }, tag = 'flow', slowFonts = 0, fast = false } = {}) {
+export async function runFlow({ engine = 'webkit', out = join(ROOT, 'out', 'shots', 'flow'), motion = true, size = { width: 402, height: 874, dpr: 3, safe: [62, 34] }, tag = 'flow', slowFonts = 0, fast = false, allFonts = false } = {}) {
   const { loadPlaywright, launch, serveSite, safeCss } = await import('./shots.mjs');
   const pw = await loadPlaywright();
   if (!pw) throw new Error('no playwright');
   mkdirSync(out, { recursive: true });
   const { browser, engine: used, version } = await launch(pw, engine, (m) => console.log(m));
-  console.log(`DIAG[${tag}] engine ${used} ${version} motion=${motion} slowFonts=${slowFonts} fast=${fast}`);
+  console.log(`DIAG[${tag}] engine ${used} ${version} motion=${motion} slowFonts=${slowFonts} allFonts=${allFonts} fast=${fast}`);
   const site = await serveSite(ROOT);
   const lines = [];
   let sheetSeen = false;
@@ -278,7 +299,7 @@ export async function runFlow({ engine = 'webkit', out = join(ROOT, 'out', 'shot
   // A slow first visit (cellular): every font answers slowFonts ms late.
   if (slowFonts) {
     // The frame's two fonts (ui/app.js FRAME_FONTS), which the game waits for 1.5 s at most.
-    await context.route(/\/fonts\/(OPHChrome\.ttf|Literata[^/]*\.woff2)$/, async (route) => {
+    await context.route(allFonts ? /\/fonts\/[^/]+\.(ttf|woff2)$/ : /\/fonts\/(OPHChrome\.ttf|Literata[^/]*\.woff2)$/, async (route) => {
       await new Promise((done) => setTimeout(done, slowFonts));
       await route.continue().catch(() => null);
     });
@@ -469,6 +490,9 @@ if (isMain) {
     // A first visit on a slow connection, and a player who taps Open the lockbox at once.
     { motion: true, tag: 'flow-slowfonts-fast', slowFonts: 4000, fast: true },
     { motion: true, tag: 'flow-fast', fast: true },
+    // Every font slow (the loading art's too), Reduce Motion on and off.
+    { motion: true, tag: 'flow-slowall-fast', slowFonts: 4000, fast: true, allFonts: true },
+    { motion: false, tag: 'flow-slowall-fast-reduce', slowFonts: 4000, fast: true, allFonts: true },
   ].filter((v) => !only || v.tag === only);
   (async () => {
     const seen = [];
