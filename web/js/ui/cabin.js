@@ -878,6 +878,8 @@ export function renderCabin(host, screen, ctx) {
       stopCycles();
       for (const s of stops) s();
       if (display) display.release();
+      // Gone with the screen: the fonts.ready above (and relayout, paint) test it, so a released cabin is never laid out again.
+      display = null;
     },
   };
 }
