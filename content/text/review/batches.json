@@ -38,7 +38,8 @@
    "title": "The cabin",
    "status": "filed",
    "by": [
-    "S7"
+    "S7",
+    "S7b"
    ],
    "lines": {
     "home.next.plan_first": "4183a23a",
@@ -79,7 +80,8 @@
     "alt.hour.dusk": "51876752",
     "alt.hour.blue": "44b0e973",
     "alt.hour.night": "57b1aa03",
-    "alt.cover_high_divide_dusk": "8e244cb0"
+    "alt.cover_high_divide_dusk": "8e244cb0",
+    "title.prompt": "2f7a5f93"
    }
   },
   "B003": {

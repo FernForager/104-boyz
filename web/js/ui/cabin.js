@@ -77,6 +77,7 @@ import { reducedMotion, onMotionChange, liveCycles } from './motion.js';
 import { plainSizeOf, PLAIN_LINE, PLAIN_CHOICE_CHROME_FP } from './textsize.js';
 import { pixelGlyph } from './glyph.js';
 import { registerDevControl, debugMode, debugRequested } from './debug.js';
+import { DEV_HOURS, DEV_SKIES } from './devroute.js';
 
 /** The cabin's status line: ≡ is the mailbox (lead call 63), and Sound:on the trail's. */
 export const HOME_STATUS = Object.freeze({ menu: 'home.place.mailbox', soundOn: 'trail.status.sound_on', soundOff: 'trail.status.sound_off' });
@@ -106,6 +107,18 @@ export const CHROME_ROW_FP = 14;
 export const LABEL_PAD_FP = 1;
 /** A used place's dot: 2 x 2 font pixels. */
 export const DOT_FP = 2;
+/** A label stays this clear (pt) of every other place's and Look's art box, on every phone (lint P17; S7b, Lead call 69). */
+export const LABEL_CLEAR_PT = 6;
+/**
+ * The cabin's name (lead call 61; home.css .cabin-name): its line centered
+ * in the band from row NAME_TOP_ROW, NAME_ROWS tall, in the chrome font at
+ * the frame's font pixel, with a font pixel of ink shadow under it.
+ */
+export const NAME_TOP_ROW = 2;
+export const NAME_ROWS = 26;
+export const NAME_SHADOW_FP = 1;
+/** A character cell and a half (font pixels): along its line, a star nearer than this reads as the name's punctuation (S7b, Lead call 69). */
+export const NAME_CLEAR_FP = 12;
 /** The places used once, kept on the phone (the player's). */
 export const LABELS_KEY = 'labels';
 /** The kinds that get a button (S7); on first launch only the lockbox's (FIRST_KINDS). */
@@ -116,8 +129,7 @@ export const OPEN_NOW = Object.freeze(['next', 'mailbox']);
 /** The dev controls' keys and choices (preview's debug menu). */
 export const HOUR_KEY = 'hour';
 export const SKY_KEY = 'sky';
-export const DEV_HOURS = Object.freeze(['dawn', 'day', 'dusk', 'blue', 'night']);
-export const DEV_SKIES = Object.freeze(['clear', 'cloudy', 'rain', 'fog']);
+export { DEV_HOURS, DEV_SKIES }; // ui/devroute.js's, which the #home route reads too
 /** The longest the cabin waits between looks at the clock (ms): a phone asleep or a daylight-time change never leaves it long wrong. */
 export const MAX_WAIT_MS = 60 * 1000;
 
@@ -130,6 +142,20 @@ export function fontPixel(dpr) {
   if (dpr >= 3) return 4 / 3;
   if (dpr >= 2) return 1.5;
   return 2;
+}
+
+/**
+ * A label's font pixel in CSS px (S7b, Lead call 69): the chrome's
+ * (fontPixel) or the picture's row height, whichever is smaller, floored to
+ * whole device pixels, so a label never stands taller in rows than on the
+ * phones it was placed for: 1 pt (2 device px) on the SE's 4x2, where a
+ * row is 1 pt and the chrome's font pixel 1.5; 4/3 pt on the 3x phones and
+ * 1.5 pt on a 2x 5x3, as the chrome's.
+ * @param {{sy: number, dpr: number}} shape
+ */
+export function labelFontPixel({ sy, dpr }) {
+  const fp = Math.min(fontPixel(dpr), sy / dpr);
+  return Math.max(1, Math.floor(fp * dpr + 1e-9)) / dpr;
 }
 
 /**
@@ -255,7 +281,8 @@ export function placeAt(hits, x, y) {
 
 /**
  * Pure: a label's box in CSS px from the canvas's top left: chars glyphs of
- * the chrome font and a font pixel of padding round them, at the place's
+ * the chrome font at the label's font pixel (labelFontPixel) and a font
+ * pixel of padding round them, at the place's
  * label anchor (its top edge's center, or its top right corner), each edge
  * on a whole device pixel; and its dot, 2 x 2 font pixels, centered where
  * the label was.
@@ -264,7 +291,7 @@ export function placeAt(hits, x, y) {
  * @param {Shape} shape
  */
 export function labelBox(place, chars, { sx, sy, dpr, ox = 0 }) {
-  const fp = fontPixel(dpr);
+  const fp = labelFontPixel({ sy, dpr });
   const w = (chars * CHROME_ADVANCE_FP + 2 * LABEL_PAD_FP) * fp;
   const h = (CHROME_ROW_FP + 2 * LABEL_PAD_FP) * fp;
   const [lx, ly] = /** @type {number[]} */ (place.label);
@@ -275,6 +302,48 @@ export function labelBox(place, chars, { sx, sy, dpr, ox = 0 }) {
   const y = snap(ay);
   const d = DOT_FP * fp;
   return { x, y, w, h, dot: { x: snap(x + w / 2 - d / 2), y: snap(y + h / 2 - d / 2), w: d, h: d } };
+}
+
+/**
+ * Pure: the cabin's name's line box in picture pixels from the plate's top
+ * left (fractions; lead call 61; S7b, Lead call 69): chars glyphs of the
+ * chrome font at the frame's font pixel (home.css .cabin-name), centered
+ * between the mats as .cabin-name centers it (frame: homeLayout's column,
+ * keyline and mat; without it, on the plate's middle), its 14-font-pixel
+ * line centered in the band from row NAME_TOP_ROW, NAME_ROWS tall, and the
+ * ink shadow's font pixel under it. clearFp widens it along its line by
+ * that many font pixels each side (NAME_CLEAR_FP: where a star would read
+ * as punctuation).
+ * @param {Shape} shape
+ * @param {number} chars the name's glyphs
+ * @param {{column: number, keyline: number, mat: number} | null} [frame]
+ * @param {number} [clearFp]
+ * @returns {{x: number, y: number, w: number, h: number}}
+ */
+export function nameBox({ sx, sy, dpr, ox = 0 }, chars, frame = null, clearFp = 0) {
+  const fp = fontPixel(dpr);
+  const col = sx / dpr;
+  const row = sy / dpr;
+  const center = frame ? ((frame.column - 2 * frame.keyline) / 2 - frame.mat - ox / dpr) / col : WIDTH / 2;
+  const half = (chars * CHROME_ADVANCE_FP * fp) / 2 / col + (clearFp * fp) / col;
+  const mid = (NAME_TOP_ROW + NAME_ROWS / 2) * row;
+  const top = (mid - (CHROME_ROW_FP / 2) * fp) / row;
+  const bottom = (mid + (CHROME_ROW_FP / 2 + NAME_SHADOW_FP) * fp) / row;
+  return { x: center - half, y: top, w: 2 * half, h: bottom - top };
+}
+
+/**
+ * Pure: the labels a Look box covers (S7b, Lead call 69): each label whose
+ * rect overlaps the box's (any area), hidden while the box is open, so no
+ * label shows half under it. Rects {x, y, w, h} in one coordinate space.
+ * @param {{x: number, y: number, w: number, h: number}} box
+ * @param {Iterable<[string, {x: number, y: number, w: number, h: number}]>} labels id -> rect
+ * @returns {string[]}
+ */
+export function coveredLabels(box, labels) {
+  const out = [];
+  for (const [id, r] of labels) if (r.w > 0 && r.h > 0 && r.x < box.x + box.w && box.x < r.x + r.w && r.y < box.y + box.h && box.y < r.y + r.h) out.push(id);
+  return out;
 }
 
 /**
@@ -540,7 +609,41 @@ export function renderCabin(host, screen, ctx) {
   /** @type {{id: string, kind: string}[]} */
   let altRefs = [];
   const alt = () => altRefs.map((r) => ({ id: r.id }));
-  const showAlt = () => openLook(figure, alt(), { sound: ctx.sound, flow: true });
+  // A Look box over the picture (a long press, a Look, Not open yet., the
+  // alt text) hides each label it covers until it closes (S7b, Lead call
+  // 69): better no label than half of one.
+  /** @param {HTMLElement} box */
+  const cover = (box) => {
+    const b = rectIn(box, figure);
+    /** @type {[string, {x: number, y: number, w: number, h: number}][]} */
+    const rects = [];
+    for (const [id, el] of labelEls) {
+      const part = /** @type {HTMLElement | null} */ (el.querySelector(el.hasAttribute('data-used') ? '.label-dot' : '.label-tag'));
+      const r = part ? rectIn(part, figure) : null;
+      if (r) rects.push([id, r]);
+    }
+    const hide = new Set(b ? coveredLabels(b, rects) : []);
+    for (const [id, el] of labelEls) {
+      if (hide.has(id)) el.setAttribute('data-covered', '');
+      else el.removeAttribute('data-covered');
+    }
+  };
+  const uncover = () => {
+    for (const el of labelEls.values()) el.removeAttribute('data-covered');
+  };
+  /**
+   * Open a Look box over the picture, its covered labels hidden.
+   * @param {readonly {id: string}[]} lines
+   * @param {{opener?: HTMLElement | null, flow?: boolean}} [o]
+   */
+  const look = (lines, o = {}) => {
+    const l = openLook(figure, lines, { ...o, sound: ctx.sound, onClose: uncover });
+    cover(l.el);
+    // Once laid out (its pages measured), again.
+    if (win && typeof win.requestAnimationFrame === 'function') win.requestAnimationFrame(() => l.el.parentNode && cover(l.el));
+    return l;
+  };
+  const showAlt = () => look(alt(), { flow: true });
 
   // The places: the rail's word on each until used, then a dot.
   /** @type {Map<string, HTMLElement>} */
@@ -573,7 +676,7 @@ export function renderCabin(host, screen, ctx) {
 
   // Not open yet (lead call 59): the place's name and the line, in the Look box.
   /** @param {string} id @param {HTMLElement | null} opener */
-  const soon = (id, opener) => openLook(figure, [{ id: nameLine(id, places[id]) }, { id: 'home.soon' }], { opener, sound: ctx.sound }); // t-ids: home.place.door, home.place.shed, home.place.car, home.place.fire_bowl, home.place.mailbox
+  const soon = (id, opener) => look([{ id: nameLine(id, places[id]) }, { id: 'home.soon' }], { opener }); // t-ids: home.place.door, home.place.shed, home.place.car, home.place.fire_bowl, home.place.mailbox
   // The next step: home's (the engine's nextStep), or the shut lockbox's one choice, Open the lockbox.
   const shut = first && screen.choices && screen.choices.length ? screen.choices[0] : null;
   const next = shut ? { id: '', act: shut.act, label: shut.label ? shut.label.id : 'first.lockbox.start' } : screen.next ? { ...screen.next, label: nextLine(screen.next.id) } : null;
@@ -593,7 +696,7 @@ export function renderCabin(host, screen, ctx) {
       return;
     }
     if (p.kind === 'look') {
-      openLook(figure, [{ id: `look.${id}` }], { opener, sound: ctx.sound }); // t-ids: look.tub, look.register_post
+      look([{ id: `look.${id}` }], { opener }); // t-ids: look.tub, look.register_post
       return;
     }
     if (p.kind === 'first') {
@@ -648,7 +751,7 @@ export function renderCabin(host, screen, ctx) {
         }
         return null;
       },
-      run: (/** @type {{id: string, el: HTMLElement}} */ hit) => openLook(figure, [{ id: places[hit.id].kind === 'first' ? 'first.lockbox.start' : nameLine(hit.id, places[hit.id]) }], { opener: hit.el, sound: ctx.sound }), // t-ids: home.place.door, home.place.shed, home.place.car, home.place.fire_bowl, home.place.mailbox, look.name.tub, look.name.register_post, first.lockbox.start
+      run: (/** @type {{id: string, el: HTMLElement}} */ hit) => look([{ id: places[hit.id].kind === 'first' ? 'first.lockbox.start' : nameLine(hit.id, places[hit.id]) }], { opener: hit.el }), // t-ids: home.place.door, home.place.shed, home.place.car, home.place.fire_bowl, home.place.mailbox, look.name.tub, look.name.register_post, first.lockbox.start
     }),
   );
 
@@ -803,6 +906,8 @@ export function renderCabin(host, screen, ctx) {
       // A picture pixel's height and width (home.css: the name's band, rows 2 to 28).
       host.style.setProperty('--row', `${shape.sy / dpr}px`);
       host.style.setProperty('--px', `${shape.sx / dpr}px`);
+      // A label's font pixel: never taller than a picture row (S7b, Lead call 69).
+      host.style.setProperty('--label-fp', `${labelFontPixel(shape)}px`);
       hits = cabinHits(tappable(places, first), shape);
       placeButtonsAt(placeButtons, hits);
       for (const [id, el] of labelEls) placeLabel(el, labelBox(places[id], labelChars(railLine(/** @type {string} */ (places[id].rail))), shape));
@@ -906,6 +1011,41 @@ export function pointIn(el, event) {
   if (typeof el.getBoundingClientRect !== 'function') return null;
   const r = el.getBoundingClientRect();
   return { x: event.clientX - r.left, y: event.clientY - r.top };
+}
+
+/**
+ * An element's layout rect relative to an ancestor's padding box, in CSS
+ * px: from the offset chain where the page lays it out (a transform, such
+ * as the Look box's pop, never moves it), else from getBoundingClientRect
+ * against the ancestor's; null when neither says (Node's tests without
+ * either).
+ * @param {any} el
+ * @param {any} root
+ * @returns {{x: number, y: number, w: number, h: number} | null}
+ */
+export function rectIn(el, root) {
+  if (typeof el.offsetLeft === 'number' && typeof el.offsetWidth === 'number') {
+    let x = 0;
+    let y = 0;
+    let at = el;
+    while (at && at !== root) {
+      x += at.offsetLeft;
+      y += at.offsetTop;
+      at = at.offsetParent;
+      // An offset is from its parent's padding box: an inner parent's border counts too.
+      if (at && at !== root) {
+        x += at.clientLeft || 0;
+        y += at.clientTop || 0;
+      }
+    }
+    if (at === root) return { x, y, w: el.offsetWidth, h: el.offsetHeight };
+  }
+  if (typeof el.getBoundingClientRect === 'function' && typeof root.getBoundingClientRect === 'function') {
+    const r = el.getBoundingClientRect();
+    const o = root.getBoundingClientRect();
+    return { x: r.left - o.left, y: r.top - o.top, w: r.width, h: r.height };
+  }
+  return null;
 }
 
 /**

@@ -74,7 +74,13 @@
 //       plate (every Z op a place); every anchor the data names on the
 //       plate; on every phone each place's art center and hit-area center
 //       land on that place (the nearest art center wins), and the labels
-//       sit inside the plate and never overlap; every place has its name
+//       (at ui/cabin.js labelFontPixel: never taller than a row, S7b) sit
+//       inside the plate, never overlap, and stand at least 6 pt clear of
+//       every other place's and Look's art box; the name's line (ui/cabin.js
+//       nameBox) a character cell and a half either side along it, one
+//       picture pixel out, lies inside cabin.json's quiet.name, the sky no
+//       star, moon or rain enters (S7b, Lead call 69), and no Dipper star
+//       is in it; every place has its name
 //       and its rail word, every rail word a place, every live next step
 //       its line; each Look place looked in content/art/hotspots.json with
 //       its two lines, and each silent one silent there (P15's cabin twin)
@@ -135,8 +141,9 @@
 //   G08 the M1a scope's lists, map-only links, camps and loop gates
 // Content (content/**: tools/content.mjs compiles it):
 //   J01 every content file has a schema and validates against it (the
-//       art's recipes and the sound's files, content/audio/, through their
-//       own readers)
+//       art's recipes, the title screen's marks, content/art/title.json,
+//       S7b, and the sound's files, content/audio/, through their own
+//       readers)
 //   R01 references: next, then, pass and fail name a stop in their set; a
 //       plan's start.set exists and its phase is built; ids unique; every
 //       "@id" in a file the build ships is a line; the scope file's
@@ -150,7 +157,7 @@ import { join, relative, sep, extname, dirname, posix } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { renderPic, LAYERS, MAX_STAMP_DEPTH, TRANSPARENT } from '../web/js/gfx/picvm.js';
 import { compose, drawable, resolvePlace, HOURS, HORIZON, ANCHOR, REQUIRED_ANCHORS, TRAIL_SPRITES, WIDTH, HEIGHT } from '../web/js/gfx/compose.js';
-import { ROOT, loadPicSources, loadPalette, loadRecipes, loadArt, loadCabin } from './pics.mjs';
+import { ROOT, loadPicSources, loadPalette, loadRecipes, loadArt, loadCabin, loadTitle } from './pics.mjs';
 import { PALETTE, REMAPS, CYCLES, hexToRgb } from '../web/js/gfx/palette.js';
 import { runTextLint, scanJs } from './textlint.mjs';
 import { compileContent, lineOfPath } from './content.mjs';
@@ -159,7 +166,7 @@ import { lintGraph } from './graphlint.mjs';
 import { loadAudio } from './listen.mjs';
 import { luminance } from './color.mjs';
 import { loadHotspots, placeParts, cabinParts, lintLooks } from './looks.mjs';
-import { homeLayout, cabinHits, placeAt, labelBox, labelled, tappable, canvasInset, nameLine, railLine, nextLine, HIT_MIN_PT } from '../web/js/ui/cabin.js';
+import { homeLayout, cabinHits, placeAt, labelBox, labelled, tappable, canvasInset, nameLine, railLine, nextLine, nameBox, HIT_MIN_PT, LABEL_CLEAR_PT, NAME_CLEAR_FP } from '../web/js/ui/cabin.js';
 import { plateAnchors } from '../web/js/gfx/cabin.js';
 
 const GOLD_SLOT = 7;
@@ -206,7 +213,7 @@ export const RULES = Object.freeze([
   rule('P14', 'pictures', 'BUILD_PLAN 4.8, S5; GAME_DESIGN 11.1, 11.7, 11.8', 'every drawable place composes at every hour and lints like a drawn picture, its skyline apart from its sky and the light behind its crest (in value too) and from its mid band'),
   rule('P15', 'pictures', 'BUILD_PLAN S6; GAME_DESIGN 11.8, 11.9, 12.1', "every hotspot kind of a drawable place is in hotspots.json, every looked kind has its lines, and every part has its alt line"),
   rule('P16', 'palette', 'BUILD_PLAN 4.1, S6; GAME_DESIGN 11.1', "a color literal in web/ outside the palette's homes (tokens.css, palette.js) that is no palette color"),
-  rule('P17', 'pictures', 'BUILD_PLAN S7; GAME_DESIGN 2.2, 11.11, 12.1', "the cabin's map: hit areas at least 44 pt on every phone, art boxes in their hit areas and on the plate, anchors, each place's center its own, labels inside and apart, and every place's words"),
+  rule('P17', 'pictures', 'BUILD_PLAN S7, S7b; GAME_DESIGN 2.2, 11.11, 12.1', "the cabin's map: hit areas at least 44 pt on every phone, art boxes in their hit areas and on the plate, anchors, each place's center its own, labels inside, apart and 6 pt clear of other places' art, the name inside its quiet sky, and every place's words"),
   rule('T02', 'text', 'GAME_DESIGN F.3, 12.1; BUILD_PLAN 10.5, S6', 'measured fit at 375 x 667 and 393 x 852: boxes, labels, tags, the caption, Looks, outcomes and Why rows, in the shipped fonts'),
   rule('T04', 'text', 'GAME_DESIGN 10.1, F.3', 'no "Golden Glow" in shipped text'),
   rule('T06', 'text', 'GAME_DESIGN E.7, F.3', 'no phone links, and the shell carries the format-detection meta'),
@@ -428,6 +435,17 @@ function topRow(ops, layer, stamps) {
   const buf = r.layers[LAYERS.indexOf(layer)];
   for (let y = 0; y < HEIGHT; y++) for (let x = 0; x < WIDTH; x++) if (buf[y * WIDTH + x] !== TRANSPARENT) return y;
   return null;
+}
+
+/**
+ * J01 for the title screen's marks (content/art/title.json, S7b): the file
+ * against schemas/title.schema.json.
+ * @param {{title: any, src: string, errors: {path: string, msg: string}[]}} info loadTitle()
+ * @param {string} [file]
+ * @returns {Issue[]}
+ */
+export function lintTitle(info, file = 'content/art/title.json') {
+  return info.errors.map((e) => ({ file, line: info.src ? lineOfPath(info.src, e.path) : 1, code: 'J01', msg: `${e.path || '(the file)'}: ${e.msg} (schemas/title.schema.json)` }));
 }
 
 /**
@@ -1189,6 +1207,17 @@ export function lintCabin({ cabin, plate, defined, words, looked, file = 'conten
   if (cabin.moon) named.add(cabin.moon.at);
   if (cabin.stars) named.add(cabin.stars.floor);
   for (const a of [...named].sort()) if (!Object.prototype.hasOwnProperty.call(at, a)) add(`the plate has no anchor at_${a}`);
+  // The name's quiet sky (S7b): a box on the plate, no Dipper star in it.
+  const quiet = cabin.quiet && Array.isArray(cabin.quiet.name) ? cabin.quiet.name : null;
+  if (!quiet) add('quiet.name: the name needs its quiet sky (S7b, Lead call 69)');
+  else {
+    const [qx, qy, qw, qh] = quiet;
+    if (qx < 0 || qy < 0 || qw <= 0 || qh <= 0 || qx + qw > WIDTH || qy + qh > 320) add(`quiet.name [${quiet}] is not a box on the plate`);
+    for (const [x, y] of (cabin.stars && cabin.stars.dipper) || []) if (x >= qx && x < qx + qw && y >= qy && y < qy + qh) add(`stars.dipper: the star at ${x},${y} is in the name's quiet sky [${quiet}]`);
+  }
+  const nameWords = words('app.name');
+  const nameChars = nameWords === null ? 0 : Array.from(nameWords).length;
+  if (nameWords === null) add('app.name: the name over the cabin needs its words, to check its quiet sky');
   // The phones: 44 pt, each center its own, the labels inside and apart.
   const labels = labelled(places);
   for (const [id, p] of Object.entries(places)) if (p.kind === 'place' && !labels.some(([l]) => l === id)) add(`places.${id}: a place needs a label anchor and a rail word`);
@@ -1225,6 +1254,24 @@ export function lintCabin({ cabin, plate, defined, words, looked, file = 'conten
         const c = boxes[j].b;
         if (a.x < c.x + c.w && c.x < a.x + a.w && a.y < c.y + c.h && c.y < a.y + a.h) add(`the ${boxes[i].id} and ${boxes[j].id} labels overlap on the ${name}`);
       }
+    }
+    // S7b (Lead call 69): each label 6 pt clear of every other place's and Look's art (the SE's Plan over the fire bowl).
+    const cx = shape.sx / dpr;
+    const cy = shape.sy / dpr;
+    for (const { id, b } of boxes) {
+      for (const [other, p] of Object.entries(places)) {
+        if (other === id || (p.kind !== 'place' && p.kind !== 'look')) continue;
+        const a = { x: x0 + p.art[0] * cx - LABEL_CLEAR_PT, y: p.art[1] * cy - LABEL_CLEAR_PT, w: p.art[2] * cx + 2 * LABEL_CLEAR_PT, h: p.art[3] * cy + 2 * LABEL_CLEAR_PT };
+        const e = 1e-9;
+        if (b.x < a.x + a.w - e && a.x < b.x + b.w - e && b.y < a.y + a.h - e && a.y < b.y + b.h - e) add(`places.${id}: its label comes within ${LABEL_CLEAR_PT} pt of the ${other}'s art on the ${name}`);
+      }
+    }
+    // S7b (Lead call 69): the name's line, a cell and a half either side along it and one pixel out, inside its quiet sky.
+    if (quiet) {
+      const n = nameBox(shape, nameChars, l, NAME_CLEAR_FP);
+      const need = [Math.floor(n.x) - 1, 0, Math.ceil(n.x + n.w) + 1, Math.ceil(n.y + n.h) + 1];
+      const [qx, qy, qw, qh] = quiet;
+      if (Math.max(0, need[0]) < qx || need[1] < qy || Math.min(WIDTH, need[2]) > qx + qw || need[3] > qy + qh) add(`quiet.name [${quiet}] does not hold the name's line on the ${name}: it needs [${Math.max(0, need[0])}, 0, ${Math.min(WIDTH, need[2]) - Math.max(0, need[0])}, ${need[3]}] (columns and rows, a cell and a half either side, one pixel out, from row 0)`);
     }
   }
   // The words.
@@ -1279,6 +1326,7 @@ export function runLint(root = ROOT) {
   issues.push(...lintPictures(sources, loadPalette(join(root, 'content', 'art', 'palette.json')).cycles).map((i) => ({ ...i, file: `content/art/pics/${i.file}` })));
   const recipes = loadRecipes(join(root, 'content', 'art', 'recipes.json'), join(root, 'schemas', 'recipes.schema.json'));
   issues.push(...lintRecipes(recipes, sources));
+  issues.push(...lintTitle(loadTitle(join(root, 'content', 'art', 'title.json'), join(root, 'schemas', 'title.schema.json'))));
   issues.push(...lintCompositions(recipes, sources));
   issues.push(...lintArtWords(root));
   issues.push(...lintCabinMap(root));

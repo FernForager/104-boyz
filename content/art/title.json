@@ -1,0 +1,11 @@
+{
+ "$comment": "The title screen's marks over the cover (decisions 73 and 74; BUILD_PLAN S7b; Lead calls 67 and 68). label: the Mount Olympus label, its words the gazetteer's name (name, a place.<id> in content/text/names/places.json, not a line of ours), flown from a tick that stands on the top edge of the cover's summit pixel (summit: the cover's highest non-sky pixel, [x, y], the West Peak's spire; title.test re-derives it from the render), the label never lower than one font pixel above floor (the cover's first dithered sky row; ui/title.js titleMarks). quiet: boxes [x, y, w, h] in picture pixels where the title screen drops the cover's stars (single-point L ops in its sky layer; ui/title.js quietOps): around the label (its box and its ink with the halo and the descenders, as measured in Chromium at the four phones, the SE's and the 13 mini's Safari rooms, the 13 mini in Safari with the update note, and a squeezed 5x3 plate), along the label's line a character cell and a half (12 pt) to either side at each shape it shows on, and down through the haze under it to the row above the summit, so no star reads as its punctuation (label_line; S7b review: a star at 147,99 sat by the end of Olympus on the SE), and around each of the name's two lines (its line box, game.css's formula, and its ink with the ink shadow and its text's extent, as measured in Chromium in the same rooms), each union one pixel out (BUILD_LOG S7b). The cover's .pic is untouched: main's cover keeps every star. Shipped in art/art.json as title (without this note) only on a channel with the home screen (tools/build.mjs compileArt); schemas/title.schema.json is its J01.",
+ "cover": "cover_high_divide_dusk",
+ "label": { "name": "place.mount_olympus_west_peak", "summit": [90, 101], "floor": 96 },
+ "quiet": [
+  { "for": "label", "box": [88, 80, 66, 17] },
+  { "for": "label_line", "box": [83, 81, 77, 20] },
+  { "for": "name_small", "box": [35, 13, 90, 23] },
+  { "for": "name_big", "box": [48, 32, 64, 43] }
+ ]
+}

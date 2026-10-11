@@ -303,7 +303,7 @@ test('every active code has a failing case and a passing one in the unit tests',
   for (const code of activeCodes()) assert.ok(new RegExp(`\\b${code}\\b`).test(tests), `${code} has cases`);
 });
 
-test("P17: the cabin's map in the repo is clean; planted, it fails a hit area under 44 pt on the SE, an art box outside its hit area or off its Z op, a Z op no place has, a missing anchor, a center that lands elsewhere, overlapping labels, and a place without its words", () => {
+test("P17: the cabin's map in the repo is clean; planted, it fails a hit area under 44 pt on the SE, an art box outside its hit area or off its Z op, a Z op no place has, a missing anchor, a center that lands elsewhere, overlapping labels, a label within 6 pt of another place's art (S7b), a name outside its quiet sky (S7b), and a place without its words", () => {
   assert.deepEqual(lintCabinMap(), []);
   assert.deepEqual(HOME_PHONES.map((p) => p[0]), ['se', 'mini', 'p17', 'promax']);
   // S7 review: and in Safari, before the game is installed, with the toolbars and the install line.
@@ -339,6 +339,15 @@ test("P17: the cabin's map in the repo is clean; planted, it fails a hit area un
   assert.match(planted((c) => (c.places.fire_bowl.label = [80, 236])), /the door and fire_bowl labels overlap on the se/);
   assert.equal(planted((c) => (c.places.mailbox.label = [160, 288])), '', 'right-aligned at the edge, inside');
   assert.match(planted((c) => Object.assign(c.places.mailbox, { label: [160, 288], align: 'center' })), /places\.mailbox: its label runs off the plate/, 'centered there, off it');
+  // S7b (Lead call 69): a label 6 pt clear of every other place's and Look's art. S7's SE had Plan a pixel over the fire bowl; here 4 pt.
+  assert.match(planted((c) => (c.places.door.label = [80, 241])), /P17: places\.door: its label comes within 6 pt of the fire_bowl's art on the se\b/);
+  assert.match(planted((c) => (c.places.shed.label = [144, 196])), /P17: places\.shed: its label comes within 6 pt of the tub's art on the se\b/, "S7's Gear anchor, 5 pt over the tub on the SE");
+  assert.doesNotMatch(planted((c) => (c.places.shed.label = [144, 196])), /on the (mini|p17|promax)\b/, 'a row lower clears it on the 3x phones');
+  assert.equal(planted((c) => (c.places.clam_shovel.art = c.places.clam_shovel.art)), '', "a silent place's art (the clam shovel under Gear) is no Look's or place's");
+  assert.match(planted((c) => (c.quiet.name = [10, 0, 141, 29])), /P17: quiet\.name \[10,0,141,29\] does not hold the name's line on the se: it needs \[1, 0, 158, 28\]/, "on the SE the name and a cell and a half either side reach columns 1 to 158");
+  assert.match(planted((c) => (c.stars.dipper[2] = [134, 12])), /P17: stars\.dipper: the star at 134,12 is in the name's quiet sky/);
+  assert.match(planted((c) => (c.quiet.name = [0, 0, 161, 29])), /quiet\.name \[0,0,161,29\] is not a box on the plate/);
+  assert.match(run(cabin, { words: (id) => (id === 'app.name' ? null : text.lines.has(id) ? text.lines.get(id).text : null) }).join('\n'), /app\.name: the name over the cabin needs its words/);
   assert.match(planted((c) => (c.places.shed.rail = 'tools')), /places\.shed: its rail word tools is not on the rail/);
   assert.match(planted((c) => (c.rail = [...c.rail, 'canoe'])), /rail: canoe is no place's rail word[\s\S]*rail: canoe needs its word, home\.rail\.canoe/);
   assert.match(planted((c) => (c.places.door.label = undefined)), /places\.door: a place needs a label anchor and a rail word/);

@@ -86,7 +86,7 @@ test("main's manifest and bundle hold approved words only, and pass the gate", (
   assert.deepEqual(checkMainBuild({ html, manifest, words, text, build: id, reach }), []);
 });
 
-test("preview carries the working words; its loading page is the cover under the name, the title page's words retired there (S7 D9)", () => {
+test("preview carries the working words; its title page is the cover under the name, the title page's words retired there (S7 D9), the title screen's prompt and label made by ui/title.js (S7b)", () => {
   const { html, manifest, read, id } = built.preview;
   const strings = pageStrings(html).map((s) => [s.where, s.s]);
   // S7 (D9): channels.preview.off removes the tagline and the Begin button
@@ -104,7 +104,9 @@ test("preview carries the working words; its loading page is the cover under the
   ];
   assert.deepEqual(strings, expected);
   assert.ok(!/tagline|choice-label|choice-note|id="begin"|data-t="title\./.test(html), 'no tagline, no Begin button, no title words on the page');
-  assert.match(html, /<canvas class="picture" id="cover" width="160" height="320" data-t-img="alt\.cover_high_divide_dusk" role="img" aria-label="The High Divide at dusk\./, 'the cover draws in as the loading art, described');
+  // S7b: the prompt and the Mount Olympus label are made by ui/title.js on the title screen, never in the page.
+  assert.ok(!/title-go|peak-label|title\.prompt|place\.mount_olympus/.test(html), "the page itself carries neither the prompt nor the label");
+  assert.match(html, /<canvas class="picture" id="cover" width="160" height="320" data-t-img="alt\.cover_high_divide_dusk" role="img" aria-label="The High Divide at dusk\./, 'the cover draws in as the title screen\'s picture, described');
   assert.match(html, /<section class="shelf" id="shelf" data-t-attr="aria-label:title\.start_label\|app\.name" aria-label="Olympic Peninsula Hiker">/, "the shelf's name falls back to app.name");
   const marked = [];
   walk(parseHtml(html), (n) => {
@@ -133,14 +135,18 @@ test("preview carries the working words; its loading page is the cover under the
   // stay defined for main's page until the cabin's promotion; preview's page no longer shows them.
   // S7 (track C) adds B003's eight (the lockbox's own six, the guest book's label and Suggest) and
   // Suggest's sixteen given names (term.given_*, not ours: voice.json's given, with the guest book).
-  assert.equal(Object.keys(words).length, 296);
+  // S7b adds the title screen's prompt (title.prompt, a draft: B002's line 40) and its label's name, Mount
+  // Olympus (place.mount_olympus_west_peak, the gazetteer's, not ours: art.json's title, with the home).
+  assert.equal(Object.keys(words).length, 298);
+  assert.equal(words['title.prompt'], 'Tap to start');
+  assert.equal(words['place.mount_olympus_west_peak'], 'Mount Olympus');
   assert.equal(Object.keys(words).filter((k) => k.startsWith('term.given_')).length, 16);
   for (const k of ['title.tagline', 'title.begin', 'title.begin_note', 'title.start_label']) assert.equal(typeof words[k], 'string', k);
   assert.equal(words['dev.inspect.copy'], 'Copy for chat');
   assert.equal(words['dev.audio.render'], 'Render 10 s of this scene');
   assert.equal(words['dev.audio.result'], 'Sound: peak {peak} dBFS · {lufs} LUFS · dsp {dsp}');
   const places = Object.keys(words).filter((k) => k.startsWith('place.'));
-  assert.equal(places.length, 35, 'the trailhead and the 24 camps the map labels, the rim\'s basin, and the check view\'s nine');
+  assert.equal(places.length, 36, 'the trailhead and the 24 camps the map labels, the rim\'s basin, the check view\'s nine, and (S7b) the title screen\'s Mount Olympus');
   assert.equal(words['place.seven_lakes_basin'], 'Seven Lakes Basin');
   assert.deepEqual(
     ['high_divide', 'bogachiel_peak', 'mirror_lake', 'long_lake', 'sol_duc_lake', 'morgenroth_lake', 'no_name_lake', 'y_lake', 'lake_8'].map((p) => words[`place.${p}`]),
@@ -153,8 +159,10 @@ test("preview carries the working words; its loading page is the cover under the
   const marks = JSON.parse(read('text/marks.json'));
   // Re-pinned in S7 (track C): B002 is the cabin's 39 (its 28 new, the ten S7 moved from B004 to B006, and the
   // cover's description, held until now), each marked; the buckets below are what is left of S4 to S6's.
+  // Re-pinned in S7b: 40, the title screen's prompt last.
   const b002 = Object.keys(readText(ROOT).batches.batches.B002.lines);
-  assert.equal(b002.length, 39, "the cabin's 39");
+  assert.equal(b002.length, 40, "the cabin's 39 and the title screen's prompt");
+  assert.equal(b002.at(-1), 'title.prompt');
   for (const k of b002) {
     assert.equal(typeof words[k], 'string', `${k}: preview ships its working words`);
     assert.equal(marks[k], 'draft', k);

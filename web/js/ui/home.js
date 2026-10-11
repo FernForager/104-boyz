@@ -1,17 +1,19 @@
-// The title page and the loading art (GAME_DESIGN 12.3; BUILD_PLAN S7,
-// 11.2): the cover drawing itself in at dusk, the name, the update note,
-// the install line and the stamps.
+// The title page (GAME_DESIGN 12.3; BUILD_PLAN S7, S7b, 11.2): the cover
+// drawing itself in at dusk, the name, the update note, the install line
+// and the stamps.
 //
 // On main this is the front door until the cabin's promotion (once B002
-// and B003 are answered). On preview it is the loading art (from S3; from
-// S7 the title page's own words are gone there, channels.preview.off, so
-// the cover draws in under app.name alone): showTitle's `done` settles
-// when the draw-in has finished (or a tap finished it, or at once under
-// Reduce Motion), and the game (ui/app.js) takes the page then, opening
-// on the cabin (ui/cabin.js). opensGame() is the gate: only a build whose
-// <html data-screens> lists the home loads the game, so main's page never
-// does. The cabin itself lives in ui/cabin.js, which only the game
-// imports, so main's page reaches none of it (its precache stays S6's).
+// and B003 are answered). On preview it is the picture under the title
+// screen (from S7b, decision 74: ui/title.js adds the Mount Olympus label
+// and the prompt through showTitle's two hooks, and holds it until a tap;
+// S7's loading art before that). From S7 the title page's own words are
+// gone on preview (channels.preview.off), so the cover draws in under
+// app.name: showTitle's `done` settles when the draw-in has finished (or a
+// tap finished it, or at once under Reduce Motion). opensGame() is the
+// gate: only a build whose <html data-screens> lists the home loads the
+// game and the title screen, so main's page never does. The cabin itself
+// lives in ui/cabin.js, which only the game imports, so main's page
+// reaches none of it (its precache stays S6's).
 
 import { renderPic } from '../gfx/picvm.js';
 import { makePalette } from '../gfx/palette.js';
@@ -70,13 +72,21 @@ function whenUpright() {
 
 /**
  * Show the title page. Resolves once the draw-in has started, to
- * {finish, stop, done}: finish() ends the draw-in, stop() ends the stars and
- * the page's resize handling (the game calls it when it takes the page), and
- * done settles when the picture has finished drawing.
+ * {finish, stop, done, art, display}: finish() ends the draw-in, stop() ends
+ * the stars and the page's resize handling (the game calls it when it
+ * takes the page), done settles when the picture has finished drawing, art
+ * is art/art.json as fetched and display the cover's (gfx/display.js).
+ *
+ * Two optional hooks, for preview's title screen (ui/title.js, S7b); main
+ * never passes them, so its title page is S6's: prepare(art) returns the
+ * ops to draw (by default the cover's own), and onFit(shape, display) runs
+ * after each fit (a resize, a rotation, oph:layout), once the plate has
+ * found its place.
  * @param {Document} doc
- * @returns {Promise<{finish: () => void, stop: () => void, done: Promise<void>}>}
+ * @param {{prepare?: (art: any) => any[][], onFit?: (shape: {sx: number, sy: number, short: boolean}, display: ReturnType<typeof createDisplay>) => void}} [opts]
+ * @returns {Promise<{finish: () => void, stop: () => void, done: Promise<void>, art: any, display: ReturnType<typeof createDisplay>}>}
  */
-export async function showTitle(doc = document) {
+export async function showTitle(doc = document, opts = {}) {
   const install = doc.getElementById('install');
   if (install && isInstalled()) install.hidden = true;
 
@@ -119,6 +129,7 @@ export async function showTitle(doc = document) {
     plate.style.left = `${Math.round(r.left) - r.left}px`;
     plate.style.top = `${Math.round(r.top) - r.top}px`;
     display.snap();
+    if (opts.onFit) opts.onFit(shape, display);
   };
   fit();
   let fitting = true;
@@ -155,7 +166,8 @@ export async function showTitle(doc = document) {
       fit();
     }
     const palette = makePalette(art.palette);
-    const result = renderPic(pic.ops, {
+    const ops = opts.prepare ? opts.prepare(art) : pic.ops;
+    const result = renderPic(ops, {
       width: pic.width,
       height: pic.height,
       stamps: art.stamps,
@@ -192,6 +204,8 @@ export async function showTitle(doc = document) {
         doc.removeEventListener('keydown', skip);
       },
       done,
+      art,
+      display,
     };
   } catch (err) {
     plate.classList.remove('drawing');

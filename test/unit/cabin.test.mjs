@@ -12,8 +12,8 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { composeCabin, cabinAlt, cabinLights, cabinStarPoints, cabinPalette, plateAnchors, CABIN_HOURS, SKIES, STATES, STAR, WIDTH, HEIGHT, MOON_CLEAR, DIPPER_CLEAR } from '../../web/js/gfx/cabin.js';
-import { renderPic, composite, TRANSPARENT } from '../../web/js/gfx/picvm.js';
+import { composeCabin, cabinAlt, cabinLights, cabinStarPoints, cabinPalette, plateAnchors, quietBoxes, inBoxes, CABIN_HOURS, SKIES, STATES, STAR, WIDTH, HEIGHT, MOON_CLEAR, DIPPER_CLEAR, MOON_PHASES } from '../../web/js/gfx/cabin.js';
+import { renderPic, composite, hashBytes, TRANSPARENT } from '../../web/js/gfx/picvm.js';
 import { buildTimeline, frameAt } from '../../web/js/gfx/drawin.js';
 import { CYCLES, REMAPS, PALETTE, makePalette, resolve } from '../../web/js/gfx/palette.js';
 import { loadArt, loadCabin } from '../../tools/pics.mjs';
@@ -126,26 +126,36 @@ test('stars only at blue hour and at night under a clear sky with no fog, one pi
     }
   }
   for (const hour of ['blue', 'night']) {
-    const pts = cabinStarPoints(hour, cabin.stars, floor, plateAnchors(ART.pics[cabin.plate].ops)[cabin.moon.at]);
+    const pts = cabinStarPoints(hour, cabin.stars, floor, plateAnchors(ART.pics[cabin.plate].ops)[cabin.moon.at], quietBoxes(cabin));
+    // The count is the whole sky's (S7b: the name's quiet band takes its share, the art critic's pass).
+    const whole = cabinStarPoints(hour, cabin.stars, floor, plateAnchors(ART.pics[cabin.plate].ops)[cabin.moon.at]);
     const [lo, hi] = cabin.stars.count[hour];
-    assert.ok(pts.length >= lo && pts.length <= hi, `${hour}: ${pts.length} stars`);
+    assert.ok(whole.length >= lo && whole.length <= hi, `${hour}: ${whole.length} stars in the whole sky`);
+    assert.ok(pts.length >= (hour === 'night' ? 20 : 3) && pts.length < whole.length, `${hour}: ${pts.length} under the band`);
     const all = [...pts, ...cabin.stars.dipper];
     for (let i = 0; i < all.length; i++) {
       for (let j = i + 1; j < all.length; j++) assert.ok(Math.abs(all[i][0] - all[j][0]) > 1 || Math.abs(all[i][1] - all[j][1]) > 1, `${hour}: stars ${all[i]} and ${all[j]} touch`);
     }
     for (const [x, y] of pts) assert.ok(x >= 0 && x < WIDTH && y >= 0 && y < floor, `${hour}: ${x},${y} above the floor`);
     if (hour === 'night') {
-      const high = pts.filter(([, y]) => y < floor / 2).length;
-      assert.ok(high > pts.length - high, `more stars high (${high}) than low (${pts.length - high})`);
+      // Fewer toward the horizon, in the sky stars may use (S7b: under the
+      // name's quiet band, which spans the plate): more in its upper half
+      // than in its lower (rewritten from the whole sky's halves).
+      const [qx, qy, qw, qh] = cabin.quiet.name;
+      assert.deepEqual([qx, qw], [0, WIDTH], 'the quiet band spans the plate, so the stars\' sky starts under it');
+      const mid = (qy + qh + floor) / 2;
+      const high = pts.filter(([, y]) => y < mid).length;
+      assert.ok(pts.every(([, y]) => y >= qy + qh), 'every star under the quiet band');
+      assert.ok(high >= 2 * (pts.length - high), `at least twice as many stars high (${high}) as low (${pts.length - high})`);
     }
-    assert.deepEqual(pts, cabinStarPoints(hour, cabin.stars, floor, plateAnchors(ART.pics[cabin.plate].ops)[cabin.moon.at]), 'the same sky every visit');
+    assert.deepEqual(pts, cabinStarPoints(hour, cabin.stars, floor, plateAnchors(ART.pics[cabin.plate].ops)[cabin.moon.at], quietBoxes(cabin)), 'the same sky every visit');
   }
   // The Dipper reads alone: no twinkling star inside its box, DIPPER_CLEAR pixels out.
   const xs = cabin.stars.dipper.map((p) => p[0]);
   const ys = cabin.stars.dipper.map((p) => p[1]);
   assert.equal(DIPPER_CLEAR, 2);
   for (const hour of ['blue', 'night']) {
-    const pts = cabinStarPoints(hour, cabin.stars, floor, plateAnchors(ART.pics[cabin.plate].ops)[cabin.moon.at]);
+    const pts = cabinStarPoints(hour, cabin.stars, floor, plateAnchors(ART.pics[cabin.plate].ops)[cabin.moon.at], quietBoxes(cabin));
     const inside = pts.filter(([x, y]) => x >= Math.min(...xs) - 2 && x <= Math.max(...xs) + 2 && y >= Math.min(...ys) - 2 && y <= Math.max(...ys) + 2);
     assert.deepEqual(inside, [], `${hour}: no star in the Dipper's box`);
   }
@@ -154,6 +164,61 @@ test('stars only at blue hour and at night under a clear sky with no fog, one pi
   const sky = layerPixels(night, 'sky', [STAR]);
   for (const [x, y] of cabin.stars.dipper) assert.ok(sky.some(([a, b]) => a === x && b === y), `the Dipper's star at ${x},${y}`);
   assert.equal(night.stars + 7, sky.length, 'the stars and the Dipper, each one pixel');
+});
+
+test("the name's quiet sky (S7b, Lead call 69): no twinkling star, no Dipper star, no moon and no rain in cabin.json's quiet.name, at every hour, sky, state and phase of the moon; a star that would fall there is left out, so the sky under it keeps S7's density", () => {
+  const q = cabin.quiet.name;
+  assert.deepEqual(q, [0, 0, WIDTH, 29], "the band the name sits in, rows 0 to 28 across the plate (P17 holds the name's line inside it at every phone)");
+  assert.deepEqual(quietBoxes(cabin), [q]);
+  assert.deepEqual(quietBoxes({}), [], 'no quiet box, no rule');
+  const inQ = ([x, y]) => inBoxes([q], x, y);
+  assert.ok(inBoxes([[2, 3, 4, 5]], 2, 3) && inBoxes([[2, 3, 4, 5]], 5, 7) && !inBoxes([[2, 3, 4, 5]], 6, 3) && !inBoxes([[2, 3, 4, 5]], 2, 8), 'a box holds [x, x + w) by [y, y + h)');
+  assert.deepEqual(cabin.stars.dipper.filter(inQ), [], 'the Dipper sits under it');
+  const at = plateAnchors(ART.pics[cabin.plate].ops);
+  const floor = at[cabin.stars.floor][1];
+  for (const hour of ['blue', 'night']) {
+    const moonAt = at[cabin.moon.at];
+    const quiet = cabinStarPoints(hour, cabin.stars, floor, moonAt, quietBoxes(cabin));
+    const s7 = cabinStarPoints(hour, cabin.stars, floor, moonAt);
+    assert.ok(s7.filter(inQ).length > 0, `${hour}: without the box, S7's sky put stars in the name's band (the full stop after Hiker)`);
+    assert.deepEqual(quiet.filter(inQ), [], `${hour}: no star in the name's quiet sky`);
+    // Left out, not drawn again (the art critic's S7b pass: redrawn under the band, they doubled its density):
+    // the sky under the band is S7's, star for star, ten rows at a time.
+    assert.deepEqual(quiet, s7.filter((p) => !inQ(p)), `${hour}: S7's sky under the band, exactly`);
+    assert.ok(quiet.length < s7.length);
+    const per10 = (pts) => pts.reduce((m, [, y]) => ({ ...m, [Math.floor(y / 10)]: (m[Math.floor(y / 10)] || 0) + 1 }), {});
+    for (const [row, k] of Object.entries(per10(quiet))) assert.equal(k, per10(s7)[row], `${hour}: rows ${row}0 to ${row}9 keep S7's ${per10(s7)[row]}`);
+  }
+  // As composed and drawn: in the box, every pixel is the sky's own (no
+  // star, Dipper star or moon), at blue hour (both) and night, at every
+  // phase, every state; and no rain falls in it, at any hour.
+  const skyOnly = (sky) => composite(renderPic([['@', 'sky'], ['T', cabin.skies[sky], 0, 0, 0]], { width: WIDTH, height: HEIGHT, stamps: art.stamps }));
+  const clearSky = skyOnly('clear');
+  for (const [hour, evening] of [['blue', true], ['blue', false], ['night', true]]) {
+    for (let moon = 0; moon <= MOON_PHASES; moon++) {
+      for (const state of [[], ['first'], ['flag_up']]) {
+        const c = composeCabin({ art, cabin, hour, evening, moon, state });
+        assert.ok(c.ops.some((op) => op[0] === 'C' && op[1] === STAR), `${c.key}: a starry sky`);
+        // The stars, the Dipper and the moon are the sky layer's: there, the box is the sky stamp's alone.
+        const skyL = render(c).layers[0];
+        for (let y = q[1]; y < q[1] + q[3]; y++) for (let x = q[0]; x < q[0] + q[2]; x++) assert.equal(skyL[y * WIDTH + x], clearSky[y * WIDTH + x], `${c.key}: ${x},${y} in the name's quiet sky is the sky's own`);
+      }
+    }
+  }
+  const rainOnly = renderPic([['@', 'near'], ['T', 'cabin_rain', 0, 0, 0]], { width: WIDTH, height: HEIGHT, stamps: art.stamps }).layers[3];
+  let streaks = 0;
+  for (let p = 0; p < rainOnly.length; p++) {
+    if (rainOnly[p] === TRANSPARENT) continue;
+    streaks++;
+    assert.ok(!inQ([p % WIDTH, Math.floor(p / WIDTH)]), `a rain streak at ${p % WIDTH},${Math.floor(p / WIDTH)} in the name's quiet sky`);
+  }
+  assert.ok(streaks > 1000, `${streaks} rain pixels still fall on the rest of the plate`);
+  for (const [hour, evening] of HOURS) {
+    const c = composeCabin({ art, cabin, hour, evening, sky: 'rain' });
+    const comp = composite(render(c));
+    const dry = composite(render({ ...c, ops: c.ops.filter((op) => !(op[0] === 'T' && op[1] === 'cabin_rain')) }));
+    for (let y = q[1]; y < q[1] + q[3]; y++) for (let x = q[0]; x < q[0] + q[2]; x++) assert.equal(comp[y * WIDTH + x], dry[y * WIDTH + x], `${c.key}: rain at ${x},${y} in the name's quiet sky`);
+  }
 });
 
 test("the moon: drawn at its phase's stamp only when it's up under a clear sky at blue hour or night, at at_moon, no star on its disc", () => {
@@ -633,6 +698,106 @@ test('the smoke: a soft column of rounded puffs that rises straight from the pip
   }
 });
 
+test('the smoke reads in the morning fog (S7b, Lead call 69): the far fog parts behind the stovepipe, leaning downwind with a checker row on its downwind side (the art critic\'s S7b pass), so no fog lies behind any of the smoke, its column reads whole, and at least 90% of it reads at every frame; the fog is S7\'s everywhere else', () => {
+  const pipe = composeCabin({ art, cabin }).anchors.pipe;
+  const smokeOnly = renderPic([['@', 'near'], ['T', 'cabin_smoke', pipe[0], pipe[1], 0]], { width: WIDTH, height: HEIGHT, stamps: art.stamps }).layers[3];
+  const fogFar = renderPic([['@', 'far'], ['T', 'cabin_fog_far', 0, 0, 0]], { width: WIDTH, height: HEIGHT, stamps: art.stamps }).layers[1];
+  // The column: the stamp's pixels from the pipe's cap up to row 69. No fog stamp pixel behind any of them.
+  let column = 0;
+  for (let p = 0; p < smokeOnly.length; p++) {
+    if (smokeOnly[p] === TRANSPARENT) continue;
+    if (Math.floor(p / WIDTH) >= 69) column++;
+    assert.equal(fogFar[p], TRANSPARENT, `the far fog lies behind the smoke at ${p % WIDTH},${Math.floor(p / WIDTH)}`);
+  }
+  assert.ok(column >= 30, `${column} pixels in the column`);
+  // The fog's top: S7's row of puffs (rows 70 to 76) but for the part behind the pipe and the smoke's drift, x 59
+  // to 75, where it parts, down to row 83 under the pipe's cap.
+  const topOf = (x) => {
+    for (let y = 0; y < HEIGHT; y++) if (fogFar[y * WIDTH + x] !== TRANSPARENT) return y;
+    return HEIGHT;
+  };
+  for (let x = 0; x < WIDTH; x++) {
+    const top = topOf(x);
+    if (x >= 59 && x <= 75) assert.ok(top > 71 && top <= pipe[1] + 2, `x ${x}: the fog parts behind the pipe (its top at ${top})`);
+    else assert.ok(top >= 70 && top <= 76, `x ${x}: the fog's top at ${top}, as S7 drew it`);
+  }
+  for (let x = pipe[0] - 1; x <= pipe[0] + 3; x++) assert.equal(topOf(x), pipe[1] + 2, `x ${x}: the column's floor, just under the pipe's cap`);
+  // The art critic's S7b pass: not a hard, mirror-image V cut into the fog, but a parting that leans downwind (left,
+  // where the smoke drifts). Row by row from 72 to 80, the open sky left of the column is wider than right of it,
+  // and on the right the fog stands within 2 pixels of the column from row 74 down. On the left its edge is
+  // dithered, one checker row along the steps: single pixels of fog one pixel off the edge, alone in their row
+  // with open sky over them (some sit on the next step down), and
+  // the edge zigzags back and forth where the V's sides ran straight.
+  const fog = (x, y) => fogFar[y * WIDTH + x] !== TRANSPARENT;
+  const colOf = (y) => {
+    const xs = [];
+    for (let x = 60; x <= 75; x++) if (smokeOnly[y * WIDTH + x] !== TRANSPARENT) xs.push(x);
+    return [Math.min(...xs), Math.max(...xs)];
+  };
+  for (let y = 72; y <= 80; y++) {
+    const [c0, c1] = colOf(y);
+    let l = c0 - 1;
+    while (!fog(l, y)) l--;
+    let r = c1 + 1;
+    while (!fog(r, y)) r++;
+    const left = c0 - l - 1;
+    const right = r - c1 - 1;
+    assert.ok(left > right, `row ${y}: ${left} open left of the column, ${right} right: it leans downwind`);
+    if (y >= 74) assert.ok(right >= 1 && right <= 2, `row ${y}: the fog ${right} pixels right of the column`);
+  }
+  const ends = [];
+  const dots = [];
+  for (let y = 72; y <= 82; y++) {
+    let x = 55; // inside the fog on every row from 72 down
+    assert.ok(fog(x, y));
+    while (fog(x + 1, y)) x++;
+    ends.push(x);
+    for (let d = x + 2; d <= 66; d++) if (fog(d, y)) dots.push([d, y]);
+  }
+  assert.ok(dots.length >= 5, `${dots.length} checker pixels off the downwind edge`);
+  for (const [x, y] of dots) assert.deepEqual([fog(x - 1, y), fog(x + 1, y), fog(x, y - 1)], [false, false, false], `${x},${y}: a checker pixel stands alone in its row, open sky over it`);
+  const back = ends.slice(1).filter((e, i) => e < ends[i]).length;
+  assert.ok(back >= 3, `the downwind edge zigzags (${ends.join()}), where the V's side ran straight`);
+  // In every fog scene that smokes, as composed: no fog shows behind any
+  // smoke pixel (what is behind it is what the same scene shows without
+  // fog), the column resolves to slots other than what is behind it at every
+  // frame, and so does 90% of all of it under a clear sky (under the
+  // overcast, the cloud on the peak, not the fog, lies behind its drift).
+  /** @type {string[]} */
+  const shares = [];
+  for (const [hour, evening] of HOURS) {
+    for (const sky of ['clear', 'cloudy']) {
+      const c = composeCabin({ art, cabin, hour, evening, sky, fog: true });
+      if (!c.smoke) continue;
+      const k = c.ops.findIndex((op) => op[0] === 'T' && op[1] === 'cabin_smoke');
+      const comp = composite(render(c));
+      const bare = { ...c, ops: c.ops.filter((_, i) => i !== k) };
+      const noFog = composeCabin({ art, cabin, hour, evening, sky, fog: false });
+      const noFogBare = { ...noFog, ops: noFog.ops.filter((op) => !(op[0] === 'T' && op[1] === 'cabin_smoke')) };
+      const behind = composite(render(bare));
+      const behindClear = composite(render(noFogBare));
+      const mine = [];
+      for (let p = 0; p < comp.length; p++) if (smokeOnly[p] !== TRANSPARENT && comp[p] === smokeOnly[p]) mine.push(p);
+      assert.ok(mine.length > 200, `${c.key}: ${mine.length} smoke pixels show`);
+      for (const p of mine) assert.equal(behind[p], behindClear[p], `${c.key}: fog behind the smoke at ${p % WIDTH},${Math.floor(p / WIDTH)}`);
+      let worst = 1;
+      for (let frame = 0; frame < 12; frame++) {
+        const now = slotsOf(c, frame);
+        const was = resolve(behind, WIDTH, PAL, { remap: c.table, frame });
+        let differ = 0;
+        for (const p of mine) {
+          if (now[p] !== was[p]) differ++;
+          else assert.ok(Math.floor(p / WIDTH) < 69, `${c.key} frame ${frame}: the column at ${p % WIDTH},${Math.floor(p / WIDTH)} is lost in what is behind it`);
+        }
+        worst = Math.min(worst, differ / mine.length);
+      }
+      shares.push(`${c.key} ${(worst * 100).toFixed(1)}%`);
+      if (sky === 'clear') assert.ok(worst >= 0.9, `${c.key}: ${(worst * 100).toFixed(1)}% of the smoke reads at its worst frame`);
+    }
+  }
+  assert.equal(shares.length, 12, shares.join(', '));
+});
+
 test('warm spill lands as light, not paint: a dither on the deck densest at the sill, each tread lit along its front lip in a checker that widens down the steps, a sparse fan on the grass before them; the lanterns stand apart from the lit glass', () => {
   const c = composeCabin({ art, cabin, hour: 'night' });
   const night = composite(render(c));
@@ -939,21 +1104,24 @@ test('the skies: rows 0 to 28 one flat color under the name, no ruled top line; 
   assert.deepEqual([...tones.rain].sort(), [2, 3], 'the rain a step darker: slate over a glacier rim, a slate body, no ink');
 });
 
-test('the cloud on the peak is the deck itself, lowered over the summit: the sky\'s own colors where it joins the deck, a soft dark foot under rain (a checker of slate and ink, never a solid band), and clear of the knoll behind the cabin', () => {
+/** S7's renders of the rain cap's box (x 20 to 118, rows 26 to 79) at blue hour and night, resolved at each of the smoke's twelve frames, hashed (taken before S7b's change; every state the same). */
+const S7_RAIN_CAP = Object.freeze({ blue: '30cd537d', night: 'd6f67d95' });
+const RAIN_CAP_BOX = Object.freeze([20, 26, 99, 54]);
+
+test('the cloud on the peak is the deck itself, lowered over the summit: the sky\'s own colors where it joins the deck, a foot in the deck\'s own slate under rain (S7b, Lead call 69: no ink, so no dark strip over the roof by day or at dusk, and S7\'s soft dark foot at blue hour and night, pixel for pixel), and clear of the knoll behind the cabin', () => {
   const knollTop = (far, x) => {
     for (let y = 60; y < 100; y++) if ([11, 12, 15].includes(far[y * WIDTH + x])) return y;
     return HEIGHT;
   };
   const plateFar = renderPic(ART.pics[cabin.plate].ops.filter((op) => !(op[0] === 'Z')), { width: WIDTH, height: HEIGHT, stamps: art.stamps }).layers[1];
-  for (const [sky, cap, under] of [['cloudy', 'cabin_cloud_cap', 2], ['rain', 'cabin_rain_cap', 0]]) {
+  for (const [sky, cap, under] of [['cloudy', 'cabin_cloud_cap', 2], ['rain', 'cabin_rain_cap', 2]]) {
     const c = composeCabin({ art, cabin, hour: 'day', sky });
     const r = render(c);
     const capL = renderPic([['@', 'far'], ['T', cap, 0, 0, 0]], { width: WIDTH, height: HEIGHT, stamps: art.stamps }).layers[1];
     const skyL = r.layers[0];
     let joined = 0;
     let lowered = 0;
-    let seamInk = 0;
-    let seamSlate = 0;
+    let seam = 0;
     for (let x = 0; x < WIDTH; x++) {
       let foot = -1;
       for (let y = 0; y < HEIGHT; y++) if (capL[y * WIDTH + x] !== TRANSPARENT) foot = y;
@@ -967,13 +1135,12 @@ test('the cloud on the peak is the deck itself, lowered over the summit: the sky
       // Its foot: the deck's underside color, lowered over the summit.
       assert.equal(capL[foot * WIDTH + x], under, `${cap}: its foot at ${x} is the underside`);
       if (foot >= 62) lowered++;
-      // Under rain, what lies between the body and the foot is a checker of slate and ink.
+      // Under rain, what lies between the body and the foot is the deck's own slate (S7b: S7's checker of slate and ink, drawn in slate).
       if (sky === 'rain') {
         for (let yy = y; yy < foot; yy++) {
           const v = capL[yy * WIDTH + x];
-          assert.ok(v === 0 || v === 2, `${cap} at ${x},${yy}: ${v} in its seam`);
-          if (v === 0) seamInk++;
-          else seamSlate++;
+          assert.equal(v, 2, `${cap} at ${x},${yy}: ${v} in its seam`);
+          seam++;
         }
       }
       // It stays clear of the knoll behind the cabin: wherever its foot shows
@@ -983,8 +1150,17 @@ test('the cloud on the peak is the deck itself, lowered over the summit: the sky
     }
     assert.ok(joined > 2000 && lowered >= 40, `${cap}: ${joined} joined, ${lowered} columns lowered`);
     if (sky === 'rain') {
-      const ink = seamInk / (seamInk + seamSlate);
-      assert.ok(seamInk + seamSlate >= 100 && ink > 0.35 && ink < 0.65, `the rain's seam, a checker: ${seamInk} ink, ${seamSlate} slate`);
+      // The deck's own slate all the way to its foot (S7's seam of slate and ink, and its ink foot, now slate): only its rim is glacier blue.
+      let slate = 0;
+      for (let p = 0; p < capL.length; p++) {
+        if (capL[p] === TRANSPARENT) continue;
+        const y = Math.floor(p / WIDTH);
+        if (capL[p] === 3) assert.ok(y >= 29 && y <= 40, `${cap}: glacier blue at ${p % WIDTH},${y} off its rim`);
+        else assert.equal(capL[p], 2, `${cap} at ${p % WIDTH},${y}`);
+        if (capL[p] === 2 && y >= 60) slate++;
+      }
+      assert.ok(slate >= 300, `${slate} pixels of slate in its lowered foot (rows 60 and down)`);
+      assert.equal(seam, 0, 'and so it joins the sky all the way down: no seam of another color');
     }
     // The summit is in the cloud: the cap covers the peak's crest round it.
     let hidden = 0;
@@ -998,6 +1174,40 @@ test('the cloud on the peak is the deck itself, lowered over the summit: the sky
     const mid = r.layers[2];
     for (let p = 0; p < far.length; p++) if (Math.floor(p / WIDTH) < 80 && far[p] === 4 && mid[p] === TRANSPARENT && r.layers[3][p] === TRANSPARENT) {
       if (sky === 'cloudy') assert.ok(capL[p] !== TRANSPARENT, `${sky}: the crest's snow shows at ${p % WIDTH},${Math.floor(p / WIDTH)} beside the cloud`);
+    }
+  }
+  // S7b (Lead call 69): the rain cap draws no ink at all.
+  const pens = art.stamps.cabin_rain_cap.flatMap((op) => (op[0] === 'C' ? [op[1]] : op[0] === 'D' ? [op[1], op[2]] : []));
+  assert.ok(pens.length > 0 && !pens.includes(0), `cabin_rain_cap's pens: ${[...new Set(pens)]}`);
+  const capOnly = renderPic([['@', 'far'], ['T', 'cabin_rain_cap', 0, 0, 0]], { width: WIDTH, height: HEIGHT, stamps: art.stamps }).layers[1];
+  const [bx, by, bw, bh] = RAIN_CAP_BOX;
+  for (let p = 0; p < capOnly.length; p++) if (capOnly[p] !== TRANSPARENT) assert.ok(inBoxes([RAIN_CAP_BOX], p % WIDTH, Math.floor(p / WIDTH)), 'the cap lies in its box');
+  // By day, at dawn and at dusk, under rain, in every state: no pixel of the cap shows as ink (the S7 smudge over the roof).
+  for (const [hour, evening] of [['day', true], ['dawn', false], ['dusk', true]]) {
+    for (const state of [[], ['first'], ['guestbook'], ['flag_up']]) {
+      const c = composeCabin({ art, cabin, hour, evening, sky: 'rain', state });
+      const r = render(c);
+      const sl = slotsOf(c);
+      let shown = 0;
+      for (let p = 0; p < capOnly.length; p++) {
+        if (capOnly[p] === TRANSPARENT || r.layers[2][p] !== TRANSPARENT || r.layers[3][p] !== TRANSPARENT || r.layers[1][p] !== capOnly[p]) continue;
+        shown++;
+        assert.notEqual(sl[p], 0, `${c.key}: the cap shows ink at ${p % WIDTH},${Math.floor(p / WIDTH)}`);
+      }
+      assert.ok(shown > 1500, `${c.key}: ${shown} pixels of the cap show`);
+    }
+  }
+  // At blue hour (both) and night the tables send slate to ink, so the cap's box resolves exactly as S7 drew it, at every frame of the smoke.
+  for (const [hour, evening] of [['blue', true], ['blue', false], ['night', true]]) {
+    for (const state of [[], ['first'], ['guestbook'], ['flag_up']]) {
+      const c = composeCabin({ art, cabin, hour, evening, sky: 'rain', state });
+      const comp = composite(render(c));
+      const box = [];
+      for (let frame = 0; frame < 12; frame++) {
+        const sl = resolve(comp, WIDTH, PAL, { remap: c.table, frame });
+        for (let y = by; y < by + bh; y++) for (let x = bx; x < bx + bw; x++) box.push(sl[y * WIDTH + x]);
+      }
+      assert.equal(hashBytes(new Uint8Array(box)), S7_RAIN_CAP[hour], `${c.key}: the cap's box as S7 drew it`);
     }
   }
 });

@@ -1,7 +1,8 @@
 // The app as installed (GAME_DESIGN E.7; BUILD_PLAN 2.5): registers the
 // channel's worker, checks for a new build at launch and on every return to
 // the foreground, shows the update note and its Restart (on the title page,
-// and from S7 in the mailbox, the ≡ sheet's foot), and the Works offline
+// on preview the title screen, S7b, and from S7 in the mailbox, the ≡
+// sheet's foot), and the Works offline
 // stamp once the worker has every file. When an update waits it also tells
 // the page (an oph:update event on the window), so the cabin raises the
 // mailbox's flag (S7). A new build never takes over by itself: it waits for
@@ -9,6 +10,7 @@
 
 import { noteError } from '../ui/errors.js';
 import { restart } from '../boot.js';
+import { markResume } from './resume.js';
 
 /** At most one update check a minute (each return to the foreground asks). */
 const CHECK_EVERY_MS = 60 * 1000;
@@ -151,9 +153,15 @@ export function startWorker(doc, nav = globalThis.navigator) {
 
     // Restart: the waiting build takes over, then the page reloads into it
     // (boot.js, shared with the error sheet). The game is already saved: it
-    // saves at every tap (ui/app.js), so the new build opens on the same screen.
+    // saves at every tap (ui/app.js), so the new build opens on the same
+    // screen; pressed inside the game (the mailbox, S7), the reload skips
+    // the title screen (S7b, Lead call 65: platform/resume.js).
     const again = doc.getElementById('update-restart');
-    if (again && win) again.addEventListener('click', () => restart(win));
+    if (again && win)
+      again.addEventListener('click', () => {
+        markResume(doc);
+        restart(win);
+      });
   } catch (err) {
     noteError(err);
   }

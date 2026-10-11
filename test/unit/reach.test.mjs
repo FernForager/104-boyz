@@ -48,6 +48,7 @@ test("moduleRefs: static, dynamic and new URL(..., import.meta.url) references, 
     "const ART = new URL(\"../../art/art.json\", import.meta.url);",
     "import('./always.js').then(() => {});",
     "if (x) import('./gated.js'); // screens: guestbook trail",
+    "const CSS = new URL('../css/gated.css', import.meta.url); // screens: home",
     "const s = 'import nothing from here';",
   ].join('\n');
   assert.deepEqual(
@@ -61,6 +62,7 @@ test("moduleRefs: static, dynamic and new URL(..., import.meta.url) references, 
       ['url', '../../art/art.json', null],
       ['dynamic', './always.js', null],
       ['dynamic', './gated.js', ['guestbook', 'trail']],
+      ['url', '../css/gated.css', ['home']],
     ],
   );
   assert.deepEqual(
@@ -87,7 +89,9 @@ test("pageReach: the page's files, the manifest's icons, the CSS's fonts, the mo
     'fonts/A.woff2': 'font',
     'fonts/OFL.txt': 'licence',
     'img/g.png': 'png',
-    'js/main.js': "import { x } from './lib.js';\nconst SITE = new URL('../', import.meta.url);\nimport('./home.js');\nif (opensGame()) import('./game.js'); // screens: guestbook trail\n",
+    'js/main.js': "import { x } from './lib.js';\nconst SITE = new URL('../', import.meta.url);\nimport('./home.js');\nif (opensGame()) import('./game.js'); // screens: guestbook trail\nif (opensGame()) link(new URL('../css/game3.css', import.meta.url)); // screens: trail\n",
+    'css/game3.css': '.z { background: url("../img/g3.png"); }',
+    'img/g3.png': 'png',
     'js/lib.js': "export const x = new URL('../text/', import.meta.url);\n",
     'js/home.js': "const ART = new URL('../art/art.json', import.meta.url);\n",
     'js/game.js': "import './deep.js';\nconst CSS = new URL('../css/game2.css', import.meta.url);\n",
@@ -102,12 +106,18 @@ test("pageReach: the page's files, the manifest's icons, the CSS's fonts, the mo
   const r = pageReach(mainish);
   assert.deepEqual(r.screens, ['app', 'title']);
   assert.deepEqual(r.files, ['art/art.json', 'css/a.css', 'fonts/A.woff2', 'icons/i.png', 'index.html', 'js/home.js', 'js/lib.js', 'js/main.js', 'manifest.webmanifest', 'text/en.json', 'text/marks.json']);
-  assert.deepEqual(r.gated, [{ from: 'js/main.js', ref: './game.js', screens: ['guestbook', 'trail'], taken: false }]);
+  assert.deepEqual(r.gated, [
+    { from: 'js/main.js', ref: './game.js', screens: ['guestbook', 'trail'], taken: false },
+    { from: 'js/main.js', ref: '../css/game3.css', screens: ['trail'], taken: false },
+  ]);
   const previewish = site(t, { ...files, 'index.html': page('app guestbook title trail') });
   const p = pageReach(previewish);
-  for (const f of ['js/game.js', 'js/deep.js', 'css/game2.css', 'img/g.png']) assert.ok(p.files.includes(f), `the game's screens reach ${f}`);
+  for (const f of ['js/game.js', 'js/deep.js', 'css/game2.css', 'img/g.png', 'css/game3.css', 'img/g3.png']) assert.ok(p.files.includes(f), `the game's screens reach ${f}`);
   for (const f of ['js/never.js', 'icons/unused.png', 'fonts/OFL.txt', 'sw.js']) assert.ok(!p.files.includes(f), `nothing names ${f}`);
-  assert.equal(p.gated[0].taken, true);
+  assert.deepEqual(p.gated.map((g) => g.taken), [true, true]);
+  // A gated file only on its own screens: the trail's stylesheet without the guest book's game.
+  const trailOnly = pageReach(site(t, { ...files, 'index.html': page('app title trail') }));
+  assert.ok(trailOnly.files.includes('css/game3.css') && !trailOnly.files.includes('js/game.js'));
 });
 
 test('pageReach refuses a file a page names that the build does not ship, and a dynamic import it cannot read', (t) => {

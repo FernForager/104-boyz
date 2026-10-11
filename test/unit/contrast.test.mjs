@@ -94,6 +94,14 @@ const PAIRS = [
   ['frame.css', '.toolbar-item', '--c5', '--page', TEXT, 'the toolbar'],
   ['frame.css', '.toolbar-item:disabled', '--c2', '--page', EXEMPT, 'a disabled toolbar item (an inactive control)'],
   ['frame.css', '.scenes-picker', '--c4', '--page', TEXT, 'the #frame check view'],
+  // The title screen (S7b, title.css; Lead call 67): the Mount Olympus label, its tick and the prompt.
+  ['title.css', '.peak-label', '--c3', '--c0', TEXT, "glacier blue in its one-pixel ink halo, over the cover's navy, 4.35 bare"],
+  ['title.css', null, '--c3', '--c0', MARK, "the label's tick, glacier blue cased in ink (2.67 bare on the sky's slate checker)"],
+  ['title.css', '.title-go', '--c5', '--page', TEXT, 'the prompt under the cover (5.0 at its pulse\'s dimmest step, title.test)'],
+  // The art critic's S7b pass: under the cover, only the prompt is cream; the rest is the stamps' glacier blue.
+  ['title.css', '#app[data-title] .install', '--c3', '--page', TEXT, 'the install line (Safari) while the title screen shows, 13 px'],
+  ['title.css', '#app[data-title] .update-line', '--c3', '--page', TEXT, "the update note's one line on the title screen, 13 px"],
+  ['title.css', '#app[data-title] #update-restart', '--c3', '--page', TEXT, "its Restart, a link the target's height, 13 px"],
 ];
 
 /** Every rule in a stylesheet: {sel, decls}, @media flattened. */
@@ -125,7 +133,7 @@ function cssRules(text) {
 }
 
 const css = (f) => readFileSync(join(ROOT, 'web', 'css', f), 'utf8');
-const RULES = { 'game.css': cssRules(css('game.css')), 'frame.css': cssRules(css('frame.css')) };
+const RULES = { 'game.css': cssRules(css('game.css')), 'frame.css': cssRules(css('frame.css')), 'title.css': cssRules(css('title.css')) };
 
 /** tokens.css's names, down to a palette slot: --ink is --c0, and so on. */
 function slotOf(token) {
@@ -171,6 +179,19 @@ test("the table is the CSS's: each row's rule sets that color, and every rule th
   }
   // The ≡ flag's dot is a background, by its own rule.
   assert.match(css('frame.css'), /\.status-menu\[data-flag\]::before \{[^}]*background: var\(--c9\);/);
+  // S7b: the label's halo is ink at the eight one-pixel offsets, and its tick glacier blue cased in ink each side
+  // (an SVG's two rects, ui/title.js: the casing three font pixels wide under the line's one).
+  const label = RULES['title.css'].find((r) => r.sel === '.peak-label');
+  const halo = label.decls['text-shadow'].split(',').map((x) => x.trim());
+  assert.equal(halo.length, 8);
+  assert.deepEqual(new Set(halo.map((h) => h.replace(/ var\(--c0\)$/, ''))).size, 8, 'eight distinct offsets');
+  for (const h of halo) assert.match(h, /^-?[01](?:px)? -?[01](?:px)? 0 var\(--c0\)$/, h);
+  assert.equal(RULES['title.css'].find((r) => r.sel === '.peak-tick-line').decls.fill, 'var(--c3)');
+  assert.equal(RULES['title.css'].find((r) => r.sel === '.peak-tick-case').decls.fill, 'var(--c0)');
+  // Lead call 67's figures, from the palette: 5.45 on the halo's ink, 4.35 on the bare navy (why the halo), the
+  // halo 1.25 from the navy (so it never shows as a box), the tick 2.67 bare on the slate checker (why it's cased).
+  const r2 = (a, b) => contrastRatio(PALETTE[a], PALETTE[b]).toFixed(2);
+  assert.deepEqual([r2(3, 0), r2(3, 1), r2(0, 1), r2(3, 2)], ['5.45', '4.35', '1.25', '2.67']);
 });
 
 test("decision 68's contrast figures (GAME_DESIGN 11.9), exactly, from the palette", () => {

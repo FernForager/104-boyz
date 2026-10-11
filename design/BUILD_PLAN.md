@@ -77,7 +77,7 @@ Session 1 shipped the repo skeleton, the picture VM, the palette, crisp scaling,
 | Palette and remaps | `palette.js`, `palette.json`, `tokens.css` | Gains pseudo-colors 26 `steam` and 27 `alpen` (4.7) |
 | Crisp scaling | `gfx/display.js` | As is, whole-CSS-pixel fix included |
 | Draw-in | `gfx/drawin.js` | The cabin draws itself in at first launch |
-| The cover | `cover_high_divide_dusk.pic`, the fir stamps | The loading art only; the daily's picture stays the trailhead under the day's sky (doc 9.9, 11.7) |
+| The cover | `cover_high_divide_dusk.pic`, the fir stamps | The title screen's poster (doc decisions 73 and 74): a poster, not a place, exempt from the art pipeline's truth checks; the daily's picture stays the trailhead under the day's sky (doc 9.9, 11.7) |
 | Font | Pixelify Sans (OFL) | As is |
 | Tools | `build`, `lint`, `pics`, `png`, `render-pics`, `serve` | Grow: the text fill, the text and sound lints (10.5, 13.4) |
 | Tests | 41 unit tests, a reproducible build | As is, and the suite grows (6.6) |
@@ -88,11 +88,11 @@ Session 1 shipped the repo skeleton, the picture VM, the palette, crisp scaling,
 
 | Piece | Now | Becomes |
 |---|---|---|
-| The title page | `index.html`, `ui/shelf.js` | The cabin home (S7), in `ui/home.js` (lead call 11) |
+| The title page | `index.html`, `ui/shelf.js` | The title screen (S7b, `ui/title.js`, doc decision 74), then the cabin (S7); main's title page stays in `ui/home.js` (lead call 11) until the cabin's promotion |
 | Its words | 13 strings typed into HTML and the manifest | Ids in `content/text/` (S2); main keeps only the two approved, plus B001's answered lines (1.2) |
 | Flags | `storybook: false` | `gentle: false` (lead call 11) |
 | README, `package.json` | "picture-book" | De-booked in S2; they are docs, not game text (doc 18.2) |
-| The update notice | "a new edition" (planned) | Your update note and its *Restart* on the title page (S2, B001), then the mailbox's flag (S7) |
+| The update notice | "a new edition" (planned) | Your update note and its *Restart* on the title page (S2, B001), then the mailbox's flag (S7), and from S7b under the title screen before you go in |
 
 BUILD_LOG's open question 2, *keep "a picture-book trip" under the title?*, is answered by decision 22: it goes.
 
@@ -107,7 +107,7 @@ The live site carries 13 strings of original English (doc 18.11). Two are yours 
 | `app.description` | A picture-book hiking trip... | B001's approved line, applied in S2 |
 | `title.name_small`, `_big` | The name over two lines | Stays: your approved name; retires with the title page |
 | `title.tagline` | a picture-book trip | Off main |
-| `alt.cover_high_divide_dusk` | The cover's description | Off main (empty alt: the cover is decoration beside the name); B002, as the loading art's |
+| `alt.cover_high_divide_dusk` | The cover's description | Off main (empty alt: the cover is decoration beside the name); B002, as the loading art's, and from S7b the title screen's (doc decision 74) |
 | `title.start_label` | Bookshelf | Off main: the section's label is `app.name`; retires |
 | `title.begin` | Begin a new book | Hidden on main (it does nothing yet); retires |
 | `title.begin_note` | The trail opens soon. | Hidden with the button; retires |
@@ -121,7 +121,7 @@ The live site carries 13 strings of original English (doc 18.11). Two are yours 
 
 - **B000** records decision 35's two lines and decision 47's two Credits lines, each with its decision as your answer.
 - **B001 · The app's frame** (10 lines): the description, the install line, the upright line, the *works offline* stamp, the update note, the error sheet's line and buttons, the preview icon's name, and the bare build code for a look. It went to the review page on 2026-10-09, before S2, once you said the frame was set (decision 65), and you answered it the same day, then revisited it that evening: the description, the install line and the upright line in your own words, the update note as *A new version is ready.* with a new *Restart* button, *Restart* for the error sheet's button too (the last two settled in chat), and the rest as drafted (`content/text/review/B001.answers.json`, doc 18.11). S2 applies the answers.
-- **B002 · The cabin** (about 30 lines, from S7): the places' names, the porch rail, the next-step button, the cabin's alt text, the name over the cabin, the cover's alt text as the loading art.
+- **B002 · The cabin** (about 30 lines, from S7): the places' names, the porch rail, the next-step button, the cabin's alt text, the name over the cabin, the cover's alt text as the loading art (from S7b, the title screen's), and from S7b the title screen's prompt: 40 lines.
 - **B003 · The lockbox and the guest book** (about 53 lines, from S7): the locals' questions and answers, read as a set, and the one-life line. Over decision 64's 25 to 40 by the creator's OK: one pool, one batch (doc decision 64); and over the 45 first OK'd, sent as one set all the same, by the creator's OK to let it run long (doc Lead call 46).
 
 You chose this (decision 64): Session 1's unapproved lines leave main in S2, rather than staying up until they're answered.
@@ -166,7 +166,8 @@ E.5 names some files `data/`, `rules/`, `stores/`, `drive/` and `people/`. Here 
 | `fonts/` | Pixelify Sans (shipped), an EGA 8x14 font (CC BY-SA) for the chrome, and a plain OFL serif for the Plain font, each with its license. Source TTFs in `tools/fonts/` for T02's metrics |
 | `css/tokens.css` | The 16 colors as custom properties; sizes in device pixels |
 | `css/game.css` | The stop frame, Sierra box, choices, sheets, the cabin's rail, the short-screen layout |
-| `js/main.js` | Boot: register the worker, load the build's data, restore the autosave, open the cabin or the trail |
+| `css/title.css` | The title screen's (S7b): the *Mount Olympus* label and its tick, the prompt, the steps and the pulse, under `prefers-reduced-motion: no-preference`; only preview's title screen links it |
+| `js/main.js` | Boot: register the worker, load the build's data, restore the autosave, open the cabin or the trail; from S7b on preview, the title screen and the game load in parallel |
 | `js/text.js` | `t()`, `tx()` and `drawText()`; preview's draft marks and the line inspector (10.3) |
 | `js/fmt.js` | Numbers, times and dates from the approved `fmt.*` tokens, never the phone's locale |
 | `js/worker.js` | Web Worker for the look-ahead and the Trip Outlook |
@@ -261,7 +262,9 @@ E.5 names some files `data/`, `rules/`, `stores/`, `drive/` and `people/`. Here 
 | `ui/press.js` | The long press, shared by the (i)'s accelerator and the line inspector; a held press on a rolled choice is never a tap, and while the inspector listens no held press is; anywhere else a slow tap taps (shipped in S6) |
 | `ui/motion.js` | Reduce Motion in one place, live: the draw-in, the cycles, the compass, the sheet and the confirm (shipped in S6; the title page's draw-in reads it too) |
 | `ui/strip.js` | The pencil strip and the splits |
-| `ui/home.js` | The title page and, on preview from S7, the loading art: the cover drawing in under the name (was `ui/shelf.js`); main's front door until the cabin's promotion |
+| `ui/home.js` | Main's title page, and the cover's drawing in for the title screen (was `ui/shelf.js`); main's front door until the cabin's promotion |
+| `ui/title.js` | The title screen (S7b, doc decision 74, 12.3): the cover, the name, the *Mount Olympus* label and *Tap to start*, waiting for a tap; the resume path (doc Lead call 65); the label's place and the quiet sky (`titleMarks`, `quietOps`) |
+| `ui/devroute.js` | The dev routes' addresses, one pure parser (S7b, after its review): the game opens them, the title screen steps aside for exactly them (debug mode only) |
 | `ui/cabin.js` | The cabin: the plate in its mat, real buttons over its places, the labels, the next-step button, the porch rail, the live clock and scene; first launch's shut lockbox (shipped in S7) |
 | `ui/porch.js` | First launch's slim frame: the status line, a window on the plate's porch, the box and what goes under it (shipped in S7) |
 | `ui/status.js`, `glyph.js` | The status line the trail, the cabin and the porch share; pixel glyphs, so the cabin's modules never import the trail's (shipped in S7) |
@@ -286,8 +289,9 @@ E.5 names some files `data/`, `rules/`, `stores/`, `drive/` and `people/`. Here 
 | `audio/dsp.js` | Pure synthesis, which runs in Node too, like the picture VM |
 | `audio/scape.js`, `steps.js`, `music.js` | Place, hour and weather into layers; footsteps and the walk-on; the cabin band, a bar ahead |
 | `platform/storage.js` | localStorage and IndexedDB under `oph.<channel>.`; `persist()` |
-| `platform/sw-client.js` | Worker registration; `registration.update()` at launch and on every return to the foreground; the update note (on the title page until S7, then the mailbox's flag); the offline stamp |
+| `platform/sw-client.js` | Worker registration; `registration.update()` at launch and on every return to the foreground; the update note (on the title page until S7, then the mailbox's flag; from S7b under the title screen before you go in, its *Restart* inside the game marking a resume); the offline stamp |
 | `platform/share.js` | Clipboard, the share sheet with files, the press-and-hold fallback, Export and Import |
+| `platform/resume.js` | The resume mark (S7b, doc Lead call 65): once the game has the page the session is marked, so every reload in it (a *Restart* inside the game, iOS reloading the app it shut down in the background) skips the title screen; one session key |
 | `platform/now.js` | The real Pacific clock for the cabin, the sun table's hour, the date's sky and the real moon (shipped in S7). UI only: the engine never reads it |
 | `platform/net.js` | From T1: the data branch's files, fetched past the cache and checked by hash; from T4, the daily's rolls from the Worker (14.4) |
 
@@ -310,7 +314,7 @@ Session 1's planned `platform/audio.js` square-wave sequencer is replaced by `au
 | `food/items.json` | The food catalog, the beer and the new store foods, each basic or nice |
 | `stores/stores.json` | The three stores' placeholders, shelves by catalog id, the cooler; Second Growth from M1b; the three jobs' placeholders, `{JOB_DRIVEIN}` in M1a and `{JOB_GASTROPUB}` and `{JOB_BOOKSTORE}` from M1b, with their doors |
 | `drive/routes.json` | The cabin to Port Angeles (about 3 h) and to the Sol Duc trailhead through Forks (about 2 h 10); from M2, the Hoh by the Upper Hoh Road, which leaves US 101 south of Forks (about 1 h 30, an estimate to measure, doc 3.3) |
-| `home/cabin.json` | The cabin's places, hotspots, states, props and the next-step rules (11.2); its tables, skies, lights, moon and the porch's window (shipped in S7) |
+| `home/cabin.json` | The cabin's places, hotspots, states, props and the next-step rules (11.2); its tables, skies, lights, moon and the porch's window (shipped in S7); the name's quiet sky, `quiet.name` (S7b, doc Lead call 69) |
 | `rules/tuning.json` | Every knob: score budgets, skills 0-5, the Leave No Trace cap, the tub's 8 trail hours, the worn switch |
 | `rules/mods.json`, `macros.json` | Shared modifier sets; shared effect bundles |
 | `rules/kits.json` | The ranger's sensible kit by zone and month; the two presets; the town clothes a new hiker arrives in (decision 67); the test kits |
@@ -330,13 +334,14 @@ Session 1's planned `platform/audio.js` square-wave sequencer is replaced by `au
 | `fkt/routes.json` | From T1: each route's waypoints, splits, support points, `stash_ok` places |
 | `daily/library.json` | From T2: the Hike of the Day's routes, slots, seasons and weather anchors |
 | `art/palette.json`, `recipes.json`, `pics/**` | 16 colors, remaps, cycles, lights; place to recipe; the `.pic` files |
+| `art/title.json` | The title screen's marks over the cover (S7b): the *Mount Olympus* label's gazetteer name, the summit pixel its tick ends on, the sky row it rests on, and the quiet boxes where the title screen drops the cover's stars (doc Lead calls 67 and 68) |
 | `art/hotspots.json` | Every Look hotspot's kind, looked or silent (a silent one with its reason); lint P15 holds every drawable place's kinds and their lines to it (S6) |
 
 ### 2.7 `schemas/`, `tools/`, `sims/`, `test/`
 
 | File | What it is |
 |---|---|
-| `schemas/*.schema.json`, `vars.json`, `tags.json` | One schema per content file; expression variables; the one event-tag list |
+| `schemas/*.schema.json`, `vars.json`, `tags.json` | One schema per content file (from S7b `title.schema.json` too); expression variables; the one event-tag list |
 | `tools/ingest.mjs` | `design/data` to `content/park`, the gazetteer, and the ingest report |
 | `tools/build.mjs` | Validate, compile, index, fill the words, check the sounds, lint, scope, hash (shipped, grows) |
 | `tools/lint.mjs` | The F.3 rules; `--fix` for safe mechanical fixes, never on approved lines |
@@ -564,7 +569,7 @@ Fourteen hand-drawn scenes and plates for M1a, plus the shipped cover. The Lake 
 
 | Scene | Size | Shows on | Session |
 |---|---|---|---|
-| Cover: the High Divide at dusk | Plate | Loading art | 1 (shipped) |
+| Cover: the High Divide at dusk | Plate | The title screen (doc decision 74); a poster, not a place, exempt from the truth checks (doc decision 73) | 1 (shipped) |
 | The basin from the rim | 160x168 | The rim, the fork | 5 |
 | The cabin at Lake Quinault, August | Plate | Home, at every hour | 7 |
 | The town street | 160x168 | Town | 11 |
@@ -575,7 +580,7 @@ Fourteen hand-drawn scenes and plates for M1a, plus the shipped cover. The Lake 
 | The bear can, cut away | 160x168 | The can minigame | 13 |
 | The drive-in's grill, from above | 160x168 | The burger job | 14b |
 | The car at the trailhead | 160x168 | The tailgate, the finish stamp | 15 |
-| Olympus across the Hoh | Plate | First view from the Divide; the alpenglow shot | 16 |
+| Olympus across the Hoh | Plate | First view from the Divide; the alpenglow shot; true to the data, not the cover's taller poster (doc decision 73) | 16 |
 | Sol Duc Falls | 160x168 | Landmark, stay on trail | 18 |
 | Heart Lake | 160x168 | Camp, the swim | 23 |
 | The soak | Plate | The tub, after a big hike, with a can on its edge (decision 46) | 25 |
@@ -593,7 +598,7 @@ Gone with the book: *The End: a book on a dashboard*, the pack spread (the flat 
 
 The drive from the cabin is one composed road screen on a route already driven, and two to five composed road scenes the first time (doc 3.3).
 
-**The art scales to the whole park** (doc decision 69): the composer has to reach every place at the hand-drawn plates' quality, not just the loop. A separate prototype is exploring real skylines from public-domain USGS elevation data, real water shapes from USGS hydrography, kits for each vegetation zone and the hand-drawn hero plates as style anchors. The composer's design (doc 11.7) and this section are updated once the prototype is judged; until then the M1a set above stands.
+**The art scales to the whole park** (doc decision 69): the composer has to reach every place at the hand-drawn plates' quality, not just the loop. A separate prototype is exploring real skylines from public-domain USGS elevation data, real water shapes from USGS hydrography, kits for each vegetation zone and the hand-drawn hero plates as style anchors. The composer's design (doc 11.7) and this section are updated once the prototype is judged; until then the M1a set above stands. **Decided since:** the hybrid (doc decision 70): the far land and the big shapes of land and water from the data, crafted kits for the near ground, hand-drawn plates as anchors; the rim's camera is the prototype's R1, north-northeast down into the basin from the Divide with Bogachiel behind you (decision 71); every place's camera goes to you on per-region contact sheets, one thumbnail per place, after the checks have run (decision 72); Olympus is true in every place, its vertical exaggeration 1.0 to 1.25 and never over 1.5 (decision 73); and Session 1's cover is a poster, not a place, exempt from those truth checks (decision 73). If the prototype's own checks (its V07 and V08, outside the repo) ever come into it, they carry the same exemption.
 
 ### 4.5 Every loop place, and its recipe
 
@@ -638,7 +643,7 @@ The drive from the cabin is one composed road screen on a route already driven, 
 2. `npm run render` draws it to PNGs in every palette and a contact sheet, at the phones' own pixel shapes (7x4 on 3x phones, 4x2 on the SE) and at square 4x.
 3. The agent opens the PNGs and critiques them beside panel B of `design/art/style_options.png`.
 4. The picture lint runs: unknown stamps, out-of-bounds points, a fill over 60% of a non-sky layer, deep stamps, hotspots off the canvas, gold, and on the cabin, any hit area under 44 x 44 pt on any device row of doc 11.2's table (the SE's 4x2 is the worst: 22 columns by 44 rows).
-5. You judge the look on your phone at S5 and S6. Nothing past the first two scenes is drawn in volume until you have; the cabin (S7) is the first scene after your verdict.
+5. You judge the look on your phone at S5 and S6. Nothing past the first two scenes is drawn in volume until you have; the cabin (S7) is the first scene after your verdict. From the hybrid pipeline on, composed places' cameras come to you on per-region contact sheets, one thumbnail per place, each OK or a one-line pin, after the checks have run (doc decision 72).
 
 ---
 
@@ -1104,11 +1109,17 @@ Reported nightly, not gated (doc F.1):
 ### 8.3 The first playable (M1a)
 
 **S7 · Home: the cabin at Lake Quinault**
-- **Build:** the cabin plate (160x320, August) from doc 11.11's written brief, at day, dusk and dawn, blue hour and night, with rain and fog; the hotspot map and hit areas; the porch rail and the next-step button; labels that fade after first use; the live scene on Lake Quinault's clock, with the month's climatology sky (11.2); **first launch:** the cabin draws itself in, the lockbox's three locals' questions, then the guest book on the porch table; the mailbox (Sound and Text for now, and the build stamp that hides the debug menu); the register post as a Look until S24; the cover as the loading art. On preview the title page retires.
+- **Build:** the cabin plate (160x320, August) from doc 11.11's written brief, at day, dusk and dawn, blue hour and night, with rain and fog; the hotspot map and hit areas; the porch rail and the next-step button; labels that fade after first use; the live scene on Lake Quinault's clock, with the month's climatology sky (11.2); **first launch:** the cabin draws itself in, the lockbox's three locals' questions, then the guest book on the porch table; the mailbox (Sound and Text for now, and the build stamp that hides the debug menu); the register post as a Look until S24; the cover as the loading art (S7b made it a title screen that waits for a tap, doc decision 74). On preview the title page retires.
 - **You see:** open preview at dawn, noon, dusk and night and see the lake's own hour; the lockbox, then the guest book; tap every place.
 - **Done when:** every place and rail button works with VoiceOver; the scene matches Pacific time on your phone; the PNG holds up beside panel B; no photo is in the repo.
-- **Words:** B002, the cabin, and B003, the lockbox and the guest book. **Once both are answered, the cabin replaces the title page on main** as its front door, with the next step disabled until trips reach main, as Session 1's button was.
+- **Words:** B002, the cabin, and B003, the lockbox and the guest book. **Once both are answered, main gets the title screen and the cabin** as its front door, with the next step disabled until trips reach main, as Session 1's button was.
 - **The floor:** the plate by day and at dusk, the hotspots, the rail and the guest book. The lockbox and blue hour can slip to S10.
+
+**S7b · The title screen, and S7's loose ends** (doc decisions 71 to 74; Lead calls 65 to 69)
+- **Build:** on preview, a proper title screen (doc decision 74, 12.3; `ui/title.js`, `css/title.css`): the High Divide draws in, then the name, then *Mount Olympus* in small glacier-blue chrome type over its summit, flown like a flag from a hairline tick that stands on the spire (decision 73; real text with a one-pixel ink halo, the tick an SVG in the canvas's own device pixels, Lead call 67), then *Tap to start* (DRAFT), and it waits for a tap; the game loads underneath and the tap goes in once (Lead call 66); a reload once the game has had the page (a *Restart* inside the game, iOS reloading the app it shut down in the background) and a preview dev route in debug mode skip it (`platform/resume.js`, Lead call 65); the cover's stars near the name and the label left out on the title screen only (`content/art/title.json`, Lead call 68). S7's four cabin defects (Lead call 69): a quiet sky under the cabin's name (`cabin.json` `quiet.name`: no star, moon or rain; a star that would fall there left out), the rain cap's foot in slate (no dark strip by day), the morning fog parted behind the stovepipe, leaning downwind, so the smoke reads, and the SE's labels at one point a font pixel, 6 pt clear of the other places' art (a new P17 clause), hidden under a Look box.
+- **You see:** swipe OP Preview closed and open it: the cover, the name, *Mount Olympus*, *Tap to start*; nothing moves on until you tap. Switch apps and back: no title. On the cabin, a clear name band at night, no rain over the name and no smudge over the roof, smoke from the pipe in morning fog, and on the SE the labels clear of the fire bowl.
+- **Done when:** in Node, the title screen's steps, its 300-ms guard, one start, the controls that never go in, its reading order and Reduce Motion; the label's place pinned at the four phones and hidden on a squeezed plate; the resume path; the cabin's quiet sky, rain cap, fog and labels each held by a test that fails on S7's art; in Chromium, the title holds 10 s untouched, a tap goes in, a reload shows it again and a resume doesn't, and no label shows half under a Look box at the four phones; main's page, art and words are S6's and its worker never downloads the title screen's files; `node tools/promote.mjs --dry-run --screens home,lockbox,guestbook,mailbox` lists exactly B002's 40 lines and B003's 61.
+- **Words:** `title.prompt`, *Tap to start* (DRAFT), B002's line 40; *Mount Olympus* is the gazetteer's name, in B002's not-ours tail. Session 1's four title-page lines stay retired on preview; main gets the title screen and the cabin once B002 and B003 are answered.
 
 **S8 · Trail physics, in whole seconds**
 - **Build:** movement; **the integer-second clock** (T0); daylight; the weather generator with flagged thunder and fog odds; the body meters and the night model from each item's catalog stats; pack tags; energy from food.
@@ -1175,7 +1186,7 @@ Reported nightly, not gated (doc F.1):
 - **The floor:** the Steady and Cautious bots, the twelve fills and the report; the other bots can slip to S27.
 
 **S16 · The fork and the crest**
-- **Build:** the basin-or-crest fork at the rim going ↺, at the Mirror Lake junction going ↻, and at the rim again if you stayed high; look-ahead bars with the black tip; the Trip Outlook's numbers at the map table and at *Pack it*; thunder and fog with their foreshadowing; *Off the crest, now*; fog near a cliff; the Olympus plate. **Sound A4:** thunder at its true distance, five seconds a mile, synthesized; fog; and **the hush** with every ♦. Until S24, a death ends on a plain stub.
+- **Build:** the basin-or-crest fork at the rim going ↺, at the Mirror Lake junction going ↻, and at the rim again if you stayed high; look-ahead bars with the black tip; the Trip Outlook's numbers at the map table and at *Pack it*; thunder and fog with their foreshadowing; *Off the crest, now*; fog near a cliff; the Olympus plate, true to the data (doc decision 73); the fork's rim picture from camera R1, looking down into the basin with Bogachiel behind you (doc decision 71). **Sound A4:** thunder at its true distance, five seconds a mile, synthesized; fog; and **the hush** with every ♦. Until S24, a death ends on a plain stub.
 - **You see:** the fork from 12.12, with honest bars, both ways round.
 - **Done when:** B.6's ETAs pass and its shares are regenerated and recorded; the hush follows the ♦ exactly, in a test.
 - **The floor:** the fork at the rim, both ways round, with honest bars; the hush can slip to S21.
@@ -1186,7 +1197,7 @@ Reported nightly, not gated (doc F.1):
 - **The floor:** the shot on the crest with its light curve and *Auto*; Heart Lake Junction, Bogachiel Peak and porch practice can slip to S26.
 
 **S18 · Content batch 1: the trail**
-- **Build:** about 25 cards (landmarks, hazards, footing, way trails, Sol Duc Falls' stay-on-trail); place text; Look lines; quiet stops; half the item notices; recipes for every loop place; the remaining bases, skylines and stamps; Sol Duc Falls hand-drawn.
+- **Build:** about 25 cards (landmarks, hazards, footing, way trails, Sol Duc Falls' stay-on-trail); place text; Look lines; quiet stops; half the item notices; recipes for every loop place, each region's cameras approved by you on its contact sheet once the checks have run (doc decision 72); the remaining bases, skylines and stamps; Sol Duc Falls hand-drawn.
 - **Done when:** the lint is at zero, every card is benched, 20 transcripts are read, the targets report is read and any row moving the wrong way is logged, and the review site is on preview.
 - **The floor:** 20 cards, benched and linted, and Sol Duc Falls' stay-on-trail.
 
@@ -1237,7 +1248,7 @@ Reported nightly, not gated (doc F.1):
 - **The floor:** the full report and the soak; its share card and the band's time-of-day variations are on the cut ladder.
 
 **S26 · Art pass**
-- **Build:** the rest of the flat lay's stamps; the cabin's states polished (trip props, homecoming, the tub, after a death); every M1a stop checked at every time of day; contact sheets; the picture lint; alt text.
+- **Build:** the rest of the flat lay's stamps; the cabin's states polished (trip props, homecoming, the tub, after a death); every M1a stop checked at every time of day; contact sheets, also your camera approval for each region (doc decision 72); the picture lint; alt text.
 - **You see:** every stop has its own picture, and dusk and night look right, at the cabin too.
 - **The floor:** every M1a stop has its picture by day and at dusk; contact sheets can slip.
 
@@ -1334,7 +1345,7 @@ Reported nightly, not gated (doc F.1):
 |---|---|---|
 | Your answers to each batch | Each promotion | What reaches main; nothing that gets built |
 | Your verdict on the look | S5-S6 | The cabin plate and art in volume |
-| Your verdict on the skyline prototype (doc decision 69) | Answered 2026-10-10: the hybrid (doc decision 70) | The composer's design (doc 11.7; 4.4) is rewritten for it in its build session; three smaller calls (the rim's view, approving cameras, Olympus's height) are in the doc's Still to come |
+| Your verdict on the skyline prototype (doc decision 69) | Answered 2026-10-10: the hybrid (doc decision 70) | The composer's design (doc 11.7; 4.4) is rewritten for it in its build session; three smaller calls answered 2026-10-10 (doc decisions 71 to 73: the rim's camera R1, cameras approved on per-region contact sheets, Olympus true and the cover a poster) |
 | Your own quiz questions (optional) | S7 | Nothing: the lockbox has twelve |
 | The three stores' names | S11 | Nothing: `{STORE_GENERAL}` and the others until then |
 | Your verdict on the share images' default: the hiker's name, *OP Hiker* and *ophiker.com* (decision 44) | S12b, on a real one | Nothing: the default until then |
@@ -1406,6 +1417,11 @@ The design doc's [Lead calls](GAME_DESIGN.md#lead-calls), one line each and your
 | 44 · The free map, compass and trowel at the gear shop: two counters on a first town run | S4 (the shelves), S11 |
 | 45 · The hiker's own phone, outside the shed and the wipe | S4 (the catalog), S11, S12a |
 | 46 · B003 as one set, about 53 lines | S7 |
+| 65 · Once the game has had the page, a reload (a *Restart*, iOS reloading the app) comes back where you were; a fresh launch shows the title screen | S7b |
+| 66 · What the title screen holds, and the one tap that goes in | S7b |
+| 67 · The *Mount Olympus* label's look: real text, glacier blue in an ink halo, a tick to the summit | S7b |
+| 68 · A quiet sky for the name and the label on the title screen | S7b |
+| 69 · How S7's four cabin defects are fixed | S7b |
 
 **The plan's own build calls,** also yours to overrule:
 
@@ -1420,7 +1436,7 @@ The design doc's [Lead calls](GAME_DESIGN.md#lead-calls), one line each and your
 | Rules releases | From T2, a deploy that changes main's rules hash waits for the morning job; word-only and UI-only deploys go any time, and CI checks they leave the hash alone (6.3) |
 | The morning deploy | Data only, from the `site` branch, with *live* as the commit point and the standby day at 4:45 (6.8) |
 | The clock | Whole seconds in every mode, shown as minutes in Open; this supersedes the old plan's whole minutes (6.6) |
-| Main and its words | Main's build carries only screens whose words are yours; the cabin replaces the title page on main once B002 and B003 are answered (10.6) |
+| Main and its words | Main's build carries only screens whose words are yours; main gets the title screen and the cabin once B002 and B003 are answered (10.6) |
 | The cabin's real clock | Read in the UI only; the sun from a build-time table; the sky from the month's climatology, the same for everyone that date, until T2's forecast (11.2) |
 | FKT weeks before the morning job | Worked out on the phone from the week's id, so T1 needs no server, with the week opening at Monday's sunrise from the build's sun table; from T2, the job publishes random week seeds and the opening instants (14.2) |
 | The rules archive | Arrives with T1, on the `daily` branch, which holds data only: main's versions 45 days, preview's 2 (14.2) |
@@ -1542,7 +1558,7 @@ T04 (no *Golden Glow*) and T06 (no phone links) shipped in Session 1.
 |---|---|---|---|
 | B000 | S2 | 4 | Decisions 35 and 47, recorded |
 | B001 | Before S2: sent and answered 2026-10-09 | 11 | The app's frame (1.2): 10 sent, and the update note's *Restart* button added in chat; S2 applies it |
-| B002 | S7 | 39 | The cabin: 28 new lines, 10 moved in from B004 to B006 because the cabin shows them first (doc Lead call 62) and the cover's alt text from held |
+| B002 | S7, S7b | 40 | The cabin: 28 new lines, 10 moved in from B004 to B006 because the cabin shows them first (doc Lead call 62), the cover's alt text from held, and from S7b the title screen's prompt, *Tap to start* (line 40) |
 | B003 | S7 | 61 | The lockbox and the guest book: the quiz pool's 50 as one set (doc Lead call 46), the guest book's 3, and S7's 8 (the lockbox's steps, the field's label and *Suggest*) |
 | B004 | S5, S6 | 29 | The sample stops and the fork (3 moved to B002) |
 | B005 | S6 | 32 | Odds, the Why sheet and the outcome (4 moved to B002) |
@@ -1565,6 +1581,7 @@ About 2,200 lines for M1a (5.6): about six hours at ten seconds a line, or about
 
 | Screen | Doc | Built in |
 |---|---|---|
+| The title screen | 12.3 (decision 74) | S7b |
 | First launch: the lockbox | 12.3 | S7 |
 | The guest book | 12.4 | S3 (plain), S7 |
 | Home: the cabin | 2.2, 12.3 | S7; its states in S15, S24, S25; its year in S37 |
@@ -1607,7 +1624,7 @@ About 2,200 lines for M1a (5.6): about six hours at ten seconds a line, or about
   - **The moon:** its phase from the date, by whole-number arithmetic, and from S7, not S37 (doc Lead call 54): a moon *a* days old is up from about 6:00 plus 48 minutes a day of its age, for 12 hours, Pacific time, at one spot over the peak (`real_moon` on).
   - **The homecoming** shows the trip's own arrival time first, then fades to now.
 - **No drink anywhere in the cabin scene,** because the car is in it (T05, A07). The soak is a plate of its own, and it has a can on the tub's edge (decision 46).
-- **The cover lives on** as the loading art while the cabin's data loads, and nowhere else: a mid-route plate at a fixed dusk would break the daily card's rule (the trailhead, under the day's real sky, spoiling nothing, doc 9.9).
+- **The cover lives on** as the title screen's poster on every fresh launch (doc decisions 73 and 74; S7b; the loading art in S7), with the game's data loading under it, and nowhere else: a mid-route plate at a fixed dusk would break the daily card's rule (the trailhead, under the day's real sky, spoiling nothing, doc 9.9).
 
 ### 11.3 The three stores
 

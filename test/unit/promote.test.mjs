@@ -270,15 +270,18 @@ test("--screens (S7 D10): the cabin's promotion (home, lockbox, guestbook, mailb
   assert.deepEqual(r.unbatched, []);
   const batches = readText(ROOT).batches.batches;
   for (const b of ['B002', 'B003']) assert.deepEqual([...r.needs[b]].sort(), Object.keys(batches[b].lines).sort(), `${b}: all of it, and only it`);
-  assert.equal(r.count, 100, 'B002 39 and B003 61');
+  // Re-pinned in S7b: 101, B002's 40 (the title screen's prompt, line 40) and B003's 61.
+  assert.equal(r.count, 101, 'B002 40 and B003 61');
   // The title page's words retire with the promotion (preview's off list), and the dev lines stay off main.
   for (const id of ['title.tagline', 'title.begin', 'title.begin_note', 'title.start_label', 'dev.sky', 'dev.hour.dawn']) assert.ok(!r.reach.includes(id), id);
-  // The cover's description comes back: B002 asks for it as the loading art's.
+  // The cover's description comes back: B002 asks for it as the title screen's. S7b: so does the title screen's prompt.
   assert.ok(r.reach.includes('alt.cover_high_divide_dusk'));
+  assert.ok(r.reach.includes('title.prompt'));
+  assert.ok(r.needs.B002.includes('title.prompt'));
   // No trail line: the cabin's modules reach none (the module-graph test in home.test.mjs), and no trail screen comes along.
   assert.ok(!r.reach.some((id) => /^trail\.(?:deer_lake_rim|walk_on|toolbar|odds|why\.title|compass|outcome|pencil)/.test(id)));
   const text = screensText(r);
-  assert.match(text[0], /would reach \d+ lines; 100 of them aren't approved/);
+  assert.match(text[0], /would reach \d+ lines; 101 of them aren't approved/);
   assert.match(text.at(-1), /the promotion needs B002 and B003 answered/);
   // Main itself is unchanged: the dry run is in memory, and a screen this build lacks is refused.
   assert.deepEqual(readText(ROOT).scope.main.screens, ['app', 'debug', 'title']);
@@ -286,6 +289,6 @@ test("--screens (S7 D10): the cabin's promotion (home, lockbox, guestbook, mailb
   assert.throws(() => screensNeed({ screens: [] }), /no screen/);
   const cli = spawnSync(process.execPath, [join(ROOT, 'tools', 'promote.mjs'), '--dry-run', '--screens', 'home,lockbox,guestbook,mailbox'], { encoding: 'utf8' });
   assert.equal(cli.status, 0, cli.stderr);
-  assert.match(cli.stdout, /B002: 39 line\(s\)/);
+  assert.match(cli.stdout, /B002: 40 line\(s\)/);
   assert.match(cli.stdout, /B003: 61 line\(s\)/);
 });

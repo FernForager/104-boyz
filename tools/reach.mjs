@@ -16,7 +16,9 @@
 //
 // A dynamic import that runs only on some screens says so at the end of its
 // line, `// screens: guestbook trail`: it counts only when the page's
-// <html data-screens> lists every one of them. Main's page lists neither the
+// <html data-screens> lists every one of them; so does a new URL(...) a
+// module names for those screens only (S7b review: main.js starts the title
+// screen's stylesheet beside its module). Main's page lists neither the
 // trail nor the map, so it never reaches the game, the map or the inspector.
 // A dynamic import needs a literal path, a file a page names must ship, and
 // a module loads a file of the site only by a path the list can read: a
@@ -70,7 +72,7 @@ const PLAIN_LOADS = [
 /**
  * The references in a module's code: [{ref, kind, line, screens}], kind
  * 'import' (static), 'dynamic' or 'url' (new URL(..., import.meta.url));
- * screens: a dynamic import's `// screens:` note, or null. Comments never
+ * screens: a dynamic import's or a new URL's `// screens:` note, or null. Comments never
  * count. A dynamic import without a literal path is reported as kind 'bad';
  * a load of a file of the site by a plain string (PLAIN_LOADS: its text up
  * to any ${...}, or a FontFace's url() in it) as kind 'plain'.
@@ -90,7 +92,11 @@ export function moduleRefs(src) {
     if (!lit) out.push({ ref: null, kind: 'bad', line, screens: null });
     else out.push({ ref: lit[2], kind: 'dynamic', line, screens: note ? note[1].split(/\s+/) : null });
   }
-  for (const m of code.matchAll(/\bnew\s+URL\(\s*(['"])([^'"\n]*)\1\s*,\s*import\.meta\.url\s*\)/g)) out.push({ ref: m[2], kind: 'url', line: lineOf(/** @type {number} */ (m.index)), screens: null });
+  for (const m of code.matchAll(/\bnew\s+URL\(\s*(['"])([^'"\n]*)\1\s*,\s*import\.meta\.url\s*\)/g)) {
+    const line = lineOf(/** @type {number} */ (m.index));
+    const note = SCREENS_NOTE.exec(rows[line - 1] || '');
+    out.push({ ref: m[2], kind: 'url', line, screens: note ? note[1].split(/\s+/) : null });
+  }
   for (const re of PLAIN_LOADS) {
     for (const m of code.matchAll(re)) {
       const at = /** @type {number} */ (m.index) + m[0].length;
@@ -129,8 +135,8 @@ function filesIn(dir, folder) {
 
 /**
  * What the built page in dir can load: its files, sorted (the page first
- * among them by name only), and every gated dynamic import with whether
- * this page takes it. Throws on a reference to a file the build doesn't
+ * among them by name only), and every gated dynamic import (and gated new
+ * URL) with whether this page takes it. Throws on a reference to a file the build doesn't
  * ship, or a dynamic import without a literal path.
  * @param {string} dir a built channel (dist/<channel>/)
  * @returns {{screens: string[], files: string[], gated: {from: string, ref: string, screens: string[], taken: boolean}[]}}

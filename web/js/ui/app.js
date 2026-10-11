@@ -6,14 +6,17 @@
 // tap.
 //
 // main.js loads this module only when the build's <html data-screens> lists
-// the home (home.js opensGame), so main's page never does. While the cover
-// draws itself in (the loading art), it fetches data/rules.json and
-// data/voice.json, reads the three saves and rebuilds the session
-// (fromSaves). When both are ready the game takes the page: #app becomes
+// the home (home.js opensGame), so main's page never does. Under the title
+// screen (ui/title.js, S7b; S7's loading art before it) it fetches
+// data/rules.json and data/voice.json, reads the three saves and rebuilds
+// the session (fromSaves). When both are ready and the tap has gone in (on
+// a resume, once the cover has drawn in) the game takes the page: #app becomes
 // the game view; the update note and the stamps move into the ≡ sheet's
 // foot (the mailbox, ui/mailbox.js: moved, never rebuilt, so their
 // listeners keep working), and the install line into the game's foot,
 // which shows on the cabin only (Safari only: hidden when installed).
+// From then on the session is marked (platform/resume.js), so a reload in
+// it comes back past the title screen.
 //
 // Every tap: dispatch, then the saves in E.6's order (the device record
 // first whenever it changed: each lockbox tap, S7; then the trip, then the
@@ -82,15 +85,17 @@ import { lockboxActs } from '../engine/phases/lockbox.js';
 import { makePalette } from '../gfx/palette.js';
 import { compose, drawable } from '../gfx/compose.js';
 import { load, save } from '../platform/storage.js';
+import { markResume } from '../platform/resume.js';
 import { newSeed, newHikerId } from '../platform/rand.js';
 import { noteError } from './errors.js';
 import { provideState, debugRequested, debugMode, opensTrail } from './debug.js';
 import { renderGuestbook } from './guestbook.js';
 import { createMenu } from './menu.js';
 import { installMailbox, adoptFoot } from './mailbox.js';
-import { renderCabin, registerHomeDev, isShutLockbox, DEV_HOURS, DEV_SKIES } from './cabin.js';
+import { renderCabin, registerHomeDev, isShutLockbox } from './cabin.js';
+import { parseDevRoute, FIRST_HASH, GUESTBOOK_HASH } from './devroute.js';
 import { renderLockbox } from './lockbox.js';
-import { renderFrame, hourOf, savedHour, stubSound, registerFrameDev, showScenes, hideScenes, HOURS, SCENES_HASH } from './frame.js';
+import { renderFrame, hourOf, savedHour, stubSound, registerFrameDev, showScenes, hideScenes, SCENES_HASH } from './frame.js';
 import { restDraw } from './compass.js';
 import { initTextSize } from './textsize.js';
 import { createUnlock } from '../audio/unlock.js';
@@ -273,45 +278,15 @@ export function takePage(doc, menu = null) {
 
 /**
  * Pure: the dev route an address asks for (preview's debug mode only):
- * {stop: {set, id}, hour} for #stop=<set>.<stop>[&hour=<h>], {home: {hour,
- * sky, moon}} for #home[&hour=<h>][&sky=<s>][&moon=<0-7>] (S7; each null
- * when not given or not one the cabin knows), {first: true} for #first,
- * {lockbox: {q}} for #lockbox&q=<1-3>, {lockbox: {ask}} for
- * #lockbox&ask=<question id>, {lockbox: {open}} for #lockbox&open=<0|3>,
- * {guestbook: true} for #guestbook (S7), {frame:
- * true} for #frame, else null. Null too when the build lacks the trail
- * (main), or debug mode is off.
+ * ui/devroute.js parseDevRoute's (shared with the title screen, which steps
+ * aside for exactly these). Null when the build lacks the trail (main), or
+ * debug mode is off.
  * @param {{hash: string, debug: boolean, trail: boolean}} o
- * @returns {{stop?: {set: string, id: string}, hour?: string | null, home?: {hour: string | null, sky: string | null, moon: number | null}, first?: boolean, lockbox?: {q?: number, open?: number, ask?: string}, guestbook?: boolean, frame?: boolean} | null}
+ * @returns {import('./devroute.js').DevRoute | null}
  */
 export function devRoute({ hash, debug, trail }) {
   if (!debug || !trail) return null;
-  if (hash === SCENES_HASH) return { frame: true };
-  if (hash === FIRST_HASH) return { first: true };
-  if (hash === GUESTBOOK_HASH) return { guestbook: true };
-  const ask = /^#lockbox&ask=([a-z][a-z0-9_]*)$/.exec(String(hash || ''));
-  if (ask) return { lockbox: { ask: ask[1] } };
-  const lb = /^#lockbox&(q|open)=([0-9])$/.exec(String(hash || ''));
-  if (lb) {
-    const v = Number(lb[2]);
-    if (lb[1] === 'q' && v >= 1 && v <= 3) return { lockbox: { q: v } };
-    if (lb[1] === 'open' && (v === 0 || v === 3)) return { lockbox: { open: v } };
-    return null;
-  }
-  const h = /^#home((?:&[a-z]+=[a-z0-9]+)*)$/.exec(String(hash || ''));
-  if (h) {
-    /** @type {Record<string, string>} */
-    const q = {};
-    for (const part of h[1].split('&').filter(Boolean)) {
-      const [k, v] = part.split('=');
-      q[k] = v;
-    }
-    const moon = /^[0-7]$/.test(q.moon || '') ? Number(q.moon) : null;
-    return { home: { hour: DEV_HOURS.includes(q.hour) ? q.hour : null, sky: DEV_SKIES.includes(q.sky) ? q.sky : null, moon } };
-  }
-  const m = /^#stop=([a-z][a-z0-9_]*)\.([a-z][a-z0-9_]*)(?:&hour=([a-z]+))?$/.exec(String(hash || ''));
-  if (!m) return null;
-  return { stop: { set: m[1], id: m[2] }, hour: m[3] && HOURS.includes(m[3]) ? m[3] : null };
+  return parseDevRoute(hash);
 }
 
 /**
@@ -344,9 +319,8 @@ export function devSession(content, stop) {
   return null;
 }
 
-/** The first-launch dev routes (S7). */
-export const FIRST_HASH = '#first';
-export const GUESTBOOK_HASH = '#guestbook';
+/** The first-launch dev routes (S7; ui/devroute.js). */
+export { FIRST_HASH, GUESTBOOK_HASH };
 
 /**
  * A fresh device past the lockbox, through the real engine: the deal from
@@ -779,19 +753,36 @@ export function loadSound(doc, unlock, fetchFn) {
 }
 
 /**
- * Start the game: load the data and the saves while the title draws in,
- * then take the page. title is showTitle()'s promise (its done settles when
- * the draw-in has finished); words is loadText()'s. The rest are for tests
- * (composer: gfx/compose.js's unless given, null for the cover's stand-in;
- * sound: the audio facade, track C's).
+ * Start the game: load the data and the saves under the title screen, then
+ * take the page on the tap that goes in. title is showTitleScreen()'s
+ * promise (ui/title.js, S7b: its entered settles on that tap, and onEnter
+ * registers the tap's cue; on a resume entered is done) or showTitle()'s
+ * (its done settles when the draw-in has finished); words is loadText()'s.
+ * The rest are for tests (composer: gfx/compose.js's unless given, null for
+ * the cover's stand-in; sound: the audio facade, track C's).
  * @param {Document} doc
- * @param {{title?: Promise<{stop: () => void, done: Promise<void>}>, words?: Promise<unknown>, fetchFn?: (url: URL) => Promise<Response>, store?: Store, seed?: () => string, hikerId?: () => string, now?: () => number, sound?: import('./frame.js').Sound, composer?: import('./frame.js').Composer | null, lakeNow?: () => import('../platform/now.js').PacificNow, later?: (f: () => void, ms: number) => () => void}} [o]
+ * @param {{title?: Promise<{stop: () => void, done: Promise<void>, entered?: Promise<void>, onEnter?: (fn: () => void) => void}>, words?: Promise<unknown>, fetchFn?: (url: URL) => Promise<Response>, store?: Store, seed?: () => string, hikerId?: () => string, now?: () => number, sound?: import('./frame.js').Sound, composer?: import('./frame.js').Composer | null, lakeNow?: () => import('../platform/now.js').PacificNow, later?: (f: () => void, ms: number) => () => void}} [o]
  *   lakeNow, later: the cabin's clock and its timer (tests)
  */
 export async function startGame(doc, { title, words = Promise.resolve(), fetchFn = (u) => fetch(u), store: kept = { load, save }, seed, hikerId, now, sound, composer = COMPOSER, lakeNow, later } = {}) {
-  // The unlock first, so the first tap (on the cover, too) opens the sound.
+  // The unlock first, so the first tap (the title screen's, too) opens the sound.
   const unlock = createUnlock({ doc, isOn: () => load('sound') !== 'off' });
   const soundP = sound ? Promise.resolve(sound) : loadSound(doc, unlock, fetchFn);
+  // The title screen's tap plays Next's two dry clicks (13.2; S7b), inside
+  // the tap, if the sound has loaded by then: never queued for later.
+  /** @type {import('./frame.js').Sound | null} */
+  let soundReady = null;
+  soundP.then((s) => {
+    soundReady = s;
+  });
+  if (title) {
+    title.then(
+      (c) => {
+        if (c && c.onEnter) c.onEnter(() => soundReady && soundReady.play('ui.next'));
+      },
+      () => {},
+    );
+  }
   const css = addFrameCss(doc);
   const fonts = loadFrameFonts(doc, css);
   const artP = loadArt(fetchFn);
@@ -806,12 +797,14 @@ export async function startGame(doc, { title, words = Promise.resolve(), fetchFn
   await words;
   const art = await artP;
   await fonts;
-  /** @type {{stop: () => void, done: Promise<void>} | null} */
+  /** @type {{stop: () => void, done: Promise<void>, entered?: Promise<void>} | null} */
   let cover = null;
   if (title) {
     // A title that failed has opened the sheet already; the game goes on.
+    // The title screen hands over on the tap that goes in (S7b: entered);
+    // main's title page and a resume, when the draw-in is done.
     cover = await title.catch(() => null);
-    if (cover) await cover.done;
+    if (cover) await (cover.entered || cover.done);
   }
   // The cover's canvas goes with the title (E.10: three canvases at most; iOS caps canvas memory).
   const coverCanvas = /** @type {HTMLCanvasElement | null} */ (doc.getElementById('cover'));
@@ -850,6 +843,10 @@ export async function startGame(doc, { title, words = Promise.resolve(), fetchFn
   const theSound = (await soundP) || stubSound();
   soundNow = theSound;
   game = runGame({ doc, app, host, content, session, store, seed, hikerId, now, art, sound: theSound, composer, hour: atStop && route ? route.hour || null : null, menu, home: route && route.home ? route.home : null, lakeNow, later });
+  // The game has the page, on the phone's own saves: every reload in this session (a Restart, iOS reloading the
+  // app it shut down in the background) comes back here past the title screen (Lead call 65; a dev route plays
+  // in memory, so it never marks).
+  if (!atStop) markResume(doc);
   const g = game;
   // The dev routes, as the address changes: #frame opens the check view and
   // any other hash closes it; a new #stop= or #home (or leaving one) reloads.

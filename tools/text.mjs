@@ -1322,13 +1322,17 @@ export function batchLines(text, batch) {
  * line's own words, its three sample fills (a template's {place} shows a
  * place the words never name), and, when there are screenshots, the words
  * each badged line showed there (shown: its number and its rendered text,
- * the var fills in: the rim's caption names Seven Lakes Basin).
+ * the var fills in: the rim's caption names Seven Lakes Basin), and from
+ * S7b the names a batch's screen shows on their own, in no line (own: a
+ * place.<id> or term.<id> element and the screen it showed on, the title
+ * screen's Mount Olympus): such a name lists that screen, in screens.
  * @param {any} text
  * @param {{n: number, words: any, samples?: string[]}[]} lines
  * @param {{n: number, text: string}[]} [shown]
- * @returns {{id: string, text: string, kind: string, lines: number[]}[]}
+ * @param {{id: string, screen: string}[]} [own]
+ * @returns {{id: string, text: string, kind: string, lines: number[], screens?: string[]}[]}
  */
-export function notOurs(text, lines, shown = []) {
+export function notOurs(text, lines, shown = [], own = []) {
   const names = text.names || { places: new Map(), terms: new Map() };
   const all = [];
   for (const m of [names.places, names.terms]) for (const [id, x] of m) for (const name of [x.text, ...(x.forms || [])]) all.push({ id, name, kind: id.split('.')[0] });
@@ -1347,7 +1351,15 @@ export function notOurs(text, lines, shown = []) {
       if (!f.lines.includes(l.n)) f.lines.push(l.n);
     }
   }
-  return [...found.values()].sort((a, b) => a.lines[0] - b.lines[0] || (a.id < b.id ? -1 : 1));
+  for (const o of own) {
+    if (!names.places.has(o.id) && !names.terms.has(o.id)) continue;
+    if (!found.has(o.id)) found.set(o.id, { id: o.id, text: nameOf(text, o.id).text, kind: o.id.split('.')[0], lines: [] });
+    const f = /** @type {any} */ (found.get(o.id));
+    if (!f.screens) f.screens = [];
+    if (!f.screens.includes(o.screen)) f.screens.push(o.screen);
+  }
+  const first = (/** @type {{lines: number[]}} */ x) => (x.lines.length ? x.lines[0] : Infinity);
+  return [...found.values()].sort((a, b) => first(a) - first(b) || (a.id < b.id ? -1 : 1));
 }
 
 /**
@@ -1382,7 +1394,8 @@ export async function buildBatch(root, batch, { out = join(root, 'out', 'review'
   rmSync(dir, { recursive: true, force: true });
   mkdirSync(join(dir, 'shots'), { recursive: true });
   const shots = shoot ? await shoot({ batch, lines: lines.map((l) => ({ n: l.n, id: l.id, screen: l.screen, words: l.words })), dir: join(dir, 'shots') }) : null;
-  const tail = notOurs(text, lines, shots ? shots.shots.flatMap((/** @type {any} */ s) => s.shown || []) : []);
+  const own = shots ? shots.shots.flatMap((/** @type {any} */ s) => (s.names || []).map((/** @type {string} */ id) => ({ id, screen: s.screen }))) : [];
+  const tail = notOurs(text, lines, shots ? shots.shots.flatMap((/** @type {any} */ s) => s.shown || []) : [], own);
   const json = {
     format: 1,
     batch,
@@ -1459,7 +1472,11 @@ export function batchMarkdown(j) {
   }
   out.push('## Not ours, for a skim', '');
   if (!j.not_ours.length) out.push('No place names, terms or quotes.', '');
-  else out.push(`${j.not_ours.map((x) => `*${x.text}* (${x.kind === 'place' ? 'a place' : 'a term'}, line${x.lines.length === 1 ? '' : 's'} ${x.lines.join(', ')})`).join('; ')}: no approval needed, vetoable.`, '');
+  else {
+    const where = (/** @type {{lines: number[], screens?: string[]}} */ x) =>
+      [x.lines.length ? `line${x.lines.length === 1 ? '' : 's'} ${x.lines.join(', ')}` : '', ...(x.screens || []).map((s) => `on the ${s} screen`)].filter(Boolean).join('; ');
+    out.push(`${j.not_ours.map((x) => `*${x.text}* (${x.kind === 'place' ? 'a place' : 'a term'}, ${where(x)})`).join('; ')}: no approval needed, vetoable.`, '');
+  }
   out.push('Reply any way you like: *all ok* · *ok but 2* · *2: your words* · *cut 3* · *later 1*.', '');
   out.push('Hashes are FNV-1a (32-bit, hex) over the UTF-8 bytes of the words as filed.');
   return `${out.join('\n')}\n`;

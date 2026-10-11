@@ -338,7 +338,9 @@ test('fetch: navigations get the cached page, assets the cache, and the rest the
  * url()s, the modules' imports and the files they name with new URL(...,
  * import.meta.url) (a folder: every file the build ships in it; the root is
  * a scope). A dynamic import listed in gates is followed only when its gate,
- * the page's own function, says the page takes it.
+ * the page's own function, says the page takes it; so is a file named with
+ * new URL listed there (S7b review: main.js links the title screen's
+ * stylesheet beside its module).
  * @param {string} out
  * @param {Record<string, boolean>} gates "<module> <specifier>" -> taken
  */
@@ -364,6 +366,8 @@ function pageLoads(out, gates) {
         if (!(key in gates) || gates[key]) visit(at(m[1]));
       }
       for (const m of code.matchAll(/new URL\('([^']*)', import\.meta\.url\)/g)) {
+        const key = `${rel} ${m[1]}`;
+        if (key in gates && !gates[key]) continue;
         const p = at(m[1]);
         if (p === '.' || p === './') continue;
         if (m[1].endsWith('/')) for (const f of readdirSync(join(out, p)).filter((n) => statSync(join(out, p, n)).isFile())) visit(posix.join(p, f));
@@ -380,19 +384,22 @@ test("main's precache is what main's page loads: nothing it never loads (S5's fo
   const page = readFileSync(join(out, 'index.html'), 'utf8');
   const html = { screens: /<html[^>]*\sdata-screens="([^"]*)"/.exec(page)[1], channel: /<html[^>]*\sdata-channel="([^"]*)"/.exec(page)[1] };
   const doc = { documentElement: { getAttribute: (k) => (k === 'data-screens' ? html.screens : null), dataset: { channel: html.channel } } };
-  // The gates, asked themselves (home.js opensGame; debug.js opensMap, and preview && opensTrail for the inspector): main's page takes none.
-  const gates = { 'js/main.js ./ui/app.js': opensGame(doc), 'js/main.js ./ui/map.js': opensMap(doc), 'js/ui/debug.js ./inspect.js': doc.documentElement.dataset.channel !== 'main' && opensTrail(doc) };
-  assert.deepEqual(Object.values(gates), [false, false, false]);
+  // The gates, asked themselves (home.js opensGame, for the game and from S7b the title screen beside it; debug.js
+  // opensMap, and preview && opensTrail for the inspector): main's page takes none.
+  const gates = { 'js/main.js ./ui/app.js': opensGame(doc), 'js/main.js ./ui/title.js': opensGame(doc), 'js/main.js ../css/title.css': opensGame(doc), 'js/main.js ./ui/map.js': opensMap(doc), 'js/ui/debug.js ./inspect.js': doc.documentElement.dataset.channel !== 'main' && opensTrail(doc) };
+  assert.deepEqual(Object.values(gates), [false, false, false, false, false]);
   const { loads, dynamic } = pageLoads(out, gates);
-  assert.deepEqual(dynamic, ['js/main.js ./ui/app.js', 'js/main.js ./ui/home.js', 'js/main.js ./ui/map.js', 'js/ui/debug.js ./inspect.js', 'js/ui/selfcheck.js ../engine/selfcheck.js'], 'every dynamic import main reaches, each gated one above');
+  assert.deepEqual(dynamic, ['js/main.js ./ui/app.js', 'js/main.js ./ui/home.js', 'js/main.js ./ui/map.js', 'js/main.js ./ui/title.js', 'js/ui/debug.js ./inspect.js', 'js/ui/selfcheck.js ../engine/selfcheck.js'], 'every dynamic import main reaches, each gated one above');
   // Each gated import's // screens: note is its gate's own list, so the build's reach agrees with the code.
   assert.match(readFileSync(join(out, 'js', 'main.js'), 'utf8'), new RegExp(`import\\('\\./ui/app\\.js'\\) // screens: ${GAME_SCREENS.join(' ')}$`, 'm'));
+  assert.match(readFileSync(join(out, 'js', 'main.js'), 'utf8'), new RegExp(`import\\('\\./ui/title\\.js'\\) // screens: ${GAME_SCREENS.join(' ')}$`, 'm'));
+  assert.match(readFileSync(join(out, 'js', 'main.js'), 'utf8'), new RegExp(`new URL\\('\\.\\./css/title\\.css', import\\.meta\\.url\\)\\); // screens: ${GAME_SCREENS.join(' ')}$`, 'm'));
   assert.match(readFileSync(join(out, 'js', 'main.js'), 'utf8'), new RegExp(`import\\('\\./ui/map\\.js'\\) // screens: ${MAP_SCREEN}$`, 'm'));
   assert.match(readFileSync(join(out, 'js', 'ui', 'debug.js'), 'utf8'), new RegExp(`import\\('\\./inspect\\.js'\\) // screens: ${TRAIL_SCREEN}$`, 'm'));
   // Exactly that: no file outside what the page loads, and none of it left out (the worker and the two lists aside).
   const cached = Object.keys(list.paths);
   assert.deepEqual(cached, loads.filter((f) => !['sw.js', 'version.json', 'precache.json'].includes(f)));
-  for (const f of ['css/frame.css', 'fonts/OPHChrome.ttf', 'fonts/Literata.woff2', 'fonts/Literata-Italic.woff2', 'fonts/OFL.txt', 'fonts/FONTS.md', 'audio/sounds.json', 'js/audio/engine.js', 'js/audio/dsp.js', 'js/audio/unlock.js', 'js/audio/limiter.worklet.js', 'js/ui/app.js', 'js/ui/frame.js', 'js/ui/sound.js', 'js/ui/inspect.js', 'js/ui/map.js', 'js/ui/strip.js', 'js/gfx/compose.js', 'js/fmt.js', 'data/rules.json', 'data/voice.json', 'flags.json']) {
+  for (const f of ['css/frame.css', 'fonts/OPHChrome.ttf', 'fonts/Literata.woff2', 'fonts/Literata-Italic.woff2', 'fonts/OFL.txt', 'fonts/FONTS.md', 'audio/sounds.json', 'js/audio/engine.js', 'js/audio/dsp.js', 'js/audio/unlock.js', 'js/audio/limiter.worklet.js', 'js/ui/app.js', 'js/ui/title.js', 'css/title.css', 'js/ui/frame.js', 'js/ui/sound.js', 'js/ui/inspect.js', 'js/ui/map.js', 'js/ui/strip.js', 'js/gfx/compose.js', 'js/fmt.js', 'data/rules.json', 'data/voice.json', 'flags.json']) {
     assert.ok(existsSync(join(out, f)), `main ships ${f} (file parity)`);
     assert.ok(!cached.includes(f), `main's page never loads ${f}, so its worker never downloads it`);
   }

@@ -64,14 +64,15 @@ import { reducedMotion, onMotionChange, liveCycles } from './motion.js';
 import { renderStrip } from './strip.js';
 import { renderToolbar, menuRows } from './toolbar.js';
 import { registerDevControl, registerDevAction } from './debug.js';
+import { DEV_HOURS, SCENES_HASH } from './devroute.js';
 import { plainSizeOf, PLAIN_LINE, PLAIN_CHOICE_CHROME_FP } from './textsize.js';
 
 /** The picture (GAME_DESIGN 11.2). */
 export const PIC = Object.freeze({ width: 160, height: 168 });
 /** The hours a picture can show (the composer's HOURS; 11.4). */
 export const HOURS = Object.freeze(['day', 'dusk', 'blue', 'night']);
-/** The dev control's hours (S7 adds dawn, the cabin's; the trail shows it with the dusk table, 11.4). */
-export const DEV_HOURS = Object.freeze(['dawn', 'day', 'dusk', 'blue', 'night']);
+/** The dev control's hours (S7 adds dawn, the cabin's; the trail shows it with the dusk table, 11.4): ui/devroute.js's. */
+export { DEV_HOURS };
 /** The sample's hour by trip count (BUILD_PLAN S5): trips 0, 1, 2 give day, dusk, night. */
 export const TRIP_HOURS = Object.freeze(['day', 'dusk', 'night']);
 /** Until the composer lands, the cover plate stands in: rows y.. of it, as drawn. */
@@ -746,8 +747,8 @@ export function registerFrameDev({ onHour, openScenes } = {}) {
 
 // ---- The #frame check view (preview, debug mode) ----------------------
 
-/** The address of the check view (the dev action Scenes sets it). */
-export const SCENES_HASH = '#frame';
+/** The address of the check view (the dev action Scenes sets it): ui/devroute.js's. */
+export { SCENES_HASH };
 const SCENES_ID = 'frame-sheet';
 /** The check view's place for a picture that is no park node: the first sample stop's. */
 export const SCENES_FALLBACK_NODE = 'deer_lake';

@@ -51,6 +51,7 @@
   --pic-x: 16px;
   --row: 1px;
   --px: 2px;
+  --label-fp: var(--fp); /* a label's font pixel: ui/cabin.js labelFontPixel, never taller than a row (S7b) */
   display: grid;
   grid-template-rows: 22px auto minmax(0, 1fr) auto auto;
   grid-template-areas: "status" "picture" "." "next" "rail";
@@ -142,7 +143,11 @@
 
 /* A label: the rail's word in the chrome font, snow on ink, a font pixel
    of padding; once its place has been used, a 2 x 2 dot (snow, an ink
-   ring) where it was. The swap fades over 300 ms (a swap under Reduce Motion). */
+   ring) where it was. The swap fades over 300 ms (a swap under Reduce Motion).
+   Its font pixel is --label-fp (ui/cabin.js labelFontPixel: the chrome's,
+   or a picture row's height where that is smaller, the SE's 1 pt: S7b,
+   Lead call 69). A label a Look box covers hides until the box closes
+   (data-covered: ui/cabin.js coveredLabels). */
 .label-tag,
 .label-dot {
   position: absolute;
@@ -154,10 +159,10 @@
   left: var(--lx, 0px);
   top: var(--ly, 0px);
   width: var(--lw, auto);
-  padding: var(--fp);
+  padding: var(--label-fp);
   color: var(--c4);
   background: var(--c0);
-  font: var(--chrome-size)/var(--chrome-line) var(--font-chrome);
+  font: calc(12 * var(--label-fp))/calc(14 * var(--label-fp)) var(--font-chrome);
   font-variant-ligatures: none;
   font-feature-settings: "liga" 0, "clig" 0;
   white-space: nowrap;
@@ -167,15 +172,16 @@
 .label-dot {
   left: calc(var(--lx, 0px) + var(--dx, 0px));
   top: calc(var(--ly, 0px) + var(--dy, 0px));
-  width: calc(2 * var(--fp));
-  height: calc(2 * var(--fp));
+  width: calc(2 * var(--label-fp));
+  height: calc(2 * var(--label-fp));
   background: var(--c4);
-  box-shadow: 0 0 0 var(--fp) var(--c0);
+  box-shadow: 0 0 0 var(--label-fp) var(--c0);
   opacity: 0;
 }
 
 .cabin-label[data-used] .label-tag { opacity: 0; }
 .cabin-label[data-used] .label-dot { opacity: 1; }
+.cabin-label[data-covered] { visibility: hidden; }
 
 @media (prefers-reduced-motion: reduce) {
   .label-tag,

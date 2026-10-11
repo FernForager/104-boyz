@@ -49,7 +49,16 @@ import {
   RAIL_ROW_GAP_PT,
   FOOT_PT,
   MAX_WAIT_MS,
+  labelFontPixel,
+  nameBox,
+  coveredLabels,
+  rectIn,
+  LABEL_CLEAR_PT,
+  NAME_TOP_ROW,
+  NAME_ROWS,
+  NAME_CLEAR_FP,
 } from '../../web/js/ui/cabin.js';
+import { homeRooms } from '../../tools/lint.mjs';
 import { fontPixel as frameFontPixel, TRAIL_STATUS } from '../../web/js/ui/frame.js';
 import { createMenu, MENU_LINE, CLOSE_LINE } from '../../web/js/ui/menu.js';
 import { mailboxRows, installMailbox, adoptFoot, nextText, TEXT_LINES } from '../../web/js/ui/mailbox.js';
@@ -275,11 +284,15 @@ test('the labels: the rail word at each place, inside the plate and apart on eve
     const l = homeLayout({ width, height, dpr, safeTop, safeBottom });
     const shape = { sx: l.shape.sx, sy: l.shape.sy, dpr, ox: canvasInset(l.shape.sx, dpr) };
     const boxes = labelled(PLACES).map(([id, p]) => ({ id, b: labelBox(p, Array.from(WORDS[`home.rail.${p.rail}`]).length, shape) }));
-    const fp = fontPixel(dpr);
+    // S7b (Lead call 69): the label's font pixel, never taller than a picture row (rewritten from the chrome's own, fontPixel).
+    const fp = labelFontPixel(shape);
+    assert.ok(fp <= fontPixel(dpr) + 1e-9 && fp <= shape.sy / dpr + 1e-9, `${name}: a label's font pixel is the chrome's or a row, the smaller`);
+    assert.equal(Math.round(fp * dpr), fp * dpr, `${name}: a whole number of device pixels`);
     for (const { id, b } of boxes) {
       assert.ok(b.x >= shape.ox / dpr && b.y >= 0 && b.x + b.w <= shape.ox / dpr + l.picture.width && b.y + b.h <= l.picture.height, `${name}: ${id}'s label inside the plate`);
       assert.equal(Math.round(b.x * dpr), b.x * dpr, `${name}: ${id} starts on a device pixel`);
       assert.equal(b.h, 16 * fp, 'a chrome row and a font pixel above and below');
+      assert.ok(b.h / (shape.sy / dpr) <= 16 + 1e-9, `${name}: ${id}'s label stands at most 16 rows tall (S7's SE: 24)`);
       assert.ok(b.dot.x > b.x && b.dot.x + b.dot.w < b.x + b.w && b.dot.y > b.y && b.dot.y + b.dot.h < b.y + b.h, `${name}: ${id}'s dot inside where its label was`);
     }
     for (let i = 0; i < boxes.length; i++) {
@@ -290,9 +303,173 @@ test('the labels: the rail word at each place, inside the plate and apart on eve
       }
     }
   }
-  // Mailbox (7 glyphs) on the SE: 7 x 8 + 2 font pixels at 1.5 pt.
-  assert.equal(labelBox(PLACES.mailbox, 7, { sx: 4, sy: 2, dpr: 2 }).w, 58 * 1.5);
+  // Mailbox (7 glyphs) on the SE: 7 x 8 + 2 font pixels at 1 pt (S7b: S7 drew them at the chrome's 1.5), on the 17 at 4/3 pt.
+  assert.equal(labelBox(PLACES.mailbox, 7, { sx: 4, sy: 2, dpr: 2 }).w, 58);
+  assert.equal(labelBox(PLACES.mailbox, 7, { sx: 7, sy: 4, dpr: 3 }).w, (58 * 4) / 3);
   assert.equal(labelChars('home.rail.stories'), 7, 'with the words loaded, their length');
+});
+
+test("labelFontPixel (S7b, Lead call 69): the chrome's font pixel or a picture row, the smaller, in whole device pixels: 1 pt on the SE's 4x2, 4/3 pt on the 3x phones, 1.5 pt on a 2x 5x3", () => {
+  assert.equal(labelFontPixel({ sy: 2, dpr: 2 }), 1, "the SE's 4x2: a row is 1 pt, under the chrome's 1.5");
+  assert.equal(labelFontPixel({ sy: 4, dpr: 3 }), 4 / 3, 'the 13 mini and the 17 (4 rows a 3 px): unchanged');
+  assert.equal(labelFontPixel({ sy: 5, dpr: 3 }), 4 / 3, 'the Pro Max: the chrome\'s');
+  assert.equal(labelFontPixel({ sy: 3, dpr: 2 }), 1.5, 'a 2x 5x3: the chrome\'s');
+  assert.equal(labelFontPixel({ sy: 1, dpr: 2 }), 0.5, 'a squeezed row: one device pixel');
+  assert.equal(labelFontPixel({ sy: 2, dpr: 1 }), 2, 'a 1x screen (dev): the chrome\'s 2');
+  const css = readFileSync(join(ROOT, 'web', 'css', 'home.css'), 'utf8');
+  // The rule of the selector alone (not the shared .label-tag, .label-dot one).
+  const rule = (/** @type {string} */ sel) => css.slice(css.lastIndexOf(`\n${sel} {`), css.indexOf('}', css.lastIndexOf(`\n${sel} {`)));
+  assert.match(rule('.label-tag'), /padding: var\(--label-fp\);/);
+  assert.match(rule('.label-tag'), /font: calc\(12 \* var\(--label-fp\)\)\/calc\(14 \* var\(--label-fp\)\) var\(--font-chrome\);/);
+  assert.match(rule('.label-dot'), /width: calc\(2 \* var\(--label-fp\)\);/);
+  assert.match(rule('.label-dot'), /box-shadow: 0 0 0 var\(--label-fp\) var\(--c0\);/);
+  assert.match(css, /\.cabin-label\[data-covered\] \{ visibility: hidden; \}/);
+  assert.match(rule('.game-screen.cabin'), /--label-fp: var\(--fp\);/);
+  // The cabin sets it from the display's shape.
+  assert.match(readFileSync(join(ROOT, 'web', 'js', 'ui', 'cabin.js'), 'utf8'), /setProperty\('--label-fp', `\$\{labelFontPixel\(shape\)\}px`\)/);
+});
+
+test("the labels stand 6 pt clear of every other place's and Look's art on every room (S7b, Lead call 69: the SE's Plan and Stories no longer close on the fire bowl), and P17 holds it", () => {
+  assert.equal(LABEL_CLEAR_PT, 6);
+  for (const { name, dpr, layout: l } of homeRooms(CABIN.rail.length)) {
+    const shape = { sx: l.shape.sx, sy: l.shape.sy, dpr, ox: canvasInset(l.shape.sx, dpr) };
+    const cx = shape.sx / dpr;
+    const cy = shape.sy / dpr;
+    for (const [id, p] of labelled(PLACES)) {
+      const b = labelBox(p, Array.from(WORDS[`home.rail.${p.rail}`]).length, shape);
+      for (const [other, q] of Object.entries(PLACES)) {
+        if (other === id || !['place', 'look'].includes(q.kind)) continue;
+        const a = { x: shape.ox / dpr + q.art[0] * cx, y: q.art[1] * cy, w: q.art[2] * cx, h: q.art[3] * cy };
+        const gap = Math.max(a.x - (b.x + b.w), b.x - (a.x + a.w), a.y - (b.y + b.h), b.y - (a.y + a.h));
+        assert.ok(gap >= LABEL_CLEAR_PT - 1e-9, `${name}: ${id}'s label ${gap.toFixed(1)} pt from the ${other}`);
+      }
+    }
+  }
+  // On the SE, Plan (the door's) stands 12 pt over the fire bowl (S7: 1 pt), and Gear 6 over the tub. Plan's top
+  // sits on the bottom step's lower edge, row 233, so it reads as the porch's, not a label loose on the lawn (the
+  // art critic's S7b pass: 3 rows up from 236, where it floated between the steps and the bowl).
+  const se = homeLayout({ width: 375, height: 667, dpr: 2, safeTop: 20 });
+  const seShape = { sx: se.shape.sx, sy: se.shape.sy, dpr: 2, ox: 0 };
+  const plan = labelBox(PLACES.door, 4, seShape);
+  assert.deepEqual(PLACES.door.label, [80, 233]);
+  assert.equal(plan.y, 233 * (seShape.sy / 2), "Plan's top on the bottom step's lower edge");
+  assert.equal(PLACES.fire_bowl.art[1] - (plan.y + plan.h), 12);
+  const gear = labelBox(PLACES.shed, 4, seShape);
+  assert.equal(PLACES.tub.art[1] - (gear.y + gear.h), 6);
+});
+
+test("nameBox: the cabin's name's line box in picture pixels, as home.css's .cabin-name sets it, inside cabin.json's quiet.name at every room, a cell and a half either side along it (S7b, Lead call 69)", () => {
+  const css = readFileSync(join(ROOT, 'web', 'css', 'home.css'), 'utf8');
+  const at = css.indexOf('.cabin-name {');
+  const name = css.slice(at, css.indexOf('}', at));
+  assert.match(name, new RegExp(`top: calc\\(${NAME_TOP_ROW} \\* var\\(--row\\)\\);`));
+  assert.match(name, new RegExp(`height: calc\\(${NAME_ROWS} \\* var\\(--row\\)\\);`));
+  assert.match(name, /font: var\(--chrome-size\)\/var\(--chrome-line\) var\(--font-chrome\);/);
+  assert.match(name, /text-shadow: 0 var\(--fp\) 0 var\(--c0\);/);
+  assert.match(name, /left: var\(--mat, 0px\);\s*right: var\(--mat, 0px\);/);
+  assert.match(name, /justify-content: center;/);
+  assert.equal(NAME_CLEAR_FP, 12, 'a character cell and a half');
+  const chars = Array.from(WORDS['app.name']).length;
+  assert.equal(chars, 23);
+  // The SE: 23 glyphs of 8 font pixels at 1.5 pt is 276 pt, 138 columns of 2 pt, centered: columns 11 to 149; its 14-pixel line and the shadow's pixel centered on row 15.
+  const se = nameBox({ sx: 4, sy: 2, dpr: 2 }, chars);
+  assert.deepEqual([se.x, se.w, se.y, se.y + se.h], [11, 138, 4.5, 27]);
+  const q = CABIN.quiet.name;
+  assert.deepEqual(q, [0, 0, 160, 29]);
+  let widest = 0;
+  for (const { name: room, dpr, layout: l } of homeRooms(CABIN.rail.length)) {
+    const shape = { sx: l.shape.sx, sy: l.shape.sy, dpr, ox: canvasInset(l.shape.sx, dpr) };
+    const n = nameBox(shape, chars, l);
+    // Centered between the mats: within a device pixel of the plate's middle.
+    assert.ok(Math.abs(n.x + n.w / 2 - 80) <= 1 / shape.sx + 1e-9, `${room}: centered (${(n.x + n.w / 2).toFixed(3)})`);
+    for (const b of [n, nameBox(shape, chars, l, NAME_CLEAR_FP)]) {
+      const box = [Math.max(0, Math.floor(b.x) - 1), 0, Math.min(160, Math.ceil(b.x + b.w) + 1), Math.ceil(b.y + b.h) + 1];
+      assert.ok(box[0] >= q[0] && box[2] <= q[0] + q[2] && box[3] <= q[1] + q[3], `${room}: the name's line [${box}] inside quiet.name`);
+    }
+    widest = Math.max(widest, nameBox(shape, chars, l, NAME_CLEAR_FP).w);
+  }
+  assert.ok(widest >= 156, `on the SE a cell and a half either side reaches the plate's edges (${widest.toFixed(1)} columns), so the quiet sky is the whole band`);
+  // P17 catches a quiet sky that no longer holds the name, and a Dipper star in it.
+  const looked = loadHotspots(ROOT).hotspots.kinds;
+  const defined = (/** @type {string} */ id) => TEXT.lines.has(id);
+  const words = (/** @type {string} */ id) => (TEXT.lines.has(id) ? TEXT.lines.get(id).text : null);
+  const plate = ART.pics[CABIN.plate];
+  const narrow = structuredClone(CABIN);
+  narrow.quiet.name = [10, 0, 141, 29];
+  assert.match(lintCabin({ cabin: narrow, plate, defined, words, looked }).map((i) => i.msg).join('\n'), /quiet\.name \[10,0,141,29\] does not hold the name's line on the se/);
+  const short = structuredClone(CABIN);
+  short.quiet.name = [0, 0, 160, 20];
+  assert.match(lintCabin({ cabin: short, plate, defined, words, looked }).map((i) => i.msg).join('\n'), /does not hold the name's line on the mini/);
+  const dipper = structuredClone(CABIN);
+  dipper.stars.dipper[0] = [121, 20];
+  assert.match(lintCabin({ cabin: dipper, plate, defined, words, looked }).map((i) => i.msg).join('\n'), /stars\.dipper: the star at 121,20 is in the name's quiet sky/);
+  const none = structuredClone(CABIN);
+  delete none.quiet;
+  assert.match(lintCabin({ cabin: none, plate, defined, words, looked }).map((i) => i.msg).join('\n'), /quiet\.name: the name needs its quiet sky/);
+});
+
+test('coveredLabels and rectIn (S7b, Lead call 69): a label whose rect the Look box overlaps is covered; one clear of it, or only touching its edge, is not', () => {
+  const box = { x: 6, y: 280, w: 300, h: 40 };
+  const labels = new Map([
+    ['mailbox', { x: 230, y: 264, w: 58, h: 16.5 }],
+    ['car', { x: 9, y: 276, w: 42, h: 16 }],
+    ['door', { x: 140, y: 236, w: 34, h: 16 }],
+    ['shed', { x: 260, y: 264, w: 34, h: 16 }],
+  ]);
+  assert.deepEqual(coveredLabels(box, labels), ['mailbox', 'car'], "the mailbox's half under it and the car's under it; the door clear; the shed touching its top edge only");
+  assert.deepEqual(coveredLabels(box, new Map([['dot', { x: 10, y: 290, w: 0, h: 0 }]])), [], 'nothing with no area');
+  // rectIn: the offset chain to the figure (a transform never moves it), with an inner parent's border.
+  const figure = {};
+  const layer = { offsetLeft: 10, offsetTop: 0, offsetParent: figure, clientLeft: 0, clientTop: 0 };
+  assert.deepEqual(rectIn({ offsetLeft: 5, offsetTop: 7, offsetWidth: 30, offsetHeight: 16, offsetParent: layer }, figure), { x: 15, y: 7, w: 30, h: 16 });
+  const bordered = { offsetLeft: 10, offsetTop: 4, offsetParent: figure, clientLeft: 2, clientTop: 3 };
+  assert.deepEqual(rectIn({ offsetLeft: 5, offsetTop: 7, offsetWidth: 30, offsetHeight: 16, offsetParent: bordered }, figure), { x: 17, y: 14, w: 30, h: 16 });
+  const rect = (left, top, width, height) => () => ({ left, top, width, height });
+  assert.deepEqual(rectIn({ getBoundingClientRect: rect(110, 220, 30, 16) }, { getBoundingClientRect: rect(100, 200, 320, 320) }), { x: 10, y: 20, w: 30, h: 16 });
+  assert.equal(rectIn({}, {}), null);
+});
+
+test('a Look box over the cabin hides each label it covers until it closes: a long press on the car, a Look, Not open yet. (S7b, Lead call 69)', (t) => {
+  device(t);
+  t.mock.timers.enable({ apis: ['setTimeout'] });
+  const { doc, host, c } = cabinOn(t);
+  // The fake page lays out: the Look box over the plate's lower part, each label where the SE draws it.
+  const proto = Object.getPrototypeOf(doc.createElement('div'));
+  const se = { sx: 4, sy: 2, dpr: 2 };
+  const at = new Map(labelled(PLACES).map(([id, p]) => [id, labelBox(p, Array.from(WORDS[`home.rail.${p.rail}`]).length, se)]));
+  Object.defineProperty(proto, 'getBoundingClientRect', {
+    configurable: true,
+    value() {
+      if (this.classList && this.classList.contains('look-box')) return { left: 4.5, top: 275, width: 311, height: 42 };
+      if (this.classList && (this.classList.contains('label-tag') || this.classList.contains('label-dot'))) {
+        const b = at.get(this.parentNode.getAttribute('data-place'));
+        const r = this.classList.contains('label-tag') ? b : { ...b.dot, x: b.dot.x, y: b.dot.y };
+        return { left: r.x, top: r.y, width: r.w, height: r.h };
+      }
+      return { left: 0, top: 0, width: 320, height: 320 };
+    },
+  });
+  t.after(() => delete proto.getBoundingClientRect);
+  const covered = () => host.querySelectorAll('.cabin-label').filter((l) => l.hasAttribute('data-covered')).map((l) => l.getAttribute('data-place'));
+  assert.deepEqual(covered(), []);
+  const car = host.querySelectorAll('.cabin-place').find((b) => b.getAttribute('data-place') === 'car');
+  fire(doc, 'pointerdown', { target: car });
+  t.mock.timers.tick(PRESS_MS);
+  fire(doc, 'pointerup', { target: car });
+  assert.deepEqual(c.figure.querySelectorAll('.look-box p').map((p) => p.getAttribute('data-t')), ['home.place.car']);
+  assert.deepEqual(covered(), ['car', 'fire_bowl', 'mailbox'], "Drive, Stories and the mailbox's half-hidden label hide under the box");
+  // The tap that closes the box shows them again.
+  fire(doc, 'click', { target: c.figure });
+  assert.equal(c.figure.querySelectorAll('.look-box').length, 0);
+  assert.deepEqual(covered(), []);
+  // A Look (the tub) and Not open yet. (the shed) do the same; a used label's dot counts where it shows.
+  c.tap('tub');
+  assert.deepEqual(covered(), ['car', 'fire_bowl', 'mailbox']);
+  c.tap('shed');
+  assert.deepEqual(c.figure.querySelectorAll('.look-box p').map((p) => p.getAttribute('data-t')), ['home.place.shed', 'home.soon']);
+  assert.deepEqual(covered(), ['car', 'fire_bowl', 'mailbox'], 'opening one box over another moves the marks with it');
+  c.release();
+  assert.deepEqual(covered(), [], 'and leaving the cabin clears them');
 });
 
 // ---- The screen -------------------------------------------------------------

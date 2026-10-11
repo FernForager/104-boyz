@@ -131,6 +131,10 @@ export function createDisplay(canvas, width, height, edge = PALETTE[0]) {
     get shape() {
       return shape;
     },
+    /** Where the picture starts in the canvas's backing store (device px): the leftover pixels split either side (S7b: the title screen's label is placed from it). */
+    get origin() {
+      return { ox, oy };
+    },
     /**
      * Size the canvas for this screen.
      * @param {{cssWidth: number, screenHeight: number, maxCssHeight?: number, margin?: number, maxCssWidth?: number, minPixel?: readonly number[]}} opts

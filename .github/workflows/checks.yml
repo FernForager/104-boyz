@@ -1,11 +1,14 @@
 name: checks
 # The same checks as a deploy, on every pull request and on every branch but
 # main and preview (which pages.yml builds), so a session's branch is green
-# before it merges (BUILD_PLAN 6.2). It deploys nothing.
+# before it merges (BUILD_PLAN 6.2). It deploys nothing. Backup snapshots of
+# a session's unfinished work (wip-*) and one-off diagnostic branches
+# (diag-*) are skipped: they fail by nature mid-build, and every failed run
+# emails the repository's owner.
 on:
   pull_request:
   push:
-    branches-ignore: [main, preview]
+    branches-ignore: [main, preview, 'wip-*', 'diag-*']
 permissions:
   contents: read
 jobs:

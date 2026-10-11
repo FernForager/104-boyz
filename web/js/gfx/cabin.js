@@ -11,9 +11,10 @@
 //
 //   1. @ sky: the sky's stamp at the origin (clear, cloudy or rain); at blue
 //      hour and at night under a clear sky with no fog, the stars (the star
-//      cycle, 22, one pixel each, never two touching, seeded by the cabin)
-//      and the Big Dipper's seven, fixed; then the moon's stamp at its
-//      phase, at at_moon.
+//      cycle, 22, one pixel each, never two touching, never in the name's
+//      quiet sky, cabin.json quiet.name: S7b, Lead call 69; seeded by the
+//      cabin) and the Big Dipper's seven, fixed; then the moon's stamp at
+//      its phase, at at_moon.
 //   2. The plate's far ops; then the weather's far stamps (cloud on the
 //      peak; the high fog).
 //   3. The plate's mid ops; the weather's mid stamp (the low fog) at its
@@ -125,17 +126,42 @@ export function cabinLights({ hour = 'day', evening = true, sky = 'clear', fog =
 }
 
 /**
+ * The boxes no star, rain or moon may enter (cabin.json quiet: S7b, Lead
+ * call 69), each [x, y, w, h] in picture pixels: the name's quiet sky, the
+ * band the cabin's name sits in, a character cell and a half either side
+ * of its line at every phone (ui/cabin.js nameBox; lint P17 holds it), so
+ * no star reads as its punctuation.
+ * @param {any} cabin cabin.json (art.json's cabin)
+ * @returns {number[][]}
+ */
+export function quietBoxes(cabin) {
+  const q = cabin && own(cabin, 'quiet') ? cabin.quiet : null;
+  return q && Array.isArray(q.name) ? [q.name] : [];
+}
+
+/**
+ * Is (x, y) inside any of the boxes ([x, y, w, h])?
+ * @param {readonly number[][]} boxes
+ * @param {number} x
+ * @param {number} y
+ */
+export const inBoxes = (boxes, x, y) => boxes.some(([bx, by, bw, bh]) => x >= bx && x < bx + bw && y >= by && y < by + bh);
+
+/**
  * The hour's stars: [x, y] points above the floor, thinning toward it, none
  * touching another, none inside the box round the fixed ones (the
- * Dipper's, DIPPER_CLEAR pixels out) or on the moon's disc. Seeded by the
- * cabin, so they never move between visits.
+ * Dipper's, DIPPER_CLEAR pixels out), on the moon's disc or in a quiet box
+ * (the name's sky): the count is the whole sky's, and a star that falls in
+ * a quiet box is left out, so the sky under it keeps its own density.
+ * Seeded by the cabin, so they never move between visits.
  * @param {string} hour 'blue' | 'night'
  * @param {any} stars cabin.json's stars
  * @param {number} floor the first row stars may not use
  * @param {number[] | null} moonAt the moon's anchor, kept clear
+ * @param {readonly number[][]} [quiet] the quiet boxes (quietBoxes)
  * @returns {number[][]}
  */
-export function cabinStarPoints(hour, stars, floor, moonAt) {
+export function cabinStarPoints(hour, stars, floor, moonAt, quiet = []) {
   const range = own(stars.count, hour) ? stars.count[hour] : null;
   if (!range || floor <= 0) return [];
   const n = range[0] + draw(ART_SEED, 'art', 'cabin', 'stars', hour, 'n').int(range[1] - range[0] + 1);
@@ -160,7 +186,10 @@ export function cabinStarPoints(hour, stars, floor, moonAt) {
       break;
     }
   }
-  return pts;
+  // A star in a quiet box is left out, not drawn again elsewhere: the sky
+  // under the name keeps the density it had (redrawn, it doubled: the art
+  // critic's S7b pass).
+  return quiet.length ? pts.filter(([x, y]) => !inBoxes(quiet, x, y)) : pts;
 }
 
 /**
@@ -246,7 +275,7 @@ export function composeCabin({ art, cabin, hour = 'day', evening = true, sky = '
   let drawnMoon = 0;
   if (on.stars) {
     const moonAt = moon > 0 && own(at, cabin.moon.at) ? at[cabin.moon.at] : null;
-    const pts = cabinStarPoints(hour, cabin.stars, own(at, cabin.stars.floor) ? at[cabin.stars.floor][1] : 0, moonAt);
+    const pts = cabinStarPoints(hour, cabin.stars, own(at, cabin.stars.floor) ? at[cabin.stars.floor][1] : 0, moonAt, quietBoxes(cabin));
     stars = pts.length;
     ops.push(['C', STAR]);
     for (const [x, y] of [...pts, ...cabin.stars.dipper]) ops.push(['L', [x, y]]);
