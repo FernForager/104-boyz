@@ -33,8 +33,13 @@ jobs:
       - run: npm install --no-save --ignore-scripts --no-audit --no-fund playwright@1.56.1
       - run: npx -y playwright@1.56.1 install --with-deps webkit
       - run: npm run build
-      - run: node tools/shots.mjs --engine webkit --set s5
-      - uses: actions/upload-artifact@v7
+      # DIAGNOSTIC (diag-webkit only): the s5 set keeps going past its failures, then the s7 set at the 17's
+      # size and the real player flow at /preview/ (tools/diag-webkit.mjs), every DIAG line in the log.
+      - run: node tools/shots.mjs --engine webkit --set s5 || true
+      - run: node tools/shots.mjs --engine webkit --set s7 --sizes 17 || true
+      - run: node tools/diag-webkit.mjs --engine webkit --out out/shots/flow || true
+      - if: always()
+        uses: actions/upload-artifact@v7
         with:
           name: shots
           path: out/shots/

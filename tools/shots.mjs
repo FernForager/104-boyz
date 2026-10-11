@@ -463,6 +463,9 @@ async function openPage(browser, size, sc) {
   // S7: the lake's time fixed (the cabin's clock and scene), and the requests a scenario holds back.
   if (sc.at) await context.clock.setFixedTime(new Date(sc.at));
   for (const path of sc.block || []) await context.route(`**/${path}`, () => {});
+  // DIAGNOSTIC (diag-webkit only): every DOM call that throws or rejects, logged with its stack.
+  const { diagInit } = await import('./diag-webkit.mjs');
+  await context.addInitScript(diagInit);
   // Preview's saved choices: the debug marks off, so a picture shows the
   // words as a player sees them, and the scenario's own.
   await context.addInitScript(
@@ -478,8 +481,9 @@ async function openPage(browser, size, sc) {
   );
   const page = await context.newPage();
   const errors = [];
-  page.on('pageerror', (e) => { errors.push(String(e)); console.error('DIAG pageerror:', String(e), '\n', e && e.stack); });
-  page.on('console', (m) => { if (m.type() === 'error' || m.type() === 'warning') console.error('DIAG console.' + m.type() + ':', m.text()); });
+  page.on('pageerror', (e) => errors.push(String(e)));
+  const { hookPage } = await import('./diag-webkit.mjs');
+  hookPage(page, `${size.width}x${size.height} ${sc.name}`);
   return { context, page, errors };
 }
 
@@ -804,7 +808,15 @@ export async function shootSet({ set, sizes, out, engine = 'webkit', pw, root = 
           const file = `${s}/${shotName(k, sc.name, used)}`;
           await page.screenshot({ path: join(dir, file) });
           files.push({ file, size: s, name: sc.name, hash: sc.hash, steps: sc.steps || [] });
+        } catch (e) {
+          // DIAGNOSTIC: keep going, and say whether the error sheet was up.
+          const sheet = await page.evaluate(() => { const el = document.getElementById('error-sheet'); return Boolean(el && !el.hidden); }).catch(() => null);
+          console.log(`DIAG[${s} ${sc.name}] SCENARIO FAILED (error sheet ${sheet ? 'VISIBLE' : 'hidden'}): ${String((e && e.message) || e).split('\n')[0]}`);
+          errors.push(`${s} ${sc.name}: scenario failed: ${String((e && e.message) || e).split('\n')[0]}`);
+          await page.screenshot({ path: join(dir, `${s}/${shotName(k, `${sc.name}-FAILED`, used)}`) }).catch(() => null);
         } finally {
+          const sheet = await page.evaluate(() => { const el = document.getElementById('error-sheet'); return Boolean(el && !el.hidden); }).catch(() => null);
+          console.log(`DIAG[${s} ${sc.name}] done: errorSheet=${sheet ? 'VISIBLE' : 'hidden'}`);
           errors.push(...pageErrors.map((e) => `${s} ${sc.name}: ${e}`));
           await context.close();
         }
