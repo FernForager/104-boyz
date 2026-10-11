@@ -478,7 +478,8 @@ async function openPage(browser, size, sc) {
   );
   const page = await context.newPage();
   const errors = [];
-  page.on('pageerror', (e) => errors.push(String(e)));
+  page.on('pageerror', (e) => { errors.push(String(e)); console.error('DIAG pageerror:', String(e), '\n', e && e.stack); });
+  page.on('console', (m) => { if (m.type() === 'error' || m.type() === 'warning') console.error('DIAG console.' + m.type() + ':', m.text()); });
   return { context, page, errors };
 }
 
