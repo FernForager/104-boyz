@@ -17,11 +17,15 @@ import { EngineError } from './error.js';
  * @typedef {{act: Record<string, unknown>, label: import('./template.js').Ref | null, enabled: boolean}} Choice
  * @typedef {object} Screen
  * @property {string} phase
+ * @property {'shut' | 'ask' | 'open'} [step] the lockbox's step (S7, phases/lockbox.js)
+ * @property {number} [q] the lockbox's question shown, 1 to 3
  * @property {{set: string, id: string, n: number}} [stop]
  * @property {import('./template.js').Ref[]} box the Sierra box, line by line
  * @property {Choice[]} choices label null: the UI's own word (Sign, Walk on)
  * @property {{kind: string, max: number}} [input] the guest book's field
- * @property {Record<string, unknown>} [auto] an action the UI completes and dispatches at once
+ * @property {{id: string, act: {t: string, plan: string} | null} | null} [next] home's next-step
+ *   button (S7, phases/home.js nextStep): its id, and the act a tap completes
+ *   and dispatches (null: shown disabled), or null for none
  * @typedef {object} Phase
  * @property {string} id
  * @property {boolean} built

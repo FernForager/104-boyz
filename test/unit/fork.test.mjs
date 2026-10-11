@@ -13,6 +13,7 @@ import { cpSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:f
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { newSession, dispatch, screenOf, phaseOf } from '../../web/js/engine/step.js';
+import { lockboxActs } from '../../web/js/engine/selfcheck.js';
 import { loadContent } from '../../web/js/engine/content.js';
 import { toSaves, fromSaves, tripHash } from '../../web/js/engine/save.js';
 import { replay } from '../../web/js/engine/replay.js';
@@ -33,6 +34,7 @@ const content = liveContent();
 /** At the fork: Robin signs, the sample starts with a seed, Walk on twice. */
 function atFork(seed = 'K7QM2Q9F') {
   let s = newSession(content);
+  for (const a of lockboxActs('K7QM2Q9F', content)) s = dispatch(s, a, content).session;
   s = dispatch(s, { t: 'sign', name: 'Robin', id: 'h00000001' }, content).session;
   s = dispatch(s, { t: 'start', plan: 'sample', seed }, content).session;
   s = dispatch(s, { t: 'next' }, content).session;
@@ -57,6 +59,7 @@ const hms = (/** @type {number} */ s) => `${Math.floor(s / 3600)}:${String(Math.
 
 test("the router's times (B.1's table, to the second): 11:05 at Deer Lake, the rim at 13:49:03, and each outcome's arrival", () => {
   let s = newSession(content);
+  for (const a of lockboxActs('K7QM2Q9F', content)) s = dispatch(s, a, content).session;
   s = dispatch(s, { t: 'sign', name: 'Robin', id: 'h00000001' }, content).session;
   s = dispatch(s, { t: 'start', plan: 'sample', seed: 'K7QM2Q9F' }, content).session;
   assert.equal(hms(s.state.trip.clock.s), '11:05:00', "B.6's 10:45 and its 20-minute lunch");
@@ -162,6 +165,7 @@ test('an outcome screen: its severity, its pencil rows, and the roll it landed b
 test('the bands over fixed seeds 1 to 20,000 (E.9: no randomness in CI): pinned exactly, and each within 3 sigma of 8.8\'s 40 / 25 / 35 and 9.5\'s 0.7% fatal', () => {
   // Each seed from hash128('fork|' + i), as the smoke run makes its own: the same 20,000 trips every run.
   let s = newSession(content);
+  for (const a of lockboxActs('K7QM2Q9F', content)) s = dispatch(s, a, content).session;
   s = dispatch(s, { t: 'sign', name: 'Robin', id: 'h00000001' }, content).session;
   /** @type {Record<string, number>} */
   const counts = { clean: 0, shaky: 0, fail: 0, fatal: 0 };
@@ -208,7 +212,8 @@ test('a fatal ends the trip and the hiker (S6\'s stand-in for S24a): Next, the g
   assert.equal(phaseOf(fromSaves(JSON.parse(JSON.stringify(after)), content).state), 'guestbook');
   // A new hiker signs and starts fresh at Deer Lake, with no trips behind them.
   const signed = dispatch(next.session, { t: 'sign', name: 'Sam', id: 'h00000002' }, content);
-  assert.deepEqual(signed.screen.auto, { t: 'start', plan: 'sample' });
+  // S7: home's next step, a tap (no auto); a new hiker has no finished trip.
+  assert.deepEqual(signed.screen.next, { id: 'plan_first', act: { t: 'start', plan: 'sample' } });
   const fresh = dispatch(signed.session, { t: 'start', plan: 'sample', seed: 'ABCDEFGH' }, content).session;
   assert.deepEqual([fresh.state.trip.stop, fresh.state.trip.n, fresh.state.hiker.id, fresh.state.hiker.trips, fresh.log.actions], ['deer_lake', 1, 'h00000002', 0, []]);
 });

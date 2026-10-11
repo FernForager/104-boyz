@@ -2,8 +2,10 @@
 // runs them with the rest, and `node tools/text.mjs check` runs them alone.
 //
 //   T07 no book frame: F.3's book words, whole words, in any line main can
-//       reach, any ledger entry and main's built words; a warning on a
-//       preview-only draft (SPEC call 1: T07_PREVIEW below makes it strict)
+//       reach, any ledger entry and main's built words, and (from S7, when
+//       the title page retired on preview) in any draft preview shows; a
+//       line both channels leave out (main.off and channels.preview.off)
+//       shows on no page
 //   T10 no original English outside content/text/: JS sinks and shapes,
 //       HTML text and attributes, CSS content, the manifest, SVG text
 //   T11 every id used is defined, and every line on a built screen is used
@@ -40,6 +42,9 @@
 // shows a picture's words by a computed id (S6: an alt part, a Look, a Look
 // button's name) ends it `// t-ids: @art`: the ids are those the drawable
 // places' art names (tools/looks.mjs), which P15 holds to their lines.
+// Code that shows a term by a computed id (S7: the guest book's Suggest,
+// a given name) ends it `// t-ids: @terms`: the ids are the terms of kind
+// given (content/text/names/terms.json), which T16 checks, each of them.
 //
 // Each issue is {file, line, code, msg, level}, level 'error' or 'warn'.
 // What isn't a problem but is worth knowing (a line waiting for its screen,
@@ -63,6 +68,7 @@ import {
   fnv1a,
   lineOfKey,
   mainReach,
+  offPreview,
   manifestIds,
   parseAttrChains,
   shellSources,
@@ -86,8 +92,8 @@ import { measure } from '../web/js/text.js';
 import { artUses } from './looks.mjs';
 import { runT02 } from './t02.mjs';
 
-/** T07 on a draft that only preview can show: 'warn' (SPEC call 1) or 'error'. */
-export const T07_PREVIEW = 'warn';
+/** T07 on a draft that only preview can show: 'warn' (S2 to S6, SPEC call 1) or 'error' (S7: no preview page shows a book word now). */
+export const T07_PREVIEW = 'error';
 /** Files whose lines may hold a {PLACEHOLDER} (T13), each added with a reason by the session that needs it. */
 export const T13_PLACEHOLDER_FILES = [];
 export const PLACEHOLDER_RE = /^(?:BOY_\d(?:_QUIRK|_TUB|_GUESTBOOK)?|JON_QUIRK|MORGENROTH_STORY_\d|STORE_GENERAL|STORE_GEAR|STORE_BOUTIQUE|JOB_DRIVEIN|JOB_GASTROPUB|JOB_BOOKSTORE|BOYZ_DATES)$/;
@@ -115,6 +121,8 @@ export const PLACES_TIDS = '@places';
  * T11 counts every one the art names as used.
  */
 export const ART_TIDS = '@art';
+/** The `// t-ids:` entry for a call that shows a term by a computed id (S7: Suggest's given names, term.given_*; T16 checks every one). */
+export const TERMS_TIDS = '@terms';
 /** The public-domain quotes T16 holds content/lore/quotes.json to (S24a writes the file). */
 export const QUOTES_FILE = 'content/lore/quotes.json';
 export const QUOTES_SOURCE = 'design/data/lore/quotes_public_domain.json';
@@ -773,7 +781,8 @@ const has = (o, k) => Object.prototype.hasOwnProperty.call(o || {}, k);
 
 /**
  * T07: no book frame (F.3). An error for any line main reaches and any
- * ledger entry; a warning (T07_PREVIEW) for a draft only preview shows.
+ * ledger entry; T07_PREVIEW (an error from S7) for a draft only preview
+ * shows; nothing for a draft no page shows (off main and off preview).
  * @returns {Issue[]}
  */
 export function lintT07(text, reach) {
@@ -797,6 +806,8 @@ export function lintT07(text, reach) {
     if (s === 'cut') continue; // cut words ship nowhere
     const w = hit(line.text);
     if (!w) continue;
+    // A draft both channels leave out shows on no page (S7: the title page's words).
+    if (s === 'draft' && !reached.has(id) && has(text.scope.main.off, id) && offPreview(text, id)) continue;
     const level = s === 'draft' && !reached.has(id) ? T07_PREVIEW : 'error';
     out.push({ file: line.file, line: line.line, code: 'T07', level, id, msg: `${id}: "${w}" is a book word (F.3)${level === 'warn' ? '; a draft only preview shows' : ''}` });
   }
@@ -828,12 +839,12 @@ export function lintT11(text, uses) {
   for (const u of uses.manifest) need(u.id, u.file, u.line, 'the manifest uses');
   for (const u of uses.content || []) need(u.id, u.file, u.line, 'content refers to');
   for (const l of uses.literals) if (defined(text, l.value)) used.add(l.value);
-  for (const t of uses.tids) for (const id of t.ids) if (id !== CONTENT_TIDS && id !== PLACES_TIDS && id !== ART_TIDS) need(id, t.file, t.line, '// t-ids: lists');
+  for (const t of uses.tids) for (const id of t.ids) if (id !== CONTENT_TIDS && id !== PLACES_TIDS && id !== ART_TIDS && id !== TERMS_TIDS) need(id, t.file, t.line, '// t-ids: lists');
   // The pictures' words: counted once some code shows them (// t-ids: @art).
   if (uses.tids.some((t) => t.ids.includes(ART_TIDS))) for (const id of uses.art || []) if (defined(text, id)) used.add(id);
   for (const c of uses.calls) {
     if (c.literal) need(c.id, c.file, c.line, `${c.fn}() asks for`);
-    else if (!c.tids) issues.push({ file: c.file, line: c.line, code: 'T11', msg: `${c.fn}() needs a literal id, or the line ends // t-ids: <every id it can be> (or ${CONTENT_TIDS}, ${PLACES_TIDS} or ${ART_TIDS})` });
+    else if (!c.tids) issues.push({ file: c.file, line: c.line, code: 'T11', msg: `${c.fn}() needs a literal id, or the line ends // t-ids: <every id it can be> (or ${CONTENT_TIDS}, ${PLACES_TIDS}, ${ART_TIDS} or ${TERMS_TIDS})` });
   }
   for (const [id, line] of text.lines) {
     if (used.has(id)) continue;
@@ -1076,6 +1087,11 @@ export function lintT16(text, { uses = { calls: [], tids: [], html: [], content:
   for (const u of uses.html || []) named.push({ id: u.id, file: u.file, line: u.line, what: `${u.how} uses` });
   for (const c of uses.calls || []) if (c.literal) named.push({ id: c.id, file: c.file, line: c.line, what: `${c.fn}() asks for` });
   for (const t of uses.tids || []) for (const id of t.ids) named.push({ id, file: t.file, line: t.line, what: '// t-ids: lists' });
+  // Code marked @terms (S7: Suggest) shows every given name: each is a sourced term, not cut.
+  for (const t of uses.tids || []) {
+    if (!t.ids.includes(TERMS_TIDS)) continue;
+    for (const [id, x] of names.terms) if (x && x.kind === 'given') named.push({ id, file: t.file, line: t.line, what: '// t-ids: @terms shows' });
+  }
   // The drives name places by bare id (a road is its roads' own).
   if (drives) {
     const roads = new Set(Object.keys(drives.roads || {}));

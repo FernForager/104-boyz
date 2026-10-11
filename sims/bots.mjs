@@ -4,7 +4,8 @@
 // bot(screen, gen) -> action. If a sensible bot can't play well from the
 // screen, the screen is missing something, and that is a UI bug (7.1).
 // The driver (tools/sim.mjs) fills what the UI fills: the guest book's name
-// and the home screen's auto start with its seed.
+// and the seed of the home screen's next step (S7: screen.next.act, a tap
+// on the cabin's next-step button).
 //
 // S3's bots:
 //   first   the first enabled choice (on a stop with Walk on, that is it)

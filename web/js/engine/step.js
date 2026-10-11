@@ -13,6 +13,9 @@
 //   base    = the trip snapshot the log starts from after a rebase, or null
 //
 // The actions (codes 1 to 3 are the log's kinds, append-only):
+//   {t: 'deal', seed}         hiker, at the lockbox (S7): its three questions
+//   {t: 'answer', a}          hiker, at the lockbox: an answer, 0 to 2
+//   {t: 'open'}               hiker, at the lockbox: Take the key
 //   {t: 'sign', name, id}     hiker, in the guest book
 //   {t: 'start', plan, seed}  hiker, at home: opens the trip and its log
 //   {t: 'next'}               trip, 1: Walk on
@@ -24,6 +27,7 @@ import { canon } from './canon.js';
 import { sha256Hex } from './hash.js';
 import { PHASES } from './phases/index.js';
 import { HIKER_ID_RE, nameLength } from './phases/guestbook.js';
+import { lockboxOpen } from './phases/lockbox.js';
 import { SEED8_RE, CID_RE } from './trip.js';
 
 /** The longest wait one action may hold. */
@@ -33,14 +37,21 @@ export const MAX_WAIT = 86400;
  * @typedef {{state: any, log: any, base: any}} Session
  */
 
+/** The device record's format (save.js; migrate.js brings a v1 forward). */
+export const DEVICE_V = 2;
+
 /**
- * The phase a state is in: the trip's, while one is under way; else home
- * for a hiker, else the guest book (S7 puts the lockbox first).
+ * The phase a state is in: the trip's, while one is under way; else the
+ * lockbox while the device hasn't opened it (S7, lead call 53: once on
+ * every phone, a fresh one first, one with a hiker at its next return
+ * home); else home for a hiker, else the guest book.
  * @param {any} state
  * @returns {string}
  */
 export function phaseOf(state) {
-  return state.trip && !state.trip.end ? state.trip.phase : state.hiker ? 'home' : 'guestbook';
+  if (state.trip && !state.trip.end) return state.trip.phase;
+  if (!lockboxOpen(state.device)) return 'lockbox';
+  return state.hiker ? 'home' : 'guestbook';
 }
 
 /**
@@ -57,13 +68,13 @@ function moduleOf(state) {
 }
 
 /**
- * A fresh device: no hiker, no trip, no log. (The content is the API's
- * shape; S7 reads it to put the lockbox first.)
+ * A fresh device: the lockbox shut, no hiker, no trip, no log. (The
+ * content is the API's shape.)
  * @param {import('./content.js').Content} [_content]
  * @returns {Session}
  */
 export function newSession(_content) {
-  return { state: { v: 1, device: { v: 1 }, hiker: null, trip: null }, log: null, base: null };
+  return { state: { v: 1, device: { v: DEVICE_V, quiz: null }, hiker: null, trip: null }, log: null, base: null };
 }
 
 /**
@@ -94,6 +105,16 @@ const exactKeys = (a, keys) => {
 function checked(a, content) {
   const bad = () => new EngineError('invalid', 'step: malformed action arguments');
   switch (a.t) {
+    case 'deal':
+      if (!exactKeys(a, ['seed']) || typeof a.seed !== 'string' || !SEED8_RE.test(a.seed)) throw bad();
+      return { t: 'deal', seed: a.seed };
+    case 'answer':
+      // The phase checks it against the question's answers (lockbox.js).
+      if (!exactKeys(a, ['a']) || !Number.isSafeInteger(a.a) || a.a < 0) throw bad();
+      return { t: 'answer', a: a.a };
+    case 'open':
+      if (!exactKeys(a, [])) throw bad();
+      return { t: 'open' };
     case 'sign': {
       if (!exactKeys(a, ['name', 'id']) || typeof a.name !== 'string' || typeof a.id !== 'string' || !HIKER_ID_RE.test(a.id)) throw bad();
       const n = nameLength(a.name);

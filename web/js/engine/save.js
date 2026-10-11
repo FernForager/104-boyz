@@ -3,7 +3,10 @@
 //
 // PURE. Three records, each stored by platform/storage.js under its
 // channel's own key (oph.<channel>.device, .hiker, .trip; lint S01):
-//   device  {v: 1}                       (S7 adds the quiz, the settings, the register)
+//   device  {v: 2, quiz}                 S7: the lockbox's quiz, null while the
+//           box is shut, then {seed, dealt, answers, done} (phases/lockbox.js);
+//           a v1 record migrates with the box shut (migrate.js). The settings
+//           and the register join later
 //   hiker   {v: 1, id, name, profile, trips, latest: {seed, stop} | null}
 //   trip    {v: 1, rules, log, profile, base, snapshot, hash}
 //           log: the packed log as base64url; base: null, or the snapshot a
@@ -25,11 +28,12 @@
 
 import { EngineError, isEngineError } from './error.js';
 import { canon } from './canon.js';
-import { phaseOf, hash12 } from './step.js';
+import { phaseOf, hash12, DEVICE_V } from './step.js';
 import { pack, unpack, toBase64url, fromBase64url } from './log.js';
 import { replay, tripHash } from './replay.js';
 import { migrate } from './migrate.js';
 import { nameLength } from './phases/guestbook.js';
+import { progress } from './phases/lockbox.js';
 
 export { tripHash };
 
@@ -44,6 +48,9 @@ export const HIKER_TOKEN = '{HIKER}';
  * @param {any} v
  */
 const copy = (v) => (v === null || v === undefined ? null : JSON.parse(JSON.stringify(v)));
+
+/** A device record with the lockbox shut: a fresh phone's. */
+const freshDevice = () => ({ v: DEVICE_V, quiz: null });
 
 /**
  * True when a snapshot is the trip its log's header names.
@@ -95,7 +102,7 @@ export function toSaves(session) {
       hash: tripHash(state.trip),
     };
   }
-  return { device: copy(state.device) || { v: 1 }, hiker: copy(state.hiker), trip };
+  return { device: copy(state.device) || freshDevice(), hiker: copy(state.hiker), trip };
 }
 
 /**
@@ -110,7 +117,7 @@ export function toSaves(session) {
  * @returns {import('./step.js').Session}
  */
 export function fromSaves({ device = null, hiker = null, trip = null }, content) {
-  const dev = migrate('device', device) || { v: 1 };
+  const dev = migrate('device', device) || freshDevice();
   let hk = migrate('hiker', hiker);
   const rec = migrate('trip', trip);
   if (!rec) return { state: { v: 1, device: dev, hiker: hk, trip: null }, log: null, base: null };
@@ -166,16 +173,18 @@ export function fromSaves({ device = null, hiker = null, trip = null }, content)
 export const spell = (a) => a.join(' ');
 
 /**
- * The bug report's `state` field (E.11): the phase, the hiker without a
+ * The bug report's `state` field (E.11): the phase, the device (its format
+ * and the lockbox's progress: the questions dealt, how many answered and
+ * right, done; S7), the hiker without a
  * name ({HIKER} and its length in code points), and the trip: seed, plan,
  * stop number, the packed log, the profile and base snapshots, the hash,
  * the last 20 actions spelled out, and the snapshot (which a long report
  * drops first: a replay rebuilds it). Never throws: a part that can't be
  * made is null.
  * @param {import('./step.js').Session} session
- * @param {import('./content.js').Content} [_content] the API's shape; later phases may name their content
+ * @param {import('./content.js').Content} [content] the build's: the quiz, to count the right answers
  */
-export function reportState(session, _content) {
+export function reportState(session, content) {
   const { state, log, base } = session;
   const safe = (/** @type {() => any} */ f) => {
     try {
@@ -186,8 +195,21 @@ export function reportState(session, _content) {
   };
   const h = state.hiker;
   const t = state.trip;
+  const d = state.device;
+  const quiz = safe(() => (content && typeof content.quiz === 'function' ? content.quiz() : null));
   return {
     phase: safe(() => phaseOf(state)),
+    device: d
+      ? {
+          v: d.v,
+          quiz: d.quiz
+            ? safe(() => {
+                const p = progress(d.quiz, quiz);
+                return { dealt: d.quiz.dealt.slice(), answered: p.answered, right: p.right, done: d.quiz.done === true };
+              })
+            : null,
+        }
+      : null,
     hiker: h ? { id: h.id, name: HIKER_TOKEN, chars: safe(() => nameLength(String(h.name))), trips: h.trips } : null,
     trip: t
       ? {

@@ -20,7 +20,10 @@
 //
 // A golden trip input: {name, log, profile, base, first?, resume?}
 //   log, profile, base  as replay() takes them (base null for a log from the start)
-//   first: {name, id}   play it from a fresh device: sign, start, then the log
+//   first: {name, id}   play it from a fresh device: the lockbox (S7: with a
+//                       quiz, deal with the log's seed and answer 0 to each
+//                       question; the fixture has none, so Take the key at
+//                       once), sign, start, then the log
 //   resume: k           save after k actions (toSaves, JSON, fromSaves), then the rest
 
 import { EngineError, isEngineError } from './error.js';
@@ -34,6 +37,9 @@ import { newSession, dispatch, screenOf, fromLogAction } from './step.js';
 import { pack, unpack } from './log.js';
 import { replay, identity, asLog, tripHash } from './replay.js';
 import { toSaves, fromSaves } from './save.js';
+import { lockboxActs } from './phases/lockbox.js';
+
+export { lockboxActs };
 
 /** The groups, in the order the debug menu and the report list them. */
 export const GROUPS = Object.freeze(['sha', 'rng', 'math', 'expr', 'log', 'trips', 'screens']);
@@ -73,11 +79,11 @@ export function runTrip(trip, content) {
   const input = { log, profile: trip.profile, base: trip.base || null };
   const packed = toHex(pack(log));
   if (trip.first) {
-    // From a fresh device: sign, start, then the log's actions.
+    // From a fresh device: the lockbox, sign, start, then the log's actions.
     let session = newSession(content);
     const screens = [screenOf(session.state, content)];
     let error = null;
-    const acts = [{ t: 'sign', name: trip.first.name, id: trip.first.id }, { t: 'start', plan: log.plan, seed: log.seed }, ...log.actions.map(fromLogAction)];
+    const acts = [...lockboxActs(log.seed, content), { t: 'sign', name: trip.first.name, id: trip.first.id }, { t: 'start', plan: log.plan, seed: log.seed }, ...log.actions.map(fromLogAction)];
     for (let i = 0; i < acts.length; i++) {
       try {
         const r = dispatch(session, acts[i], content);

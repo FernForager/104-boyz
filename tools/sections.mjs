@@ -19,6 +19,12 @@
 //   foods       content/food/items.json (S11, town)
 //   stores      content/stores/stores.json (S11, town)
 //   drives      content/drive/routes.json (S15a, drive)
+//   home        content/home/cabin.json's next table: the next-step
+//               button's states, each with its rule and the session that
+//               lands it (S7, home; the rest of cabin.json is display data,
+//               art.json's cabin)
+
+import { NEXT_WHEN, NEXT_ACTS } from '../web/js/engine/phases/home.js';
 
 const own = (o, k) => o !== null && typeof o === 'object' && Object.prototype.hasOwnProperty.call(o, k);
 
@@ -99,6 +105,31 @@ function compileStores({ files }) {
   return { format: 1, ...stripWords(d) };
 }
 
+/** The cabin's data (S7). */
+export const CABIN_FILE = 'content/home/cabin.json';
+
+/**
+ * The home section (S7): the cabin's next-step table, its words (docs)
+ * dropped. A row's rule must be one the engine knows (phases/home.js
+ * NEXT_WHEN) and carry an act it knows (NEXT_ACTS); a row with no rule is
+ * a later session's state, listed so the table is the plan's whole list,
+ * and never reachable. Ids are unique.
+ * @param {{files: Map<string, {data: any, src: string}>, add: (file: string, line: number, code: string, msg: string) => void}} ctx
+ */
+function compileHome({ files, add }) {
+  const f = files.get(CABIN_FILE);
+  if (!f) return null;
+  const seen = new Set();
+  for (const row of f.data.next) {
+    if (seen.has(row.id)) add(CABIN_FILE, 1, 'R01', `next: ${row.id} is listed twice`);
+    seen.add(row.id);
+    if (row.when !== undefined && !own(NEXT_WHEN, row.when)) add(CABIN_FILE, 1, 'R01', `next.${row.id}: "${row.when}" is no rule the engine knows (phases/home.js NEXT_WHEN)`);
+    if (row.when !== undefined && !NEXT_ACTS.includes(row.act)) add(CABIN_FILE, 1, 'R01', `next.${row.id}: a live row needs an act the engine knows (${NEXT_ACTS.join(', ')})`);
+    if (row.when === undefined && row.act !== undefined) add(CABIN_FILE, 1, 'R01', `next.${row.id}: an act with no rule`);
+  }
+  return { format: 1, next: f.data.next.map((/** @type {any} */ row) => stripWords(row)) };
+}
+
 /** Track B's section compilers, by section name (tools/scope.mjs SECTIONS). */
 export const B_SECTIONS = Object.freeze({
   conditions: fromFile('content/park/conditions/2026.json'),
@@ -112,4 +143,5 @@ export const B_SECTIONS = Object.freeze({
   foods: fromFile('content/food/items.json'),
   stores: compileStores,
   drives: compileDrives,
+  home: compileHome,
 });

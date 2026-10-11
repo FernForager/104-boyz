@@ -1,15 +1,19 @@
 // tools/shots.mjs, the parts that need no browser (S5 SPEC 6.4): the
-// sizes and their safe areas, the file names, the S5 set and the batch's
-// scenarios against the game's own dev routes, badge numbering, the WebKit
-// fallback, and what happens without Playwright. The pictures themselves
-// are taken in the session (Chromium) and by shots.yml (WebKit).
+// sizes and their safe areas, the file names, the S5, S6 and S7 sets and
+// the batches' scenarios against the game's own dev routes, badge
+// numbering, the WebKit fallback, and what happens without Playwright.
+// The pictures themselves are taken in the session (Chromium) and by
+// shots.yml (WebKit).
 
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { readFileSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
-import { ROOT } from '../../tools/pics.mjs';
-import { SIZES, SIZE_ORDER, SETS, SCREEN_SCENARIOS, SCENE_HOURS, PAGE, pageOf, PLAYWRIGHT_VERSION, BATCH_SIZE_NAME, OUTCOMES, shotName, pickSizes, safeCss, batchScenarios, claimBadges, missingMessage, launch, main } from '../../tools/shots.mjs';
+import { ROOT, loadArt, loadCabin } from '../../tools/pics.mjs';
+import { placeParts, cabinParts } from '../../tools/looks.mjs';
+import { SIZES, SIZE_ORDER, SETS, SCREEN_SCENARIOS, SCENE_HOURS, PAGE, pageOf, PLAYWRIGHT_VERSION, BATCH_SIZE_NAME, OUTCOMES, shotName, pickSizes, safeCss, batchScenarios, claimBadges, missingMessage, launch, main, readyOf, CABIN_HOURS, CABIN_SKIES, LAKE_TIMES, KEYBOARD_PT, QUIZ_IDS, INSPECTOR } from '../../tools/shots.mjs';
+import { DEV_HOURS, DEV_SKIES } from '../../web/js/ui/cabin.js';
+import { cabinAlt } from '../../web/js/gfx/cabin.js';
 import { INTRO_FORMS } from '../../web/js/ui/choices.js';
 import { FIXTURES } from '../../web/js/ui/frame.js';
 import { devRoute } from '../../web/js/ui/app.js';
@@ -56,12 +60,14 @@ test("the S5 set: Deer Lake and the rim at day, dusk and night, the #frame fixtu
   const text = readText(ROOT);
   const recipes = JSON.parse(readFileSync(join(ROOT, 'content', 'art', 'recipes.json'), 'utf8'));
   // The batches' S5 scenarios: the trail's first five and the guest book (S6's follow them; their own test is below).
+  // Rewritten in S7: a fresh phone opens on the lockbox, so the guest book is its own dev route (#guestbook), and
+  // the cabin's screens, the mailbox, the lockbox and the title page (the loading art) have scenarios too.
   const s5batch = [...SCREEN_SCENARIOS.trail.slice(0, 5), ...SCREEN_SCENARIOS.guestbook];
   assert.deepEqual(s5batch.map((s) => s.name), ['deer_lake', 'rim', 'sound_off', 'menu', 'frame_fixture', 'guestbook']);
-  assert.deepEqual(Object.keys(SCREEN_SCENARIOS), ['trail', 'guestbook']);
+  assert.deepEqual(Object.keys(SCREEN_SCENARIOS), ['trail', 'guestbook', 'home', 'mailbox', 'lockbox', 'title']);
   for (const s of [...s5, ...s5batch]) {
     assert.ok(text.scope.screens.includes(s.screen), `${s.name}: ${s.screen} is a preview screen`);
-    if (!s.hash) continue;
+    assert.ok(s.hash, `${s.name}: every S5 scenario opens on a dev route`);
     // The game opens it only in debug mode, on a build with the trail.
     assert.equal(devRoute({ hash: s.hash, debug: false, trail: true }), null, `${s.name}: nothing without debug mode`);
     const r = devRoute({ hash: s.hash, debug: true, trail: true });
@@ -70,7 +76,7 @@ test("the S5 set: Deer Lake and the rim at day, dusk and night, the #frame fixtu
       assert.equal(r.stop.set, 'deer_lake_rim');
       assert.ok(['deer_lake', 'rim'].includes(r.stop.id), s.name);
       assert.ok(HOURS.includes(r.hour), `${s.name}: the hour ${r.hour}`);
-    } else assert.deepEqual(r, { frame: true });
+    } else assert.deepEqual(r, s.screen === 'guestbook' ? { guestbook: true } : { frame: true }, s.name);
     for (const step of s.steps || []) {
       if (step.startsWith('pic:')) assert.ok(recipes.places[step.slice(4)], `${s.name}: ${step} is a place the check view offers`);
       else if (step.startsWith('hour:')) assert.ok(SCENE_HOURS.includes(step.slice(5)), step);
@@ -135,9 +141,16 @@ test("the S6 set (track A): main's title page at /, and palette A's Deer Lake an
 
 test("S6's batch scenarios (track D): the fork with each odds intro in its turn, the confirm, both Why sheets, the compass, every outcome, every looked kind where it is drawn and the alt Look at every hour, each a route the game opens", () => {
   const s6 = SCREEN_SCENARIOS.trail.slice(5);
-  const looked = Object.entries(JSON.parse(readFileSync(join(ROOT, 'content', 'art', 'hotspots.json'), 'utf8')).kinds)
+  const allLooked = Object.entries(JSON.parse(readFileSync(join(ROOT, 'content', 'art', 'hotspots.json'), 'utf8')).kinds)
     .filter(([, k]) => /** @type {any} */ (k).look)
     .map(([kind]) => kind);
+  // The looked kinds a trail picture draws; from S7 the cabin draws the others (the tub and the register
+  // post), and they are every looked kind no trail picture has: their shots are the s7 set's (track C).
+  const onTrail = new Set(placeParts(loadArt()).flatMap((p) => p.kinds));
+  const looked = allLooked.filter((k) => onTrail.has(k));
+  const cabinKinds = new Set(cabinParts(loadCabin()).flatMap((p) => p.kinds));
+  assert.deepEqual(allLooked.filter((k) => !onTrail.has(k)), ['tub', 'register_post'], 'the looked kinds no trail picture draws');
+  for (const k of allLooked.filter((x) => !onTrail.has(x))) assert.ok(cabinKinds.has(k), `${k}: the cabin draws it`);
   assert.deepEqual(s6.map((s) => s.name), [
     ...INTRO_FORMS.map((f) => `fork_intro_${f}`),
     'fork_confirm',
@@ -151,7 +164,7 @@ test("S6's batch scenarios (track D): the fork with each odds intro in its turn,
     'alt_dusk',
     'alt_blue',
     'alt_night',
-  ], 'every looked kind of hotspots.json has its scenario');
+  ], 'every looked kind a trail picture draws has its scenario');
   assert.equal(new Set(SCREEN_SCENARIOS.trail.map((s) => s.name)).size, SCREEN_SCENARIOS.trail.length, 'names are unique');
   // Each intro shot has seen exactly the forms before it (one intro a stop, the most serious unseen first).
   INTRO_FORMS.forEach((f, k) => assert.deepEqual(s6[k].store, { odds_seen: INTRO_FORMS.slice(0, k) }, f));
@@ -174,6 +187,132 @@ test("S6's batch scenarios (track D): the fork with each odds intro in its turn,
   // The batches meet the trail's scenarios in this order: S5's five, then S6's.
   const b005 = batchLines(readText(ROOT), 'B005').lines;
   assert.deepEqual(batchScenarios(b005).map((s) => s.name), SCREEN_SCENARIOS.trail.map((s) => s.name));
+});
+
+test("the S7 set (track C): the cabin at every hour, clear, in rain and in fog; first launch; each lockbox step; the guest book and its keyboard; the mailbox, a Look, a place not open yet, a long press, the alt Look; the loading art; every route one the game opens, at a fixed time at the lake", () => {
+  const s7 = SETS.s7;
+  const names = s7.map((s) => s.name);
+  assert.deepEqual(CABIN_HOURS, [...DEV_HOURS], "the #home route's hours, dawn first");
+  assert.deepEqual(CABIN_HOURS, ['dawn', 'day', 'dusk', 'blue', 'night']);
+  assert.deepEqual(CABIN_SKIES, ['clear', 'rain', 'fog']);
+  for (const sky of CABIN_SKIES) assert.ok(DEV_SKIES.includes(sky), sky);
+  assert.deepEqual(names, [
+    ...CABIN_HOURS.flatMap((h) => CABIN_SKIES.map((sky) => `cabin_${h}_${sky}`)),
+    'first',
+    'first_drawin',
+    'lockbox_q1',
+    'lockbox_q2',
+    'lockbox_q3',
+    'lockbox_open3',
+    'lockbox_open0',
+    'lockbox_plain',
+    'guestbook',
+    'guestbook_keyboard',
+    'mailbox',
+    'look_tub',
+    'soon_shed',
+    'press_car',
+    'alt_night',
+    'loading',
+  ]);
+  assert.equal(new Set(names).size, s7.length, 'names are unique');
+  // The lake's times: one an hour, in the day's order, each a real time.
+  assert.deepEqual(Object.keys(LAKE_TIMES), [...CABIN_HOURS]);
+  const ms = CABIN_HOURS.map((h) => Date.parse(LAKE_TIMES[h]));
+  assert.ok(ms.every(Number.isFinite) && ms.every((v, k) => k === 0 || v > ms[k - 1]), 'dawn to night, in order');
+  assert.deepEqual(Object.keys(KEYBOARD_PT).sort(), Object.keys(SIZES).sort(), "the keyboard's stand-in at every size");
+  const places = loadCabin().places;
+  const text = readText(ROOT);
+  for (const s of s7) {
+    assert.ok(text.scope.screens.includes(s.screen), `${s.name}: ${s.screen} is a preview screen`);
+    if (s.name === 'loading') continue;
+    assert.equal(pageOf(s), PAGE, `${s.name}: preview, in debug mode`);
+    assert.ok(s.at && Number.isFinite(Date.parse(s.at)), `${s.name}: the page's clock is fixed`);
+    assert.equal(devRoute({ hash: s.hash, debug: false, trail: true }), null, `${s.name}: nothing without debug mode`);
+    const r = devRoute({ hash: s.hash, debug: true, trail: true });
+    assert.ok(r, `${s.name}: ${s.hash} is a dev route`);
+    if (s.name.startsWith('cabin_')) {
+      const [, hour, sky] = s.name.split('_');
+      assert.deepEqual(r, { home: { hour, sky, moon: null } }, s.name);
+      assert.equal(s.at, LAKE_TIMES[hour], `${s.name}: at its hour's time`);
+    }
+    if (r.home) assert.ok(r.home.hour && r.home.sky, `${s.name}: an hour and a sky the cabin knows`);
+    else assert.ok(r.first || r.lockbox || r.guestbook, s.name);
+    for (const step of s.steps || []) {
+      if (step.startsWith('place:')) assert.ok(['place', 'look'].includes(places[step.slice(6)].kind), `${s.name}: ${step} is a place or a Look`);
+      else if (step.startsWith('press:')) assert.equal(places[step.slice(6)].kind, 'place', `${s.name}: ${step} is a named place`);
+      else assert.ok(['menu', 'sound', 'alt', 'keyboard'].includes(step), step);
+    }
+    if (s.motion) assert.equal(s.name, 'first_drawin', 'Reduce Motion is on but for the draw-in');
+  }
+  assert.deepEqual(s7.find((s) => s.name === 'first_drawin').sizes, ['17']);
+  assert.deepEqual(['lockbox_q1', 'lockbox_q2', 'lockbox_q3', 'lockbox_open3', 'lockbox_open0'].map((n) => devRoute({ hash: s7.find((s) => s.name === n).hash, debug: true, trail: true }).lockbox), [{ q: 1 }, { q: 2 }, { q: 3 }, { open: 3 }, { open: 0 }]);
+  assert.deepEqual(s7.find((s) => s.name === 'lockbox_plain').store, { text: 'plain' });
+  assert.deepEqual(s7.find((s) => s.name === 'guestbook_keyboard').steps, ['keyboard']);
+  // The long press: the line inspector (debug mode's, which owns every long press on words) held back.
+  const press = s7.find((s) => s.name === 'press_car');
+  assert.deepEqual(press.block, [INSPECTOR]);
+  assert.ok(existsSync(join(ROOT, 'web', INSPECTOR)), "the inspector's module");
+  // The loading art: preview's own page, the game held back, ready when the cover has drawn in.
+  const loading = s7.at(-1);
+  assert.deepEqual([loading.page, loading.hash, loading.screen, loading.block], ['/preview/', '', 'title', ['data/rules.json']]);
+  // What each scenario waits for before its picture.
+  assert.equal(readyOf(loading), '.plate:not(.drawing)');
+  assert.equal(readyOf(s7[0]), '.cabin[data-key] .status-line');
+  assert.equal(readyOf({ name: 'f', screen: 'lockbox', hash: '#first' }), '.cabin[data-key] .status-line', 'the shut lockbox is the cabin');
+  assert.equal(readyOf({ name: 'q', screen: 'lockbox', hash: '#lockbox&q=1' }), '.porch[data-key] .status-line');
+  assert.equal(readyOf({ name: 'g', screen: 'guestbook', hash: '#guestbook' }), '.porch #gb-name');
+  assert.equal(readyOf({ name: 'x', screen: 'trail', hash: '#frame' }), '#frame-sheet .status-line');
+  assert.equal(readyOf(SETS.s5[0]), '.frame .status-line');
+  assert.match(readyOf({ name: 'x', screen: 'trail', hash: '' }), /#gb-name, \.frame \.status-line, \.cabin \.status-line, \.porch \.status-line/);
+  // The harness's own parts the scenarios lean on, and the game's attributes they wait for.
+  const src = readFileSync(join(ROOT, 'tools', 'shots.mjs'), 'utf8');
+  for (const part of ['context.clock.setFixedTime(new Date(sc.at))', 'context.route(`**/${path}`, () => {})', "reducedMotion: sc.motion ? 'no-preference' : 'reduce'", '`.cabin-place[data-place="${step.slice(6)}"]`', 'PRESS_MS + 200', 'KEYBOARD_VAR', "'[data-t], [data-t-aria], [data-t-img][aria-label]'"]) assert.ok(src.includes(part), part);
+  for (const f of ['cabin.js', 'porch.js']) assert.ok(readFileSync(join(ROOT, 'web', 'js', 'ui', f), 'utf8').includes("host.setAttribute('data-key'"), `${f} marks its composed picture`);
+});
+
+test("S7's batch scenarios (track C): each B002 and B003 line's screen has scenarios, so it shows in one or gets a mock; every question of the quiz asked first, both replies and both closings; the alt Look under every sky and hour line; each Look; the mailbox in both modes; the loading art", () => {
+  const text = readText(ROOT);
+  const b002 = batchLines(text, 'B002').lines;
+  const b003 = batchLines(text, 'B003').lines;
+  for (const l of [...b002, ...b003]) assert.ok((SCREEN_SCENARIOS[l.screen] || []).length, `${l.id}: its screen (${l.screen}) has scenarios`);
+  assert.deepEqual(batchScenarios(b002).map((s) => `${s.screen}:${s.name}`), [...SCREEN_SCENARIOS.home, ...SCREEN_SCENARIOS.mailbox, ...SCREEN_SCENARIOS.title].map((s) => `${s.screen}:${s.name}`));
+  assert.deepEqual(batchScenarios(b003).map((s) => `${s.screen}:${s.name}`), [...SCREEN_SCENARIOS.guestbook, ...SCREEN_SCENARIOS.lockbox].map((s) => `${s.screen}:${s.name}`));
+  const all = [...SCREEN_SCENARIOS.guestbook, ...SCREEN_SCENARIOS.home, ...SCREEN_SCENARIOS.mailbox, ...SCREEN_SCENARIOS.lockbox];
+  for (const s of all) {
+    assert.equal(pageOf(s), PAGE, s.name);
+    assert.ok(s.at, `${s.name}: the page's clock is fixed`);
+    assert.ok(devRoute({ hash: s.hash, debug: true, trail: true }), `${s.name}: ${s.hash} is a dev route`);
+  }
+  for (const k of ['home', 'mailbox', 'lockbox']) assert.equal(new Set(SCREEN_SCENARIOS[k].map((s) => s.name)).size, SCREEN_SCENARIOS[k].length, `${k}: names are unique`);
+  // The lockbox: every question of the pool asked first, in the file's order, its words all in B003.
+  const quiz = JSON.parse(readFileSync(join(ROOT, 'content', 'quiz', 'locals.json'), 'utf8'));
+  assert.deepEqual(QUIZ_IDS, quiz.questions.map((q) => q.id));
+  const ids = new Set(b003.map((l) => l.id));
+  for (const id of QUIZ_IDS) {
+    const sc = SCREEN_SCENARIOS.lockbox.find((s) => s.name === `ask_${id}`);
+    assert.deepEqual(devRoute({ hash: sc.hash, debug: true, trail: true }), { lockbox: { ask: id } }, id);
+    for (const part of ['ask', 'a0', 'a1', 'a2']) assert.ok(ids.has(`first.lockbox.${id}.${part}`), `${id}.${part} is in B003`);
+  }
+  const lb = (n) => devRoute({ hash: SCREEN_SCENARIOS.lockbox.find((s) => s.name === n).hash, debug: true, trail: true });
+  assert.deepEqual([lb('first'), lb('q2'), lb('q3'), lb('open3'), lb('open0')], [{ first: true }, { lockbox: { q: 2 } }, { lockbox: { q: 3 } }, { lockbox: { open: 3 } }, { lockbox: { open: 0 } }]);
+  // The cabin's alt Look: every alt line of B002's on the cabin is one some alt scenario's scene says.
+  const said = new Set();
+  for (const s of SCREEN_SCENARIOS.home.filter((x) => (x.steps || []).includes('alt'))) {
+    const { hour, sky, moon } = devRoute({ hash: s.hash, debug: true, trail: true }).home;
+    for (const id of cabinAlt({ hour, sky: sky === 'fog' ? 'clear' : sky, fog: sky === 'fog', moonShown: moon !== null })) said.add(id);
+  }
+  const altLines = b002.filter((l) => l.screen === 'home' && l.id.startsWith('alt.')).map((l) => l.id);
+  assert.ok(altLines.length >= 12);
+  assert.deepEqual(altLines.filter((id) => !said.has(id)), [], 'every alt line is said in some scenario');
+  // Each Look and a place not open yet, where the cabin draws them.
+  const places = loadCabin().places;
+  const tapped = SCREEN_SCENARIOS.home.flatMap((s) => (s.steps || []).filter((st) => st.startsWith('place:')).map((st) => st.slice(6)));
+  const looks = Object.keys(places).filter((k) => places[k].kind === 'look');
+  for (const k of looks) assert.ok(tapped.includes(k) && b002.some((l) => l.id === `look.${k}`), `${k}: its Look is tapped and in B002`);
+  assert.ok(tapped.some((k) => places[k].kind === 'place' && !['next', 'mailbox'].includes(places[k].opens)), 'a place not open yet (home.soon)');
+  assert.deepEqual(SCREEN_SCENARIOS.mailbox.map((s) => [s.steps, s.store]), [[['menu'], undefined], [['menu'], { text: 'plain' }]], 'the mailbox in each text mode');
+  assert.deepEqual(SCREEN_SCENARIOS.title.map((s) => [s.page, s.block]), [['/preview/', ['data/rules.json']]], 'the loading art, the game held back');
 });
 
 test("a batch's scenarios and badges: each screen's scenarios in order, each line badged once where it first shows, numbered by its place in the batch", () => {

@@ -12,7 +12,9 @@ import { SECTIONS } from '../../tools/scope.mjs';
 import { B_SECTIONS, stripWords } from '../../tools/sections.mjs';
 import { canon } from '../../web/js/engine/canon.js';
 
-const B = ['conditions', 'permits', 'daylight', 'climate', 'sun', 'kits', 'quiz', 'items', 'foods', 'stores', 'drives'];
+const B = ['conditions', 'permits', 'daylight', 'climate', 'sun', 'kits', 'quiz', 'items', 'foods', 'stores', 'drives', 'home'];
+/** S7 ships the cabin's sections with the home, and the quiz with the lockbox; the rest still ship with nothing. */
+const SHIPS_S7 = { climate: ['home'], sun: ['home'], home: ['home'], quiz: ['lockbox'] };
 
 test('every B section is registered, compiles with no problem, and carries no words', () => {
   assert.deepEqual(Object.keys(B_SECTIONS).sort(), [...B].sort());
@@ -31,14 +33,16 @@ test('every B section is registered, compiles with no problem, and carries no wo
   assert.deepEqual(stripWords({ a: 1, doc: 'x', b: [{ evidence: 'y', c: 2 }] }), { a: 1, b: [{ c: 2 }] });
 });
 
-test("none ships in S4: neither channel's rules.json gains a B section; each ships with its screen", () => {
+test("none ships before its screen: neither channel's rules.json gains a B section without it (S7: the home's three and the lockbox's quiz ship with their screens); each ships with its screen", () => {
   for (const screens of [['app', 'debug', 'title'], ['app', 'debug', 'guestbook', 'title', 'trail']]) {
     const { rules } = compileContent({ screens });
     for (const s of B) assert.ok(!(s in rules), `${s} stays out of ${screens.join(' ')}`);
   }
-  // In S4 their ships lists are empty: each gains its screen in the session that builds it.
+  const { rules: home } = compileContent({ screens: ['app', 'home', 'lockbox'] });
+  for (const s of B) assert.equal(s in home, s in SHIPS_S7, `${s} with the home and the lockbox`);
+  // Their ships lists: empty until the session that builds their screen (S7: the cabin's and the quiz).
   const scope = readSources(ROOT).find((x) => x.file === 'content/scope/m1a.json');
-  for (const s of B) assert.deepEqual(JSON.parse(scope.src).ships[s], [], s);
+  for (const s of B) assert.deepEqual(JSON.parse(scope.src).ships[s], SHIPS_S7[s] || [], s);
   // A scope whose ships list names a section's screen ships it to a channel with that screen.
   const shipped = JSON.parse(scope.src);
   for (const s of B) shipped.ships[s] = [SECTIONS[s].screen];

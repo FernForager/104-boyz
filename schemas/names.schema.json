@@ -20,7 +20,7 @@
     "type": "object",
     "required": ["text", "kind", "source"],
     "additionalProperties": false,
-    "properties": { "text": { "$ref": "#/$defs/words" }, "kind": { "enum": ["species", "nws", "term"] }, "source": { "$ref": "#/$defs/url" } }
+    "properties": { "text": { "$ref": "#/$defs/words" }, "kind": { "enum": ["species", "nws", "term", "given"] }, "source": { "$ref": "#/$defs/url" } }
    }
   }
  },

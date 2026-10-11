@@ -31,6 +31,7 @@
   "h": { "width": 2, "samples": ["4", "11", "12"], "$comment": "A clock time's hour, 1 to 12 (fmt.clock_am, fmt.clock_pm)" },
   "mm": { "width": 2, "samples": ["05", "26", "59"], "$comment": "A clock time's minutes, two digits" },
   "m": { "width": 3, "samples": ["20", "10", "120"], "$comment": "A span's minutes (fmt.min): an outcome's extra time, under 1,000" },
+  "q": { "width": 1, "samples": ["1", "2", "3"], "$comment": "The lockbox's question number, 1 to 3 (phases/lockbox.js: the deal is three)" },
   "delta": { "width": 7, "samples": ["20 min", "10 min", "120 min"], "$comment": "A span as fmt.min words it, in a pencil row" }
  },
  "placeholders": {}

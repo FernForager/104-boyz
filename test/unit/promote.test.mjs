@@ -14,7 +14,9 @@ import { existsSync, mkdtempSync, readFileSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { deflateSync } from 'node:zlib';
-import { liveEnv, unstamp, diffFiles, splitReach, colorsOf, screensOf, wordRows, wordDiff, problemsOf, liveCheck, decodePNG, shrink, sideBySide, summaryText, dryRun, DEFAULT_REF, LIVE_URL, LISTS } from '../../tools/promote.mjs';
+import { liveEnv, unstamp, diffFiles, splitReach, colorsOf, screensOf, wordRows, wordDiff, problemsOf, liveCheck, decodePNG, shrink, sideBySide, summaryText, dryRun, screensNeed, screensText, DEFAULT_REF, LIVE_URL, LISTS } from '../../tools/promote.mjs';
+import { readText } from '../../tools/text.mjs';
+import { spawnSync } from 'node:child_process';
 import { stampWorker, SW_STAMP } from '../../tools/build.mjs';
 import { encodePNG, crc32 } from '../../tools/png.mjs';
 import { PALETTE } from '../../web/js/gfx/palette.js';
@@ -259,4 +261,31 @@ test('the tool only dry-runs: without --dry-run it says who promotes, and exits 
   assert.ok(err);
   assert.equal(/** @type {any} */ (err).status, 2);
   assert.match(String(/** @type {any} */ (err).stderr), /only --dry-run: main is promoted by the lead/);
+});
+
+test("--screens (S7 D10): the cabin's promotion (home, lockbox, guestbook, mailbox) needs exactly B002 and B003 answered, every one of their lines and nothing else", () => {
+  const r = screensNeed({ screens: ['home', 'lockbox', 'guestbook', 'mailbox'] });
+  assert.deepEqual(r.screens, ['app', 'debug', 'guestbook', 'home', 'lockbox', 'mailbox', 'title']);
+  assert.deepEqual(Object.keys(r.needs), ['B002', 'B003']);
+  assert.deepEqual(r.unbatched, []);
+  const batches = readText(ROOT).batches.batches;
+  for (const b of ['B002', 'B003']) assert.deepEqual([...r.needs[b]].sort(), Object.keys(batches[b].lines).sort(), `${b}: all of it, and only it`);
+  assert.equal(r.count, 100, 'B002 39 and B003 61');
+  // The title page's words retire with the promotion (preview's off list), and the dev lines stay off main.
+  for (const id of ['title.tagline', 'title.begin', 'title.begin_note', 'title.start_label', 'dev.sky', 'dev.hour.dawn']) assert.ok(!r.reach.includes(id), id);
+  // The cover's description comes back: B002 asks for it as the loading art's.
+  assert.ok(r.reach.includes('alt.cover_high_divide_dusk'));
+  // No trail line: the cabin's modules reach none (the module-graph test in home.test.mjs), and no trail screen comes along.
+  assert.ok(!r.reach.some((id) => /^trail\.(?:deer_lake_rim|walk_on|toolbar|odds|why\.title|compass|outcome|pencil)/.test(id)));
+  const text = screensText(r);
+  assert.match(text[0], /would reach \d+ lines; 100 of them aren't approved/);
+  assert.match(text.at(-1), /the promotion needs B002 and B003 answered/);
+  // Main itself is unchanged: the dry run is in memory, and a screen this build lacks is refused.
+  assert.deepEqual(readText(ROOT).scope.main.screens, ['app', 'debug', 'title']);
+  assert.throws(() => screensNeed({ screens: ['plan'] }), /screens this build doesn't have: plan/);
+  assert.throws(() => screensNeed({ screens: [] }), /no screen/);
+  const cli = spawnSync(process.execPath, [join(ROOT, 'tools', 'promote.mjs'), '--dry-run', '--screens', 'home,lockbox,guestbook,mailbox'], { encoding: 'utf8' });
+  assert.equal(cli.status, 0, cli.stderr);
+  assert.match(cli.stdout, /B002: 39 line\(s\)/);
+  assert.match(cli.stdout, /B003: 61 line\(s\)/);
 });

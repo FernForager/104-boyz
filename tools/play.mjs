@@ -56,6 +56,7 @@ import { ROOT } from './pics.mjs';
 import { rulesHash } from './rules.mjs';
 import { loadContent } from '../web/js/engine/content.js';
 import { newSession, dispatch, screenOf, fromLogAction } from '../web/js/engine/step.js';
+import { lockboxActs } from '../web/js/engine/selfcheck.js';
 import { replay, asLog, tripHash } from '../web/js/engine/replay.js';
 import { isEngineError } from '../web/js/engine/error.js';
 import { setBundle, t } from '../web/js/text.js';
@@ -173,7 +174,9 @@ export function screenWords(screen, words) {
     const ref = c.label || (UI_LABELS[/** @type {'next' | 'sign'} */ (c.act.t)] ? { id: UI_LABELS[/** @type {'next' | 'sign'} */ (c.act.t)] } : null);
     return `${ref ? say(ref, words) : c.act.t}${c.enabled ? '' : ' (not now)'}`;
   });
-  return { phase: screen.phase, stop: screen.stop ? `${screen.stop.set}.${screen.stop.id}` : null, n: screen.stop ? screen.stop.n : null, lines, choices, auto: screen.auto ? spell(screen.auto) : null, input: screen.input ? screen.input.kind : null };
+  // Home's next step (S7): its line, and the act a tap on it dispatches.
+  const next = screen.next ? `${say({ id: `home.next.${screen.next.id}` }, words)}${screen.next.act ? ` (${spell(screen.next.act)})` : ' (not now)'}` : null;
+  return { phase: screen.phase, stop: screen.stop ? `${screen.stop.set}.${screen.stop.id}` : null, n: screen.stop ? screen.stop.n : null, lines, choices, next, input: screen.input ? screen.input.kind : null };
 }
 
 /**
@@ -185,6 +188,8 @@ export function spell(a) {
   if (a.t === 'choose') return `choose ${a.c}`;
   if (a.t === 'wait') return `wait ${a.s}`;
   if (a.t === 'start') return `start ${a.plan}${a.seed ? ` ${a.seed}` : ''}`;
+  if (a.t === 'deal') return `deal${a.seed ? ` ${a.seed}` : ''}`;
+  if (a.t === 'answer') return `answer ${a.a}`;
   return a.t;
 }
 
@@ -200,7 +205,7 @@ export function transcriptText(steps) {
     for (const l of screen.lines) out.push(`  ${l.replace(/\n/g, '\n  ')}`);
     for (const c of screen.choices) out.push(`  * ${c}`);
     if (screen.input) out.push(`  (a ${screen.input} field)`);
-    if (screen.auto) out.push(`  (auto: ${screen.auto})`);
+    if (screen.next) out.push(`  > ${screen.next}`);
   }
   return out.join('\n');
 }
@@ -442,8 +447,10 @@ export function replayReport({ reportPath, root = ROOT, keep = false, freeze = n
 }
 
 /**
- * A trip on a built channel, by a bot: sign as {HIKER}, the home screen's
- * auto start with the seed, then the bot until the trip ends.
+ * A trip on a built channel, by a bot: the lockbox (S7: deal with the
+ * seed, answer 0 each time, Take the key), sign as {HIKER}, the home
+ * screen's next step (S7: its act) with the seed, then the bot until the
+ * trip ends.
  * @param {{dist: string, seed?: string, bot?: string}} o
  */
 export function playTrip({ dist, seed = 'K7QM2Q9F', bot = 'first' }) {
@@ -462,9 +469,10 @@ export function playTrip({ dist, seed = 'K7QM2Q9F', bot = 'first' }) {
     screen = r.screen;
     steps.push({ action: spell(a), screen: screenWords(screen, words) });
   };
+  for (const a of lockboxActs(seed, content)) go(a);
   go({ t: 'sign', name: HIKER_TOKEN, id: `h${seed}` });
-  if (!screen.auto) throw new PlayError(2, `play: the ${version.channel} build has no plan to play (its scope has no trail screen yet)`);
-  go({ ...screen.auto, seed });
+  if (!(screen.next && screen.next.act)) throw new PlayError(2, `play: the ${version.channel} build has no plan to play (its scope has no trail screen yet)`);
+  go({ ...screen.next.act, seed });
   for (let n = 0; n < MAX_ACTIONS && !session.state.trip.end; n++) {
     const a = pick(screen, gen);
     if (!a) break;

@@ -1,7 +1,23 @@
 {
- "$comment": "Real-world terms a line carries (GAME_DESIGN 18.2; BUILD_PLAN 10.2, S4): species, NWS words and the like. Not ours, no approval, vetoable; each with its source. Terms arrive with the screens that show them: S4's are the two the lockbox's quiz names.",
+ "$comment": "Real-world terms a line carries (GAME_DESIGN 18.2; BUILD_PLAN 10.2, S4): species, NWS words and the like. Not ours, no approval, vetoable; each with its source. Terms arrive with the screens that show them: S4's are the two the lockbox's quiz names. S7 adds the guest book's Suggest names (lead call 64): 16 real given names, kind given, from the US Social Security Administration's national baby-name data (public domain), each found in its yearly top-1000 lists (1880 to 2008) before filing; never the name of anyone the game knows. They are given names, and nine are also common surnames (Avery, Casey, Drew, Jordan, Quinn, Reese, Riley, Rowan and Taylor): B003's not-ours tail asks the creator to veto any that is a friend's surname. Suggest shows them as they are (12.4): not ours, yours to veto.",
  "terms": {
   "canada_jay": { "text": "Canada jay", "kind": "species", "source": "https://en.wikipedia.org/wiki/Canada_jay" },
-  "geoduck": { "text": "geoduck", "kind": "species", "source": "https://en.wikipedia.org/wiki/Geoduck" }
+  "geoduck": { "text": "geoduck", "kind": "species", "source": "https://en.wikipedia.org/wiki/Geoduck" },
+  "given_avery": { "text": "Avery", "kind": "given", "source": "https://www.ssa.gov/oact/babynames/limits.html" },
+  "given_casey": { "text": "Casey", "kind": "given", "source": "https://www.ssa.gov/oact/babynames/limits.html" },
+  "given_drew": { "text": "Drew", "kind": "given", "source": "https://www.ssa.gov/oact/babynames/limits.html" },
+  "given_jamie": { "text": "Jamie", "kind": "given", "source": "https://www.ssa.gov/oact/babynames/limits.html" },
+  "given_jo": { "text": "Jo", "kind": "given", "source": "https://www.ssa.gov/oact/babynames/limits.html" },
+  "given_jordan": { "text": "Jordan", "kind": "given", "source": "https://www.ssa.gov/oact/babynames/limits.html" },
+  "given_kai": { "text": "Kai", "kind": "given", "source": "https://www.ssa.gov/oact/babynames/limits.html" },
+  "given_quinn": { "text": "Quinn", "kind": "given", "source": "https://www.ssa.gov/oact/babynames/limits.html" },
+  "given_reese": { "text": "Reese", "kind": "given", "source": "https://www.ssa.gov/oact/babynames/limits.html" },
+  "given_riley": { "text": "Riley", "kind": "given", "source": "https://www.ssa.gov/oact/babynames/limits.html" },
+  "given_river": { "text": "River", "kind": "given", "source": "https://www.ssa.gov/oact/babynames/limits.html" },
+  "given_robin": { "text": "Robin", "kind": "given", "source": "https://www.ssa.gov/oact/babynames/limits.html" },
+  "given_rowan": { "text": "Rowan", "kind": "given", "source": "https://www.ssa.gov/oact/babynames/limits.html" },
+  "given_sam": { "text": "Sam", "kind": "given", "source": "https://www.ssa.gov/oact/babynames/limits.html" },
+  "given_sky": { "text": "Sky", "kind": "given", "source": "https://www.ssa.gov/oact/babynames/limits.html" },
+  "given_taylor": { "text": "Taylor", "kind": "given", "source": "https://www.ssa.gov/oact/babynames/limits.html" }
  }
 }

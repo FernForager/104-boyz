@@ -147,7 +147,12 @@ test('every CSS transition and animation sits inside @media (prefers-reduced-mot
   assert.ok(declarations('.x { transition: opacity 1s; }').some((d) => d.prop === 'transition' && !d.media.length));
 });
 
-test('the screenshots run with Reduce Motion on (tools/shots.mjs), so the draw-in is instant and the compass is shot at rest', () => {
+test('the screenshots run with Reduce Motion on (tools/shots.mjs), so the draw-in is instant and the compass is shot at rest', async () => {
   const src = read('tools', 'shots.mjs');
-  assert.match(src, /reducedMotion: 'reduce',/);
+  // Rewritten in S7 (track C): one scenario may turn it off (the s7 set's first_drawin, a picture part way
+  // through the cabin's draw-in); every other scenario of every set and batch keeps it on.
+  assert.match(src, /reducedMotion: sc\.motion \? 'no-preference' : 'reduce',/);
+  const { SETS, SCREEN_SCENARIOS } = await import('../../tools/shots.mjs');
+  const moving = [...Object.entries(SETS), ...Object.entries(SCREEN_SCENARIOS)].flatMap(([k, list]) => list.filter((sc) => sc.motion).map((sc) => `${k}:${sc.name}`));
+  assert.deepEqual(moving, ['s7:first_drawin']);
 });

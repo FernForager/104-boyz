@@ -14,12 +14,24 @@
 // the park (the router times its walks: graph() builds its graph once, a
 // closure cache like the expressions', never state) and the odds
 // (rules.odds, content/rules/odds.json; odds() hands them over, and
-// oddsVoice() their row labels from voice.json).
+// oddsVoice() their row labels from voice.json). From S7 a build with the
+// home screen ships the home section (rules.home: the cabin's next-step
+// table, content/home/cabin.json next; home() hands it to
+// phases/home.js), and the sun table and the climate the cabin's live
+// scene reads (section('sun'), section('climate'): rules data, so the
+// phone and Node agree, but read only by the UI, platform/now.js). A build
+// with the lockbox ships the quiz (rules.quiz: the deal, its rules and each
+// question's answers count and right one; quiz() hands it to
+// phases/lockbox.js) and its words (voice.quiz: each question's ask and
+// answers and the two replies, by line id; quizVoice()).
 
 import { EngineError } from './error.js';
 import { deepFreeze } from './canon.js';
 import { compile } from './expr.js';
 import { buildGraph } from './graph.js';
+
+/** The data sections section() hands over (tools/scope.mjs SECTIONS, and the home's). */
+export const SECTION_NAMES = Object.freeze(['park', 'odds', 'conditions', 'permits', 'daylight', 'climate', 'sun', 'kits', 'quiz', 'items', 'foods', 'stores', 'drives', 'home']);
 
 /** The rules hash: 12 lowercase hex (tools/rules.mjs). */
 export const RULES_HASH_RE = /^[0-9a-f]{12}$/;
@@ -40,6 +52,10 @@ export const RULES_HASH_RE = /^[0-9a-f]{12}$/;
  * @property {() => import('./graph.js').Graph | null} graph the park's graph, built once (S6), or null with no park
  * @property {() => import('./odds.js').OddsConstants | null} odds the odds section (rules.odds, S6), or null
  * @property {() => import('./odds.js').OddsLabels | null} oddsVoice the odds' row labels (voice.odds, S6), or null
+ * @property {() => {format: number, next: {id: string, when?: string, act?: string, lands: string}[]} | null} home the home section (rules.home, S7): the next-step table, or null
+ * @property {(name: string) => any} section a shipped data section by name (rules.sun, rules.climate, ...), or null
+ * @property {() => import('./phases/lockbox.js').Quiz | null} quiz the lockbox's quiz (rules.quiz, S7), or null
+ * @property {() => {right: string, wrong: string, questions: Record<string, {ask: string, answers: string[]}>} | null} quizVoice its words (voice.quiz, S7), or null
  */
 
 const own = (/** @type {any} */ o, /** @type {string} */ k) => o !== null && typeof o === 'object' && Object.prototype.hasOwnProperty.call(o, k);
@@ -81,6 +97,14 @@ export function loadContent({ rules, voice, rulesHash }) {
     if (!ok) throw new EngineError('format', 'content: rules.odds is not the odds, format 1');
   }
   const oddsVoice = own(voice, 'odds') ? voice.odds : null;
+  const quiz = own(rules, 'quiz') ? rules.quiz : null;
+  if (quiz !== null) {
+    const ok = quiz && quiz.format === 1 && Number.isSafeInteger(quiz.deal) && quiz.deal >= 0 && Array.isArray(quiz.questions) && quiz.questions.every((/** @type {any} */ q) => q && typeof q.id === 'string' && Number.isSafeInteger(q.answers) && q.answers > 0 && Number.isSafeInteger(q.right) && q.right >= 0 && q.right < q.answers);
+    if (!ok) throw new EngineError('format', 'content: rules.quiz is not the quiz, format 1');
+  }
+  const quizVoice = own(voice, 'quiz') ? voice.quiz : null;
+  const home = own(rules, 'home') ? rules.home : null;
+  if (home !== null && !(home && home.format === 1 && Array.isArray(home.next))) throw new EngineError('format', 'content: rules.home is not the home section, format 1');
   /** @type {import('./graph.js').Graph | null} */
   let graph = null;
   const planIds = Object.keys(plans).sort((a, b) => (a < b ? -1 : a > b ? 1 : 0));
@@ -107,6 +131,10 @@ export function loadContent({ rules, voice, rulesHash }) {
     },
     odds: () => odds,
     oddsVoice: () => oddsVoice,
+    home: () => home,
+    quiz: () => quiz,
+    quizVoice: () => quizVoice,
+    section: (/** @type {string} */ name) => (SECTION_NAMES.includes(name) && own(rules, name) ? rules[name] : null),
     expr: (/** @type {any[]} */ ast) => {
       let f = cache.get(ast);
       if (!f) {

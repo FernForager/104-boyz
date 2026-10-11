@@ -1,6 +1,6 @@
 // The words each channel ships (BUILD_PLAN 6.6; GAME_DESIGN 18.11): main's
 // page carries no English but the approved name and B001's lines; preview
-// carries Session 1's words, marked as drafts.
+// carries every line's working words, the drafts marked (S7: its loading page is the cover under the name).
 
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
@@ -86,9 +86,13 @@ test("main's manifest and bundle hold approved words only, and pass the gate", (
   assert.deepEqual(checkMainBuild({ html, manifest, words, text, build: id, reach }), []);
 });
 
-test('preview carries the working words, Session 1 marked as drafts', () => {
+test("preview carries the working words; its loading page is the cover under the name, the title page's words retired there (S7 D9)", () => {
   const { html, manifest, read, id } = built.preview;
   const strings = pageStrings(html).map((s) => [s.where, s.s]);
+  // S7 (D9): channels.preview.off removes the tagline and the Begin button
+  // (its words and its note) from preview's page, and the shelf's name falls
+  // back to app.name, as on main; what's left is main's page with preview's
+  // name and the cover's description.
   const expected = [
     ['meta apple-mobile-web-app-title', 'OP Preview'],
     ['meta description', 'A backpacking adventure'],
@@ -96,22 +100,17 @@ test('preview carries the working words, Session 1 marked as drafts', () => {
     ['aria-label', 'The High Divide at dusk. Across the Hoh valley, Mount Olympus glows pink in the last light, under the first stars. A hiker in a rust jacket walks the crest trail among subalpine firs and pink heather.'],
     ['text', 'Olympic Peninsula'],
     ['text', 'Hiker'],
-    ['text', 'a picture-book trip'],
-    ['aria-label', 'Bookshelf'],
-    ['text', 'Begin a new book'],
-    ['text', 'The trail opens soon.'],
-    ...mainGolden(id).slice(6),
+    ...mainGolden(id).slice(5),
   ];
   assert.deepEqual(strings, expected);
+  assert.ok(!/tagline|choice-label|choice-note|id="begin"|data-t="title\./.test(html), 'no tagline, no Begin button, no title words on the page');
+  assert.match(html, /<canvas class="picture" id="cover" width="160" height="320" data-t-img="alt\.cover_high_divide_dusk" role="img" aria-label="The High Divide at dusk\./, 'the cover draws in as the loading art, described');
+  assert.match(html, /<section class="shelf" id="shelf" data-t-attr="aria-label:title\.start_label\|app\.name" aria-label="Olympic Peninsula Hiker">/, "the shelf's name falls back to app.name");
   const marked = [];
   walk(parseHtml(html), (n) => {
     if (n.type === 'element' && getAttr(n, 'data-t-state')) marked.push([getAttr(n, 'data-t'), getAttr(n, 'data-t-state')]);
   });
-  assert.deepEqual(marked, [
-    ['title.tagline', 'draft'],
-    ['title.begin', 'draft'],
-    ['title.begin_note', 'draft'],
-  ]);
+  assert.deepEqual(marked, [], 'no draft on the loading page (the three it marked were the title page\'s)');
   const m = JSON.parse(manifest);
   assert.deepEqual([m.name, m.short_name, m.description], ['OP Preview', 'OP Preview', 'A backpacking adventure']);
   const words = JSON.parse(read('text/en.json'));
@@ -128,7 +127,15 @@ test('preview carries the working words, Session 1 marked as drafts', () => {
   // places its Why sheet and pencil rows name (Heart Lake, Lunch Lake) were shipped already, as drawable places.
   // S6 (track C) adds 29: the Looks, their names and group, the alt text's parts (B006) and the ▾'s name.
   // S6's review adds the #frame check view's two fixture names (dev.fixture.three and .four).
-  assert.equal(Object.keys(words).length, 237);
+  // S7 (track B) adds the cabin's 28 drafts (B002: content/text/en/home.json's 15, the tub's and the
+  // register post's Looks and names, the cabin's nine alt parts) and seven dev lines (dawn, the sky
+  // control and its five). The title page's four stay in preview's bundle (it holds every line) and
+  // stay defined for main's page until the cabin's promotion; preview's page no longer shows them.
+  // S7 (track C) adds B003's eight (the lockbox's own six, the guest book's label and Suggest) and
+  // Suggest's sixteen given names (term.given_*, not ours: voice.json's given, with the guest book).
+  assert.equal(Object.keys(words).length, 296);
+  assert.equal(Object.keys(words).filter((k) => k.startsWith('term.given_')).length, 16);
+  for (const k of ['title.tagline', 'title.begin', 'title.begin_note', 'title.start_label']) assert.equal(typeof words[k], 'string', k);
   assert.equal(words['dev.inspect.copy'], 'Copy for chat');
   assert.equal(words['dev.audio.render'], 'Render 10 s of this scene');
   assert.equal(words['dev.audio.result'], 'Sound: peak {peak} dBFS · {lufs} LUFS · dsp {dsp}');
@@ -143,17 +150,27 @@ test('preview carries the working words, Session 1 marked as drafts', () => {
   assert.ok(!('place.c_b_flats_group_site' in words), 'nor a place the composer has no picture for yet');
   assert.equal(words['place.lunch_lake'], 'Lunch Lake');
   assert.equal(words['dev.map'], 'Map');
-  const lockbox = Object.keys(words).filter((k) => k.startsWith('first.lockbox.'));
-  assert.equal(lockbox.length, 50);
   const marks = JSON.parse(read('text/marks.json'));
+  // Re-pinned in S7 (track C): B002 is the cabin's 39 (its 28 new, the ten S7 moved from B004 to B006, and the
+  // cover's description, held until now), each marked; the buckets below are what is left of S4 to S6's.
+  const b002 = Object.keys(readText(ROOT).batches.batches.B002.lines);
+  assert.equal(b002.length, 39, "the cabin's 39");
+  for (const k of b002) {
+    assert.equal(typeof words[k], 'string', `${k}: preview ships its working words`);
+    assert.equal(marks[k], 'draft', k);
+    delete marks[k];
+  }
+  // The lockbox's 56: S4's quiz pool (50) and S7's own six (B003).
+  const lockbox = Object.keys(words).filter((k) => k.startsWith('first.lockbox.'));
+  assert.equal(lockbox.length, 56);
   for (const k of lockbox) {
     assert.equal(marks[k], 'draft', k);
     delete marks[k];
   }
-  // S6's drafts (B004's 17 and B005's 35), each marked; the four with no words are never marked.
+  // S6's drafts (B004's 17 and B005's 35), each marked; the four with no words are never marked; the two clock formats are B002's now.
   const s6 = JSON.parse(read('text/en.json'));
-  const fork = Object.keys(s6).filter((k) => /^trail\.(?:deer_lake_rim\.fork|odds|confirm|why|compass|band|outcome|pencil)\b|^trail\.next$|^fmt\.(?:mi|clock_am|clock_pm|min)$/.test(k));
-  assert.equal(fork.length, 54, "the fork's 56 new ids but the two percentage formats: 52 drafts, and the fail share's and the confirm's, which hold no words");
+  const fork = Object.keys(s6).filter((k) => !b002.includes(k) && /^trail\.(?:deer_lake_rim\.fork|odds|confirm|why|compass|band|outcome|pencil)\b|^trail\.next$|^fmt\.(?:mi|clock_am|clock_pm|min)$/.test(k));
+  assert.equal(fork.length, 51, "the fork's 56 new ids but the two percentage formats and the three B002 took (the clock formats, the sheet's Close): 49 drafts, and the fail share's and the confirm's, which hold no words");
   for (const k of fork) {
     if (['trail.odds.fail', 'trail.confirm.ask'].includes(k)) {
       assert.equal(marks[k], undefined, `${k}: no words, no mark`);
@@ -163,18 +180,19 @@ test('preview carries the working words, Session 1 marked as drafts', () => {
     delete marks[k];
   }
   assert.deepEqual([marks['fmt.pct'], marks['fmt.pct_under']], [undefined, undefined], 'the percentage formats hold no words');
-  // S6 track C's drafts (B006's 28 and B005's ▾), each marked.
-  const pictures = Object.keys(s6).filter((k) => /^look\.|^alt\.(?:base|skyline|scene|sprite|hour)\.|^trail\.(?:look\.group|box\.more)$/.test(k));
-  assert.equal(pictures.length, 29, 'the Looks, their names and group, the alt parts and the ▾');
+  // S6 track C's drafts (B006's 25 left, its hour words and the ▾ now B002's), each marked.
+  const pictures = Object.keys(s6).filter((k) => !b002.includes(k) && /^look\.|^alt\.(?:base|skyline|scene|sprite|hour)\.|^trail\.(?:look\.group|box\.more)$/.test(k));
+  assert.equal(pictures.length, 25, 'the Looks, their names and group, the alt parts');
   for (const k of pictures) {
     assert.equal(marks[k], 'draft', k);
     delete marks[k];
   }
   assert.deepEqual(marks, {
-    'alt.cover_high_divide_dusk': 'draft',
+    'first.guestbook.label': 'draft',
     'first.guestbook.one_life': 'draft',
     'first.guestbook.prompt': 'draft',
     'first.guestbook.sign': 'draft',
+    'first.guestbook.suggest': 'draft',
     'fmt.ft': 'draft',
     'fmt.mile_marker': 'draft',
     'title.begin': 'draft',
@@ -187,9 +205,6 @@ test('preview carries the working words, Session 1 marked as drafts', () => {
     'trail.deer_lake_rim.rim': 'draft',
     'trail.sol_duc_trailhead.lot': 'draft',
     'trail.sol_duc_trailhead.trail_mouth': 'draft',
-    'trail.status.menu': 'draft',
-    'trail.status.sound_off': 'draft',
-    'trail.status.sound_on': 'draft',
     'trail.toolbar.log': 'draft',
     'trail.toolbar.map': 'draft',
     'trail.toolbar.pack': 'draft',
@@ -217,7 +232,9 @@ test("S5's words: the trail frame's 12 drafts (its two number formats among them
     assert.equal(typeof built.preview.words[id], 'string', `${id}: preview ships its working words`);
     assert.ok(!(id in built.main.words), `${id}: not in main's bundle`);
     assert.equal(meta[id].state, 'draft');
-    assert.equal(meta[id].batch, 'B004', `${id}: filed in B004`);
+    // Re-pinned in S7: the status line's three moved to B002, the cabin's batch (the cabin shows them first).
+    const moved = ['trail.status.sound_on', 'trail.status.sound_off', 'trail.status.menu'];
+    assert.equal(meta[id].batch, moved.includes(id) ? 'B002' : 'B004', `${id}: filed in ${moved.includes(id) ? 'B002' : 'B004'}`);
   }
   for (const id of dev) {
     const line = text.lines.get(id);

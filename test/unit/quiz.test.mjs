@@ -56,14 +56,21 @@ test('every ref is a defined line, the words equal the source verbatim, every an
   assert.equal(words(quiz.wrong), 'Nice try, tourist.');
 });
 
-test('the 50 lines are drafts on the lockbox screen, which waits for S7, with no braces (T13)', () => {
-  const ids = [...text.lines.keys()].filter((id) => id.startsWith('first.lockbox.'));
+test('the 50 lines are drafts on the lockbox screen, which S7 builds on preview, with no braces (T13); S7 adds the lockbox\'s own six, only its count a template', () => {
+  // Re-pinned in S7: the quiz's 50 and the lockbox's own six (Open the lockbox, the intro, the count, the two closings, Take the key).
+  const OWN = ['first.lockbox.start', 'first.lockbox.intro', 'first.lockbox.count', 'first.lockbox.all_right', 'first.lockbox.come_in', 'first.lockbox.take_key'];
+  const all = [...text.lines.keys()].filter((id) => id.startsWith('first.lockbox.'));
+  assert.equal(all.length, 56);
+  assert.deepEqual(all.filter((id) => OWN.includes(id)), OWN);
+  const ids = all.filter((id) => !OWN.includes(id));
   assert.equal(ids.length, 50);
-  for (const id of ids) {
+  for (const id of all) {
     const l = text.lines.get(id);
     assert.deepEqual([l.screen, l.class, stateOf(id, text)], ['lockbox', 'ours', 'draft'], id);
-    assert.ok(!/[{}]/.test(l.text), id);
+    if (id !== 'first.lockbox.count') assert.ok(!/[{}]/.test(l.text), id);
   }
-  assert.ok(!text.scope.screens.includes('lockbox'), 'the lockbox screen is S7\'s');
+  assert.equal(text.lines.get('first.lockbox.count').text, 'Question {q} of 3.', 'its {q} is the engine\'s (phases/lockbox.js), 1 to 3');
+  // S7 builds the lockbox screen, on preview only.
+  assert.ok(text.scope.screens.includes('lockbox'), 'the lockbox screen is S7\'s, and S7 is here');
   assert.ok(!text.scope.main.screens.includes('lockbox'));
 });

@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { parsePic, compilePic, renderPic, composite, hashBytes, TRANSPARENT, LAYERS } from '../../web/js/gfx/picvm.js';
+import { parsePic, compilePic, renderPic, composite, hashBytes, TRANSPARENT, LAYERS, MAX_COLOR } from '../../web/js/gfx/picvm.js';
 import { buildTimeline, frameAt } from '../../web/js/gfx/drawin.js';
 import { loadArt } from '../../tools/pics.mjs';
 
@@ -153,7 +153,9 @@ test('hotspots are recorded and draw nothing', () => {
 });
 
 test('bad commands, colors and patterns are parse errors with line numbers', () => {
-  const { errors } = parsePic('C 3\nX 1,2\nC 26\nD 1 2 plaid\n@ attic\nB blob 2\nL 1,2,3');
+  // S7 moved the last color from 25 to 29 (the cabin's spill and smoke), so the first bad color is 30; a
+  // pseudo-color in range that the palette doesn't define (26, 27) is lint P01's (lint.test.mjs).
+  const { errors } = parsePic('C 3\nX 1,2\nC 30\nD 1 2 plaid\n@ attic\nB blob 2\nL 1,2,3');
   assert.deepEqual(
     errors.map((e) => e.line),
     [2, 3, 4, 5, 6, 7],
@@ -179,4 +181,12 @@ test('the draw-in log replays to the finished picture', () => {
   assert.ok(early.some((v) => v !== T), 'outlines show early');
   assert.ok(early.filter((v) => v !== T).length < N / 10, 'fills have not flooded in yet');
   assert.equal(hashBytes(frameAt(tl, 1)), hashBytes(composite(r)));
+});
+
+test('S7: colors run to 29, the cabin\'s spill (28) and smoke (29), and no further', () => {
+  assert.equal(MAX_COLOR, 29);
+  assert.deepEqual(parsePic('C 28\nC 29\nD 28 29 checker').errors, []);
+  assert.deepEqual(parsePic('C 30').errors.map((e) => e.msg), ['C: "30" is not a color 0-29']);
+  const r = run('@ near  C 28  L 0,0 1,0  C 29  L 0,1 1,1', 2, 2);
+  assert.deepEqual([...composite(r)], [28, 28, 29, 29]);
 });

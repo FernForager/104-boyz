@@ -67,6 +67,7 @@ import { devRoute, devSession, memoryStore, startGame, DEV_HIKER, TAP_GUARD_MS }
 import { initDebug, debugMode, devRegistry, opensTrail } from '../../web/js/ui/debug.js';
 import { runCheck, resetCheck } from '../../web/js/ui/selfcheck.js';
 import { loadContent, newSession, dispatch } from '../../web/js/engine/api.js';
+import { lockboxActs } from '../../web/js/engine/selfcheck.js';
 
 // ---- Builds of both channels ---------------------------------------------
 
@@ -160,6 +161,7 @@ const phone = (width, height, dpr, usable = height) => ({ innerWidth: width, inn
 function stopScreen(n = 0) {
   const c = content();
   let s = newSession(c);
+  for (const a of lockboxActs('K7QM2Q9F', c)) s = dispatch(s, a, c).session;
   s = dispatch(s, { t: 'sign', name: 'Robin', id: 'h00000001' }, c).session;
   let r = dispatch(s, { t: 'start', plan: 'sample', seed: 'K7QM2Q9F' }, c);
   for (let i = 0; i < n; i++) r = dispatch(r.session, { t: 'next' }, c);
@@ -607,7 +609,7 @@ test('a short screen folds the toolbar into ≡: no toolbar row, and Pack, Map a
   }
 });
 
-test('the first trail draw moves the update note and the stamps into ≡ as the same nodes, and five taps on the build code there still open the debug menu; ≡ opens with ui.open', async (t) => {
+test('the update note and the stamps move into the ≡ sheet as the same nodes when the game takes the page (S7: the mailbox; it was the first trail draw), five taps on the build code there still open the debug menu, and ≡ opens with ui.open', async (t) => {
   device(t);
   resetCheck();
   await runCheck({ fetchFn: async () => ({ ok: true, status: 200, json: async () => selfcheckCorpus() }) });
@@ -631,18 +633,30 @@ test('the first trail draw moves the update note and the stamps into ≡ as the 
   let ms = 1000;
   const now = () => ms;
   const sound = fakeSound();
-  const game = await startGame(doc, { fetchFn, now, seed: () => 'K7QM2Q9F', hikerId: () => 'h00000001', sound });
-  // The guest book first: the stamps stay in the footer.
-  assert.equal(doc.querySelector('.game-foot').children.includes(stamps), true);
+  const game = await startGame(doc, { fetchFn, now, seed: () => 'K7QM2Q9F', hikerId: () => 'h00000001', sound, later: () => () => {} });
+  // S7: at the take-over, already on the first launch's lockbox, the update note and the stamps are in the sheet's foot (the mailbox).
+  const foot = game.menu.foot;
+  assert.deepEqual(foot.children, [update, stamps], 'moved, the same nodes');
+  assert.equal(doc.querySelector('.game-foot').children.includes(install), true, 'the install line stays (home.css shows the footer on the cabin only)');
+  // A fresh device opens the lockbox first: Open the lockbox, three answers, Take the key; then the guest book.
+  assert.equal(doc.getElementById('app').getAttribute('data-screen'), 'lockbox');
+  for (const sel of ['.next-step', '.game-choices .choice', '.game-choices .choice', '.game-choices .choice', '.game-choices .choice']) {
+    ms += TAP_GUARD_MS + 1;
+    doc.querySelector(sel).click();
+  }
+  assert.equal(doc.getElementById('app').getAttribute('data-screen'), 'guestbook');
+  assert.deepEqual(foot.children, [update, stamps], 'still the same nodes');
   const field = doc.getElementById('gb-name');
   field.value = 'Robin';
   field.dispatchEvent({ type: 'input', isComposing: false });
   ms += TAP_GUARD_MS + 1;
   doc.querySelector('#gb-sign').click();
+  assert.equal(doc.getElementById('app').getAttribute('data-screen'), 'home', 'the cabin');
+  ms += TAP_GUARD_MS + 1;
+  doc.querySelector('.next-step').click();
   assert.equal(doc.getElementById('app').getAttribute('data-screen'), 'trail');
-  const foot = game.menu.foot;
-  assert.deepEqual(foot.children, [update, stamps], 'moved, the same nodes');
-  assert.equal(doc.querySelector('.game-foot').children.includes(install), true, 'the install line stays (frame.css hides the footer on the trail)');
+  assert.deepEqual(foot.children, [update, stamps], 'still there, the same nodes');
+  sound.played.length = 0;
   // ≡ opens the sheet, with a soft tick.
   doc.querySelector('.status-menu').click();
   assert.equal(game.menu.isOpen(), true);
@@ -653,19 +667,22 @@ test('the first trail draw moves the update note and the stamps into ≡ as the 
   assert.equal(debugMode(), true, 'five taps from inside ≡');
   await new Promise((r) => setTimeout(r, 20));
   assert.ok(doc.querySelector('.debug'), 'the debug menu is built');
-  // Its dev section: hour, then text, then Scenes (preview, with the trail).
+  // Its dev section: hour, then text, then (S7) the cabin's sky, then Scenes (preview, with the trail).
   const dev = doc.querySelector('.debug-dev');
   assert.ok(dev, 'the dev section');
   assert.deepEqual(
     dev.children.map((c) => c.getAttribute('data-dev')),
-    ['hour', 'text', 'scenes', null],
+    ['hour', 'text', 'sky', 'scenes', null],
   );
-  assert.deepEqual(devRegistry(), { controls: ['hour', 'text'], actions: ['scenes'] });
-  // The hour control: auto pressed; dusk keeps "dusk" and draws the stop at dusk.
+  assert.deepEqual(devRegistry(), { controls: ['hour', 'text', 'sky'], actions: ['scenes'] });
+  // The hour control: auto pressed; dusk keeps "dusk" and draws the stop at dusk. S7 adds dawn (the cabin's; the trail draws it with the dusk table).
   const hourButtons = dev.children[0].querySelectorAll('.marks-mode');
-  assert.deepEqual(hourButtons.map((b) => b.getAttribute('data-t')), ['dev.hour.auto', 'dev.hour.day', 'dev.hour.dusk', 'dev.hour.blue', 'dev.hour.night']);
+  assert.deepEqual(hourButtons.map((b) => b.getAttribute('data-t')), ['dev.hour.auto', 'dev.hour.dawn', 'dev.hour.day', 'dev.hour.dusk', 'dev.hour.blue', 'dev.hour.night']);
   assert.equal(hourButtons[0].getAttribute('aria-pressed'), 'true');
-  hourButtons[2].click();
+  hourButtons[1].click();
+  assert.equal(savedHour(), 'dawn');
+  assert.equal(doc.querySelector('.frame').getAttribute('data-hour'), 'dusk', 'dawn on the trail: the dusk table');
+  dev.children[0].querySelectorAll('.marks-mode')[3].click();
   assert.equal(savedHour(), 'dusk');
   assert.equal(doc.querySelector('.frame').getAttribute('data-hour'), 'dusk');
   // Walk on: the cue after the guard; a double tap is silent.

@@ -32,14 +32,14 @@
  },
  "fmt.clock_am": {
   "text": "{h}:{mm} am",
-  "ctx": "A morning clock time, to the nearest minute: 11:05 am",
-  "screen": "trail",
+  "ctx": "A morning clock time, to the nearest minute: the cabin's status line (the lake's time, from S7), then the trail's arrivals: 11:05 am",
+  "screen": "home",
   "max": 8
  },
  "fmt.clock_pm": {
   "text": "{h}:{mm} pm",
-  "ctx": "An afternoon clock time, to the nearest minute: 4:26 pm (noon is 12:00 pm)",
-  "screen": "trail",
+  "ctx": "An afternoon clock time, to the nearest minute: the cabin's status line, then the trail's arrivals: 4:26 pm (noon is 12:00 pm)",
+  "screen": "home",
   "max": 8
  },
  "fmt.min": {

@@ -2,7 +2,7 @@
 
 *Master game design document for `FernForager/104-boyz`. The game's name is **Olympic Peninsula Hiker**, and **OP Hiker** where space is tight, such as the Home Screen label (decision 35). Status: design, with Session 1 of the build shipped: a title page with a chunky-pixel High Divide cover at `ophiker.com`.*
 
-*Written 2026-10-08 and revised the same day for every decision you made, one at a time. Then revised again, the same day, for the new direction (decisions 21 to 35). Revised on 2026-10-09 for decisions 36 to 67 and Lead calls 29 to 46, and on 2026-10-10 for decisions 68 to 70 (a lighter palette, art that scales to the whole park, and the hybrid that does it) and Lead calls 47 to 52 (Session 6's one decision end to end). Your decisions override anything older in this document or the proposals. They are listed, in your words, in [Decisions made](#decisions-made). The engineering calls the lead designer made follow them in [Lead calls](#lead-calls), each yours to overrule. What is still to come from you is in the last section.*
+*Written 2026-10-08 and revised the same day for every decision you made, one at a time. Then revised again, the same day, for the new direction (decisions 21 to 35). Revised on 2026-10-09 for decisions 36 to 67 and Lead calls 29 to 46, and on 2026-10-10 for decisions 68 to 70 (a lighter palette, art that scales to the whole park, and the hybrid that does it), Lead calls 47 to 52 (Session 6's one decision end to end) and Lead calls 53 to 64 (Session 7's cabin, its lockbox and its guest book). Your decisions override anything older in this document or the proposals. They are listed, in your words, in [Decisions made](#decisions-made). The engineering calls the lead designer made follow them in [Lead calls](#lead-calls), each yours to overrule. What is still to come from you is in the last section.*
 
 *The new direction, in one breath. No book framing and no crutches: a game that the people who hike, backpack and run in Olympic National Park can't put down, great on its own merits (decision 22). The frame is backpacking's own stuff: the map, the permit, the town run, the gear flat lay, splits on the trail and a trip report at the end (decision 26). A new hiker starts with an empty shed: the basics are free, and the nice stuff costs money earned at three jobs in Port Angeles, flipping burgers first (decisions 41 and 42; 5.8, 17.17). Home is **Ranger Jon's old ranger cabin at Lake Quinault**, and the places in that scene are the menus (2.2, decision 34). The hot tub is a reward after a big hike. The 104 Boyz and the number 104 are easter eggs for insiders, never needed to enjoy the game.*
 
@@ -249,7 +249,7 @@ Home is **Ranger Jon's old ranger cabin at Lake Quinault**, on the wet southwest
 | **The peak** above the trees | FKT attempts on the big routes | The snow line follows the season; alpenglow at dusk |
 | **The shed** | Your gear, then the flat lay (6.1) | The door open after a town run; a plank sign on its wall for each route you finish |
 | **The car** | Drive: to town, or to the trailhead once packed | Grocery bags on the seat after town; the pack in the back |
-| **The fire bowl** | Stories: your trip reports and photos, and the hiker's card | Lit on homecoming evenings; ashes otherwise; a cap of snow in winter |
+| **The fire bowl** | Stories: your trip reports and photos, and the hiker's card | Ashes by day, embers at night and at the evening's blue hour, lit on homecoming evenings (Lead call 55); a cap of snow in winter |
 | **The register post** at the lawn's edge | The Trail Register (9.8) | A fresh pencil mark when a line is added |
 | **The mailbox** | Settings, Credits, the ranger's reading, Export and Import | The flag goes up when an update arrives |
 | **The hot tub** | The soak, only after a big hike or a winter night dig | Covered and cold otherwise, and then only a Look |
@@ -288,7 +288,8 @@ The cabin runs on Lake Quinault's own clock, the way *Sword & Sworcery* syncs it
 - **The time of day uses the existing remaps** (11.4): Day, Dusk, Blue hour and Night. Dawn borrows the Dusk table, so the peak goes pink in the morning too.
 - **The season follows the art brief's table** (11.11): bare mossy maples in spring, full leaf in summer, sage and cream leaves in autumn, snow in winter when the forecast says snow.
 - **The weather comes from the same scheduled build that bakes the Hike of the Day's forecast** (decision 31). It also bakes one for the lake, from api.weather.gov, which asks every app for a User-Agent ([NWS API docs](https://www.weather.gov/documentation/services-web-api)). The forecast's words pick an overlay: clear, cloudy, rain, fog or snow. Offline, or with a forecast more than two days old, the cabin falls back on the month's climatology.
-- **The moon is the real phase,** worked out from the date.
+- **The moon is the real phase,** worked out from the date by whole-number arithmetic, with a plain rise-and-set rule: a moon *a* days old is up from about 6:00 plus 48 minutes for each day of its age, for 12 hours, Pacific time, and it shows at one spot over the peak (Lead call 54; from Session 7).
+- **Until the lake's forecast is baked (T2),** the sky is the month's climatology, drawn the same way every time for a date: clear, cloudy, rain or morning fog, the fog odds flagged as estimates in `content/home/cabin.json` (Lead call 64).
 - **One exception: coming home.** The homecoming shows the trip's own return time and season, then fades back to now.
 
 Opening the game becomes a small ritual, and it keeps the daily honest: today at the cabin is today's Hike of the Day. The cost is one sun function, one table and one small file the daily build already writes.
@@ -3189,8 +3190,10 @@ Pseudo-colors 16-24 resolve each frame to a palette color from a cycle (numbers 
 | 25 | dust | by age, not by frame: 5, 10, 2, then gone | The Leave No Trace dissolve and the wipe at the cabin only (11.10); renderer-only, so no picture can use it |
 | 26 | steam | a light: 4, 3, 5, phased by row so it rises | The lit hot tub at the cabin and in the soak (11.11) |
 | 27 | alpen | by light level, not by frame: 4, 5, 6, 3, through the ordered dithers | The subject's snow in the alpenglow shot, row by row as the shadow climbs (17.8); never gold |
+| 28 | spill | a light: 9, fixed | Warm light falling from the cabin's windows, its lanterns and the fire bowl's embers, so it stays warm at night (Lead call 56; the cabin's screens only) |
+| 29 | smoke | 1, 1, 1, 6, phased by row so it rises (`rise`) | The stovepipe's smoke, drifting up and darkening with the hour, since it is remapped with the scene (Lead call 56; the cabin's screens only) |
 
-**Lights are exempt from the time-of-day remap.** Glow, fire, stars and lamp are resolved after it, to their own slots, so at blue hour and night, when the snow has gone to glacier blue or slate and the forest to spruce, a headlamp beam, a stove flame and the stars stay bright, and the Bonfire Lily stays the only gold in the picture and never flickers blue. The other cycles are remapped with the scene. The fire cycle never uses gold; nothing but the glow does (11.1).
+**Lights are exempt from the time-of-day remap.** Glow, fire, stars, lamp and spill are resolved after it, to their own slots, so at blue hour and night, when the snow has gone to glacier blue or slate and the forest to spruce, a headlamp beam, a stove flame and the stars stay bright, and the Bonfire Lily stays the only gold in the picture and never flickers blue. The other cycles are remapped with the scene. The fire cycle never uses gold; nothing but the glow does (11.1).
 
 Cycling runs at **8 fps** only while a cycling screen is visible, pauses when static or hidden, and freezes under iOS Reduce Motion (except the glow, which slows to 2 fps).
 
@@ -3352,19 +3355,23 @@ Two screens of the death sequence (9.5) need the renderer, and so does the wipe 
 
 **The hotspot map,** in picture pixels on the 160 x 320 plate. Hit areas are sized for the worst case. On a 3x phone at 7x4, a 44-pt target is about 19 x 33 pixels; but on the iPhone SE the plate runs at 4x2 device pixels at 2x (11.2), so one picture row is 1 pt and one column 2 pt, and a 44-pt target is **22 columns by 44 rows**. Every hit area is at least that, so hit areas are drawn bigger than the art, and the nearest center wins where two overlap.
 
-| Place | Art (x, y, w, h) | Hit area (x, y, w, h) |
-|---|---|---|
-| Peak | 20, 30, 75, 60 | 10, 20, 90, 70 |
-| Screen door | 73, 180, 14, 32 | 64, 172, 30, 44 |
-| Chalkboard | 52, 214, 12, 14 | 40, 198, 26, 44 |
-| Shed | 130, 165, 28, 65 | 126, 160, 34, 70 |
-| Hot tub | 112, 218, 24, 16 | 104, 200, 28, 44 |
-| Car | 0, 280, 40, 40 | 0, 272, 44, 48 |
-| Fire bowl | 68, 262, 24, 14 | 56, 246, 46, 44 |
-| Register post | 4, 225, 10, 37 | 0, 220, 24, 46 |
-| Mailbox | 142, 292, 12, 22 | 132, 276, 28, 44 |
-| Guest book | 58, 212, 8, 4 | First launch only; the rail otherwise |
-| The ranger's reading | Indoors, not on the plate | A Look at the map table (12.5, 12.20) |
+| Place | Art (x, y, w, h) | Hit area (x, y, w, h) | In Session 7 |
+|---|---|---|---|
+| Peak | 18, 30, 80, 62 | 10, 20, 90, 72 | Silent: a tap reads the cabin's description (Lead call 58); the FKTs in T1 |
+| Screen door | 73, 180, 15, 32 | 64, 172, 30, 44 | *Plan*: the next step (the map table from S10) |
+| Chalkboard | 51, 215, 11, 14 | 40, 198, 26, 44 | Silent; the daily in T2 |
+| Shed | 131, 164, 29, 58 | 126, 160, 34, 70 | *Gear*, not open yet (S12a) |
+| Hot tub | 111, 217, 27, 19 | 108, 200, 30, 44 | A Look; the soak in S25 |
+| Clam shovel | 137, 202, 4, 20 | 122, 200, 22, 44 | Silent; the dig in S37 |
+| Car | 0, 281, 41, 39 | 0, 272, 44, 48 | *Drive*, not open yet (S11) |
+| Fire bowl | 68, 261, 25, 17 | 56, 246, 46, 44 | *Stories*, not open yet (S15a) |
+| Register post | 3, 221, 12, 42 | 0, 220, 24, 46 | A Look; the Trail Register in S24b |
+| Mailbox | 142, 290, 12, 24 | 132, 276, 28, 44 | *Mailbox*: the settings (12.18) |
+| Key lockbox | 62, 203, 4, 7 | 52, 190, 24, 44 | First launch only: *Open the lockbox* (12.3) |
+| Guest book | On the porch table, about 50, 208 | First launch only, drawn open; signed on the porch (12.4) | |
+| The ranger's reading | Indoors, not on the plate | A Look at the map table (12.5, 12.20) | |
+
+The drawing's anchors, which the overlays and the porch's window hang from, are in the plate's own Z ops: the moon over the peak (about 28, 40), the stovepipe (68, 81), the gable window (80, 116; the lily's sketch at 75, 139), the windows' warm spill (40 and 120, 212), the lanterns beside the door (70 and 90, 181), the lockbox on the newel post (62, 206), the guest book (50, 208), the fire bowl (80, 264) and the mailbox's flag (154, 296). First launch's porch shows rows 128 to 295 of the plate (`cabin.json` `first`), so the lit lockbox and the open guest book sit in its window.
 
 `content/home/cabin.json` keeps the boxes in picture pixels, and the hit-area lint converts each to points for every device row of 11.2's table and fails any under 44 x 44 pt.
 
@@ -3482,6 +3489,8 @@ The screens before the trail (the cabin, the map table, the permit, town and the
 
 Each answer is a choice button; there is no typing and no timer. After the third, one closing line (DRAFT: *"Three for three. Welcome home."*, or *"None for three. Come in anyway. The mountains don't check."*), the lockbox opens, and *Next* goes to the guest book (12.4). The device record remembers that the quiz was taken, so it never comes back on this phone, not after a death and not after an update (E.6). VoiceOver reads it like any screen.
 
+As built in Session 7 (Lead calls 53 and 64): the cabin draws itself in at the lake's hour with the first-launch overlay (the lockbox lit by one lantern, the guest book open on the porch table), with no labels and no rail, and one step, *Open the lockbox* (the lockbox itself does the same). The deal is the engine's, from a seed the game draws at that tap: three of the twelve, never two pronunciation questions in a row while another kind is left. The questions are on the porch, a window on the plate's lower rows with the box and the three answers under it. The box takes four shapes: the first question (*The key is in the lockbox. It wants three answers.*, *Question 1 of 3.*, the question); the next two (the reply to the last answer, *Welcome home.* or *Nice try, tourist.*, then *Question 2 of 3.* and the question); and two closings, all three right (*Three for three. Welcome home.*) or not (the reply to the third, then *Come in anyway. The mountains don't check.*), each with one choice, *Take the key*, in place of *Next*. Each tap saves the device record, so a phone closed mid-quiz reopens on the same question with the same deal. A phone that already has a hiker meets the lockbox once, at its next return home.
+
 **Home: the cabin.** Every place in the picture is a menu, and the rail under it repeats them (2.2):
 
 ```
@@ -3572,7 +3581,7 @@ Best trips rank by the share of each trip's own maximum, so a lovely day hike ca
 └──────────────────────────────────────┘
 ```
 
-**A name, and nothing else** (your decision, 2026-10-08: *"less is more"*). Every hiker starts the same: Regular fitness, 165 lb, beginner's skills (glacier at 0), the rust jacket, town clothes (canvas sneakers, a cotton tee, jeans, cotton socks and a ball cap), an empty shed and $0 in the wallet (decisions 41, 42 and 67; 7.3, 5.1, 5.8, 6.9). The guest book says nothing about the clothes, and nothing after it does until the trail does (decision 67). There are no backgrounds or occupations, no pronoun, fitness or jacket pickers, no glacier-course box and no mode to choose (9.4). Under the voice you chose (decision 37) the moment never names the hiker; the permit, the log, the register and the report do, with *they* where a sentence needs a pronoun (2.3). *Suggest* offers a random first name; names are up to 12 characters, so they fit a register line. The old one-life line said "book" and is retired; this one is a draft.
+**A name, and nothing else** (your decision, 2026-10-08: *"less is more"*). Every hiker starts the same: Regular fitness, 165 lb, beginner's skills (glacier at 0), the rust jacket, town clothes (canvas sneakers, a cotton tee, jeans, cotton socks and a ball cap), an empty shed and $0 in the wallet (decisions 41, 42 and 67; 7.3, 5.1, 5.8, 6.9). The guest book says nothing about the clothes, and nothing after it does until the trail does (decision 67). There are no backgrounds or occupations, no pronoun, fitness or jacket pickers, no glacier-course box and no mode to choose (9.4). Under the voice you chose (decision 37) the moment never names the hiker; the permit, the log, the register and the report do, with *they* where a sentence needs a pronoun (2.3). *Suggest* offers a random first name, from sixteen short, real given names (the US Social Security Administration's baby-name data; never anyone the game knows, and some are also surnames, so B003 asks you to veto any that is a friend's; Lead call 64), never the one already in the field; names are up to 12 characters, so they fit a register line. From Session 7 the guest book is on the porch, under a window on the porch table where the book lies open, and *Your hiker's name* is the field's visible label, which names it for VoiceOver too; while the keyboard is up the porch scrolls so the field, the one-life line and *Sign* stay above it. The old one-life line said "book" and is retired; this one is a draft.
 
 The guest book opens only when there is no living Open hiker: the first time the game opens (just after the lockbox, 12.3), and after a death. **After a death,** it starts a new hiker from nothing: a new name, beginner's skills, town clothes, an empty shed, $0, a first trip, and nothing inherited (9.8, decision 67). The guest book's earlier pages hold older signatures, an easter egg for insiders (2.2); the dead hiker's one new line is in the Trail Register, at the cabin's post and on the trailhead kiosk (12.3, 12.10).
 
@@ -4337,6 +4346,8 @@ The place where it happened, in its own daylight colors, with the remains sprite
 Settings open from the mailbox at the cabin and from ≡ on the trail. That is the whole list until the daily goes public: Odds, Text, Trail stops, Sound, Music, Minigames and Park (all labels DRAFT); from then, and in v1.0, it has one more row, *World board* (below). There is no Read to me (cut; VoiceOver reads the real text, 11.9), no hint character to switch off, no haptics switch, because the game has no haptics and sound carries the feel (decision 55, Lead call 42), and **no mode setting**: Open play is Old School, and the gentle flag is in no menu at all (9.4). The wallet is no setting either: since decision 41 it is part of Open play (5.8). Pictures (the draw-in style), Units, Paper, the Notebook of raw numbers and badges wait for M6, so the first release reads as a game and not a control panel. **Music** switches off the cabin band for players who want their own playlist under the park, while **Sound** (also in the status line) switches off everything (13.11). **Minigames** opens one row per minigame, *Ask* (the default), *Play* or *Auto*, with the Open-only assists and a *Left-handed* switch (17.3). The world board comes with the daily (decision 53, Step 4 in 9.12), so from the daily's launch the list gains one row, *World board* (DRAFT), off until you opt in, with *Erase me* beside it. On short screens the ≡ menu also holds Pack, Map and Log.
 
 *Credits* and *The ranger's reading* (DRAFT) open the credits screens (12.20). The small **build stamp** in the corner (the build code alone, no words, as you saw it in B001: `20261009-565079f`, 18.11) hides the debug menu: five taps on it open the menu with **Copy bug report** (E.11). Nothing marks it, and nothing in it can change a trip. When an update arrives, the mailbox flag goes up at the cabin (E.7).
+
+**What Session 7 ships of it** (Lead call 63): the sheet opens from the mailbox on the picture, the rail's *Mailbox* and the cabin's ≡ (and from ≡ on the trail, as before), and holds two rows, *Sound:on* / *Sound:off* and *Text:pixel* / *Text:plain*, King's Quest-style toggles, then the update note with *Restart* when one waits, *Works offline* and the build stamp with its five taps. The other rows come with the sessions that build what they set. The flag goes up on the plate's mailbox while an update waits.
 
 ### 12.19 The tide booklet (M4)
 
@@ -5201,7 +5212,7 @@ The look-and-feel spike (M0.5) is the biggest risk, and it needs only the pictur
 | The town jobs' doors | The burger drive-in's is in; the dish pit's and the bookstore's are hidden until M1b, with the boutique (Lead call 32) |
 | The Bonfire Lily | Its weight is 0 everywhere, so no roll, no plate and no rumor until M1b (B.3's roll on Bogachiel Peak is M1b's) |
 | Walk out (the known-ground summary, 3.4), trip codes, the gear-list CSV | M1b |
-| The boutique; the cabin's spring, autumn and winter; the real moon; the crew; the other flat-lay backdrops | M1b. The easter eggs wait for the Boyz' yes (decision 54) |
+| The boutique; the cabin's spring, autumn and winter; the crew; the other flat-lay backdrops | M1b. The easter eggs wait for the Boyz' yes (decision 54). The real moon shipped in S7 (Lead call 54) |
 | The chalkboard (Hike of the Day) and the peak (FKT) | Looks only in M1a. The peak opens with T1, right after M1a, and the chalkboard with T2 on preview, alongside M1b, and on main with T4 (above) |
 | Hike it again | Shown; it copies the permit (9.7). First on the build plan's cut ladder, so it may move to M1b (`BUILD_PLAN.md` 8.3) |
 | The WIC on the town run | Shown, and every overnight Open trip stops there (decision 40, Lead call 12): the permit from Jon, the briefing, the loaner can and the three desk camps; there is no phone to call yet |
@@ -7792,6 +7803,18 @@ These are not your decisions. They are engineering calls the lead designer (Clau
 50. **The compass always uses the day table** (Session 6; 8.8): moss, pink and brick keep their meaning at dusk and at night, with ink rules between the bands and the result always said in words too, so color never carries it alone (11.9). The lead's call; yours to overrule.
 51. **Looks go by kind, and a tap on nothing looks at the whole picture** (Session 6; 12.1, decision 69): every lake shares the lake's Look until a place gets its own, and a tap that hits no hotspot shows the picture's alt text, composed from its parts' lines (11.9), as King's Quest's LOOK at the room did, so 500 or more places need no line of their own. The lead's call; yours to overrule.
 52. **Literata keeps its default optical size** (Session 6): the Plain serif is pinned to its text cut (`opsz` 12) at every size, so T02 measures it from the font's own advances exactly, and the text cut reads well on a phone. If the larger sizes ever look wrong, T02 can follow the size's own cut instead. The lead's call; yours to overrule.
+53. **The lockbox appears once on every phone that hasn't opened it** (Session 7; decision 45, 2.6, 12.3): at the cabin, before anything but a trip already under way. A fresh phone meets it first; a phone that already has a hiker (yours, on preview) meets it once, at its next return home. Once opened it never comes back, not after a death and not after an update: the phone's device record keeps it (9.8, E.6). The lead's call; yours to overrule.
+54. **The real moon ships with the cabin** (Session 7; decision 38): its phase from the date by whole-number arithmetic, with a plain rise-and-set rule (a moon *a* days old is up from about 6:00 plus 48 minutes for each day of its age, for 12 hours, Pacific time), drawn at one spot over the peak; `BUILD_PLAN.md` 11.2's *real moon* moves from S37 to S7. The lead's call; yours to overrule.
+55. **Embers glow in the fire bowl every night and at the evening's blue hour; flames only at a homecoming** (Session 7; decision 38, 2.2): ashes by day, embers from the evening's blue hour through the night (the evening's fire, so the morning's blue hour shows cold ash under the lit windows), lit on homecoming evenings (S25). The lead's call; yours to overrule.
+56. **Two new pseudo-colors** (Session 7; 11.5): 28 `spill`, a light (brick, fixed: warm light falling from the windows, the lanterns and the embers, so it stays warm at night), and 29 `smoke`, not a light (slots 1, 1, 1 and 6, the vapour's shade three steps and its light one, which the cabin never shows as themselves and its own tables send where smoke belongs at each hour, with a new `rise` phase, so the stovepipe's smoke drifts up and darkens with the hour; 11.5). 26 `steam` and 27 `alpen` stay reserved. The lead's call; yours to overrule.
+57. **The labels on the picture use the rail's word** (Session 7; 2.2, 12.1): *Plan*, *Gear*, *Drive*, *Stories* and *Mailbox*, then a dot once the place has been used; a long press and VoiceOver give the place's own name (*The screen door*), too wide in the chrome font to sit over the SE's 320-point plate. The lead's call; yours to overrule.
+58. **The peak, the chalkboard and the clam shovel are silent in Session 7, and the tub and the register post are Looks** (Session 7; 2.2): a tap on a silent place reads the cabin's description; their own lines come with the sessions that make them places (T1, T2, S24b, S25), so B002 stays inside 25 to 40 lines (decision 64). The lead's call; yours to overrule.
+59. **The places whose screens come later are drawn, labeled and on the rail, disabled, with *Not open yet.*** (Session 7; 2.2): the shed (S12a), the car (S11) and the fire bowl (S15a). A tap shows the place's name and that line in a small box, so you approve the rail's real words once. The lead's call; yours to overrule.
+60. **Until Session 10, *Plan* starts Session 6's sample trip** (Session 7): the next step and the screen door start the walk to the fork, and every trip ends at the cabin, with no restart of its own; Session 10 puts the map table in its place. The lead's call; yours to overrule.
+61. **The name over the cabin is the game's approved name, one line in the chrome font over the plate's quiet top sky** (Session 7; 12.3): the cover's two-line title needs 88 rows of sky, and the cabin's tall subject leaves about 28. The status line carries the lake's time, ≡ and *Sound*. The lead's call; yours to overrule.
+62. **Lines the cabin shows first move into B002** (Session 7; 18.7, decision 64): ten lines filed in Session 5 and 6 for the trail, the status line's *Sound* and ≡ names, the clock's two formats, the sheet's *Close*, the ▾'s *More* and three of the alt text's hour lines, go out with the cabin, so the cabin's front door on main needs only B002 and B003 answered; B004 to B006 shrink by as many. The lead's call; yours to overrule.
+63. **The mailbox is the ≡ sheet** (Session 7; 12.18): one sheet, opened from the mailbox on the picture, the rail and the cabin's ≡, and from ≡ on the trail; its settings in Session 7 are *Sound* and *Text*, King's Quest-style toggles (*Sound:on*, *Text:pixel*), with the update note, *Works offline* and the build code, whose five taps open the debug menu. Its flag goes up on the plate when an update waits. The lead's call; yours to overrule.
+64. **Suggest's names are real given names, not ours** (Session 7; 12.4): sixteen short names from the US Social Security Administration's baby-name data (public domain), filed as terms of their own kind, shown in B003's not-ours tail, each yours to veto. Never the name of anyone the game knows; they are given names, but nine are also common surnames (Avery, Casey, Drew, Jordan, Quinn, Reese, Riley, Rowan and Taylor), so B003 asks you to veto any that is one of your friends' surnames. Two smaller ones go with these: the lockbox's closing is two lines (all three right, or not), not four by score, and the cabin's fog odds are flagged estimates until T2's forecast. The lead's call; yours to overrule.
 
 ## Still to come from you
 

@@ -8,6 +8,20 @@
 //
 //   node tools/promote.mjs --dry-run [--ref origin/main] [--out out/promotion]
 //                                    [--check-live [https://ophiker.com/]] [--browser]
+//   node tools/promote.mjs --dry-run --screens home,lockbox,guestbook,mailbox
+//                                    (S7) what a promotion of those screens needs
+//
+//   --screens (S7, the cabin's promotion): main's words worked out as though
+//   its scope carried these screens too (main.screens and them), with
+//   preview's loading page (channels.preview.off: the title page's words
+//   retire on main with the same promotion) and main.off's dev lines still
+//   off; the ours lines main.off holds back today (the cover's description,
+//   waiting for B002) come back, since the promotion is what they wait for.
+//   It lists every line main would then reach that isn't approved, grouped
+//   by the batch it is filed in (and any filed in none), in memory: main's
+//   build would refuse such a scope, which is the point. Exit 0 when every
+//   line it lists sits in a batch, 1 when one sits in none, 2 on a usage
+//   error. The cabin's is exactly B002 and B003 (a test).
 //
 //   1. next: main's channel built from the working tree into <out>/next/
 //      (tools/build.mjs), as the deploy would build it from preview's
@@ -46,12 +60,11 @@ import { execFileSync } from 'node:child_process';
 import { cpSync, existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, statSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join, relative, sep } from 'node:path';
-import { inflateSync } from 'node:zlib';
 import { pathToFileURL } from 'node:url';
 import { ROOT } from './pics.mjs';
 import { build, ICONS, SW_STAMP, UNLISTED } from './build.mjs';
-import { readText, stateOf, mainReach, shellSources, checkMainBuild, SHIPPABLE } from './text.mjs';
-import { encodePNG } from './png.mjs';
+import { readText, stateOf, mainReach, shellSources, checkMainBuild, batchOf, SHIPPABLE } from './text.mjs';
+import { encodePNG, decodePNG } from './png.mjs';
 
 /** What the live site is built from. */
 export const DEFAULT_REF = 'origin/main';
@@ -250,56 +263,8 @@ export function liveCheck(site, live) {
 
 // ---- Pictures ----------------------------------------------------------------
 
-/**
- * A PNG's pixels as 8-bit RGB (truecolor, with or without alpha, any row
- * filter; png.mjs writes filter 0). Throws on any other kind.
- * @param {Buffer} png
- * @returns {{width: number, height: number, rgb: Uint8Array}}
- */
-export function decodePNG(png) {
-  if (png.readUInt32BE(0) !== 0x89504e47) throw new Error('png: not a PNG');
-  const width = png.readUInt32BE(16);
-  const height = png.readUInt32BE(20);
-  const depth = png[24];
-  const type = png[25];
-  if (depth !== 8 || (type !== 2 && type !== 6) || png[28] !== 0) throw new Error(`png: only 8-bit truecolor, not depth ${depth} type ${type}`);
-  const bpp = type === 6 ? 4 : 3;
-  const idat = [];
-  for (let p = 8; p < png.length; ) {
-    const len = png.readUInt32BE(p);
-    if (png.toString('ascii', p + 4, p + 8) === 'IDAT') idat.push(png.subarray(p + 8, p + 8 + len));
-    p += 12 + len;
-  }
-  const raw = inflateSync(Buffer.concat(idat));
-  const stride = width * bpp;
-  const cur = new Uint8Array(stride);
-  const prev = new Uint8Array(stride);
-  const rgb = new Uint8Array(width * height * 3);
-  for (let y = 0; y < height; y++) {
-    const f = raw[y * (stride + 1)];
-    for (let i = 0; i < stride; i++) {
-      const x = raw[y * (stride + 1) + 1 + i];
-      const left = i >= bpp ? cur[i - bpp] : 0;
-      const up = prev[i];
-      const ul = i >= bpp ? prev[i - bpp] : 0;
-      let v;
-      if (f === 0) v = x;
-      else if (f === 1) v = x + left;
-      else if (f === 2) v = x + up;
-      else if (f === 3) v = x + ((left + up) >> 1);
-      else if (f === 4) {
-        const pa = Math.abs(up - ul);
-        const pb = Math.abs(left - ul);
-        const pc = Math.abs(left + up - 2 * ul);
-        v = x + (pa <= pb && pa <= pc ? left : pb <= pc ? up : ul);
-      } else throw new Error(`png: row ${y} has filter ${f}`);
-      cur[i] = v & 255;
-    }
-    for (let px = 0; px < width; px++) for (let c = 0; c < 3; c++) rgb[(y * width + px) * 3 + c] = cur[px * bpp + c];
-    prev.set(cur);
-  }
-  return { width, height, rgb };
-}
+// decodePNG lives in tools/png.mjs (S7: render-pics reads panel B with it); re-exported here.
+export { decodePNG };
 
 /**
  * Pure: an image shrunk by a whole factor, nearest pixel.
@@ -579,6 +544,58 @@ export async function dryRun({ root = ROOT, ref = DEFAULT_REF, out = join(root, 
   return { report, code: report.problems.length ? 1 : 0 };
 }
 
+/**
+ * --screens (S7): what a promotion of these screens needs. Main's reach
+ * worked out (in memory, as the build's fill does) as though its scope
+ * carried them, with preview's off list (the retired title page) and
+ * main.off's dev lines; every line it would reach that isn't shippable
+ * today (a draft, or a cut), by the batch it is filed in.
+ * @param {{root?: string, screens: string[]}} o
+ * @returns {{screens: string[], reach: string[], needs: Record<string, string[]>, unbatched: string[], count: number}}
+ */
+export function screensNeed({ root = ROOT, screens }) {
+  const text = readText(root);
+  const scope = text.scope;
+  const unknown = screens.filter((s) => !scope.screens.includes(s));
+  if (!screens.length || unknown.length) throw new Error(`promote: --screens names ${unknown.length ? `screens this build doesn't have: ${unknown.join(', ')}` : 'no screen'}`);
+  /** @type {Record<string, string>} */
+  const off = {};
+  for (const [id, why] of Object.entries(scope.main.off)) {
+    const line = text.lines.get(id);
+    if (line && line.class === 'dev') off[id] = why;
+  }
+  const preview = (scope.channels && scope.channels.preview && scope.channels.preview.off) || {};
+  for (const [id, why] of Object.entries(preview)) off[id] = why;
+  const as = { ...text, scope: { ...scope, main: { ...scope.main, screens: [...new Set([...scope.main.screens, ...screens])].sort(), off } } };
+  const src = shellSources(root);
+  const reach = mainReach(as, src.html, src.manifest);
+  /** @type {Record<string, string[]>} */
+  const needs = {};
+  /** @type {string[]} */
+  const unbatched = [];
+  for (const id of reach) {
+    if (SHIPPABLE.has(stateOf(id, as))) continue;
+    const at = batchOf(as, id);
+    if (!at) unbatched.push(id);
+    else (needs[at.batch] = needs[at.batch] || []).push(id);
+  }
+  const sorted = Object.fromEntries(Object.keys(needs).sort().map((b) => [b, needs[b]]));
+  return { screens: as.scope.main.screens, reach, needs: sorted, unbatched, count: Object.values(needs).reduce((n, ids) => n + ids.length, 0) + unbatched.length };
+}
+
+/**
+ * Pure: --screens' report as lines for the terminal.
+ * @param {ReturnType<typeof screensNeed>} r
+ * @returns {string[]}
+ */
+export function screensText(r) {
+  const out = [`promote --dry-run --screens: main with ${r.screens.join(' ')} would reach ${r.reach.length} lines; ${r.count} of them aren't approved`];
+  for (const [b, ids] of Object.entries(r.needs)) out.push(`  ${b}: ${ids.length} line(s): ${ids.join(' ')}`);
+  if (r.unbatched.length) out.push(`  in no batch: ${r.unbatched.join(' ')}`);
+  out.push(r.unbatched.length ? '  REFUSED: a line it needs is in no batch' : `  the promotion needs ${Object.keys(r.needs).length ? Object.keys(r.needs).join(' and ') : 'nothing more'} answered`);
+  return out;
+}
+
 /** An art bundle's palette slot 0 (ink), as its hex. */
 const slot0 = (art) => {
   const c = art.palette.colors[0];
@@ -635,6 +652,16 @@ if (isMain) {
   if (!args.includes('--dry-run')) {
     console.error('promote: only --dry-run: main is promoted by the lead, by fast-forwarding the main branch after the creator\'s OK (BUILD_PLAN 6.1)');
     process.exit(2);
+  }
+  if (args.includes('--screens')) {
+    try {
+      const r = screensNeed({ screens: String(opt('--screens', '')).split(',').map((s) => s.trim()).filter(Boolean) });
+      for (const line of screensText(r)) console.log(line);
+      process.exit(r.unbatched.length ? 1 : 0);
+    } catch (e) {
+      console.error(e && e.message ? e.message : String(e));
+      process.exit(2);
+    }
   }
   try {
     let pw = null;

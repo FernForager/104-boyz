@@ -44,21 +44,26 @@ test('T07 finds the book words, whole words, case-blind', () => {
   for (const s of ['a guidebook', 'my notebook', 'a sketchbook', 'a booklet', "a store's shelf", 'paged', 'editorial']) assert.ok(!BOOK_WORDS.test(s), s);
 });
 
-test('T07: an error where main can reach it or the ledger holds it; a warning on a preview-only draft', () => {
+test('T07: an error where main can reach it, the ledger holds it, or (from S7) preview shows it; nothing where no page shows it', () => {
   const text = fakeText({
-    lines: { 'app.shown': 'Open the book', 'app.held': 'Turn the page', 'title.draft': { text: 'Begin a new book', screen: 'title' }, 'app.guide': 'A guidebook', 'app.real': 'A bookstore book' },
+    lines: { 'app.shown': 'Open the book', 'app.held': 'Turn the page', 'title.draft': { text: 'Begin a new book', screen: 'title' }, 'title.gone': { text: 'A shelf of trips', screen: 'title' }, 'app.guide': 'A guidebook', 'app.real': 'A bookstore book' },
     approved: { 'app.held': 'Turn the page' },
-    off: { 'title.draft': 'test', 'app.held': 'test' },
+    off: { 'title.draft': 'test', 'app.held': 'test', 'title.gone': 'test' },
     allow: { 'app.real': 'The bookstore job sells real books' },
   });
+  text.scope.channels = { preview: { off: { 'title.gone': 'retired on preview' } } };
   const issues = lintT07(text, ['app.shown', 'app.guide']);
   const by = Object.fromEntries(issues.map((i) => [`${i.id}:${i.file}`, i.level]));
   assert.equal(by['app.shown:content/text/en/app.json'], 'error', 'main reaches it');
   assert.equal(by['app.held:content/text/en/app.json'], 'error', 'approved book words are never a warning');
   assert.equal(by['app.held:content/text/approved.json'], 'error', 'the ledger may not hold book words');
   assert.equal(by['title.draft:content/text/en/title.json'], T07_PREVIEW, 'a draft only preview shows');
-  assert.equal(T07_PREVIEW, 'warn');
+  assert.equal(T07_PREVIEW, 'error', 'S7: no preview page shows a book word now');
+  assert.ok(!issues.some((i) => i.id === 'title.gone'), 'a draft off main and off preview shows on no page');
   assert.ok(!issues.some((i) => i.id === 'app.guide' || i.id === 'app.real'), 'guidebook passes; the allowlist passes');
+  // Off preview but on main's page: main still reaches it, so it is an error.
+  text.scope.channels = { preview: { off: { 'app.shown': 'retired on preview' } } };
+  assert.equal(lintT07(text, ['app.shown']).find((i) => i.id === 'app.shown')?.level, 'error');
   const empty = fakeText({ lines: { 'app.real': 'A book' }, allow: { 'app.real': ' ' } });
   assert.match(lintT07(empty, []).map((i) => i.msg).join('\n'), /allowlist entry for app\.real needs its reason/);
 });
@@ -222,7 +227,7 @@ test('T11: ids used are defined, and lines on built screens are used', () => {
     "web/js/a.js:1 t() asks for nope.x, which isn't defined in content/text",
     // S4: a call that shows a place by a computed id may end // t-ids: @places instead.
     // S6 (track C) adds @art to the list: a picture's words by a computed id (tools/looks.mjs).
-    'web/js/a.js:3 tx() needs a literal id, or the line ends // t-ids: <every id it can be> (or @content, @places or @art)',
+    'web/js/a.js:3 tx() needs a literal id, or the line ends // t-ids: <every id it can be> (or @content, @places, @art or @terms)',
     'content/text/en/app.json:1 app.unused is defined and never used',
   ]);
   assert.deepEqual(r.infos, ['credits.later: waiting for screen credits']);
@@ -364,12 +369,9 @@ test("T14's check of main's built words catches a planted line and a draft manif
   assert.deepEqual(codes(checkMainBuild({ html: html(''), manifest, words: leaky, text, build: 'b1', reach })), ['T14', 'T07'], "a draft in main's bundle");
 });
 
-test('the repo passes the text lints, with only the three T07 warnings', () => {
+test('the repo passes the text lints, with no warning (S7: the title page retired on preview, so its three T07 warnings went with it)', () => {
   const { issues } = runTextLint(ROOT, { main: true });
-  assert.deepEqual(
-    issues.map((i) => `${i.level} ${i.code} ${i.id || ''}`),
-    ['warn T07 title.tagline', 'warn T07 title.start_label', 'warn T07 title.begin'],
-  );
+  assert.deepEqual(issues.map((i) => `${i.level} ${i.code} ${i.id || ''}`), []);
 });
 
 // ---- T16: the gazetteer, the quotes, cut words (S4) -----------------------

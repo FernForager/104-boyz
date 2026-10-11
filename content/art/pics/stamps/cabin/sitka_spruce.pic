@@ -1,0 +1,16 @@
+# sitka_spruce: the towering Sitka spruce behind the cabin's roof
+# (GAME_DESIGN 11.11: stacked tiers with drooping tips, taller than
+# everything). Twelve tiers stacked down the trunk (sitka_tier_01 to _12),
+# each lit on its top and shaded beneath, so the light steps down tier by
+# tier; each tier's tips droop, some a pixel lower than the rest; the
+# upper tiers narrow into a ragged spire with a leader on top, and the sky
+# shows between them where a tier's tips lift clear of the one below. The
+# lower tiers are laid first, so each tier's shaded underside hangs over
+# the lit top of the one below. The anchor, 0,0, is the foot of the trunk
+# (hidden by the roof). 39 wide, 125 tall.
+# the trunk's foot, below the last tier
+C 10  L 0,-15 0,0  L 1,-15 1,0
+T sitka_tier_12 0,-35  T sitka_tier_11 0,-46  T sitka_tier_10 0,-57  T sitka_tier_09 0,-68  T sitka_tier_08 0,-78  T sitka_tier_07 0,-87
+T sitka_tier_06 0,-96  T sitka_tier_05 0,-103  T sitka_tier_04 0,-108  T sitka_tier_03 0,-114  T sitka_tier_02 0,-120  T sitka_tier_01 0,-121
+# the leader over the top tier
+C 12  L 0,-124 0,-121

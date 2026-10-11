@@ -1,10 +1,10 @@
 {
- "$comment": "What this milestone ships (BUILD_PLAN 3.4, 3.6, 10.6; GAME_DESIGN 3.6, 15). S2 writes the screens, the main block and the channel swap; S3 adds the guest book and the trail (preview only: main.screens keeps them off main); S4 adds ships, park, first_trip, months, stores, jobs and switches, and the map (preview only). S6 ships the park and the odds with the trail too (the fork's walks and its Why sheets). screens: the screens this build has (a line on another screen waits for it: T11). main.screens: the screens the main channel carries. main.off: lines on those screens that main leaves out, each with its reason; the fill removes them, and T14 holds every other line main reaches to the ledger. channels: per-channel id swaps for the fill. ships: each data section ships to a channel only when one of its listed screens is in that channel's screens; everything is compiled, validated and linted on every build, shipped or not. park: the M1a slice of the park graph, whose lists lint G08 checks. switches: the shows-and-hides, each naming its doc; tools/scope.mjs holds their registry, and R01 checks each against it.",
- "screens": ["app", "debug", "guestbook", "map", "title", "trail"],
+ "$comment": "What this milestone ships (BUILD_PLAN 3.4, 3.6, 10.6; GAME_DESIGN 3.6, 15). S2 writes the screens, the main block and the channel swap; S3 adds the guest book and the trail (preview only: main.screens keeps them off main); S4 adds ships, park, first_trip, months, stores, jobs and switches, and the map (preview only). S6 ships the park and the odds with the trail too (the fork's walks and its Why sheets). S7 adds the home (the cabin), the lockbox and the mailbox (preview only), ships the sun table and the climate with the home, the quiz with the lockbox and the cabin's next-step table as the home section, retires the title page's words on preview (channels.preview.off: the cover is the loading art there) and turns the real moon on. screens: the screens this build has (a line on another screen waits for it: T11). main.screens: the screens the main channel carries. main.off: lines on those screens that main leaves out, each with its reason; the fill removes them, and T14 holds every other line main reaches to the ledger. channels: per-channel id swaps for the fill, and preview's off list (lines preview leaves out, each with its reason; the fill removes them as it does main.off's on main). ships: each data section ships to a channel only when one of its listed screens is in that channel's screens; everything is compiled, validated and linted on every build, shipped or not. park: the M1a slice of the park graph, whose lists lint G08 checks. switches: the shows-and-hides, each naming its doc; tools/scope.mjs holds their registry, and R01 checks each against it.",
+ "screens": ["app", "debug", "guestbook", "home", "lockbox", "mailbox", "map", "title", "trail"],
  "main": {
   "screens": ["app", "debug", "title"],
   "off": {
-   "alt.cover_high_divide_dusk": "Unapproved (decision 64): on main the cover is decoration beside the name; B002 brings it back as the loading art's",
+   "alt.cover_high_divide_dusk": "Unapproved (decision 64): on main the cover is decoration beside the name; B002 asks for it as the loading art's description",
    "dev.audio.render": "Preview only: the sound's 10-second render, in the debug menu (BUILD_PLAN S5)",
    "dev.audio.result": "Preview only",
    "dev.fixture.four": "Preview only",
@@ -12,6 +12,7 @@
    "dev.hour": "Preview only: the trail picture's hour control (BUILD_PLAN S5)",
    "dev.hour.auto": "Preview only",
    "dev.hour.blue": "Preview only",
+   "dev.hour.dawn": "Preview only: the cabin at dawn (BUILD_PLAN S7)",
    "dev.hour.day": "Preview only",
    "dev.hour.dusk": "Preview only",
    "dev.hour.night": "Preview only",
@@ -24,6 +25,12 @@
    "dev.marks.off": "Preview only",
    "dev.marks.on": "Preview only",
    "dev.scenes": "Preview only: the trail frame's check view at #frame (BUILD_PLAN S5)",
+   "dev.sky": "Preview only: the cabin's sky control (BUILD_PLAN S7)",
+   "dev.sky.auto": "Preview only",
+   "dev.sky.clear": "Preview only",
+   "dev.sky.cloudy": "Preview only",
+   "dev.sky.fog": "Preview only",
+   "dev.sky.rain": "Preview only",
    "dev.text": "Preview only: the box text's font control (BUILD_PLAN S5)",
    "dev.text.auto": "Preview only",
    "dev.text.pixel": "Preview only",
@@ -35,7 +42,15 @@
   }
  },
  "channels": {
-  "preview": { "swap": { "app.short_name": "app.preview_name" } }
+  "preview": {
+   "swap": { "app.short_name": "app.preview_name" },
+   "off": {
+    "title.begin": "Retired on preview (BUILD_PLAN S7): the cover is the loading art, and the cabin's next step is the way in",
+    "title.begin_note": "Retired on preview with its button (BUILD_PLAN S7)",
+    "title.start_label": "Retired on preview (BUILD_PLAN S7): the loading page's section is named by app.name",
+    "title.tagline": "Retired on preview (BUILD_PLAN S7): the loading art shows the name alone; book words (decision 22)"
+   }
+  }
  },
  "ships": {
   "park": ["map", "trail"],
@@ -43,14 +58,15 @@
   "conditions": [],
   "permits": [],
   "daylight": [],
-  "climate": [],
-  "sun": [],
+  "climate": ["home"],
+  "sun": ["home"],
   "kits": [],
-  "quiz": [],
+  "quiz": ["lockbox"],
   "items": [],
   "foods": [],
   "stores": [],
-  "drives": []
+  "drives": [],
+  "home": ["home"]
  },
  "park": {
   "play": ["sol_duc_high_divide"],
@@ -102,7 +118,7 @@
   "trip_codes": { "on": false, "until": "M1b", "doc": "BUILD_PLAN 3.6" },
   "gear_csv": { "on": false, "until": "M1b", "doc": "BUILD_PLAN 3.6, 11.4" },
   "cabin_seasons": { "value": ["summer"], "until": "M1b (S37)", "doc": "BUILD_PLAN 3.6" },
-  "real_moon": { "on": false, "until": "M1b (S37)", "doc": "BUILD_PLAN 3.6" },
+  "real_moon": { "on": true, "doc": "BUILD_PLAN 3.6, 11.2; lead call 54: the moon's real phase from the date by integer arithmetic, with a plain rise-and-set rule, from S7 (was S37)" },
   "crew": { "on": false, "until": "M1b (S37)", "doc": "BUILD_PLAN 3.6" },
   "wool_blanket": { "on": false, "until": "M1b (S37)", "doc": "BUILD_PLAN 3.6; the general store's blanket_wool stays off its shelf until then" },
   "easter_eggs": { "on": false, "until": "the Boyz' yes", "doc": "BUILD_PLAN 3.6; decision 54" },

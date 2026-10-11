@@ -78,6 +78,7 @@ export const FOLDERS = Object.freeze([
   { pattern: /^drive\/routes\.json$/, schema: 'drives.schema.json', owner: 'S4 B' },
   { pattern: /^quiz\/locals\.json$/, schema: 'quiz.schema.json', owner: 'S4 B' },
   { pattern: /^scope\/[a-z][a-z0-9_]*\.json$/, schema: 'scope.schema.json', owner: 'S4 A' },
+  { pattern: /^home\/cabin\.json$/, schema: 'cabin.schema.json', owner: 'S7 A' },
 ]);
 
 /**
@@ -123,6 +124,25 @@ export function oddsVoice(files) {
   if (!f) return null;
   const labels = (/** @type {Record<string, {label: string}>} */ o) => Object.fromEntries(Object.keys(o).sort(byCode).map((k) => [k, lineId(o[k].label)]));
   return { bases: labels(f.data.bases), skills: labels(f.data.skills) };
+}
+
+/** The quiz's file (S4; the lockbox's, S7). */
+export const QUIZ_FILE = 'content/quiz/locals.json';
+
+/**
+ * The quiz's display data (voice.json's quiz, S7): each question's ask and
+ * answers and the two replies, by line id, or null when the file isn't
+ * here. The rules section (tools/sections.mjs) keeps only the deal, the
+ * rules and each question's answer count and right one.
+ * @param {Map<string, {data: any, src: string}>} files
+ */
+export function quizVoice(files) {
+  const f = files.get(QUIZ_FILE);
+  if (!f) return null;
+  /** @type {Record<string, {ask: string, answers: string[]}>} */
+  const questions = {};
+  for (const q of f.data.questions) questions[q.id] = { ask: lineId(q.ask), answers: q.answers.map((/** @type {string} */ a) => lineId(a)) };
+  return { right: lineId(f.data.right), wrong: lineId(f.data.wrong), questions };
 }
 
 /** The stops a choice can go to: then, a roll's pass and fail, and its odds' every band, fail and death. */
@@ -224,7 +244,7 @@ export function fairDeath(set) {
 }
 
 /** The folders under content/ whose JSON files are compiled (walked recursively); content/text/ and content/art/ have their own readers. */
-export const DIRS = Object.freeze(['rules', 'trips', 'stops', 'park', 'data', 'gear', 'food', 'stores', 'drive', 'quiz', 'scope']);
+export const DIRS = Object.freeze(['rules', 'trips', 'stops', 'park', 'data', 'gear', 'food', 'stores', 'drive', 'quiz', 'scope', 'home']);
 
 /**
  * The schema a content file takes, by its path under content/
@@ -373,9 +393,12 @@ export function boxSlots(box) {
  *   places: the picture places (content/art/recipes.json's places) a
  *   stop's view.pic must name, or null when the recipes aren't there to
  *   check against (an info, not a problem)
+ *   given: the guest book's Suggest names (S7: term.given_* ids,
+ *   content/text/names/terms.json), shipped as voice.json's given with the
+ *   guest book's screen
  * @returns {{rules: any, voice: any, problems: Problem[], infos: string[], sections: Record<string, any>, map: any}}
  */
-export function compileSources({ sources, schemas, screens, defined = null, sections = 'ships', places = null }) {
+export function compileSources({ sources, schemas, screens, defined = null, sections = 'ships', places = null, given = [] }) {
   /** @type {Problem[]} */
   const problems = [];
   /** @type {string[]} */
@@ -657,8 +680,12 @@ export function compileSources({ sources, schemas, screens, defined = null, sect
       voice.stops[id][st.id] = v;
     }
   }
-  // The odds' row labels go with the odds (S6).
+  // The odds' row labels go with the odds (S6), the quiz's words with the quiz (S7).
   if (rules.odds && oddsWords) voice.odds = oddsWords;
+  const quizWords = rules.quiz ? quizVoice(valid) : null;
+  if (quizWords) voice.quiz = quizWords;
+  // Suggest's names go with the guest book (S7, lead call 64).
+  if (screens.includes('guestbook') && given.length) voice.given = given.slice();
   // x-voice values (every "@id", and a stop's view) are display data: none may reach the rules.
   const text = canon(rules);
   if (text.includes('"@')) add('tools/content.mjs', 1, 'J01', 'an x-voice value reached rules.json; it belongs in voice.json');
@@ -688,7 +715,26 @@ function setPath(obj, path, value) {
 export function compileContent({ root = ROOT, screens, checkText = true, defined, sections = 'ships' }) {
   let isDefined = null;
   if (checkText) isDefined = defined || textLines(root);
-  return compileSources({ sources: readSources(root), schemas: readSchemas(root), screens, defined: isDefined, sections, places: recipePlaces(root) });
+  return compileSources({ sources: readSources(root), schemas: readSchemas(root), screens, defined: isDefined, sections, places: recipePlaces(root), given: givenNames(root) });
+}
+
+/** The terms file: the given names live there (S7). */
+export const TERMS_FILE = 'content/text/names/terms.json';
+
+/**
+ * The guest book's Suggest names (S7, lead call 64): every term of kind
+ * given in content/text/names/terms.json, as term.<id>, in its order; none
+ * when the file isn't there.
+ * @param {string} [root]
+ * @returns {string[]}
+ */
+export function givenNames(root = ROOT) {
+  const p = join(root, TERMS_FILE);
+  if (!existsSync(p)) return [];
+  const data = JSON.parse(readFileSync(p, 'utf8'));
+  return Object.entries((data && data.terms) || {})
+    .filter(([, x]) => x && x.kind === 'given')
+    .map(([id]) => `term.${id}`);
 }
 
 /**

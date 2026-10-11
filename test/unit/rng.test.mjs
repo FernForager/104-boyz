@@ -8,7 +8,9 @@ import { hash128, sfc32, draw, keyOf, STREAMS, DISCARD } from '../../web/js/engi
 import { exp, ln, pow, sin, cos } from '../../web/js/engine/math.js';
 import { newSession } from '../../web/js/engine/step.js';
 import { replay, identity } from '../../web/js/engine/replay.js';
-import { fxContent, play, withBans } from './enginefix.mjs';
+import { fxContent, play, opened, withBans } from './enginefix.mjs';
+import { readGoldens, fixtureContent, tripInput } from '../../tools/goldens.mjs';
+import { runTrip } from '../../web/js/engine/selfcheck.js';
 
 const hex = (words) => words.map((w) => w.toString(16).padStart(8, '0')).join(' ');
 const after12 = (key) => {
@@ -41,8 +43,8 @@ test('draw() builds its key as seed|stream|parts, so it agrees with the raw vect
   assert.equal(draw('00000000', 'text', 'lot', 0, 1).u32(), 2672373591);
 });
 
-test("E.8's eleven streams are frozen, and an unknown stream throws", () => {
-  assert.deepEqual([...STREAMS], ['weather', 'env', 'permit', 'director', 'roll', 'effect', 'text', 'mini', 'art', 'dust', 'lookahead']);
+test("E.8's eleven streams and S7's quiz are frozen, in order (append-only), and an unknown stream throws", () => {
+  assert.deepEqual([...STREAMS], ['weather', 'env', 'permit', 'director', 'roll', 'effect', 'text', 'mini', 'art', 'dust', 'lookahead', 'quiz']);
   assert.ok(Object.isFrozen(STREAMS));
   assert.throws(() => draw('K7QM2Q9F', 'store', 1), { name: 'EngineError', code: 'invalid' });
   for (const s of STREAMS) assert.equal(typeof draw('K7QM2Q9F', s, 'x').u32(), 'number', `${s} draws`);
@@ -118,6 +120,7 @@ test('Math.random, Date, performance.now and the approximate Math functions thro
     const draws = draw('K7QM2Q9F', 'roll', 'x').float();
     const m = [exp(1), ln(2), pow(2, 0.5), sin(1), cos(1)];
     const { session } = play(newSession(content), [
+      { t: 'open' },
       { t: 'sign', name: 'Robin', id: 'h00000001' },
       { t: 'start', plan: 'fx_plan', seed: 'K7QM2Q9F' },
       { t: 'next' },
@@ -133,4 +136,23 @@ test('Math.random, Date, performance.now and the approximate Math functions thro
   assert.equal(result.end, 'fx_plan');
   assert.match(result.hash, /^[0-9a-f]{64}$/);
   assert.match(result.id, /^[0-9a-f]{64}$/);
+});
+
+test("S7's quiz stream is independent: it shifts no other stream's draws (the frozen vectors above hold), its draws are its own, and every golden trip replays to its frozen hash", () => {
+  const seq = (...a) => {
+    const g = draw(...a);
+    return Array.from({ length: 8 }, () => g.u32());
+  };
+  assert.equal(keyOf('K7QM2Q9F', 'quiz', [0]), 'K7QM2Q9F|quiz|0');
+  const quiz = seq('K7QM2Q9F', 'quiz', 0);
+  assert.deepEqual(seq('K7QM2Q9F', 'quiz', 0), quiz, 'the same key, the same draws');
+  for (const s of STREAMS.filter((x) => x !== 'quiz')) assert.notDeepEqual(seq('K7QM2Q9F', s, 0), quiz, s);
+  assert.notDeepEqual(seq('K7QM2Q9F', 'quiz', 1), quiz, 'another pick, another draw');
+  // The golden trips (test/golden/trips) were frozen before the stream joined: each still replays to its hash and identity.
+  for (const g of readGoldens()) {
+    const r = runTrip(tripInput(g), fixtureContent());
+    assert.equal(r.hash, g.expect.hash, g.name);
+    assert.equal(r.identity, g.expect.identity, g.name);
+  }
+  assert.equal(opened(fxContent()).state.device.quiz.done, true);
 });

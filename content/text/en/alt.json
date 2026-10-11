@@ -2,7 +2,7 @@
  "$comment": "Pictures' alt text, read by VoiceOver (GAME_DESIGN 11.9, 18.3). The cover's own line; and from S6 the trail pictures' parts (web/js/gfx/alt.js): a scene's line or a base's, then each skyline's, the sprite's and the hour's (day adds none), each a whole sentence, joined in that order, so every drawable place is described with no line of its own (decision 69), and the same words are the picture's Look where a tap hits no hotspot. Lint P15 holds every drawable place's parts to their lines. Working words; status comes from approved.json.",
  "alt.cover_high_divide_dusk": {
   "text": "The High Divide at dusk. Across the Hoh valley, Mount Olympus glows pink in the last light, under the first stars. A hiker in a rust jacket walks the crest trail among subalpine firs and pink heather.",
-  "ctx": "VoiceOver's description of the cover on the title page (off main: there the cover is decoration beside the name; it returns as the loading art's in B002)",
+  "ctx": "VoiceOver's description of the loading art: the cover drawing itself in under the name while the cabin loads (BUILD_PLAN S7, 11.2; off main until B002 is answered, where the title page shows the cover as decoration beside the name)",
   "screen": "title",
   "max": 240
  },
@@ -44,20 +44,74 @@
  },
  "alt.hour.dusk": {
   "text": "Dusk.",
-  "ctx": "The hour, last, at dusk (day adds none)",
-  "screen": "trail",
+  "ctx": "The hour, last, at dusk (day adds none): the cabin's description first, then a trail picture's",
+  "screen": "home",
   "max": 40
  },
  "alt.hour.blue": {
   "text": "Blue hour, the first stars out.",
-  "ctx": "The hour, last, at blue hour",
-  "screen": "trail",
+  "ctx": "The hour, last, at blue hour under a clear sky: the cabin's description first, then a trail picture's",
+  "screen": "home",
   "max": 40
  },
  "alt.hour.night": {
   "text": "Night, under the stars.",
-  "ctx": "The hour, last, at night",
-  "screen": "trail",
+  "ctx": "The hour, last, at night under a clear sky: the cabin's description first, then a trail picture's",
+  "screen": "home",
+  "max": 40
+ },
+ "alt.scene.cabin": {
+  "text": "An old cedar cabin with a steep roof and a tall arched window, its porch lined with pale chairs, a small shed beside it. Mossy maples and a giant spruce stand around a wide lawn with an iron fire bowl, under a snowy peak.",
+  "ctx": "The cabin's description, first (VoiceOver; the Look where a tap hits no place)",
+  "screen": "home",
+  "max": 240
+ },
+ "alt.cabin.lit": {
+  "text": "Warm light fills the windows, and smoke rises from the stovepipe.",
+  "ctx": "After the scene, when the lights are on (dusk, blue hour, night)",
+  "screen": "home",
+  "max": 80
+ },
+ "alt.cabin.moon": {
+  "text": "The moon is up over the peak.",
+  "ctx": "When the moon is drawn",
+  "screen": "home",
+  "max": 40
+ },
+ "alt.sky.cloudy": {
+  "text": "Low gray cloud hides the top of the peak.",
+  "ctx": "A cloudy day at the cabin",
+  "screen": "home",
+  "max": 60
+ },
+ "alt.sky.rain": {
+  "text": "Rain falls on the roof and the lawn.",
+  "ctx": "A rainy day",
+  "screen": "home",
+  "max": 60
+ },
+ "alt.sky.fog": {
+  "text": "Fog lies in the trees, and the peak floats above it.",
+  "ctx": "A foggy morning",
+  "screen": "home",
+  "max": 60
+ },
+ "alt.hour.dawn": {
+  "text": "Dawn.",
+  "ctx": "The hour, last, at dawn",
+  "screen": "home",
+  "max": 40
+ },
+ "alt.hour.blue_clouded": {
+  "text": "Blue hour.",
+  "ctx": "The hour, last, at blue hour under cloud, rain or fog (no stars)",
+  "screen": "home",
+  "max": 40
+ },
+ "alt.hour.night_clouded": {
+  "text": "Night.",
+  "ctx": "The hour, last, at night under cloud, rain or fog",
+  "screen": "home",
   "max": 40
  }
 }

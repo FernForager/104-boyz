@@ -51,7 +51,8 @@ import { t, tx, wordsOf } from '../text.js';
 import { load, save } from '../platform/storage.js';
 import { feet } from '../fmt.js';
 import { renderStop } from './stop.js';
-import { addInfo, addTags, cueFor, pixelGlyph, drawnChoices, withIntro, openConfirm } from './choices.js';
+import { addInfo, addTags, cueFor, drawnChoices, withIntro, openConfirm } from './choices.js';
+import { statusLine, watchUpdate, snapWidth, STATUS_PT } from './status.js';
 import { openWhy, closeWhy } from './sheet.js';
 import { renderOutcome } from './outcome.js';
 import { playCompass } from './compass.js';
@@ -63,19 +64,23 @@ import { reducedMotion, onMotionChange, liveCycles } from './motion.js';
 import { renderStrip } from './strip.js';
 import { renderToolbar, menuRows } from './toolbar.js';
 import { registerDevControl, registerDevAction } from './debug.js';
-import { FORCED_PLAIN_PX } from './textsize.js';
+import { plainSizeOf, PLAIN_LINE, PLAIN_CHOICE_CHROME_FP } from './textsize.js';
 
 /** The picture (GAME_DESIGN 11.2). */
 export const PIC = Object.freeze({ width: 160, height: 168 });
 /** The hours a picture can show (the composer's HOURS; 11.4). */
 export const HOURS = Object.freeze(['day', 'dusk', 'blue', 'night']);
+/** The dev control's hours (S7 adds dawn, the cabin's; the trail shows it with the dusk table, 11.4). */
+export const DEV_HOURS = Object.freeze(['dawn', 'day', 'dusk', 'blue', 'night']);
 /** The sample's hour by trip count (BUILD_PLAN S5): trips 0, 1, 2 give day, dusk, night. */
 export const TRIP_HOURS = Object.freeze(['day', 'dusk', 'night']);
 /** Until the composer lands, the cover plate stands in: rows y.. of it, as drawn. */
 export const STAND_IN = Object.freeze({ pic: 'cover_high_divide_dusk', y: 96 });
 
-/** The rows of the space check, in points (12.1; BUILD_PLAN S5 3.2). */
-export const STATUS_PT = 22;
+/** The rows of the space check, in points (12.1; BUILD_PLAN S5 3.2): the status line's (ui/status.js, S7), then the frame's own. */
+export { STATUS_PT };
+/** The trail's status line: its ≡ is the menu, and its Sound toggle's words (ui/status.js takes them from its caller, S7). */
+export const TRAIL_STATUS = Object.freeze({ menu: 'trail.status.menu', soundOn: 'trail.status.sound_on', soundOff: 'trail.status.sound_off' });
 /** The caption's row keeps the doc's 40 pt, or two chrome rows where they are taller (2x: 42). */
 export const CAPTION_PT = 40;
 export const CAPTION_ROWS = 2;
@@ -98,17 +103,16 @@ export const BOX_CHROME_FP = 12;
 /** The box's gap above it and below it, in font pixels (frame.css: margin-top 2 fp, max-height 100% - 4 fp). */
 export const BOX_GAP_FP = 2;
 /**
- * Larger Text (ui/textsize.js): the Plain serif's line height, and the lines
- * the space check keeps for the caption (two: a long place wraps) and for
- * each choice (one: a 22-character label fits on one up to about AX1).
+ * Larger Text (ui/textsize.js, which holds the Plain serif's line height, a
+ * Plain choice's chrome and plainSizeOf, re-exported here): the lines the
+ * space check keeps for the caption (two: a long place wraps) and for each
+ * choice (one: a 22-character label fits on one up to about AX1).
  * frame.css lets both grow, so a longer caption or label wraps rather than
  * being cut off, and the box's row gives up the room.
  */
-export const PLAIN_LINE = 1.35;
+export { PLAIN_LINE, PLAIN_CHOICE_CHROME_FP, plainSizeOf };
 export const PLAIN_CAPTION_ROWS = 2;
 export const PLAIN_CHOICE_ROWS = 1;
-/** A Plain choice's border and padding, top and bottom, in font pixels ((3 + 2) twice). */
-export const PLAIN_CHOICE_CHROME_FP = 10;
 /** A chrome row: the 8x14 font's cell. */
 export const CHROME_ROW_FP = 14;
 /** The column's side margins (pt): the column is max(picture and its keyline, viewport - 32). */
@@ -207,27 +211,14 @@ export function frameLayout({ width, height, dpr, safeTop = 0, safeBottom = 0, u
 }
 
 /**
- * The Plain size in force on this page (frame.css --plain-size, 20 px when
- * unset), or null while the pixel fonts show.
- * @param {Document} doc
- * @param {Window | null} win
- * @returns {number | null}
- */
-export function plainSizeOf(doc, win) {
-  const html = doc.documentElement;
-  if (!html || html.getAttribute('data-text') !== 'plain') return null;
-  const raw = (html.style && html.style.getPropertyValue('--plain-size')) || (win && typeof win.getComputedStyle === 'function' ? win.getComputedStyle(html).getPropertyValue('--plain-size') : '');
-  const px = parseFloat(raw);
-  return Number.isFinite(px) && px > 0 ? px : FORCED_PLAIN_PX;
-}
-
-/**
- * The hour a stop's picture shows: the dev override when it names an hour,
- * else the trip count's (trips 0, 1, 2, 3: day, dusk, night, day).
+ * The hour a stop's picture shows: the dev override when it names an hour
+ * (dawn, the cabin's, shows the dusk table: 11.4), else the trip count's
+ * (trips 0, 1, 2, 3: day, dusk, night, day).
  * @param {{state: any} | null} session
  * @param {string | null} [override]
  */
 export function hourOf(session, override) {
+  if (override === 'dawn') return 'dusk';
   if (override && HOURS.includes(override)) return override;
   const hiker = session && session.state ? session.state.hiker : null;
   const trips = hiker && Number.isInteger(hiker.trips) ? hiker.trips : 0;
@@ -237,7 +228,7 @@ export function hourOf(session, override) {
 /** The dev control's kept choice (auto when none, or not an hour). */
 export function savedHour() {
   const v = load(HOUR_KEY);
-  return HOURS.includes(v) ? v : 'auto';
+  return DEV_HOURS.includes(v) ? v : 'auto';
 }
 
 /**
@@ -340,77 +331,6 @@ export function stubSound() {
  */
 
 /**
- * The status line: header.status-line > span.status-score +
- * button.status-menu + button.status-sound.
- * @param {Document} doc
- * @param {FrameCtx} ctx
- */
-function statusLine(doc, ctx) {
-  const header = doc.createElement('header');
-  header.className = 'status-line';
-  const score = doc.createElement('span');
-  score.className = 'status-score';
-  const menu = /** @type {HTMLButtonElement} */ (doc.createElement('button'));
-  menu.className = 'status-menu';
-  menu.setAttribute('type', 'button');
-  menu.setAttribute('aria-label', t('trail.status.menu'));
-  menu.setAttribute('data-t-aria', 'trail.status.menu'); // the line inspector finds a spoken name by it
-  menu.setAttribute('aria-haspopup', 'dialog');
-  menu.appendChild(
-    pixelGlyph(
-      doc,
-      8,
-      8,
-      [
-        [0, 1, 7, 1],
-        [0, 4, 7, 1],
-        [0, 7, 7, 1],
-      ],
-      'menu-glyph',
-    ),
-  );
-  menu.addEventListener('click', () => ctx.menu.open());
-  const sound = /** @type {HTMLButtonElement} */ (doc.createElement('button'));
-  sound.className = 'status-sound';
-  sound.setAttribute('type', 'button');
-  const show = () => {
-    const on = ctx.sound.isOn();
-    sound.setAttribute('aria-pressed', String(on));
-    tx(sound, on ? 'trail.status.sound_on' : 'trail.status.sound_off'); // t-ids: trail.status.sound_on, trail.status.sound_off
-  };
-  show();
-  // Inside the tap: turning it on unlocks the sound (BUILD_PLAN 2.8).
-  sound.addEventListener('click', () => {
-    ctx.sound.setOn(!ctx.sound.isOn());
-    show();
-    if (typeof sound.getBoundingClientRect === 'function') snapWidth(sound);
-  });
-  header.appendChild(score);
-  header.appendChild(menu);
-  header.appendChild(sound);
-  return { header, menu, sound };
-}
-
-/**
- * ≡'s flag while the update note waits (E.7): data-flag on the button,
- * following #update[hidden]. Returns a function that stops watching.
- * @param {Document} doc
- * @param {HTMLElement} button
- */
-function watchUpdate(doc, button) {
-  const update = doc.getElementById('update');
-  const flag = () => {
-    if (update && !update.hidden) button.setAttribute('data-flag', '');
-    else button.removeAttribute('data-flag');
-  };
-  flag();
-  if (!update || typeof MutationObserver !== 'function') return () => {};
-  const obs = new MutationObserver(flag);
-  obs.observe(update, { attributes: true, attributeFilter: ['hidden'] });
-  return () => obs.disconnect();
-}
-
-/**
  * The first time the trail draws, the update note and the stamps move into
  * the ≡ sheet's foot: the same nodes, so their listeners keep working (five
  * taps on the build code open the debug menu from there).
@@ -445,10 +365,11 @@ export function renderFrame(host, screen, onAct, ctx) {
   /** @type {(() => void)[]} */
   const stops = [];
 
-  // The status line.
-  const status = statusLine(doc, ctx);
+  // The status line (ui/status.js): ≡ opens the sheet as the trail's menu.
+  const status = statusLine(doc, { sound: ctx.sound, onMenu: () => ctx.menu.open({ label: TRAIL_STATUS.menu }), lines: TRAIL_STATUS });
   host.appendChild(status.header);
-  stops.push(watchUpdate(doc, status.menu));
+  stops.push(watchUpdate(doc, [status.menu]));
+  stops.push(status.release);
 
   // The picture: its canvas (hidden from VoiceOver), its alt text (an
   // element with role img, its words the parts' lines: gfx/alt.js), its
@@ -750,19 +671,6 @@ export function renderFrame(host, screen, onAct, ctx) {
 }
 
 /**
- * Give an element a whole number of CSS pixels of width (its text's width
- * is a whole number of font pixels, which layout rounds to 1/64 px): so
- * what is right-aligned after it, like Sound:on, starts its glyphs on a
- * whole device pixel and stays crisp.
- * @param {HTMLElement} el
- */
-function snapWidth(el) {
-  el.style.width = '';
-  const w = el.getBoundingClientRect().width;
-  if (w > 0) el.style.width = `${Math.ceil(w - 0.01)}px`;
-}
-
-/**
  * Where the picture starts inside its canvas, in device pixels: the canvas
  * is a whole number of CSS px wide, and the picture is centered in it
  * (gfx/display.js layout), so a pixel or two may stay ink at its left.
@@ -802,9 +710,10 @@ function measure(host, win, choices, tall = 0) {
 }
 
 /**
- * Register the dev control *hour* (auto, day, dusk, blue hour, night) and
- * the dev action *Scenes* (#frame). onHour runs after the hour changes, so
- * the game draws the stop again (at once: the place is seen).
+ * Register the dev control *hour* (auto, dawn, day, dusk, blue hour, night;
+ * the cabin reads the same key, S7) and the dev action *Scenes* (#frame).
+ * onHour runs after the hour changes, so the game draws the screen again
+ * (at once: the place is seen).
  * @param {{onHour?: () => void, openScenes?: () => void}} [o]
  */
 export function registerFrameDev({ onHour, openScenes } = {}) {
@@ -813,6 +722,7 @@ export function registerFrameDev({ onHour, openScenes } = {}) {
     label: 'dev.hour',
     options: [
       { value: 'auto', label: 'dev.hour.auto' },
+      { value: 'dawn', label: 'dev.hour.dawn' },
       { value: 'day', label: 'dev.hour.day' },
       { value: 'dusk', label: 'dev.hour.dusk' },
       { value: 'blue', label: 'dev.hour.blue' },

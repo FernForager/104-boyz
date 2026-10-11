@@ -1,0 +1,93 @@
+{
+ "$comment": "The cabin at Lake Quinault, home (GAME_DESIGN 2.2, 12.3, 12.18; BUILD_PLAN S7): the next-step button's states (home.next.<id>, content/home/cabin.json next), the porch rail's words, which are also the labels on the picture (home.rail.<id>, lead call 57), each place's name, for a long press and VoiceOver (home.place.<id>), the line under a place whose screen comes later (home.soon, lead call 59), and the mailbox's Text toggle (home.mail.*, lead call 63; the Sound toggle is the status line's). Drafts until B002 is answered; preview only.",
+ "home.next.plan_first": {
+  "text": "Plan your first trip",
+  "ctx": "The next-step button for a hiker with no finished trip (2.2 step 4); until S10 it starts the sample trip",
+  "screen": "home",
+  "max": 22
+ },
+ "home.next.plan": {
+  "text": "Plan a trip",
+  "ctx": "The next-step button after a trip",
+  "screen": "home",
+  "max": 22
+ },
+ "home.soon": {
+  "text": "Not open yet.",
+  "ctx": "Under a rail button or a place whose screen comes later (the shed, the car, the fire bowl), and on main under the disabled next step",
+  "screen": "home",
+  "max": 40
+ },
+ "home.rail.plan": {
+  "text": "Plan",
+  "ctx": "The porch rail and the screen door's label: plan a trip",
+  "screen": "home",
+  "max": 8
+ },
+ "home.rail.gear": {
+  "text": "Gear",
+  "ctx": "The rail and the shed's label: your gear, then the flat lay (S12a)",
+  "screen": "home",
+  "max": 8
+ },
+ "home.rail.drive": {
+  "text": "Drive",
+  "ctx": "The rail and the car's label: to town or the trailhead (S11)",
+  "screen": "home",
+  "max": 8
+ },
+ "home.rail.stories": {
+  "text": "Stories",
+  "ctx": "The rail and the fire bowl's label: trip reports (S15a)",
+  "screen": "home",
+  "max": 8
+ },
+ "home.rail.mailbox": {
+  "text": "Mailbox",
+  "ctx": "The rail and the mailbox's label: settings",
+  "screen": "home",
+  "max": 8
+ },
+ "home.place.door": {
+  "text": "The screen door",
+  "ctx": "The door's name: a long press, and VoiceOver's name for its hit area",
+  "screen": "home",
+  "max": 24
+ },
+ "home.place.shed": {
+  "text": "The shed",
+  "ctx": "The shed's name",
+  "screen": "home",
+  "max": 24
+ },
+ "home.place.car": {
+  "text": "The car",
+  "ctx": "The car's name",
+  "screen": "home",
+  "max": 24
+ },
+ "home.place.fire_bowl": {
+  "text": "The fire bowl",
+  "ctx": "The fire bowl's name",
+  "screen": "home",
+  "max": 24
+ },
+ "home.place.mailbox": {
+  "text": "The mailbox",
+  "ctx": "The mailbox's name, and the settings sheet's name at the cabin",
+  "screen": "home",
+  "max": 24
+ },
+ "home.mail.text_pixel": {
+  "text": "Text:pixel",
+  "ctx": "The mailbox's Text toggle while the box text is the pixel font (tap: Plain)",
+  "screen": "mailbox",
+  "max": 12
+ },
+ "home.mail.text_plain": {
+  "text": "Text:plain",
+  "ctx": "The mailbox's Text toggle while the box text is the Plain serif (tap: pixel)",
+  "screen": "mailbox",
+  "max": 12
+ }
+}

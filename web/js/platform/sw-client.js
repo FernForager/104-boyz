@@ -1,8 +1,10 @@
 // The app as installed (GAME_DESIGN E.7; BUILD_PLAN 2.5): registers the
 // channel's worker, checks for a new build at launch and on every return to
-// the foreground, shows the update note and its Restart (on the title page
-// until the cabin's mailbox, S7), and the Works offline stamp once the worker
-// has every file. A new build never takes over by itself: it waits for
+// the foreground, shows the update note and its Restart (on the title page,
+// and from S7 in the mailbox, the ≡ sheet's foot), and the Works offline
+// stamp once the worker has every file. When an update waits it also tells
+// the page (an oph:update event on the window), so the cabin raises the
+// mailbox's flag (S7). A new build never takes over by itself: it waits for
 // Restart, so a trip is never swapped mid-stop.
 
 import { noteError } from '../ui/errors.js';
@@ -10,6 +12,8 @@ import { restart } from '../boot.js';
 
 /** At most one update check a minute (each return to the foreground asks). */
 const CHECK_EVERY_MS = 60 * 1000;
+/** The event the window hears when an update waits (the cabin's flag, S7). */
+export const UPDATE_EVENT = 'oph:update';
 
 /** @type {{worker: 'unsupported' | 'none' | 'installing' | 'waiting' | 'active', build: string | null, update: boolean, offline: boolean}} */
 const status = { worker: 'none', build: null, update: false, offline: false };
@@ -96,6 +100,7 @@ export function startWorker(doc, nav = globalThis.navigator) {
     const showUpdate = () => {
       status.update = true;
       reveal(doc, 'update');
+      if (win) win.dispatchEvent(new win.Event(UPDATE_EVENT));
     };
     // Our own worker is active: its install, the whole precache, succeeded.
     // (Not navigator.serviceWorker.ready: on a first visit to /preview/ the

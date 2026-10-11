@@ -5,7 +5,9 @@
 // names the active codes. The active rules:
 //
 // Pictures (content/art/pics/**/*.pic):
-//   P01 a command, color, point or pattern the format doesn't know
+//   P01 a command, color, point or pattern the format doesn't know, or a
+//       pseudo-color content/art/palette.json doesn't define (S7: 26 and
+//       27 are reserved for S25 and S17)
 //   P02 a stamp that doesn't exist
 //   P03 a point off the canvas (in a plate or scene; stamps draw around
 //       their anchor, so their own points may be anywhere)
@@ -16,12 +18,13 @@
 //       M1a has no lily, so no gold at all
 //   P08 the dust pseudo-color (25), which only the renderer may use
 //   P09 a stamp fill that leaks out of its outline
-//   P10 a picture outside plates/, scenes/, bases/ or stamps/, a bad id,
+//   P10 a picture outside plates/, home/, scenes/, bases/ or stamps/, a bad id,
 //       or a duplicate id
 //   P11 a layer switch inside a stamp
 //   P12 a palette table that makes gold: a remap that turns another color
 //       into 7, or a cycle other than the lily's glow (19) that passes
-//       through it (content/art/palette.json)
+//       through it (content/art/palette.json, and the cabin's own tables in
+//       content/home/cabin.json)
 //   P13 the composer's recipes resolve (content/art/recipes.json; S5): a
 //       drawn base's picture is in bases/, draws the sky, mid and near
 //       layers once each in that order and never the far layer, and has
@@ -60,6 +63,21 @@
 //       to a palette color is allowed, at any alpha; the shell's
 //       theme-color and the manifest's colors are held to slot 0 by
 //       palette.test.mjs)
+//   P17 the cabin's map (BUILD_PLAN S7; GAME_DESIGN 2.2, 11.11):
+//       content/home/cabin.json against its plate and its words: every
+//       place's hit area at least 44 x 44 pt on every phone the home lays
+//       out (the SE's 4x2 at 2x, the 13 mini's 6x4, the 17's 7x4 and the
+//       Pro Max's 8x5 at 3x: at least 22 columns by 44 rows on the plate),
+//       installed and in Safari with its toolbars and the install line,
+//       and never a pixel flatter than 2:1;
+//       each art box inside its hit area and the same as its Z op on the
+//       plate (every Z op a place); every anchor the data names on the
+//       plate; on every phone each place's art center and hit-area center
+//       land on that place (the nearest art center wins), and the labels
+//       sit inside the plate and never overlap; every place has its name
+//       and its rail word, every rail word a place, every live next step
+//       its line; each Look place looked in content/art/hotspots.json with
+//       its two lines, and each silent one silent there (P15's cabin twin)
 // Text (web/ and content/):
 //   T04 no "Golden Glow" (the book is inspiration only, doc 10.1)
 //   T06 no phone links (tel:), and the shell carries the format-detection
@@ -132,7 +150,7 @@ import { join, relative, sep, extname, dirname, posix } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { renderPic, LAYERS, MAX_STAMP_DEPTH, TRANSPARENT } from '../web/js/gfx/picvm.js';
 import { compose, drawable, resolvePlace, HOURS, HORIZON, ANCHOR, REQUIRED_ANCHORS, TRAIL_SPRITES, WIDTH, HEIGHT } from '../web/js/gfx/compose.js';
-import { ROOT, loadPicSources, loadPalette, loadRecipes, loadArt } from './pics.mjs';
+import { ROOT, loadPicSources, loadPalette, loadRecipes, loadArt, loadCabin } from './pics.mjs';
 import { PALETTE, REMAPS, CYCLES, hexToRgb } from '../web/js/gfx/palette.js';
 import { runTextLint, scanJs } from './textlint.mjs';
 import { compileContent, lineOfPath } from './content.mjs';
@@ -140,14 +158,16 @@ import { readText, channelScreens } from './text.mjs';
 import { lintGraph } from './graphlint.mjs';
 import { loadAudio } from './listen.mjs';
 import { luminance } from './color.mjs';
-import { loadHotspots, placeParts, lintLooks } from './looks.mjs';
+import { loadHotspots, placeParts, cabinParts, lintLooks } from './looks.mjs';
+import { homeLayout, cabinHits, placeAt, labelBox, labelled, tappable, canvasInset, nameLine, railLine, nextLine, HIT_MIN_PT } from '../web/js/ui/cabin.js';
+import { plateAnchors } from '../web/js/gfx/cabin.js';
 
 const GOLD_SLOT = 7;
 const GLOW = 19;
 const GOLD = new Set([GOLD_SLOT, GLOW]);
 const DUST = 25;
 const TEXT_EXT = new Set(['.html', '.css', '.js', '.mjs', '.json', '.webmanifest', '.pic', '.md', '.txt', '.svg']);
-export const PURE_MODULES = ['web/js/gfx/picvm.js', 'web/js/gfx/palette.js', 'web/js/gfx/compose.js', 'web/js/gfx/alt.js'];
+export const PURE_MODULES = ['web/js/gfx/picvm.js', 'web/js/gfx/palette.js', 'web/js/gfx/compose.js', 'web/js/gfx/alt.js', 'web/js/gfx/cabin.js'];
 
 /** @typedef {{file: string, line: number, code: string, msg: string, level?: 'error' | 'warn'}} Issue */
 
@@ -170,7 +190,7 @@ const rule = (code, family, doc, what, lands) => (lands ? { code, family, doc, s
  * @type {readonly Rule[]}
  */
 export const RULES = Object.freeze([
-  rule('P01', 'pictures', 'BUILD_PLAN 4.2, 4.8', "a command, color, point or pattern the .pic format doesn't know"),
+  rule('P01', 'pictures', 'BUILD_PLAN 4.2, 4.8', "a command, color, point or pattern the .pic format doesn't know, or a pseudo-color the palette doesn't define"),
   rule('P02', 'pictures', 'BUILD_PLAN 4.8', "a stamp that doesn't exist"),
   rule('P03', 'pictures', 'BUILD_PLAN 4.8', 'a point off the canvas'),
   rule('P04', 'pictures', 'BUILD_PLAN 4.8', 'a fill over 60% of a non-sky layer (an outline left open)'),
@@ -179,13 +199,14 @@ export const RULES = Object.freeze([
   rule('P07', 'pictures', 'GAME_DESIGN 9.8, 11.1', "bonfire gold outside the lily's own files"),
   rule('P08', 'pictures', 'GAME_DESIGN 11.10', 'the dust pseudo-color, which only the renderer may use'),
   rule('P09', 'pictures', 'BUILD_PLAN 4.8', 'a stamp fill that leaks out of its outline'),
-  rule('P10', 'pictures', 'BUILD_PLAN 4.2', 'a picture outside plates/, scenes/, bases/ or stamps/, a bad id, or a duplicate id'),
+  rule('P10', 'pictures', 'BUILD_PLAN 4.2', 'a picture outside plates/, home/, scenes/, bases/ or stamps/, a bad id, or a duplicate id'),
   rule('P11', 'pictures', 'BUILD_PLAN 4.2', 'a layer switch inside a stamp'),
   rule('P12', 'palette', 'BUILD_PLAN 4.7; GAME_DESIGN 11.4', 'a palette remap or cycle that makes bonfire gold'),
   rule('P13', 'pictures', 'BUILD_PLAN 4.4, 4.5, S5; GAME_DESIGN 11.7', "the composer's recipes resolve: bases, anchors, layers, slots, skylines, stamps, landmarks never flipped"),
   rule('P14', 'pictures', 'BUILD_PLAN 4.8, S5; GAME_DESIGN 11.1, 11.7, 11.8', 'every drawable place composes at every hour and lints like a drawn picture, its skyline apart from its sky and the light behind its crest (in value too) and from its mid band'),
   rule('P15', 'pictures', 'BUILD_PLAN S6; GAME_DESIGN 11.8, 11.9, 12.1', "every hotspot kind of a drawable place is in hotspots.json, every looked kind has its lines, and every part has its alt line"),
   rule('P16', 'palette', 'BUILD_PLAN 4.1, S6; GAME_DESIGN 11.1', "a color literal in web/ outside the palette's homes (tokens.css, palette.js) that is no palette color"),
+  rule('P17', 'pictures', 'BUILD_PLAN S7; GAME_DESIGN 2.2, 11.11, 12.1', "the cabin's map: hit areas at least 44 pt on every phone, art boxes in their hit areas and on the plate, anchors, each place's center its own, labels inside and apart, and every place's words"),
   rule('T02', 'text', 'GAME_DESIGN F.3, 12.1; BUILD_PLAN 10.5, S6', 'measured fit at 375 x 667 and 393 x 852: boxes, labels, tags, the caption, Looks, outcomes and Why rows, in the shipped fonts'),
   rule('T04', 'text', 'GAME_DESIGN 10.1, F.3', 'no "Golden Glow" in shipped text'),
   rule('T06', 'text', 'GAME_DESIGN E.7, F.3', 'no phone links, and the shell carries the format-detection meta'),
@@ -278,20 +299,22 @@ function colorsOf(op) {
  * Lint one parsed picture source.
  * @param {{id: string, kind: string|null, rel: string, parsed: any, width: number, height: number}} src
  * @param {Record<string, any[][]>} stamps every stamp's ops, by id
+ * @param {Record<string, any>} [cycles] the palette's cycles, by pseudo-color (palette.json's; palette.js's by default)
  * @returns {Issue[]}
  */
-export function lintPicture(src, stamps) {
+export function lintPicture(src, stamps, cycles = CYCLES) {
   /** @type {Issue[]} */
   const out = [];
   const file = src.rel;
   const add = (line, code, msg) => out.push({ file, line, code, msg });
   const { ops, lines, errors } = src.parsed;
   for (const e of errors) add(e.line, 'P01', e.msg);
-  if (!src.kind) add(1, 'P10', 'pictures live in plates/, scenes/, bases/ or stamps/');
+  if (!src.kind) add(1, 'P10', 'pictures live in plates/, home/, scenes/, bases/ or stamps/');
   if (!/^[a-z][a-z0-9_]*$/.test(src.id)) add(1, 'P10', `"${src.id}" is not a good id (lowercase, digits, underscores)`);
   const lilyFile = src.id.includes('bonfire_lily');
   ops.forEach((op, k) => {
     for (const c of colorsOf(op)) {
+      if (c >= 16 && !Object.prototype.hasOwnProperty.call(cycles, String(c))) add(lines[k], 'P01', `color ${c} is no pseudo-color content/art/palette.json defines`);
       if (GOLD.has(c) && !lilyFile) add(lines[k], 'P07', `color ${c} is bonfire gold: the lily's alone, and M1a has no lily`);
       if (c === DUST) add(lines[k], 'P08', 'color 25 (dust) is for the renderer only');
     }
@@ -331,8 +354,12 @@ export function lintPicture(src, stamps) {
   return out;
 }
 
-/** Every picture, with stamps resolved across files. */
-export function lintPictures(sources) {
+/**
+ * Every picture, with stamps resolved across files.
+ * @param {any[]} sources
+ * @param {Record<string, any>} [cycles] the palette's cycles (palette.json's)
+ */
+export function lintPictures(sources, cycles = CYCLES) {
   const stamps = {};
   /** @type {Issue[]} */
   const out = [];
@@ -342,7 +369,7 @@ export function lintPictures(sources) {
     else seen.set(s.id, s.rel);
     if (s.kind === 'stamps') stamps[s.id] = s.parsed.ops;
   }
-  for (const s of sources) out.push(...lintPicture(s, stamps));
+  for (const s of sources) out.push(...lintPicture(s, stamps, cycles));
   return out;
 }
 
@@ -1069,11 +1096,178 @@ export function lintArtWords(root = ROOT) {
   const art = loadArt(join(root, 'content', 'art', 'pics'));
   let parts = [];
   try {
-    parts = placeParts(art);
+    // S7: the cabin's Look and silent kinds and its alt parts too (P15's cabin twin is P17's words).
+    parts = [...placeParts(art), ...cabinParts(loadCabin(join(root, 'content', 'home', 'cabin.json')))];
   } catch (e) {
     return [{ file: 'content/art/recipes.json', line: 1, code: 'P15', msg: `the places don't compose, so their words can't be checked: ${e.message}` }];
   }
   return lintLooks({ parts, file: loadHotspots(root), defined: (id) => text.lines.has(id), ids: text.lines.keys() });
+}
+
+/**
+ * The phones the home lays out (BUILD_PLAN S7 D4, P17): the SE (the worst
+ * case, 4x2 at 2x), the 13 mini (6x4), the 17 (7x4) and the Pro Max (8x5),
+ * each [name, width, height, dpr, safeTop, safeBottom] in points.
+ */
+export const HOME_PHONES = Object.freeze([
+  ['se', 375, 667, 2, 20, 0],
+  ['mini', 375, 812, 3, 50, 34],
+  ['p17', 402, 874, 3, 62, 34],
+  ['promax', 440, 956, 3, 62, 34],
+]);
+
+/**
+ * The same phones in Safari, before the game is installed (S7 review):
+ * where a first visit happens, with the toolbars up (the game page never
+ * scrolls, so they stay) and the two-line install line under the cabin
+ * (47 pt with its foot), each [name, width, height, dpr, usable, install]
+ * in points: usable the page's height (100dvh, measured in Chromium at
+ * the SE's and the 13 mini's Safari sizes; the 17's and the Pro Max's the
+ * mini's 183 pt of Safari chrome off their screens).
+ */
+export const SAFARI_PHONES = Object.freeze([
+  ['se_safari', 375, 667, 2, 548, 47],
+  ['mini_safari', 375, 812, 3, 629, 47],
+  ['p17_safari', 402, 874, 3, 691, 47],
+  ['promax_safari', 440, 956, 3, 773, 47],
+]);
+
+/**
+ * Every room P17 lays the home out in: the installed phones' and Safari's,
+ * each {name, width, height, dpr, layout} with homeLayout's own inputs.
+ * @param {number} rail the rail's buttons
+ */
+export function homeRooms(rail) {
+  return [
+    ...HOME_PHONES.map(([name, width, height, dpr, safeTop, safeBottom]) => ({ name: String(name), width: Number(width), height: Number(height), dpr: Number(dpr), layout: homeLayout({ width: Number(width), height: Number(height), dpr: Number(dpr), safeTop: Number(safeTop), safeBottom: Number(safeBottom), rail }) })),
+    ...SAFARI_PHONES.map(([name, width, height, dpr, usable, install]) => ({ name: String(name), width: Number(width), height: Number(height), dpr: Number(dpr), layout: homeLayout({ width: Number(width), height: Number(height), dpr: Number(dpr), usable: Number(usable), install: Number(install), rail }) })),
+  ];
+}
+
+/**
+ * The anchors the cabin's plate must carry (BUILD_PLAN S7 5.9): the
+ * composition's and, reserved for M1b, the lily's sketch (decision 46).
+ */
+export const CABIN_ANCHORS = Object.freeze(['moon', 'star_floor', 'pipe', 'win_left', 'win_right', 'win_gable', 'stove', 'door', 'lantern_l', 'lantern_r', 'shed_light', 'spill_l', 'spill_r', 'bowl', 'lockbox', 'guestbook', 'mailbox_flag', 'chain_l', 'chain_r', 'lily_sketch']);
+
+/**
+ * P17 (pure): the cabin's map against its plate and its words.
+ * @param {{cabin: any, plate: {ops: any[][]} | null, defined: (id: string) => boolean, words: (id: string) => string | null, looked: Record<string, {look: boolean}>, file?: string}} o
+ *   plate: the cabin's picture; defined: a line is in content/text; words:
+ *   a line's words (for the labels' widths); looked: hotspots.json's kinds
+ * @returns {Issue[]}
+ */
+export function lintCabin({ cabin, plate, defined, words, looked, file = 'content/home/cabin.json' }) {
+  /** @type {Issue[]} */
+  const out = [];
+  const add = (/** @type {string} */ msg) => out.push({ file, line: 1, code: 'P17', msg });
+  if (!cabin || !cabin.places) return out;
+  if (!plate) {
+    add(`no plate "${cabin.plate}" to check the places against`);
+    return out;
+  }
+  const places = /** @type {Record<string, any>} */ (cabin.places);
+  const inside = (/** @type {number[]} */ a, /** @type {number[]} */ b) => a[0] >= b[0] && a[1] >= b[1] && a[0] + a[2] <= b[0] + b[2] && a[1] + a[3] <= b[1] + b[3];
+  // The plate: its Z ops (the places' art boxes) and its anchors.
+  /** @type {Map<string, number[]>} */
+  const zops = new Map();
+  for (const op of plate.ops) if (op[0] === 'Z' && !String(op[1]).startsWith(ANCHOR)) zops.set(String(op[1]), [op[2], op[3], op[4], op[5]]);
+  const at = plateAnchors(plate.ops);
+  for (const [id, p] of Object.entries(places)) {
+    if (!inside(p.art, p.hit)) add(`places.${id}: its art box [${p.art}] is not inside its hit area [${p.hit}]`);
+    if (p.hit[0] < 0 || p.hit[1] < 0 || p.hit[0] + p.hit[2] > WIDTH || p.hit[1] + p.hit[3] > 320) add(`places.${id}: its hit area [${p.hit}] runs off the plate`);
+    const z = zops.get(id);
+    if (!z) add(`places.${id}: the plate has no Z op ${id}`);
+    else if (z.join(',') !== p.art.join(',')) add(`places.${id}: its art box [${p.art}] is not the plate's Z op [${z}]`);
+  }
+  for (const id of zops.keys()) if (!Object.prototype.hasOwnProperty.call(places, id)) add(`the plate's Z op ${id} is no place in cabin.json`);
+  /** @type {Set<string>} */
+  const named = new Set(CABIN_ANCHORS);
+  for (const k of ['lights', 'embers', 'smoke']) for (const o of cabin[k] || []) if (o.at) named.add(o.at);
+  for (const list of Object.values(cabin.states || {})) for (const o of /** @type {any[]} */ (list)) if (o.at) named.add(o.at);
+  for (const list of Object.values(cabin.weather || {})) for (const o of /** @type {any[]} */ (list)) if (o.at) named.add(o.at);
+  if (cabin.moon) named.add(cabin.moon.at);
+  if (cabin.stars) named.add(cabin.stars.floor);
+  for (const a of [...named].sort()) if (!Object.prototype.hasOwnProperty.call(at, a)) add(`the plate has no anchor at_${a}`);
+  // The phones: 44 pt, each center its own, the labels inside and apart.
+  const labels = labelled(places);
+  for (const [id, p] of Object.entries(places)) if (p.kind === 'place' && !labels.some(([l]) => l === id)) add(`places.${id}: a place needs a label anchor and a rail word`);
+  for (const { name, dpr, layout: l } of homeRooms((cabin.rail || []).length)) {
+    const shape = { sx: l.shape.sx, sy: l.shape.sy, dpr, ox: canvasInset(l.shape.sx, dpr) };
+    if (2 * shape.sy < shape.sx) add(`on the ${name} the plate draws at ${shape.sx}x${shape.sy}, flatter than 2:1`);
+    for (const [id, p] of Object.entries(places)) {
+      const w = (p.hit[2] * shape.sx) / dpr;
+      const h = (p.hit[3] * shape.sy) / dpr;
+      if (w < HIT_MIN_PT - 1e-9 || h < HIT_MIN_PT - 1e-9) add(`places.${id}: its hit area is ${w.toFixed(1)} x ${h.toFixed(1)} pt on the ${name} (${shape.sx}x${shape.sy}), under ${HIT_MIN_PT} x ${HIT_MIN_PT}`);
+    }
+    const hits = cabinHits(tappable(places), shape);
+    for (const hit of hits) {
+      const hc = { x: hit.x + hit.w / 2, y: hit.y + hit.h / 2 };
+      for (const [what, x, y] of /** @type {[string, number, number][]} */ ([
+        ['art center', hit.cx, hit.cy],
+        ['hit-area center', hc.x, hc.y],
+      ])) {
+        const got = placeAt(hits, x, y);
+        if (!got || got.id !== hit.id) add(`places.${hit.id}: on the ${name} its ${what} lands on ${got ? got.id : 'nothing'}`);
+      }
+    }
+    const picW = (WIDTH * shape.sx) / dpr;
+    const picH = (320 * shape.sy) / dpr;
+    const x0 = shape.ox / dpr;
+    const boxes = labels.map(([id, p]) => {
+      const w = words(railLine(p.rail));
+      return { id, b: labelBox(p, w === null ? 0 : Array.from(w).length, shape) };
+    });
+    for (const { id, b } of boxes) if (b.x < x0 - 1e-9 || b.y < -1e-9 || b.x + b.w > x0 + picW + 1e-9 || b.y + b.h > picH + 1e-9) add(`places.${id}: its label runs off the plate on the ${name}`);
+    for (let i = 0; i < boxes.length; i++) {
+      for (let j = i + 1; j < boxes.length; j++) {
+        const a = boxes[i].b;
+        const c = boxes[j].b;
+        if (a.x < c.x + c.w && c.x < a.x + a.w && a.y < c.y + c.h && c.y < a.y + a.h) add(`the ${boxes[i].id} and ${boxes[j].id} labels overlap on the ${name}`);
+      }
+    }
+  }
+  // The words.
+  const rails = new Set(cabin.rail || []);
+  for (const [id, p] of Object.entries(places)) {
+    if (p.kind === 'place') {
+      if (!defined(nameLine(id, p))) add(`places.${id}: needs its name, ${nameLine(id, p)} (content/text/en/home.json)`);
+      if (p.rail && !rails.has(p.rail)) add(`places.${id}: its rail word ${p.rail} is not on the rail`);
+    }
+    if (p.kind === 'look') {
+      const k = looked[id];
+      if (!k || k.look !== true) add(`places.${id}: a Look place, so ${id} is looked in content/art/hotspots.json`);
+      for (const line of [`look.${id}`, `look.name.${id}`]) if (!defined(line)) add(`places.${id}: a Look place, so it needs the line ${line}`);
+    }
+    if (p.kind === 'silent') {
+      const k = looked[id];
+      if (!k || k.look !== false) add(`places.${id}: a silent place, so ${id} is silent in content/art/hotspots.json, with its why`);
+    }
+  }
+  for (const r of rails) {
+    if (!Object.values(places).some((p) => p.rail === r)) add(`rail: ${r} is no place's rail word`);
+    if (!defined(railLine(r))) add(`rail: ${r} needs its word, ${railLine(r)}`);
+  }
+  for (const row of cabin.next || []) if (row.when && !defined(nextLine(row.id))) add(`next.${row.id}: a live next step needs its line, ${nextLine(row.id)}`);
+  return out;
+}
+
+/**
+ * P17 over the repo.
+ * @param {string} [root]
+ * @returns {Issue[]}
+ */
+export function lintCabinMap(root = ROOT) {
+  const cabin = loadCabin(join(root, 'content', 'home', 'cabin.json'));
+  if (!cabin) return [];
+  const text = readText(root, { strict: false });
+  const art = loadArt(join(root, 'content', 'art', 'pics'));
+  const { hotspots } = loadHotspots(root);
+  const words = (/** @type {string} */ id) => {
+    const l = text.lines.get(id);
+    return l && typeof l.text === 'string' ? l.text : null;
+  };
+  return lintCabin({ cabin, plate: art.pics[cabin.plate] || null, defined: (id) => text.lines.has(id), words, looked: (hotspots && hotspots.kinds) || {} });
 }
 
 /** Run every rule over the repo. */
@@ -1082,12 +1276,16 @@ export function runLint(root = ROOT) {
   const issues = [];
   const rel = (p) => relative(root, p).split(sep).join('/');
   const sources = loadPicSources(join(root, 'content', 'art', 'pics'));
-  issues.push(...lintPictures(sources).map((i) => ({ ...i, file: `content/art/pics/${i.file}` })));
+  issues.push(...lintPictures(sources, loadPalette(join(root, 'content', 'art', 'palette.json')).cycles).map((i) => ({ ...i, file: `content/art/pics/${i.file}` })));
   const recipes = loadRecipes(join(root, 'content', 'art', 'recipes.json'), join(root, 'schemas', 'recipes.schema.json'));
   issues.push(...lintRecipes(recipes, sources));
   issues.push(...lintCompositions(recipes, sources));
   issues.push(...lintArtWords(root));
+  issues.push(...lintCabinMap(root));
   issues.push(...lintPalette('content/art/palette.json', loadPalette(join(root, 'content', 'art', 'palette.json'))));
+  // The cabin's own tables (S7) are held to the same rule.
+  const cabin = loadCabin(join(root, 'content', 'home', 'cabin.json'));
+  if (cabin && cabin.remaps) issues.push(...lintPalette('content/home/cabin.json', { remaps: Object.fromEntries(Object.entries(cabin.remaps).filter(([, m]) => Array.isArray(m))) }));
   for (const dir of ['web', 'content']) {
     for (const f of walk(join(root, dir))) {
       if (!TEXT_EXT.has(extname(f)) && !f.endsWith('.webmanifest')) continue;

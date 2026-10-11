@@ -22,7 +22,7 @@
 // continues says so.
 
 import { t } from '../text.js';
-import { pixelGlyph } from './choices.js';
+import { pixelGlyph } from './glyph.js';
 
 /** The ▾ on a 7 x 4 grid of font pixels. */
 export const MORE_RECTS = Object.freeze([
@@ -122,13 +122,32 @@ export function lineBoxes(rects, origin = 0, lineHeight = 0) {
 }
 
 /**
+ * Pure: line boxes held inside the text's own box, 0 to its height. A tall
+ * face's runs (Literata at 1.35) make the first line start a little above
+ * the text and the last end a little below it; the box is laid out for the
+ * text's own height, so a window that tall shows every line, and a box
+ * whose text fits keeps one page (the S7 review: in Plain, every porch box
+ * of two lines or more hid its last one behind ▾). The lines' ink is kept
+ * apart (measureLines' ink).
+ * @template {{top: number, bottom: number}} L
+ * @param {readonly L[]} lines
+ * @param {number} height the text's own height (CSS px)
+ * @returns {L[]}
+ */
+export function withinText(lines, height) {
+  if (!(height > 0)) return lines.slice();
+  return lines.map((l) => ({ ...l, top: Math.max(0, Math.min(l.top, height)), bottom: Math.max(0, Math.min(l.bottom, height)) }));
+}
+
+/**
  * The line boxes of an element's text, measured (null where the page
  * can't: Node's tests, or a browser with no Range): each text node's runs,
- * merged by line.
+ * merged by line, held inside the text's own box (withinText), each with
+ * its ink's bottom.
  * @param {HTMLElement} flow
- * @returns {{top: number, bottom: number}[] | null}
+ * @returns {{top: number, bottom: number, ink: number}[] | null}
  */
-function measureLines(flow) {
+export function measureLines(flow) {
   const doc = flow.ownerDocument;
   if (typeof doc.createRange !== 'function' || typeof flow.getBoundingClientRect !== 'function') return null;
   /** @type {DOMRect[]} */
@@ -143,11 +162,12 @@ function measureLines(flow) {
   walk(flow);
   const win = doc.defaultView;
   const lh = win ? parseFloat(win.getComputedStyle(flow).lineHeight) : 0;
-  const origin = flow.getBoundingClientRect().top;
+  const own = flow.getBoundingClientRect();
+  const origin = own.top;
   const boxes = lineBoxes(rects, origin, Number.isFinite(lh) ? lh : 0);
   // Each line's ink bottom: a tall face (Literata) draws its descenders
   // below the line's box, into the next line's, so a later page clips them.
-  return boxes.map((b) => {
+  const inked = boxes.map((b) => {
     let ink = b.bottom;
     for (const r of rects) {
       const m = (r.top + r.bottom) / 2 - origin;
@@ -155,6 +175,7 @@ function measureLines(flow) {
     }
     return { ...b, ink };
   });
+  return withinText(inked, own.height);
 }
 
 /**

@@ -261,3 +261,79 @@ test('S6: the re-tune, slot by slot against S5 (palette.json records each, and w
   const json = JSON.parse(readFileSync(join(ROOT, 'content', 'art', 'palette.json'), 'utf8'));
   for (const what of ['teal', 'night navy', 'key slot']) assert.match(json.$comment, new RegExp(what), `palette.json's comment says ${what}`);
 });
+
+// S7 (lead call 56): two pseudo-colors for the cabin's night.
+
+test("S7: spill (28) is a light fixed on brick, smoke (29) isn't a light and climbs in puffs through the cabin's vapour slots; neither is gold, and both ship only with the cabin's screens", async () => {
+  const { loadCabin } = await import('../../tools/pics.mjs');
+  const { cabinPalette } = await import('../../web/js/gfx/cabin.js');
+  const cabin = loadCabin();
+  const pal = cabinPalette(makePalette(), cabin);
+  assert.deepEqual({ ...CYCLES[28] }, { name: 'spill', slots: [9], light: true, hold: 1, phase: 'none', screens: ['home', 'lockbox', 'guestbook'] });
+  assert.deepEqual({ ...CYCLES[29] }, { name: 'smoke', slots: [1, 1, 1, 6], light: false, hold: 3, phase: 'rise', screens: ['home', 'lockbox', 'guestbook'] });
+  const tables = [...new Set(Object.values(cabin.tables))];
+  for (const remap of ['day', 'dusk', 'blue', 'night', ...tables]) {
+    for (let frame = 0; frame < 12; frame++) {
+      assert.equal(resolve(new Uint8Array([28]), 1, pal, { remap, frame })[0], 9, `spill stays brick at ${remap}`);
+      const smoke = resolve(new Uint8Array([29]), 1, pal, { remap, frame })[0];
+      assert.equal(smoke, pal.remaps[remap][CYCLES[29].slots[Math.floor(frame / 3) % 4]], `smoke is remapped at ${remap}`);
+      assert.notEqual(smoke, 7);
+    }
+  }
+  // Smoke climbs in puffs: a step every four rows (rows 4k to 4k + 3 always
+  // show the same slot, so a puff never draws as one-row stripes), and what
+  // a column's row y + 4 shows now, row y shows a step (three frames) later.
+  const col = new Uint8Array(16).fill(29);
+  for (let frame = 0; frame < 12; frame += 3) {
+    const now = resolve(col, 1, pal, { remap: cabin.tables.night, frame });
+    const later = resolve(col, 1, pal, { remap: cabin.tables.night, frame: frame + 3 });
+    for (let y = 0; y < 12; y++) assert.equal(later[y], now[y + 4]);
+    for (let y = 0; y < 16; y++) assert.equal(now[y], now[y & ~3], `row ${y} shows its puff's slot`);
+  }
+  // Through the cabin's own tables the smoke is glacier blue and snow by
+  // day, at dusk and at dawn, slate and glacier blue at blue hour and night:
+  // never pink (alpenglow doesn't light smoke at roof height), never glowing
+  // past glacier blue at night, never ink.
+  const seen = (hour) => new Set([0, 3, 6, 9].map((frame) => resolve(new Uint8Array([29]), 1, pal, { remap: cabin.tables[hour], frame })[0]));
+  for (const hour of ['day', 'dusk', 'dawn']) assert.deepEqual([...seen(hour)].sort(), [3, 4], `${hour}: glacier blue and snow`);
+  for (const hour of ['blue', 'night']) assert.deepEqual([...seen(hour)].sort(), [2, 3], `${hour}: slate and glacier blue`);
+});
+
+test('S7: the cabin joins night is night (spec 6.3): darker day to dusk to blue hour to night with its lights left out, the name\'s night sky dark and blue, the windows and the arched window lit, the summit and the roof reading at every hour', async () => {
+  const { cabinLight, cabinProblems, CABIN_MIN_LIT, CABIN_SUMMIT, CABIN_ROOF, CABIN_GABLE_LIT } = await import('../../tools/render-pics.mjs');
+  const { loadCabin } = await import('../../tools/pics.mjs');
+  const cabin = loadCabin();
+  const art = { pics: LOADED.pics, stamps: LOADED.stamps };
+  assert.deepEqual(cabinProblems(art, cabin), []);
+  assert.deepEqual([CABIN_MIN_LIT, CABIN_SUMMIT, CABIN_ROOF, CABIN_GABLE_LIT], [120, 1.5, 1.3, 150]);
+  const l = cabinLight(art, cabin);
+  assert.ok(l.day.L > l.dusk.L && l.dusk.L > l.blue.L && l.blue.L > l.night.L);
+  assert.ok(l.night.skyL <= NIGHT_SKY_MAX_L && l.night.skyC >= NIGHT_SKY_MIN_C, `the name's night sky: ${l.night.skyL.toFixed(3)}, ${l.night.skyC.toFixed(3)}`);
+  assert.ok(l.night.lit >= CABIN_MIN_LIT && l.blue.lit >= CABIN_MIN_LIT && l.dusk.lit >= CABIN_MIN_LIT, 'the lights at dusk, blue hour and night');
+  assert.deepEqual([l.day.lit, l.dawn.lit], [0, 0], 'never by day or at dawn');
+  // The checks bite (on the cabin's own night table, which its night
+  // resolves with). A night that is the day table is no night, and its sky
+  // is no night sky:
+  const night = cabin.tables.night;
+  const withNight = (/** @type {number[]} */ table) => ({ ...cabin, remaps: { ...cabin.remaps, [night]: table } });
+  const asDay = cabinProblems(art, withNight([...cabin.remaps.cabin_day]));
+  assert.ok(asDay.some((p) => /^cabin: night \(\d\.\d+\) is no darker than blue/.test(p)) && asDay.some((p) => /night sky's lightness .* is over 0\.47/.test(p)), asDay.join('\n'));
+  // a night sky of ink alone is grey;
+  const inkSky = [...cabin.remaps[night]];
+  inkSky[3] = 0;
+  assert.ok(cabinProblems(art, withNight(inkSky)).some((p) => /night sky's chroma 0\.02\d is under 0\.035/.test(p)));
+  // snow that goes navy at night loses the summit in the navy sky;
+  const navySnow = [...cabin.remaps[night]];
+  navySnow[4] = 1;
+  assert.ok(cabinProblems(art, withNight(navySnow)).some((p) => /^cabin at night: the summit at \d+,\d+ is 1\.00 from its sky/.test(p)));
+  // foothills that go ink at night lose the ink roof against them;
+  const inkHills = [...cabin.remaps[night]];
+  inkHills[15] = 0;
+  assert.ok(cabinProblems(art, withNight(inkHills)).some((p) => /^cabin at night: the roof at \d+,\d+ is 1\.00 from the band behind it/.test(p)));
+  // and the shared night table no longer reaches the cabin: changing it changes nothing there.
+  const pal = makePalette();
+  assert.deepEqual(cabinProblems(art, cabin, { ...pal, remaps: { ...pal.remaps, night: [...REMAPS.day] } }), []);
+  // and a cabin with its windows dark at night fails.
+  const dark = { ...cabin, lights: cabin.lights.filter((o) => !/bank|gable|door/.test(o.stamp)) };
+  assert.ok(cabinProblems(art, dark).some((p) => /arched window has 0 lamp pixels/.test(p)));
+});

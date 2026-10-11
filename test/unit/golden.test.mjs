@@ -92,10 +92,14 @@ test('the shapes agree: noops, a rebase, a fresh device and a resume end as fx_p
   assert.deepEqual(goldens.fx_first_launch.first, FX_HIKER);
 });
 
-test('a fresh device signing as {HIKER} ends with a hiker of 1 trip, latest stop 3, and no name anywhere in the trip', () => {
+test('a fresh device opening the lockbox (S7) and signing as {HIKER} ends with a hiker of 1 trip, latest stop 3, and no name anywhere in the trip', () => {
   const content = fixtureContent();
   const g = goldens.fx_first_launch;
-  let s = dispatch(newSession(content), { t: 'sign', ...g.first }, content).session;
+  let s = newSession(content);
+  assert.throws(() => dispatch(s, { t: 'sign', ...g.first }, content), { code: 'refused' }, 'the lockbox comes first');
+  s = dispatch(s, { t: 'open' }, content).session;
+  assert.equal(s.state.device.quiz.done, true, 'the fixture deals no quiz: Take the key at once');
+  s = dispatch(s, { t: 'sign', ...g.first }, content).session;
   s = dispatch(s, { t: 'start', plan: g.log.plan, seed: g.log.seed }, content).session;
   for (const a of g.log.actions) s = dispatch(s, fromLogAction(a), content).session;
   assert.equal(s.state.hiker.trips, 1);

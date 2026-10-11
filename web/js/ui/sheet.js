@@ -28,7 +28,7 @@
 
 import { tx, bindNumbers } from '../text.js';
 import { pct, partPct, permillePct, exactPct, share, clock, miles, rowValue } from '../fmt.js';
-import { pixelGlyph } from './choices.js';
+import { pixelGlyph } from './glyph.js';
 
 const TITLE_ID = 'why-title';
 /** The bar's units: its width in points of the roll, and its height. */

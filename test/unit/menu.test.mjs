@@ -1,42 +1,31 @@
 // The ≡ menu (GAME_DESIGN 12.1, 12.18): built on first use, named by
-// trail.status.menu from S5, with rows and a foot; Back opens it without
-// ever navigating.
+// trail.status.menu from S5 (from S7 by its opener's line: the mailbox at
+// the cabin), with a Close for VoiceOver, rows, the settings and a foot;
+// Back opens it without ever navigating.
 
 import { test, mock } from 'node:test';
 import assert from 'node:assert/strict';
-import { createMenu, onBack } from '../../web/js/ui/menu.js';
+import { createMenu, onBack, MENU_LINE, CLOSE_LINE } from '../../web/js/ui/menu.js';
 import { setBundle } from '../../web/js/text.js';
+import { fakeDocument } from './textfix.mjs';
 
-/** A small DOM: enough for the ≡ stub. */
+/** A small DOM (textfix.mjs's), counting what it makes. */
 function fakeDoc() {
+  const doc = fakeDocument();
   const made = [];
-  const node = (tag) => {
-    const n = {
-      tag,
-      hidden: false,
-      className: '',
-      children: [],
-      attrs: {},
-      listeners: {},
-      classList: { add: (...c) => (n.className = [n.className, ...c].filter(Boolean).join(' ')) },
-      appendChild: (c) => (n.children.push(c), c),
-      removeChild: (c) => (n.children.splice(n.children.indexOf(c), 1), c),
-      get firstChild() {
-        return n.children[0] || null;
-      },
-      setAttribute: (k, v) => (n.attrs[k] = v),
-      addEventListener: (k, fn) => (n.listeners[k] = fn),
-    };
+  const make = doc.createElement;
+  doc.createElement = (tag) => {
+    const n = make(tag);
     made.push(n);
     return n;
   };
-  return { made, body: node('body'), createElement: node };
+  return Object.assign(doc, { made });
 }
 
 test('the ≡ stub builds nothing until opened, toggles, and Back only opens it', () => {
   const doc = fakeDoc();
   const menu = createMenu(doc);
-  assert.equal(doc.made.length, 1, 'nothing built yet (only the body)');
+  assert.equal(doc.made.length, 0, 'nothing built yet');
   assert.equal(menu.isOpen(), false);
   assert.equal(menu.rows, null);
   menu.open();
@@ -44,17 +33,23 @@ test('the ≡ stub builds nothing until opened, toggles, and Back only opens it'
   const scrim = doc.body.children[0];
   assert.equal(scrim.className, 'scrim menu-scrim');
   assert.equal(scrim.children[0].className, 'sheet box menu');
-  assert.equal(scrim.children[0].attrs.role, 'dialog');
+  assert.equal(scrim.children[0].getAttribute('role'), 'dialog');
   assert.equal(menu.rows.className, 'menu-rows');
+  assert.equal(menu.settings.className, 'menu-settings');
   assert.equal(menu.foot.className, 'menu-foot');
-  assert.deepEqual(scrim.children[0].children, [menu.rows, menu.foot]);
+  const close = scrim.children[0].children[0];
+  assert.deepEqual(scrim.children[0].children, [close, menu.rows, menu.settings, menu.foot], 'S7: a Close, the rows, the settings (the mailbox\'s), the foot');
+  assert.equal(close.getAttribute('data-t'), CLOSE_LINE, 'Close (trail.why.close), for VoiceOver');
   menu.close();
   assert.equal(menu.isOpen(), false);
   assert.equal(scrim.hidden, true);
   menu.open();
   assert.equal(doc.body.children.length, 1, 'built once');
-  scrim.listeners.click({ target: scrim });
+  scrim.dispatchEvent({ type: 'click', target: scrim });
   assert.equal(menu.isOpen(), false, 'a tap on the scrim closes it');
+  menu.open();
+  close.click();
+  assert.equal(menu.isOpen(), false, 'and so does Close');
   // Back opens the menu and never navigates.
   const history = { back: mock.fn(), go: mock.fn(), pushState: mock.fn(), replaceState: mock.fn() };
   const saved = globalThis.history;
@@ -69,14 +64,16 @@ test('the ≡ stub builds nothing until opened, toggles, and Back only opens it'
 });
 
 test('S5: the sheet is named by trail.status.menu, mount() builds it without opening, setRows replaces the rows, and opening calls onOpen (ui.open)', (t) => {
-  setBundle({ 'trail.status.menu': 'Menu' }, {}, 'preview');
+  setBundle({ 'trail.status.menu': 'Menu', 'home.place.mailbox': 'The mailbox' }, {}, 'preview');
   t.after(() => setBundle({}, {}, null));
   const doc = fakeDoc();
   let opened = 0;
   const menu = createMenu(doc, { onOpen: () => opened++ });
   const { rows, foot } = menu.mount();
   assert.equal(menu.isOpen(), false, 'mounted, not open');
-  assert.equal(doc.body.children[0].children[0].attrs['aria-label'], 'Menu');
+  const sheet = doc.body.children[0].children[0];
+  assert.equal(sheet.getAttribute('aria-label'), 'Menu');
+  assert.equal(menu.label(), MENU_LINE);
   assert.equal(menu.mount().rows, rows, 'built once');
   assert.equal(foot.className, 'menu-foot');
   const a = doc.createElement('button');
@@ -89,4 +86,16 @@ test('S5: the sheet is named by trail.status.menu, mount() builds it without ope
   menu.open();
   assert.equal(opened, 1, 'the frame plays ui.open here');
   assert.equal(menu.isOpen(), true);
+  // S7: named by its opener, the mailbox at the cabin; the settings rows and their redraw on every open.
+  menu.close();
+  let shown = 0;
+  const row = doc.createElement('button');
+  menu.setSettings([row], () => shown++);
+  menu.open({ label: 'home.place.mailbox' });
+  assert.equal(sheet.getAttribute('aria-label'), 'The mailbox');
+  assert.equal(sheet.getAttribute('data-t-aria'), 'home.place.mailbox');
+  assert.deepEqual(menu.settings.children, [row]);
+  assert.equal(shown, 1, 'the settings redraw as it opens');
+  menu.open();
+  assert.equal(sheet.getAttribute('aria-label'), 'Menu', 'no line: the trail\'s');
 });

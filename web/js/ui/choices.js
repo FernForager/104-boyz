@@ -38,8 +38,10 @@ import { t, tx } from '../text.js';
 import { load, save } from '../platform/storage.js';
 import { pct, share } from '../fmt.js';
 import { choiceLine } from './stop.js';
+import { pixelGlyph } from './glyph.js';
 
-const SVG_NS = 'http://www.w3.org/2000/svg';
+// pixelGlyph lives in ui/glyph.js (S7: the cabin's modules draw glyphs too, and never import this one); re-exported here.
+export { pixelGlyph };
 /** The pixel i on the chrome font's 8x14 grid: [x, y, w, h]. */
 const I_RECTS = Object.freeze([
   [2, 2, 2, 2],
@@ -74,35 +76,6 @@ export const SEEN_KEY = 'odds_seen';
  */
 export function cueFor(act) {
   return act && act.t === 'next' ? 'ui.next' : 'ui.tick';
-}
-
-/**
- * A pixel glyph as an inline SVG: whole grid squares, crisp, in the text's
- * color, hidden from VoiceOver (its button carries the name).
- * @param {Document} doc
- * @param {number} w grid width
- * @param {number} h grid height
- * @param {readonly (readonly number[])[]} rects [x, y, w, h] on the grid
- * @param {string} cls
- */
-export function pixelGlyph(doc, w, h, rects, cls) {
-  const make = (/** @type {string} */ tag) => (typeof doc.createElementNS === 'function' ? doc.createElementNS(SVG_NS, tag) : doc.createElement(tag));
-  const svg = make('svg');
-  svg.setAttribute('class', cls);
-  svg.setAttribute('viewBox', `0 0 ${w} ${h}`);
-  svg.setAttribute('fill', 'currentColor');
-  svg.setAttribute('shape-rendering', 'crispEdges');
-  svg.setAttribute('aria-hidden', 'true');
-  svg.setAttribute('focusable', 'false');
-  for (const [x, y, rw, rh] of rects) {
-    const r = make('rect');
-    r.setAttribute('x', String(x));
-    r.setAttribute('y', String(y));
-    r.setAttribute('width', String(rw));
-    r.setAttribute('height', String(rh));
-    svg.appendChild(r);
-  }
-  return svg;
 }
 
 /**

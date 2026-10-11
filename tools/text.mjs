@@ -9,11 +9,13 @@
 //                                        memory
 //   node tools/text.mjs count            where things stand
 //   node tools/text.mjs apply B00n       a batch's answers into the ledger
-//   node tools/text.mjs batch B00n --file [id ...] [--by S5]
+//   node tools/text.mjs batch B00n --file [id ...] [--by S5] [--from B00m]
 //                                        file lines (or every unfiled draft)
 //                                        into a batch that hasn't gone out:
 //                                        content/text/review/batches.json and
-//                                        the B00n.md table
+//                                        the B00n.md table; with --from (S7),
+//                                        the named lines move out of another
+//                                        unsent batch (its rows renumbered)
 //   node tools/text.mjs batch B00n [--shots] [--out out/review]
 //                                        build the batch for review, with
 //                                        numbered screenshots (tools/shots.mjs)
@@ -377,9 +379,17 @@ export function wordsFor(text, channel) {
 }
 
 const offMain = (text, id) => Object.prototype.hasOwnProperty.call(text.scope.main.off, id);
+/**
+ * Is an id on preview's off list (S7: channels.preview.off, the title
+ * page's words, retired there now the cover is the loading art)?
+ */
+export const offPreview = (text, id) => {
+  const ch = text.scope.channels && text.scope.channels.preview;
+  return Boolean(ch && ch.off && Object.prototype.hasOwnProperty.call(ch.off, id));
+};
 const swapId = (text, channel, id) => (text.scope.channels[channel] && text.scope.channels[channel].swap && text.scope.channels[channel].swap[id]) || id;
-/** Does an id ship on this channel? Preview: any. Main: any not in main.off. */
-const shipsOn = (text, channel, id) => channel !== 'main' || !offMain(text, id);
+/** Does an id ship on this channel's page? Main: any not in main.off. Preview: any not in its off list (S7). */
+const shipsOn = (text, channel, id) => (channel === 'main' ? !offMain(text, id) : !offPreview(text, id));
 
 function pick(w, vars) {
   if (typeof w === 'string') return w;
@@ -1128,13 +1138,17 @@ const has = (o, k) => Object.prototype.hasOwnProperty.call(o || {}, k);
  * line filed there whose words have changed since gets its row and hash
  * updated (the batch hasn't gone out). A batch that has gone out is never
  * touched: its lines come back in the next one. by: the session filing
- * (S5), added to the batch's list.
+ * (S5), added to the batch's list. from (S7): another batch that hasn't
+ * gone out, which the named lines leave (its batches.json entry and its
+ * B00m.md rows, the rest renumbered in order), so a line the cabin shows
+ * first moves to the cabin's batch; a sent batch, a line it doesn't hold
+ * or no ids at all are refused, and nothing is written.
  * @param {string} root
  * @param {string} batch
- * @param {{ids?: string[] | null, by?: string | null}} [o]
- * @returns {{errors: string[], filed: {n: number, id: string, hash: string, how: 'added' | 'refiled'}[], wrote: string[]}}
+ * @param {{ids?: string[] | null, by?: string | null, from?: string | null}} [o]
+ * @returns {{errors: string[], filed: {n: number, id: string, hash: string, how: 'added' | 'refiled'}[], wrote: string[], moved?: string[]}}
  */
-export function fileBatch(root, batch, { ids = null, by = null } = {}) {
+export function fileBatch(root, batch, { ids = null, by = null, from = null } = {}) {
   const errors = [];
   if (!BATCH_RE.test(batch)) return { errors: [`batch: "${batch}" is not a batch (B000, B001, ...)`], filed: [], wrote: [] };
   const text = readText(root);
@@ -1145,6 +1159,20 @@ export function fileBatch(root, batch, { ids = null, by = null } = {}) {
   const mdPath = join(root, REVIEW_DIR, `${batch}.md`);
   if (!existsSync(mdPath)) return { errors: [`batch: no ${REVIEW_DIR}/${batch}.md to file into`], filed: [], wrote: [] };
   if (by !== null && !/^S\d+[a-z]?$/.test(by)) return { errors: [`batch: --by ${by} is not a session (S5, S15a, ...)`], filed: [], wrote: [] };
+  /** @type {{batch: string, b: any, path: string, md: string} | null} */
+  let source = null;
+  if (from !== null) {
+    const fb = all[from];
+    if (!BATCH_RE.test(from) || !fb) return { errors: [`batch: --from ${from}: no such batch in ${BATCHES_FILE}`], filed: [], wrote: [] };
+    if (from === batch) return { errors: [`batch: --from ${from} is the batch being filed`], filed: [], wrote: [] };
+    if (fb.status !== 'filed') return { errors: [`batch: --from ${from}: it is ${fb.status}, so its lines stay its record (refile changed words in the next batch)`], filed: [], wrote: [] };
+    if (!ids || !ids.length) return { errors: [`batch: --from ${from} moves the lines it names, and names none`], filed: [], wrote: [] };
+    const missing = ids.filter((id) => !has(fb.lines, id));
+    if (missing.length) return { errors: missing.map((id) => `batch: --from ${from}: ${id} is not in ${from}`), filed: [], wrote: [] };
+    const path = join(root, REVIEW_DIR, `${from}.md`);
+    if (!existsSync(path)) return { errors: [`batch: no ${REVIEW_DIR}/${from}.md to move lines out of`], filed: [], wrote: [] };
+    source = { batch: from, b: fb, path, md: readFileSync(path, 'utf8') };
+  }
   const want = ids && ids.length ? ids : unfiledLines(text);
   for (const id of want) {
     const line = text.lines.get(id);
@@ -1189,11 +1217,30 @@ export function fileBatch(root, batch, { ids = null, by = null } = {}) {
     filed.push({ n, id, hash, how: 'added' });
   }
   if (errors.length) return { errors, filed: [], wrote: [] };
+  // --from: the lines leave the other batch, its rows renumbered in order.
+  /** @type {Record<string, string> | null} */
+  let fromLines = null;
+  let fromMd = '';
+  if (source) {
+    const src = source;
+    fromLines = Object.fromEntries(Object.entries(src.b.lines).filter(([id]) => !want.includes(id)));
+    const gone = new Set(want);
+    const kept = src.md.split('\n').filter((row) => {
+      const m = /^\| *\d+ *\| *`([^`]+)` *\|/.exec(row);
+      return !(m && gone.has(m[1]));
+    });
+    let n = 0;
+    fromMd = kept.map((row) => (/^\| *\d+ *\| *`[^`]+` *\|/.test(row) ? row.replace(/^\| *\d+ *\|/, `| ${++n} |`) : row)).join('\n');
+    if (n !== Object.keys(fromLines).length) {
+      return { errors: [`batch: ${REVIEW_DIR}/${src.batch}.md and ${BATCHES_FILE} disagree on ${src.batch}'s lines (${n} rows, ${Object.keys(fromLines).length} lines)`], filed: [], wrote: [] };
+    }
+  }
   const wrote = [];
   const nextBy = by && !(b.by || []).includes(by) ? [...(b.by || []), by] : b.by;
-  if (filed.length || nextBy !== b.by) {
+  if (filed.length || nextBy !== b.by || source) {
     const data = JSON.parse(readFileSync(join(root, BATCHES_FILE), 'utf8'));
     data.batches[batch] = { ...b, ...(nextBy ? { by: nextBy } : {}), lines };
+    if (source && fromLines) data.batches[source.batch] = { ...source.b, lines: fromLines };
     writeFileSync(join(root, BATCHES_FILE), json1(data));
     wrote.push(BATCHES_FILE);
   }
@@ -1201,7 +1248,11 @@ export function fileBatch(root, batch, { ids = null, by = null } = {}) {
     writeFileSync(mdPath, md);
     wrote.push(`${REVIEW_DIR}/${batch}.md`);
   }
-  return { errors, filed, wrote };
+  if (source) {
+    writeFileSync(source.path, fromMd);
+    wrote.push(`${REVIEW_DIR}/${source.batch}.md`);
+  }
+  return { errors, filed, wrote, ...(source ? { moved: want.slice() } : {}) };
 }
 
 /**
@@ -1427,10 +1478,12 @@ async function batchCli(args) {
   const batch = args[0] || '';
   if (args.includes('--file')) {
     const by = flagValue(args, '--by');
-    const ids = args.slice(1).filter((a, k, all) => !a.startsWith('--') && all[k - 1] !== '--by');
-    const r = fileBatch(ROOT, batch, { ids, by });
+    const from = flagValue(args, '--from');
+    const ids = args.slice(1).filter((a, k, all) => !a.startsWith('--') && all[k - 1] !== '--by' && all[k - 1] !== '--from');
+    const r = fileBatch(ROOT, batch, { ids, by, from });
     for (const e of r.errors) console.error(e);
     if (r.errors.length) return 1;
+    if (r.moved) console.log(`batch: moved ${r.moved.join(', ')} out of ${from}`);
     for (const f of r.filed) console.log(`${batch} ${String(f.n).padStart(2)} ${f.id} ${f.hash}: ${f.how}`);
     console.log(r.wrote.length ? `batch: wrote ${r.wrote.join(', ')}` : `batch: nothing to file in ${batch}`);
     return 0;
@@ -1486,7 +1539,7 @@ async function cli(cmd, args) {
     console.log(errs ? `text: ${errs} problem${errs === 1 ? '' : 's'}` : `text: clean (T02, T07, T10-T16)${warns ? `; ${warns} warning${warns === 1 ? '' : 's'}` : ''}`);
     return errs ? 1 : 0;
   }
-  console.error('usage: node tools/text.mjs check [--main] | count | apply B00n | batch B00n --file [id ...] [--by S5] | batch B00n [--shots] [--out dir] [--engine webkit|chromium]');
+  console.error('usage: node tools/text.mjs check [--main] | count | apply B00n | batch B00n --file [id ...] [--by S5] [--from B00m] | batch B00n [--shots] [--out dir] [--engine webkit|chromium]');
   return 2;
 }
 

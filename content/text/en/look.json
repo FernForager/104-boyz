@@ -107,5 +107,29 @@
   "ctx": "VoiceOver's name for the trail sign's Look button, at the rim",
   "screen": "trail",
   "max": 24
+ },
+ "look.tub": {
+  "text": "A green tub on its own little deck, the cover strapped down tight. It's for after a long day out there.",
+  "ctx": "A Look at the covered tub (it lights after a big hike, S25)",
+  "screen": "home",
+  "max": 140
+ },
+ "look.name.tub": {
+  "text": "The hot tub",
+  "ctx": "VoiceOver's name for the tub's Look button",
+  "screen": "home",
+  "max": 24
+ },
+ "look.register_post": {
+  "text": "A wooden register box on a post, a pencil on a string. An old trail leaves here into the maples.",
+  "ctx": "A Look at the register post (the Trail Register opens here from S24b)",
+  "screen": "home",
+  "max": 140
+ },
+ "look.name.register_post": {
+  "text": "The register post",
+  "ctx": "VoiceOver's name for its Look button",
+  "screen": "home",
+  "max": 24
  }
 }

@@ -32,6 +32,20 @@
 // outcome (on the 17), a Look and the alt Look, the fork in Plain, and the
 // #frame view's four-choice fixture.
 //
+// --set s7 (S7 track C): the cabin (#home&hour=<h>&sky=<s>) at dawn,
+// noon, dusk, blue hour and night, each clear, in rain and in fog; first
+// launch's shut lockbox (#first) at rest and, on the 17 with motion on,
+// part way through its draw-in; each lockbox step (#lockbox&q=, &open=)
+// and one in Plain; the guest book (#guestbook), and with the field
+// focused and a stand-in for the keyboard (a browser in a harness has
+// none: the game's --keyboard lift is set to about the iOS keyboard's
+// height and a grey block drawn where it would be); the mailbox open; a
+// Look (the tub), a place not open yet (the shed), a long press (the
+// car), the alt Look at night; and the loading art (preview's cover,
+// data/rules.json held back so the game never takes the page). The cabin
+// and porch scenarios run at a fixed time at the lake (the page's clock),
+// so the status line's time is the same every run.
+//
 // --batch B004 (and tools/text.mjs batch --shots, through shootBatch): each
 // screen the batch's lines are on is shot in its scenarios, in order; each
 // scenario reads every [data-t] and [data-t-aria] element's box, numbers
@@ -50,12 +64,15 @@
 // that changes it or this tool, and by hand once it is on main, S6).
 
 import { createRequire } from 'node:module';
-import { existsSync, mkdirSync, rmSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { join, relative } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { ROOT } from './pics.mjs';
 import { INTRO_FORMS } from '../web/js/ui/choices.js';
 import { FIXTURES } from '../web/js/ui/frame.js';
+import { DEV_HOURS } from '../web/js/ui/cabin.js';
+import { PRESS_MS } from '../web/js/ui/press.js';
+import { KEYBOARD_VAR } from '../web/js/ui/guestbook.js';
 
 /** The Playwright release the sessions and shots.yml use. */
 export const PLAYWRIGHT_VERSION = '1.56.1';
@@ -80,6 +97,26 @@ export const PAGE = '/preview/?debug=1';
 const SET = 'deer_lake_rim';
 /** The check view's hours, in its picker's order (ui/frame.js). */
 export const SCENE_HOURS = Object.freeze(['day', 'dusk', 'blue', 'night']);
+/** The cabin's hours, in the #home route's order (ui/cabin.js DEV_HOURS: dawn first). */
+export const CABIN_HOURS = DEV_HOURS;
+/** The skies the s7 set shows the cabin under at every hour. */
+export const CABIN_SKIES = Object.freeze(['clear', 'rain', 'fog']);
+/**
+ * The fixed time at the lake (Pacific daylight time, mid-July) each cabin
+ * hour's scenarios run at: the page's clock, so the status line's time is
+ * the same every run (the #home route sets the scene's hour itself).
+ */
+export const LAKE_TIMES = Object.freeze({
+  dawn: '2026-07-15T05:20:00-07:00',
+  day: '2026-07-15T12:10:00-07:00',
+  dusk: '2026-07-15T21:00:00-07:00',
+  blue: '2026-07-15T21:35:00-07:00',
+  night: '2026-07-15T23:40:00-07:00',
+});
+/** About the iOS keyboard's height with its suggestions bar, by size (pt): the guest book's stand-in. */
+export const KEYBOARD_PT = Object.freeze({ se: 260, 17: 336, promax: 346 });
+/** The locals' quiz's question ids, in the file's order (content/quiz/locals.json): one batch picture each. */
+export const QUIZ_IDS = Object.freeze(JSON.parse(readFileSync(join(ROOT, 'content', 'quiz', 'locals.json'), 'utf8')).questions.map((/** @type {{id: string}} */ q) => q.id));
 
 /**
  * A scenario: a page to open and what to do there.
@@ -94,13 +131,50 @@ export const SCENE_HOURS = Object.freeze(['day', 'dusk', 'blue', 'night']);
  * @property {string[]} [sizes] only these sizes (default: all)
  * @property {Record<string, unknown>} [store] preview's saved choices to start with (name -> value), e.g. {text: 'plain'}
  * @property {string} [page] the page to open, if not PAGE: '/' is main's title page (S6)
+ * @property {string} [at] S7: the page's clock, fixed at this time (ISO 8601)
+ * @property {boolean} [motion] S7: Reduce Motion off (the draw-ins play)
+ * @property {number} [wait] S7: ms to wait once the screen shows, before the steps (default 400)
+ * @property {string[]} [block] S7: paths the page never gets an answer for (the loading art holds)
+ *
+ * S7's steps: place:<id> (a cabin place, tapped where a player can), press:<id> (a long press on one),
+ * keyboard (the guest book's field focused, the keyboard's stand-in drawn); alt taps any screen's picture.
  */
 
 /** The page a scenario opens. @param {Scenario} sc */
 export const pageOf = (sc) => sc.page ?? PAGE;
 
+/**
+ * Pure: what shows once a scenario's screen is ready: the title page's
+ * cover drawn in; the check view's status line; a stop's; the cabin's and
+ * the porch's once their picture is composed (data-key); the guest book's
+ * field; with no route, whichever the game opens on.
+ * @param {Scenario} sc
+ */
+export function readyOf(sc) {
+  if (sc.screen === 'title') return '.plate:not(.drawing)';
+  if (sc.hash === '#frame') return '#frame-sheet .status-line';
+  if (sc.hash.startsWith('#stop=')) return '.frame .status-line';
+  if (sc.hash.startsWith('#home') || sc.hash === '#first') return '.cabin[data-key] .status-line';
+  if (sc.hash.startsWith('#lockbox')) return '.porch[data-key] .status-line';
+  if (sc.hash === '#guestbook') return '.porch #gb-name';
+  return '#gb-name, .frame .status-line, .cabin .status-line, .porch .status-line';
+}
+
 /** @param {string} stop @param {string} hour */
 const stopHash = (stop, hour) => `#stop=${SET}.${stop}&hour=${hour}`;
+/** @param {string} hour @param {string} sky @param {number} [moon] */
+const homeHash = (hour, sky, moon) => `#home&hour=${hour}&sky=${sky}${moon === undefined ? '' : `&moon=${moon}`}`;
+/**
+ * A cabin scenario at an hour and sky, at that hour's time at the lake.
+ * @param {string} name @param {string} screen @param {string} hour @param {string} sky
+ * @param {Partial<Scenario> & {moon?: number}} [more]
+ * @returns {Scenario}
+ */
+const cabinAt = (name, screen, hour, sky, { moon, ...more } = {}) => ({ name, screen, hash: homeHash(hour, sky, moon), at: LAKE_TIMES[/** @type {keyof typeof LAKE_TIMES} */ (hour)], ...more });
+/** The line inspector's module (debug mode loads it): a scenario that holds it back sees the game's own long press. */
+export const INSPECTOR = 'js/ui/inspect.js';
+/** The porch's scenarios run at noon at the lake. */
+const NOON = LAKE_TIMES.day;
 /** Every odds form a player can have been introduced to: a shot with them all seen shows no intro. */
 export const ODDS_FORMS = INTRO_FORMS;
 /** The sample fork's outcome stops (content/stops/deer_lake_rim.json). */
@@ -137,6 +211,26 @@ export const SETS = Object.freeze({
     { name: 'look_alt', screen: 'trail', hash: stopHash('deer_lake', 'night'), steps: ['alt'] },
     { name: 'fork_plain', screen: 'trail', hash: stopHash('fork', 'day'), store: { odds_seen: ODDS_FORMS, text: 'plain' } },
     { name: 'frame_four', screen: 'trail', hash: '#frame', steps: ['fixture:four'] },
+  ]),
+  // S7 (track C): the cabin at every hour, clear, in rain and in fog; first launch; each lockbox step; the
+  // guest book, with the keyboard's stand-in; the mailbox; a Look, a place not open yet, a long press, the
+  // alt Look; the loading art. Reduce Motion is on but for the draw-in's own picture.
+  s7: Object.freeze([
+    ...CABIN_HOURS.flatMap((h) => CABIN_SKIES.map((sky) => cabinAt(`cabin_${h}_${sky}`, 'home', h, sky))),
+    { name: 'first', screen: 'lockbox', hash: '#first', at: NOON },
+    { name: 'first_drawin', screen: 'lockbox', hash: '#first', at: NOON, motion: true, wait: 350, sizes: ['17'] },
+    ...[1, 2, 3].map((q) => ({ name: `lockbox_q${q}`, screen: 'lockbox', hash: `#lockbox&q=${q}`, at: NOON })),
+    ...[3, 0].map((n) => ({ name: `lockbox_open${n}`, screen: 'lockbox', hash: `#lockbox&open=${n}`, at: NOON })),
+    { name: 'lockbox_plain', screen: 'lockbox', hash: '#lockbox&q=1', at: NOON, store: { text: 'plain' } },
+    { name: 'guestbook', screen: 'guestbook', hash: '#guestbook', at: NOON },
+    { name: 'guestbook_keyboard', screen: 'guestbook', hash: '#guestbook', at: NOON, steps: ['keyboard'] },
+    cabinAt('mailbox', 'mailbox', 'day', 'clear', { steps: ['menu'] }),
+    cabinAt('look_tub', 'home', 'day', 'clear', { steps: ['place:tub'] }),
+    cabinAt('soon_shed', 'home', 'day', 'clear', { steps: ['place:shed'] }),
+    // In debug mode the line inspector owns every long press on words: held back here, the game's own shows.
+    cabinAt('press_car', 'home', 'dusk', 'clear', { steps: ['press:car'], block: [INSPECTOR] }),
+    cabinAt('alt_night', 'home', 'night', 'clear', { moon: 4, steps: ['alt'] }),
+    { name: 'loading', screen: 'title', hash: '', page: '/preview/', block: ['data/rules.json'] },
   ]),
 });
 
@@ -177,7 +271,39 @@ export const SCREEN_SCENARIOS = Object.freeze({
     ...['rim', 'deer_lake'].map((stop) => ({ name: `alt_${stop}`, screen: 'trail', hash: stopHash(stop, 'day'), steps: ['alt'] })),
     ...SCENE_HOURS.slice(1).map((h) => ({ name: `alt_${h}`, screen: 'trail', hash: stopHash('deer_lake', h), steps: ['alt'] })),
   ]),
-  guestbook: Object.freeze([{ name: 'guestbook', screen: 'guestbook', hash: '' }]),
+  // From S7 a fresh phone opens on the lockbox: the guest book is its dev route's (track C).
+  guestbook: Object.freeze([{ name: 'guestbook', screen: 'guestbook', hash: '#guestbook', at: NOON }]),
+  // S7 (track C): the cabin by day (its rail, places, next step and status line; the clock's pm), at dawn
+  // (its am), Sound off, a place not open yet, each Look, the mailbox's Close, and the alt Look under every
+  // sky and hour line the cabin has (the moon's at night).
+  home: Object.freeze([
+    cabinAt('cabin', 'home', 'day', 'clear'),
+    cabinAt('cabin_dawn', 'home', 'dawn', 'clear'),
+    cabinAt('sound_off', 'home', 'day', 'clear', { steps: ['sound'] }),
+    cabinAt('soon', 'home', 'day', 'clear', { steps: ['place:shed'] }),
+    cabinAt('look_tub', 'home', 'day', 'clear', { steps: ['place:tub'] }),
+    cabinAt('look_register_post', 'home', 'day', 'clear', { steps: ['place:register_post'] }),
+    cabinAt('mailbox_open', 'home', 'day', 'clear', { steps: ['menu'] }),
+    cabinAt('alt_day_cloudy', 'home', 'day', 'cloudy', { steps: ['alt'] }),
+    cabinAt('alt_dawn_fog', 'home', 'dawn', 'fog', { steps: ['alt'] }),
+    cabinAt('alt_dusk_rain', 'home', 'dusk', 'rain', { steps: ['alt'] }),
+    cabinAt('alt_blue', 'home', 'blue', 'clear', { steps: ['alt'] }),
+    cabinAt('alt_night_moon', 'home', 'night', 'clear', { moon: 4, steps: ['alt'] }),
+    cabinAt('alt_blue_cloudy', 'home', 'blue', 'cloudy', { steps: ['alt'] }),
+    cabinAt('alt_night_cloudy', 'home', 'night', 'cloudy', { steps: ['alt'] }),
+  ]),
+  // The mailbox's rows: the text control's word in each mode.
+  mailbox: Object.freeze([cabinAt('mailbox', 'mailbox', 'day', 'clear', { steps: ['menu'] }), cabinAt('mailbox_plain', 'mailbox', 'day', 'clear', { steps: ['menu'], store: { text: 'plain' } })]),
+  // The lockbox: first launch's shut box, each question of the pool asked first (#lockbox&ask=), the replies
+  // (the second question after a right answer, the third after a wrong one) and both closings.
+  lockbox: Object.freeze([
+    { name: 'first', screen: 'lockbox', hash: '#first', at: NOON },
+    ...QUIZ_IDS.map((id) => ({ name: `ask_${id}`, screen: 'lockbox', hash: `#lockbox&ask=${id}`, at: NOON })),
+    ...[2, 3].map((q) => ({ name: `q${q}`, screen: 'lockbox', hash: `#lockbox&q=${q}`, at: NOON })),
+    ...[3, 0].map((n) => ({ name: `open${n}`, screen: 'lockbox', hash: `#lockbox&open=${n}`, at: NOON })),
+  ]),
+  // The loading art: preview's cover drawing in, the game held back (its alt line is the canvas's name).
+  title: Object.freeze([{ name: 'loading', screen: 'title', hash: '', page: '/preview/', block: ['data/rules.json'] }]),
 });
 
 /**
@@ -332,8 +458,11 @@ async function openPage(browser, size, sc) {
     deviceScaleFactor: size.dpr,
     isMobile: true,
     hasTouch: true,
-    reducedMotion: 'reduce',
+    reducedMotion: sc.motion ? 'no-preference' : 'reduce',
   });
+  // S7: the lake's time fixed (the cabin's clock and scene), and the requests a scenario holds back.
+  if (sc.at) await context.clock.setFixedTime(new Date(sc.at));
+  for (const path of sc.block || []) await context.route(`**/${path}`, () => {});
   // Preview's saved choices: the debug marks off, so a picture shows the
   // words as a player sees them, and the scenario's own.
   await context.addInitScript(
@@ -359,8 +488,9 @@ async function openPage(browser, size, sc) {
  * @param {any} page
  * @param {string} base
  * @param {Scenario} sc
+ * @param {string} sizeName the phone's (the keyboard's stand-in is its height)
  */
-async function settle(page, base, sc) {
+async function settle(page, base, sc, sizeName) {
   const at = pageOf(sc);
   await page.goto(`${base}${at}${sc.hash}`, { waitUntil: 'load' });
   if (at.includes('debug=1')) {
@@ -368,11 +498,10 @@ async function settle(page, base, sc) {
     await page.waitForSelector('.scrim.debug:not([hidden])', { timeout: 5000 }).catch(() => null);
     await page.keyboard.press('Escape');
   }
-  // The title page is ready when its cover has drawn in; the game's screens when their frame or the guest book shows.
-  const ready = sc.screen === 'title' ? '.plate:not(.drawing)' : sc.hash === '#frame' ? '#frame-sheet .status-line' : sc.hash ? '.frame .status-line' : '#gb-name, .frame .status-line';
-  await page.waitForSelector(ready, { timeout: 15000 });
+  // The title page is ready when its cover has drawn in; the game's screens when they show (readyOf).
+  await page.waitForSelector(readyOf(sc), { timeout: 15000 });
   await page.evaluate(() => document.fonts.ready.then(() => undefined));
-  await page.waitForTimeout(400);
+  await page.waitForTimeout(sc.wait ?? 400);
   const steps = sc.steps || [];
   for (const [k, step] of steps.entries()) {
     if (step === 'menu') await page.click('.status-menu');
@@ -384,9 +513,12 @@ async function settle(page, base, sc) {
     else if (step.startsWith('info:')) await page.locator('.frame .choice-info').nth(Number(step.slice(5))).click();
     else if (step === 'yes') await page.click('.confirm-yes');
     else if (step.startsWith('look:')) await tapLook(page, step.slice(5));
+    else if (step.startsWith('place:')) await tapAt(page, `.cabin-place[data-place="${step.slice(6)}"]`);
+    else if (step.startsWith('press:')) await pressAt(page, `.cabin-place[data-place="${step.slice(6)}"]`);
+    else if (step === 'keyboard') await keyboardUp(page, KEYBOARD_PT[/** @type {keyof typeof KEYBOARD_PT} */ (sizeName)] || KEYBOARD_PT[17]);
     else if (step === 'alt') {
-      // The picture's top left corner: sky, off every Look.
-      const r = await page.locator('.frame canvas.picture').boundingBox();
+      // The picture's top left corner: sky, off every Look and place (the trail's, the cabin's, the porch's).
+      const r = await page.locator('canvas.picture').first().boundingBox();
       await page.mouse.click(r.x + 2, r.y + 2);
     } else throw new Error(`shots: no step "${step}"`);
     if (sc.quick && k === steps.length - 1) return;
@@ -403,17 +535,25 @@ async function settle(page, base, sc) {
 }
 
 /**
- * Tap a Look where a player can: the first point of its button, row by row
- * from its center, that no smaller Look stacked over it covers (the basin's
- * center is Lunch Lake's). With none, the button itself is pressed, as
- * VoiceOver does.
+ * Tap a Look where a player can (tapAt).
  * @param {any} page
  * @param {string} kind
  */
-async function tapLook(page, kind) {
-  const sel = `.look[data-kind="${kind}"]`;
+function tapLook(page, kind) {
+  return tapAt(page, `.look[data-kind="${kind}"]`);
+}
+
+/**
+ * The point of a button a player's finger can land on: the first, row by
+ * row from its center, that nothing stacked over it covers (the basin's
+ * center is Lunch Lake's), or null.
+ * @param {any} page
+ * @param {string} sel
+ * @returns {Promise<number[] | null>}
+ */
+async function pointOn(page, sel) {
   await page.waitForSelector(sel, { timeout: 5000 });
-  const at = await page.evaluate((s) => {
+  return page.evaluate((s) => {
     const b = /** @type {HTMLElement} */ (document.querySelector(s));
     const r = b.getBoundingClientRect();
     const cx = r.left + r.width / 2;
@@ -423,13 +563,64 @@ async function tapLook(page, kind) {
     pts.sort((p, q) => Math.hypot(p[0] - cx, p[1] - cy) - Math.hypot(q[0] - cx, q[1] - cy));
     return pts.find(([x, y]) => document.elementFromPoint(x, y) === b) || null;
   }, sel);
+}
+
+/**
+ * A long press on a button (S7: a cabin place's name), held past
+ * ui/press.js's PRESS_MS.
+ * @param {any} page
+ * @param {string} sel
+ */
+async function pressAt(page, sel) {
+  const at = await pointOn(page, sel);
+  if (!at) throw new Error(`shots: nowhere to press ${sel}`);
+  await page.mouse.move(at[0], at[1]);
+  await page.mouse.down();
+  await page.waitForTimeout(PRESS_MS + 200);
+  await page.mouse.up();
+}
+
+/**
+ * The guest book with the keyboard up, as near as a browser in a harness
+ * comes: the field focused, the game's lift (--keyboard, ui/guestbook.js)
+ * set to the keyboard's height, and a grey stand-in drawn where the
+ * keyboard would be (a harness overlay, like the badges).
+ * @param {any} page
+ * @param {number} pt
+ */
+async function keyboardUp(page, pt) {
+  await page.focus('#gb-name');
+  await page.evaluate(
+    ({ name, h }) => {
+      document.documentElement.style.setProperty(name, `${h}px`);
+      const kb = document.createElement('div');
+      kb.id = 'shot-keyboard';
+      kb.style.cssText = `position:fixed;left:0;right:0;bottom:0;height:${h}px;z-index:2147483646;background:#d1d3d9;border-top:1px solid #b5b8bf;pointer-events:none`;
+      document.body.appendChild(kb);
+    },
+    { name: KEYBOARD_VAR, h: pt },
+  );
+  // The field's focus scrolls the porch once the view is lifted (ui/guestbook.js, after 300 ms).
+  await page.waitForTimeout(400);
+}
+
+/**
+ * Tap a button where a player can (pointOn). With no such point, the
+ * button itself is pressed, as VoiceOver does.
+ * @param {any} page
+ * @param {string} sel
+ */
+async function tapAt(page, sel) {
+  const at = await pointOn(page, sel);
   if (at) await page.mouse.click(at[0], at[1]);
   else await page.locator(sel).evaluate((b) => /** @type {HTMLElement} */ (b).click());
 }
 
 /**
  * In the page: the box of every [data-t] and [data-t-aria] element that
- * shows (the first that does, by id), in CSS px [x, y, w, h].
+ * shows (the first that does, by id), and from S7 every picture named by
+ * its [data-t-img] (the build's aria-label: the cover's alt line), in CSS
+ * px [x, y, w, h].
  * @param {any} page
  * @returns {Promise<Record<string, number[]>>}
  */
@@ -437,8 +628,8 @@ function lineBoxes(page) {
   return page.evaluate(() => {
     /** @type {Record<string, number[]>} */
     const out = {};
-    for (const el of document.querySelectorAll('[data-t], [data-t-aria]')) {
-      for (const id of [el.getAttribute('data-t'), el.getAttribute('data-t-aria')]) {
+    for (const el of document.querySelectorAll('[data-t], [data-t-aria], [data-t-img][aria-label]')) {
+      for (const id of [el.getAttribute('data-t'), el.getAttribute('data-t-aria'), el.getAttribute('data-t-img')]) {
         if (!id || out[id]) continue;
         const r = el.getBoundingClientRect();
         const shows = typeof el.checkVisibility === 'function' ? el.checkVisibility({ checkOpacity: true, checkVisibilityCSS: true }) : true;
@@ -452,7 +643,7 @@ function lineBoxes(page) {
 
 /**
  * In the page: the words each line shows (its element's text, var fills
- * in), by id; a spoken name's is its aria-label.
+ * in), by id; a spoken name's (and from S7 a picture's, data-t-img) is its aria-label.
  * @param {any} page
  * @returns {Promise<Record<string, string>>}
  */
@@ -464,8 +655,8 @@ function lineTexts(page) {
       const id = el.getAttribute('data-t');
       if (id && !(id in out)) out[id] = (el.textContent || '').trim();
     }
-    for (const el of document.querySelectorAll('[data-t-aria]')) {
-      const id = el.getAttribute('data-t-aria');
+    for (const el of document.querySelectorAll('[data-t-aria], [data-t-img][aria-label]')) {
+      const id = el.getAttribute('data-t-aria') || el.getAttribute('data-t-img');
       if (id && !(id in out)) out[id] = el.getAttribute('aria-label') || '';
     }
     return out;
@@ -546,7 +737,7 @@ export async function shootBatch({ batch, lines, dir, engine = 'webkit', size: s
       if (!lines.some((l) => l.screen === sc.screen && !claimed.has(l.id))) continue;
       const { context, page, errors: pageErrors } = await openPage(browser, size, sc);
       try {
-        await settle(page, site.base, sc);
+        await settle(page, site.base, sc, sizeName);
         const found = await lineBoxes(page);
         const badges = claimBadges(lines, sc.screen, found, claimed);
         if (!badges.length) continue;
@@ -608,7 +799,7 @@ export async function shootSet({ set, sizes, out, engine = 'webkit', pw, root = 
         if (sc.sizes && !sc.sizes.includes(s)) continue;
         const { context, page, errors: pageErrors } = await openPage(browser, size, sc);
         try {
-          await settle(page, site.base, sc);
+          await settle(page, site.base, sc, s);
           const file = `${s}/${shotName(k, sc.name, used)}`;
           await page.screenshot({ path: join(dir, file) });
           files.push({ file, size: s, name: sc.name, hash: sc.hash, steps: sc.steps || [] });

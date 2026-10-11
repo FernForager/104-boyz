@@ -10,6 +10,7 @@ import { compileSources, readSchemas } from '../../tools/content.mjs';
 import { ROOT } from '../../tools/pics.mjs';
 import { loadContent } from '../../web/js/engine/content.js';
 import { newSession, dispatch } from '../../web/js/engine/step.js';
+import { lockboxActs } from '../../web/js/engine/selfcheck.js';
 import { deepFreeze } from '../../web/js/engine/canon.js';
 import { installBans } from './bans.mjs';
 
@@ -81,9 +82,21 @@ export function play(session, actions, content) {
   return { session: s, screen, screens };
 }
 
-/** A signed hiker at home, from a fresh device. */
+/**
+ * A fresh device past the lockbox (S7): with a quiz, the deal from a seed
+ * and answer 0 to each question; then Take the key. The guest book is next.
+ * @param {any} content
+ * @param {string} [seed]
+ */
+export function opened(content, seed = 'K7QM2Q9F') {
+  let s = newSession(content);
+  for (const a of lockboxActs(seed, content)) s = dispatch(s, a, content).session;
+  return s;
+}
+
+/** A signed hiker at home, from a fresh device past the lockbox. */
 export function signed(content, name = 'Robin', id = 'h00000001') {
-  return dispatch(newSession(content), { t: 'sign', name, id }, content).session;
+  return dispatch(opened(content), { t: 'sign', name, id }, content).session;
 }
 
 /** A trip started on the fixture's plan with a seed. */

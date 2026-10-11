@@ -10,7 +10,8 @@
 //             isn't here, or one here missing from the file, is R01.
 //   SECTIONS  the data sections `ships` may name, each with the screen
 //             whose session ships it (BUILD_PLAN S4: park with the map, the
-//             quiz with the lockbox in S7, and so on).
+//             quiz with the lockbox in S7, the cabin's next-step table as
+//             home with the home in S7, and so on).
 // The switches are data in S4: their consumers arrive with the screens that
 // show them, and read them through switchValue() at build (the engine gets
 // them through rules.json when a screen ships them).
@@ -84,6 +85,7 @@ export const SECTIONS = Object.freeze({
   foods: { screen: 'town', session: 'S11' },
   stores: { screen: 'town', session: 'S11' },
   drives: { screen: 'drive', session: 'S15a' },
+  home: { screen: 'home', session: 'S7' },
 });
 
 const own = (o, k) => o !== null && typeof o === 'object' && Object.prototype.hasOwnProperty.call(o, k);

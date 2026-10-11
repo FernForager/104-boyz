@@ -13,7 +13,7 @@ import { unpack, fromBase64url, toBase64url, pack } from '../../web/js/engine/lo
 import { loadContent } from '../../web/js/engine/content.js';
 import { canon } from '../../web/js/engine/canon.js';
 import { setChannel, keyName } from '../../web/js/platform/storage.js';
-import { compileFx, fxContent, play, started, FX_SET, FX_PLAN } from './enginefix.mjs';
+import { compileFx, fxContent, play, started, opened, FX_SET, FX_PLAN } from './enginefix.mjs';
 
 const json = (v) => JSON.parse(JSON.stringify(v));
 const walk = (content, seed = '00000000') => play(started(content, seed), [{ t: 'next' }, { t: 'wait', s: 30 }, { t: 'choose', c: 'rest' }], content).session;
@@ -23,7 +23,8 @@ test('the three records, plain JSON: device, hiker, and the trip as snapshot, pa
   const s = walk(content);
   const saves = toSaves(s);
   assert.deepEqual(Object.keys(saves), ['device', 'hiker', 'trip']);
-  assert.deepEqual(saves.device, { v: 1 });
+  // S7: the device record is v2, with the lockbox opened (the fixture deals no quiz).
+  assert.deepEqual(saves.device, { v: 2, quiz: { seed: null, dealt: [], answers: [], done: true } });
   assert.deepEqual(saves.hiker, { v: 1, id: 'h00000001', name: 'Robin', profile: s.state.hiker.profile, trips: 0, latest: { seed: '00000000', stop: 3 } });
   assert.deepEqual(Object.keys(saves.trip), ['v', 'rules', 'log', 'profile', 'base', 'snapshot', 'hash']);
   assert.equal(saves.trip.rules, '000000000001');
@@ -31,7 +32,7 @@ test('the three records, plain JSON: device, hiker, and the trip as snapshot, pa
   assert.equal(saves.trip.hash, tripHash(s.state.trip));
   assert.equal(saves.trip.base, null);
   assert.ok(!JSON.stringify(saves.trip).includes('Robin'), 'the name is in the hiker record only');
-  assert.deepEqual(toSaves(newSession(content)), { device: { v: 1 }, hiker: null, trip: null });
+  assert.deepEqual(toSaves(newSession(content)), { device: { v: 2, quiz: null }, hiker: null, trip: null }, 'a fresh device: the lockbox shut');
 });
 
 test('a save round-trips through JSON.stringify and parse, and play goes on from it to the same end', () => {
@@ -46,7 +47,8 @@ test('a save round-trips through JSON.stringify and parse, and play goes on from
   const b = play(back, [{ t: 'choose', c: 'go' }, { t: 'next' }], content).session;
   assert.equal(tripHash(b.state.trip), tripHash(a.state.trip));
   assert.deepEqual(b.log, a.log);
-  assert.deepEqual(fromSaves({}, content), { state: { v: 1, device: { v: 1 }, hiker: null, trip: null }, log: null, base: null }, 'nothing stored: a fresh device');
+  assert.deepEqual(back.state.device, s.state.device, 'the device record round-trips (S7: the lockbox stays open)');
+  assert.deepEqual(fromSaves({}, content), { state: { v: 1, device: { v: 2, quiz: null }, hiker: null, trip: null }, log: null, base: null }, 'nothing stored: a fresh device');
 });
 
 test("replay of a save's log matches its snapshot", () => {
@@ -106,9 +108,14 @@ test('a rules change rebases the log on the snapshot, and the rebased log replay
   assert.throws(() => fromSaves(damaged, next), { code: 'format' }, 'a damaged snapshot under other rules has no log to rebuild it');
 });
 
-test('migrations: v1 loads as is, a missing record is null, a newer one is refused, a step table moves an old one on', () => {
-  assert.deepEqual(VERSIONS, { device: 1, hiker: 1, trip: 1 });
-  assert.deepEqual(migrate('device', { v: 1, x: 2 }), { v: 1, x: 2 });
+test('migrations: a current record loads as is, a missing record is null, a newer one is refused, a step table moves an old one on; S7: device 1 to 2 adds the quiz, shut', () => {
+  assert.deepEqual(VERSIONS, { device: 2, hiker: 1, trip: 1 });
+  assert.deepEqual(migrate('hiker', { v: 1, x: 2 }), { v: 1, x: 2 });
+  assert.deepEqual(migrate('device', { v: 1 }), { v: 2, quiz: null }, 'a phone from before S7: the lockbox shut');
+  assert.deepEqual(migrate('device', { v: 1, x: 2 }), { v: 2, x: 2, quiz: null }, 'anything else it held is kept');
+  const done = { v: 2, quiz: { seed: 'K7QM2Q9F', dealt: ['q_hoh', 'q_jojos', 'q_sunbreak'], answers: [0, 1, 2], done: true } };
+  assert.deepEqual(migrate('device', done), done, 'a v2 record loads as is');
+  assert.throws(() => migrate('device', { v: 3 }), { code: 'format' }, 'a device from a newer build');
   assert.equal(migrate('hiker', null), null);
   assert.equal(migrate('trip', undefined), null);
   assert.throws(() => migrate('trip', { v: 2 }), { name: 'EngineError', code: 'format' });
@@ -162,12 +169,13 @@ test("a trip older than the hiker's mark is refused (E.6), and so is an open tri
 
 test("reportState: the phase, a hiker with no name ({HIKER} and its length), the trip's log, profile, hash, last 20 actions and snapshot", () => {
   const content = fxContent();
-  let s = dispatch(newSession(content), { t: 'sign', name: 'Robin 🥾', id: 'hK7QM2Q9F' }, content).session;
+  let s = dispatch(opened(content), { t: 'sign', name: 'Robin 🥾', id: 'hK7QM2Q9F' }, content).session;
   s = dispatch(s, { t: 'start', plan: 'fx_plan', seed: 'K7QM2Q9F' }, content).session;
   const acts = [{ t: 'next' }, ...Array.from({ length: 25 }, (_, i) => ({ t: 'wait', s: i })), { t: 'choose', c: 'rest' }];
   s = play(s, acts, content).session;
   const st = reportState(s, content);
-  assert.deepEqual(Object.keys(st), ['phase', 'hiker', 'trip']);
+  assert.deepEqual(Object.keys(st), ['phase', 'device', 'hiker', 'trip']);
+  assert.deepEqual(st.device, { v: 2, quiz: { dealt: [], answered: 0, right: 0, done: true } }, 'S7: the device and the lockbox opened (the fixture deals none)');
   assert.equal(st.phase, 'trailhead');
   assert.deepEqual(st.hiker, { id: 'hK7QM2Q9F', name: HIKER_TOKEN, chars: 7, trips: 0 });
   assert.deepEqual(Object.keys(st.trip), ['seed', 'plan', 'stop', 'log', 'profile', 'base', 'hash', 'last', 'snapshot']);
@@ -180,9 +188,11 @@ test("reportState: the phase, a hiker with no name ({HIKER} and its length), the
   assert.ok(JSON.stringify(st).includes('{HIKER}'));
   const r = replay({ log: st.trip.log, profile: st.trip.profile, base: st.trip.base }, content);
   assert.equal(r.hash, st.trip.hash, "the report's state replays to its hash");
-  assert.deepEqual(reportState(newSession(content), content), { phase: 'guestbook', hiker: null, trip: null });
-  const broken = reportState({ state: { v: 1, device: { v: 1 }, hiker: null, trip: { seed: 'X', n: 1, profile: { x: 'é' } } }, log: null, base: null }, content);
+  assert.deepEqual(reportState(newSession(content), content), { phase: 'lockbox', device: { v: 2, quiz: null }, hiker: null, trip: null });
+  assert.deepEqual(reportState(opened(content), content), { phase: 'guestbook', device: { v: 2, quiz: { dealt: [], answered: 0, right: 0, done: true } }, hiker: null, trip: null });
+  const broken = reportState({ state: { v: 1, device: { v: 2, quiz: { dealt: 7 } }, hiker: null, trip: { seed: 'X', n: 1, profile: { x: 'é' } } }, log: null, base: null }, content);
   assert.deepEqual([broken.trip.log, broken.trip.profile, broken.trip.hash], [null, null, null], 'a part that cannot be made is null; the report never throws');
+  assert.deepEqual(broken.device, { v: 2, quiz: null }, "a quiz record that can't be read is null too");
 });
 
 test("the saves' keys carry the channel: oph.main.* and oph.preview.* never share a save (E.9; lint S01)", () => {

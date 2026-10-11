@@ -14,11 +14,19 @@
 import { EngineError, isEngineError } from './error.js';
 import { canon } from './canon.js';
 import { sha256Hex } from './hash.js';
-import { dispatch, screenOf, fromLogAction, hash12 } from './step.js';
+import { dispatch, screenOf, fromLogAction, hash12, DEVICE_V } from './step.js';
 import { pack, unpack, fromBase64url, checkLog } from './log.js';
+import { OPENED } from './phases/lockbox.js';
 
 /** The hiker a replay stands in: never hashed, never named. */
 export const PLACEHOLDER_ID = 'h00000000';
+
+/**
+ * The device a replay stands in: past the lockbox, as every logged trip's
+ * phone is (S7), so a trip's end comes home as it did. Never hashed: the
+ * device isn't the trip.
+ */
+const standInDevice = () => ({ v: DEVICE_V, quiz: { ...OPENED, dealt: [], answers: [] } });
 
 /**
  * A log in any of its forms (JSON, packed bytes, base64url) as JSON.
@@ -56,14 +64,14 @@ export function startOf({ log, profile, base = null }, content) {
   let session;
   if (json.base === '') {
     if (base) throw new EngineError('format', 'replay: a base snapshot for a log that names none');
-    session = dispatch({ state: { v: 1, device: { v: 1 }, hiker, trip: null }, log: null, base: null }, { t: 'start', plan: json.plan, seed: json.seed }, content).session;
+    session = dispatch({ state: { v: 1, device: standInDevice(), hiker, trip: null }, log: null, base: null }, { t: 'start', plan: json.plan, seed: json.seed }, content).session;
     if (canon(session.log) !== canon(header)) throw new EngineError('format', 'replay: the trip starts other than the log says');
   } else {
     if (!base || typeof base !== 'object' || hash12(base) !== json.base) throw new EngineError('format', 'replay: the base snapshot is not the one the log names');
     if (base.seed !== json.seed || base.plan !== json.plan || base.mode !== json.mode || base.rule !== json.rule || hash12(base.profile) !== json.profile) {
       throw new EngineError('format', 'replay: the base snapshot is another trip');
     }
-    session = { state: { v: 1, device: { v: 1 }, hiker, trip: base }, log: header, base };
+    session = { state: { v: 1, device: standInDevice(), hiker, trip: base }, log: header, base };
   }
   return { json, session };
 }

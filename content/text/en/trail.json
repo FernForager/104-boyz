@@ -44,20 +44,20 @@
  },
  "trail.status.sound_on": {
   "text": "Sound:on",
-  "ctx": "The status line's Sound toggle while sound is on; tap turns it off (12.2, 13.11; King's Quest's own words)",
-  "screen": "trail",
+  "ctx": "The status line's Sound toggle while sound is on, on the cabin first, then on the trail; tap turns it off (12.2, 13.11; King's Quest's own words)",
+  "screen": "home",
   "max": 10
  },
  "trail.status.sound_off": {
   "text": "Sound:off",
-  "ctx": "The status line's Sound toggle while sound is off",
-  "screen": "trail",
+  "ctx": "The status line's Sound toggle while sound is off, on the cabin and the trail",
+  "screen": "home",
   "max": 10
  },
  "trail.status.menu": {
   "text": "Menu",
-  "ctx": "The ≡ button's spoken name, and the name of the sheet it opens",
-  "screen": "trail",
+  "ctx": "The ≡ button's spoken name on the trail, and the name of the sheet it opens there (at the cabin the same sheet is the mailbox, home.place.mailbox); its module, the status line, is the cabin's too",
+  "screen": "home",
   "max": 12
  },
  "trail.toolbar.pack": {
@@ -92,8 +92,8 @@
  },
  "trail.box.more": {
   "text": "More",
-  "ctx": "The spoken name of the box's continuation mark, in its corner when its words go on in a second box (12.1: never a scroll)",
-  "screen": "trail",
+  "ctx": "The spoken name of the box's continuation mark, in its corner when its words go on in a second box (12.1: never a scroll): the lockbox's and the guest book's box on the porch first, then the trail's",
+  "screen": "home",
   "max": 8
  },
  "trail.deer_lake_rim.fork": {
@@ -308,8 +308,8 @@
  },
  "trail.why.close": {
   "text": "Close",
-  "ctx": "The Why sheet's button (12.11)",
-  "screen": "trail",
+  "ctx": "The close button of a sheet: the mailbox at the cabin (S7), and the Why sheet on the trail (12.11)",
+  "screen": "home",
   "max": 8
  },
  "trail.why.crest_storm": {

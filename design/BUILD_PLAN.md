@@ -231,6 +231,7 @@ E.5 names some files `data/`, `rules/`, `stores/`, `drive/` and `people/`. Here 
 |---|---|
 | `picvm.js` | Runs compiled picture ops into per-layer index buffers (shipped) |
 | `compose.js` | The scene composer: layers 1-11 from a recipe and the place's seed; the cabin's states as overlays (shipped in S5; S6 adds its Look hotspots, a stamp's own mirrored with it) |
+| `cabin.js` | The cabin composed: the hand-drawn plate, its sky, weather, lights, smoke, embers, moon and first-launch overlay as one op list at the lake's hour, the date's sky and the real moon; the cabin's palette tables and alt text by id (shipped in S7) |
 | `compass.js` | The compass rose a roll spins on, drawn into the picture's buffer: three bands or a night roll's two, a fatal sliver, round at every pixel shape, always the day table (shipped in S6) |
 | `palette.js` | Time-of-day, weather and drained remaps; cycles; lights (shipped, grows) |
 | `display.js` | Whole-number device-pixel scaling, one `drawImage`, at most 3 canvases (shipped) |
@@ -260,8 +261,11 @@ E.5 names some files `data/`, `rules/`, `stores/`, `drive/` and `people/`. Here 
 | `ui/press.js` | The long press, shared by the (i)'s accelerator and the line inspector; a held press on a rolled choice is never a tap, and while the inspector listens no held press is; anywhere else a slow tap taps (shipped in S6) |
 | `ui/motion.js` | Reduce Motion in one place, live: the draw-in, the cycles, the compass, the sheet and the confirm (shipped in S6; the title page's draw-in reads it too) |
 | `ui/strip.js` | The pencil strip and the splits |
-| `ui/home.js` | The cabin: hotspots, the rail, the next-step button, states, the live clock (was `ui/shelf.js`) |
-| `ui/lockbox.js`, `guestbook.js` | First launch: the locals' quiz, then a name |
+| `ui/home.js` | The title page and, on preview from S7, the loading art: the cover drawing in under the name (was `ui/shelf.js`); main's front door until the cabin's promotion |
+| `ui/cabin.js` | The cabin: the plate in its mat, real buttons over its places, the labels, the next-step button, the porch rail, the live clock and scene; first launch's shut lockbox (shipped in S7) |
+| `ui/porch.js` | First launch's slim frame: the status line, a window on the plate's porch, the box and what goes under it (shipped in S7) |
+| `ui/status.js`, `glyph.js` | The status line the trail, the cabin and the porch share; pixel glyphs, so the cabin's modules never import the trail's (shipped in S7) |
+| `ui/lockbox.js`, `guestbook.js` | First launch: the locals' quiz, then a name, its visible label and *Suggest*, both on the porch (shipped in S7) |
 | `ui/maptable.js`, `map.js` | The map table: three questions, presets, the itinerary sheet; the park map |
 | `ui/permit.js` | The permit form, *Take it to the desk*, and the desk's *Issue it* |
 | `ui/town.js` | The town street, the WIC counter and the job doors |
@@ -272,7 +276,7 @@ E.5 names some files `data/`, `rules/`, `stores/`, `drive/` and `people/`. Here 
 | `ui/finish.js`, `report.js`, `soak.js` | The stamp at the car; the trip report and its share card; the soak |
 | `ui/death.js`, `register.js` | The five death screens and the wipe at the cabin; the Trail Register |
 | `ui/toolbar.js` | Pack, Map and Log |
-| `ui/mailbox.js`, `credits.js` | Settings; Credits, the ranger's reading (doc 12.20), the sounds' credits |
+| `ui/mailbox.js`, `credits.js` | Settings (S7: the ≡ sheet's *Sound* and *Text* rows, the update note, *Works offline* and the build stamp); Credits, the ranger's reading (doc 12.20), the sounds' credits |
 | `ui/debug.js`, `errors.js` | The hidden debug menu, Copy bug report, the replay self-check; the error sheet |
 | `ui/mini/host.js`, `card.js` | The 120 Hz loop and input capture; the card, the live odds line and the result line |
 | `ui/mini/can.js`, `alpen.js`, `berries.js`, `burgers.js` | One renderer each |
@@ -284,7 +288,7 @@ E.5 names some files `data/`, `rules/`, `stores/`, `drive/` and `people/`. Here 
 | `platform/storage.js` | localStorage and IndexedDB under `oph.<channel>.`; `persist()` |
 | `platform/sw-client.js` | Worker registration; `registration.update()` at launch and on every return to the foreground; the update note (on the title page until S7, then the mailbox's flag); the offline stamp |
 | `platform/share.js` | Clipboard, the share sheet with files, the press-and-hold fallback, Export and Import |
-| `platform/now.js` | The real Pacific clock for the cabin. UI only: the engine never reads it |
+| `platform/now.js` | The real Pacific clock for the cabin, the sun table's hour, the date's sky and the real moon (shipped in S7). UI only: the engine never reads it |
 | `platform/net.js` | From T1: the data branch's files, fetched past the cache and checked by hash; from T4, the daily's rolls from the Worker (14.4) |
 
 Session 1's planned `platform/audio.js` square-wave sequencer is replaced by `audio/`.
@@ -306,7 +310,7 @@ Session 1's planned `platform/audio.js` square-wave sequencer is replaced by `au
 | `food/items.json` | The food catalog, the beer and the new store foods, each basic or nice |
 | `stores/stores.json` | The three stores' placeholders, shelves by catalog id, the cooler; Second Growth from M1b; the three jobs' placeholders, `{JOB_DRIVEIN}` in M1a and `{JOB_GASTROPUB}` and `{JOB_BOOKSTORE}` from M1b, with their doors |
 | `drive/routes.json` | The cabin to Port Angeles (about 3 h) and to the Sol Duc trailhead through Forks (about 2 h 10); from M2, the Hoh by the Upper Hoh Road, which leaves US 101 south of Forks (about 1 h 30, an estimate to measure, doc 3.3) |
-| `home/cabin.json` | The cabin's places, hotspots, states, props and the next-step rules (11.2) |
+| `home/cabin.json` | The cabin's places, hotspots, states, props and the next-step rules (11.2); its tables, skies, lights, moon and the porch's window (shipped in S7) |
 | `rules/tuning.json` | Every knob: score budgets, skills 0-5, the Leave No Trace cap, the tub's 8 trail hours, the worn switch |
 | `rules/mods.json`, `macros.json` | Shared modifier sets; shared effect bundles |
 | `rules/kits.json` | The ranger's sensible kit by zone and month; the two presets; the town clothes a new hiker arrives in (decision 67); the test kits |
@@ -317,7 +321,7 @@ Session 1's planned `platform/audio.js` square-wave sequencer is replaced by `au
 | `cards/**` | Cards by family and place; they hold ids, never English (10.2) |
 | `death/causes.json` | Cause keys, variant order and dice tags; the lines themselves are ids |
 | `lore/quotes.json`, `credits.json` | Drawable epitaph lines with credits; Credits data and Wood's book list |
-| `quiz/locals.json` | The lockbox's twelve sourced questions |
+| `quiz/locals.json` | The lockbox's twelve sourced questions, dealt three at first launch (S7) |
 | `people/boyz.json` | `{BOY_n}` placeholders, quirks, register entries, tub lines, guest-book signatures |
 | `people/rangers.json` | The WIC ranger and the patrol ranger |
 | `text/**` | Every line of English, the ledger and the batches (10.2) |
@@ -487,7 +491,7 @@ The scope file holds each switch, and the lint checks it. This is doc 15's table
 | Second Growth's door; the boutique; the dish pit's and the bookstore's doors | Hidden until M1b; the general store's beer cooler and the burger drive-in's door are in |
 | The Bonfire Lily | Weight 0 everywhere until M1b |
 | Walk out (the known-ground summary, 3.4), trip codes, the gear-list CSV | M1b |
-| The cabin's spring, autumn and winter; the real moon; the crew; the wool blanket | M1b (S37). The easter eggs decision 54 names wait for the Boyz' yes |
+| The cabin's spring, autumn and winter; the crew; the wool blanket | M1b (S37). The easter eggs decision 54 names wait for the Boyz' yes. The real moon shipped in S7 (Lead call 54) |
 | The chalkboard and the peak | Looks only; the peak opens with T1, the chalkboard with T2 on preview, and on main with T4 |
 | Hike it again | Shown; it copies the permit. First on the cut ladder (8.3), so it may move to M1b |
 | The WIC on the town run | Every overnight Open trip stops at the desk (decision 40, doc Lead call 12): Jon issues the permit, the briefing, the loaner can for a hiker without one (Lead call 33) and the three desk camps |
@@ -625,8 +629,8 @@ The drive from the cabin is one composed road screen on a route already driven, 
 ### 4.7 Palette tables and cycles
 
 - **Remaps** in `art/palette.json`: day, dusk (also dawn, at the cabin), blue hour, night, overcast, storm, a two-frame lightning flash, and the drained death-box table. S6 re-tunes dusk, blue hour and night by eye on the renders for decision 68's lighter sixteen, so night stays clearly night, never grey, while the trees, the lake, the trail and the ridges read (doc 11.4).
-- **Cycles in M1a:** lake (16), falls (17), river (18), fire (20: the stove and the fire bowl), stars (22), rain glint (23), lamp (24: windows, lanterns, the antenna light), dust (25, renderer only), **steam (26)** off the lit tub, and **alpen (27)** for the alpenglow shot's light.
-- **Lights** (lamp, stars, fire, steam, dust) resolve after the remap, so they stay bright at night.
+- **Cycles in M1a:** lake (16), falls (17), river (18), fire (20: the stove and the fire bowl), stars (22), rain glint (23), lamp (24: windows, lanterns, the antenna light), dust (25, renderer only), **steam (26)** off the lit tub, **alpen (27)** for the alpenglow shot's light, and from S7 the cabin's two (doc Lead call 56): **spill (28)**, brick, fixed, the warm light falling from the windows, the lanterns and the embers, and **smoke (29)**, slots 1, 1, 1 and 6 with the `rise` phase, the stovepipe's smoke, remapped with the scene so it darkens with the hour. Both are the cabin's screens' only (`palette.json`'s `screens`), and the picture VM's last pseudo-color is 29.
+- **Lights** (lamp, stars, fire, steam, dust, spill) resolve after the remap, so they stay bright at night.
 
 ### 4.8 How art gets made and checked
 
@@ -1289,7 +1293,7 @@ Reported nightly, not gated (doc F.1):
 | S35a | The other Larry moments (the bold marmot, the thin tent wall, the Lodge, Second Growth's pre-roll, and its munchies in the berry patch: every berry in your mouth, the cup never filling, decision 58); the boutique, its third skin and its items (decision 48); the Huckleberry Skillet |
 | S35b | The other two jobs (Lead calls 30 to 32): the dish pit at `{JOB_GASTROPUB}` and the bookstore counter at `{JOB_BOOKSTORE}`, lighter than the grill; their doors on the town street, `dishes.js` and `books.js` on the shared host, *Auto* at par pay, one shift per job per trip, never lethal; T07's allowlist gains the bookstore's stock and its lines about selling books, each with a reason, shown in this session's batch (Lead call 41) |
 | S36 | The Bonfire Lily, in Open only (decision 50): weights on the snow features (after you confirm the windows), the glow plate, the motif (five rising notes, once in a hiker's lifetime, decision 62), the gold sketch in the cabin's gable window (decision 46) |
-| S37 | The cabin's year: spring, autumn and winter, the real moon; the crew on summer Friday and Saturday evenings, after your big homecomings and on your dates (`{BOYZ_DATES}`), with Jon usually away, his hat and badge #104 on the hook, and sometimes there with them (decision 46; the details from the photos only once you confirm them); the tub's lines, the guest book's old signatures, the crew's voices in the cabin band, the wool blanket, the gear-list CSV. The easter eggs decision 54 names wait for the Boyz' yes |
+| S37 | The cabin's year: spring, autumn and winter (the real moon shipped in S7, Lead call 54); the crew on summer Friday and Saturday evenings, after your big homecomings and on your dates (`{BOYZ_DATES}`), with Jon usually away, his hat and badge #104 on the hook, and sometimes there with them (decision 46; the details from the photos only once you confirm them); the tub's lines, the guest book's old signatures, the crew's voices in the cabin band, the wool blanket, the gear-list CSV. The easter eggs decision 54 names wait for the Boyz' yes |
 | S38 | Snow: self-arrest (doc 17.11), with no practice anywhere: you learn it on the mountain (decision 59, Lead call 39); the ice axe's self-belay +10 and the arrest, in place of a flat bonus; its 20% death roll behind a ♦, the `fall` key's snow line (yours to write) and its epitaph deck; doc 9.5's new row |
 | S39 | The tent in the rain (17.13); the can that remembers, eaten from each night and repacked in camp (decision 56; 17.7) |
 | S40-S41 | Content to about 105 cards; at least 32 notable cards per coverage cell; story uniqueness |
@@ -1538,9 +1542,12 @@ T04 (no *Golden Glow*) and T06 (no phone links) shipped in Session 1.
 |---|---|---|---|
 | B000 | S2 | 4 | Decisions 35 and 47, recorded |
 | B001 | Before S2: sent and answered 2026-10-09 | 11 | The app's frame (1.2): 10 sent, and the update note's *Restart* button added in chat; S2 applies it |
-| B002 | S7 | ~30 | The cabin |
-| B003 | S7 | ~53 | The lockbox and the guest book, as one set (doc Lead call 46) |
-| B004 on | S8 on | 25-40 each | Each session's screens; S5 and S6's sample stops join them; the ways to play's and the minigames' words come the same way (Lead call 43) |
+| B002 | S7 | 39 | The cabin: 28 new lines, 10 moved in from B004 to B006 because the cabin shows them first (doc Lead call 62) and the cover's alt text from held |
+| B003 | S7 | 61 | The lockbox and the guest book: the quiz pool's 50 as one set (doc Lead call 46), the guest book's 3, and S7's 8 (the lockbox's steps, the field's label and *Suggest*) |
+| B004 | S5, S6 | 29 | The sample stops and the fork (3 moved to B002) |
+| B005 | S6 | 32 | Odds, the Why sheet and the outcome (4 moved to B002) |
+| B006 | S6 | 25 | Looks, alt text and VoiceOver (3 moved to B002) |
+| B007 on | S8 on | 25-40 each | Each session's screens; the ways to play's and the minigames' words come the same way (Lead call 43) |
 
 ### 10.8 How much reading, and what main waits for
 
@@ -1591,13 +1598,13 @@ About 2,200 lines for M1a (5.6): about six hours at ten seconds a line, or about
 - **One tall plate** (160 x 320), drawn from doc 11.11's written brief only. No sign, address, road name or shoreline places it, and no photo enters the repo.
 - **The places are data.** `content/home/cabin.json` holds doc 11.11's hotspot map: each place's art box and its larger hit area (at least 44 x 44 pt on every device, so at least 22 columns by 44 rows on the plate, doc 11.11), its label id, its rail button and its states. Where two hit areas overlap, the nearest center wins.
 - **Everything is also a button.** The rail and the next-step button are plain HTML, so VoiceOver reads them and nobody has to hunt.
-- **The next-step button is a pure function of the save,** in `engine/phases/home.js`: no hiker, no plan, a plan drafted, a plan ready for the desk (*Take it to the desk*, DRAFT), back from town with the permit issued, packed, a trip in progress (the app opens on the trail), just home. It is unit-tested state by state, a day hike's plan and a desk request included (6.6).
+- **The next-step button is a pure function of the save,** in `engine/phases/home.js`: no hiker, no plan, a plan drafted, a plan ready for the desk (*Take it to the desk*, DRAFT), back from town with the permit issued, packed, a trip in progress (the app opens on the trail), just home. It is unit-tested state by state, a day hike's plan and a desk request included (6.6). `cabin.json`'s `next` table lists every state with the session that lands it: S7's two are live, *Plan your first trip* (a hiker with no finished trip) and *Plan a trip* (any other hiker with no trip under way), and until S10 both start S6's sample trip (doc Lead call 60); a plan drafted and the desk land in S10 and S11, back from town in S11, packed in S12a and just home in S25. A row without its rule is never reachable.
 - **States are overlays** on the plate's recipe: the trip's props (the permit on the door, the grocery bags, the tiny flat lay, the pack at the car), the homecoming, the lit tub, after a death, first launch. The crew and the seasons arrive in S37; the easter eggs decision 54 names wait for the Boyz' yes. Career marks belong to the hiker and go in the wipe; the tally marks, the race bibs and, from M1b, the lily's gold sketch in the gable window belong to you and stay (decisions 2 and 46).
 - **The live scene** runs on Lake Quinault's clock, in the UI only (`platform/now.js`):
   - **The hour:** the Pacific date and time, read with `Intl`'s `America/Los_Angeles` time zone for numbers only; the words come from `fmt.*`.
   - **The sun:** a build-time table for the lake's center, like `daylight.json`, so Node and the phone agree; it picks Day, Dusk (and dawn), Blue hour or Night.
   - **The sky:** until T2, the month's climatology drawn from a hash of the real date, so every phone shows the same sky that day; from T2, the morning job's forecast for the lake; offline, or more than two days stale, climatology again.
-  - **The moon:** its phase from the date, by arithmetic (S37).
+  - **The moon:** its phase from the date, by whole-number arithmetic, and from S7, not S37 (doc Lead call 54): a moon *a* days old is up from about 6:00 plus 48 minutes a day of its age, for 12 hours, Pacific time, at one spot over the peak (`real_moon` on).
   - **The homecoming** shows the trip's own arrival time first, then fades to now.
 - **No drink anywhere in the cabin scene,** because the car is in it (T05, A07). The soak is a plate of its own, and it has a can on the tub's edge (decision 46).
 - **The cover lives on** as the loading art while the cabin's data loads, and nowhere else: a mid-route plate at a fixed dusk would break the daily card's rule (the trailhead, under the day's real sky, spoiling nothing, doc 9.9).

@@ -102,6 +102,48 @@
   "screen": "debug",
   "class": "dev"
  },
+ "dev.hour.dawn": {
+  "text": "dawn",
+  "ctx": "The debug menu, preview only: show the cabin at dawn (S7; the trail shows dawn with the dusk table, GAME_DESIGN 11.4)",
+  "screen": "debug",
+  "class": "dev"
+ },
+ "dev.sky": {
+  "text": "sky",
+  "ctx": "The debug menu, preview only: the label of the cabin's sky control (S7: the date's climatology sky, or one by hand)",
+  "screen": "debug",
+  "class": "dev"
+ },
+ "dev.sky.auto": {
+  "text": "auto",
+  "ctx": "The debug menu, preview only: the cabin's sky from the date's climatology (platform/now.js skyOn)",
+  "screen": "debug",
+  "class": "dev"
+ },
+ "dev.sky.clear": {
+  "text": "clear",
+  "ctx": "The debug menu, preview only: show the cabin under a clear sky",
+  "screen": "debug",
+  "class": "dev"
+ },
+ "dev.sky.cloudy": {
+  "text": "cloudy",
+  "ctx": "The debug menu, preview only: show the cabin under cloud",
+  "screen": "debug",
+  "class": "dev"
+ },
+ "dev.sky.rain": {
+  "text": "rain",
+  "ctx": "The debug menu, preview only: show the cabin in rain",
+  "screen": "debug",
+  "class": "dev"
+ },
+ "dev.sky.fog": {
+  "text": "fog",
+  "ctx": "The debug menu, preview only: show the cabin in morning fog",
+  "screen": "debug",
+  "class": "dev"
+ },
  "dev.text": {
   "text": "text",
   "ctx": "The debug menu, preview only: the label of the box text's font control (pixel or Plain, GAME_DESIGN 11.9)",

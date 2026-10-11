@@ -1,0 +1,375 @@
+# cabin_quinault: home, the old ranger cabin at Lake Quinault, in August
+# (BUILD_PLAN S7; GAME_DESIGN 2.2, 11.11; decision 70: a hand-drawn hero).
+# A tall plate, 160x320 (doc 11.2). Drawn from 11.11's written brief and
+# the spec's words for the architecture (a steep, nearly A-frame cedar
+# gable; board and batten; the arched window high in the gable; two banks
+# of three tall windows either side of a screen door; a raised deck with
+# four pale chairs; the small matching shed to the right; the green tub at
+# the porch's right corner; the iron fire bowl on a meadow of mole hills;
+# huge mossy bigleaf maples, a towering Sitka spruce behind the roof and a
+# snow-dusted rocky peak above the trees). Nothing is traced or sampled
+# from any photo; no sign, number, road or shoreline places it.
+#
+# The plate draws no sky: web/js/gfx/cabin.js puts the hour's sky stamp on
+# the sky layer, then the stars and the moon, and composes the lights, the
+# smoke, the embers, the states and the weather over these layers, at the
+# at_<name> anchors below. Light comes from the upper left, so faces turned
+# left are lit. Each farther band is a step lighter; outlines are drawn in
+# each shape's own color, then filled; nearer shapes on a layer come first
+# where a farther fill has to flood around them.
+#
+# Rows 0 to 28 are quiet sky for the name over the cabin (lead call 61).
+
+@ far
+# The foothills: a hazy teal band across the valley with a ragged forested
+# top, rising into a rounded forested knoll right behind the cabin, high
+# enough that the steep roof's rakes, the stovepipe and the mast stand
+# against teal (slate at night), so the ink roof reads against it at every
+# hour (spec 5.6, 9).
+C 12  L 0,89 2,87 4,88 6,86 8,88 10,87 12,89 14,87
+      16,88 18,86 20,89 22,88 24,87 26,86 28,88 30,89
+      32,87 34,88 36,86 38,87 40,89 42,87 44,88 46,86
+      48,86 50,83 52,83 54,80 56,79 58,76 60,77 62,75
+      64,73 66,71 68,72 70,73 72,70 74,71 76,68 78,69
+      80,71 82,69 84,70 86,69 88,71 90,71 92,73 94,72
+      96,74 98,73 100,77 102,78 104,78 106,79 108,82 110,85
+      112,85 114,88 116,86 118,87 120,89 122,87 124,88 126,86
+      128,88 130,87 132,89 134,87 136,88 138,86 140,89 142,88
+      144,87 146,86 148,88 150,89 152,87 154,88 156,86 158,87
+      159,87 159,236 0,236 0,89
+C 15  F 80,160
+# The ridge on the right: forested, its treetops a line of forest over teal
+# haze, rising from behind the knoll to the frame's edge behind the
+# conifers.
+C 12  L 108,82 112,80 115,78 119,74 127,74 130,74 133,71 136,72
+      139,70 142,70 145,68 148,69 151,66 154,66 157,63 159,64
+C 15  F 150,74 140,76
+# The peak: a craggy, rock-toothed summit left of center, three teeth on
+# its crest, the summit the middle one, and a left shoulder that comes
+# down in steps. A snow line runs the whole crest, so at night (snow goes
+# to slate) the crest still stands off the navy sky and its rock never
+# meets the sky bare (spec 5.6, 8). Light from the upper left: the face
+# turned left holds a lit snowfield cut by rock ribs, with snow on the
+# shoulder's benches below it; the face turned right is rock in shadow,
+# snow lying in branching gullies down it (shaded snow, glacier blue),
+# wider near the crest, and on a few ledges, the rock ribs between them.
+C 4  L 10,87 13,84 16,81 18,79 20,78 23,78 25,75 27,72
+     29,69 31,67 33,66 35,66 37,63 39,60 41,57 42,55
+     44,54 45,52 46,49 47,46 48,43 49,40 50,42 51,43
+     52,39 53,35 54,31 55,33 56,36 57,39 58,37 59,35
+     60,36 61,38 63,40 65,41 67,43 69,44 71,45 73,47
+     75,48 77,49 79,51 81,52 83,52 85,53 88,55 91,57
+     94,58 97,60 100,62 103,63 106,65 109,66 112,68 115,69
+     118,71 119,74
+# the rock under it, down to the foothills
+C 2  F 60,66
+# the lit snowfield under the summit and the left tooth, its foot ragged
+C 4  L 54,32 54,36 55,40 55,44 56,47 55,50 54,53 53,51
+     52,55 50,53 49,57 47,55 46,59 44,57 42,60 41,58
+     39,60
+C 4  F 51,46 53,38
+# rock ribs down through it, falling left from the teeth
+C 2  L 50,43 49,46 48,50 47,53  L 53,40 52,44 52,47 51,50  L 46,51 45,54  L 55,45 55,49
+# a couloir of snow below the snowfield, and snow on the shoulder's benches and a few ledges
+C 4  L 47,56 46,61 44,65 43,68  L 48,57 47,60  L 32,68 37,68  L 33,69 35,69  L 19,80 23,80  L 20,81 22,81
+     L 40,63 43,64  L 38,70 41,71  L 26,76 28,76  L 50,61 52,62  L 29,74 31,75
+# The face in shadow: a cornice of shaded snow (glacier blue) under the
+# crest, and snow lying in its gullies, branching, of every length and
+# spacing, widest where they leave the crest, the rock ribs between them;
+# snow on a few of its ledges.
+C 3  L 58,38 58,39  L 59,36 59,38  L 60,37 60,38
+      L 61,39 61,39  L 62,40 62,41  L 63,41 63,43
+      L 64,41 64,43  L 65,42 65,43  L 66,43 66,43
+      L 67,44 67,44  L 68,45 68,46  L 69,45 69,46
+      L 70,45 70,47  L 71,46 71,47  L 72,47 72,47
+      L 73,48 73,49  L 74,49 74,50  L 75,49 75,49
+      L 76,49 76,49  L 77,50 77,51  L 78,51 78,52
+      L 79,52 79,54  L 80,53 80,54  L 81,53 81,53
+      L 82,53 82,54  L 83,53 83,55  L 84,53 84,55
+      L 85,54 85,55  L 86,55 86,55  L 87,55 87,55
+      L 88,56 88,57  L 89,57 89,58  L 90,57 90,59
+      L 91,58 91,59  L 92,58 92,58  L 93,59 93,60
+      L 94,59 94,60  L 95,60 95,60  L 96,60 96,60
+      L 97,61 97,62  L 98,62 98,63  L 99,62 99,64
+      L 100,63 100,64  L 101,63 101,63  L 102,64 102,65
+      L 103,64 103,66
+C 3  L 57,38 57,40 57,43 57,46 58,48  L 58,38 58,40 58,43 58,46 59,48 60,50 60,53  L 59,38 59,40
+      L 58,44 57,46 56,49  L 62,41 63,44 63,46 63,48 63,51 63,54 64,56 65,58 66,60  L 63,41 64,44 64,46 64,48 64,51 64,54 65,56 66,58 67,60 68,62 69,65
+      L 64,41 65,44 65,46 65,48 65,51 65,54  L 65,51 64,53 63,55 62,56 62,58  L 68,45 69,47 69,49
+      L 69,45 70,47 70,49 70,51 71,53  L 70,45 71,47  L 74,49 74,52 74,54 75,56 76,59 76,62 76,64
+      L 75,49 75,52 75,54 76,56 77,59 77,62 77,64 78,66 78,69  L 76,49 76,52 76,54 77,56  L 77,58 78,60 80,62
+      L 81,53 81,55 82,57  L 82,53 82,55 83,57 83,58 83,60  L 83,53 83,55
+      L 87,56 87,58 87,61 87,64 88,66  L 88,56 88,58 88,61 88,64 89,66 89,68  L 89,56 89,58
+      L 96,61 96,63 97,65  L 102,64 103,66 104,68  L 103,64 104,66 105,68 106,70 108,71
+      L 104,64 105,66
+C 4  L 57,40  L 58,38  L 63,41  L 64,41  L 69,45  L 75,49  L 76,49  L 82,53  L 88,56
+C 3  L 66,58 69,59  L 71,61 73,61  L 84,63 86,64  L 60,62 62,63  L 93,64 95,64  L 99,68 101,68
+# the crest's snow line again over the cornice, unbroken end to end
+C 4  L 10,87 13,84 16,81 18,79 20,78 23,78 25,75 27,72
+     29,69 31,67 33,66 35,66 37,63 39,60 41,57 42,55
+     44,54 45,52 46,49 47,46 48,43 49,40 50,42 51,43
+     52,39 53,35 54,31 55,33 56,36 57,39 58,37 59,35
+     60,36 61,38 63,40 65,41 67,43 69,44 71,45 73,47
+     75,48 77,49 79,51 81,52 83,52 85,53 88,55 91,57
+     94,58 97,60 100,62 103,63 106,65 109,66 112,68 115,69
+     118,71 119,74
+@ mid
+# The forest wall behind the lawn: a stand of conifers, their tops a
+# toothed line.
+C 12  L 0,166 3,162 6,167 9,163 12,168 15,161 18,166 21,164
+      24,166 27,162 30,167 33,163 36,168 39,161 42,166 45,164
+      48,166 51,162 54,167 57,163 60,168 63,161 66,166 69,164
+      72,166 75,162 78,167 81,163 84,168 87,161 90,166 93,164
+      96,166 99,162 102,167 105,163 108,168 111,161 114,166 117,164
+      120,166 123,162 126,167 129,163 132,168 135,161 138,166 141,164
+      144,166 147,162 150,167 153,163 156,168 159,161 159,166 159,228
+      0,228 0,166
+C 11  F 80,200
+# Dark conifers behind the shed, three spires over the wall.
+C 12  L 136,166 136,112 137,104 138,96 140,101 142,99 143,91 144,84
+      145,78 146,72 148,79 150,86 152,89 154,84 156,80 158,86
+      159,90
+C 11  F 150,120
+# Where the morning's low fog lies (web/js/gfx/cabin.js draws the weather's
+# mid stamp at this anchor's place in the layer): in front of the forest
+# wall and the conifers, behind the maples, the spruce and the shed, so the
+# trunks stay crisp in front of it.
+Z at_fog_low 0,0,1,1
+# The trees, back to front: the right maple behind the shed (its trunk at
+# the frame's edge and its limbs high, so the shed's gable stands clear
+# against the dark conifers), the Sitka spruce behind the roof, the left
+# maple, and the shed.
+T bigleaf_maple_summer 159,244 fx
+T sitka_spruce 112,152
+T bigleaf_maple_summer 14,226
+T cabin_shed 148,222
+@ near
+# The antenna: a short mast at the apex with its little round dome, which
+# stands just over the knoll's top, on the peak's rock.
+C 0  L 80,69 80,75
+C 4  L 79,68 81,68  L 80,67
+# The stovepipe on the left roof slope, just below the ridge, with its cap.
+C 0  L 68,83 68,96  L 69,83 69,95  L 67,82 70,82
+# The roof's raking edges, from the apex to the eave tips: three rows of
+# bark fascia under a slate metal edge, the edge laid last so it runs
+# unbroken. Steep, nearly an A-frame: they rise 106 rows over 63 columns,
+# about 44 degrees on the phone.
+C 10  L 80,77 17,183  L 80,78 17,184  L 80,79 17,185
+      L 80,77 143,183  L 80,78 143,184  L 80,79 143,185
+# The right roof plane showing along its rake, spruce with moss on it.
+C 11  L 81,76 143,178  L 143,178 143,181
+D 11 13 checker25  F 89,90 92,95 93,97 95,100 96,102 98,105 99,107 101,110 102,112 104,115 105,117 106,118 107,120 108,122 109,123 110,125 111,127 112,128 113,130 114,132 115,133 116,135 117,137 118,138 119,140 120,141 121,143 122,145 123,146 124,148 125,150 126,151 127,153 128,155 129,156 130,158 131,160 132,161 133,163 134,165 136,168 139,173 142,178
+# the slate edge, laid last, unbroken from the apex to each eave tip
+C 2  L 80,76 17,182  L 80,76 143,182
+# The gable wall's top sits in a band of shadow under the roof's overhang.
+C 0  L 80,80 30,164  L 80,81 31,164  L 80,80 130,164  L 80,81 129,164
+# The apex: the tie beam across it a quarter of the way down, the open
+# dark above it, the king post from the apex down to it and its two struts
+# up to the rafters.
+C 10  L 71,96 89,96  L 70,97 90,97
+C 0  F 78,92
+C 10  L 80,82 80,95  L 80,94 76,90  L 80,94 84,90
+# The tall arched window high in the gable: a half-round fanlight with
+# three radial muntins over a transom bar and a pair of tall casements.
+C 10  L 72,124 72,122 73,120 74,119 75,118 76,117 78,116 82,116
+      84,117 85,118 86,119 87,120 88,122 88,124 88,149 72,149
+      72,124
+C 10  L 71,150 89,150  L 72,124 88,124  L 80,125 80,149
+# the fanlight glazed in one slate, then its three muntins fanning from a hub
+# at the transom bar's middle; one glint on its upper left
+C 2  F 80,120 77,137 83,137
+C 10  L 80,123 80,117  L 79,123 75,119  L 81,123 85,119
+C 3  L 75,121 76,120
+C 3  L 74,133 78,129  L 74,139 78,135  L 82,143 86,139
+C 0  L 73,125 79,125  L 81,125 87,125
+# The trim board across the facade, over the ground floor.
+C 10  L 30,170 130,170
+C 0  L 31,171 129,171
+# Two banks of three tall windows, dark and reflective by day, ink
+# mullions, ink at their heads in the trim's shadow. Tall, their sills low
+# over the deck, so the porch chairs' backs and arms stand against the
+# glass (at night, ink against the lamp light).
+C 10  L 40,176 68,176 68,208 40,208 40,176
+C 10  L 92,176 120,176 120,208 92,208 92,176
+C 0  L 49,177 49,207  L 50,177 50,207
+C 0  L 58,177 58,207  L 59,177 59,207
+C 0  L 101,177 101,207  L 102,177 102,207
+C 0  L 110,177 110,207  L 111,177 111,207
+C 2  F 44,190 54,190 63,190 96,190 106,190 115,190
+C 0  L 41,177 48,177  L 51,177 57,177  L 60,177 67,177  L 93,177 100,177  L 103,177 109,177  L 112,177 119,177
+C 3  L 42,186 47,181  L 42,193 47,188  L 52,191 56,187  L 61,186 66,181  L 61,198 66,193
+     L 94,186 99,181  L 104,191 108,187  L 104,198 108,194  L 113,186 118,181  L 113,193 118,188
+# The screen door in pale honey wood (rust): stiles, rails, a kick panel,
+# the screen between; its casing in bark.
+C 10  L 72,179 72,211  L 88,179 88,211  L 72,179 88,179
+C 8  L 73,180 87,180 87,211 73,211 73,180  L 74,181 74,210  L 86,181 86,210  L 74,181 86,181
+     L 75,196 85,196  L 75,197 85,197  L 75,204 85,204
+C 8  F 80,207
+C 9  L 76,206 84,206 84,209 76,209 76,206
+# the screen: one flat dark mesh, a single glint high on it
+C 0  F 80,188 80,200
+C 2  L 76,184 77,183
+C 5  L 84,199
+# A small wall lantern each side of the door, at the window heads.
+C 0  L 69,181 71,181  L 89,181 91,181  L 70,185  L 90,185
+C 5  L 69,182 71,182  L 69,183 71,183  L 70,184  L 89,182 91,182  L 89,183 91,183  L 90,184
+# The wall, cedar (brick), and its battens every sixth column: one bark
+# board each, a gentle step on the cedar by day, ink on bark at night, gone
+# into the wall at dusk; the door alone carries rust.
+C 9  L 30,165 30,211 130,211 130,165
+# Silver low on the weather side: the lowest rows of the boards by the
+# left bay weathered grey, worked into the cedar: a checker of glacier blue
+# and slate under a ragged slate top, from the corner to the window bank
+# and under its sill; the battens, laid after, run through it in bark.
+C 2  L 31,199 32,201 33,202 34,203 35,201 36,202 37,204 38,202
+     39,203  L 45,209 45,210
+D 3 2 checker  F 35,207
+C 9  F 80,104 35,190
+C 10  L 33,163 33,169  L 33,172 33,211  L 39,152 39,169  L 39,172 39,211
+      L 45,142 45,169  L 45,172 45,175  L 45,209 45,211  L 51,132 51,169
+      L 51,172 51,175  L 51,209 51,211  L 57,122 57,169  L 57,172 57,175
+      L 57,209 57,211  L 63,112 63,169  L 63,172 63,175  L 63,209 63,211
+      L 69,102 69,169  L 69,172 69,180  L 69,186 69,211  L 75,98 75,114
+      L 75,151 75,169  L 75,172 75,178  L 81,98 81,114  L 81,151 81,169
+      L 81,172 81,178  L 87,98 87,114  L 87,151 87,169  L 87,172 87,178
+      L 93,105 93,169  L 93,172 93,175  L 93,209 93,211  L 99,115 99,169
+      L 99,172 99,175  L 99,209 99,211  L 105,126 105,169  L 105,172 105,175
+      L 105,209 105,211  L 111,136 111,169  L 111,172 111,175  L 111,209 111,211
+      L 117,146 117,169  L 117,172 117,175  L 117,209 117,211  L 123,156 123,169
+      L 123,172 123,211  L 129,166 129,169  L 129,172 129,211
+# The covered bays under the eaves either side: dark, a post at each
+# corner of the deck, the rafter tails along the eave.
+C 0  L 29,166 29,211 26,211 26,187 17,187 17,186
+C 0  F 28,180
+C 0  L 131,166 131,211 134,211 134,187 143,187 143,186
+C 0  F 132,180
+C 10  L 24,186 24,211  L 25,186 25,211  L 135,186 135,211  L 136,186 136,211
+C 10  L 20,183 20,185  L 140,183 140,185  L 23,178 23,181  L 137,178 137,181  L 26,173 26,176  L 134,173 134,176
+# The rain chains, hanging from the eave tips.
+C 2  L 17,186  L 17,189  L 17,192  L 17,195  L 17,198  L 17,201  L 17,204  L 17,207  L 17,210
+     L 143,186  L 143,189  L 143,192  L 143,195  L 143,198  L 143,201  L 143,204  L 143,207  L 143,210
+C 0  L 17,187 17,188  L 17,190 17,191  L 17,193 17,194  L 17,196 17,197  L 17,199 17,200  L 17,202 17,203  L 17,205 17,206  L 17,208 17,209
+     L 143,187 143,188  L 143,190 143,191  L 143,193 143,194  L 143,196 143,197  L 143,199 143,200  L 143,202 143,203  L 143,205 143,206  L 143,208 143,209
+# The raised deck across the front: its boards (glacier blue and slate,
+# silvered), an ink seam, the rim board, and the dark skirt under it.
+C 3  L 24,212 136,212
+C 2  L 24,213 136,213
+C 0  L 24,214 136,214
+C 3  L 24,215 136,215
+C 2  L 24,216 136,216  L 24,217 136,217
+C 0  L 40,215 40,217  L 56,215 56,217  L 104,215 104,217  L 120,215 120,217
+C 0  L 24,218 136,218  L 24,219 136,219  L 24,220 136,220  L 24,221 136,221
+# The wide steps, centered on the door: four treads (glacier blue, its
+# shadow slate), ink risers, widening as they come down.
+C 3  L 66,214 94,214
+C 2  L 66,215 94,215
+C 0  L 66,216 94,216  L 66,217 94,217  L 66,218 94,218
+C 3  L 65,219 95,219
+C 2  L 65,220 95,220
+C 0  L 65,221 95,221  L 65,222 95,222  L 65,223 95,223
+C 3  L 64,224 96,224
+C 2  L 64,225 96,225
+C 0  L 64,226 96,226  L 64,227 96,227  L 64,228 96,228
+C 3  L 63,229 97,229
+C 2  L 63,230 97,230
+C 0  L 63,231 97,231  L 63,232 97,232
+C 10  L 66,214 62,233  L 94,214 98,233
+# The newel post at the steps' left, the key lockbox on it.
+C 10  L 62,203 65,203  L 63,204 63,218  L 64,204 64,218
+C 0  L 62,206 65,206 65,209 62,209 62,206
+C 2  L 63,207 64,207  L 63,208 64,208
+# The chalkboard, leaning on the deck left of the steps: bark frame, an
+# ink board, a chalk doodle of a mountain over a wavy trail (no letter, no
+# numeral, no tally).
+C 10  L 52,215 60,215 61,228 51,228 52,215
+C 0  F 56,221
+C 5  L 53,223 54,222 55,222 57,218 58,219 59,221  L 54,226 55,225 56,226 57,226 58,225
+# The four pale chairs, two each side of the door, and their little
+# tables; the left one is the porch table, where the guest book lies.
+T adirondack_chair 44,211  T adirondack_chair 57,211  T adirondack_chair 103,211 fx  T adirondack_chair 116,211 fx
+T cabin_side_table 51,211  T cabin_side_table 110,211
+# The lawn: a wide meadow under the cabin, August's dry, pale lawn (sage),
+# moss in its shadows (under the porch, the tub's deck and the shed, and a
+# pool of the maples' shade at the left); toward us it darkens into a
+# foreground band, sage into moss over a narrow checker seam, then forest
+# past a ragged edge, framing the plate. The old trail's path leaves by
+# the register post, narrowing into the maples' shade.
+C 14  L 0,224 24,224 24,222  L 136,222 136,224 159,224
+# The maples' shade: a pool of moss at the left, round the register post.
+C 13  L 0,225 14,225 19,226 21,229 20,232 23,235 22,239 19,242
+      20,245 15,248 9,250 3,251 0,252 0,225
+C 13  F 4,236
+C 14  L 0,248  L 0,249  L 0,250 1,250
+C 5  L 0,251 1,251  L 1,252  L 1,253 2,253  L 2,254  L 2,255 3,255  L 2,256 4,256
+      L 3,257 5,257  L 4,258 5,258  L 5,259 6,259  L 5,260 7,260  L 6,261 9,261  L 7,262 10,262
+      L 8,263 12,263  L 9,264 13,264  L 11,265 15,265  L 12,266 18,266  L 13,267 20,267  L 15,268 22,268
+      L 17,269 25,269  L 19,270 27,270  L 21,271 29,271  L 23,272 31,272  L 25,273 33,273  L 27,274 35,274
+      L 29,275 37,275  L 31,276 38,276  L 33,277 39,277  L 35,278 38,278  L 37,279
+C 14  L 0,291 6,289 12,290 18,288 26,289 34,287 42,289 50,290
+      58,288 66,289 74,291 82,289 90,288 98,290 106,291 114,289
+      122,287 130,288 138,290 146,289 152,287 159,288
+C 13  L 0,295 6,293 12,294 18,292 26,293 34,291 42,293 50,294
+      58,292 66,293 74,295 82,293 90,292 98,294 106,295 114,293
+      122,291 130,292 138,294 146,293 152,291 159,292
+C 12  L 0,307 10,305 20,306 30,308 40,306 50,305 60,307 70,306
+      80,308 90,306 100,305 110,307 120,306 130,305 140,307 150,306
+      159,305
+C 14  F 40,235 140,235
+D 14 13 checker  F 0,293 18,290 42,291 66,291 90,290 114,291 138,292 159,290
+C 13  F 80,300
+C 12  F 80,314
+# Shadows on the lawn, moss: the porch's along its front, the tub deck's
+# and the shed's.
+C 12  L 25,222 50,222  L 62,222  L 98,222 135,222  L 63,234 97,234
+C 13  L 27,223 50,223  L 62,223  L 99,223 134,223
+     L 107,237 141,237  L 110,238 141,238  L 141,225 159,225  L 144,226 159,226  L 150,227 159,227
+C 13  L 65,235  L 67,235  L 69,235  L 71,235  L 73,235  L 75,235  L 77,235  L 79,235  L 81,235  L 83,235  L 85,235  L 87,235  L 89,235  L 91,235  L 93,235  L 95,235
+      L 26,224  L 28,224  L 30,224  L 32,224  L 34,224  L 36,224  L 38,224  L 40,224  L 42,224  L 44,224  L 46,224  L 48,224  L 50,224
+      L 100,224  L 102,224  L 104,224  L 106,224  L 108,224  L 110,224  L 112,224  L 114,224  L 116,224  L 118,224  L 120,224  L 122,224  L 124,224  L 126,224  L 128,224  L 130,224  L 132,224
+# Tufts of grass in loose drifts, thicker and taller toward us: little v
+# and ^ clumps, moss on the sage, sage lit on the moss band, moss on the
+# forest at the foot.
+C 13  L 34,230 35,229  L 39,231 40,230  L 43,229 44,228  L 48,231 49,230
+      L 102,230 103,229  L 107,231 108,230  L 111,229 112,228  L 116,231 117,230
+      L 60,252 61,251  L 65,253 66,252  L 69,251 70,250  L 74,253 75,252
+      L 118,253 119,254 120,253  L 124,256 125,255 126,256  L 129,252 130,253 131,252  L 135,254 136,255 137,254
+      L 30,269 31,270 32,269  L 36,272 37,271 38,272  L 41,268 42,269 43,268  L 47,270 48,271 49,270
+      L 96,281 97,282 98,281  L 102,284 103,283 104,284  L 107,280 108,281 109,280  L 113,282 114,283 115,282
+      L 130,269 131,270 132,269  L 136,272 137,271 138,272  L 141,268 142,269 143,268  L 147,270 148,271 149,270
+      L 52,283 53,284 54,283  L 58,286 59,285 60,286  L 63,282 64,283 65,282  L 69,284 70,285 71,284
+      L 8,311 9,312 10,311  L 14,314 15,313 16,314  L 19,310 20,311 21,310  L 25,312 26,313 27,312
+      L 70,314 71,315 72,314 73,315 74,314  L 78,316 79,317 80,316  L 84,314 85,313 86,314  L 91,315 92,316 93,315 94,316 95,315
+C 14  L 88,299 89,300 90,299 91,300 92,299  L 96,301 97,302 98,301  L 102,299 103,298 104,299  L 109,300 110,301 111,300 112,301 113,300
+      L 14,299 15,300 16,299  L 20,302 21,301 22,302  L 25,298 26,299 27,298  L 31,300 32,301 33,300
+      L 112,301 113,302 114,301  L 118,304 119,303 120,304  L 123,300 124,301 125,300  L 129,302 130,303 131,302
+# On the lawn: the tub on its low deck at the porch's right corner, the
+# register post at the edge, the fire bowl, the mole hills, the car, the
+# mailbox and the tall dry grass.
+T clam_shovel 138,221
+T tub_covered 124,236
+T register_post 9,262
+T fire_bowl_cold 80,277
+# The mole hills: seventeen, in a loose drift from the tub's corner down
+# across the lawn to the left foreground, and a few strays, growing
+# toward us (small by the porch, middling across the middle, big in front).
+T mole_hill_s 142,240  T mole_hill_s 131,245  T mole_hill_s 121,251  T mole_hill_s 52,240  T mole_hill_s 88,240  T mole_hill_s 40,247
+T mole_hill_m 113,259  T mole_hill_m 101,268  T mole_hill_m 124,280  T mole_hill_m 30,262  T mole_hill_m 44,276  T mole_hill_m 91,284
+T mole_hill_l 78,293  T mole_hill_l 62,302  T mole_hill_l 48,311  T mole_hill_l 112,300  T mole_hill_l 128,294
+T car_dusty 0,319
+T mailbox_down 148,314
+C 14  L 132,319 133,309  L 136,319 136,307  L 139,319 141,310  L 143,319 143,306  L 147,319 146,309
+     L 151,319 153,308  L 155,319 155,306  L 158,319 157,310  L 129,319 128,313
+C 5  L 134,319 135,311  L 138,319 138,309  L 145,319 145,308  L 149,319 150,311  L 153,319 152,312  L 157,319 159,309
+# The places (art boxes; content/home/cabin.json holds their hit areas).
+Z door 73,180,15,32  Z shed 131,164,29,58  Z car 0,281,41,39  Z fire_bowl 68,261,25,17
+Z mailbox 142,290,12,24  Z tub 111,217,27,19  Z register_post 3,221,12,42  Z peak 18,30,80,62
+Z chalkboard 51,215,11,14  Z clam_shovel 137,202,4,20  Z lockbox 62,203,4,7
+# The anchors web/js/gfx/cabin.js composes at (1x1, dropped from the
+# picture), and at_lily_sketch, reserved for M1b's gold sketch in the arched
+# window's lower left pane (decision 46).
+Z at_moon 28,40,1,1  Z at_star_floor 0,96,1,1  Z at_apex 80,76,1,1  Z at_pipe 68,81,1,1
+Z at_win_left 40,176,1,1  Z at_win_right 120,176,1,1  Z at_win_gable 80,116,1,1  Z at_stove 54,203,1,1
+Z at_door 73,180,1,1  Z at_lantern_l 70,181,1,1  Z at_lantern_r 90,181,1,1  Z at_shed_light 147,204,1,1
+Z at_spill_l 40,212,1,1  Z at_spill_r 120,212,1,1  Z at_bowl 80,264,1,1  Z at_lockbox 62,206,1,1
+Z at_guestbook 50,208,1,1  Z at_mailbox_flag 154,296,1,1  Z at_chain_l 17,186,1,1  Z at_chain_r 143,186,1,1
+Z at_lily_sketch 75,139,1,1

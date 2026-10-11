@@ -105,8 +105,9 @@ import { renderPic, composite } from '../web/js/gfx/picvm.js';
 import { drawable } from '../web/js/gfx/compose.js';
 import { makePalette, resolve } from '../web/js/gfx/palette.js';
 import { encodePNG } from './png.mjs';
-import { ROOT, KINDS, loadArt, loadPalette } from './pics.mjs';
-import { readText, fillPage, makeManifest, mainReach, bundle, checkMainBuild, gateSummary, stateOf, json1, channelScreens, CHANNELS } from './text.mjs';
+import { ROOT, KINDS, loadArt, loadPalette, loadCabin } from './pics.mjs';
+import { readText, fillPage, makeManifest, mainReach, bundle, checkMainBuild, gateSummary, stateOf, json1, channelScreens, CHANNELS, SCOPE_FILE } from './text.mjs';
+import { SWITCHES, switchValue } from './scope.mjs';
 import { assemble } from './assemble-site.mjs';
 import { compileContent } from './content.mjs';
 import { selfcheckCorpus } from './goldens.mjs';
@@ -192,19 +193,74 @@ export function recipeStamps(recipes) {
 }
 
 /**
+ * The stamps the cabin's data reaches directly (content/home/cabin.json,
+ * S7): its skies, its weather, its lights, embers and smoke, its states and
+ * the moon's seven phases.
+ * @param {any} cabin
+ * @returns {string[]}
+ */
+export function cabinStamps(cabin) {
+  const out = new Set();
+  if (!cabin) return [];
+  for (const id of Object.values(cabin.skies || {})) out.add(/** @type {string} */ (id));
+  for (const list of Object.values(cabin.weather || {})) for (const w of /** @type {any[]} */ (list)) out.add(w.stamp);
+  for (const k of ['lights', 'embers', 'smoke']) for (const o of cabin[k] || []) out.add(o.stamp);
+  for (const list of Object.values(cabin.states || {})) for (const o of /** @type {any[]} */ (list)) out.add(o.stamp);
+  if (cabin.moon) for (let n = 1; n <= 7; n++) out.add(`${cabin.moon.stamp}${n}`);
+  return [...out].sort();
+}
+
+/**
+ * The switches the cabin reads (BUILD_PLAN 3.6, S7 4.2: those tools/scope.mjs
+ * says S7 first reads), by name, from the scope file: shipped in art.cabin
+ * as switches, so the cabin draws what they say (the season, the real
+ * moon, no crew, no egg; the peak, the chalkboard and the clam shovel
+ * looks; no wall phone; the mailbox's settings).
+ * @param {any} scope the parsed scope file
+ * @returns {Record<string, unknown>}
+ */
+export function cabinSwitches(scope) {
+  /** @type {Record<string, unknown>} */
+  const out = {};
+  for (const key of Object.keys(SWITCHES).filter((k) => SWITCHES[k].reads === 'S7').sort()) out[key] = switchValue(scope, key);
+  return out;
+}
+
+/** The keys an authored file's notes live under, left out of what ships. */
+const NOTES = new Set(['$comment', 'doc', 'why']);
+
+/**
+ * A copy without its notes ($comment, doc, why), at any depth.
+ * @param {any} v
+ * @returns {any}
+ */
+export function withoutNotes(v) {
+  if (Array.isArray(v)) return v.map(withoutNotes);
+  if (v === null || typeof v !== 'object') return v;
+  /** @type {Record<string, any>} */
+  const out = {};
+  for (const [k, x] of Object.entries(v)) if (!NOTES.has(k)) out[k] = withoutNotes(x);
+  return out;
+}
+
+/**
  * The art bundle the phone fetches. Throws on any picture that won't run.
  * screens: the channel's screens (BUILD_PLAN S5: a picture ships when its
  * kind's screens meet them, the recipes with the trail screen, a stamp when
- * what ships reaches it); none (the default) ships everything.
+ * what ships reaches it; S7: the cabin's data, as cabin, with the home's
+ * screens, its next table left to the rules, and a palette cycle with
+ * screens only when they meet the channel's); none (the default) ships
+ * everything.
  * @param {{screens?: string[] | null}} [o]
  */
 export function compileArt({ screens = null } = {}) {
   const palette = loadPalette();
   const { sources, pics, stamps, recipes } = loadArt();
+  const cabin = loadCabin();
   const errors = [];
   for (const s of sources) {
     for (const e of s.parsed.errors) errors.push(`${s.rel}:${e.line}: ${e.msg}`);
-    if (!s.kind) errors.push(`${s.rel}: not in plates/, scenes/, bases/ or stamps/`);
+    if (!s.kind) errors.push(`${s.rel}: not in plates/, home/, scenes/, bases/ or stamps/`);
   }
   for (const id of Object.keys(pics)) {
     const p = pics[id];
@@ -213,6 +269,8 @@ export function compileArt({ screens = null } = {}) {
     for (const d of r.diag.tooDeep) errors.push(`${id}: stamp "${d.id}" nests too deep`);
   }
   for (const id of recipeStamps(recipes)) if (!stamps[id]) errors.push(`content/art/recipes.json: unknown stamp "${id}"`);
+  for (const id of cabinStamps(cabin)) if (!stamps[id]) errors.push(`content/home/cabin.json: unknown stamp "${id}"`);
+  if (cabin && !pics[cabin.plate]) errors.push(`content/home/cabin.json: no plate "${cabin.plate}" in pics/home/`);
   if (errors.length) throw new Error(`pictures:\n  ${errors.join('\n  ')}`);
   const meets = (/** @type {readonly string[]} */ list) => !screens || list.some((x) => screens.includes(x));
   const shipped = Object.keys(pics)
@@ -228,7 +286,10 @@ export function compileArt({ screens = null } = {}) {
   };
   for (const id of shipped) for (const op of pics[id].ops) if (op[0] === 'T') visit(op[1]);
   if (withRecipes) for (const id of recipeStamps(recipes)) visit(id);
+  const withCabin = Boolean(cabin) && meets(KINDS.home.screens);
+  if (withCabin) for (const id of cabinStamps(cabin)) visit(id);
   const { $comment, ...pal } = palette;
+  pal.cycles = Object.fromEntries(Object.entries(pal.cycles).filter(([, c]) => !(/** @type {any} */ (c).screens) || meets(/** @type {any} */ (c).screens)));
   const out = { format: 1, palette: pal, pics: {}, stamps: {} };
   for (const id of shipped) {
     const p = pics[id];
@@ -239,6 +300,12 @@ export function compileArt({ screens = null } = {}) {
     out.recipes = recipes;
     // The Look hotspots by kind, {kind: looked} (S6; ui/look.js): a silent kind gets no button.
     out.hotspots = shippedHotspots(loadHotspots().hotspots);
+  }
+  if (withCabin) {
+    // The cabin's display data (S7): all of cabin.json but its next table (the rules' home section) and its notes, and the switches it reads.
+    const { next, ...display } = cabin;
+    const scope = JSON.parse(readFileSync(join(ROOT, SCOPE_FILE), 'utf8'));
+    out.cabin = { ...withoutNotes(display), switches: cabinSwitches(scope) };
   }
   return out;
 }
@@ -376,6 +443,8 @@ export function makeData({ root = ROOT, channel }) {
  */
 export function viewNames(data, art = null, places = new Set()) {
   const out = new Set();
+  // The guest book's Suggest names (S7: voice.json given, term.given_*).
+  for (const id of (data.voice && data.voice.given) || []) out.add(id);
   if (data.map) for (const n of Object.values(data.map.nodes)) if (n.label) out.add(n.label);
   for (const set of Object.values((data.voice && data.voice.stops) || {})) {
     for (const stop of Object.values(set)) if (stop.view) out.add(`place.${stop.view.node}`);

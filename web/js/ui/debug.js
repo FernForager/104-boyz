@@ -565,12 +565,12 @@ function renderDev(m) {
   for (const c of devControls.values()) {
     const labelId = `${DEV_ID}-${c.id}`;
     const label = h(doc, 'span', { class: ['marks-label'], id: labelId });
-    tx(label, c.label); // t-ids: dev.hour, dev.text
+    tx(label, c.label); // t-ids: dev.hour, dev.text, dev.sky
     const group = h(doc, 'div', { class: ['marks', 'dev-control'], role: 'group', 'aria-labelledby': labelId, 'data-dev': c.id }, label);
     const now = c.get();
     for (const o of c.options) {
       const b = h(doc, 'button', { class: ['marks-mode'], type: 'button', 'data-value': o.value });
-      tx(b, o.label); // t-ids: dev.hour.auto, dev.hour.day, dev.hour.dusk, dev.hour.blue, dev.hour.night, dev.text.auto, dev.text.pixel, dev.text.plain
+      tx(b, o.label); // t-ids: dev.hour.auto, dev.hour.dawn, dev.hour.day, dev.hour.dusk, dev.hour.blue, dev.hour.night, dev.text.auto, dev.text.pixel, dev.text.plain, dev.sky.auto, dev.sky.clear, dev.sky.cloudy, dev.sky.rain, dev.sky.fog
       b.setAttribute('aria-pressed', String(o.value === now));
       b.addEventListener('click', () => {
         c.set(o.value);

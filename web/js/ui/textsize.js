@@ -22,6 +22,10 @@ export const DEFAULT_BODY_PX = 17;
 export const FORCED_PLAIN_PX = 20;
 /** The dev control's values. */
 export const TEXT_MODES = Object.freeze(['auto', 'pixel', 'plain']);
+/** The Plain serif's line height (frame.css and home.css: 1.35). */
+export const PLAIN_LINE = 1.35;
+/** A Plain choice's border and padding, top and bottom, in font pixels ((3 + 2) twice): the trail's, the next step's and the porch's. */
+export const PLAIN_CHOICE_CHROME_FP = 10;
 const KEY = 'text';
 
 /**
@@ -105,4 +109,20 @@ export function initTextSize(doc, { onChange } = {}) {
     },
   });
   return apply;
+}
+
+/**
+ * The Plain size in force on this page (--plain-size, 20 px when unset), or
+ * null while the pixel fonts show: the trail's space check and the cabin's
+ * and the porch's read it (ui/frame.js, ui/cabin.js, ui/porch.js).
+ * @param {Document} doc
+ * @param {Window | null} win
+ * @returns {number | null}
+ */
+export function plainSizeOf(doc, win) {
+  const html = doc.documentElement;
+  if (!html || html.getAttribute('data-text') !== 'plain') return null;
+  const raw = (html.style && html.style.getPropertyValue('--plain-size')) || (win && typeof win.getComputedStyle === 'function' ? win.getComputedStyle(html).getPropertyValue('--plain-size') : '');
+  const px = parseFloat(raw);
+  return Number.isFinite(px) && px > 0 ? px : FORCED_PLAIN_PX;
 }

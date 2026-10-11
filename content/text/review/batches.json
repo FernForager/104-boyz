@@ -1,7 +1,6 @@
 {
  "$comment": "Which line is in which batch, in its order, with the FNV-1a hash of its words as filed or sent (BUILD_PLAN 10.7, S5); seeded from the B00n.md tables, which stay the human record (a test holds the two to each other). Written by tools/text.mjs batch --file. held: drafts kept out of every batch, each with its reason; batch --file passes them by.",
  "held": {
-  "alt.cover_high_divide_dusk": "Session 1's cover description: off main, and B002 (S7) brings it back as the loading art's (BUILD_PLAN 1.2)",
   "title.begin": "Session 1's title page: retires with it in S7, so never sent (BUILD_PLAN 1.2)",
   "title.begin_note": "Session 1's title page: retires with it in S7, so never sent (BUILD_PLAN 1.2)",
   "title.start_label": "Session 1's title page: retires with it in S7, so never sent (BUILD_PLAN 1.2)",
@@ -35,12 +34,61 @@
     "app.build": "d44beb90"
    }
   },
+  "B002": {
+   "title": "The cabin",
+   "status": "filed",
+   "by": [
+    "S7"
+   ],
+   "lines": {
+    "home.next.plan_first": "4183a23a",
+    "home.next.plan": "a15caff0",
+    "home.soon": "4c0f6a2a",
+    "home.rail.plan": "1eab5e32",
+    "home.rail.gear": "fb334b4e",
+    "home.rail.drive": "f1aafc17",
+    "home.rail.stories": "dfbdc0e2",
+    "home.rail.mailbox": "b211566b",
+    "home.place.door": "60adb9d0",
+    "home.place.shed": "979945f6",
+    "home.place.car": "df008d6a",
+    "home.place.fire_bowl": "b5d56e50",
+    "home.place.mailbox": "cd7d11fc",
+    "home.mail.text_pixel": "108c295c",
+    "home.mail.text_plain": "4d3dba98",
+    "look.tub": "e21afc80",
+    "look.name.tub": "e4d70b28",
+    "look.register_post": "53109a5c",
+    "look.name.register_post": "c7cd65a9",
+    "alt.scene.cabin": "199f2038",
+    "alt.cabin.lit": "110f125e",
+    "alt.cabin.moon": "6b54a3d6",
+    "alt.sky.cloudy": "c4fd60fd",
+    "alt.sky.rain": "e73fd66b",
+    "alt.sky.fog": "f9849121",
+    "alt.hour.dawn": "2da41b4b",
+    "alt.hour.blue_clouded": "0465c3dd",
+    "alt.hour.night_clouded": "85890cfd",
+    "trail.status.sound_on": "3787c243",
+    "trail.status.sound_off": "bfca7387",
+    "trail.status.menu": "00c6075a",
+    "fmt.clock_am": "a9691e3f",
+    "fmt.clock_pm": "ad4453b2",
+    "trail.why.close": "cd86acc3",
+    "trail.box.more": "4f34d900",
+    "alt.hour.dusk": "51876752",
+    "alt.hour.blue": "44b0e973",
+    "alt.hour.night": "57b1aa03",
+    "alt.cover_high_divide_dusk": "8e244cb0"
+   }
+  },
   "B003": {
    "title": "The lockbox and the guest book",
    "status": "filed",
    "by": [
     "S3",
-    "S4"
+    "S4",
+    "S7"
    ],
    "lines": {
     "first.guestbook.prompt": "c18b75de",
@@ -95,7 +143,15 @@
     "first.lockbox.q_potato_bug.a1": "edf7aae3",
     "first.lockbox.q_potato_bug.a2": "1a602a57",
     "first.lockbox.right": "2a7d577c",
-    "first.lockbox.wrong": "5938a4d1"
+    "first.lockbox.wrong": "5938a4d1",
+    "first.lockbox.start": "6b2284b2",
+    "first.lockbox.intro": "eab79c0a",
+    "first.lockbox.count": "224e5c68",
+    "first.lockbox.all_right": "ab74de59",
+    "first.lockbox.come_in": "66d64196",
+    "first.lockbox.take_key": "03de2dea",
+    "first.guestbook.label": "d97b2b2a",
+    "first.guestbook.suggest": "a6e44ce5"
    }
   },
   "B004": {
@@ -115,9 +171,6 @@
     "trail.deer_lake_rim.deer_lake": "727c596a",
     "trail.deer_lake_rim.rim": "be25b08f",
     "trail.caption": "a3820148",
-    "trail.status.sound_on": "3787c243",
-    "trail.status.sound_off": "bfca7387",
-    "trail.status.menu": "00c6075a",
     "trail.toolbar.pack": "ca32d500",
     "trail.toolbar.map": "44a7f051",
     "trail.toolbar.log": "a1dd7bf1",
@@ -149,8 +202,6 @@
    ],
    "lines": {
     "fmt.mi": "c830aba7",
-    "fmt.clock_am": "a9691e3f",
-    "fmt.clock_pm": "ad4453b2",
     "fmt.min": "7eebb6a4",
     "trail.odds.sure": "1efb9680",
     "trail.odds.fatal": "2932e3a6",
@@ -169,7 +220,6 @@
     "trail.why.fatal": "e3b7cd81",
     "trail.why.route": "fb5209b4",
     "trail.why.exposed": "636e6e26",
-    "trail.why.close": "cd86acc3",
     "trail.why.crest_storm": "a2462599",
     "trail.why.staircase": "861f8ab1",
     "trail.why.skill_footing": "5c06f573",
@@ -182,8 +232,7 @@
     "trail.outcome.mishap": "a072ebd4",
     "trail.outcome.serious": "0197867d",
     "trail.pencil.arrive": "548457f8",
-    "trail.pencil.time": "53b39ce3",
-    "trail.box.more": "4f34d900"
+    "trail.pencil.time": "53b39ce3"
    }
   },
   "B006": {
@@ -217,10 +266,7 @@
     "alt.skyline.deer_lake_ridge": "bc4a791b",
     "alt.skyline.olympus_from_divide": "e249fe49",
     "alt.scene.seven_lakes_basin_rim": "9d3e9f0f",
-    "alt.sprite.hiker": "220a6e26",
-    "alt.hour.dusk": "51876752",
-    "alt.hour.blue": "44b0e973",
-    "alt.hour.night": "57b1aa03"
+    "alt.sprite.hiker": "220a6e26"
    }
   }
  }

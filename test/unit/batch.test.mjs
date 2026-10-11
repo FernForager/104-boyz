@@ -73,24 +73,36 @@ test('batches.json agrees with every B00n.md table: the same ids, in the same or
       `${b}: the table and batches.json`,
     );
   }
-  // B004 grew from S3's 3 lines to 15 in S5 (the two number formats among them), and to 32 in S6 (re-pinned: S6's
-  // death box's Next and the sample fork's 16, and S5's Deer Lake line refiled in place); B003 is S3's and S4's 53.
-  assert.equal(Object.keys(data.batches.B004.lines).length, 32);
+  // B004 grew from S3's 3 lines to 15 in S5 (the two number formats among them), and to 32 in S6 (S6's death
+  // box's Next and the sample fork's 16, and S5's Deer Lake line refiled in place). Re-pinned in S7: 29, since
+  // S7 moved the status line's three to B002, the cabin's batch (lead call 62; batch --file --from).
+  assert.equal(Object.keys(data.batches.B004.lines).length, 29);
   assert.deepEqual(Object.keys(data.batches.B004.lines).slice(3, 5), ['fmt.ft', 'fmt.mile_marker']);
-  assert.deepEqual(Object.keys(data.batches.B004.lines).slice(15, 17), ['trail.next', 'trail.deer_lake_rim.fork']);
+  assert.deepEqual(Object.keys(data.batches.B004.lines).slice(12, 14), ['trail.next', 'trail.deer_lake_rim.fork']);
   assert.deepEqual(data.batches.B004.by, ['S3', 'S5', 'S6']);
   assert.equal(data.batches.B004.status, 'filed');
-  // B005 is S6's: the odds, the Why sheet and the outcome, 35 lines, four number formats first; re-pinned at 36
-  // by track C, which files the box's ▾ (trail.box.more, its spoken name) last.
-  assert.equal(Object.keys(data.batches.B005.lines).length, 36);
-  assert.equal(Object.keys(data.batches.B005.lines).at(-1), 'trail.box.more');
-  // B006 is S6's too (track C): the Looks, their buttons' names and group, and the alt text's parts, 28 lines.
-  assert.equal(Object.keys(data.batches.B006.lines).length, 28);
-  assert.deepEqual([Object.keys(data.batches.B006.lines)[0], Object.keys(data.batches.B006.lines)[18], Object.keys(data.batches.B006.lines).at(-1)], ['look.lake', 'trail.look.group', 'alt.hour.night']);
+  // B005 is S6's: the odds, the Why sheet and the outcome, 36 lines with the box's ▾ last. Re-pinned in S7: 32,
+  // since the clock formats, the sheet's Close and the ▾'s More moved to B002 (the cabin shows each first).
+  assert.equal(Object.keys(data.batches.B005.lines).length, 32);
+  assert.equal(Object.keys(data.batches.B005.lines).at(-1), 'trail.pencil.time');
+  // B006 is S6's too: the Looks, their buttons' names and group, and the alt text's parts, 28 lines. Re-pinned
+  // in S7: 25, since the hour's three words (dusk, blue hour, night) moved to B002 (the cabin's description).
+  assert.equal(Object.keys(data.batches.B006.lines).length, 25);
+  assert.deepEqual([Object.keys(data.batches.B006.lines)[0], Object.keys(data.batches.B006.lines)[18], Object.keys(data.batches.B006.lines).at(-1)], ['look.lake', 'trail.look.group', 'alt.sprite.hiker']);
   assert.deepEqual([data.batches.B006.by, data.batches.B006.status], [['S6'], 'filed']);
-  assert.deepEqual(Object.keys(data.batches.B005.lines).slice(0, 4), ['fmt.mi', 'fmt.clock_am', 'fmt.clock_pm', 'fmt.min']);
+  assert.deepEqual(Object.keys(data.batches.B005.lines).slice(0, 2), ['fmt.mi', 'fmt.min']);
   assert.deepEqual([data.batches.B005.by, data.batches.B005.status], [['S6'], 'filed']);
-  assert.equal(Object.keys(data.batches.B003.lines).length, 53);
+  // B003 is S3's and S4's 53 and S7's 8 (the lockbox's own six, the guest book's label and Suggest), sent as one set.
+  assert.equal(Object.keys(data.batches.B003.lines).length, 61);
+  assert.deepEqual(Object.keys(data.batches.B003.lines).slice(53), ['first.lockbox.start', 'first.lockbox.intro', 'first.lockbox.count', 'first.lockbox.all_right', 'first.lockbox.come_in', 'first.lockbox.take_key', 'first.guestbook.label', 'first.guestbook.suggest']);
+  assert.deepEqual(data.batches.B003.by, ['S3', 'S4', 'S7']);
+  // B002 is S7's, the cabin's: 28 new, 10 moved from B004 to B006, and Session 1's cover description, held until now.
+  assert.equal(Object.keys(data.batches.B002.lines).length, 39);
+  assert.deepEqual(Object.keys(data.batches.B002.lines).slice(28), ['trail.status.sound_on', 'trail.status.sound_off', 'trail.status.menu', 'fmt.clock_am', 'fmt.clock_pm', 'trail.why.close', 'trail.box.more', 'alt.hour.dusk', 'alt.hour.blue', 'alt.hour.night', 'alt.cover_high_divide_dusk']);
+  assert.deepEqual([data.batches.B002.by, data.batches.B002.status], [['S7'], 'filed']);
+  assert.equal(Object.prototype.hasOwnProperty.call(data.held, 'alt.cover_high_divide_dusk'), false, 'no longer held');
+  // Each batch within decision 64's 25 to 40, but B003, one set by the creator's OK (Lead call 46).
+  for (const b of ['B002', 'B004', 'B005', 'B006']) assert.ok(Object.keys(data.batches[b].lines).length >= 25 && Object.keys(data.batches[b].lines).length <= 40, b);
   assert.deepEqual([data.batches.B000.status, data.batches.B001.status], ['answered', 'answered']);
 });
 
@@ -106,12 +118,13 @@ test("every draft on a built screen is filed in a batch or held out with a reaso
 
 test('--file on a copy rebuilds S6\'s filing of B004 byte for byte: S5\'s edited Deer Lake line refiled in place, and exactly the 17 unfiled drafts appended to the .md; a second run does nothing', (t) => {
   // Re-pinned in S6: this rebuilt S5's filing from S3's three lines; B004 now holds S6's lines too, so it
-  // rebuilds S6's from S5's fifteen, the same way (S5's own words for line 6 are its hash as S5 filed it).
+  // rebuilds S6's from S5's lines, the same way (S5's own words for line 6 are its hash as S5 filed it).
+  // Re-pinned in S7: S5's lines in B004 are twelve now (its status line's three moved to B002), so S6's 17 are 13 to 29.
   const root = copyTree(t);
-  // Wind B004 back to S5's fifteen lines, as S6 found it.
+  // Wind B004 back to S5's twelve lines, as S6 found it (less the three S7 moved).
   const S5_DEER_LAKE = 'd8f1f1f8';
   const bj = JSON.parse(read(BATCHES_FILE, root));
-  const s5 = Object.fromEntries(Object.entries(bj.batches.B004.lines).slice(0, 15));
+  const s5 = Object.fromEntries(Object.entries(bj.batches.B004.lines).slice(0, 12));
   s5['trail.deer_lake_rim.deer_lake'] = S5_DEER_LAKE;
   bj.batches.B004 = { ...bj.batches.B004, by: ['S3', 'S5'], lines: s5 };
   writeFileSync(join(root, BATCHES_FILE), `${JSON.stringify(bj, null, 1)}\n`);
@@ -122,7 +135,7 @@ test('--file on a copy rebuilds S6\'s filing of B004 byte for byte: S5\'s edited
     mdPath,
     md
       .split('\n')
-      .filter((l) => !/^\| (?:1[6-9]|2\d|3[0-2]) \|/.test(l))
+      .filter((l) => !/^\| (?:1[3-9]|2\d) \|/.test(l))
       .map((l) => (/^\| 6 \|/.test(l) ? s5Row6 : l))
       .join('\n'),
   );
@@ -136,7 +149,7 @@ test('--file on a copy rebuilds S6\'s filing of B004 byte for byte: S5\'s edited
     r.filed.filter((f) => f.how === 'added').map((f) => [f.n, f.id]),
     unfiledLines(before)
       .filter((id) => id !== 'trail.deer_lake_rim.deer_lake')
-      .map((id, k) => [k + 16, id]),
+      .map((id, k) => [k + 13, id]),
   );
   assert.equal(read(BATCHES_FILE, root), read(BATCHES_FILE), 'batches.json as committed');
   assert.deepEqual(parseBatchTable(readFileSync(mdPath, 'utf8')), parseBatchTable(md), "B004.md's table as committed");
@@ -171,11 +184,11 @@ test('--file: named lines, a changed line refiled while the batch is unsent, hel
   }
   const r = fileBatch(root, 'B004', { ids: ['trail.new_two', 'trail.deer_lake_rim.rim'] });
   assert.deepEqual(r.errors, []);
-  // Re-pinned in S6: B004 holds 32 lines, so a new one is the 33rd (it was the 16th).
+  // Re-pinned in S6: B004 holds 32 lines, so a new one is the 33rd (it was the 16th); in S7, 29, so the 30th.
   assert.deepEqual(
     r.filed.map((f) => [f.n, f.id, f.how]),
     [
-      [33, 'trail.new_two', 'added'],
+      [30, 'trail.new_two', 'added'],
       [7, 'trail.deer_lake_rim.rim', 'refiled'],
     ],
   );
@@ -184,7 +197,7 @@ test('--file: named lines, a changed line refiled while the batch is unsent, hel
   const rows = parseBatchTable(read('content/text/review/B004.md', root));
   assert.deepEqual(rows[6], { n: 7, id: 'trail.deer_lake_rim.rim', hash: fnv1a('The ground falls away.') });
   assert.match(read('content/text/review/B004.md', root), /^\| 7 \| `trail\.deer_lake_rim\.rim` \| [0-9a-f]{8} \| .* \| none \| The ground falls away\. \|$/m);
-  assert.deepEqual(rows[32], { n: 33, id: 'trail.new_two', hash: fnv1a('Another.') });
+  assert.deepEqual(rows[29], { n: 30, id: 'trail.new_two', hash: fnv1a('Another.') });
   assert.deepEqual(unfiledLines(after), ['trail.new_one']);
 });
 
@@ -194,13 +207,13 @@ test('batch B004 with a fake shooter: the .md, the JSON and one shot per screen,
   const { shoot, calls } = fakeShoot();
   const r = await buildBatch(root, 'B004', { out, build: '20261009-abcdef0', shoot });
   assert.deepEqual(r.errors, []);
-  // Re-pinned in S6: B004 grew to 32 lines, inside decision 64's 25 to 40, so no warning (S5's 15 warned).
+  // Re-pinned in S6: B004 grew to 32 lines, inside decision 64's 25 to 40, so no warning (S5's 15 warned); 29 from S7.
   assert.deepEqual(r.warnings, []);
   assert.ok(r.json.lines.length >= BATCH_SIZE.min && r.json.lines.length <= BATCH_SIZE.max);
   assert.equal(calls.length, 1);
   assert.deepEqual(
     calls[0].lines.map((l) => [l.n, l.screen]),
-    Array.from({ length: 32 }, (_, k) => [k + 1, 'trail']),
+    Array.from({ length: 29 }, (_, k) => [k + 1, 'trail']),
   );
   const dir = join(out, 'B004');
   assert.deepEqual(readdirSync(join(dir, 'shots')), ['01-trail.fake.png'], 'one shot per screen');
@@ -209,7 +222,7 @@ test('batch B004 with a fake shooter: the .md, the JSON and one shot per screen,
   assert.equal(j.build, '20261009-abcdef0');
   assert.deepEqual(
     j.lines.map((l) => l.n),
-    Array.from({ length: 32 }, (_, k) => k + 1),
+    Array.from({ length: 29 }, (_, k) => k + 1),
   );
   const byId = Object.fromEntries(j.lines.map((l) => [l.id, l]));
   assert.deepEqual([byId['trail.deer_lake_rim.rim'].len, byId['trail.deer_lake_rim.rim'].max], [106, 140]);
@@ -227,24 +240,25 @@ test('batch B004 with a fake shooter: the .md, the JSON and one shot per screen,
   // at Bogachiel Peak), each with the lines that show it. Re-pinned in S6:
   // the fork's outcomes name Heart Lake (24), Lunch Lake (28, 31) and Deer
   // Lake (32); "the Divide" is no gazetteer name, so it isn't a place here.
+  // Re-pinned in S7: three up (21; 25, 28; 29), the status line's three gone to B002.
   assert.deepEqual(
     j.not_ours.map((x) => [x.id, x.text, x.kind, x.lines]),
     [
       ['place.sol_duc_falls', 'Sol Duc Falls', 'place', [3]],
       ['place.bogachiel_peak', 'Bogachiel Peak', 'place', [8]],
-      ['place.deer_lake', 'Deer Lake', 'place', [8, 32]],
+      ['place.deer_lake', 'Deer Lake', 'place', [8, 29]],
       ['place.seven_lakes_basin', 'Seven Lakes Basin', 'place', [8]],
       ['place.seven_mile_group_camp', 'Seven Mile Group Site', 'place', [8]],
-      ['place.heart_lake', 'Heart Lake', 'place', [24]],
-      ['place.lunch_lake', 'Lunch Lake', 'place', [28, 31]],
+      ['place.heart_lake', 'Heart Lake', 'place', [21]],
+      ['place.lunch_lake', 'Lunch Lake', 'place', [25, 28]],
     ],
   );
   assert.equal(byId['trail.caption'].n, 8);
   const md = readFileSync(join(dir, 'B004.md'), 'utf8');
-  assert.match(md, /^\*Sol Duc Falls\* \(a place, line 3\); \*Bogachiel Peak\* \(a place, line 8\); \*Deer Lake\* \(a place, lines 8, 32\); \*Seven Lakes Basin\* \(a place, line 8\); \*Seven Mile Group Site\* \(a place, line 8\); \*Heart Lake\* \(a place, line 24\); \*Lunch Lake\* \(a place, lines 28, 31\): no approval needed, vetoable\.$/m);
+  assert.match(md, /^\*Sol Duc Falls\* \(a place, line 3\); \*Bogachiel Peak\* \(a place, line 8\); \*Deer Lake\* \(a place, lines 8, 29\); \*Seven Lakes Basin\* \(a place, line 8\); \*Seven Mile Group Site\* \(a place, line 8\); \*Heart Lake\* \(a place, line 21\); \*Lunch Lake\* \(a place, lines 25, 28\): no approval needed, vetoable\.$/m);
   assert.equal(md, batchMarkdown(j));
-  assert.match(md, /^# B004 · Trail stops · 32 lines$/m);
-  assert.match(md, new RegExp(`^!\\[trail: trail, lines ${Array.from({ length: 32 }, (_, k) => k + 1).join(', ')}\\]\\(shots/01-trail\\.fake\\.png\\)$`, 'm'));
+  assert.match(md, /^# B004 · Trail stops · 29 lines$/m);
+  assert.match(md, new RegExp(`^!\\[trail: trail, lines ${Array.from({ length: 29 }, (_, k) => k + 1).join(', ')}\\]\\(shots/01-trail\\.fake\\.png\\)$`, 'm'));
   assert.match(md, /^\| 7 \| `trail\.deer_lake_rim\.rim` \| .* \| 106 of 140 \| \(DRAFT\) The ground falls away/m);
   assert.match(md, /^\*\*8\*\*, three sample fills: \*Day 1 · Deer Lake · 3,530 ft\*/m);
   assert.ok(md.indexOf('![trail') < md.indexOf('| # | Id |'), 'the screenshot comes first');
@@ -337,5 +351,42 @@ test('npm run text:batch is wired; the CLI refuses what is not a batch, and name
   assert.match(filed.stderr, /B001 is answered/);
   const usage = run('nope');
   assert.equal(usage.status, 2);
-  assert.match(usage.stderr, /batch B00n --file \[id \.\.\.\] \[--by S5\] \| batch B00n \[--shots\]/);
+  assert.match(usage.stderr, /batch B00n --file \[id \.\.\.\] \[--by S5\] \[--from B00m\] \| batch B00n \[--shots\]/);
+});
+
+test('--file --from (S7): a line moves out of another unsent batch into this one, the rows after it renumbered; a sent batch, a line it lacks, no ids, or the same batch are refused, and nothing is written', (t) => {
+  const root = copyTree(t);
+  const snap = () => [read(BATCHES_FILE, root), read('content/text/review/B002.md', root), read('content/text/review/B004.md', root), read('content/text/review/B005.md', root)];
+  const start = snap();
+  for (const [b, o, re] of [
+    ['B002', { ids: ['app.offline'], from: 'B001' }, /--from B001: it is answered/],
+    ['B002', { ids: ['trail.walk_on'], from: 'B005' }, /--from B005: trail\.walk_on is not in B005/],
+    ['B002', { ids: [], from: 'B004' }, /--from B004 moves the lines it names, and names none/],
+    ['B004', { ids: ['trail.walk_on'], from: 'B004' }, /--from B004 is the batch being filed/],
+    ['B002', { ids: ['trail.walk_on'], from: 'B009' }, /--from B009: no such batch/],
+  ]) {
+    const r = fileBatch(root, b, o);
+    assert.match(r.errors.join('\n'), re, `${b} ${JSON.stringify(o)}`);
+    assert.deepEqual(snap(), start, 'nothing written');
+  }
+  // Move B004's line 2 and its toolbar's Map (line 10) into B002.
+  const before = Object.keys(JSON.parse(read(BATCHES_FILE, root)).batches.B004.lines);
+  const r = fileBatch(root, 'B002', { ids: ['trail.sol_duc_trailhead.lot', 'trail.toolbar.map'], from: 'B004' });
+  assert.deepEqual(r.errors, []);
+  assert.deepEqual(r.moved, ['trail.sol_duc_trailhead.lot', 'trail.toolbar.map']);
+  assert.deepEqual(r.filed.map((f) => [f.n, f.id, f.how]), [
+    [40, 'trail.sol_duc_trailhead.lot', 'added'],
+    [41, 'trail.toolbar.map', 'added'],
+  ]);
+  const data = JSON.parse(read(BATCHES_FILE, root));
+  const after = Object.keys(data.batches.B004.lines);
+  assert.deepEqual(after, before.filter((id) => id !== 'trail.sol_duc_trailhead.lot' && id !== 'trail.toolbar.map'));
+  const rows = parseBatchTable(read('content/text/review/B004.md', root));
+  rows.forEach((row, k) => assert.equal(row.n, k + 1, `B004 row ${k + 1} renumbered`));
+  assert.deepEqual(rows.map((row) => [row.id, row.hash]), Object.entries(data.batches.B004.lines), 'B004.md and batches.json agree');
+  assert.deepEqual(parseBatchTable(read('content/text/review/B002.md', root)).slice(-2).map((row) => [row.n, row.id]), [
+    [40, 'trail.sol_duc_trailhead.lot'],
+    [41, 'trail.toolbar.map'],
+  ]);
+  assert.deepEqual(data.batches.B004.by, ['S3', 'S5', 'S6'], "the source batch's sessions stay its own");
 });

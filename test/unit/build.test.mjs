@@ -63,7 +63,11 @@ test('the art bundle compiles, and carries no gold', () => {
       if (op[0] === 'D') assert.ok(![op[1], op[2]].includes(7) && ![op[1], op[2]].includes(19));
     }
   }
-  assert.ok(JSON.stringify(art).length < 100 * 1024, 'the art stays small');
+  // S7: the cabin (its plate, the stamps only it reaches and its data: what compileArt ships for the home's screens
+  // over what it ships for none) keeps a budget of its own, so the rest keeps S1's whole budget, as before.
+  const cabin = JSON.stringify(compileArt({ screens: ['home'] })).length - JSON.stringify(compileArt({ screens: [] })).length;
+  assert.ok(cabin > 0 && cabin < 64 * 1024, `the cabin stays small: ${cabin}`);
+  assert.ok(JSON.stringify(art).length - cabin < 100 * 1024, 'the art stays small');
 });
 
 test('the icons are the right sizes, opaque, and drawn from the cover; preview has its own', () => {
@@ -245,7 +249,12 @@ test("the data step: each channel's rules.json is canonical and scoped to its sc
     // park ships with the trail too (the fork's walks), and the odds with it (content/scope/m1a.json ships).
     const trail = channel === 'preview' && screens.includes('trail');
     const park = channel === 'preview' && (screens.includes('map') || trail);
-    assert.deepEqual(Object.keys(rules), ['format', ...(trail ? ['odds'] : []), ...(park ? ['park'] : []), 'plans', 'profile', 'standard', 'stops']);
+    // S7: the home ships the sun table, the climate and the next-step table (home), the lockbox the quiz.
+    const home = channel === 'preview' && screens.includes('home');
+    const lockbox = channel === 'preview' && screens.includes('lockbox');
+    assert.deepEqual(Object.keys(rules), ['format', ...(trail ? ['odds'] : []), ...(park ? ['park'] : []), 'plans', 'profile', 'standard', 'stops', ...(home ? ['climate', 'home', 'sun'] : []), ...(lockbox ? ['quiz'] : [])].sort());
+    if (home) assert.deepEqual(rules.home.next.filter((r) => r.when).map((r) => [r.id, r.when, r.act]), [['plan_first', 'no_finished_trip', 'start'], ['plan', 'no_trip_under_way', 'start']], "the home section: cabin.json's next table, its words dropped");
+    if (home) assert.ok(!JSON.stringify(rules.home).includes('"doc"'));
     assert.equal(Object.keys(voice).includes('odds'), trail, "the odds' row labels go with the odds, in voice.json");
     assert.equal(readdirSync(join(out, 'data')).includes('map.json'), channel === 'preview' && screens.includes('map'), 'data/map.json exactly when the channel has the map');
     if (channel === 'main') assert.deepEqual(Object.keys(rules), ['format', 'plans', 'profile', 'standard', 'stops'], "main's keys don't move");
@@ -346,8 +355,8 @@ function mapTree(t) {
 test('the data step with the map screen (S4): preview carries rules.park and data/map.json; main carries neither', (t) => {
   const { root, scope } = mapTree(t);
   const preview = makeData({ root, channel: 'preview' });
-  // S6: preview has the trail, so it carries the odds too.
-  assert.deepEqual(Object.keys(preview.rules), ['format', 'odds', 'park', 'plans', 'profile', 'standard', 'stops']);
+  // S6: preview has the trail, so it carries the odds too. S7: and the home's and the lockbox's sections.
+  assert.deepEqual(Object.keys(preview.rules), ['climate', 'format', 'home', 'odds', 'park', 'plans', 'profile', 'quiz', 'standard', 'stops', 'sun']);
   assert.deepEqual(Object.keys(preview.files).sort(), ['map.json', 'rules.json', 'voice.json']);
   const park = preview.rules.park;
   assert.equal(Object.keys(park.nodes).length, 47);
@@ -392,7 +401,8 @@ test("main stays put in S4: its screens, its words, its data and its files; the 
   const read = (channel, f) => readFileSync(join(out[channel], f), 'utf8');
   const screens = (channel) => /<html[^>]*\sdata-screens="([^"]*)"/.exec(read(channel, 'index.html'))[1];
   assert.equal(screens('main'), 'app debug title');
-  assert.equal(screens('preview'), 'app debug guestbook map title trail');
+  // S7: preview's gain the home, the lockbox and the mailbox; main's don't move.
+  assert.equal(screens('preview'), 'app debug guestbook home lockbox mailbox map title trail');
   // Main's words: S3's ids exactly, each approved line in the ledger's words.
   const words = JSON.parse(read('main', 'text/en.json'));
   assert.deepEqual(Object.keys(words).sort(), MAIN_S3_IDS);
@@ -488,7 +498,8 @@ test("main at S6: S5's screens, words, data, page and modules, with S6's rules h
   const read = (channel, f) => readFileSync(join(out[channel], f), 'utf8');
   // 1. The same screens and words: S3's ids, each the ledger's; nothing to mark, nothing to inspect.
   assert.equal(/<html[^>]*\sdata-screens="([^"]*)"/.exec(read('main', 'index.html'))[1], 'app debug title');
-  assert.equal(/<html[^>]*\sdata-screens="([^"]*)"/.exec(read('preview', 'index.html'))[1], 'app debug guestbook map title trail');
+  // S7: preview's gain the home, the lockbox and the mailbox; main's don't move.
+  assert.equal(/<html[^>]*\sdata-screens="([^"]*)"/.exec(read('preview', 'index.html'))[1], 'app debug guestbook home lockbox mailbox map title trail');
   const words = JSON.parse(read('main', 'text/en.json'));
   assert.deepEqual(Object.keys(words).sort(), MAIN_S3_IDS);
   const ledger = JSON.parse(readFileSync(join(ROOT, 'content', 'text', 'approved.json'), 'utf8')).lines;
@@ -500,11 +511,17 @@ test("main at S6: S5's screens, words, data, page and modules, with S6's rules h
   assert.deepEqual(Object.keys(rules), ['format', 'plans', 'profile', 'standard', 'stops']);
   assert.deepEqual([rules.plans, rules.stops, rules.park, rules.odds], [{}, {}, undefined, undefined]);
   assert.deepEqual(JSON.parse(read('main', 'data/voice.json')), { format: 1, stops: {} });
-  assert.deepEqual(Object.keys(JSON.parse(read('preview', 'data/rules.json'))), ['format', 'odds', 'park', 'plans', 'profile', 'standard', 'stops']);
+  // S7: preview's gain the home's sections (the sun table, the climate, the next-step table) and the lockbox's quiz.
+  assert.deepEqual(Object.keys(JSON.parse(read('preview', 'data/rules.json'))), ['climate', 'format', 'home', 'odds', 'park', 'plans', 'profile', 'quiz', 'standard', 'stops', 'sun']);
   // Re-pinned in S6 (S4's and S5's was 46dd9f1e4c40): engine files changed in S6 (odds.js, and the
   // trailhead, the trip, the content and the voice for the fork; the review's trailhead fix, an outcome
   // restored under a later build drawn without its roll); main's rules.json is byte-identical.
-  assert.equal(built.main.rules, '2b38247b1be6', "main's rules hash: engine files changed in S6");
+  // Re-pinned in S7 (S6's was 2b38247b1be6): engine files changed (phases/home.js's next step, the content's
+  // home section and section(), the screen's type); main's rules.json is byte-identical.
+  // Re-pinned in S7 track C (track B's was b7d1873347d9): engine files changed again (the lockbox phase and
+  // its quiz stream, the device record's v2 and its migration, phaseOf, the checked actions, the report's
+  // device, replay's stand-in device, the content's quiz); main's rules.json is still byte-identical.
+  assert.equal(built.main.rules, 'e3e3e51e7fd0', "main's rules hash: engine files changed in S7");
   assert.notEqual(built.preview.rules, built.main.rules, "preview's moved: the fork");
   // 3. The same page: the same links and scripts, nothing new preloaded.
   const heads = (html) => [...html.matchAll(/<(?:link|script)\b[^>]*>/g)].map((m) => m[0].replace(/\s+data-[a-z-]+="[^"]*"/g, ''));
@@ -582,12 +599,17 @@ test("S5: each channel's art.json is what its screens reach: main the cover and 
   assert.deepEqual(Object.keys(art.main.pics), ['cover_high_divide_dusk']);
   assert.deepEqual(Object.keys(art.main.stamps), ['subalpine_fir_l', 'subalpine_fir_m', 'subalpine_fir_s', 'subalpine_fir_xl', 'subalpine_fir_xs']);
   // S6 (track C): beside the recipes, the Look hotspots by kind, {kind: looked} (content/art/hotspots.json).
-  assert.deepEqual(Object.keys(art.preview), ['format', 'palette', 'pics', 'stamps', 'recipes', 'hotspots']);
-  assert.deepEqual(Object.keys(art.preview.hotspots).filter((k) => art.preview.hotspots[k]), ['basin', 'bogachiel_peak', 'hiker', 'lake', 'lunch_lake', 'privy', 'ridge', 'sign', 'staircase']);
-  assert.deepEqual(Object.keys(art.preview.pics), ['base_lake_basin', 'base_meadow', 'cover_high_divide_dusk', 'seven_lakes_basin_rim']);
+  // S7: and the cabin's display data (content/home/cabin.json), since the guest book's screen shows the cabin on the porch.
+  assert.deepEqual(Object.keys(art.preview), ['format', 'palette', 'pics', 'stamps', 'recipes', 'hotspots', 'cabin']);
+  // S7: the cabin's two Looks (the tub, the register post) join them.
+  assert.deepEqual(Object.keys(art.preview.hotspots).filter((k) => art.preview.hotspots[k]), ['basin', 'bogachiel_peak', 'hiker', 'lake', 'lunch_lake', 'privy', 'register_post', 'ridge', 'sign', 'staircase', 'tub']);
+  assert.deepEqual(Object.keys(art.preview.pics), ['base_lake_basin', 'base_meadow', 'cabin_quinault', 'cover_high_divide_dusk', 'seven_lakes_basin_rim']);
   for (const id of Object.keys(art.main.stamps)) assert.deepEqual(art.preview.stamps[id], art.main.stamps[id], `${id}: the same stamp on both`);
   assert.deepEqual(art.preview.pics.cover_high_divide_dusk, art.main.pics.cover_high_divide_dusk);
-  assert.deepEqual(art.main.palette, art.preview.palette, 'the same tables (S5 adds blue hour and night)');
+  assert.deepEqual([art.main.palette.colors, art.main.palette.remaps], [art.preview.palette.colors, art.preview.palette.remaps], 'the same tables (S5 adds blue hour and night)');
+  // S7: preview's cycles are main's and the cabin's two (spill and smoke), which ship only with the home's screens.
+  assert.deepEqual(Object.keys(art.preview.palette.cycles).filter((k) => !art.main.palette.cycles[k]), ['28', '29']);
+  assert.deepEqual(Object.keys(art.main.palette.cycles), ['16', '17', '18', '19', '20', '21', '22', '23', '24', '25']);
   assert.deepEqual(Object.keys(art.main.palette.remaps), ['day', 'dusk', 'blue', 'night']);
 });
 

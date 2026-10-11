@@ -1,5 +1,5 @@
 {
- "$comment": "A new hiker's first screens (GAME_DESIGN 3.6, 2.6, 12.3, 12.4): the lockbox's locals' quiz (S4 drafts its 50 lines with content/quiz/locals.json: the twelve questions and their answers verbatim from design/data/quiz_locals.json, and the two replies from GAME_DESIGN 2.6; they wait for the lockbox screen, S7) and the guest book, plain in S3; S7 puts it on the cabin's porch table, after the lockbox. Drafts until B003 is answered; preview only.",
+ "$comment": "A new hiker's first screens (GAME_DESIGN 3.6, 2.6, 12.3, 12.4): the lockbox's locals' quiz (S4 drafts its 50 lines with content/quiz/locals.json: the twelve questions and their answers verbatim from design/data/quiz_locals.json, and the two replies from GAME_DESIGN 2.6; they wait for the lockbox screen, S7) and the guest book, plain in S3; S7 puts it on the cabin's porch table, after the lockbox. S7 adds the lockbox's own six lines (Open the lockbox, the intro, the count, the two closings, Take the key) and the guest book's label and Suggest. Drafts until B003 is answered; preview only.",
  "first.lockbox.q_sequim.ask": {
   "text": "How do you say SEQUIM?",
   "ctx": "The lockbox's quiz, question 1 of the pool of twelve (three are dealt): one screen, the question above three answer buttons (GAME_DESIGN 2.6, 12.3). Words from quiz_locals.json, verbatim; source: Wikipedia",
@@ -300,6 +300,42 @@
   "screen": "lockbox",
   "max": 40
  },
+ "first.lockbox.start": {
+  "text": "Open the lockbox",
+  "ctx": "First launch: the next-step button under the cabin as it draws itself in; the lockbox's hit area on the picture does the same (GAME_DESIGN 12.3)",
+  "screen": "lockbox",
+  "max": 22
+ },
+ "first.lockbox.intro": {
+  "text": "The key is in the lockbox. It wants three answers.",
+  "ctx": "The lockbox's first box, before question 1 (GAME_DESIGN 12.3's own draft)",
+  "screen": "lockbox",
+  "max": 60
+ },
+ "first.lockbox.count": {
+  "text": "Question {q} of 3.",
+  "ctx": "Before each question in the lockbox's box; {q} is 1, 2 or 3",
+  "screen": "lockbox",
+  "max": 24
+ },
+ "first.lockbox.all_right": {
+  "text": "Three for three. Welcome home.",
+  "ctx": "The lockbox's closing when all three answers were right (GAME_DESIGN 12.3's draft)",
+  "screen": "lockbox",
+  "max": 60
+ },
+ "first.lockbox.come_in": {
+  "text": "Come in anyway. The mountains don't check.",
+  "ctx": "The lockbox's closing otherwise, after the reply to the third answer (GAME_DESIGN 12.3's draft; the batch note offers four closings by score instead)",
+  "screen": "lockbox",
+  "max": 60
+ },
+ "first.lockbox.take_key": {
+  "text": "Take the key",
+  "ctx": "The lockbox closing's one button: on to the guest book",
+  "screen": "lockbox",
+  "max": 22
+ },
  "first.guestbook.prompt": {
   "text": "Sign the guest book.",
   "ctx": "A new hiker's first screen: the box above the name field, and the field's name for VoiceOver (plain in S3; on the cabin's porch table from S7)",
@@ -317,5 +353,17 @@
   "ctx": "The guest book's button: signs the name and starts the hiker",
   "screen": "guestbook",
   "max": 22
+ },
+ "first.guestbook.label": {
+  "text": "Your hiker's name",
+  "ctx": "The guest book's name field, its visible label on the porch table (GAME_DESIGN 12.4's wireframe); VoiceOver reads it as the field's name",
+  "screen": "guestbook",
+  "max": 24
+ },
+ "first.guestbook.suggest": {
+  "text": "Suggest",
+  "ctx": "The button beside the guest book's name field: fills in a given name (GAME_DESIGN 12.4)",
+  "screen": "guestbook",
+  "max": 10
  }
 }

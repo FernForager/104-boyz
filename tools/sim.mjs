@@ -12,11 +12,13 @@
 // i's seed is the Crockford base32 of the first 40 bits of
 // hash128('smoke|' + i): no Math.random in a tool that gates CI, and no
 // statistics either, so CI never fails at random (E.9). Each trip, from a
-// fresh device: sign (a name from a list of edge cases), start (the plans in
-// turn, with the seed, as the home screen's auto start does), then the
-// random bot (sims/bots.mjs: it sees only the screen) until the trip ends
-// or 200 actions. Every 50th trip also tries an action that isn't on the
-// screen, which must be refused.
+// fresh device: the lockbox (S7: deal with the trip's seed, answer 0 each
+// time, Take the key; the fixture has no quiz, so Take the key at once),
+// sign (a name from a list of edge cases), start (the plans in turn, with
+// the seed, as a tap on the cabin's next step does: screen.next.act), then
+// the random bot (sims/bots.mjs: it sees only the screen) until the trip
+// ends or 200 actions. Every 50th trip also tries an action that isn't on
+// the screen, which must be refused.
 //
 // The checks, each failure naming the trip, its seed and the check:
 //   crash        an exception other than the expected refusal
@@ -35,6 +37,11 @@
 //   death        (S6) a trip that ends in a death ends its hiker: the guest book signs a new
 //                one, and home starts a fresh trip at the plan's first stop (no statistics:
 //                a death is counted, never required, E.9)
+//   lockbox      (S7) a fresh device opens on the shut lockbox; the deal is the same for
+//                the same seed, twice, and keeps the quiz's rule; Take the key leads to
+//                the guest book; and the lockbox never comes back (after a trip's end, after
+//                a death, through a save)
+//   home         (S7) a trip's end comes home to the cabin, whose next step starts the next
 //
 // --workers k (default min(4, cpus)) splits the trips over worker_threads;
 // the summary is the same for any k. It prints one line and writes
@@ -54,7 +61,9 @@ import { canon } from '../web/js/engine/canon.js';
 import { hash128 } from '../web/js/engine/rng.js';
 import { isEngineError } from '../web/js/engine/error.js';
 import { loadContent } from '../web/js/engine/content.js';
-import { newSession, dispatch, fromLogAction } from '../web/js/engine/step.js';
+import { newSession, dispatch, screenOf, fromLogAction } from '../web/js/engine/step.js';
+import { lockboxActs } from '../web/js/engine/selfcheck.js';
+import { dealQuiz } from '../web/js/engine/phases/lockbox.js';
 import { replay, tripHash } from '../web/js/engine/replay.js';
 import { toSaves, fromSaves } from '../web/js/engine/save.js';
 import { pack, unpack, toBase64url, fromBase64url } from '../web/js/engine/log.js';
@@ -91,14 +100,16 @@ export function smokeSeed(i) {
 
 /**
  * The live content: every file under content/, compiled for every screen
- * any of them names; and the lines content/text defines, with the screens
+ * any of them names and every screen the scope has (S7: the lockbox, whose
+ * quiz names none); and the lines content/text defines, with the screens
  * the scope has, for the template check.
  * @param {string} [root]
  */
 export function liveContext(root = ROOT) {
   /** @type {Map<string, string>} */
   const setScreens = new Map();
-  const screens = new Set();
+  const text = readText(root, { strict: false });
+  const screens = new Set(text.scope.screens);
   for (const s of readSources(root)) {
     if (s.folder === 'rules') continue;
     const data = JSON.parse(s.src);
@@ -109,7 +120,6 @@ export function liveContext(root = ROOT) {
   const errors = problems.filter((p) => p.level !== 'warn');
   if (errors.length) throw new Error(`sim: the content doesn't compile:\n  ${errors.map((p) => `${p.file}:${p.line}: ${p.code} ${p.msg}`).join('\n  ')}`);
   const content = loadContent({ rules, voice, rulesHash: sourceRulesHash({ root, rulesJson: `${canon(rules)}\n` }) });
-  const text = readText(root, { strict: false });
   /** @type {Map<string, string[]>} */
   const lines = new Map();
   for (const [id, l] of text.lines) lines.set(id, varsOf(l.text));
@@ -176,10 +186,11 @@ export function checkTemplates(screen, ctx) {
 }
 
 /**
- * Does a screen offer a way on: an enabled choice (Walk on is one) or an auto action?
+ * Does a screen offer a way on: an enabled choice (Walk on is one) or, at
+ * home (S7), a next step with an act?
  * @param {any} screen
  */
-const offersMove = (screen) => Boolean(screen.auto) || (screen.choices || []).some((/** @type {any} */ c) => c.enabled);
+export const offersMove = (screen) => Boolean(screen.next && screen.next.act) || (screen.choices || []).some((/** @type {any} */ c) => c.enabled);
 
 /**
  * @typedef {object} TripResult
@@ -193,6 +204,25 @@ const offersMove = (screen) => Boolean(screen.auto) || (screen.choices || []).so
  * @property {boolean} died the trip ended in a death (S6), and a new hiker signed after it
  * @property {{check: string, msg: string}[]} failures
  */
+
+/**
+ * The lockbox's deal check (S7): the deal recorded is the one its seed
+ * gives, twice, and no two pronunciation questions sit side by side while
+ * the quiz had another kind to give.
+ * @param {any} rec the device's quiz record after the deal
+ * @param {string} seed
+ * @param {any} content
+ * @param {(check: string, msg: string) => void} fail
+ */
+export function checkDeal(rec, seed, content, fail) {
+  const quiz = content.quiz();
+  const again = [dealQuiz(seed, quiz), dealQuiz(seed, quiz)];
+  if (again.some((d) => d.join(' ') !== rec.dealt.join(' '))) fail('lockbox', `the deal for ${seed} is not the same twice`);
+  if (!(quiz.rules && quiz.rules.no_two_pronunciations_in_a_row)) return;
+  const said = (/** @type {string} */ id) => Boolean(quiz.questions.find((/** @type {any} */ q) => q.id === id && q.pronunciation));
+  const others = quiz.questions.filter((/** @type {any} */ q) => !q.pronunciation).length;
+  for (let k = 1; k < rec.dealt.length; k++) if (said(rec.dealt[k - 1]) && said(rec.dealt[k]) && others >= k) fail('lockbox', `the deal ${rec.dealt.join(' ')} puts two pronunciation questions in a row`);
+}
 
 /**
  * Play smoke trip i and check it.
@@ -225,16 +255,25 @@ export function smokeTrip(i, contexts) {
     look(screen);
   };
   try {
+    // The lockbox (S7): shut on a fresh device, then the deal, the answers and the key.
+    screen = screenOf(session.state, content);
+    if (screen.phase !== 'lockbox' || screen.step !== 'shut') fail('lockbox', `a fresh device opens on ${screen.phase}, not the shut lockbox`);
+    for (const a of lockboxActs(seed, content)) {
+      act(a);
+      if (a.t === 'deal') checkDeal(session.state.device.quiz, seed, content, fail);
+    }
+    if (screen.phase !== 'guestbook') fail('lockbox', `Take the key leads to ${screen.phase}, not the guest book`);
     screen = (() => {
       const s = dispatch(session, { t: 'sign', name: NAMES[i % NAMES.length], id: `h${seed}` }, content);
       session = s.session;
       result.actions++;
       return s.screen;
     })();
-    if (!screen.auto) {
+    if (!(screen.next && screen.next.act)) {
       fail('dead end', 'home offers no start');
       return result;
     }
+    if (screen.next.id !== 'plan_first') fail('home', `a new hiker's next step is ${screen.next.id}, not plan_first`);
     const plans = content.plans();
     act({ t: 'start', plan: plans[i % plans.length], seed });
     const probeAt = i % PROBE_EVERY === 0 ? 0 : -1;
@@ -295,6 +334,7 @@ export function smokeTrip(i, contexts) {
     if (!sameBytes(fromBase64url(toBase64url(bytes)), bytes)) fail('packing', 'base64url does not round-trip');
     // Resume: from the saves, the rest of the log, to the same hash.
     let resumed = fromSaves(saves, content);
+    if (!(resumed.state.device.quiz && resumed.state.device.quiz.done)) fail('lockbox', 'the saves lost the opened lockbox');
     for (const a of session.log.actions.slice(savedAt)) resumed = dispatch(resumed, fromLogAction(a), content).session;
     if (tripHash(resumed.state.trip) !== hash) fail('resume', `saved after ${savedAt} actions, the trip ends at ${tripHash(resumed.state.trip).slice(0, 12)}, not ${hash.slice(0, 12)}`);
     // ...and the log the resumed session carries (what its next save and
@@ -304,6 +344,16 @@ export function smokeTrip(i, contexts) {
       if (r.error) fail('resume', `saved after ${savedAt} actions, the resumed log stops at action ${r.error.at}: ${r.error.code}`);
       else if (r.hash !== hash) fail('resume', `saved after ${savedAt} actions, the resumed log replays to ${r.hash.slice(0, 12)}, not ${hash.slice(0, 12)}`);
     }
+    // A trip's end (S7) comes home to the cabin, whose next step plans the next trip: no stuck home.
+    if (result.ended && session.state.hiker !== null) {
+      if (screen.phase !== 'home') fail('home', `after a trip's end the screen is ${screen.phase}, not home`);
+      else if (!(screen.next && screen.next.act)) fail('home', 'home offers no next trip');
+      else if (screen.next.id !== 'plan') fail('home', `after a finished trip the next step is ${screen.next.id}, not plan`);
+      else {
+        const next = dispatch(session, { ...screen.next.act, seed: smokeSeed(i + 1) }, content).session;
+        if (next.state.trip.n !== 1 || next.log.actions.length !== 0 || next.state.trip.seed !== smokeSeed(i + 1)) fail('home', 'the next trip does not start fresh, with its own seed and log');
+      }
+    }
     // A death (S6) ends the hiker: the guest book signs a new one, and home starts a fresh trip.
     if (result.ended && session.state.hiker === null) {
       result.died = true;
@@ -311,9 +361,9 @@ export function smokeTrip(i, contexts) {
       if (gb.phase !== 'guestbook') fail('death', `after a death the screen is ${gb.phase}, not the guest book`);
       else {
         const signed = dispatch(session, { t: 'sign', name: NAMES[(i + 1) % NAMES.length], id: `h${smokeSeed(i + 1)}` }, content);
-        if (!signed.screen.auto) fail('death', 'the new hiker has no trip to start');
+        if (!(signed.screen.next && signed.screen.next.act)) fail('death', 'the new hiker has no trip to start');
         else {
-          const fresh = dispatch(signed.session, { ...signed.screen.auto, seed: smokeSeed(i + 1) }, content).session;
+          const fresh = dispatch(signed.session, { ...signed.screen.next.act, seed: smokeSeed(i + 1) }, content).session;
           const plan = content.plan(fresh.state.trip.plan);
           const set = plan ? content.set(plan.start.set) : null;
           if (!set || fresh.state.trip.stop !== set.first || fresh.state.trip.n !== 1 || fresh.state.hiker.trips !== 0) fail('death', 'the new hiker\'s trip does not start fresh at the plan\'s first stop');
@@ -371,6 +421,8 @@ export function summarize(results) {
     templates: count('template'),
     refusals: count('refusal'),
     deathChecks: count('death'),
+    lockbox: count('lockbox'),
+    home: count('home'),
     died: sorted.filter((r) => r.died).length,
     waiting,
     failures,
@@ -393,6 +445,8 @@ export function summaryLine(s, ms) {
     s.templates && plural(s.templates, 'template failure', 'template failures'),
     s.refusals && plural(s.refusals, 'missed refusal', 'missed refusals'),
     s.deathChecks && plural(s.deathChecks, 'death failure', 'death failures'),
+    s.lockbox && plural(s.lockbox, 'lockbox failure', 'lockbox failures'),
+    s.home && plural(s.home, 'home failure', 'home failures'),
   ].filter(Boolean);
   const waiting = s.waiting.length ? `; ${plural(s.waiting.length, 'line', 'lines')} waiting for ${s.waiting.length === 1 ? 'its' : 'their'} screen's words` : '';
   return `sim: smoke ${s.trips} trips (live ${s.live}, fixture ${s.fixture}): ${plural(s.crashes, 'crash', 'crashes')}, ${plural(s.deadEnds, 'dead end', 'dead ends')}, ${s.stuck} stuck, ${s.nondeterministic ? `${s.nondeterministic} nondeterministic` : 'deterministic'}${extra.length ? `, ${extra.join(', ')}` : ''}; ${thousands(s.actions)} actions, ${(ms / Math.max(1, s.trips)).toFixed(2)} ms a trip${waiting}`;

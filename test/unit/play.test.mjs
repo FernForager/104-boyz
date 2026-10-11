@@ -16,6 +16,7 @@ import { build } from '../../tools/build.mjs';
 import { readText } from '../../tools/text.mjs';
 import { ROOT } from '../../tools/pics.mjs';
 import { newSession, dispatch } from '../../web/js/engine/step.js';
+import { lockboxActs } from '../../web/js/engine/selfcheck.js';
 import { reportState } from '../../web/js/engine/save.js';
 
 const PLAY = join(ROOT, 'tools', 'play.mjs');
@@ -58,10 +59,12 @@ function trailDist(t) {
   return out;
 }
 
-/** A session played on a dist: sign, start the sample with a seed, then the actions. */
+/** A session played on a dist: the lockbox (S7), sign, start the sample with a seed, then the actions. */
 function playedOn(dist, seed, actions) {
   const { content } = loadDist(dist);
-  let s = dispatch(newSession(content), { t: 'sign', name: 'Robin', id: `h${seed}` }, content).session;
+  let s = newSession(content);
+  for (const a of lockboxActs(seed, content)) s = dispatch(s, a, content).session;
+  s = dispatch(s, { t: 'sign', name: 'Robin', id: `h${seed}` }, content).session;
   s = dispatch(s, { t: 'start', plan: 'sample', seed }, content).session;
   for (const a of actions) s = dispatch(s, a, content).session;
   return { session: s, content };
@@ -186,7 +189,7 @@ test('--freeze keeps only the allowed keys: no device facts, errors, note or tim
   assert.deepEqual(JSON.parse(readFileSync(file, 'utf8')), f);
 });
 
-test('a sample trip reads as a transcript: the guest book, both stops in words, and the final hash', (t) => {
+test('a sample trip reads as a transcript: the lockbox (S7), the guest book, both stops in words, and the final hash', (t) => {
   const dist = trailDist(t);
   const a = playTrip({ dist, seed: 'K7QM2Q9F', bot: 'first' });
   const b = playTrip({ dist, seed: 'K7QM2Q9F', bot: 'first' });
@@ -194,8 +197,12 @@ test('a sample trip reads as a transcript: the guest book, both stops in words, 
   assert.equal(a.ended, true);
   // Re-pinned in S6: the rim walks on to the fork, where the first bot takes the first choice (Stay high, the
   // diamond); with this seed the storm hits close (high_struck), and that outcome's Walk on ends the trip.
-  assert.deepEqual(a.steps.map((s) => s.action), [null, 'sign', 'start sample K7QM2Q9F', 'next', 'next', 'choose high', 'next']);
-  assert.deepEqual(a.steps.map((s) => s.screen.phase), ['guestbook', 'home', 'trailhead', 'trailhead', 'trailhead', 'trailhead', 'home']);
+  // Re-pinned in S7: the lockbox comes first (the deal from the seed, answer 0 three times, Take the key).
+  assert.deepEqual(a.steps.map((s) => s.action), [null, 'deal K7QM2Q9F', 'answer 0', 'answer 0', 'answer 0', 'open', 'sign', 'start sample K7QM2Q9F', 'next', 'next', 'choose high', 'next']);
+  assert.deepEqual(a.steps.map((s) => s.screen.phase), ['lockbox', 'lockbox', 'lockbox', 'lockbox', 'lockbox', 'guestbook', 'home', 'trailhead', 'trailhead', 'trailhead', 'trailhead', 'home']);
+  assert.deepEqual(a.steps[0].screen.choices, ['Open the lockbox'], "the shut lockbox's one choice, in words");
+  assert.match(a.steps[1].screen.lines.join(' '), /^The key is in the lockbox\. It wants three answers\. Question 1 of 3\. /, 'the first question, in words');
+  assert.deepEqual(a.steps[4].screen.choices, ['Take the key']);
   const text = transcriptText(a.steps);
   assert.match(text, /\[trailhead deer_lake_rim\.deer_lake, stop 1\]/);
   assert.match(text, /\[trailhead deer_lake_rim\.rim, stop 2\]/);

@@ -74,7 +74,8 @@ const APPROVED = {
 test('every line file reads cleanly: good ids, in their area, complete', () => {
   const text = readText(ROOT);
   assert.deepEqual(text.problems, []);
-  assert.deepEqual(text.files, ['content/text/en/alt.json', 'content/text/en/app.json', 'content/text/en/credits.json', 'content/text/en/dev.json', 'content/text/en/first.json', 'content/text/en/fmt.json', 'content/text/en/look.json', 'content/text/en/title.json', 'content/text/en/trail.json']);
+  // S7: the cabin's own file, en/home.json.
+  assert.deepEqual(text.files, ['content/text/en/alt.json', 'content/text/en/app.json', 'content/text/en/credits.json', 'content/text/en/dev.json', 'content/text/en/first.json', 'content/text/en/fmt.json', 'content/text/en/home.json', 'content/text/en/look.json', 'content/text/en/title.json', 'content/text/en/trail.json']);
   for (const [id, l] of text.lines) {
     assert.match(id, ID_RE);
     assert.equal(l.file, `content/text/en/${id.split('.')[0]}.json`);
@@ -239,14 +240,18 @@ test('states: approved, changed (main keeps the frozen words), cut, draft, no wo
   assert.equal(hasWords('— {n} —'), false);
 });
 
-test('B003, filed not sent, holds the guest book and every lockbox draft once, in order, each hash its draft as filed (S3, S4)', () => {
+test('B003, filed not sent, holds the guest book and every lockbox draft once, in order, each hash its draft as filed (S3, S4, S7), the quiz pool marked as one set', () => {
+  // Re-pinned in S7: S7 files eight more (the lockbox's own six, the guest book's label and Suggest) as 54 to 61.
   const md = read('content', 'text', 'review', 'B003.md');
   const rows = [...md.matchAll(/^\| (\d+) \| `([^`]+)` \| ([0-9a-f]{8}) \| (.+) \| (none|[^|]+) \| ([^|]+) \|$/gm)].map((m) => ({ n: Number(m[1]), id: m[2], hash: m[3], where: m[4], live: m[5], draft: m[6] }));
   const first = JSON.parse(read('content', 'text', 'en', 'first.json'));
   const lockbox = Object.keys(first).filter((k) => k.startsWith('first.lockbox.'));
-  assert.equal(lockbox.length, 50);
-  assert.deepEqual(rows.map((r) => r.n), Array.from({ length: 53 }, (_, i) => i + 1), 'lines 1 to 53');
-  assert.deepEqual(rows.map((r) => r.id), ['first.guestbook.prompt', 'first.guestbook.one_life', 'first.guestbook.sign', ...lockbox], "in first.json's order");
+  const S7 = ['first.lockbox.start', 'first.lockbox.intro', 'first.lockbox.count', 'first.lockbox.all_right', 'first.lockbox.come_in', 'first.lockbox.take_key', 'first.guestbook.label', 'first.guestbook.suggest'];
+  const pool = lockbox.filter((k) => !S7.includes(k));
+  assert.equal(pool.length, 50);
+  assert.deepEqual(rows.map((r) => r.n), Array.from({ length: 61 }, (_, i) => i + 1), 'lines 1 to 61');
+  assert.deepEqual(rows.map((r) => r.id), ['first.guestbook.prompt', 'first.guestbook.one_life', 'first.guestbook.sign', ...pool, ...S7], "in first.json's order, S7's after");
+  assert.match(md, /\*\*Lines 4 to 53 are one set: the lockbox's quiz pool\.\*\*/, 'the quiz pool, read and answered as one set (Lead call 46)');
   for (const r of rows) {
     assert.equal(r.hash, fnv1a(r.draft), `${r.id}: the hash is the draft's`);
     assert.equal(r.draft, first[r.id].text, `${r.id}: filed as drafted`);
@@ -257,10 +262,10 @@ test('B003, filed not sent, holds the guest book and every lockbox draft once, i
   const quiz = JSON.parse(read('content', 'quiz', 'locals.json'));
   const right = new Set(quiz.questions.map((q) => q.answers[q.right].slice(1)));
   for (const r of rows.filter((x) => /\.a\d$/.test(x.id))) assert.equal(r.where.includes('**the right one**'), right.has(r.id), r.id);
-  assert.match(md, /\*\*Not sent:\*\* S7 builds the lockbox and sends B003 whole/);
-  // The not-ours tail names every place and term the lines carry.
+  assert.match(md, /\*\*Not sent:\*\* it goes out with B002 on the review page/);
+  // The not-ours tail names every place and term the lines carry, and S7's given names (lead call 64).
   const tail = md.slice(md.indexOf('Not ours'));
-  for (const name of ['Sequim', 'Hoh', 'Puyallup', 'Rainier', 'Dosewallips', 'Olympic', 'the Queets', 'the Elwha', 'Canada jay', 'geoduck']) assert.ok(tail.includes(`*${name}*`), name);
+  for (const name of ['Sequim', 'Hoh', 'Puyallup', 'Rainier', 'Dosewallips', 'Olympic', 'the Queets', 'the Elwha', 'Canada jay', 'geoduck', 'Avery', 'Robin', 'Taylor']) assert.ok(tail.includes(`*${name}*`), name);
 });
 
 test('count: where things stand', () => {
@@ -288,10 +293,15 @@ test('count: where things stand', () => {
   // their buttons' names and group, the alt text's nine parts) and B005's
   // ▾ (trail.box.more), all preview only. S6's review adds the #frame check
   // view's two fixture names (dev.fixture.three and .four), preview only.
-  assert.equal(c.lines, 202);
-  assert.equal(c.files, 9);
-  assert.deepEqual(c.ours, { total: 173, approved: 14, draft: 154, changed: 0, cut: 0, nowords: 5 });
-  assert.equal(c.dev, 29);
+  // S7 (track B) adds the cabin's 28 new drafts (B002: en/home.json's 15,
+  // the tub's and the register post's Looks and names, the cabin's nine alt
+  // parts) and seven dev lines (the hour's dawn, the sky control and its
+  // five), preview only. S7 (track C) adds B003's eight (the lockbox's own
+  // six, the guest book's label and Suggest), preview only.
+  assert.equal(c.lines, 245);
+  assert.equal(c.files, 10);
+  assert.deepEqual(c.ours, { total: 209, approved: 14, draft: 190, changed: 0, cut: 0, nowords: 5 });
+  assert.equal(c.dev, 36);
   // The 13 app lines, and the debug menu's six dev lines main keeps
   // (dev.note, dev.close, dev.throw and the three dev.check lines; the marks
   // are preview's alone, and so are dev.map, S4, and S5's hour, text, Scenes
@@ -299,8 +309,8 @@ test('count: where things stand', () => {
   assert.equal(c.main.reach.length, 19);
   assert.deepEqual(c.main.screens, ['app', 'debug', 'title']);
   assert.deepEqual(c.main.needs, []);
-  assert.equal(c.main.off.length, 28, "S6's review: the check view's two fixture names are off main too");
-  assert.deepEqual(c.t07, ['title.begin', 'title.start_label', 'title.tagline']);
+  assert.equal(c.main.off.length, 35, "S6's review: the check view's two fixture names are off main too; S7: the seven new dev lines");
+  assert.deepEqual(c.t07, [], 'S7: no preview page shows a book word (the title page retired there)');
   assert.deepEqual(c.unapplied, []);
   // The words (18.9): the 14 approved lines hold 58, the bare build code none.
   assert.equal(wordCount(APPROVED['app.install']), 15);
@@ -311,10 +321,10 @@ test('count: where things stand', () => {
   assert.equal(c.words.ours.total, c.words.ours.approved + c.words.ours.draft + c.words.ours.changed + c.words.ours.cut);
   assert.ok(c.words.ours.draft > 0 && c.words.dev > 0);
   const out = formatCount(c);
-  assert.match(out, /^text: 202 lines in 9 files\n {2}ours {2}173: approved 14, draft 154, changed 0, cut 0, no words 5\n {8}words \d+: approved 58, draft \d+, changed 0, cut 0\n {2}dev {4}29: exempt \(decision 64\); words \d+/);
+  assert.match(out, /^text: 245 lines in 10 files\n {2}ours {2}209: approved 14, draft 190, changed 0, cut 0, no words 5\n {8}words \d+: approved 58, draft \d+, changed 0, cut 0\n {2}dev {4}36: exempt \(decision 64\); words \d+/);
   assert.match(out, /credits 2 \(approved 2; waiting for its screen\)/);
-  assert.match(out, /debug 29 \(dev 29\)/);
-  assert.match(out, /main: carries app, debug, title; reaches 19 lines, all shippable; needs 0; off main 28/);
+  assert.match(out, /debug 36 \(dev 36\)/);
+  assert.match(out, /main: carries app, debug, title; reaches 19 lines, all shippable; needs 0; off main 35/);
   assert.match(out, /answers not yet applied: none$/);
 });
 

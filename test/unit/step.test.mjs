@@ -10,6 +10,7 @@ import { join } from 'node:path';
 import { newSession, dispatch, screenOf, phaseOf } from '../../web/js/engine/step.js';
 import { PHASES, ORDER } from '../../web/js/engine/phases/index.js';
 import { nameLength } from '../../web/js/engine/phases/guestbook.js';
+import { nextStep, NEXT_S7, NEXT_WHEN } from '../../web/js/engine/phases/home.js';
 import { rollOf, attemptsKey } from '../../web/js/engine/phases/trailhead.js';
 import { addSeconds } from '../../web/js/engine/clock.js';
 import { loadContent } from '../../web/js/engine/content.js';
@@ -17,7 +18,7 @@ import { draw } from '../../web/js/engine/rng.js';
 import { deepFreeze, canon } from '../../web/js/engine/canon.js';
 import { compileContent } from '../../tools/content.mjs';
 import { ROOT } from '../../tools/pics.mjs';
-import { fxContent, play, signed, started } from './enginefix.mjs';
+import { fxContent, play, signed, started, opened } from './enginefix.mjs';
 import * as api from '../../web/js/engine/api.js';
 
 /** The repo's live content (the sample plan), with the trail screen in scope. */
@@ -43,8 +44,8 @@ test('the sixteen phase files exist, each with id, built, lands, level and accep
     for (const f of ['enter', 'step', 'screen']) assert.equal(typeof p[f], 'function', `${p.id}.${f}`);
     assert.ok(Object.isFrozen(p), `${p.id} is frozen`);
   }
-  assert.deepEqual(ORDER.filter((p) => p.built).map((p) => p.id), ['guestbook', 'home', 'trailhead'], "S3 builds these; the rest land later");
-  assert.deepEqual(Object.fromEntries(ORDER.filter((p) => !p.built).map((p) => [p.id, p.lands])), { lockbox: 'S7', plan: 'S10', permit: 'S10', town: 'S11', flatlay: 'S12a', drive: 'S15a', day: 'S15a', camp: 'S15a', night: 'S15a', finish: 'S15a', report: 'S15a', soak: 'S25', death: 'S24a' });
+  assert.deepEqual(ORDER.filter((p) => p.built).map((p) => p.id), ['lockbox', 'guestbook', 'home', 'trailhead'], 'S3 builds these, S7 the lockbox; the rest land later');
+  assert.deepEqual(Object.fromEntries(ORDER.filter((p) => !p.built).map((p) => [p.id, p.lands])), { plan: 'S10', permit: 'S10', town: 'S11', flatlay: 'S12a', drive: 'S15a', day: 'S15a', camp: 'S15a', night: 'S15a', finish: 'S15a', report: 'S15a', soak: 'S25', death: 'S24a' });
 });
 
 test('an unbuilt phase throws EngineError("unbuilt") on enter, step and screen, and through dispatch', () => {
@@ -58,28 +59,81 @@ test('an unbuilt phase throws EngineError("unbuilt") on enter, step and screen, 
   assert.throws(() => screenOf(inDay.state, content), { code: 'unbuilt' });
 });
 
-test('phaseOf: the guest book, home, the trip, and home again when it ends', () => {
-  assert.equal(phaseOf({ hiker: null, trip: null }), 'guestbook');
-  assert.equal(phaseOf({ hiker: {}, trip: null }), 'home');
-  assert.equal(phaseOf({ hiker: {}, trip: { phase: 'trailhead', end: null } }), 'trailhead');
-  assert.equal(phaseOf({ hiker: {}, trip: { phase: 'trailhead', end: 'sample' } }), 'home');
-  assert.deepEqual(newSession().state, { v: 1, device: { v: 1 }, hiker: null, trip: null });
+test('phaseOf: the lockbox first (S7), then the guest book, home, the trip, and home again when it ends', () => {
+  // Rewritten in S7: a device that hasn't opened the lockbox is at the lockbox, unless a trip is under way (lead call 53).
+  const open = { v: 2, quiz: { seed: 'K7QM2Q9F', dealt: ['a', 'b', 'c'], answers: [0, 1, 2], done: true } };
+  const shut = { v: 2, quiz: null };
+  const asking = { v: 2, quiz: { seed: 'K7QM2Q9F', dealt: ['a', 'b', 'c'], answers: [0], done: false } };
+  assert.equal(phaseOf({ device: open, hiker: null, trip: null }), 'guestbook');
+  assert.equal(phaseOf({ device: open, hiker: {}, trip: null }), 'home');
+  assert.equal(phaseOf({ device: open, hiker: {}, trip: { phase: 'trailhead', end: null } }), 'trailhead');
+  assert.equal(phaseOf({ device: open, hiker: {}, trip: { phase: 'trailhead', end: 'sample' } }), 'home');
+  // The lockbox: a fresh device, a mid-quiz one, a v1 device with a hiker (the creator's phone), and a record with none.
+  for (const device of [shut, asking, { v: 1 }, null, undefined]) {
+    assert.equal(phaseOf({ device, hiker: null, trip: null }), 'lockbox', JSON.stringify(device));
+    assert.equal(phaseOf({ device, hiker: {}, trip: null }), 'lockbox', `${JSON.stringify(device)}: with a hiker, at the next return home`);
+    assert.equal(phaseOf({ device, hiker: {}, trip: { phase: 'trailhead', end: 'sample' } }), 'lockbox', 'a trip that ended comes home past the lockbox only once it is open');
+    assert.equal(phaseOf({ device, hiker: {}, trip: { phase: 'trailhead', end: null } }), 'trailhead', 'a trip under way plays on: the lockbox waits for home');
+  }
+  assert.deepEqual(newSession().state, { v: 1, device: { v: 2, quiz: null }, hiker: null, trip: null });
   assert.deepEqual([newSession().log, newSession().base], [null, null]);
 });
 
 test("the guest book: its screen, and signing creates the hiker with the Open start's profile (12.4)", () => {
   const content = liveContent();
-  const s0 = newSession(content);
+  const s0 = opened(content);
   assert.deepEqual(screenOf(s0.state, content), { phase: 'guestbook', box: [], choices: [{ act: { t: 'sign' }, label: null, enabled: true }], input: { kind: 'name', max: 12 } });
   const { session, screen } = play(s0, [{ t: 'sign', name: 'Robin', id: 'hK7QM2Q9F' }], content);
   assert.deepEqual(session.state.hiker, { v: 1, id: 'hK7QM2Q9F', name: 'Robin', profile: JSON.parse(canon(content.profile.open_start)), trips: 0, latest: null });
   assert.equal(session.log, null, 'signing logs nothing: it is no trip action');
-  assert.deepEqual(screen, { phase: 'home', box: [], choices: [], auto: { t: 'start', plan: 'sample' } });
+  // S7: home is the cabin, its next step a tap (no auto): a hiker with no finished trip plans the first.
+  assert.deepEqual(screen, { phase: 'home', box: [], choices: [], next: { id: 'plan_first', act: { t: 'start', plan: 'sample' } } });
+});
+
+test("home's next step (S7, BUILD_PLAN 11.2): a pure function of the save, from the cabin's next table; Plan your first trip, then Plan a trip; none mid-trip; null act where the build has no plan; no later row reachable", () => {
+  // The repo's table, compiled as the home section (with the home screen), and the rows the engine knows.
+  const { rules, voice, problems } = compileContent({ screens: ['home', 'trail'], checkText: false });
+  assert.deepEqual(problems, []);
+  const content = loadContent({ rules, voice, rulesHash: 'abcdef012345' });
+  const table = content.home();
+  assert.ok(table && table.format === 1);
+  assert.deepEqual(table.next.map((r) => r.id), ['plan_first', 'plan', 'plan_drafted', 'desk', 'town', 'packed', 'just_home'], "the plan's whole list");
+  assert.deepEqual(table.next.filter((r) => r.when).map((r) => ({ id: r.id, when: r.when, act: r.act })), NEXT_S7.map((r) => ({ ...r })), "the live rows are S7's two (the engine's fallback for a build without them)");
+  for (const r of table.next.filter((x) => !x.when)) assert.equal(r.act, undefined, `${r.id}: a later session's row, no rule, no act`);
+  assert.ok(!JSON.stringify(table).includes('"doc"'), 'no words in the rules');
+  assert.deepEqual(Object.keys(NEXT_WHEN).sort(), ['no_finished_trip', 'no_trip_under_way']);
+  // State by state.
+  const hiker = { v: 1, id: 'h00000001', name: 'Robin', profile: {}, trips: 0, latest: null };
+  assert.equal(nextStep({ v: 1, hiker: null, trip: null }, content), null, 'no hiker: the guest book, no next step');
+  assert.deepEqual(nextStep({ v: 1, hiker, trip: null }, content), { id: 'plan_first', act: { t: 'start', plan: 'sample' } });
+  assert.equal(nextStep({ v: 1, hiker, trip: { phase: 'trailhead', end: null } }, content), null, 'a trip under way: the trail, not home');
+  assert.deepEqual(nextStep({ v: 1, hiker: { ...hiker, trips: 1 }, trip: { phase: 'trailhead', end: 'sample' } }, content), { id: 'plan', act: { t: 'start', plan: 'sample' } }, 'after a trip');
+  assert.deepEqual(nextStep({ v: 1, hiker: { ...hiker, trips: 0 }, trip: { phase: 'trailhead', end: 'sample' } }, content).id, 'plan_first', 'a trip closed unfinished (a death keeps no hiker; a closed save leaves trips at 0)');
+  // Every state the save can be in reaches only S7's rows.
+  const reached = new Set();
+  for (const h of [null, hiker, { ...hiker, trips: 3 }]) for (const tr of [null, { phase: 'trailhead', end: null }, { phase: 'trailhead', end: 'sample' }]) {
+    const n = nextStep({ v: 1, hiker: h, trip: tr }, content);
+    if (n) reached.add(n.id);
+  }
+  assert.deepEqual([...reached].sort(), ['plan', 'plan_first']);
+  // A build with no plan (main, after the cabin's promotion): the button, with no act.
+  const bare = loadContent({ rules: { ...JSON.parse(JSON.stringify(rules)), plans: {}, stops: {} }, voice: { format: 1, stops: {} }, rulesHash: 'abcdef012345' });
+  assert.deepEqual(nextStep({ v: 1, hiker, trip: null }, bare), { id: 'plan_first', act: null });
+  // The fixture has no home section: S7's two rows.
+  const fx = fxContent();
+  assert.equal(fx.home(), null);
+  assert.equal(nextStep({ v: 1, hiker, trip: null }, fx).id, 'plan_first');
+  // A home section of the wrong shape is refused at load.
+  assert.throws(() => loadContent({ rules: { ...JSON.parse(JSON.stringify(rules)), home: { format: 2 } }, voice, rulesHash: 'abcdef012345' }), { name: 'EngineError', code: 'format' });
+  // section(): the shipped sections by name, nothing else.
+  assert.ok(content.section('sun') && content.section('climate'));
+  assert.equal(content.section('profile'), null, 'not a section');
+  assert.equal(fx.section('sun'), null);
 });
 
 test('the guest book checks the name by code points, with no Unicode tables: empty, 13, a control or a lone surrogate is refused', () => {
   const content = fxContent();
-  const sign = (name, id = 'h00000001') => dispatch(deepFreeze(newSession(content)), { t: 'sign', name, id }, content);
+  const sign = (name, id = 'h00000001') => dispatch(deepFreeze(opened(content)), { t: 'sign', name, id }, content);
   const emoji12 = '🥾'.repeat(12);
   assert.equal(emoji12.length, 24);
   assert.equal(nameLength(emoji12), 12);
@@ -89,7 +143,8 @@ test('the guest book checks the name by code points, with no Unicode tables: emp
   assert.doesNotThrow(() => sign('{HIKER}'));
   for (const name of ['', 'abcdefghijklm', 'Rob\nin', 'Rob\u0000', 'Rob\u007f', 'Rob\u0085', '\ud83e', 'a\udd7e', '🥾'.repeat(13)]) assert.throws(() => sign(name), invalid, JSON.stringify(name));
   for (const id of ['h0000000', 'H00000001', 'h0000000I', 'hk7qm2q9f', 'x00000001']) assert.throws(() => sign('Robin', id), invalid, id);
-  assert.throws(() => dispatch(newSession(content), { t: 'sign', name: 'Robin', id: 'h00000001', extra: 1 }, content), invalid, 'no other fields');
+  assert.throws(() => dispatch(opened(content), { t: 'sign', name: 'Robin', id: 'h00000001', extra: 1 }, content), invalid, 'no other fields');
+  assert.throws(() => dispatch(newSession(content), { t: 'sign', name: 'Robin', id: 'h00000001' }, content), refused, 'a fresh device signs only past the lockbox (S7)');
   assert.throws(() => dispatch(signed(content), { t: 'sign', name: 'Again', id: 'h00000002' }, content), refused, 'one hiker; home takes no sign');
 });
 
@@ -121,7 +176,7 @@ test('start refuses a bad seed or plan, and opens the trip and its log', () => {
 test("a walk through the sample's stops (Deer Lake, the rim, from S5, and S6's fork, its sure way back) ends the sample trip and comes home, where a fresh trip starts (BUILD_PLAN S3, S6)", () => {
   // Re-pinned in S6: the rim walks on to the fork; Back to the car (sure) is its outcome, whose Walk on ends the set.
   const content = liveContent();
-  const { session, screens } = play(newSession(content), [{ t: 'sign', name: 'Robin', id: 'h00000001' }, { t: 'start', plan: 'sample', seed: 'K7QM2Q9F' }, { t: 'next' }, { t: 'next' }, { t: 'choose', c: 'car' }, { t: 'next' }], content);
+  const { session, screens } = play(opened(content), [{ t: 'sign', name: 'Robin', id: 'h00000001' }, { t: 'start', plan: 'sample', seed: 'K7QM2Q9F' }, { t: 'next' }, { t: 'next' }, { t: 'choose', c: 'car' }, { t: 'next' }], content);
   assert.deepEqual(
     screens.map((s) => [s.phase, s.stop && s.stop.id, s.box.map((r) => r.id)]),
     [
@@ -163,7 +218,8 @@ test('refusals: an action not on the screen, or not the phase\'s, is "refused"; 
   assert.throws(() => dispatch(b, { t: 'next' }, content), refused, 'stop b has choices, not Walk on');
   assert.throws(() => dispatch(b, { t: 'choose', c: 'fly' }, content), refused);
   assert.throws(() => dispatch(b, { t: 'choose', c: 'Go' }, content), invalid);
-  assert.throws(() => dispatch(newSession(content), { t: 'next' }, content), refused, 'the guest book takes only sign');
+  assert.throws(() => dispatch(opened(content), { t: 'next' }, content), refused, 'the guest book takes only sign');
+  assert.throws(() => dispatch(newSession(content), { t: 'next' }, content), refused, 'the lockbox takes only deal, answer and open (S7)');
 });
 
 test("choices: show_if hides, effects apply in order, then moves, and the roll is u < p on E.8's roll stream (8.14)", () => {
@@ -272,4 +328,17 @@ test('the engine API exports the S3 contract, versioned (BUILD_PLAN 14.2)', () =
   const e = new api.EngineError('refused', 'x');
   assert.ok(api.isEngineError(e) && e.code === 'refused' && e instanceof Error);
   assert.equal(new api.EngineError('nonsense').code, 'state', 'an unknown code is a broken invariant');
+});
+
+test("S7's lockbox actions, checked: deal {seed} (8 Crockford base32), answer {a} (a whole number from 0), open {}, and no other fields", () => {
+  const content = fxContent();
+  const s = deepFreeze(newSession(content));
+  for (const a of [{ t: 'deal' }, { t: 'deal', seed: 'k7qm2q9f' }, { t: 'deal', seed: 'K7QM2Q9F', x: 1 }, { t: 'answer' }, { t: 'answer', a: -1 }, { t: 'answer', a: 0.5 }, { t: 'answer', a: '0' }, { t: 'open', a: 0 }]) {
+    assert.throws(() => dispatch(s, a, content), invalid, JSON.stringify(a));
+  }
+  // The fixture deals no quiz: its shut box takes only open, and the screen says so.
+  assert.deepEqual(screenOf(s.state, content).choices.map((c) => c.act), [{ t: 'open' }]);
+  assert.throws(() => dispatch(s, { t: 'deal', seed: 'K7QM2Q9F' }, content), refused);
+  assert.equal(phaseOf(dispatch(s, { t: 'open' }, content).session.state), 'guestbook');
+  assert.deepEqual(opened(content).state.device, { v: 2, quiz: { seed: null, dealt: [], answers: [], done: true } });
 });

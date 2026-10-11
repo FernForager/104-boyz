@@ -1,12 +1,17 @@
-// The title page (until the cabin replaces it, S7; GAME_DESIGN 12.3): the
-// cover drawing itself in at dusk, the name, the update note, the install
-// line and the stamps. This file becomes the cabin (BUILD_PLAN 2.5).
+// The title page and the loading art (GAME_DESIGN 12.3; BUILD_PLAN S7,
+// 11.2): the cover drawing itself in at dusk, the name, the update note,
+// the install line and the stamps.
 //
-// On preview from S3 the title page is the loading art: showTitle's `done`
-// settles when the draw-in has finished (or a tap finished it, or at once
-// under Reduce Motion), and the game (ui/app.js) takes the page then.
-// opensGame() is the gate: only a build whose <html data-screens> lists the
-// guestbook and trail screens loads the game, so main's page never does.
+// On main this is the front door until the cabin's promotion (once B002
+// and B003 are answered). On preview it is the loading art (from S3; from
+// S7 the title page's own words are gone there, channels.preview.off, so
+// the cover draws in under app.name alone): showTitle's `done` settles
+// when the draw-in has finished (or a tap finished it, or at once under
+// Reduce Motion), and the game (ui/app.js) takes the page then, opening
+// on the cabin (ui/cabin.js). opensGame() is the gate: only a build whose
+// <html data-screens> lists the home loads the game, so main's page never
+// does. The cabin itself lives in ui/cabin.js, which only the game
+// imports, so main's page reaches none of it (its precache stays S6's).
 
 import { renderPic } from '../gfx/picvm.js';
 import { makePalette } from '../gfx/palette.js';
@@ -25,13 +30,14 @@ const PLATE = { width: 160, height: 320 };
 const TITLE_ROWS = 88;
 /** Held sideways: the title page hides behind the plate. Same query as game.css. */
 const SIDEWAYS = '(orientation: landscape) and (max-height: 540px)';
-/** The screens a build needs before it loads the game (content/scope/m1a.json; BUILD_PLAN S3). */
-export const GAME_SCREENS = Object.freeze(['guestbook', 'trail']);
+/** The screens a build needs before it loads the game (content/scope/m1a.json; BUILD_PLAN S3, S7: the cabin is the game's home). */
+export const GAME_SCREENS = Object.freeze(['home']);
 
 /**
  * Pure: does this build carry the game? True when <html data-screens>
  * (stamped by the build from the scope file) lists every one of
- * GAME_SCREENS. Main's lists app, debug and title, so main never loads it.
+ * GAME_SCREENS (S7: the home). Main's lists app, debug and title, so main
+ * never loads it.
  * @param {Document} doc
  */
 export function opensGame(doc) {

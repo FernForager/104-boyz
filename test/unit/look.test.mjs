@@ -11,11 +11,11 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { ROOT, loadArt } from '../../tools/pics.mjs';
+import { ROOT, loadArt, loadCabin } from '../../tools/pics.mjs';
 import { compileArt } from '../../tools/build.mjs';
 import { readText } from '../../tools/text.mjs';
 import { validate } from '../../tools/schema.mjs';
-import { loadHotspots, shippedHotspots, placeParts, lintLooks, artLineIds, HOTSPOTS_FILE } from '../../tools/looks.mjs';
+import { loadHotspots, shippedHotspots, placeParts, cabinParts, lintLooks, artLineIds, HOTSPOTS_FILE } from '../../tools/looks.mjs';
 import { lintArtWords } from '../../tools/lint.mjs';
 import { renderPic } from '../../web/js/gfx/picvm.js';
 import { compose, drawable, hotspotsOf, HOURS, TRAIL_SPRITES, WIDTH } from '../../web/js/gfx/compose.js';
@@ -24,6 +24,7 @@ import { renderFrame, frameLayout } from '../../web/js/ui/frame.js';
 import { dispatch, screenOf } from '../../web/js/engine/api.js';
 import { CONTENT, atFork, device, frameDoc, ctxFor, fire, fakeSound } from './forkfix.mjs';
 import { newSession } from '../../web/js/engine/api.js';
+import { lockboxActs } from '../../web/js/engine/selfcheck.js';
 import { canon } from '../../web/js/engine/canon.js';
 
 const ART = loadArt();
@@ -144,7 +145,9 @@ test('the words: a kind\'s Look, a place\'s own where the words have one; looked
 test('the Look box: a tap on a hotspot opens its Look with ui.open\'s tick, focus on the box; a tap anywhere closes it (the tap is the box\'s) and focus goes back; Escape too; UI only, so the game never acts', (t) => {
   device(t);
   const doc = frameDoc();
-  const r = dispatch(newSession(CONTENT), { t: 'sign', name: 'Robin', id: 'h00000001' }, CONTENT);
+  let s = newSession(CONTENT);
+  for (const a of lockboxActs('K7QM2Q9F', CONTENT)) s = dispatch(s, a, CONTENT).session;
+  const r = dispatch(s, { t: 'sign', name: 'Robin', id: 'h00000001' }, CONTENT);
   const start = dispatch(r.session, { t: 'start', plan: 'sample', seed: 'K7QM2Q9F' }, CONTENT);
   const host = doc.createElement('div');
   host.className = 'game-screen';
@@ -197,7 +200,8 @@ test('hotspots.json: every kind looked (its Look, its spoken name) or silent wit
   assert.deepEqual(file.errors, []);
   const kinds = file.hotspots.kinds;
   for (const [k, v] of Object.entries(kinds)) assert.ok(v.look === true || (v.look === false && v.why.length > 20), `${k}: looked, or silent with its reason`);
-  assert.deepEqual(Object.keys(kinds).filter((k) => !kinds[k].look).sort(), ['cloud', 'far_shore', 'heather', 'meadow', 'olympus', 'shore', 'sky'], "S6's silent kinds (the spec's six, and the rim's cloud)");
+  // S7: and the cabin's three silent kinds (lead call 58: the peak, the chalkboard and the clam shovel).
+  assert.deepEqual(Object.keys(kinds).filter((k) => !kinds[k].look).sort(), ['chalkboard', 'clam_shovel', 'cloud', 'far_shore', 'heather', 'meadow', 'olympus', 'peak', 'shore', 'sky'], "S6's silent kinds (the spec's six, and the rim's cloud), and S7's cabin's");
   assert.deepEqual(shippedHotspots(file.hotspots), LOOKED);
   // A missing look on a looked kind fails the schema's oneOf.
   const schema = JSON.parse(readFileSync(join(ROOT, 'schemas', 'hotspots.schema.json'), 'utf8'));
@@ -225,12 +229,31 @@ test('P15 in the repo is clean; planted, it fails a kind hotspots.json lacks, a 
   assert.deepEqual([...artLineIds(parts, { lake: true }, (id) => lines.has(id))].sort(), ['alt.base.x', 'alt.hour.night', 'look.lake', 'look.lake.here', 'look.name.lake']);
 });
 
-test("P15 over the repo's places: every drawable place's kinds are in hotspots.json, and every place's alt parts are lines, at every hour", () => {
+test("P15 over the repo's places: every drawable place's kinds are in hotspots.json, and every place's alt parts are lines, at every hour (S7: the cabin's Look and silent kinds, and its alt parts, too)", () => {
   const text = readText();
-  const parts = placeParts(ART);
-  assert.equal(parts.length, PLACES.length);
+  const parts = [...placeParts(ART), ...cabinParts(loadCabin())];
+  assert.equal(parts.length, PLACES.length + 1);
+  assert.deepEqual(parts.at(-1).kinds, ['tub', 'register_post', 'peak', 'chalkboard', 'clam_shovel'], "the cabin's");
   const kinds = new Set(parts.flatMap((p) => p.kinds));
   assert.deepEqual([...kinds].sort(), Object.keys(loadHotspots().hotspots.kinds).sort(), 'every kind a place carries, and no other');
   for (const p of parts) for (const ids of Object.values(p.alt)) for (const id of ids) assert.ok(text.lines.has(id), `${p.place}: ${id}`);
   assert.equal(HOTSPOTS_FILE, 'content/art/hotspots.json');
+});
+
+test('the Look on a tall picture (S7: the cabin, 160 x 320): a hit area grows to 44 pt and stays inside the plate, and its box opens over the picture\'s figure', (t) => {
+  // The register post at the plate's left edge on the SE's 4x2 pixel: clamped to the picture, 44 pt at least.
+  const spot = { id: 'register_post', x: 3, y: 221, w: 12, h: 42 };
+  const [a] = hitAreas([spot], { sx: 4, sy: 2, dpr: 2, width: 160, height: 320 });
+  assert.ok(a.w >= LOOK_MIN_PT && a.h >= LOOK_MIN_PT);
+  assert.ok(a.x >= 0 && a.y >= 0 && a.x + a.w <= 320 && a.y + a.h <= 320, 'inside the 320 x 320-pt plate');
+  // Low on the plate, where a 168-row picture would have clamped it away.
+  const low = hitAreas([{ id: 'mailbox', x: 142, y: 290, w: 12, h: 24 }], { sx: 4, sy: 2, dpr: 2, width: 160, height: 320 })[0];
+  assert.ok(low.y + low.h <= 320 && low.y > 200, 'its own place, low on the tall plate');
+  device(t);
+  const doc = frameDoc();
+  const figure = doc.body.appendChild(doc.createElement('figure'));
+  const look = openLook(figure, [{ id: 'look.tub' }]);
+  assert.equal(look.el.parentNode, figure);
+  assert.equal(look.el.querySelector('p').getAttribute('data-t'), 'look.tub');
+  look.close();
 });

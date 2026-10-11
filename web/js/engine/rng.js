@@ -10,8 +10,13 @@
 
 import { EngineError } from './error.js';
 
-/** E.8's streams. 8.14 also names `store`; it joins when S11 needs it (a new stream shifts no other's draws). */
-export const STREAMS = Object.freeze(['weather', 'env', 'permit', 'director', 'roll', 'effect', 'text', 'mini', 'art', 'dust', 'lookahead']);
+/**
+ * E.8's streams, append-only. 8.14 also names `store`; it joins when S11
+ * needs it (a new stream shifts no other's draws). S7 adds `quiz`: the
+ * lockbox's deal, from the seed the UI draws at Open the lockbox
+ * (phases/lockbox.js).
+ */
+export const STREAMS = Object.freeze(['weather', 'env', 'permit', 'director', 'roll', 'effect', 'text', 'mini', 'art', 'dust', 'lookahead', 'quiz']);
 
 /** A seed: Crockford base32 (no I, L, O, U), 8 to 26 characters (40 to 130 bits). */
 export const SEED_RE = /^[0-9A-HJKMNP-TV-Z]{8,26}$/;

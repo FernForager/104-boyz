@@ -1,5 +1,5 @@
 {
- "$comment": "The Look hotspots by kind (GAME_DESIGN 12.1, 12.2, 11.8; BUILD_PLAN S6, the spec's lead call 5): every kind a drawable place's picture carries (a Z op in a base, a scene or a stamp), each looked or silent. A looked kind's Look is the line look.<kind>, or look.<kind>.<place> where a place has its own, and its button's spoken name is look.name.<kind> (content/text/en/look.json); a silent kind has no button, and a tap there shows the picture's composed alt text as its Look (gfx/alt.js: King's Quest's LOOK at the room), with its reason here. Lint P15 holds every kind of every drawable place to this file and every looked kind to its two lines; schemas/hotspots.schema.json is its J01. Shipped in art/art.json as hotspots ({kind: looked}) on a channel with the trail screen.",
+ "$comment": "The Look hotspots by kind (GAME_DESIGN 12.1, 12.2, 11.8; BUILD_PLAN S6, the spec's lead call 5): every kind a drawable place's picture carries (a Z op in a base, a scene or a stamp), each looked or silent. A looked kind's Look is the line look.<kind>, or look.<kind>.<place> where a place has its own, and its button's spoken name is look.name.<kind> (content/text/en/look.json); a silent kind has no button, and a tap there shows the picture's composed alt text as its Look (gfx/alt.js: King's Quest's LOOK at the room), with its reason here. Lint P15 holds every kind of every drawable place to this file and every looked kind to its two lines; schemas/hotspots.schema.json is its J01. Shipped in art/art.json as hotspots ({kind: looked}) on a channel with the trail screen. From S7 the cabin's Look and silent kinds are here too (content/home/cabin.json places: the tub and the register post looked; the peak, the chalkboard and the clam shovel silent); lint P17, P15's cabin twin, holds the cabin's kinds to this file and each looked one to its two lines.",
  "kinds": {
   "lake": { "look": true, "doc": "A lake basin's water (base_lake_basin): every lake place shares the line until it has its own" },
   "far_shore": { "look": false, "why": "S6's batch stays small: the far shore's firs are the alt text's ring of firs until a later batch gives them words" },
@@ -16,6 +16,11 @@
   "lunch_lake": { "look": true, "doc": "The rim scene's Lunch Lake, the basin's biggest" },
   "staircase": { "look": true, "doc": "The rim scene's stone staircase into the basin" },
   "bogachiel_peak": { "look": true, "doc": "The rim scene's Bogachiel Peak" },
-  "sign": { "look": true, "doc": "The rim scene's trail sign" }
+  "sign": { "look": true, "doc": "The rim scene's trail sign" },
+  "tub": { "look": true, "doc": "The cabin's hot tub on its little deck, covered (S7): a Look until the soak, S25 (lead call 58)" },
+  "register_post": { "look": true, "doc": "The cabin's register post, where an old trail leaves into the maples (S7): a Look until the Trail Register, S24b (lead call 58)" },
+  "peak": { "look": false, "why": "S7's batch stays small (lead call 58): the peak over the cabin is the alt text's snowy peak until T1's FKT boards make it a place" },
+  "chalkboard": { "look": false, "why": "S7's batch stays small (lead call 58): the porch's chalkboard is silent until T2's Hike of the Day writes on it" },
+  "clam_shovel": { "look": false, "why": "S7's batch stays small (lead call 58; decision 61): the clam shovel by the shed is drawn and silent until a Looks batch gives it words" }
  }
 }

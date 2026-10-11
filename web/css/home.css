@@ -1,0 +1,434 @@
+/* Home: the cabin at Lake Quinault (BUILD_PLAN S7; GAME_DESIGN 2.2, 12.1,
+   12.3, 12.18). Only preview's game loads this file (ui/app.js adds it with
+   css/frame.css, whose fonts, status line, Look box and ≡ sheet the cabin
+   shares); main's page never does. ui/cabin.js builds the cabin and sets
+   --col, --col-x, --pic-x and --mat from homeLayout(), its space check, and
+   --row and --px (a picture pixel's height and width) from the display:
+
+     header.status-line      22 pt, snow, the chrome font (ui/status.js)
+     figure.cabin-picture    the plate at whole device pixels in the
+                             trail's mat (a 1-fp slate keyline as wide as
+                             the column), app.name over its quiet sky, the
+                             place buttons and the labels over it
+     (spare)                 what's left (1fr)
+     div.cabin-next          8 pt, then the next step, 52 pt
+     nav.cabin-rail          8 pt, then two rows of 44 pt, 4 apart
+                             (padding: 6 pt under the rail)
+
+   homeLayout() counts every one of these lengths (home.test.mjs reads
+   them here), so a change here is a change there.
+
+   First launch (S7 D6): the shut lockbox is the cabin (.cabin[data-first]:
+   no labels, no rail); its questions and the guest book are the porch
+   (ui/porch.js, porchLayout(), its space check, read the same way):
+
+     header.status-line      22 pt
+     figure.porch-picture    the plate's rows 128 to 295, in the mat
+     div.game-box            the rest (1fr), 2 fp clear above and below,
+                             with the ▾ continuation
+     div.game-choices        52 pt each, 8 apart, 6 under the last; or
+     div.gb-below            the guest book's label, field and Suggest,
+                             one-life line and Sign */
+
+/* The cabin's column rules here, not .game's padding and width cap; and
+   the porch's (the lockbox's questions, the guest book: S7). */
+.game-page[data-screen="home"] .game,
+.game-page[data-screen="lockbox"] .game,
+.game-page[data-screen="guestbook"] .game { padding: 0; max-width: none; }
+/* The game's foot holds the install line (Safari only), on the cabin only,
+   while the plate keeps its pixel shape with it there; else ui/cabin.js
+   moves it into the mailbox's foot and the empty foot hides (frame.css). */
+.game-page:not([data-screen="home"]) .game-foot { display: none; }
+.game-page[data-screen="home"] .game-foot { padding: 0 16px 6px; }
+
+.game-screen.cabin {
+  --font-chrome: "OPH Chrome", var(--font-pixel);
+  --chrome-size: calc(12 * var(--fp));
+  --chrome-line: calc(14 * var(--fp));
+  --chrome-border: calc(3 * var(--fp)) double var(--c9);
+  --col: calc(100vw - 32px);
+  --col-x: 16px;
+  --pic-x: 16px;
+  --row: 1px;
+  --px: 2px;
+  display: grid;
+  grid-template-rows: 22px auto minmax(0, 1fr) auto auto;
+  grid-template-areas: "status" "picture" "." "next" "rail";
+  justify-content: normal;
+  justify-items: start;
+  align-items: start;
+  gap: 0;
+  padding: 0 0 6px;
+  /* A room too short for the plate's smallest pixel (homeLayout's spare
+     under zero: Larger Text's biggest sizes) scrolls, never clips. */
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  font-kerning: none;
+  letter-spacing: 0;
+}
+
+.cabin > * {
+  width: var(--col);
+  max-width: 100%;
+  margin-left: var(--col-x);
+}
+
+/* ---- The picture ------------------------------------------------------ */
+
+.cabin-picture {
+  grid-area: picture;
+  position: relative; /* the place buttons, the labels and the Look box sit over the canvas */
+  box-sizing: border-box;
+  margin: 0 0 0 var(--col-x);
+  padding: 0 0 0 var(--mat, 0px);
+  border: calc(1 * var(--fp)) solid var(--c2);
+  background: var(--c0);
+  line-height: 0;
+  -webkit-touch-callout: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* The name over the cabin (lead call 61): one line in the chrome font over
+   the plate's quiet sky band, rows 2 to 28. */
+.cabin-name {
+  position: absolute;
+  top: calc(2 * var(--row));
+  left: var(--mat, 0px);
+  right: var(--mat, 0px);
+  height: calc(26 * var(--row));
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--c4);
+  font: var(--chrome-size)/var(--chrome-line) var(--font-chrome);
+  font-variant-ligatures: none;
+  font-feature-settings: "liga" 0, "clig" 0;
+  white-space: nowrap;
+  text-shadow: 0 var(--fp) 0 var(--c0);
+  pointer-events: none;
+}
+
+/* The places: transparent buttons over their hit areas (each at least
+   44 x 44 pt, lint P17), placed by ui/cabin.js from the pixel shape. */
+.cabin-places,
+.cabin-labels {
+  position: absolute;
+  top: 0;
+  left: var(--mat, 0px);
+  right: var(--mat, 0px);
+  bottom: 0;
+  pointer-events: none;
+}
+
+.cabin-place {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  background: none;
+  border: 0;
+  border-radius: 0;
+  pointer-events: auto;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+}
+
+.cabin-place:focus-visible { outline: calc(1 * var(--fp)) dashed var(--c4); outline-offset: calc(-1 * var(--fp)); }
+
+/* A label: the rail's word in the chrome font, snow on ink, a font pixel
+   of padding; once its place has been used, a 2 x 2 dot (snow, an ink
+   ring) where it was. The swap fades over 300 ms (a swap under Reduce Motion). */
+.label-tag,
+.label-dot {
+  position: absolute;
+  box-sizing: border-box;
+  transition: opacity 300ms steps(3, end);
+}
+
+.label-tag {
+  left: var(--lx, 0px);
+  top: var(--ly, 0px);
+  width: var(--lw, auto);
+  padding: var(--fp);
+  color: var(--c4);
+  background: var(--c0);
+  font: var(--chrome-size)/var(--chrome-line) var(--font-chrome);
+  font-variant-ligatures: none;
+  font-feature-settings: "liga" 0, "clig" 0;
+  white-space: nowrap;
+  text-align: center;
+}
+
+.label-dot {
+  left: calc(var(--lx, 0px) + var(--dx, 0px));
+  top: calc(var(--ly, 0px) + var(--dy, 0px));
+  width: calc(2 * var(--fp));
+  height: calc(2 * var(--fp));
+  background: var(--c4);
+  box-shadow: 0 0 0 var(--fp) var(--c0);
+  opacity: 0;
+}
+
+.cabin-label[data-used] .label-tag { opacity: 0; }
+.cabin-label[data-used] .label-dot { opacity: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+  .label-tag,
+  .label-dot { transition: none; }
+}
+
+/* ---- The next step and the porch rail ------------------------------- */
+
+.cabin-next {
+  grid-area: next;
+  margin-top: 8px;
+}
+
+.cabin .next-step {
+  height: 52px;
+  min-height: 52px;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 calc(4 * var(--fp));
+  border: var(--chrome-border);
+  font: var(--chrome-size)/var(--chrome-line) var(--font-chrome);
+  font-variant-ligatures: none;
+  font-feature-settings: "liga" 0, "clig" 0;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+/* The next step's ›: a pixel glyph, in the label's color. */
+.next-glyph {
+  display: block;
+  flex: none;
+  width: calc(4 * var(--fp));
+  height: calc(7 * var(--fp));
+}
+
+.cabin .next-step:disabled .next-glyph { color: var(--c2); }
+
+.cabin-rail {
+  grid-area: rail;
+  margin-top: 8px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 44px;
+  gap: 4px 0;
+  border-top: var(--fp) solid var(--c2);
+  -webkit-touch-callout: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.rail-item {
+  position: relative;
+  min-height: 44px;
+  padding: 0;
+  color: var(--c5);
+  background: none;
+  border: 0;
+  border-radius: 0;
+  font: var(--chrome-size)/var(--chrome-line) var(--font-chrome);
+  font-variant-ligatures: none;
+  font-feature-settings: "liga" 0, "clig" 0;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* A place whose screen comes later (lead call 59): slate, still tappable (its name and Not open yet.). */
+.rail-item[aria-disabled="true"] { color: var(--c2); }
+
+/* The update waits: a brick square at the Mailbox's corner, as on ≡ (E.7). */
+.rail-item[data-flag]::before {
+  content: "";
+  position: absolute;
+  top: calc(3 * var(--fp));
+  right: calc(3 * var(--fp));
+  width: calc(2 * var(--fp));
+  height: calc(2 * var(--fp));
+  background: var(--c9);
+}
+
+/* ---- Larger Text: the Plain serif (ui/textsize.js) ------------------- */
+
+html[data-text="plain"] .cabin .next-step {
+  height: auto;
+  min-height: 52px;
+  padding: calc(2 * var(--fp)) calc(4 * var(--fp));
+  font: var(--plain-size, 20px)/1.35 var(--font-plain);
+  white-space: normal;
+}
+
+/* ---- The mailbox: the ≡ sheet's settings (ui/mailbox.js) ------------- */
+
+.menu-settings {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.menu-settings:empty { display: none; }
+
+.menu .mail-toggle {
+  min-height: 44px;
+}
+
+/* ---- The porch: the lockbox's questions and the guest book (S7) ------ */
+
+.game-screen.porch {
+  --font-chrome: "OPH Chrome", var(--font-pixel);
+  --chrome-size: calc(12 * var(--fp));
+  --chrome-line: calc(14 * var(--fp));
+  --chrome-border: calc(3 * var(--fp)) double var(--c9);
+  --col: calc(100vw - 32px);
+  --col-x: 16px;
+  --pic-x: 16px;
+  display: grid;
+  grid-template-rows: 22px auto minmax(0, 1fr) auto;
+  grid-template-areas: "status" "picture" "box" "below";
+  justify-content: normal;
+  justify-items: start;
+  align-items: start;
+  gap: 0;
+  padding: 0;
+  overflow: hidden;
+  font-kerning: none;
+  letter-spacing: 0;
+}
+
+.porch > * {
+  width: var(--col);
+  max-width: 100%;
+  margin-left: var(--col-x);
+}
+
+.porch-picture {
+  grid-area: picture;
+  position: relative; /* the Look box sits over the canvas */
+  box-sizing: border-box;
+  margin: 0 0 0 var(--col-x);
+  padding: 0 0 0 var(--mat, 0px);
+  border: calc(1 * var(--fp)) solid var(--c2);
+  background: var(--c0);
+  line-height: 0;
+  -webkit-touch-callout: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.porch .game-box {
+  grid-area: box;
+  position: relative;
+  box-sizing: border-box;
+  max-height: calc(100% - 4 * var(--fp));
+  margin-top: calc(2 * var(--fp));
+  overflow: hidden;
+  padding: calc(3 * var(--fp)) calc(4 * var(--fp));
+  border: var(--chrome-border);
+  font-family: var(--font-pixel);
+  font-size: 20px;
+  line-height: 26px;
+}
+
+.porch .game-box p + p { margin-top: 13px; }
+
+/* The guest book's box never gives up its words: with the keyboard up
+   (--keyboard lifts the page, game.css) the porch is shorter than the
+   picture, the box and the field together, so the porch scrolls instead
+   and the field's focus brings the label, the field, the one-life line and
+   Sign into view (ui/guestbook.js), the picture going up out of sight. */
+.game-screen.porch.guestbook {
+  grid-template-rows: 22px auto minmax(min-content, 1fr) auto;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.porch .game-choices,
+.porch .gb-below {
+  grid-area: below;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-bottom: 6px;
+}
+
+.porch .choice {
+  height: 52px;
+  min-height: 52px;
+  padding: 0 calc(4 * var(--fp));
+  border: var(--chrome-border);
+  font: var(--chrome-size)/var(--chrome-line) var(--font-chrome);
+  font-variant-ligatures: none;
+  font-feature-settings: "liga" 0, "clig" 0;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+/* While the box's pages remain, the choices show but are inert (the trail's way). */
+.porch .game-choices[data-wait] .choice {
+  border-color: var(--c2);
+  cursor: default;
+}
+
+/* The guest book: its label in the chrome font, the field with Suggest beside it. */
+.gb-label {
+  display: block;
+  min-height: 24px;
+  padding: calc(4 * var(--fp)) 0 0;
+  color: var(--c5);
+  font: var(--chrome-size)/var(--chrome-line) var(--font-chrome);
+  font-variant-ligatures: none;
+  font-feature-settings: "liga" 0, "clig" 0;
+}
+
+.gb-row {
+  display: flex;
+  align-items: stretch;
+  gap: calc(2 * var(--fp));
+}
+
+.gb-row .name-field {
+  flex: 1;
+  min-width: 0;
+  height: 52px;
+  min-height: 52px;
+}
+
+.gb-suggest {
+  flex: none;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 calc(4 * var(--fp));
+  color: var(--c0);
+  background: var(--c4);
+  border: var(--chrome-border);
+  border-radius: 0;
+  font: var(--chrome-size)/var(--chrome-line) var(--font-chrome);
+  font-variant-ligatures: none;
+  font-feature-settings: "liga" 0, "clig" 0;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* ---- Larger Text on the porch: the Plain serif ------------------------ */
+
+html[data-text="plain"] .porch .choice {
+  height: auto;
+  min-height: 52px;
+  padding: calc(2 * var(--fp)) calc(4 * var(--fp));
+  font: var(--plain-size, 20px)/1.35 var(--font-plain);
+  white-space: normal;
+}
+
+html[data-text="plain"] .porch .game-box {
+  font: var(--plain-size, 20px)/1.35 var(--font-plain);
+}

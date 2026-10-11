@@ -44,7 +44,7 @@ import { loadContent } from '../web/js/engine/content.js';
 import { newSession, dispatch, hash12 } from '../web/js/engine/step.js';
 import { canon } from '../web/js/engine/canon.js';
 import { rollOf } from '../web/js/engine/phases/trailhead.js';
-import { runTrip, runSelfCheck } from '../web/js/engine/selfcheck.js';
+import { runTrip, runSelfCheck, lockboxActs } from '../web/js/engine/selfcheck.js';
 import { replay } from '../web/js/engine/replay.js';
 
 /** Where the fixture lives, from the repo's root. */
@@ -128,7 +128,9 @@ export function fixtureContent(root = ROOT) {
  * @param {string} seed
  */
 function startedOn(content, seed) {
-  const signed = dispatch(newSession(content), { t: 'sign', ...FX_HIKER }, content).session;
+  let opened = newSession(content);
+  for (const a of lockboxActs(seed, content)) opened = dispatch(opened, a, content).session;
+  const signed = dispatch(opened, { t: 'sign', ...FX_HIKER }, content).session;
   return dispatch(signed, { t: 'start', plan: FX_PLAN, seed }, content).session;
 }
 
@@ -203,7 +205,7 @@ export function goldenInputs({ S_PASS, S_MID }, content) {
     golden('fx_wait', 'fx_pass with wait 600 after the first Walk on: another hash (the clock) and identity.', logOf(S_PASS, [NEXT, WAIT(600), GO, NEXT]).log),
     golden('fx_refused', 'fx_pass, then go again at an ended trip: refused at action 3; the fold stops there.', { ...pass.log, actions: [...pass.log.actions, ['choose', 'go']] }),
     golden('fx_rebase', "A log rebased on the state after fx_pass's first two actions (call 4), then Walk on: fx_pass's hash.", { ...pass.log, base: hash12(head.state.trip), actions: [['next']] }, { base: plain(head.state.trip) }),
-    golden('fx_first_launch', "From a fresh device: sign as {HIKER}, start, then fx_pass's actions: fx_pass's hash; the hiker has 1 trip, latest stop 3.", pass.log, { first: { ...FX_HIKER } }),
+    golden('fx_first_launch', "From a fresh device: the lockbox (the fixture deals no quiz: Take the key), sign as {HIKER}, start, then fx_pass's actions: fx_pass's hash; the hiker has 1 trip, latest stop 3.", pass.log, { first: { ...FX_HIKER } }),
     golden('fx_resume', "fx_pass, saved after two actions (toSaves, JSON, fromSaves), then the rest: fx_pass's hash.", pass.log, { resume: 2 }),
   ];
 }

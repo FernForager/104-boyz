@@ -7,7 +7,11 @@
 // fits; sy keeps AGI's wide pixel (about 5:3, so sy is about 0.6 sx), and
 // short screens (under about 700 pt) use the flatter 2:1 pixel to leave
 // the text room. That gives the doc's table: 7x4 on the iPhone 15 and 16,
-// 8x5 on the Plus and Pro Max, 6x4 on the 13 mini, 4x2 on the SE.
+// 8x5 on the Plus and Pro Max, 6x4 on the 13 mini, 4x2 on the SE. No shape
+// is ever flatter than 2:1 (a 3x1 or 5x2 pixel squashes the picture: the
+// next shape down is taken instead, 2x1 or 4x2), and a screen with hit
+// areas on its picture (the cabin) can ask for a smallest pixel, in
+// points, that its shape never goes under (minPixel).
 
 import { resolve, toRGBA, hasCycles, CYCLE_FPS, PALETTE } from './palette.js';
 
@@ -27,6 +31,9 @@ export const SHORT_SCREEN_PT = 700;
  * @param {number} [o.maxCssHeight] the most height the picture may take
  * @param {number} [o.margin] points kept free across (2)
  * @param {number} [o.maxCssWidth] the widest column (440)
+ * @param {readonly number[]} [o.minPixel] the smallest picture pixel, [width, height] in points, the
+ *   shape may step down to for height: when no shape at least that big fits, the one of them that
+ *   is least tall (the widest of those) is taken, fitting or not (the cabin's hit areas: 44 pt)
  * @returns {{sx: number, sy: number, short: boolean}}
  */
 export function pickPixelShape(o) {
@@ -36,9 +43,31 @@ export function pickPixelShape(o) {
   const avail = Math.min(o.cssWidth, o.maxCssWidth || 440) - margin;
   const short = o.screenHeight < SHORT_SCREEN_PT;
   const syFor = (/** @type {number} */ sx) => Math.max(1, short ? Math.floor(sx / 2) : Math.round(sx * PIXEL_ASPECT));
+  // Never flatter than 2:1: the next shape down that isn't.
+  const flat = (/** @type {number} */ sx) => 2 * syFor(sx) < sx;
+  const down = (/** @type {number} */ sx) => {
+    let s = sx - 1;
+    while (s > 1 && flat(s)) s--;
+    return Math.max(1, s);
+  };
   let sx = Math.max(1, Math.floor((avail * dpr + 1e-6) / picW));
+  if (sx > 1 && flat(sx)) sx = down(sx);
   if (o.picHeight && o.maxCssHeight) {
-    while (sx > 1 && (o.picHeight * syFor(sx)) / dpr > o.maxCssHeight) sx--;
+    const picH = o.picHeight;
+    const maxH = o.maxCssHeight;
+    const top = sx;
+    while (sx > 1 && (picH * syFor(sx)) / dpr > maxH) sx = down(sx);
+    const min = o.minPixel;
+    const holds = (/** @type {number} */ s) => !min || (s / dpr >= min[0] - 1e-9 && syFor(s) / dpr >= min[1] - 1e-9);
+    if (!holds(sx)) {
+      // Too short for every shape that keeps the smallest pixel: the least tall of those (the widest).
+      let best = 0;
+      for (let s = top; s >= 1; s = down(s)) {
+        if (holds(s) && (!best || syFor(s) < syFor(best))) best = s;
+        if (s === 1) break;
+      }
+      if (best) sx = best;
+    }
   }
   return { sx, sy: syFor(sx), short };
 }
@@ -104,7 +133,7 @@ export function createDisplay(canvas, width, height, edge = PALETTE[0]) {
     },
     /**
      * Size the canvas for this screen.
-     * @param {{cssWidth: number, screenHeight: number, maxCssHeight?: number, margin?: number, maxCssWidth?: number}} opts
+     * @param {{cssWidth: number, screenHeight: number, maxCssHeight?: number, margin?: number, maxCssWidth?: number, minPixel?: readonly number[]}} opts
      */
     layout(opts) {
       dpr = window.devicePixelRatio || 1;
@@ -145,7 +174,7 @@ export function createDisplay(canvas, width, height, edge = PALETTE[0]) {
  * Run the palette cycles (stars, water) at 8 fps while the page is
  * visible. Returns a stop function. Does nothing for a still picture.
  * @param {ReturnType<typeof createDisplay>} display
- * @param {Uint8Array} indices composited picture (0-25, 255)
+ * @param {Uint8Array} indices composited picture (0-29, 255)
  * @param {number} width
  * @param {import('./palette.js').Palette} pal makePalette()
  * @param {{remap?: string, background?: number}} [o]

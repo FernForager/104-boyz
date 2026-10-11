@@ -20,7 +20,10 @@
    "additionalProperties": {
     "type": "object",
     "additionalProperties": false,
-    "properties": { "swap": { "type": "object", "additionalProperties": { "$ref": "#/$defs/line_id" } } }
+    "properties": {
+     "swap": { "type": "object", "additionalProperties": { "$ref": "#/$defs/line_id" } },
+     "off": { "type": "object", "additionalProperties": { "type": "string", "minLength": 1 } }
+    }
    }
   },
   "ships": { "type": "object", "additionalProperties": { "$ref": "#/$defs/ids" } },

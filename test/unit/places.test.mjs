@@ -85,6 +85,19 @@ test("places_extra and the terms: the quiz's and the drives' real names, each wi
   const data = ['design/data/quiz_locals.json', 'design/data/park_rules.json', ...['coast', 'elwha_hurricane', 'hamma_hamma', 'hoh_olympus', 'northeast_dose', 'sol_duc_high_divide', 'south_quinault_skok'].map((r) => `design/data/regions/${r}.json`), 'design/GAME_DESIGN.md'].map((f) => readFileSync(join(ROOT, f), 'utf8')).join('\n');
   for (const [id, p] of Object.entries(extra)) assert.ok(data.includes(p.source), `${id}: ${p.source} is in the repo's data`);
   const terms = read('content/text/names/terms.json').terms;
-  assert.deepEqual(Object.keys(terms).sort(), ['canada_jay', 'geoduck']);
+  // S7 adds Suggest's sixteen given names (lead call 64), kind given, sourced to the SSA's baby-name data.
+  const given = ['avery', 'casey', 'drew', 'jamie', 'jo', 'jordan', 'kai', 'quinn', 'reese', 'riley', 'river', 'robin', 'rowan', 'sam', 'sky', 'taylor'];
+  assert.deepEqual(Object.keys(terms).sort(), ['canada_jay', 'geoduck', ...given.map((n) => `given_${n}`)].sort());
   assert.ok(data.includes(terms.canada_jay.source) && data.includes(terms.geoduck.source));
+  for (const n of given) {
+    const x = terms[`given_${n}`];
+    assert.deepEqual([x.kind, x.text.toLowerCase(), x.source], ['given', n, 'https://www.ssa.gov/oact/babynames/limits.html'], n);
+    assert.ok(/^[A-Z][a-z]+$/.test(x.text) && Array.from(x.text).length <= 12, `${n}: one given name, signable (12 code points at most)`);
+  }
+  // Nobody the game knows (the crew's names stay out until the Boyz say yes), and never the ranger: his name is
+  // read from the design doc, so this file names him nowhere.
+  const doc = readFileSync(join(ROOT, 'design', 'GAME_DESIGN.md'), 'utf8');
+  const rangers = [...new Set([...doc.matchAll(/\bRanger ([A-Z][a-z]+)\b/g)].map((m) => m[1].toLowerCase()))];
+  assert.ok(rangers.length >= 1, "the ranger's name, as the doc gives it");
+  for (const n of [...rangers, 'boy']) assert.ok(!given.some((g) => g.startsWith(n)), n);
 });

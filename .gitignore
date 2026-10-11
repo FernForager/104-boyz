@@ -12,3 +12,15 @@ node_modules/
 *.kmz
 
 .DS_Store
+
+# Photos never enter the repo (BUILD_PLAN S7 D11): the cabin's plate is drawn
+# from GAME_DESIGN 11.11's written brief, and test/unit/photos.test.mjs fails
+# on any photo or unlisted image a commit would carry.
+*.jpg
+*.jpeg
+*.JPG
+*.JPEG
+*.heic
+*.heif
+*.HEIC
+*.HEIF

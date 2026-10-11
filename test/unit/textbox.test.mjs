@@ -11,7 +11,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { ROOT } from '../../tools/pics.mjs';
-import { pagesOf, lineBoxes, continueBox, checkBox, boxFits, MORE_RECTS } from '../../web/js/ui/textbox.js';
+import { pagesOf, lineBoxes, continueBox, checkBox, boxFits, measureLines, withinText, MORE_RECTS } from '../../web/js/ui/textbox.js';
 import { renderFrame } from '../../web/js/ui/frame.js';
 import { atFork, device, frameDoc, ctxFor, choiceBy } from './forkfix.mjs';
 
@@ -64,6 +64,60 @@ test("line boxes in Plain: Literata's runs are taller than its 1.35 lines and ov
   const six = [0, 1, 2, 3, 4, 5].map((i) => ({ top: i * 27 - 2, bottom: i * 27 + 28 }));
   assert.equal(pagesOf(lineBoxes(six, 0, 27), 104).length, 2);
 });
+
+/**
+ * A text flow as the page measures it: paragraphs of text runs (their client
+ * rects), its own top and height, and its line height.
+ * @param {{top: number, bottom: number}[][]} paras each paragraph's runs, in page px
+ * @param {number} top
+ * @param {number} height
+ * @param {number} lineHeight
+ */
+function measuredFlow(paras, top, height, lineHeight) {
+  const doc = {
+    createRange() {
+      let node = null;
+      return { selectNodeContents: (n) => (node = n), getClientRects: () => node.rects };
+    },
+    defaultView: { getComputedStyle: () => ({ lineHeight: `${lineHeight}px` }) },
+  };
+  return { ownerDocument: doc, nodeType: 1, getBoundingClientRect: () => ({ top, height }), childNodes: paras.map((runs) => ({ nodeType: 1, childNodes: [{ nodeType: 3, rects: runs }] })) };
+}
+
+test("Plain: a porch box whose text fits keeps one page, though Literata's runs reach past its first and last lines (S7 review: the last line hid behind ▾)", () => {
+  // 20-px Literata on 27-px lines: each run 30 px tall about its line's middle. Two paragraphs, one line each,
+  // the second 13 px after the first: the text is 67 px tall, and so is the window the box gives it.
+  const flow = measuredFlow([[{ top: 98, bottom: 128 }], [{ top: 138, bottom: 168 }]], 100, 67, 27);
+  const lines = measureLines(/** @type {any} */ (flow));
+  assert.deepEqual(lines.map((l) => [l.top, l.bottom]), [[0, 28], [38, 67]], 'held inside the text: 0 to 67');
+  assert.equal(lines[1].ink, 68, "the last line's ink is still its own");
+  assert.equal(pagesOf(lines, 67).length, 1, 'one page: no ▾');
+  // Unheld, the same lines made two pages of a box that fits.
+  assert.equal(pagesOf(lineBoxes([{ top: 98, bottom: 128 }, { top: 138, bottom: 168 }], 100, 27), 67).length, 2);
+  // The lockbox's first box in Plain: the intro over two lines and Question 1 of 3., in 161 px of text.
+  const intro = measuredFlow([[{ top: -2, bottom: 28 }, { top: 25, bottom: 55 }], [{ top: 65, bottom: 95 }, { top: 92, bottom: 122 }, { top: 119, bottom: 149 }, { top: 132, bottom: 162 }]], 0, 161, 27);
+  const pager = continueBox(/** @type {any} */ (fakeBoxFor(intro)), { measure: () => measureLines(/** @type {any} */ (intro)), height: () => 161 });
+  pager.relayout();
+  assert.equal(pager.pages(), 1, 'the whole box on one page');
+  assert.equal(pager.waiting(), false, 'its answers live at once');
+  // A box that doesn't fit still continues, page by whole page.
+  assert.ok(pagesOf(measureLines(/** @type {any} */ (intro)), 100).length >= 2);
+  // withinText leaves lines inside the text alone, and with no height, everything.
+  assert.deepEqual(withinText([{ top: 3, bottom: 30 }], 40), [{ top: 3, bottom: 30 }]);
+  assert.deepEqual(withinText([{ top: -3, bottom: 50 }], 0), [{ top: -3, bottom: 50 }]);
+});
+
+/** A box for a continueBox driven by hand: the tiny DOM's, with one paragraph. */
+function fakeBoxFor(/** @type {any} */ _flow) {
+  const doc = frameDoc();
+  const box = doc.createElement('div');
+  box.classList.add('box', 'game-box', 'porch-box');
+  const p = doc.createElement('p');
+  p.textContent = 'words';
+  box.appendChild(p);
+  doc.body.appendChild(box);
+  return box;
+}
 
 /** A box with n paragraphs in the tiny DOM, and a continueBox measured by hand. */
 function boxOf(doc, n, measured, height) {

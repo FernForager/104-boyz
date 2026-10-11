@@ -9,7 +9,8 @@
 //
 // The format, one command per letter, arguments until the next command:
 //
-//   C n            pen color: 0-15, or a cycling pseudo-color 16-25 (11.5).
+//   C n            pen color: 0-15, or a cycling pseudo-color 16-29 (11.5;
+//                  lint P01 fails one content/art/palette.json doesn't define).
 //                  Also sets the fill paint to solid n.
 //   L x,y ...      absolute polyline (Bresenham); one point plots a pixel
 //   R x,y dx,dy .. relative polyline: the first point absolute, then steps
@@ -37,7 +38,7 @@
 export const LAYERS = Object.freeze(['sky', 'far', 'mid', 'near']);
 export const TRANSPARENT = 255;
 export const MAX_STAMP_DEPTH = 4;
-export const MAX_COLOR = 25;
+export const MAX_COLOR = 29;
 export const BRUSH_SHAPES = Object.freeze(['circle', 'square', 'splat']);
 export const MAX_BRUSH = 7;
 
@@ -671,7 +672,7 @@ export function renderPic(ops, opts) {
  * Composite the layers, near over mid over far over sky.
  * @param {{width: number, height: number, layers: Uint8Array[]}} result
  * @param {Uint8Array} [out]
- * @returns {Uint8Array} indices 0-25, TRANSPARENT where nothing was drawn
+ * @returns {Uint8Array} indices 0-29, TRANSPARENT where nothing was drawn
  */
 export function composite(result, out) {
   const N = result.width * result.height;

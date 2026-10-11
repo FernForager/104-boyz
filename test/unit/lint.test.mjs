@@ -4,8 +4,10 @@ import { cpSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:f
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { parsePic } from '../../web/js/gfx/picvm.js';
-import { lintPicture, lintPictures, lintPalette, lintText, lintShell, lintPure, lintUrls, lintEngine, lintEngineImports, lintContent, lintColors, colorOf, PALETTE_HOMES, runLint, isError, RULES, activeCodes, codeRanges, formatRules } from '../../tools/lint.mjs';
-import { ROOT } from '../../tools/pics.mjs';
+import { lintPicture, lintPictures, lintPalette, lintText, lintShell, lintPure, lintUrls, lintEngine, lintEngineImports, lintContent, lintColors, colorOf, PALETTE_HOMES, runLint, isError, RULES, activeCodes, codeRanges, formatRules, lintCabin, lintCabinMap, HOME_PHONES, SAFARI_PHONES, homeRooms, CABIN_ANCHORS } from '../../tools/lint.mjs';
+import { loadHotspots } from '../../tools/looks.mjs';
+import { readText } from '../../tools/text.mjs';
+import { ROOT, loadArt, loadCabin } from '../../tools/pics.mjs';
 
 const plate = (text, id = 'test_plate') => ({ id, kind: 'plates', rel: `plates/${id}.pic`, parsed: parsePic(text), width: 160, height: 320 });
 const stamp = (text, id = 'test_stamp') => ({ id, kind: 'stamps', rel: `stamps/${id}.pic`, parsed: parsePic(text), width: 0, height: 0 });
@@ -19,15 +21,14 @@ function lintCopy(t, name) {
   return tmp;
 }
 
-test('the repo lints clean, with only the three T07 warnings', () => {
+test('the repo lints clean, with no warning (S7: the title page retired on preview, so its three T07 warnings went with it)', () => {
   const issues = runLint();
   assert.deepEqual(issues.filter(isError).map((i) => `${i.file}:${i.line}: ${i.code} ${i.msg}`), []);
-  // Session 1's book words, on lines only preview shows; they retire with the
-  // title page (S7). Any new warning fails here.
-  assert.deepEqual(
-    issues.filter((i) => !isError(i)).map((i) => `${i.code} ${i.id}`),
-    ['T07 title.tagline', 'T07 title.start_label', 'T07 title.begin'],
-  );
+  // Session 1's book words were on lines only preview showed; from S7 preview
+  // leaves them out (channels.preview.off) and main never showed them, so no
+  // page shows a book word, and T07 on a preview draft is an error. Any new
+  // warning fails here.
+  assert.deepEqual(issues.filter((i) => !isError(i)).map((i) => `${i.code} ${i.id}`), []);
 });
 
 test('S01 in the repo: storage named outside platform/storage.js fails the lint (E.9)', (t) => {
@@ -66,6 +67,13 @@ test('the picture rules catch what they should', () => {
   assert.deepEqual(codes(lintPicture(plate('@ sky  C 1  F 10,10'), {})), [], 'the sky may be one big fill');
   assert.deepEqual(codes(lintPicture(plate('Z rock 150,300,20,30'), {})), ['P06']);
   assert.deepEqual(codes(lintPicture(plate('@ near  C 25  L 3,3'), {})), ['P08']);
+  // S7: a pseudo-color in the VM's range (16-29) that the palette doesn't define: 26 (steam) and 27 (alpen) are
+  // reserved for S25 and S17; the cabin's 28 (spill) and 29 (smoke) are defined.
+  assert.deepEqual(codes(lintPicture(plate('@ near  C 26  L 3,3'), {})), ['P01']);
+  assert.deepEqual(codes(lintPicture(plate('@ near  D 27 2 checker  F 3,3'), {})), ['P01', 'P04']);
+  assert.deepEqual(codes(lintPicture(stamp('C 26  L 0,0'), {})), ['P01']);
+  assert.deepEqual(codes(lintPicture(plate('@ near  C 28  L 3,3  C 29  L 4,4'), {})), []);
+  assert.deepEqual(codes(lintPicture(plate('@ near  C 28  L 3,3'), {}, { 16: {} })), ['P01'], "against the palette it's given");
   assert.deepEqual(codes(lintPicture(stamp('@ far  C 1  L 0,0'), {})), ['P11']);
   assert.deepEqual(codes(lintPicture(stamp('C 1  L 0,0 4,0 4,4  F 1,3'), {})), ['P09'], 'an open outline leaks');
   assert.deepEqual(codes(lintPicture({ ...plate('@ near  C 1  L 1,1'), kind: null }, {})), ['P10'], 'a picture outside plates/, scenes/ and stamps/');
@@ -230,7 +238,8 @@ test('the registry lists every rule once, with its family, doc and status; the s
   // S6 (track A) turns on P16: a color literal outside the palette's homes.
   // S6 (track C) turns on P15: the pictures' words (hotspot kinds, Looks, alt parts; tools/looks.mjs),
   // and T02: measured fit in the shipped fonts (tools/t02.mjs, tools/fontmetrics.mjs).
-  assert.equal(codeRanges(activeCodes()), 'P01-P16, T02, T04, T06, T07, T10-T16, U01, E01-E04, S01, J01, R01, X01, G01-G08');
+  // S7 (track B) turns on P17: the cabin's map (cabin.json against its plate, its phones and its words).
+  assert.equal(codeRanges(activeCodes()), 'P01-P17, T02, T04, T06, T07, T10-T16, U01, E01-E04, S01, J01, R01, X01, G01-G08');
   assert.equal(codeRanges(['A01', 'A02', 'B01', 'A04']), 'A01, A02, B01, A04', 'a range is three or more in a row');
   // The park graph's last rule, G05, landed in S5.
   assert.ok(RULES.filter((r) => r.family === 'park graph').every((r) => r.status === 'active'));
@@ -247,8 +256,9 @@ test('the registry lists every rule once, with its family, doc and status; the s
   assert.match(text, /^T02 +active +text/m);
   assert.match(text, /^P15 +active +pictures/m);
   assert.match(text, /^P16 +active +palette/m);
-  // 44 since S6 turned on P16, P15 and T02 (41 since S5 turned on P13, P14, G05, E04 and T15; 36 since S4 turned T16 on, 35 with the graph lints).
-  assert.match(text, /^lint: 44 rules active, \d+ waiting for their sessions$/m);
+  assert.match(text, /^P17 +active +pictures/m);
+  // 45 since S7 turned on P17 (44 since S6 turned on P16, P15 and T02; 41 since S5 turned on P13, P14, G05, E04 and T15; 36 since S4 turned T16 on, 35 with the graph lints).
+  assert.match(text, /^lint: 45 rules active, \d+ waiting for their sessions$/m);
 });
 
 test("P16: a color literal outside the palette's homes fails unless it is a palette color (decision 68: a palette change is one edit)", () => {
@@ -291,4 +301,50 @@ test('every active code has a failing case and a passing one in the unit tests',
   // G05) in recipes.test.mjs (S5), the sound's (E04) in dsp.test.mjs (S5).
   const tests = ['lint.test.mjs', 'textlint.test.mjs', 'graphlint.test.mjs', 'recipes.test.mjs', 'dsp.test.mjs'].map((f) => readFileSync(join(ROOT, 'test', 'unit', f), 'utf8')).join('\n');
   for (const code of activeCodes()) assert.ok(new RegExp(`\\b${code}\\b`).test(tests), `${code} has cases`);
+});
+
+test("P17: the cabin's map in the repo is clean; planted, it fails a hit area under 44 pt on the SE, an art box outside its hit area or off its Z op, a Z op no place has, a missing anchor, a center that lands elsewhere, overlapping labels, and a place without its words", () => {
+  assert.deepEqual(lintCabinMap(), []);
+  assert.deepEqual(HOME_PHONES.map((p) => p[0]), ['se', 'mini', 'p17', 'promax']);
+  // S7 review: and in Safari, before the game is installed, with the toolbars and the install line.
+  assert.deepEqual(SAFARI_PHONES.map((p) => p[0]), ['se_safari', 'mini_safari', 'p17_safari', 'promax_safari']);
+  const rooms = homeRooms(5);
+  assert.deepEqual(rooms.map((r) => r.name), [...HOME_PHONES, ...SAFARI_PHONES].map((p) => p[0]), 'P17 lays the home out in all eight rooms');
+  const shapeOf = (/** @type {string} */ name) => {
+    const l = /** @type {any} */ (rooms.find((r) => r.name === name)).layout;
+    return `${l.shape.sx}x${l.shape.sy}`;
+  };
+  for (const [name] of HOME_PHONES) assert.equal(shapeOf(`${name}_safari`), shapeOf(String(name)), `${name}: Safari keeps the installed shape`);
+  assert.deepEqual(rooms.filter((r) => r.name.endsWith('_safari')).map((r) => r.layout.install), ['mailbox', 'mailbox', 'foot', 'foot'], "the SE's and the mini's install line goes to the mailbox");
+  assert.ok(CABIN_ANCHORS.includes('lily_sketch'), "the lily's sketch is reserved on the plate (decision 46)");
+  const cabin = loadCabin();
+  const art = loadArt();
+  const plate = art.pics[cabin.plate];
+  const text = readText(ROOT);
+  const looked = loadHotspots(ROOT).hotspots.kinds;
+  const run = (/** @type {any} */ c, o = {}) => lintCabin({ cabin: c, plate, defined: (id) => text.lines.has(id), words: (id) => (text.lines.has(id) ? text.lines.get(id).text : null), looked, ...o }).map((i) => `${i.code}: ${i.msg}`);
+  assert.deepEqual(run(cabin), []);
+  const planted = (/** @type {(c: any) => void} */ f) => {
+    const c = structuredClone(cabin);
+    f(c);
+    return run(c).join('\n');
+  };
+  assert.match(planted((c) => (c.places.tub.hit = [108, 200, 21, 44])), /P17: places\.tub: its hit area is 42\.0 x 44\.0 pt on the se \(4x2\)/);
+  assert.match(planted((c) => (c.places.car.hit = [0, 280, 44, 43])), /P17: places\.car: .*43\.0 pt on the se/);
+  assert.match(planted((c) => (c.places.shed.art = [131, 150, 29, 58])), /places\.shed: its art box \[131,150,29,58\] is not inside its hit area/);
+  assert.match(planted((c) => (c.places.door.art = [74, 180, 15, 32])), /places\.door: its art box \[74,180,15,32\] is not the plate's Z op \[73,180,15,32\]/);
+  assert.match(planted((c) => delete c.places.clam_shovel), /the plate's Z op clam_shovel is no place in cabin\.json/);
+  assert.match(planted((c) => (c.lights[0].at = 'nowhere')), /the plate has no anchor at_nowhere/);
+  assert.match(planted((c) => Object.assign(c.places.tub, { art: [140, 194, 4, 4], hit: [124, 180, 30, 44] })), /places\.shed: on the se its hit-area center lands on tub/, "the tub's art center nearer the shed's hit-area center than the shed's own");
+  assert.match(planted((c) => (c.places.fire_bowl.label = [80, 236])), /the door and fire_bowl labels overlap on the se/);
+  assert.equal(planted((c) => (c.places.mailbox.label = [160, 288])), '', 'right-aligned at the edge, inside');
+  assert.match(planted((c) => Object.assign(c.places.mailbox, { label: [160, 288], align: 'center' })), /places\.mailbox: its label runs off the plate/, 'centered there, off it');
+  assert.match(planted((c) => (c.places.shed.rail = 'tools')), /places\.shed: its rail word tools is not on the rail/);
+  assert.match(planted((c) => (c.rail = [...c.rail, 'canoe'])), /rail: canoe is no place's rail word[\s\S]*rail: canoe needs its word, home\.rail\.canoe/);
+  assert.match(planted((c) => (c.places.door.label = undefined)), /places\.door: a place needs a label anchor and a rail word/);
+  assert.match(planted((c) => (c.places.peak.kind = 'look')), /places\.peak: a Look place, so peak is looked in content\/art\/hotspots\.json[\s\S]*needs the line look\.peak/);
+  assert.match(planted((c) => (c.places.tub.kind = 'silent')), /places\.tub: a silent place, so tub is silent in content\/art\/hotspots\.json/);
+  assert.match(planted((c) => c.next.push({ id: 'go_fish', when: 'no_trip_under_way', act: 'start', lands: 'S7', doc: 'x' })), /next\.go_fish: a live next step needs its line, home\.next\.go_fish/);
+  assert.match(run(cabin, { plate: null }).join('\n'), /no plate "cabin_quinault"/);
+  assert.match(run(cabin, { defined: (id) => text.lines.has(id) && id !== 'home.place.car' }).join('\n'), /places\.car: needs its name, home\.place\.car/);
 });

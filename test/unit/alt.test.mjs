@@ -53,10 +53,14 @@ test('every drawable place is described at every hour with no line of its own: e
     }
   }
   assert.equal(used.size, 9, `${places.length} places at four hours, from nine lines`);
+  // Rewritten in S7 (track C): the hour lines the cabin says too moved to the home screen, so main reaches them
+  // when the cabin is promoted (B002); every other line is the trail's, as before.
+  const shared = ['alt.hour.dusk', 'alt.hour.blue', 'alt.hour.night'];
+  for (const id of shared) assert.ok(used.has(id), `${id}: the trail says it`);
   for (const id of used) {
     const words = text.lines.get(id).text;
     assert.match(words, /^[A-Z].*\.$/, `${id} is a sentence: "${words}"`);
-    assert.equal(text.lines.get(id).screen, 'trail');
+    assert.equal(text.lines.get(id).screen, shared.includes(id) ? 'home' : 'trail', id);
   }
 });
 

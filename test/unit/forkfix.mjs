@@ -10,6 +10,7 @@ import { ROOT } from '../../tools/pics.mjs';
 import { readText, bundle } from '../../tools/text.mjs';
 import { compileContent } from '../../tools/content.mjs';
 import { loadContent, newSession, dispatch } from '../../web/js/engine/api.js';
+import { lockboxActs } from '../../web/js/engine/selfcheck.js';
 import { setBundle } from '../../web/js/text.js';
 import { setChannel } from '../../web/js/platform/storage.js';
 import { createMenu } from '../../web/js/ui/menu.js';
@@ -34,6 +35,8 @@ export const CONTENT = forkContent();
  */
 export function atFork(seed = 'K7QM2Q9F') {
   let s = newSession(CONTENT);
+  // S7: the lockbox first (this content has no quiz: Take the key at once).
+  for (const a of lockboxActs(seed, CONTENT)) s = dispatch(s, a, CONTENT).session;
   s = dispatch(s, { t: 'sign', name: 'Robin', id: 'h00000001' }, CONTENT).session;
   s = dispatch(s, { t: 'start', plan: 'sample', seed }, CONTENT).session;
   s = dispatch(s, { t: 'next' }, CONTENT).session;

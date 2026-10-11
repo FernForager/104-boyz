@@ -14,6 +14,11 @@
 //                               // t-ids: @art)
 //   the build (tools/build.mjs) ships {kind: looked} beside the recipes
 //
+// From S7 the cabin is one more picture (cabinParts): its Look and silent
+// places' kinds (content/home/cabin.json places) and its alt parts at every
+// hour, sky and moon (gfx/cabin.js cabinAlt), so P15 holds them to the same
+// rules (P17, tools/lint.mjs, checks the rest of the cabin's map).
+//
 // The lines: look.<kind> (a Look, the hotspot's kind's), look.<kind>.<place>
 // (one place's own Look, when it has one), look.name.<kind> (the Look
 // button's spoken name), and alt.scene.*, alt.base.*, alt.skyline.*,
@@ -23,10 +28,11 @@
 
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { ROOT, loadArt } from './pics.mjs';
+import { ROOT, loadArt, loadCabin } from './pics.mjs';
 import { validate } from './schema.mjs';
 import { compose, drawable, TRAIL_SPRITES, HOURS } from '../web/js/gfx/compose.js';
 import { altParts } from '../web/js/gfx/alt.js';
+import { cabinAlt, CABIN_HOURS, SKIES } from '../web/js/gfx/cabin.js';
 
 export const HOTSPOTS_FILE = 'content/art/hotspots.json';
 export const HOTSPOTS_SCHEMA = 'schemas/hotspots.schema.json';
@@ -94,6 +100,28 @@ export function placeParts(art) {
 }
 
 /**
+ * The cabin as a picture's parts (S7): the kinds of its Look and silent
+ * places (its other places are the rail's, with their own lines: P17), and
+ * its alt parts by hour, every sky, fog and moon folded in.
+ * @param {any} cabin content/home/cabin.json, or null
+ * @returns {{place: string, kinds: string[], alt: Record<string, string[]>}[]}
+ */
+export function cabinParts(cabin) {
+  if (!cabin || !cabin.places) return [];
+  const kinds = Object.entries(cabin.places)
+    .filter(([, p]) => /** @type {any} */ (p).kind === 'look' || /** @type {any} */ (p).kind === 'silent')
+    .map(([id]) => id);
+  /** @type {Record<string, string[]>} */
+  const alt = {};
+  for (const hour of CABIN_HOURS) {
+    const ids = new Set();
+    for (const sky of SKIES) for (const fog of [false, true]) for (const moonShown of [false, true]) for (const id of cabinAlt({ hour, sky, fog, moonShown })) ids.add(id);
+    alt[hour] = [...ids];
+  }
+  return [{ place: 'cabin', kinds, alt }];
+}
+
+/**
  * The lines the pictures name, for T11: every drawable place's alt parts
  * at every hour, and each looked kind's Look and spoken name where a place
  * has the kind, with a place's own Look where the words have one.
@@ -124,7 +152,8 @@ export function artLineIds(parts, looked, defined) {
 export function artUses(root, defined) {
   const art = loadArt(join(root, 'content', 'art', 'pics'));
   const { hotspots } = loadHotspots(root);
-  return artLineIds(placeParts(art), shippedHotspots(hotspots), defined);
+  const cabin = loadCabin(join(root, 'content', 'home', 'cabin.json'));
+  return artLineIds([...placeParts(art), ...cabinParts(cabin)], shippedHotspots(hotspots), defined);
 }
 
 /**
