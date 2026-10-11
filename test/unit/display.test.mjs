@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { pickPixelShape } from '../../web/js/gfx/display.js';
+import { pickPixelShape, createDisplay } from '../../web/js/gfx/display.js';
 
 // Doc 11.2's table: the whole-number device-pixel shapes, portrait.
 const TABLE = [
@@ -71,4 +71,53 @@ test("minPixel: the shape steps down for height only while its pixel keeps that 
   // A screen too narrow for the smallest pixel steps down for height as before, to 1x1 at the least.
   const tiny = pickPixelShape({ cssWidth: 200, screenHeight: 667, dpr: 2, picHeight: 320, maxCssHeight: 100, minPixel: MIN });
   assert.deepEqual([tiny.sx, tiny.sy], [1, 1]);
+});
+
+/**
+ * A page with canvases whose 2D context holds drawImage to HTML's rule, as
+ * WebKit and Blink do: a canvas source 0 wide or 0 high throws
+ * InvalidStateError ("The object is in an invalid state." in Safari). Undone
+ * after the test.
+ */
+function strictCanvasPage(t) {
+  const ctx = {
+    draws: 0,
+    createImageData: (w, h) => ({ data: new Uint8ClampedArray(w * h * 4) }),
+    putImageData() {},
+    fillRect() {},
+    drawImage(src) {
+      if (!src.width || !src.height) throw new DOMException('The object is in an invalid state.', 'InvalidStateError');
+      ctx.draws++;
+    },
+  };
+  const canvas = () => ({ width: 300, height: 150, style: {}, dataset: {}, getContext: () => ctx, getBoundingClientRect: () => ({ left: 0, top: 0, width: 0, height: 0 }) });
+  const had = {};
+  for (const k of ['document', 'window']) had[k] = Object.getOwnPropertyDescriptor(globalThis, k);
+  const set = (k, v) => Object.defineProperty(globalThis, k, { configurable: true, writable: true, value: v });
+  set('document', { createElement: () => canvas() });
+  set('window', { devicePixelRatio: 3 });
+  t.after(() => {
+    for (const [k, d] of Object.entries(had)) {
+      if (d) Object.defineProperty(globalThis, k, d);
+      else delete globalThis[k];
+    }
+  });
+  return { ctx, canvas: canvas() };
+}
+
+test('a released display draws nothing: a late layout or present (a fonts.ready after the screen has gone) neither throws nor sizes the canvas again (S7: InvalidStateError in WebKit and Blink, the error sheet)', (t) => {
+  const { ctx, canvas } = strictCanvasPage(t);
+  const d = createDisplay(canvas, 160, 100);
+  const rgba = new Uint8ClampedArray(160 * 100 * 4);
+  d.layout({ cssWidth: 402, screenHeight: 874 });
+  d.present(rgba);
+  assert.equal(ctx.draws, 1, 'drawn while shown');
+  const shape = d.layout({ cssWidth: 402, screenHeight: 874 });
+  assert.equal(ctx.draws, 2, 'a layout draws the last picture again');
+  d.release();
+  assert.deepEqual([canvas.width, canvas.height], [0, 0], 'released: the backing store is freed');
+  assert.deepEqual(d.layout({ cssWidth: 402, screenHeight: 874 }), shape, 'a late layout keeps the shape and does nothing');
+  d.present(rgba);
+  assert.deepEqual([canvas.width, canvas.height], [0, 0], 'still freed');
+  assert.equal(ctx.draws, 2, 'nothing drawn after release');
 });

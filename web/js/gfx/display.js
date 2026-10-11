@@ -101,6 +101,11 @@ export function createDisplay(canvas, width, height, edge = PALETTE[0]) {
   let oy = 0;
   /** @type {ArrayLike<number> | null} */
   let last = null;
+  // Released (the screen has gone): its source canvas is 0 x 0, and drawImage
+  // throws InvalidStateError for a 0-wide or 0-high canvas (HTML's drawImage,
+  // in WebKit and Blink alike), so a late layout or present (a fonts.ready, a
+  // timer) does nothing instead of opening the error sheet.
+  let released = false;
 
   function snap() {
     canvas.style.transform = '';
@@ -120,6 +125,7 @@ export function createDisplay(canvas, width, height, edge = PALETTE[0]) {
 
   /** @param {ArrayLike<number>} rgba RGBA bytes, width x height */
   function present(rgba) {
+    if (released) return;
     last = rgba;
     img.data.set(rgba);
     sctx.putImageData(img, 0, 0);
@@ -140,6 +146,7 @@ export function createDisplay(canvas, width, height, edge = PALETTE[0]) {
      * @param {{cssWidth: number, screenHeight: number, maxCssHeight?: number, margin?: number, maxCssWidth?: number, minPixel?: readonly number[]}} opts
      */
     layout(opts) {
+      if (released) return shape;
       dpr = window.devicePixelRatio || 1;
       shape = pickPixelShape({ dpr, picWidth: width, picHeight: height, ...opts });
       const pw = width * shape.sx;
@@ -164,8 +171,10 @@ export function createDisplay(canvas, width, height, edge = PALETTE[0]) {
     },
     snap,
     present,
-    /** Free the backing stores (iOS caps canvas memory). */
+    /** Free the backing stores (iOS caps canvas memory). Final: the display draws nothing after it. */
     release() {
+      released = true;
+      last = null;
       canvas.width = 0;
       canvas.height = 0;
       src.width = 0;

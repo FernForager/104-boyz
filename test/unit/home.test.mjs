@@ -768,10 +768,15 @@ test("the dev controls' kept hour and sky apply only in debug mode: a choice lef
 
 /**
  * A phone with a canvas (a 2D context that draws nothing) and Reduce
- * Motion on, so nothing waits on a frame; undone after the test.
+ * Motion on, so nothing waits on a frame; undone after the test. Its
+ * drawImage holds to HTML's rule, as WebKit and Blink do: a canvas source 0
+ * wide or 0 high (a released display's) throws InvalidStateError.
  */
 function canvasPhone(t, doc) {
-  const ctx2d = new Proxy({ createImageData: (w, h) => ({ data: new Uint8ClampedArray(w * h * 4) }) }, { get: (o, k) => (k in o ? o[k] : () => {}), set: () => true });
+  const drawImage = (/** @type {{width: number, height: number}} */ src) => {
+    if (!src.width || !src.height) throw new DOMException('The object is in an invalid state.', 'InvalidStateError');
+  };
+  const ctx2d = new Proxy({ createImageData: (w, h) => ({ data: new Uint8ClampedArray(w * h * 4) }), drawImage }, { get: (o, k) => (k in o ? o[k] : () => {}), set: () => true });
   const make = doc.createElement;
   doc.createElement = (tag) => {
     const el = make(tag);
@@ -837,6 +842,38 @@ test('on a phone: the picture is the composed cabin at the hour (its key), the b
   assert.equal(again.figure.parentNode.querySelector('.status-menu').hasAttribute('data-flag'), true, '≡ carries the flag');
   assert.equal(again.rail.get('mailbox').hasAttribute('data-flag'), true, "and the rail's Mailbox");
   assert.equal(again.next, null, 'no next step: no button');
+});
+
+test('a cabin that has gone is never laid out again: the fonts settling after release() draw nothing (the #frame route and a quick Open the lockbox on a slow first visit released it first; its late relayout drew a 0 x 0 canvas, InvalidStateError, the error sheet: S7 shots in WebKit)', async (t) => {
+  device(t);
+  const doc = fakeDocument();
+  canvasPhone(t, doc);
+  /** @type {() => void} */
+  let fontsIn = () => {};
+  doc.fonts = { ready: new Promise((done) => (fontsIn = () => done(undefined))) };
+  const rejected = [];
+  const onRejection = (/** @type {unknown} */ e) => rejected.push(e);
+  process.on('unhandledRejection', onRejection);
+  t.after(() => process.off('unhandledRejection', onRejection));
+  const host = doc.body.appendChild(doc.createElement('div'));
+  const menu = createMenu(doc);
+  // First launch's shut lockbox, drawn as the cabin, its fonts still on their way.
+  const shut = { phase: 'lockbox', step: 'shut', choices: [{ act: { t: 'open' }, label: { id: 'first.lockbox.start' } }] };
+  const c = renderCabin(host, shut, { art: ART, data: DATA, sound: recSound(), menu, onNext: () => {}, now: () => lakeAt(2026, 7, 15, 12), later: () => () => {} });
+  assert.ok(c.key(), 'the picture was drawn');
+  const canvas = host.querySelector('canvas.picture');
+  // The screen changes (Open the lockbox, or #frame's check view), then the fonts arrive.
+  c.release();
+  assert.deepEqual([canvas.width, canvas.height], [0, 0]);
+  // The cabin's own half of the fix: release() forgets its display, so the
+  // late relayout never runs at all (not only the display's draw). Its first
+  // write is the picture row's height on the host: mark it, then watch it.
+  host.style.setProperty('--row', 'released');
+  fontsIn();
+  await new Promise((done) => setTimeout(done, 20));
+  assert.deepEqual(rejected.map(String), [], 'no unhandled rejection: the error sheet stays shut');
+  assert.deepEqual([canvas.width, canvas.height], [0, 0], 'the released canvas is not sized again');
+  assert.equal(host.style.getPropertyValue('--row'), 'released', 'a released cabin is never laid out again');
 });
 
 // ---- The module graph -------------------------------------------------------
